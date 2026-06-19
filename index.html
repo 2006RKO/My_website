@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="sw">
 <head>
 <meta charset="UTF-8">
@@ -6,30 +6,17 @@
 <title>RKO Learning Center</title>
 
 <style>
-
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
 font-family:Arial,sans-serif;
-scroll-behavior:smooth;
 }
 
 body{
- <button id="themeBtn">🌙 Dark Mode</button>
-
-<div class="menu-btn" onclick="toggleMenu()">☰</div>
-
-<nav id="mobileMenu" class="mobile-menu">
-<a href="#home">Home</a>
-<a href="#html">HTML</a>
-<a href="#english">English</a>
-<a href="#dashboard">Dashboard</a>
-</nav>
 background:linear-gradient(-45deg,#1e3c72,#2a5298,#00c6ff,#0072ff);
 background-size:400% 400%;
 animation:bgMove 12s ease infinite;
-min-height:100vh;
 color:white;
 }
 
@@ -39,81 +26,25 @@ color:white;
 100%{background-position:0% 50%;}
 }
 
-/* NAVIGATION */
-
-.navbar{
-position:fixed;
-top:15px;
-right:15px;
-display:flex;
-gap:10px;
-z-index:1000;
-flex-wrap:wrap;
-}
-
-.navbar a{
-text-decoration:none;
-color:white;
-padding:10px 18px;
-border-radius:30px;
-font-weight:bold;
-background:linear-gradient(
-45deg,
-#ff0080,
-#ff8c00,
-#00ffcc,
-#7b68ee
-);
-background-size:300% 300%;
-animation:menuColor 5s infinite;
-box-shadow:0 5px 15px rgba(0,0,0,0.3);
-transition:0.3s;
-}
-
-.navbar a:hover{
-transform:scale(1.1);
-}
-
-@keyframes menuColor{
-0%{background-position:0% 50%;}
-50%{background-position:100% 50%;}
-100%{background-position:0% 50%;}
-}
-
-/* HEADER */
-
 header{
 text-align:center;
-padding:100px 20px 50px;
+padding:100px 20px 40px;
 }
 
 header h1{
 font-size:3rem;
 }
 
-header p{
-font-size:1.2rem;
-margin-top:10px;
-}
-
-/* CARD */
-
 .card{
 width:90%;
-max-width:700px;
-margin:25px auto;
+max-width:800px;
+margin:20px auto;
 background:rgba(255,255,255,0.15);
-backdrop-filter:blur(12px);
+backdrop-filter:blur(10px);
 padding:25px;
 border-radius:20px;
-box-shadow:0 8px 25px rgba(0,0,0,0.3);
+box-shadow:0 8px 25px rgba(0,0,0,.3);
 }
-
-.card h2{
-margin-bottom:15px;
-}
-
-/* FORM */
 
 input{
 width:100%;
@@ -121,36 +52,39 @@ padding:15px;
 margin:10px 0;
 border:none;
 border-radius:10px;
-font-size:16px;
 }
 
 button{
-padding:15px 30px;
+padding:15px 25px;
 border:none;
-border-radius:50px;
-cursor:pointer;
-font-size:16px;
-font-weight:bold;
-background:linear-gradient(45deg,#00c853,#64dd17);
+border-radius:40px;
+background:#00c853;
 color:white;
-transition:.3s;
+font-weight:bold;
+cursor:pointer;
 }
 
 button:hover{
-transform:scale(1.05);
+opacity:.9;
 }
 
-/* COURSE BOXES */
-
-.course{
-text-align:center;
+.navbar{
+position:fixed;
+top:10px;
+right:10px;
+display:flex;
+gap:10px;
+z-index:1000;
 }
 
-.course button{
-margin-top:15px;
+.navbar a{
+text-decoration:none;
+padding:10px 18px;
+border-radius:30px;
+background:linear-gradient(45deg,#00ffcc,#00c853);
+color:white;
+font-weight:bold;
 }
-
-/* IMAGES */
 
 .drink-img{
 width:100%;
@@ -158,40 +92,94 @@ border-radius:15px;
 margin-top:15px;
 }
 
-/* WHATSAPP */
+footer{
+text-align:center;
+padding:30px;
+}
 
 .whatsapp{
 position:fixed;
 bottom:20px;
 right:20px;
 background:#25D366;
-color:white;
 padding:15px 20px;
-border-radius:50px;
+border-radius:40px;
+color:white;
 text-decoration:none;
 font-weight:bold;
-box-shadow:0 5px 15px rgba(0,0,0,0.4);
 }
 
-/* FOOTER */
-
-footer{
-text-align:center;
-padding:30px;
-margin-top:40px;
+#themeBtn{
+position:fixed;
+bottom:20px;
+left:20px;
+z-index:1000;
 }
 
+.light-mode{
+background:white !important;
+color:black !important;
+}
+
+.menu-btn{
+display:none;
+position:fixed;
+top:10px;
+left:10px;
+font-size:30px;
+cursor:pointer;
+z-index:1001;
+}
+
+.mobile-menu{
+display:none;
+position:fixed;
+top:60px;
+left:10px;
+background:white;
+padding:15px;
+border-radius:10px;
+z-index:1000;
+}
+
+.mobile-menu a{
+display:block;
+padding:10px;
+text-decoration:none;
+color:black;
+}
+
+@media(max-width:768px){
+
+.navbar{
+display:none;
+}
+
+.menu-btn{
+display:block;
+}
+}
 </style>
 </head>
 
 <body>
+
+<button id="themeBtn">🌙 Mode</button>
+
+<div class="menu-btn" onclick="toggleMenu()">☰</div>
+
+<nav id="mobileMenu" class="mobile-menu">
+<a href="#home">Home</a>
+<a href="#html">HTML</a>
+<a href="#english">English</a>
+<a href="#business">Biashara</a>
+</nav>
 
 <nav class="navbar">
 <a href="#home">Home</a>
 <a href="#html">HTML</a>
 <a href="#english">English</a>
 <a href="#business">Biashara</a>
-<a href="https://wa.me/255743465553">WhatsApp</a>
 </nav>
 
 <header id="home">
@@ -199,36 +187,28 @@ margin-top:40px;
 <p>Jifunze HTML, English na Biashara ya Vinywaji</p>
 </header>
 
-<!-- REGISTRATION -->
-<input id="name" type="text" placeholder="Jina Kamili">
+<div class="card">
+<h2>📝 Registration</h2>
 
-<input id="email" type="email" placeholder="Email">
+<input type="text" placeholder="Jina Kamili">
+<input type="email" placeholder="Email">
+<input type="tel" placeholder="Namba ya Simu">
 
-<input id="phone" type="tel" placeholder="Namba ya Simu">
+<button>Jisajili</button>
+</div>
 
-<button onclick="registerStudent()">
-Jisajili
-</button>
-<!-- HTML -->
-
-<div class="card course" id="html">
+<div class="card" id="html">
 <h2>💻 HTML Learning</h2>
 
-<p>
-Jifunze HTML kutoka mwanzo hadi kiwango cha juu.
-</p>
+<p>Jifunze HTML kutoka mwanzo hadi kiwango cha juu.</p>
 
 <br>
 
 <h3>Lesson 1</h3>
 <p>HTML ni lugha ya kutengeneza webpages.</p>
 
-<br>
-
 <h3>Lesson 2</h3>
 <p>Tags muhimu ni html, head, body, h1, p na img.</p>
-
-<br>
 
 <h3>Lesson 3</h3>
 <p>Tengeneza website yako ya kwanza.</p>
@@ -238,38 +218,27 @@ Jifunze HTML kutoka mwanzo hadi kiwango cha juu.
 <button>Anza Kujifunza</button>
 </div>
 
-<!-- ENGLISH -->
-
-<div class="card course" id="english">
+<div class="card" id="english">
 <h2>🇬🇧 English Course</h2>
 
 <p>Improve your English speaking and writing skills.</p>
 
 <br>
 
-<h3>Basic Greetings</h3>
 <p>Hello = Habari</p>
 <p>Good Morning = Habari za Asubuhi</p>
 <p>Thank You = Asante</p>
 
 <br>
 
-<h3>Simple Sentences</h3>
-<p>I am learning English.</p>
-<p>My name is RKO.</p>
-
-<br>
-
 <button>Start Course</button>
 </div>
 
-<!-- BUSINESS -->
-<div class="card course" id="business">
+<div class="card" id="business">
 <h2>🥤 Biashara ya Vinywaji</h2>
 
-<img
-class="drink-img"
-src="https://images.unsplash.com/photo-1544145945-f90425340c7e"
+<img class="drink-img"
+src="https://images.unsplash.com/photo-1544145945-f90425340c7e?w=1200"
 alt="Drinks">
 
 <br><br>
@@ -280,29 +249,7 @@ Jifunze jinsi ya kuanzisha, kusimamia na kukuza biashara ya vinywaji.
 
 <br>
 
-<h3>Hatua za Mwanzo</h3>
-
-<p>
-1. Chagua eneo zuri la biashara.
-</p>
-
-<p>
-2. Tafuta wasambazaji wa bidhaa.
-</p>
-
-<p>
-3. Tangaza biashara yako mtandaoni.
-</p>
-
-<p>
-4. Hudumia wateja vizuri.
-</p>
-
-<br>
-
-<a href="https://wa.me/255743465553">
 <button>Wasiliana WhatsApp</button>
-</a>
 
 </div>
 
@@ -311,11 +258,29 @@ Jifunze jinsi ya kuanzisha, kusimamia na kukuza biashara ya vinywaji.
 <p>Powered by GitHub Pages</p>
 </footer>
 
-<a
-href="https://wa.me/255743465553"
-class="whatsapp">
+<a href="https://wa.me/255743465553" class="whatsapp">
 💬 WhatsApp
 </a>
+
+<script>
+function toggleMenu(){
+const menu=document.getElementById("mobileMenu");
+
+if(menu.style.display==="block"){
+menu.style.display="none";
+}else{
+menu.style.display="block";
+}
+}
+
+document
+.getElementById("themeBtn")
+.addEventListener("click",function(){
+
+document.body.classList.toggle("light-mode");
+
+});
+</script>
 
 </body>
 </html>
