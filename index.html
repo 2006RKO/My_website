@@ -1,113 +1,262 @@
-<!DOCTYPE html>
-<html>
+ <!DOCTYPE html>
+<html lang="sw">
 <head>
-    <title>Biashara Yangu</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RKO Learning Center</title>
 
-    <style>
-        body {
-            font-family: Arial;
-            margin: 0;
-            background: #f4f4f4;
-        }
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
 
-        header {
-            background: #0a66c2;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
+body{
+background:#f5f7fa;
+}
 
-        nav {
-            background: #333;
-            padding: 10px;
-            text-align: center;
-        }
+header{
+background:linear-gradient(135deg,#007bff,#00c6ff);
+color:white;
+text-align:center;
+padding:30px;
+}
 
-        nav a {
-            color: white;
-            margin: 10px;
-            text-decoration: none;
-        }
+header h1{
+font-size:32px;
+}
 
-        .container {
-            padding: 20px;
-            text-align: center;
-        }
+.registration{
+background:white;
+max-width:500px;
+margin:20px auto;
+padding:25px;
+border-radius:15px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
 
-        .card {
-            background: white;
-            padding: 15px;
-            margin: 10px;
-            display: inline-block;
-            width: 250px;
-            border-radius: 10px;
-        }
+.registration h2{
+text-align:center;
+margin-bottom:15px;
+}
 
-        button {
-            background: #0a66c2;
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+input{
+width:100%;
+padding:12px;
+margin:8px 0;
+border:1px solid #ccc;
+border-radius:8px;
+}
 
-        button:hover {
-            background: black;
-        }
+.register-btn{
+width:100%;
+background:#28a745;
+color:white;
+padding:12px;
+border:none;
+border-radius:8px;
+font-size:16px;
+cursor:pointer;
+}
 
-        footer {
-            background: #222;
-            color: white;
-            text-align: center;
-            padding: 10px;
-            margin-top: 20px;
-        }
-    </style>
+.menu{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:20px;
+padding:30px;
+}
 
+.card{
+background:white;
+width:300px;
+padding:20px;
+border-radius:15px;
+text-align:center;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-5px);
+}
+
+.card h2{
+color:#007bff;
+margin-bottom:10px;
+}
+
+.card p{
+margin-bottom:15px;
+}
+
+.btn{
+display:inline-block;
+background:#007bff;
+color:white;
+padding:12px 20px;
+border-radius:8px;
+text-decoration:none;
+}
+
+.section{
+display:none;
+background:white;
+margin:20px;
+padding:20px;
+border-radius:15px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+.section h2{
+color:#007bff;
+margin-bottom:15px;
+}
+
+.whatsapp{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#25D366;
+color:white;
+padding:15px 20px;
+border-radius:50px;
+text-decoration:none;
+font-weight:bold;
+}
+
+footer{
+background:#222;
+color:white;
+text-align:center;
+padding:20px;
+margin-top:30px;
+}
+</style>
 </head>
 
 <body>
 
 <header>
-    <h1>Karibu kwenye Biashara Yangu 💼</h1>
-    <p>Tunauza bidhaa bora kwa bei nafuu</p>
+<h1>RKO Learning Center</h1>
+<p>Jifunze HTML, English na Biashara ya Vinywaji</p>
 </header>
 
-<nav>
-    <a href="#">Home</a>
-    <a href="#">About</a>
-    <a href="#">Products</a>
-    <a href="#">Contact</a>
-</nav>
+<div class="registration">
+<h2>Registration</h2>
 
-<div class="container">
+<input type="text" placeholder="Jina Kamili">
+<input type="email" placeholder="Email">
+<input type="tel" placeholder="Namba ya Simu">
 
-    <h2>Bidhaa Zetu</h2>
+<button class="register-btn"
+onclick="alert('Usajili umefanikiwa!')">
+Jisajili
+</button>
+</div>
 
-    <div class="card">
-        <h3>Bidhaa 1</h3>
-        <p>Maelezo mafupi ya bidhaa</p>
-        <button>Nunua</button>
-    </div>
+<div class="menu">
 
-    <div class="card">
-        <h3>Bidhaa 2</h3>
-        <p>Maelezo mafupi ya bidhaa</p>
-        <button>Nunua</button>
-    </div>
+<div class="card">
+<h2>HTML Learning</h2>
+<p>Jifunze HTML kutoka mwanzo hadi mtaalamu.</p>
 
-    <div class="card">
-        <h3>Bidhaa 3</h3>
-        <p>Maelezo mafupi ya bidhaa</p>
-        <button>Nunua</button>
-    </div>
+<a href="#"
+class="btn"
+onclick="showSection('html')">
+Anza Kujifunza
+</a>
+</div>
+
+<div class="card">
+<h2>English Course</h2>
+<p>Improve your English speaking and writing skills.</p>
+
+<a href="#"
+class="btn"
+onclick="showSection('english')">
+Start Course
+</a>
+</div>
+
+<div class="card">
+<h2>Biashara ya Vinywaji</h2>
+<p>Jifunze jinsi ya kuanzisha na kukuza biashara ya vinywaji.</p>
+
+<a href="#"
+class="btn"
+onclick="showSection('business')">
+Soma Zaidi
+</a>
+</div>
 
 </div>
 
+<div id="html" class="section">
+<h2>HTML Learning</h2>
+
+<p><b>Lesson 1:</b> HTML ni lugha ya kutengeneza webpages.</p>
+<p><b>Lesson 2:</b> Tumia tags kama h1, p, div na img.</p>
+<p><b>Lesson 3:</b> Tengeneza website yako ya kwanza.</p>
+</div>
+
+<div id="english" class="section">
+<h2>English Course</h2>
+
+<p>Welcome to English Course.</p>
+<p>Lesson 1: Greetings</p>
+<p>Hello, Good Morning, Good Evening.</p>
+
+<p>Lesson 2: Self Introduction</p>
+<p>My name is ....</p>
+</div>
+
+<div id="business" class="section">
+<h2>Biashara ya Vinywaji</h2>
+
+<p>Hatua za kuanzisha biashara ya vinywaji:</p>
+
+<ul>
+<li>Kutafuta mtaji.</li>
+<li>Kupata eneo zuri.</li>
+<li>Kutangaza biashara.</li>
+<li>Kutoa huduma bora kwa wateja.</li>
+</ul>
+
+<br>
+
+<a class="btn"
+href="https://wa.me/255743465553"
+target="_blank">
+Wasiliana WhatsApp
+</a>
+
+</div>
+
+<a class="whatsapp"
+href="https://wa.me/255743465553"
+target="_blank">
+WhatsApp
+</a>
+
 <footer>
-    <p>Wasiliana nasi: 07XXXXXXXX 📞</p>
+<p>© 2025 RKO Learning Center</p>
 </footer>
 
-</body>wq
+<script>
+function showSection(id){
+
+document.querySelectorAll('.section')
+.forEach(section=>{
+section.style.display='none';
+});
+
+document.getElementById(id)
+.style.display='block';
+}
+</script>
+
+</body>
 </html>
