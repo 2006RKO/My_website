@@ -6,114 +6,149 @@
 <title>RKO Learning Center</title>
 
 <style>
+
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
 font-family:Arial,sans-serif;
+scroll-behavior:smooth;
 }
 
 body{
-background:#f5f7fa;
-}
-
-header{
-background:linear-gradient(135deg,#007bff,#00c6ff);
+background:linear-gradient(-45deg,#1e3c72,#2a5298,#00c6ff,#0072ff);
+background-size:400% 400%;
+animation:bgMove 12s ease infinite;
+min-height:100vh;
 color:white;
-text-align:center;
-padding:30px;
 }
 
-header h1{
-font-size:32px;
+@keyframes bgMove{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
 }
 
-.registration{
-background:white;
-max-width:500px;
-margin:20px auto;
-padding:25px;
-border-radius:15px;
-box-shadow:0 4px 10px rgba(0,0,0,0.1);
-}
+/* NAVIGATION */
 
-.registration h2{
-text-align:center;
-margin-bottom:15px;
-}
-
-input{
-width:100%;
-padding:12px;
-margin:8px 0;
-border:1px solid #ccc;
-border-radius:8px;
-}
-
-.register-btn{
-width:100%;
-background:#28a745;
-color:white;
-padding:12px;
-border:none;
-border-radius:8px;
-font-size:16px;
-cursor:pointer;
-}
-
-.menu{
+.navbar{
+position:fixed;
+top:15px;
+right:15px;
 display:flex;
+gap:10px;
+z-index:1000;
 flex-wrap:wrap;
-justify-content:center;
-gap:20px;
-padding:30px;
 }
 
-.card{
-background:white;
-width:300px;
-padding:20px;
-border-radius:15px;
-text-align:center;
-box-shadow:0 4px 10px rgba(0,0,0,0.1);
+.navbar a{
+text-decoration:none;
+color:white;
+padding:10px 18px;
+border-radius:30px;
+font-weight:bold;
+background:linear-gradient(
+45deg,
+#ff0080,
+#ff8c00,
+#00ffcc,
+#7b68ee
+);
+background-size:300% 300%;
+animation:menuColor 5s infinite;
+box-shadow:0 5px 15px rgba(0,0,0,0.3);
 transition:0.3s;
 }
 
-.card:hover{
-transform:translateY(-5px);
+.navbar a:hover{
+transform:scale(1.1);
+}
+
+@keyframes menuColor{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+/* HEADER */
+
+header{
+text-align:center;
+padding:100px 20px 50px;
+}
+
+header h1{
+font-size:3rem;
+}
+
+header p{
+font-size:1.2rem;
+margin-top:10px;
+}
+
+/* CARD */
+
+.card{
+width:90%;
+max-width:700px;
+margin:25px auto;
+background:rgba(255,255,255,0.15);
+backdrop-filter:blur(12px);
+padding:25px;
+border-radius:20px;
+box-shadow:0 8px 25px rgba(0,0,0,0.3);
 }
 
 .card h2{
-color:#007bff;
-margin-bottom:10px;
-}
-
-.card p{
 margin-bottom:15px;
 }
 
-.btn{
-display:inline-block;
-background:#007bff;
+/* FORM */
+
+input{
+width:100%;
+padding:15px;
+margin:10px 0;
+border:none;
+border-radius:10px;
+font-size:16px;
+}
+
+button{
+padding:15px 30px;
+border:none;
+border-radius:50px;
+cursor:pointer;
+font-size:16px;
+font-weight:bold;
+background:linear-gradient(45deg,#00c853,#64dd17);
 color:white;
-padding:12px 20px;
-border-radius:8px;
-text-decoration:none;
+transition:.3s;
 }
 
-.section{
-display:none;
-background:white;
-margin:20px;
-padding:20px;
+button:hover{
+transform:scale(1.05);
+}
+
+/* COURSE BOXES */
+
+.course{
+text-align:center;
+}
+
+.course button{
+margin-top:15px;
+}
+
+/* IMAGES */
+
+.drink-img{
+width:100%;
 border-radius:15px;
-box-shadow:0 4px 10px rgba(0,0,0,0.1);
+margin-top:15px;
 }
 
-.section h2{
-color:#007bff;
-margin-bottom:15px;
-}
+/* WHATSAPP */
 
 .whatsapp{
 position:fixed;
@@ -125,138 +160,157 @@ padding:15px 20px;
 border-radius:50px;
 text-decoration:none;
 font-weight:bold;
+box-shadow:0 5px 15px rgba(0,0,0,0.4);
 }
 
+/* FOOTER */
+
 footer{
-background:#222;
-color:white;
 text-align:center;
-padding:20px;
-margin-top:30px;
+padding:30px;
+margin-top:40px;
 }
+
 </style>
 </head>
 
 <body>
 
-<header>
-<h1>RKO Learning Center</h1>
+<nav class="navbar">
+<a href="#home">Home</a>
+<a href="#html">HTML</a>
+<a href="#english">English</a>
+<a href="#business">Biashara</a>
+<a href="https://wa.me/255743465553">WhatsApp</a>
+</nav>
+
+<header id="home">
+<h1>🎓 RKO Learning Center</h1>
 <p>Jifunze HTML, English na Biashara ya Vinywaji</p>
 </header>
 
-<div class="registration">
-<h2>Registration</h2>
+<!-- REGISTRATION -->
+
+<div class="card">
+<h2>📝 Registration</h2>
 
 <input type="text" placeholder="Jina Kamili">
+
 <input type="email" placeholder="Email">
+
 <input type="tel" placeholder="Namba ya Simu">
 
-<button class="register-btn"
-onclick="alert('Usajili umefanikiwa!')">
-Jisajili
-</button>
+<button>Jisajili</button>
 </div>
 
-<div class="menu">
+<!-- HTML -->
 
-<div class="card">
-<h2>HTML Learning</h2>
-<p>Jifunze HTML kutoka mwanzo hadi mtaalamu.</p>
+<div class="card course" id="html">
+<h2>💻 HTML Learning</h2>
 
-<a href="#"
-class="btn"
-onclick="showSection('html')">
-Anza Kujifunza
-</a>
-</div>
-
-<div class="card">
-<h2>English Course</h2>
-<p>Improve your English speaking and writing skills.</p>
-
-<a href="#"
-class="btn"
-onclick="showSection('english')">
-Start Course
-</a>
-</div>
-
-<div class="card">
-<h2>Biashara ya Vinywaji</h2>
-<p>Jifunze jinsi ya kuanzisha na kukuza biashara ya vinywaji.</p>
-
-<a href="#"
-class="btn"
-onclick="showSection('business')">
-Soma Zaidi
-</a>
-</div>
-
-</div>
-
-<div id="html" class="section">
-<h2>HTML Learning</h2>
-
-<p><b>Lesson 1:</b> HTML ni lugha ya kutengeneza webpages.</p>
-<p><b>Lesson 2:</b> Tumia tags kama h1, p, div na img.</p>
-<p><b>Lesson 3:</b> Tengeneza website yako ya kwanza.</p>
-</div>
-
-<div id="english" class="section">
-<h2>English Course</h2>
-
-<p>Welcome to English Course.</p>
-<p>Lesson 1: Greetings</p>
-<p>Hello, Good Morning, Good Evening.</p>
-
-<p>Lesson 2: Self Introduction</p>
-<p>My name is ....</p>
-</div>
-
-<div id="business" class="section">
-<h2>Biashara ya Vinywaji</h2>
-
-<p>Hatua za kuanzisha biashara ya vinywaji:</p>
-
-<ul>
-<li>Kutafuta mtaji.</li>
-<li>Kupata eneo zuri.</li>
-<li>Kutangaza biashara.</li>
-<li>Kutoa huduma bora kwa wateja.</li>
-</ul>
+<p>
+Jifunze HTML kutoka mwanzo hadi kiwango cha juu.
+</p>
 
 <br>
 
-<a class="btn"
-href="https://wa.me/255743465553"
-target="_blank">
-Wasiliana WhatsApp
+<h3>Lesson 1</h3>
+<p>HTML ni lugha ya kutengeneza webpages.</p>
+
+<br>
+
+<h3>Lesson 2</h3>
+<p>Tags muhimu ni html, head, body, h1, p na img.</p>
+
+<br>
+
+<h3>Lesson 3</h3>
+<p>Tengeneza website yako ya kwanza.</p>
+
+<br>
+
+<button>Anza Kujifunza</button>
+</div>
+
+<!-- ENGLISH -->
+
+<div class="card course" id="english">
+<h2>🇬🇧 English Course</h2>
+
+<p>Improve your English speaking and writing skills.</p>
+
+<br>
+
+<h3>Basic Greetings</h3>
+<p>Hello = Habari</p>
+<p>Good Morning = Habari za Asubuhi</p>
+<p>Thank You = Asante</p>
+
+<br>
+
+<h3>Simple Sentences</h3>
+<p>I am learning English.</p>
+<p>My name is RKO.</p>
+
+<br>
+
+<button>Start Course</button>
+</div>
+
+<!-- BUSINESS -->
+
+<div class="card course" id="business">
+<h2>🥤 Biashara ya Vinywaji</h2>
+
+<img
+class="drink-img"
+src="https://images.unsplash.com/photo-1544145945-f90425340c7e"
+alt="Drinks">
+
+<br><br>
+
+<p>
+Jifunze jinsi ya kuanzisha, kusimamia na kukuza biashara ya vinywaji.
+</p>
+
+<br>
+
+<h3>Hatua za Mwanzo</h3>
+
+<p>
+1. Chagua eneo zuri la biashara.
+</p>
+
+<p>
+2. Tafuta wasambazaji wa bidhaa.
+</p>
+
+<p>
+3. Tangaza biashara yako mtandaoni.
+</p>
+
+<p>
+4. Hudumia wateja vizuri.
+</p>
+
+<br>
+
+<a href="https://wa.me/255743465553">
+<button>Wasiliana WhatsApp</button>
 </a>
 
 </div>
 
-<a class="whatsapp"
-href="https://wa.me/255743465553"
-target="_blank">
-WhatsApp
-</a>
-
 <footer>
-<p>© 2025 RKO Learning Center</p>
+<h3>© 2025 RKO Learning Center</h3>
+<p>Powered by GitHub Pages</p>
 </footer>
 
-<script>
-function showSection(id){
-
-document.querySelectorAll('.section')
-.forEach(section=>{
-section.style.display='none';
-});
-
-document.getElementById(id)
-.style.display='block';
-}
-</script>
+<a
+href="https://wa.me/255743465553"
+class="whatsapp">
+💬 WhatsApp
+</a>
 
 </body>
 </html>
