@@ -16,6 +16,16 @@ scroll-behavior:smooth;
 }
 
 body{
+ <button id="themeBtn">🌙 Dark Mode</button>
+
+<div class="menu-btn" onclick="toggleMenu()">☰</div>
+
+<nav id="mobileMenu" class="mobile-menu">
+<a href="#home">Home</a>
+<a href="#html">HTML</a>
+<a href="#english">English</a>
+<a href="#dashboard">Dashboard</a>
+</nav>
 background:linear-gradient(-45deg,#1e3c72,#2a5298,#00c6ff,#0072ff);
 background-size:400% 400%;
 animation:bgMove 12s ease infinite;
@@ -190,19 +200,15 @@ margin-top:40px;
 </header>
 
 <!-- REGISTRATION -->
+<input id="name" type="text" placeholder="Jina Kamili">
 
-<div class="card">
-<h2>📝 Registration</h2>
+<input id="email" type="email" placeholder="Email">
 
-<input type="text" placeholder="Jina Kamili">
+<input id="phone" type="tel" placeholder="Namba ya Simu">
 
-<input type="email" placeholder="Email">
-
-<input type="tel" placeholder="Namba ya Simu">
-
-<button>Jisajili</button>
-</div>
-
+<button onclick="registerStudent()">
+Jisajili
+</button>
 <!-- HTML -->
 
 <div class="card course" id="html">
