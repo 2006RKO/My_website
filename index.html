@@ -32,37 +32,6 @@ margin-bottom:30px;
 header h1{
 color:#38bdf8;
 }
-
-.course{
-    display:flex;
-    align-items:center;
-    gap:25px;
-    background:rgba(255,255,255,0.08);
-    backdrop-filter:blur(10px);
-    padding:25px;
-    border-radius:20px;
-    margin:20px 0;
-}
-
-.course img{
-    width:150px;
-    height:150px;
-    object-fit:cover;
-    border-radius:15px;
-}
-
-.course-content{
-    flex:1;
-}
-
-.welcome-btn{
-    margin-top:15px;
-}
-
-@media(max-width:768px){
-    .course{
-        flex-direction:column;
-        text-align:center;
     }
 }
 
@@ -84,7 +53,54 @@ border-radius:20px;
 margin-top:20px;
 }
 
-.form-container input{
+.form-cont.course{
+    display:flex;
+    align-items:center;
+    gap:20px;
+    padding:25px;
+    margin:25px auto;
+    width:90%;
+    max-width:1000px;
+
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(15px);
+
+    border:1px solid rgba(255,255,255,0.2);
+    border-radius:25px;
+}
+
+.course img{
+    width:180px;
+    height:180px;
+    object-fit:cover;
+    border-radius:20px;
+}
+
+.course-content{
+    flex:1;
+}
+
+.welcome-btn{
+    background:linear-gradient(45deg,#2563eb,#9333ea);
+    color:white;
+    border:none;
+    padding:12px 30px;
+    border-radius:30px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+@media(max-width:768px){
+    .course{
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .course img{
+        width:140px;
+        height:140px;
+    }
+}ainer input{
 width:100%;
 padding:12px;
 margin:10px 0;
@@ -180,17 +196,19 @@ text-align:center;
 <button class="welcome-btn" onclick="showForm()">Welcome</button>
 </div>
 </div>
-
 <div class="course">
-<img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=500">
-<div class="course-content">
-<h2>📚 English For Beginners</h2>
-<p>Improve your speaking, reading and writing skills.</p>
-<button class="welcome-btn" onclick="showForm('english-course.html')">
-</button>
-Welcome
-</button>
-</div>
+
+    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=500">
+
+    <div class="course-content">
+        <h2>💻 IT Learning Courses</h2>
+        <p>Learn Computer Basics, HTML, CSS and Programming.</p>
+
+        <button class="welcome-btn">
+            Welcome
+        </button>
+    </div>
+
 </div>
 
 <div class="course">
