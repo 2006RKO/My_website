@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="sw">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,473 +12,163 @@ padding:0;
 box-sizing:border-box;
 font-family:Arial,sans-serif;
 }
-body{
-background:linear-gradient(135deg,#0057ff,#00a2ff);
-min-height:100vh;
-color:white;
-}
 
-@keyframes bgMove{
-0%{background-position:0% 50%;}
-50%{background-position:100% 50%;}
-100%{background-position:0% 50%;}
+body{
+background:#0f172a;
+color:white;
+padding:20px;
 }
 
 header{
 text-align:center;
-padding:100px 20px 40px;
+padding:20px;
+margin-bottom:30px;
 }
 
 header h1{
-font-size:3rem;
+color:#38bdf8;
 }
-.card{
-width:95%;
-max-width:1300px;
-margin:20px auto;
-background:#eef5ff;
-color:#111;
+
+.course{
+background:#1e293b;
+border-radius:20px;
 padding:20px;
-border-radius:25px;
-box-shadow:0 8px 25px rgba(0,0,0,.2);
+margin-bottom:20px;
 display:flex;
-gap:20px;
 align-items:center;
+gap:20px;
+box-shadow:0 5px 15px rgba(0,0,0,.4);
 }
-input{
+
+.course img{
+width:120px;
+height:120px;
+object-fit:cover;
+border-radius:15px;
+}
+
+.course-content{
+flex:1;
+}
+
+.welcome-btn{
+background:#22c55e;
+color:white;
+border:none;
+padding:12px 25px;
+border-radius:30px;
+cursor:pointer;
+font-weight:bold;
+}
+
+.form-container{
+display:none;
+background:#1e293b;
+padding:20px;
+border-radius:20px;
+margin-top:20px;
+}
+
+.form-container input{
 width:100%;
-padding:15px;
+padding:12px;
 margin:10px 0;
 border:none;
 border-radius:10px;
 }
 
-button{
-padding:15px 25px;
+.form-container button{
+background:#2563eb;
+color:white;
 border:none;
-border-radius:40px;
-background:#00c853;
-color:white;
-font-weight:bold;
-cursor:pointer;
-}
-
-button:hover{
-opacity:.9;
-}
-.navbar{
-position:sticky;
-top:0;
-display:flex;
-justify-content:center;
-gap:15px;
-padding:15px;
-background:rgba(0,70,255,.8);
-backdrop-filter:blur(10px);
-z-index:1000;
-}
-.navbar a{
-text-decoration:none;
-padding:12px 25px;
+padding:12px 20px;
 border-radius:30px;
-background:rgba(255,255,255,.15);
-border:1px solid rgba(255,255,255,.2);
-color:white;
-font-weight:bold;
-}
-.drink-img{
-width:100%;
-border-radius:15px;
-margin-top:15px;
 }
 
 footer{
+margin-top:40px;
 text-align:center;
-padding:30px;
+padding:20px;
+background:#111827;
+border-radius:20px;
 }
 
-.whatsapp{
-position:fixed;
-bottom:20px;
-right:20px;
-background:#25D366;
-padding:15px 20px;
-border-radius:40px;
-color:white;
+footer a{
+color:#38bdf8;
 text-decoration:none;
-font-weight:bold;
-}
-
-#themeBtn{
-position:fixed;
-bottom:20px;
-left:20px;
-z-index:1000;
-}
-
-.light-mode{
-background:linear-gradient(135deg,#e0f7fa,#b3e5fc,#81d4fa) !important;
-color:#0d47a1 !important;
-}
-
-.menu-btn{
-display:none;
-position:fixed;
-top:10px;
-left:10px;
-font-size:30px;
-cursor:pointer;
-z-index:1001;
-}
-
-.mobile-menu{
-display:none;
-position:fixed;
-top:60px;
-left:10px;
-background:white;
-padding:15px;
-border-radius:10px;
-z-index:1000;
-}
-
-.mobile-menu a{
-display:block;
-padding:10px;
-text-decoration:none;
-color:black;
+margin:0 10px;
 }
 
 @media(max-width:768px){
-
-.html-box{
-    flex-direction:column;
-}
-
-.html-image img{
-    width:100%;
-}
-
-.card{
-    width:95%;
-}
-
-.navbar{
-    flex-wrap:wrap;
-}
-
-}
-  .html-box{
-display:flex;
-gap:20px;
-align-items:center;
-flex-wrap:wrap;
-}
-
-.html-image{
-flex:1;
-min-width:250px;
-}
-
-.html-image img{
-width:100%;
-border-radius:20px;
-box-shadow:0 5px 20px rgba(0,0,0,0.3);
-}
-
-.html-content{
-flex:2;
-min-width:250px;
-}
-
-.html-content h2{
-font-size:2rem;
-margin-bottom:15px;
+.course{
+flex-direction:column;
+text-align:center;
 }
 }
-  .html-box{
-    display:flex;
-    gap:20px;
-    align-items:center;
-}
-
-.html-image{
-    flex:1;
-}
-
-.html-image img{
-    width:100%;
-    border-radius:20px;
-}
-
-.html-content{
-    flex:1;
-}
-}
-  ..slider{
-width:100%;
-height:250px;
-overflow:hidden;
-border-radius:20px;
-margin:20px 0;
-}
--business-header {
-text-align: center;
-margin-bottom: 25px;
-tr
-.business-header h2
-font-size: 2rem;
-color: #1e3a8a;
-margin-bottom: 10px;
-H
-. business-header p t
-color: #555;
-font-size: 1.05rem;
-.drink-gallery t
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-gap: 20px;
-.drink-item
-background: #fff;
-border-radius: 16px;
-overflow: hidden;
-box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-transition: transform 0.3s ease;
-. drink-item:hover t
-transform: translateY(-8px);
-S
-.drink-item img S
-width: 100%;
-height: 150px;
-object-fit: cover;
-display: block;
-.drink-info f
-padding: 15px;
-text-align: center;
-.drink-info h3{
-    margin: 0 0 5px;
-    color: #111827;
-    font-size: 1.1rem;
-}
-
-.drink-info p{
-    margin: 0;
-    color: #6b7280;
-    font-size: 0.95rem;
-}
-
-.whatsapp-btn{
-    background: linear-gradient(45deg,#25D366,#128C7E);
-    color: #fff;
-    padding: 12px 25px;
-    border: none;
-    border-radius: 30px;
-    font-size: 1.05rem;
-    font-weight: bold;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    transition: 0.3s ease;
-}
-
-.whatsapp-btn:hover{
-    transform: translateY(-2px);
-  }
-color: #fff;
-padding: 12px 25px;
-border: none;
-border-radius: 30px;
-font-size: 1 05rem;
-font-weight: bold;
-text-decoration: none;
-display: inline-flex;
-align-items: center;
-gap: 10px;
-transition: 0.3s ease;
-}
-  @media(max-width:768px){
-
-.html-box{
-    flex-direction:column;
-}
-
-.html-image img{
-    width:100%;
-}
-
-.card{
-    width:95%;
-}
-
-.navbar{
-    flex-wrap:wrap;
-}
-
-  }
 </style>
 </head>
 
 <body>
 
-<button id="themeBtn">🌙 Mode</button>
-
-<div class="menu-btn" onclick="toggleMenu()">☰</div>
-
-<nav id="mobileMenu" class="mobile-menu">
-<a href="#home">Home</a>
-<a href="#html">HTML</a>
-<a href="#english">English</a>
-<a href="#business">Biashara</a>
-</nav>
-
-<nav class="navbar">
-<a href="#home">Home</a>
-<a href="#html">HTML</a>
-<a href="#english">English</a>
-<a href="#business">Biashara</a>
-</nav>
-
-<header id="home">
+<header>
 <h1>🎓 RKO Learning Center</h1>
-<p>Jifunze HTML, English na Biashara ya Vinywaji</p>
+<p>Learn IT, English and Website Design</p>
 </header>
 
-<div class="card">
-<h2>📝 Registration</h2>
-<div class="card">
-<h2>👤 Student Dashboard</h2>
-
-<p>Karibu kwenye dashboard yako.</p>
-
-<ul>
-<li>HTML Progress: 0%</li>
-<li>English Progress: 0%</li>
-<li>Certificates: Not Yet</li>
-</ul>
-
-</div>
-<input type="text" placeholder="Jina Kamili">
-<input type="email" placeholder="Email">
-<input type="tel" placeholder="Namba ya Simu">
-
-<button>Jisajili</button>
-</div>
-<div class="card html-box" id="html">
-<div class="html-image">
-<img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=1200">
-</div>
-
-<div class="html-content">
-
-<div class="card html-box" id="html">
-
-  <div class="html-image">
-    <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=1200">
-  </div>
-
-  <div class="html-content">
-    <h2>💻 HTML Learning</h2>
-
-    <p>Jifunze HTML kutoka mwanzo hadi kiwango cha juu.</p>
-
-    <h3>Lesson 1</h3>
-    <p>HTML ni lugha ya kutengeneza webpages.</p>
-
-    <h3>Lesson 2</h3>
-    <p>Tags muhimu ni html, head, body, h1, p na img.</p>
-
-    <h3>Lesson 3</h3>
-    <p>Tengeneza website yako ya kwanza.</p>
-
-    <button>Anza Kujifunza</button>
-  </div>
-<div class="card" id="english">
-<h2>🇬🇧 English Course</h2>
-<img class="drink-img"
-src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=1200"
-alt="English Learning">
-<p>Improve your English speaking and writing skills.</p>
-
-<br>
-
-<p>Hello = Habari</p>
-<p>Good Morning = Habari za Asubuhi</p>
-<p>Thank You = Asante</p>
-
-<br>
-
-<button>Start Course</button>
-</div>
-
-<div class="card" id="business">
-
-<<div class="card" id="business">
-    <h2>🥤 Biashara ya Vinywaji</h2>
-    <p>Jifunze jinsi ya kuanzisha, kusimamia na kukuza biashara ya vinywaji.</p>
-
-    <div class="slider">
-        <img id="drinkSlider"
-        src="https://images.unsplash.com/photo-1543253687-c931c8e01820?w=1200">
-    </div>
-
-    <p>
-    1. Chagua eneo zuri la biashara.<br>
-    2. Tafuta wasambazaji wa bidhaa.<br>
-    3. Tangaza biashara yako mtandaoni.<br>
-    4. Hudumia wateja vizuri.
-    </p>
-
-    <a href="https://wa.me/255743465553">
-        <button>Wasiliana WhatsApp</button>
-    </a>
+<div class="course">
+<img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=500">
+<div class="course-content">
+<h2>💻 IT Learning Courses</h2>
+<p>Learn Computer Basics, HTML, CSS and Programming.</p>
+<button class="welcome-btn" onclick="showForm()">Welcome</button>
 </div>
 </div>
+
+<div class="course">
+<img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=500">
+<div class="course-content">
+<h2>📚 English For Beginners</h2>
+<p>Improve your speaking, reading and writing skills.</p>
+<button class="welcome-btn" onclick="showForm()">Welcome</button>
+</div>
+</div>
+
+<div class="course">
+<img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=500">
+<div class="course-content">
+<h2>🌐 Website Design Learning</h2>
+<p>Learn how to create beautiful websites from scratch.</p>
+<button class="welcome-btn" onclick="showForm()">Welcome</button>
+</div>
+</div>
+
+<div class="form-container" id="registerForm">
+<h2>📝 Registration Form</h2>
+
+<input type="text" placeholder="Full Name">
+<input type="email" placeholder="Email Address">
+<input type="tel" placeholder="Phone Number">
+
+<button>Register Now</button>
+</div>
+
 <footer>
-<h3>© 2025 RKO Learning Center</h3>
-<p>Powered by GitHub Pages</p>
+<p>📧 Email: rkolearning@gmail.com</p>
+<p>
+<a href="https://wa.me/255743465553">WhatsApp</a> |
+<a href="#">Instagram</a>
+</p>
 </footer>
 
-<a href="https://wa.me/255743465553" class="whatsapp">
-💬 WhatsApp
-</a>
-
 <script>
-function toggleMenu(){
-const menu=document.getElementById("mobileMenu");
-
-if(menu.style.display==="block"){
-menu.style.display="none";
-}else{
-menu.style.display="block";
-}
-}
-
-document
-.getElementById("themeBtn")
-.addEventListener("click",function
-
-document.body.classList.toggle("light-mode");
-
+function showForm(){
+document.getElementById("registerForm").style.display="block";
+window.scrollTo({
+top:document.getElementById("registerForm").offsetTop,
+behavior:"smooth"
 });
-</script>
-<script>
-const images = [
-"https://images.unsplash.com/photo-1543253687-c931c8e01820?w=1200",
-"https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=1200",
-"https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=1200",
-"https://images.unsplash.com/photo-1561758033-7e924f619b47?w=1200"
-];
-
-let current = 0;
-
-setInterval(() => {
-current++;
-if(current >= images.length){
-current = 0;
 }
-document.getElementById("drinkSlider").src = images[current];
-}, 3000);
 </script>
+
 </body>
 </html>
