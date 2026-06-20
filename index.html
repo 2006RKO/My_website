@@ -12,14 +12,30 @@ padding:0;
 box-sizing:border-box;
 font-family:Arial,sans-serif;
 }
-  body{
-    background:url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1600') center/cover no-repeat fixed;
-    color:white;
-  }
-color:white;
-padding:20px;
+body{
+    background: linear-gradient(
+        135deg,
+        #4f46e5 0%,
+        #7c3aed 50%,
+        #06b6d4 100%
+    );
+    background-size: 400% 400%;
+    animation: gradientMove 10s ease infinite;
+    color: white;
+    min-height: 100vh;
 }
 
+@keyframes gradientMove{
+    0%{
+        background-position: 0% 50%;
+    }
+    50%{
+        background-position: 100% 50%;
+    }
+    100%{
+        background-position: 0% 50%;
+    }
+}
 header{
 text-align:center;
 padding:20px;
@@ -31,25 +47,36 @@ color:#38bdf8;
 }
 
 .course{
-background:#1e293b;
-border-radius:20px;
-padding:20px;
-margin-bottom:20px;
-display:flex;
-align-items:center;
-gap:20px;
-box-shadow:0 5px 15px rgba(0,0,0,.4);
+    display:flex;
+    align-items:center;
+    gap:25px;
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(10px);
+    padding:25px;
+    border-radius:20px;
+    margin:20px 0;
 }
 
 .course img{
-width:120px;
-height:120px;
-object-fit:cover;
-border-radius:15px;
+    width:150px;
+    height:150px;
+    object-fit:cover;
+    border-radius:15px;
 }
 
 .course-content{
-flex:1;
+    flex:1;
+}
+
+.welcome-btn{
+    margin-top:15px;
+}
+
+@media(max-width:768px){
+    .course{
+        flex-direction:column;
+        text-align:center;
+    }
 }
 
 .welcome-btn{
