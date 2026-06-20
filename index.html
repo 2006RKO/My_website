@@ -215,54 +215,60 @@ overflow:hidden;
 border-radius:20px;
 margin:20px 0;
 }
-
-.slides{
-display:flex;
-height:100%;
-animation:slideShow 16s infinite;
-}
-
-.slides img{
-width:100%;
-min-width:100%;
-height:250px;
-object-fit:cover;
-}
-
-@keyframes slideShow{
-0%,20%{transform:translateX(0);}
-25%,45%{transform:translateX(-100%);}
-50%,70%{transform:translateX(-200%);}
-75%,95%{transform:translateX(-300%);}
-100%{transform:translateX(0);}
-}
-.slides img{
-width:100%;
-height:300px;
-object-fit:cover;
-flex:1 0 100%;
-}
-
-@keyframes slideShow{
-0%,20%{
-transform:translateX(0);
-}
-
-25%,45%{
-transform:translateX(-100%);
-}
-
-50%,70%{
-transform:translateX(-200%);
-}
-
-75%,95%{
-transform:translateX(-300%);
-}
-
-100%{
-transform:translateX(0);
-}
+-business-header {
+text-align: center;
+margin-bottom: 25px;
+tr
+.business-header h2
+font-size: 2rem;
+color: #1e3a8a;
+margin-bottom: 10px;
+H
+. business-header p t
+color: #555;
+font-size: 1.05rem;
+.drink-gallery t
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+gap: 20px;
+.drink-item
+background: #fff;
+border-radius: 16px;
+overflow: hidden;
+box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+transition: transform 0.3s ease;
+. drink-item:hover t
+transform: translateY(-8px);
+S
+.drink-item img S
+width: 100%;
+height: 150px;
+object-fit: cover;
+display: block;
+.drink-info f
+padding: 15px;
+text-align: center;
+drink-info h3 f
+margin: 0 0 5px;
+color: #111827;
+font-size: 1.1rem;
+.drink-info p (
+margin: 0;
+color: #6b7280;
+font-size: 0.95rem;
+whatsapp-btn f
+background: linear-gradient(45deg,#25D366, #128C7E);
+color: #fff;
+padding: 12px 25px;
+border: none;
+border-radius: 30px;
+font-size: 1 05rem;
+font-weight: bold;
+text-decoration: none;
+display: inline-flex;
+align-items: center;
+gap: 10px;
+transition: 0.3s ease;
 }
 </style>
 </head>
@@ -376,17 +382,55 @@ alt="English Learning">
 </div>
 
 <div class="card" id="business">
-<h2>🥤 Biashara ya Vinywaji</h2>
-
-<div class="slider">
-  <div class="slides">
-    <img src="https://images.unsplash.com/photo-1624517452488-04869289c4ca?w=1200" alt="Coca Cola">
-    <img src="https://images.unsplash.com/photo-1581636625402-29b2a704ef13?w=1200" alt="Fanta">
-    <img src="https://images.unsplash.com/photo-1605548230624-8d2d0419c517?w=1200" alt="Sprite">
-    <img src="https://images.unsplash.com/photo-1629203432180-71e9b0a6f8cf?w=1200" alt="Pepsi">
-  </div>
+<div class="business-header">
+<h2> # Biashara ya Vinywaji</h2>
+<p>Jifunze jinsi ya kuanzisha, kusimamia na kukuza biashara ya vinywaji.</p>
 </div>
-
+<div class="drink-gallery">
+<div class="drink-item">
+<img src="https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=1200"
+alt="Coca Cola">
+<div class="drink-info">
+<h3>Coca Cola</h3>
+<p>Soda maarufu duniani</p>
+</div>
+</div>
+<div class="drink-item">
+<img src="https://images.unsplash.com/photo-1629203851121-36c1c58c9e3e?w=1200"
+alt="Fanta" #7
+<div class="drink-info">
+<h3>Fanta</h3>
+< p>Kinywaji cha matunda chenye ladha ya kipekee</p>
+</div>
+</div>
+<div class="drink-item">
+<img src="https://images.unsplash.com/photo-1590155433319-4f5c0c0b3f5f?w=1200"
+alt="Sprite">
+<div class="drink-info">
+<h3>Sprite</h3>
+<cp>Kinywaji safi na baridi</p>
+</div>
+</div>
+<div class="drink-item">
+<img src="https://images.unsplash.com/photo-1629203851144-7e1b7c3a3b0f?w=1200"
+alt="Pepsi">
+<div class="drink-info">
+<h3>pepsi</h3>
+< p>pepsi Live for Now</p>
+</div>
+</div>
+<div class="drink-item">
+<img src="https://images.unsplash.com/photo-1629203851367-3b7c1f2b0d1f?w=1200"
+alt="Mirinda 17
+<div class="drink-info">
+<h3>Mirinda</h3>
+<p>ladha ya machungwa inayokupa furaha</p>
+</div>
+</div>
+</div>
+<div style="text-align:center; margin-top:20px;">
+<a href="https://wa.me/255743465553" class="btn whatsapp-btn" target="_blank">
+# Wasiliana WhatsApp</a>
 <p>
 Jifunze jinsi ya kuanzisha, kusimamia na kukuza biashara ya vinywaji.
 </p>
