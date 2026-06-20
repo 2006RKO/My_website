@@ -157,7 +157,42 @@ height:100px;
 .course-content{
     flex:1;
 }
+.course-card{
+    display:flex;
+    align-items:center;
+    gap:20px;
+    margin:30px 0;
+}
 
+.course-card img{
+    width:120px;
+    height:120px;
+    object-fit:cover;
+    border-radius:15px;
+}
+
+.course-info{
+    flex:1;
+}
+
+.course-info h2{
+    margin-bottom:10px;
+}
+
+.course-info p{
+    margin-bottom:15px;
+}
+
+@media(max-width:768px){
+    .course-card{
+        flex-direction:row;
+    }
+
+    .course-card img{
+        width:100px;
+        height:100px;
+    }
+}
 .welcome-btn{
     background:linear-gradient(45deg,#2563eb,#9333ea);
     color:white;
@@ -283,23 +318,29 @@ Improve speaking, reading, listening and writing skills.
     </div>
 
 </div>
-    <div class="course-content">
-        <h2>💻 IT Learning Courses</h2>
-        <p>Learn Computer Basics, HTML, CSS and Programming.</p>
+    <div class="course-card">
 
-        <button class="welcome-btn">
-            Welcome
-        </button>
-    </div>
+  <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=500"
+       alt="IT Course">
 
+  <div class="course-info">
+    <h2>💻 IT Learning Courses</h2>
+    <p>Learn Computer Basics, HTML, CSS and Programming.</p>
+    <button onclick="showForm()">Welcome</button>
+  </div>
     </div>
 <div class="course">
 <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=500" alt="IT Course">
-<div class="course-content">
-<h2>🌐 Website Design Learning</h2>
-<p>Learn how to create beautiful websites from scratch.</p>
-<button class="welcome-btn" onclick="showForm()">Welcome</button>
-</div>
+<div class="course-card">
+
+  <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=500"
+       alt="Website Design">
+
+  <div class="course-info">
+    <h2>🌐 Website Design Learning</h2>
+    <p>Learn how to create beautiful websites from scratch.</p>
+    <button onclick="showForm()">Welcome</button>
+  </div>
 </div>
 
 <div class="form-container" id="registerForm">
