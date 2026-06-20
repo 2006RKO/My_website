@@ -170,7 +170,11 @@ text-align:center;
 <div class="course-content">
 <h2>📚 English For Beginners</h2>
 <p>Improve your speaking, reading and writing skills.</p>
-<button class="welcome-btn" onclick="showForm()">Welcome</button>
+<button class="welcome-btn" onclick="showForm('english-course.html')">
+Welcome
+</button>
+Welcome
+</button>
 </div>
 </div>
 
@@ -190,7 +194,9 @@ text-align:center;
 <input type="email" placeholder="Email Address">
 <input type="tel" placeholder="Phone Number">
 
-<button>Register Now</button>
+<button onclick="submitForm()">
+Register Now
+</button>
 </div>
 
 <footer>
@@ -213,6 +219,24 @@ behavior:"smooth"
 });
 }
 </script>
+<footer>
+...
+</footer>
 
+<script>
+let nextPage = "";
+
+function showForm(page){
+    nextPage = page;
+    document.getElementById("registerForm").style.display = "block";
+}
+
+function submitForm(){
+    window.location.href = nextPage;
+}
+</script>
+
+</body>
+</html>
 </body>
 </html>
