@@ -6,6 +6,47 @@
 <title> said's Learning Center</title>
 
 <style>
+    .bottom-icons{
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    margin:50px 0;
+    flex-wrap:wrap;
+}
+
+.icon-box{
+    background:rgba(0,0,0,0.7);
+    width:120px;
+    height:120px;
+    border-radius:20px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    color:white;
+    backdrop-filter:blur(10px);
+
+    animation: shake 2s infinite;
+}
+
+.icon-box span{
+    font-size:60px;
+}
+
+.icon-box p{
+    margin-top:8px;
+    font-size:16px;
+    font-weight:bold;
+}
+
+@keyframes shake{
+    0%{transform:translateX(0);}
+    25%{transform:translateX(-5px);}
+    50%{transform:translateX(5px);}
+    75%{transform:translateX(-5px);}
+    100%{transform:translateX(0);}
+}
+    
 body{
     background:url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1600')
     center center/cover fixed;
@@ -69,8 +110,6 @@ margin-bottom:30px;
 
 header h1{
 color:#38bdf8;
-}
-    }
 }
 
 .welcome-btn{
@@ -173,8 +212,6 @@ flex-direction:row;
     object-fit:cover;
     border-radius:15px;
 }
-}
-}
 
 .course-content{
     flex:1;
@@ -191,7 +228,6 @@ flex-direction:row;
     height:130px;
     object-fit:cover;
     border-radius:15px;
-}
 }
 
 .course-info{
@@ -214,7 +250,6 @@ flex-direction:row;
     .course-card img{
         width:100px;
         height:100px;
-    }
 }
 .welcome-btn{
     background:linear-gradient(45deg,#2563eb,#9333ea);
@@ -236,7 +271,7 @@ flex-direction:row;
         width:140px;
         height:140px;
     }
-}ainer input{
+ainer input{
 width:100%;
 padding:12px;
 margin:10px 0;
@@ -421,7 +456,24 @@ function submitForm(){
 </script>
 }
 </script>
+<div class="bottom-icons">
 
+<div class="icon-box">
+<span>🇹🇿</span>
+<p>Tanzania</p>
+</div>
+
+<div class="icon-box">
+<span>🌐</span>
+<p>Web Design</p>
+</div>
+
+<div class="icon-box">
+<span>💻</span>
+<p>Computer</p>
+</div>
+
+</div>
 </body>
 </html>
 </body>
