@@ -84,20 +84,17 @@ margin-top:20px;
     border-radius:25px;
 }
 
-..course-card{
+.course-card{
     display:flex;
     align-items:center;
     gap:20px;
-    background:rgba(255,255,255,0.1);
-    padding:20px;
-    border-radius:20px;
-    margin:20px 0;
-    backdrop-filter:blur(10px);
+    margin:40px 0;
+    width:100%;
 }
 
 .course-card img{
-    width:140px;
-    height:140px;
+    width:100px;
+    height:100px;
     object-fit:cover;
     border-radius:15px;
 }
@@ -107,23 +104,23 @@ margin-top:20px;
 }
 
 .course-info h2{
-    color:white;
     margin-bottom:10px;
+    color:white;
 }
 
 .course-info p{
     color:white;
     margin-bottom:15px;
+    line-height:1.5;
 }
 
 .course-info button{
+    padding:12px 30px;
+    border:none;
+    border-radius:30px;
     background:linear-gradient(45deg,#3b82f6,#9333ea);
     color:white;
-    border:none;
-    padding:12px 30px;
-    border-radius:30px;
     font-weight:bold;
-    cursor:pointer;
 }
     .course-card{
 display:flex;
@@ -305,6 +302,12 @@ text-align:center;
 alt="English Course">
 
 <div class="course-info">
+<<!-- ENGLISH COURSE -->
+<div class="course-card">
+
+<img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=500" alt="English Course">
+
+<div class="course-info">
 <h2>📚 English For Beginners</h2>
 
 <p>
@@ -312,44 +315,42 @@ Learn English from basic level to advanced level.
 Improve speaking, reading, listening and writing skills.
 </p>
 
-<button onclick="showForm()">Welcome</button>
+<button onclick="showForm('english.html')">Welcome</button>
+</div>
 
 </div>
-    </div>
 
-</div>
-    <div class="course-card">
-
-  <<!-- IT Learning Courses -->
+<!-- IT COURSE -->
 <div class="course-card">
 
-    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=500"
-         alt="IT Course">
+<img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=500" alt="IT Course">
 
-    <div class="course-info">
-        <h2>💻 IT Learning Courses</h2>
-        <p>Learn Computer Basics, HTML, CSS and Programming.</p>
-        <button onclick="showForm()">Welcome</button>
-    </div>
+<div class="course-info">
+<h2>💻 IT Learning Courses</h2>
+<p>Learn Computer Basics, HTML, CSS and Programming.</p>
+
+<button onclick="showForm('itcourse.html')">Welcome</button>
+</div>
 
 </div>
 
-<!-- Website Design Learning -->
+<!-- WEBSITE DESIGN -->
 <div class="course-card">
 
-    <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=500"
-         alt="Website Design">
+<img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=500" alt="Website Design">
 
-    <div class="course-info">
-        <h2>🌐 Website Design Learning</h2>
-        <p>Learn how to create beautiful websites from scratch.</p>
-        <button onclick="showForm()">Welcome</button>
-    </div>
+<div class="course-info">
+<h2>🌐 Website Design Learning</h2>
+<p>Learn how to create beautiful websites from scratch.</p>
+
+<button onclick="showForm('webdesign.html')">Welcome</button>
+</div>
 
 </div>
 
-<!-- Registration Form -->
+<!-- REGISTRATION FORM -->
 <div class="form-container" id="registerForm">
+
 <h2>📝 Registration Form</h2>
 
 <input type="text" placeholder="Full Name">
@@ -359,9 +360,12 @@ Improve speaking, reading, listening and writing skills.
 <button onclick="submitForm()">
 Register Now
 </button>
+
 </div>
 
+<!-- FOOTER -->
 <footer>
+
 <p>
 📧 <a href="mailto:saidtiazo982@gmail.com">Email Me</a>
 </p>
@@ -370,31 +374,28 @@ Register Now
 <a href="https://wa.me/255743465553" target="_blank">WhatsApp</a> |
 <a href="https://www.instagram.com/rko701d" target="_blank">Instagram</a>
 </p>
+
 </footer>
 
 <script>
-function showForm(){
-document.getElementById("registerForm").style.display="block";
-window.scrollTo({
-top:document.getElementById("registerForm").offsetTop,
-behavior:"smooth"
-});
-}
-</script>
-<footer>
-...
-</footer>
 
-<script>
 let nextPage = "";
 
 function showForm(page){
     nextPage = page;
     document.getElementById("registerForm").style.display = "block";
+
+    window.scrollTo({
+        top: document.getElementById("registerForm").offsetTop,
+        behavior: "smooth"
+    });
 }
 
 function submitForm(){
     window.location.href = nextPage;
+}
+
+</script>
 }
 </script>
 
