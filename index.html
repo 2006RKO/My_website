@@ -38,22 +38,27 @@ body::before{
     100%{background-position:0% 50%;}
 }
     .footer{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
     margin:40px 20px;
-    padding:25px;
-    background:rgba(0,0,0,0.7);
-    border-radius:20px;
-    text-align:center;
 }
 
-.footer a{
-    color:white;
+.contact-btn{
     text-decoration:none;
-    font-size:18px;
-    margin:0 10px;
+    color:white;
+    background:rgba(0,0,0,0.7);
+    padding:12px 20px;
+    border-radius:15px;
+    font-weight:bold;
+    transition:0.3s;
+    backdrop-filter:blur(10px);
 }
 
-.footer span{
-    color:white;
+.contact-btn:hover{
+    transform:translateY(-5px);
+    background:linear-gradient(45deg,#00c6ff,#7b2ff7);
 }
 }
 header{
