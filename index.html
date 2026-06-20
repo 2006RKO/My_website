@@ -395,42 +395,11 @@ alt="Coca Cola">
 <p>Soda maarufu duniani</p>
 </div>
 </div>
-<div class="drink-item">
-<img src="https://images.unsplash.com/photo-1629203851121-36c1c58c9e3e?w=1200"
-alt="Fanta" #7
-<div class="drink-info">
-<h3>Fanta</h3>
-< p>Kinywaji cha matunda chenye ladha ya kipekee</p>
+<div class="slider">
+  <img id="drinkSlider"
+  src="https://images.unsplash.com/photo-1543253687-c931c8e01820?w=1200">
 </div>
-</div>
-<div class="drink-item">
-<img src="https://images.unsplash.com/photo-1590155433319-4f5c0c0b3f5f?w=1200"
-alt="Sprite">
-<div class="drink-info">
-<h3>Sprite</h3>
-<cp>Kinywaji safi na baridi</p>
-</div>
-</div>
-<div class="drink-item">
-<img src="https://images.unsplash.com/photo-1629203851144-7e1b7c3a3b0f?w=1200"
-alt="Pepsi">
-<div class="drink-info">
-<h3>pepsi</h3>
-< p>pepsi Live for Now</p>
-</div>
-</div>
-<div class="drink-item">
-<img src="https://images.unsplash.com/photo-1629203851367-3b7c1f2b0d1f?w=1200"
-alt="Mirinda 17
-<div class="drink-info">
-<h3>Mirinda</h3>
-<p>ladha ya machungwa inayokupa furaha</p>
-</div>
-</div>
-</div>
-<div style="text-align:center; margin-top:20px;">
 <a href="https://wa.me/255743465553" class="btn whatsapp-btn" target="_blank">
-# Wasiliana WhatsApp</a>
 <p>
 Jifunze jinsi ya kuanzisha, kusimamia na kukuza biashara ya vinywaji.
 </p>
@@ -471,6 +440,23 @@ document.body.classList.toggle("light-mode");
 
 });
 </script>
+<script>
+const images = [
+"https://images.unsplash.com/photo-1543253687-c931c8e01820?w=1200",
+"https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=1200",
+"https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=1200",
+"https://images.unsplash.com/photo-1561758033-7e924f619b47?w=1200"
+];
 
+let current = 0;
+
+setInterval(() => {
+current++;
+if(current >= images.length){
+current = 0;
+}
+document.getElementById("drinkSlider").src = images[current];
+}, 3000);
+</script>
 </body>
 </html>
