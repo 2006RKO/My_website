@@ -187,26 +187,23 @@ margin-bottom:15px;
 }
 }
   .html-box{
-display:flex;
-align-items:center;
-gap:20px;
-flex-wrap:wrap;
+    display:flex;
+    gap:20px;
+    align-items:center;
 }
 
 .html-image{
-flex:1;
-min-width:280px;
+    flex:1;
 }
 
 .html-image img{
-width:100%;
-border-radius:20px;
-display:block;
+    width:100%;
+    border-radius:20px;
 }
 
 .html-content{
-flex:1;
-min-width:280px;
+    flex:1;
+}
 }
   ..slider{
 width:100%;
@@ -290,6 +287,25 @@ align-items: center;
 gap: 10px;
 transition: 0.3s ease;
 }
+  @media(max-width:768px){
+
+.html-box{
+    flex-direction:column;
+}
+
+.html-image img{
+    width:100%;
+}
+
+.card{
+    width:95%;
+}
+
+.navbar{
+    flex-wrap:wrap;
+}
+
+  }
 </style>
 </head>
 
@@ -338,51 +354,35 @@ transition: 0.3s ease;
 
 <button>Jisajili</button>
 </div>
-
-<<div class="card html-box" id="html">
-
+<div class="card html-box" id="html">
 <div class="html-image">
 <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=1200">
 </div>
 
 <div class="html-content">
 
-<h2>💻 HTML Learning</h2>
+<div class="card html-box" id="html">
 
-<p>Jifunze HTML kutoka mwanzo hadi kiwango cha juu.</p>
+  <div class="html-image">
+    <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=1200">
+  </div>
 
-<h3>Lesson 1</h3>
-<p>HTML ni lugha ya kutengeneza webpages.</p>
+  <div class="html-content">
+    <h2>💻 HTML Learning</h2>
 
-<h3>Lesson 2</h3>
-<p>Tags muhimu ni html, head, body, h1, p na img.</p>
+    <p>Jifunze HTML kutoka mwanzo hadi kiwango cha juu.</p>
 
-<h3>Lesson 3</h3>
-<p>Tengeneza website yako ya kwanza.</p>
+    <h3>Lesson 1</h3>
+    <p>HTML ni lugha ya kutengeneza webpages.</p>
 
-<button>Anza Kujifunza</button>
+    <h3>Lesson 2</h3>
+    <p>Tags muhimu ni html, head, body, h1, p na img.</p>
 
-</div>
+    <h3>Lesson 3</h3>
+    <p>Tengeneza website yako ya kwanza.</p>
 
-</div>
-<h3>Lesson 1</h3>
-<p>HTML ni lugha ya kutengeneza webpages.</p>
-
-<h3>Lesson 2</h3>
-<p>Tags muhimu ni html, head, body, h1, p na img.</p>
-
-<h3>Lesson 3</h3>
-<p>Tengeneza website yako ya kwanza.</p>
-
-<br>
-
-<button>Anza Kujifunza</button>
-
-</div>
-
-</div>
-</div>
-
+    <button>Anza Kujifunza</button>
+  </div>
 <div class="card" id="english">
 <h2>🇬🇧 English Course</h2>
 <img class="drink-img"
