@@ -405,18 +405,20 @@ Improve speaking, reading, listening and writing skills.
 
 </div>
 
-<!-- REGISTRATION FORM -->
-<div class="form-container" id="registerForm">
-
-<h2>📝 Registration Form</h2>
-
-<input type="text" placeholder="Full Name">
-<input type="email" placeholder="Email Address">
-<input type="tel" placeholder="Phone Number">
-
 <button onclick="submitForm()">
 Register Now
 </button>
+    <button onclick="showForm('english.html')">English Course</button>
+<button onclick="showForm('itcourse.html')">IT Learning</button>
+<button onclick="showForm('webdesign.html')">Web Design</button>
+    <div id="registerForm" style="display:none;">
+    <h2>Register</h2>
+
+    <input type="text" placeholder="Full Name"><br><br>
+    <input type="email" placeholder="Email"><br><br>
+
+    <button id="registerBtn">Register Now</button>
+    </div>
 
 </div>
 <footer class="footer">
@@ -474,6 +476,18 @@ function submitForm(){
 </div>
 
 </div>
+        <script>
+let selectedPage = "";
+
+function showForm(page) {
+    selectedPage = page;
+    document.getElementById("registerForm").style.display = "block";
+}
+
+document.getElementById("registerBtn").onclick = function () {
+    window.location.href = selectedPage;
+};
+        </script>
 </body>
 </html>
 </body>
