@@ -164,7 +164,34 @@ footer a:hover{
   .course-card{
     flex-direction:column;
     text-align:center;
-  }
+  }.social-links{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    flex-wrap:wrap;
+    margin:20px 0;
+}
+
+.social-links a{
+    text-decoration:none;
+    color:white;
+    background:rgba(255,255,255,0.15);
+    padding:12px 20px;
+    border-radius:30px;
+    backdrop-filter:blur(10px);
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.social-links a i{
+    margin-right:8px;
+    font-size:20px;
+}
+
+.social-links a:hover{
+    transform:translateY(-3px);
+    box-shadow:0 5px 15px rgba(0,0,0,0.3);
+}
 
   .course-card img{
     width:120px;
