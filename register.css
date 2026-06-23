@@ -1,0 +1,80 @@
+/* Background */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Register Form */
+.register-form {
+    width: 90%;
+    max-width: 400px;
+    background: #fff;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+/* Title */
+.register-form h2 {
+    color: #0f172a;
+    margin-bottom: 20px;
+}
+
+/* Inputs */
+.register-form input {
+    width: 100%;
+    padding: 14px;
+    margin: 10px 0;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 16px;
+    outline: none;
+    transition: 0.3s;
+    box-sizing: border-box;
+}
+
+.register-form input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 10px rgba(37,99,235,0.3);
+}
+
+/* Button */
+.register-form button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    background: #2563eb;
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.register-form button:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+}
+
+/* Login Link */
+.register-form p {
+    margin-top: 15px;
+    color: #64748b;
+}
+
+.register-form a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.register-form a:hover {
+    text-decoration: underline;
+}
