@@ -375,7 +375,9 @@ Learn English from basic level to advanced level.
 Improve speaking, reading, listening and writing skills.
 </p>
 
-<button onclick="showForm('english.html')">English Course</button>
+<button onclick="window.location.href='register.html?course=english'">
+    English Course
+</button>
 </div>
 
 </div>
@@ -388,8 +390,9 @@ Improve speaking, reading, listening and writing skills.
 <div class="course-info">
 <h2>💻 IT Learning Courses</h2>
 <p>Learn Computer Basics, HTML, CSS and Programming.</p>
-
-<button onclick="showForm('itcourse.html')">IT Learning</button>
+<button onclick="window.location.href='register.html?course=it'">
+    IT Learning
+</button>
 </div>
 
 </div>
@@ -402,8 +405,9 @@ Improve speaking, reading, listening and writing skills.
 <div class="course-info">
 <h2>🌐 Website Design Learning</h2>
 <p>Learn how to create beautiful websites from scratch.</p>
-
-<button onclick="showForm('webdesign.html')">Web Design</button>
+<button onclick="window.location.href='register.html?course=web'">
+    Web Design
+</button>
 </div>
 
 </div>
@@ -438,53 +442,26 @@ Register Now
 
 let nextPage = "";
 
-function showForm(page){
-    nextPage = page;
-    document.getElementById("registerForm").style.display = "block";
-
-    window.scrollTo({
-        top: document.getElementById("registerForm").offsetTop,
-        behavior: "smooth"
-    });
-}
-
-function submitForm(){
-    window.location.href = nextPage;
-}
-
-</script>
-}
 </script>
 <div class="bottom-icons">
 
-<div class="icon-box">
-<span>🇹🇿</span>
-<p>Tanzania</p>
-</div>
-
-<div class="icon-box">
-<span>🌐</span>
-<p>Web Design</p>
-</div>
-
-<div class="icon-box">
-<span>💻</span>
-<p>Computer</p>
-</div>
-
-</div>
-        <script>
-let selectedPage = "";
-
-function showForm(page) {
-    selectedPage = page;
-    document.getElementById("registerForm").style.display = "block";
-}
+        <script >  
+const params = new URLSearchParams(window.location.search);
+const course = params.get("course");
 
 document.getElementById("registerBtn").onclick = function () {
-    window.location.href = selectedPage;
-};
-        </script>
+
+    if(course==="english"){
+        window.location.href="english.html";
+    }
+    else if(course==="it"){
+        window.location.href="itcourse.html";
+    }
+    else if(course==="web"){
+        window.location.href="webdesign.html";
+    }
+        </script >
+}
 </body>
 </html>
 </body>
