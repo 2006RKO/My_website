@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Course Registration</title>
+<link rel="stylesheet" href="register.css">
+</head>
+<body>
+
+<div class="container">
+
+<h1>🎓 Course Registration</h1>
+
+<p>Fill in your details to continue.</p>
+
+<form>
+
+<form>
+
+<input type="text" placeholder="👤 Full Name" required>
+
+<input type="email" placeholder="📧 Email Address" required>
+
+<input type="tel" placeholder="📱 Phone Number" required>
+
+<input type="password" placeholder="🔒 Password" required>
+
+<input type="password" placeholder="🔐 Confirm Password" required>
+
+<button id="registerBtn" type="button">
+Register Now
+</button>
+
+</form>
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const course = params.get("course");
+
+document.getElementById("registerBtn").onclick=function(){
+
+if(course==="english"){
+window.location.href="english.html";
+}
+else if(course==="it"){
+window.location.href="itcourse.html";
+}
+else if(course==="web"){
+window.location.href="webdesign.html";
+}
+
+}
+</script>
+
+</body>
+</html>
