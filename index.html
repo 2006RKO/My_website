@@ -147,43 +147,46 @@ margin-top:20px;
     border-radius:25px;
 }
 
-.course-card{
+..course-card{
     display:flex;
     align-items:center;
     gap:20px;
-    margin:40px 0;
-    width:100%;
+    background:rgba(255,255,255,0.15);
+    padding:20px;
+    margin:20px;
+    border-radius:20px;
+    backdrop-filter:blur(10px);
 }
 
 .course-card img{
-    width:100px;
-    height:100px;
-    object-fit:cover;
+    width:120px;
+    height:120px;
     border-radius:15px;
+    object-fit:cover;
 }
 
-.course-info{
+.course-content{
     flex:1;
 }
 
-.course-info h2{
-    margin-bottom:10px;
+.course-content h2{
     color:white;
+    font-size:35px;
 }
 
-.course-info p{
+.course-content p{
     color:white;
-    margin-bottom:15px;
-    line-height:1.5;
+    font-size:20px;
 }
 
-.course-info button{
+.course-content button{
+    margin-top:15px;
     padding:12px 30px;
     border:none;
     border-radius:30px;
-    background:linear-gradient(45deg,#3b82f6,#9333ea);
+    background:linear-gradient(90deg,#4f46e5,#9333ea);
     color:white;
-    font-weight:bold;
+    font-size:18px;
 }
     .course-card{
 display:flex;
