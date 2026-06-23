@@ -1,58 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Course Registration</title>
-<link rel="stylesheet" href="register.css">
-</head>
-<body>
+<div class="register-form">
+    <h2>Create Account</h2>
 
-<div class="container">
+    <input type="text" placeholder="Full Name">
+    <input type="email" placeholder="Email Address">
+    <input type="password" placeholder="Password">
+    <input type="password" placeholder="Confirm Password">
 
-<h1>🎓 Course Registration</h1>
+    <button>Register</button>
 
-<p>Fill in your details to continue.</p>
-
-<form>
-
-<form>
-
-<input type="text" placeholder="👤 Full Name" required>
-
-<input type="email" placeholder="📧 Email Address" required>
-
-<input type="tel" placeholder="📱 Phone Number" required>
-
-<input type="password" placeholder="🔒 Password" required>
-
-<input type="password" placeholder="🔐 Confirm Password" required>
-
-<button id="registerBtn" type="button">
-Register Now
-</button>
-
-</form>
+    <p>Already have an account?
+        <a href="login.html">Login</a>
+    </p>
 </div>
-
-<script>
-const params = new URLSearchParams(window.location.search);
-const course = params.get("course");
-
-document.getElementById("registerBtn").onclick=function(){
-
-if(course==="english"){
-window.location.href="english.html";
-}
-else if(course==="it"){
-window.location.href="itcourse.html";
-}
-else if(course==="web"){
-window.location.href="webdesign.html";
-}
-
-}
-</script>
-
-</body>
-</html>
