@@ -1,36 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="stylesheet" href="english.css">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English Learning</title>
-    <link rel="stylesheet" href="english.css">
+  <meta charset="UTF-8">
+  <title>English A-Level Home</title>
+
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-    <div class="container">
-        <h1>📚 Welcome to English Learning</h1>
+<div class="header">
+  <h1>📘 English A-Level Course</h1>
+  <p>Learn through slides & notes</p>
+</div>
 
-        <p>
-            Learn English step by step with easy lessons designed for beginners
-            and advanced learners. Improve your speaking, reading, writing,
-            listening, grammar, and vocabulary through interactive lessons.
-        </p>
+<!-- SLIDER -->
+<div class="slider">
 
-        <h2>What You Will Learn</h2>
+  <div class="slide active">
+    <h2>📖 Literature</h2>
+    <p>Study novels, themes, characters and styles.</p>
+  </div>
 
-        <ul>
-            <li>✅ English Grammar</li>
-            <li>✅ Vocabulary</li>
-            <li>✅ Speaking Skills</li>
-            <li>✅ Reading Practice</li>
-            <li>✅ Writing Skills</li>
-            <li>✅ Listening Practice</li>
-        </ul>
+  <div class="slide">
+    <h2>✍ Grammar</h2>
+    <p>Learn tenses, sentence structure and parts of speech.</p>
+  </div>
 
-        <a href="index.html" class="btn">⬅ Back to Home</a>
-    </div>
+  <div class="slide">
+    <h2>📄 Comprehension</h2>
+    <p>Improve reading and answering skills from passages.</p>
+  </div>
+
+  <div class="slide">
+    <h2>📝 Essay Writing</h2>
+    <p>Learn introduction, body and conclusion writing.</p>
+  </div>
+
+</div>
+
+<!-- BUTTONS -->
+<div class="controls">
+  <button onclick="prevSlide()">⬅ Prev</button>
+  <button onclick="nextSlide()">Next ➡</button>
+</div>
+
+<script>
+let index = 0;
+const slides = document.querySelectorAll(".slide");
+
+function showSlide(i) {
+  slides.forEach(s => s.classList.remove("active"));
+  slides[i].classList.add("active");
+}
+
+function nextSlide() {
+  index++;
+  if (index >= slides.length) index = 0;
+  showSlide(index);
+}
+
+function prevSlide() {
+  index--;
+  if (index < 0) index = slides.length - 1;
+  showSlide(index);
+}
+
+/* auto slide */
+setInterval(nextSlide, 4000);
+</script>
 
 </body>
 </html>
