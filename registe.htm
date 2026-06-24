@@ -4,21 +4,87 @@
   <meta charset="UTF-8">
   <title>Register</title>
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="register.css">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-  <!-- Font Awesome icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+
+      background: url("https://images.unsplash.com/photo-1503264116251-35a269479413")
+        no-repeat center center/cover;
+
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* overlay */
+    .overlay {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+    }
+
+    .register-form {
+      position: relative;
+      z-index: 1;
+      background: rgba(255,255,255,0.1);
+      padding: 30px;
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+      text-align: center;
+      color: white;
+      width: 300px;
+    }
+
+    .input-box {
+      margin: 10px 0;
+      display: flex;
+      align-items: center;
+      background: rgba(255,255,255,0.2);
+      padding: 10px;
+      border-radius: 8px;
+    }
+
+    .input-box i {
+      margin-right: 10px;
+    }
+
+    .input-box input {
+      width: 100%;
+      border: none;
+      outline: none;
+      background: transparent;
+      color: white;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 8px;
+      background: #00c6ff;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0072ff;
+    }
+
+    a {
+      color: #00c6ff;
+    }
+  </style>
 </head>
 
 <body>
 
-<!-- VIDEO BACKGROUND -->
-<video autoplay muted loop id="bg-video">
-  <source src="video.mp4" type="video/mp4">
-</video>
-
-<!-- DARK OVERLAY -->
 <div class="overlay"></div>
 
 <!-- REGISTER FORM -->
