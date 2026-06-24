@@ -198,28 +198,4 @@ footer a:hover{
     height:120px;
   }
 }
-.button-container{
-  display:flex;
-  gap:15px;
-  justify-content:center;
-  flex-wrap:wrap;
-  margin:20px 0;
-}
 
-.modern-btn{
-  padding:12px 25px;
-  border-radius:12px;
-  text-decoration:none;
-  color:white;
-  font-weight:bold;
-  transition:0.3s;
-}
-
-.modern-btn:hover{
-  transform:scale(1.1);
-}
-
-.english{background:linear-gradient(135deg,#ff416c,#ff4b2b);}
-.it{background:linear-gradient(135deg,#1f4037,#99f2c8);}
-.web{background:linear-gradient(135deg,#396afc,#2948ff);}
-.pharmacy{background:linear-gradient(135deg,#11998e,#38ef7d);}
