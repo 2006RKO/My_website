@@ -4,7 +4,33 @@ body{
   background:url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1600') center/cover fixed;
   color:white;
 }
+.course-box {
+  background: rgba(255,255,255,0.08);
+  padding: 20px;
+  margin: 15px;
+  border-radius: 15px;
+  color: white;
+  backdrop-filter: blur(10px);
+  transition: 0.3s;
+}
 
+.course-box:hover {
+  transform: scale(1.03);
+}
+
+.course-btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 15px;
+  background: #00c6ff;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+}
+
+.course-btn:hover {
+  background: #0072ff;
+}
 /* DARK OVERLAY ANIMATION */
 body::before{
   content:"";
