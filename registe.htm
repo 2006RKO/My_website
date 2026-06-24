@@ -1,44 +1,51 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>Register</title>
 
-  <!-- CSS link HAPA -->
+  <!-- CSS -->
   <link rel="stylesheet" href="register.css">
 
-  <!-- Font Awesome icons (kama unatumia icons) -->
+  <!-- Font Awesome icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
 
-  <!-- Video background (kama unayo) -->
-  <video autoplay muted loop id="bg-video">
-    <source src="video.mp4" type="video/mp4">
-  </video>
+<!-- VIDEO BACKGROUND -->
+<video autoplay muted loop id="bg-video">
+  <source src="video.mp4" type="video/mp4">
+</video>
 
-  <div class="register-form">
+<!-- DARK OVERLAY -->
+<div class="overlay"></div>
 
-    <h2>Register</h2>
+<!-- REGISTER FORM -->
+<div class="register-form">
 
-    <div class="input-box">
-      <i class="fa fa-user"></i>
-      <input type="text" placeholder="Full Name">
-    </div>
+  <h2>Register</h2>
 
-    <div class="input-box">
-      <i class="fa fa-envelope"></i>
-      <input type="email" placeholder="Email">
-    </div>
-
-    <div class="input-box">
-      <i class="fa fa-lock"></i>
-      <input type="password" placeholder="Password">
-    </div>
-
-    <button>Register</button>
-
+  <div class="input-box">
+    <i class="fa fa-user"></i>
+    <input type="text" placeholder="Full Name">
   </div>
+
+  <div class="input-box">
+    <i class="fa fa-envelope"></i>
+    <input type="email" placeholder="Email">
+  </div>
+
+  <div class="input-box">
+    <i class="fa fa-lock"></i>
+    <input type="password" placeholder="Password">
+  </div>
+
+  <button>Register</button>
+
+  <p>Already have an account? <a href="#">Login</a></p>
+
+</div>
 
 </body>
 </html>
