@@ -1,25 +1,45 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: linear-gradient(-45deg, #0f172a, #1e293b, #2563eb, #0ea5e9);
-    background-size: 400% 400%;
-    animation: gradientBG 12s ease infinite;
+
+    /* Background image ya kisasa */
+    background: url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d') no-repeat center center/cover;
 
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
 }
-@keyframes gradientBG {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
+
+/* Dark overlay kidogo ili text isomeke */
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 0;
+}
+
+/* Form yenye muonekano wa glass lakini transparent zaidi */
+.register-form {
+    position: relative;
+    z-index: 1;
+
+    background: rgba(255, 255, 255, 0.15); /* karibu transparent */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    padding: 25px;
+    border-radius: 10px;
+
+    /* border nyepesi sana */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+
+    /* shadow ndogo tu */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
 }
 
 .register-form {
