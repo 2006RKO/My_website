@@ -4,24 +4,20 @@
   <meta charset="UTF-8">
   <title>Register</title>
 
-  <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <style>
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-
       background: url("https://images.unsplash.com/photo-1503264116251-35a269479413")
         no-repeat center center/cover;
-
       height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
     }
 
-    /* overlay */
     .overlay {
       position: absolute;
       width: 100%;
@@ -38,7 +34,7 @@
       backdrop-filter: blur(10px);
       text-align: center;
       color: white;
-      width: 300px;
+      width: 320px;
     }
 
     .input-box {
@@ -54,12 +50,17 @@
       margin-right: 10px;
     }
 
-    .input-box input {
+    .input-box input,
+    .input-box select {
       width: 100%;
       border: none;
       outline: none;
       background: transparent;
       color: white;
+    }
+
+    select option {
+      color: black;
     }
 
     button {
@@ -76,10 +77,6 @@
     button:hover {
       background: #0072ff;
     }
-
-    a {
-      color: #00c6ff;
-    }
   </style>
 </head>
 
@@ -87,31 +84,65 @@
 
 <div class="overlay"></div>
 
-<!-- REGISTER FORM -->
 <div class="register-form">
 
   <h2>Register</h2>
 
   <div class="input-box">
     <i class="fa fa-user"></i>
-    <input type="text" placeholder="Full Name">
+    <input type="text" id="name" placeholder="Full Name">
   </div>
 
   <div class="input-box">
     <i class="fa fa-envelope"></i>
-    <input type="email" placeholder="Email">
+    <input type="email" id="email" placeholder="Email">
   </div>
 
   <div class="input-box">
     <i class="fa fa-lock"></i>
-    <input type="password" placeholder="Password">
+    <input type="password" id="password" placeholder="Password">
   </div>
 
-  <button>Register</button>
+  <!-- COURSE SELECT -->
+  <div class="input-box">
+    <i class="fa fa-book"></i>
+    <select id="course">
+      <option value="">Select Course</option>
+      <option value="pharmacy">Pharmacy</option>
+      <option value="it">IT</option>
+      <option value="english">English</option>
+      <option value="web">Web Design</option>
+    </select>
+  </div>
 
-  <p>Already have an account? <a href="#">Login</a></p>
+  <button onclick="registerUser()">Register</button>
 
 </div>
+
+<script>
+function registerUser() {
+  let course = document.getElementById("course").value;
+
+  if (course === "") {
+    alert("Please select a course!");
+    return;
+  }
+
+  // Redirect based on course
+  if (course === "pharmacy") {
+    window.location.href = "pharmacy.html";
+  } 
+  else if (course === "it") {
+    window.location.href = "it.html";
+  }
+  else if (course === "english") {
+    window.location.href = "english.html";
+  }
+  else if (course === "web") {
+    window.location.href = "web.html";
+  }
+}
+</script>
 
 </body>
 </html>
