@@ -104,6 +104,55 @@ header h1{
   box-shadow:0 10px 30px rgba(0,0,0,0.3);
   transition:0.3s;
 }
+.course-card{
+    width:320px;
+    background:#111827;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 0 20px rgba(0,212,255,.3);
+    transition:.3s;
+    margin:20px auto;
+    text-align:center;
+}
+
+.course-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 0 30px rgba(0,212,255,.6);
+}
+
+.course-image{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+}
+
+.course-card h2{
+    color:#00d4ff;
+    margin:15px;
+    font-size:24px;
+}
+
+.course-card p{
+    color:#ddd;
+    padding:0 20px;
+    line-height:1.6;
+}
+
+.course-btn{
+    display:inline-block;
+    margin:20px;
+    padding:12px 25px;
+    background:#00d4ff;
+    color:#fff;
+    text-decoration:none;
+    border-radius:10px;
+    font-weight:bold;
+    transition:.3s;
+}
+
+.course-btn:hover{
+    background:#0099cc;
+}
 
 .course-card:hover{
   transform:scale(1.02);
