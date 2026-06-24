@@ -1,32 +1,42 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #0f172a, #1e293b);
+    background: linear-gradient(-45deg, #0f172a, #1e293b, #2563eb, #0ea5e9);
+    background-size: 400% 400%;
+    animation: gradientBG 12s ease infinite;
+
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
 }
-
-/* Register Form */
-.register-form {
-    width: 90%;
-    max-width: 400px;
-    background: #fff;
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    text-align: center;
+@keyframes gradientBG {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
-/* Title */
+.register-form {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
 .register-form h2 {
     color: #0f172a;
     margin-bottom: 20px;
     font-size: 28px;
 }
 
-/* INPUT BOX (NEW for icons) */
 .input-box{
     position: relative;
     margin: 12px 0;
