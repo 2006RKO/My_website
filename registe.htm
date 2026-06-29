@@ -117,25 +117,7 @@
   <button onclick="registerUser()">Register</button>
 
 </div>
-
-<script>
-function registerUser(){
-
-    let name = document.getElementById("name").value.trim();
-    let email = document.getElementById("email").value.trim();
-    let password = document.getElementById("password").value.trim();
-
-    if(name==="" || email==="" || password===""){
-        alert("Please fill in all fields.");
-        return;
-    }
-
-    alert("Registration Successful!");
-
-    // Hii itakupeleka kwenye website yako
-    window.location.href="connection.html";
-}
-</script>
+<script type="module" src="firebase.js"></script>
 
 </body>
 </html>
