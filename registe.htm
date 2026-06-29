@@ -2,80 +2,91 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Register</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: url("https://images.unsplash.com/photo-1503264116251-35a269479413")
-        no-repeat center center/cover;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial,sans-serif;
     }
 
-    .overlay {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.6);
+    body{
+      background:url("https://images.unsplash.com/photo-1503264116251-35a269479413?w=1600") no-repeat center center/cover;
+      height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
     }
 
-    .register-form {
-      position: relative;
-      z-index: 1;
-      background: rgba(255,255,255,0.1);
-      padding: 30px;
-      border-radius: 15px;
-      backdrop-filter: blur(10px);
-      text-align: center;
-      color: white;
-      width: 320px;
+    .overlay{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.6);
     }
 
-    .input-box {
-      margin: 10px 0;
-      display: flex;
-      align-items: center;
-      background: rgba(255,255,255,0.2);
-      padding: 10px;
-      border-radius: 8px;
+    .register-form{
+      position:relative;
+      z-index:1;
+      width:350px;
+      background:rgba(255,255,255,.1);
+      backdrop-filter:blur(12px);
+      padding:30px;
+      border-radius:15px;
+      text-align:center;
+      color:#fff;
+      box-shadow:0 0 20px rgba(0,0,0,.4);
     }
 
-    .input-box i {
-      margin-right: 10px;
+    .register-form h2{
+      margin-bottom:20px;
     }
 
-    .input-box input,
-    .input-box select {
-      width: 100%;
-      border: none;
-      outline: none;
-      background: transparent;
-      color: white;
+    .input-box{
+      display:flex;
+      align-items:center;
+      background:rgba(255,255,255,.2);
+      margin:12px 0;
+      padding:12px;
+      border-radius:8px;
     }
 
-    select option {
-      color: black;
+    .input-box i{
+      margin-right:10px;
     }
 
-    button {
-      width: 100%;
-      padding: 10px;
-      margin-top: 10px;
-      border: none;
-      border-radius: 8px;
-      background: #00c6ff;
-      color: white;
-      cursor: pointer;
+    .input-box input{
+      width:100%;
+      border:none;
+      outline:none;
+      background:transparent;
+      color:white;
+      font-size:16px;
     }
 
-    button:hover {
-      background: #0072ff;
+    .input-box input::placeholder{
+      color:#ddd;
+    }
+
+    button{
+      width:100%;
+      padding:12px;
+      margin-top:15px;
+      border:none;
+      border-radius:8px;
+      background:#00c6ff;
+      color:white;
+      font-size:16px;
+      cursor:pointer;
+      transition:.3s;
+    }
+
+    button:hover{
+      background:#0072ff;
     }
   </style>
 </head>
@@ -108,21 +119,21 @@
 </div>
 
 <script>
-function registerUser() {
-  let course = document.getElementById("course").value;
+function registerUser(){
 
-  if (course === "") {
-    alert("Please select a course!");
-    return;
-  }
+    let name = document.getElementById("name").value.trim();
+    let email = document.getElementById("email").value.trim();
+    let password = document.getElementById("password").value.trim();
 
-  // Redirect based on course
-  else if (course ==="connection"){
-   ewindow.location.href="connection.html.html ";
-  }
-  else if (course === "web") {
-    window.location.href = "web.html";
-  }
+    if(name==="" || email==="" || password===""){
+        alert("Please fill in all fields.");
+        return;
+    }
+
+    alert("Registration Successful!");
+
+    // Hii itakupeleka kwenye website yako
+    window.location.href="connection.html";
 }
 </script>
 
