@@ -120,10 +120,11 @@ header h1{
     box-shadow:0 0 30px rgba(0,212,255,.6);
 }
 
-.course-image{
+.course-img{
     width:100%;
     height:220px;
     object-fit:cover;
+    border-radius:20px;
 }
 
 .course-card h2{
