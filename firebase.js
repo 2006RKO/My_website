@@ -34,9 +34,11 @@ window.registerUser = function () {
 
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      alert("Login Successful!");
-      window.location.href = "chapcy.html";
-    })
+     document.getElementById("loadingScreen").style.display = "flex";
+
+setTimeout(() => {
+    window.location.href = "chapcy.html";
+}, 2000); 
     .catch((error) => {
       alert(error.message);
     });
@@ -50,9 +52,11 @@ window.loginUser = function () {
 
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      alert("Login Successful!");
-      window.location.href = "chapcy.html";
-    })
+      document.getElementById("loadingScreen").style.display = "flex";
+
+setTimeout(() => {
+    window.location.href = "chapcy.html";
+}, 2000);
     .catch((error) => {
       alert(error.message);
     });
