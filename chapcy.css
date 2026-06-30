@@ -35,15 +35,17 @@ header div:last-child{
 /* Chat Container */
 
 .chat-box{
-    width:90%;
-    max-width:900px;
-    margin:40px auto;
+    width:95%;
+    max-width:1200px;
+    height:85vh;
+    margin:20px auto;
     background:#11142d;
     border-radius:18px;
     padding:20px;
     box-shadow:0 0 20px rgba(0,0,0,.4);
+    display:flex;
+    flex-direction:column;
 }
-
 .chat-box h2{
     margin-bottom:20px;
     color:#8b5cf6;
@@ -52,7 +54,7 @@ header div:last-child{
 /* Messages */
 
 #messages{
-    height:450px;
+    flex:1;
     overflow-y:auto;
     background:#0c1025;
     border-radius:12px;
@@ -142,4 +144,13 @@ button{
     width:100%;
 }
 
+}
+.input-area{
+    display:flex;
+    gap:10px;
+    margin-top:auto;
+}
+
+#message{
+    flex:1;
 }
