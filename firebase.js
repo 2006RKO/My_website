@@ -34,7 +34,7 @@ window.registerUser = function () {
 
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      alert("Registration Successful!");
+      alert("Login Successful!");
       window.location.href = "chapcy.html";
     })
     .catch((error) => {
