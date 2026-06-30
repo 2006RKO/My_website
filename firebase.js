@@ -34,17 +34,20 @@ window.registerUser = function () {
 
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-     document.getElementById("loadingScreen").style.display = "flex";
 
-setTimeout(() => {
-    window.location.href = "chapcy.html";
-}, 2000); 
+      document.getElementById("loadingScreen").style.display = "flex";
+
+      setTimeout(() => {
+        window.location.href = "chapcy.html";
+      }, 2000);
+
+    })
     .catch((error) => {
       alert(error.message);
     });
+
 };
 
-// LOGIN
 window.loginUser = function () {
 
   const email = document.getElementById("email").value;
@@ -52,12 +55,16 @@ window.loginUser = function () {
 
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
+
       document.getElementById("loadingScreen").style.display = "flex";
 
-setTimeout(() => {
-    window.location.href = "chapcy.html";
-}, 2000);
+      setTimeout(() => {
+        window.location.href = "chapcy.html";
+      }, 2000);
+
+    })
     .catch((error) => {
       alert(error.message);
     });
+
 };
