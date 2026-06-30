@@ -5,14 +5,13 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
 const firebaseConfig = {
   apiKey: "AIzaSyDIID2LpzjLiqaLeLJKgp-Vd7tNIyN-M1k",
   authDomain: "rko-website-design-2f792.firebaseapp.com",
   projectId: "rko-website-design-2f792",
   storageBucket: "rko-website-design-2f792.firebasestorage.app",
   messagingSenderId: "782567629866",
-  appId: "1:782567629866:web:d6d80d454d0653ea8b4f53"
+  appId: "1:782567629866:web:2aa401ae2c256b778b4f53"
 };
 
 const app = initializeApp(firebaseConfig);
