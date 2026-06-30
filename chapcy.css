@@ -195,3 +195,19 @@ button{
     right:3px;
     border:2px solid #11142d;
 }
+/* Typing Indicator */
+
+.typing{
+    display:none;
+    color:#8b5cf6;
+    font-size:15px;
+    font-style:italic;
+    margin:8px 5px 12px;
+    animation:blink 1s infinite;
+}
+
+@keyframes blink{
+    0%{opacity:0.4;}
+    50%{opacity:1;}
+    100%{opacity:0.4;}
+}
