@@ -5,20 +5,15 @@
 }
 
 body{
-    margin:0;
-    font-family:Arial,sans-serif;
-    color:#fff;
+    background:
+        linear-gradient(rgba(5,20,60,.75), rgba(5,20,60,.85)),
+        url("/istockphoto-1329896509-1024x1024.jpg");
 
-    background-image:
-    linear-gradient(rgba(5,20,60,0.65), rgba(5,20,60,0.65)),
-    url("istockphoto-1329896509-1024x1024.jpg");
-
-    background-size:cover;
-    background-position:center;
-    background-repeat:no-repeat;
-    background-attachment:fixed;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
-
 /* HEADER */
 
 .header{
