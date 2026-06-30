@@ -141,48 +141,6 @@ nav a:hover{
     box-shadow:0 0 40px rgba(0,195,255,.7);
 }
 
-/* FEATURES */
-
-.features{
-    display:flex;
-    justify-content:center;
-    gap:30px;
-    flex-wrap:wrap;
-    padding:80px 8%;
-}
-
-.card{
-    width:300px;
-    background:rgba(255,255,255,.08);
-    backdrop-filter:blur(15px);
-    border:1px solid rgba(255,255,255,.15);
-    border-radius:20px;
-    text-align:center;
-    padding:35px 25px;
-    transition:.4s;
-}
-
-.card:hover{
-    transform:translateY(-10px);
-    box-shadow:0 0 30px #00c3ff;
-}
-
-.card i{
-    font-size:55px;
-    color:#00d4ff;
-    margin-bottom:20px;
-}
-
-.card h3{
-    margin-bottom:15px;
-    font-size:28px;
-}
-
-.card p{
-    color:#ddd;
-    line-height:1.7;
-}
-
 /* SOCIAL */
 
 .social{
@@ -262,5 +220,46 @@ nav{
 .card{
     width:100%;
 }
+/* ===== EXPLORE THE WORLD ===== */
 
+.explore{
+    padding:80px 8%;
+    text-align:center;
+}
+
+.explore h2{
+    font-size:40px;
+    color:#00d4ff;
+    margin-bottom:40px;
+    text-shadow:0 0 15px #00c3ff;
+}
+
+.country-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+}
+
+.country-card{
+    background:rgba(255,255,255,.08);
+    border-radius:20px;
+    overflow:hidden;
+    transition:.4s;
+    box-shadow:0 0 20px rgba(0,195,255,.2);
+}
+
+.country-card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 0 30px #00c3ff;
+}
+
+.country-card img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+}
+
+.country-card h3{
+    padding:15px;
+    color:#fff;
 }
