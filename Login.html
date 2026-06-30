@@ -96,6 +96,42 @@ a{
 color:#00c6ff;
 text-decoration:none;
 }
+ .loading-screen{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:#090b1d;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    z-index:9999;
+}
+
+.loading-logo{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    animation:spin 2s linear infinite;
+}
+
+.loading-screen h2{
+    color:white;
+    margin-top:20px;
+    font-size:30px;
+}
+
+.loading-screen p{
+    color:#8b5cf6;
+    font-size:18px;
+}
+
+@keyframes spin{
+    from{transform:rotate(0deg);}
+    to{transform:rotate(360deg);}
+}   
 </style>
 
 </head>
