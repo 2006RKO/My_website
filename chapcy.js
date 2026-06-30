@@ -1,5 +1,7 @@
 import { db } from "./firebase.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
+const auth = getAuth();
 import {
   ref,
   push,
@@ -9,12 +11,19 @@ import {
 const chatRef = ref(db, "messages");
 
 // Kutuma message
-window.sendMessage = function () {
+const user = auth.currentUser;
+
+if (!user) {
+    alert("Please login first.");
+    return;
+}
+
+const username = user.email;
 
     const username = document.getElementById("username").value.trim();
     const message = document.getElementById("message").value.trim();
 
-    if (username === "" || message === "") {
+    if (username === ""{
         alert("Please enter your name and message.");
         return;
     }
