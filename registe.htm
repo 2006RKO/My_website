@@ -88,6 +88,51 @@
     button:hover{
       background:#0072ff;
     }
+    .loading-screen{
+    position:fixed;
+    inset:0;
+    background:linear-gradient(180deg,#07081b,#090b20,#060718);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    z-index:9999;
+}
+
+.loading-logo{
+    width:180px;
+    height:180px;
+    border-radius:50%;
+    margin-bottom:25px;
+    box-shadow:0 0 35px #8b5cf6;
+}
+
+.loading-screen h2{
+    color:#fff;
+    font-size:58px;
+    font-weight:bold;
+    letter-spacing:4px;
+    margin-bottom:20px;
+}
+
+.loading-screen p{
+    color:#8b5cf6;
+    font-size:28px;
+    font-family:'Poppins',sans-serif;
+}
+
+.loading-screen p::after{
+    content:"";
+    animation:dots 1.5s infinite;
+}
+
+@keyframes dots{
+    0%{content:"";}
+    25%{content:".";}
+    50%{content:"..";}
+    75%{content:"...";}
+    100%{content:"....";}
+}
   </style>
 </head>
 
@@ -117,7 +162,6 @@
 <button onclick="registerUser()">Register</button>
 
 </div>
-  </div>
 
 <div id="loadingScreen" class="loading-screen">
     <img src="file_000000004f547243bb0fa43d66db1edf.png" class="loading-logo" alt="CHAPCY Logo">
@@ -126,9 +170,6 @@
 </div>
 
 <script type="module" src="firebase.js"></script>
-
-</body>
-</html>
 
 </body>
 </html>
