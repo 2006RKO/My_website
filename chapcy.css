@@ -15,9 +15,19 @@ header{
 }
 
 .logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
     font-size:30px;
     font-weight:bold;
     color:#8b5cf6;
+}
+
+.logo img{
+    width:55px;
+    height:55px;
+    border-radius:50%;
+    object-fit:cover;
 }
 
 /* Chat Container */
