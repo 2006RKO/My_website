@@ -49,3 +49,4 @@ window.loginUser = function () {
       alert(error.message);
     });
 };
+Update redirect after login
