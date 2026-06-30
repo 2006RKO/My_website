@@ -5,9 +5,15 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+import {
+  getDatabase
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
 const firebaseConfig = {
   apiKey: "AIzaSyDIID2LpzjLiqaLeLJKgp-Vd7tNIyN-M1k",
   authDomain: "rko-website-design-2f792.firebaseapp.com",
+  databaseURL: "https://rko-website-design-2f792-default-rtdb.firebaseio.com",
   projectId: "rko-website-design-2f792",
   storageBucket: "rko-website-design-2f792.firebasestorage.app",
   messagingSenderId: "782567629866",
@@ -16,6 +22,9 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getDatabase(app);
+
+export { db };
 
 // REGISTER
 window.registerUser = function () {
