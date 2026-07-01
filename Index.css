@@ -604,3 +604,29 @@ footer{
     box-shadow:0 0 25px #00d4ff,
                0 0 60px #00d4ff;
 }
+/* Contact icons */
+.contact-item{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.contact-item img{
+    width:55px;
+    height:55px;
+    border-radius:50%;
+    object-fit:cover;
+    box-shadow:0 0 15px #00d4ff;
+}
+
+.contact-item h3{
+    font-size:22px;
+    color:#00d4ff;
+    margin:0;
+}
+
+.contact-item p{
+    margin:5px 0 0;
+    color:#fff;
+    font-size:16px;
+}
