@@ -513,20 +513,20 @@ order:3;
 }
 /* ===== BUSINESS GROUP LOGO ===== */
 
-.feature-box img{
-    width:90px;
-    height:90px;
-    object-fit:contain;
+.card img{
+    width:100px;
+    height:100px;
+    object-fit:cover;
     display:block;
     margin:0 auto 20px;
     border-radius:50%;
-    padding:12px;
-    background:rgba(255,255,255,0.05);
-    box-shadow:0 0 20px rgba(0,255,170,.7);
+    padding:8px;
+    background:rgba(255,255,255,.05);
+    box-shadow:0 0 25px #00d4ff;
     transition:.3s;
 }
 
-.feature-box:hover img{
-    transform:scale(1.1);
-    box-shadow:0 0 35px rgba(0,255,170,1);
+.card:hover img{
+    transform:scale(1.08);
+    box-shadow:0 0 35px #00d4ff;
 }
