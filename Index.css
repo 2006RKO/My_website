@@ -551,3 +551,47 @@ footer{
 }
 
 }
+/* HERO TEXT */
+
+.hero-left h2{
+    font-size:40px;
+    font-weight:bold;
+    color:#fff;
+    letter-spacing:2px;
+}
+
+.hero-left h1{
+    font-size:80px;
+    color:#00d4ff;
+    text-shadow:0 0 25px #00d4ff;
+    margin:10px 0;
+}
+
+.hero-left p{
+    font-size:28px;
+    line-height:1.8;
+    max-width:650px;
+    margin:25px 0;
+}
+
+/* ENTER NOW BUTTON */
+
+.hero-btn{
+    display:inline-block;
+    padding:18px 50px;
+    border-radius:40px;
+    text-decoration:none;
+    color:#fff;
+    font-size:22px;
+    font-weight:bold;
+    background:#00bfff;
+    box-shadow:0 0 15px #00d4ff,
+               0 0 35px #00d4ff;
+    transition:.3s;
+}
+
+.hero-btn:hover{
+    transform:scale(1.08);
+    box-shadow:0 0 25px #00d4ff,
+               0 0 60px #00d4ff;
+}
