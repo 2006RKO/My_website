@@ -1,58 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<div class="chat-container">
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <h2>🌍 CHAPCY Worldwide Live Chat</h2>
 
-<title>CHAPCY Worldwide Chat</title>
+    <div class="online-status">
+        <span class="online-dot"></span>
+        <span>1,254 Users Online</span>
+    </div>
 
-<link rel="stylesheet" href="chapcy.css">
+    <div id="chat-box" class="chat-box">
 
-</head>
+        <div class="message me">
+            <span class="flag">🇹🇿</span>
+            <strong>Said</strong><br>
+            Hello everyone 👋
+        </div>
 
-<body>
+        <div class="message other">
+            <span class="flag">🇰🇪</span>
+            <strong>Kevin</strong><br>
+            Welcome 🌍
+        </div>
 
-<header>
+        <div class="message other">
+            <span class="flag">🇺🇸</span>
+            <strong>John</strong><br>
+            Nice to meet you.
+        </div>
 
-<div class="logo">
-    <img src="file_000000004f547243bb0fa43d66db1edf.png" alt="CHAPCY Logo">
-    CHAPCY
-</div>
+    </div>
 
-<div>
-Worldwide Live Chat
-</div>
+    <div class="input-area">
 
-</header>
+        <button>😊</button>
 
-<div class="chat-box">
+        <button>📎</button>
 
-<h2>Global Chat Room</h2>
+        <input
+        type="text"
+        placeholder="Type your message...">
 
-<div id="messages">
+        <button>🎤</button>
 
-</div>
+    </div>
 
-<div class="input-area">
-
-<div id="typingIndicator" class="typing">
-    ✍️ Someone is typing...
-</div>
-<input
-type="text"
-id="message"
-placeholder="Type your message...">
-
-<button onclick="sendMessage()">
-Send
-</button>
-
-</div>
+    <button class="send-btn">
+        SEND
+    </button>
 
 </div>
-
-<script type="module" src="firebase.js"></script>
-<script type="module" src="chapcy.js"></script>
-</body>
-</html>
