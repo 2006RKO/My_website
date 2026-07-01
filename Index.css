@@ -1,3 +1,7 @@
+/* ==========================
+   RESET
+========================== */
+
 *{
     margin:0;
     padding:0;
@@ -7,22 +11,30 @@
 body{
     font-family:Arial,sans-serif;
     color:#fff;
-    background:url("12.jpg") center center/cover no-repeat fixed;
+    background:
+    linear-gradient(rgba(5,15,40,.65),rgba(5,15,40,.65)),
+    url("12.jpg");
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    background-attachment:fixed;
 }
 
-/* HEADER */
+/* ==========================
+   HEADER
+========================== */
 
 .header{
     position:fixed;
     top:0;
     left:0;
     width:100%;
-    padding:15px 8%;
+    padding:18px 8%;
     display:flex;
     justify-content:space-between;
     align-items:center;
-    background:rgba(0,0,0,.45);
-    backdrop-filter:blur(12px);
+    background:rgba(0,0,0,.25);
+    backdrop-filter:blur(15px);
     z-index:1000;
 }
 
@@ -33,25 +45,27 @@ body{
 }
 
 .logo img{
-    width:75px;
-    height:75px;
+    width:70px;
+    height:70px;
     border-radius:50%;
     box-shadow:0 0 20px #00d4ff;
 }
 
 .logo h1{
-    font-size:34px;
     color:#00d4ff;
+    font-size:34px;
+    text-shadow:0 0 15px #00d4ff;
 }
 
 .logo p{
-    font-size:15px;
     color:#ddd;
+    font-size:15px;
 }
 
 nav{
     display:flex;
-    gap:25px;
+    align-items:center;
+    gap:28px;
 }
 
 nav a{
@@ -65,21 +79,388 @@ nav a:hover{
     color:#00d4ff;
 }
 
-/* HERO */
+/* JOIN BUTTON */
+
+.join-btn{
+    padding:12px 28px;
+    border-radius:30px;
+    background:#00d4ff;
+    color:#fff;
+    text-decoration:none;
+    font-weight:bold;
+    box-shadow:0 0 20px #00d4ff;
+    transition:.3s;
+}
+
+.join-btn:hover{
+    background:#008cff;
+    transform:scale(1.05);
+}
+
+/* ==========================
+   HERO
+========================== */
 
 .hero{
-    height:100vh;
+    min-height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
     text-align:center;
-    padding:0 20px;
-    background:rgba(0,0,0,.45);
+    padding:120px 8% 60px;
 }
 
-.overlay{
+.hero-content{
     max-width:850px;
 }
 
-.overlay h1{
-   
+.hero h2{
+    font-size:30px;
+    color:#ffffff;
+    letter-spacing:2px;
+}
+
+.hero h1{
+    font-size:75px;
+    color:#00d4ff;
+    text-shadow:0 0 25px #00d4ff;
+    margin:15px 0;
+}
+
+.hero p{
+    font-size:22px;
+    line-height:1.8;
+    color:#eee;
+    margin-bottom:35px;
+}
+
+.hero span{
+    color:#00d4ff;
+}
+
+.hero-btn{
+    display:inline-block;
+    padding:16px 45px;
+    background:linear-gradient(90deg,#00d4ff,#008cff);
+    border-radius:40px;
+    text-decoration:none;
+    color:#fff;
+    font-size:18px;
+    font-weight:bold;
+    box-shadow:0 0 25px #00d4ff;
+    transition:.3s;
+}
+
+.hero-btn:hover{
+    transform:translateY(-5px);
+    box-shadow:0 0 35px #00d4ff;
+}
+/* ==========================
+   INFO SECTION
+========================== */
+
+.info-section{
+    width:90%;
+    margin:70px auto;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:30px;
+}
+
+.info-box{
+    background:rgba(10,20,40,.55);
+    backdrop-filter:blur(15px);
+    border:2px solid rgba(0,212,255,.30);
+    border-radius:25px;
+    padding:35px 25px;
+    text-align:center;
+    transition:.4s;
+    box-shadow:0 0 20px rgba(0,212,255,.20);
+}
+
+.info-box:hover{
+    transform:translateY(-10px);
+    box-shadow:0 0 35px #00d4ff;
+}
+
+.icon-circle{
+    width:90px;
+    height:90px;
+    margin:auto;
+    margin-bottom:20px;
+    border-radius:50%;
+    background:rgba(0,212,255,.15);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    box-shadow:0 0 20px rgba(0,212,255,.4);
+}
+
+.icon-circle i{
+    font-size:42px;
+    color:#00d4ff;
+}
+
+.info-box h2{
+    color:#00d4ff;
+    margin-bottom:15px;
+    font-size:28px;
+}
+
+.info-box p{
+    color:#ddd;
+    line-height:1.8;
+    font-size:17px;
+}
+
+/* ==========================
+   CONTACT BAR
+========================== */
+
+.contact-bar{
+    width:90%;
+    margin:50px auto;
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.contact-item{
+    flex:1;
+    text-decoration:none;
+    color:#fff;
+    background:rgba(10,20,40,.55);
+    backdrop-filter:blur(15px);
+    border:2px solid rgba(0,212,255,.30);
+    border-radius:20px;
+    padding:25px;
+    display:flex;
+    align-items:center;
+    gap:18px;
+    transition:.3s;
+}
+
+.contact-item:hover{
+    transform:translateY(-8px);
+    box-shadow:0 0 30px #00d4ff;
+}
+
+.contact-item i{
+    font-size:42px;
+    color:#00d4ff;
+}
+
+.contact-item h3{
+    font-size:22px;
+    margin-bottom:6px;
+}
+
+.contact-item p{
+    color:#ccc;
+    font-size:15px;
+}
+
+/* ==========================
+   FOOTER
+========================== */
+
+footer{
+    margin-top:40px;
+    background:rgba(0,0,0,.35);
+    text-align:center;
+    padding:25px;
+    color:#ddd;
+    font-size:16px;
+}
+
+footer span{
+    color:#00d4ff;
+    font-weight:bold;
+}
+/* ==========================
+   ANIMATIONS
+========================== */
+
+@keyframes fadeUp{
+
+    from{
+        opacity:0;
+        transform:translateY(40px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+.hero-content{
+    animation:fadeUp 1s ease;
+}
+
+.info-box{
+    animation:fadeUp 1.2s ease;
+}
+
+.contact-item{
+    animation:fadeUp 1.4s ease;
+}
+
+/* Smooth Hover */
+
+.logo img,
+.hero-btn,
+.join-btn,
+.info-box,
+.contact-item{
+    transition:.35s ease;
+}
+
+.logo img:hover{
+    transform:rotate(10deg) scale(1.08);
+}
+
+.hero-btn:hover,
+.join-btn:hover{
+    transform:translateY(-5px) scale(1.05);
+}
+
+.info-box:hover{
+    border-color:#00d4ff;
+}
+
+.contact-item:hover i{
+    transform:scale(1.15);
+    color:#ffffff;
+}
+
+/* Scrollbar */
+
+::-webkit-scrollbar{
+    width:10px;
+}
+
+::-webkit-scrollbar-track{
+    background:#071526;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#00d4ff;
+    border-radius:20px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background:#00aaff;
+}
+
+/* ==========================
+   RESPONSIVE
+========================== */
+
+@media (max-width:992px){
+
+.header{
+    flex-direction:column;
+    gap:15px;
+    padding:20px;
+}
+
+nav{
+    flex-wrap:wrap;
+    justify-content:center;
+}
+
+.hero{
+    padding-top:180px;
+}
+
+.hero h1{
+    font-size:55px;
+}
+
+.hero h2{
+    font-size:24px;
+}
+
+.hero p{
+    font-size:18px;
+}
+
+.info-section{
+    grid-template-columns:1fr;
+}
+
+.contact-bar{
+    flex-direction:column;
+}
+
+}
+
+@media (max-width:768px){
+
+.logo img{
+    width:55px;
+    height:55px;
+}
+
+.logo h1{
+    font-size:28px;
+}
+
+.logo p{
+    font-size:14px;
+}
+
+nav{
+    gap:15px;
+}
+
+nav a{
+    font-size:16px;
+}
+
+.hero h1{
+    font-size:42px;
+}
+
+.hero h2{
+    font-size:20px;
+}
+
+.hero p{
+    font-size:16px;
+}
+
+.hero-btn{
+    padding:14px 35px;
+    font-size:16px;
+}
+
+.info-box{
+    padding:25px;
+}
+
+.icon-circle{
+    width:75px;
+    height:75px;
+}
+
+.icon-circle i{
+    font-size:34px;
+}
+
+.contact-item{
+    flex-direction:column;
+    text-align:center;
+}
+
+.contact-item i{
+    font-size:40px;
+}
+
+footer{
+    font-size:14px;
+}
+
+}
