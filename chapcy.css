@@ -1,207 +1,116 @@
-/* ==========================
-   CHAT CONTAINER
-========================== */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:url("background.jpg") center center/cover no-repeat fixed;
+    min-height:100vh;
+    color:white;
+}
+
+/* HEADER */
+
+.header{
+    text-align:center;
+    padding:25px 10px;
+    background:rgba(0,0,0,.45);
+}
+
+.header img{
+    width:70px;
+    height:70px;
+    border-radius:50%;
+}
+
+.header h1{
+    color:#b56cff;
+    margin-top:10px;
+    font-size:42px;
+}
+
+.header p{
+    font-size:18px;
+}
+
+/* CHAT CONTAINER */
 
 .chat-container{
-    width:90%;
-    max-width:1000px;
-    margin:40px auto;
-    padding:30px;
-    background:rgba(10,20,40,.75);
-    backdrop-filter:blur(15px);
-    border:2px solid rgba(0,212,255,.4);
+    width:95%;
+    max-width:760px;
+    margin:30px auto;
+    padding:25px;
     border-radius:25px;
-    box-shadow:0 0 30px rgba(0,212,255,.25);
+    background:rgba(15,25,55,.80);
+    backdrop-filter:blur(10px);
 }
 
 .chat-container h2{
-    color:#00d4ff;
-    text-align:center;
-    margin-bottom:15px;
-    text-shadow:0 0 15px #00d4ff;
+    margin-bottom:25px;
+    font-size:24px;
 }
 
-/* ==========================
-   ONLINE STATUS
-========================== */
-
-.online-status{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:10px;
-    margin-bottom:20px;
-    color:#fff;
-    font-weight:bold;
-}
-
-.online-dot{
-    width:12px;
-    height:12px;
-    background:#00ff66;
-    border-radius:50%;
-    box-shadow:0 0 12px #00ff66;
-    animation:pulse 1.5s infinite;
-}
-
-@keyframes pulse{
-    0%{transform:scale(1);}
-    50%{transform:scale(1.4);}
-    100%{transform:scale(1);}
-}
-
-/* ==========================
-   CHAT BOX
-========================== */
+/* CHAT BOX */
 
 .chat-box{
-    height:450px;
-    overflow-y:auto;
+    height:550px;
     background:rgba(0,0,0,.35);
     border-radius:20px;
     padding:20px;
-    border:1px solid rgba(0,212,255,.25);
+    overflow-y:auto;
+    margin-bottom:20px;
 }
 
-/* ==========================
-   MESSAGE
-========================== */
-
-.message{
-    max-width:75%;
-    padding:12px 16px;
-    border-radius:18px;
-    margin:15px 0;
-    line-height:1.6;
-    animation:fade .3s ease;
-}
-
-.me{
-    margin-left:auto;
-    background:#00c3ff;
-    color:#fff;
-    box-shadow:0 0 15px rgba(0,195,255,.5);
-}
-
-.other{
-    background:#2b2b2b;
-    color:#fff;
-}
-
-.flag{
-    font-size:20px;
-    margin-right:8px;
-}
-
-@keyframes fade{
-    from{
-        opacity:0;
-        transform:translateY(10px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-
-/* ==========================
-   INPUT AREA
-========================== */
+/* INPUT */
 
 .input-area{
     display:flex;
-    align-items:center;
-    gap:12px;
-    margin-top:20px;
-}
-
-.input-area button{
-    width:50px;
-    height:50px;
-    border:none;
-    border-radius:50%;
-    background:#00c3ff;
-    color:white;
-    font-size:22px;
-    cursor:pointer;
-    transition:.3s;
-}
-
-.input-area button:hover{
-    transform:scale(1.1);
-    box-shadow:0 0 20px #00d4ff;
+    flex-direction:column;
+    gap:15px;
 }
 
 .input-area input{
-    flex:1;
-    height:50px;
+    width:100%;
+    padding:16px;
     border:none;
-    border-radius:30px;
-    padding:0 20px;
-    background:rgba(255,255,255,.08);
+    border-radius:12px;
+    background:rgba(255,255,255,.12);
     color:white;
-    font-size:16px;
-    outline:none;
+    font-size:17px;
 }
 
 .input-area input::placeholder{
     color:#bbb;
 }
 
-/* ==========================
-   SEND BUTTON
-========================== */
+/* SEND BUTTON */
 
 .send-btn{
-    width:100%;
-    margin-top:20px;
-    padding:16px;
     border:none;
-    border-radius:35px;
-    background:linear-gradient(90deg,#00c3ff,#00e5ff);
+    padding:18px;
+    border-radius:14px;
+    font-size:20px;
     color:white;
-    font-size:18px;
-    font-weight:bold;
     cursor:pointer;
-    transition:.3s;
-    box-shadow:0 0 20px rgba(0,212,255,.45);
+    background:linear-gradient(90deg,#9b5cff,#8f5aff);
 }
 
 .send-btn:hover{
-    transform:translateY(-3px);
-    box-shadow:0 0 30px #00d4ff;
+    opacity:.9;
 }
 
-/* ==========================
-   MOBILE
-========================== */
+/* MOBILE */
 
 @media(max-width:768px){
 
-.chat-container{
-    width:95%;
-    padding:20px;
+.header h1{
+    font-size:30px;
 }
 
 .chat-box{
-    height:350px;
-}
-
-.message{
-    max-width:90%;
-}
-
-.input-area button{
-    width:45px;
-    height:45px;
-}
-
-.input-area input{
-    font-size:15px;
-}
-
-.send-btn{
-    font-size:16px;
+    height:420px;
 }
 
 }
