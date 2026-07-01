@@ -233,9 +233,18 @@ nav a:hover{
     box-shadow:0 0 30px #00d4ff;
 }
 
-.contact-item i{
-    font-size:42px;
-    color:#00d4ff;
+.contact-item img{
+    width:65px;
+    height:65px;
+    border-radius:50%;
+    object-fit:cover;
+    box-shadow:0 0 20px #00d4ff;
+    transition:.3s;
+}
+
+.contact-item:hover img{
+    transform:scale(1.1);
+    box-shadow:0 0 30px #00d4ff;
 }
 
 .contact-item h3{
