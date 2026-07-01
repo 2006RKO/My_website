@@ -644,3 +644,61 @@ footer{
     align-items:center;
     gap:18px;
 }
+/* ===== FINAL IMPROVEMENTS ===== */
+
+/* Nafasi kati ya mabox */
+.info-box,
+.contact-card{
+    margin-bottom:35px;
+}
+
+/* Contact icons */
+.contact-item{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.contact-item img{
+    width:60px;
+    height:60px;
+    object-fit:cover;
+    border-radius:50%;
+    box-shadow:0 0 15px #00d4ff;
+    transition:.3s;
+}
+
+.contact-item:hover img{
+    transform:scale(1.1);
+    box-shadow:0 0 25px #00d4ff;
+}
+
+/* ENTER NOW Button */
+.hero-btn{
+    display:inline-block;
+    padding:18px 50px;
+    font-size:22px;
+    font-weight:bold;
+    color:#fff;
+    text-decoration:none;
+    border-radius:40px;
+    background:linear-gradient(90deg,#00d4ff,#008cff);
+    box-shadow:0 0 15px #00d4ff,0 0 35px #00d4ff;
+    animation:pulse 1.8s infinite;
+}
+
+.hero-btn:hover{
+    transform:scale(1.08);
+}
+
+@keyframes pulse{
+    0%{
+        box-shadow:0 0 10px #00d4ff;
+    }
+    50%{
+        box-shadow:0 0 35px #00d4ff,0 0 60px #00d4ff;
+    }
+    100%{
+        box-shadow:0 0 10px #00d4ff;
+    }
+}
