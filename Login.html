@@ -16,11 +16,23 @@ font-family:Arial,sans-serif;
 }
 
 body{
-background:url("https://images.unsplash.com/photo-1503264116251-35a269479413?w=1600") no-repeat center center/cover;
-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
+    margin:0;
+    padding:0;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:
+    linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.55)),
+    url("file_0000000005347246b81a1dcb123db1a2.png");
+
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    background-attachment:fixed;
+
+    font-family:Arial,sans-serif;
 }
 
 .overlay{
@@ -30,22 +42,26 @@ background:rgba(0,0,0,.6);
 }
 
 .login-form{
-position:relative;
-z-index:1;
-width:350px;
-background:rgba(255,255,255,.1);
-backdrop-filter:blur(12px);
-padding:30px;
-border-radius:15px;
-text-align:center;
-color:#fff;
-box-shadow:0 0 20px rgba(0,0,0,.4);
-}
+    position:relative;
+    z-index:1;
+    width:400px;
+    padding:35px;
+    border-radius:25px;
+    text-align:center;
+    color:#fff;
 
-.login-form h2{
-margin-bottom:20px;
-}
+    background:
+    linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.45)),
+    url("file_0000000005347246b81a1dcb123db1a2.png");
 
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+
+    border:2px solid #00d4ff;
+    box-shadow:0 0 35px rgba(0,212,255,.8);
+    backdrop-filter:blur(15px);
+}
 .input-box{
 display:flex;
 align-items:center;
@@ -152,7 +168,10 @@ text-decoration:none;
 
 <div class="login-form">
 
-<h2>Login</h2>
+<img src="file_000000004f547243bb0fa43d66db1edf.png"
+style="width:90px;height:90px;border-radius:50%;box-shadow:0 0 20px #00d4ff;margin-bottom:15px;">
+
+<h2 style="margin-bottom:20px;">Login</h2>
 
 <div class="input-box">
 <i class="fa fa-envelope"></i>
