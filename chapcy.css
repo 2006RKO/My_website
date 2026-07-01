@@ -511,3 +511,22 @@ order:3;
     transform:scale(1.08);
     box-shadow:0 0 40px #ff4dff;
 }
+/* ===== BUSINESS GROUP LOGO ===== */
+
+.feature-box img{
+    width:90px;
+    height:90px;
+    object-fit:contain;
+    display:block;
+    margin:0 auto 20px;
+    border-radius:50%;
+    padding:12px;
+    background:rgba(255,255,255,0.05);
+    box-shadow:0 0 20px rgba(0,255,170,.7);
+    transition:.3s;
+}
+
+.feature-box:hover img{
+    transform:scale(1.1);
+    box-shadow:0 0 35px rgba(0,255,170,1);
+}
