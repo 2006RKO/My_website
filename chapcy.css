@@ -374,3 +374,140 @@ order:3;
 }
 
 }
+/* ===== Cards ===== */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:25px;
+    margin-top:30px;
+}
+
+.card{
+    background:rgba(10,20,45,.85);
+    border:2px solid #00cfff;
+    border-radius:22px;
+    padding:35px 25px;
+    text-align:center;
+    backdrop-filter:blur(15px);
+    transition:.4s;
+    box-shadow:0 0 18px rgba(0,212,255,.3);
+}
+
+.card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 0 30px #00d4ff;
+}
+
+/* ICON */
+
+.card i{
+    width:110px;
+    height:110px;
+    line-height:110px;
+    border-radius:50%;
+    font-size:50px;
+    margin-bottom:20px;
+}
+
+/* Marketplace */
+
+.marketplace i{
+    color:#21c4ff;
+    border:2px solid #21c4ff;
+    box-shadow:0 0 20px #21c4ff;
+}
+
+/* Groups */
+
+.groups i{
+    color:#23ff7d;
+    border:2px solid #23ff7d;
+    box-shadow:0 0 20px #23ff7d;
+}
+
+/* Gaming */
+
+.gaming i{
+    color:#ff4dff;
+    border:2px solid #ff4dff;
+    box-shadow:0 0 20px #ff4dff;
+}
+
+.card h2{
+    color:white;
+    font-size:30px;
+    margin:15px 0;
+}
+
+.card p{
+    color:#ddd;
+    line-height:1.8;
+    margin-bottom:30px;
+}
+
+/* BUTTON */
+
+.card a{
+    display:inline-block;
+    text-decoration:none;
+    padding:14px 35px;
+    border-radius:35px;
+    font-size:18px;
+    font-weight:bold;
+    transition:.3s;
+}
+
+/* Marketplace Button */
+
+.marketplace a{
+    color:#21c4ff;
+    border:2px solid #21c4ff;
+}
+
+.marketplace a:hover{
+    background:#21c4ff;
+    color:#fff;
+}
+
+/* Groups Button */
+
+.groups a{
+    color:#23ff7d;
+    border:2px solid #23ff7d;
+}
+
+.groups a:hover{
+    background:#23ff7d;
+    color:#000;
+}
+
+/* Gaming Button */
+
+.gaming a{
+    color:#ff4dff;
+    border:2px solid #ff4dff;
+}
+
+.gaming a:hover{
+    background:#ff4dff;
+    color:#fff;
+}
+.game-logo{
+    width:110px;
+    height:110px;
+    object-fit:contain;
+    display:block;
+    margin:0 auto 20px;
+    border-radius:50%;
+    padding:10px;
+    border:2px solid #ff4dff;
+    background:rgba(255,255,255,.05);
+    box-shadow:0 0 25px #ff4dff;
+    transition:.3s;
+}
+
+.game-logo:hover{
+    transform:scale(1.08);
+    box-shadow:0 0 40px #ff4dff;
+}
