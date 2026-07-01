@@ -630,3 +630,17 @@ footer{
     color:#fff;
     font-size:16px;
 }
+.contact-icon{
+    width:60px !important;
+    height:60px !important;
+    object-fit:cover;
+    border-radius:50%;
+    display:block;
+    flex-shrink:0;
+}
+
+.contact-item{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
