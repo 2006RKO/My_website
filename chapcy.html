@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
@@ -16,13 +17,11 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 <body>
 
-<!-- HEADER -->
-
 <header class="header">
 
 <div class="logo">
 
-<img src="file_000000004f547243bb0fa43d66db1edf.png" alt="CHAPCY Logo">
+<img src="file_000000004f547243bb0fa43d66db1edf.png" alt="Logo">
 
 <div>
 
@@ -36,67 +35,59 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 </header>
 
-<!-- CHAT BOARD -->
+<main class="chat-board">
 
-<section class="chat-container">
+<div class="chat-header">
 
-<div class="chat-title">
+<div class="room">
 
-<img src="file_000000004f547243bb0fa43d66db1edf.png" alt="Logo">
+<img src="file_000000004f547243bb0fa43d66db1edf.png">
 
 <div>
 
 <h2>Global Chat Room</h2>
 
-<span class="online">
-🟢 <span id="onlineCount">1,254</span> Users Online
-</span>
+<p class="online">
+🟢 <span id="onlineUsers">0</span> Users Online
+</p>
 
 </div>
 
 </div>
 
-<div class="chat-box" id="chatBox">
-
-<div class="message other">
-🇰🇪 Kevin : Welcome to CHAPCY 🌍
 </div>
 
-<div class="message me">
-🇹🇿 Said : Hello everyone 👋
-</div>
+<div id="chatBox" class="chat-box">
 
 </div>
 
-<div class="input-area">
+<div class="message-area">
 
-<button class="icon-btn">
-😊
-</button>
+<button class="tool-btn">😊</button>
 
-<button class="icon-btn">
-📎
-</button>
+<button class="tool-btn">📎</button>
 
 <input
 type="text"
 id="messageInput"
 placeholder="Type your message...">
 
-<button class="icon-btn">
-🎤
-</button>
+<button class="tool-btn">🎤</button>
 
-<button class="send-btn">
+<button id="sendBtn">
+
 <i class="fas fa-paper-plane"></i>
+
 Send
+
 </button>
 
 </div>
 
-</section>
+</main>
 
 <script src="chapcy.js"></script>
 
 </body>
+
 </html>
