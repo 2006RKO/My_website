@@ -5,11 +5,14 @@
 }
 
 body{
-    font-family:Arial, sans-serif;
+    margin:0;
+    font-family:Arial,sans-serif;
     color:#fff;
+
     background:
-    linear-gradient(rgba(0,10,30,.65),rgba(0,10,30,.65)),
+    linear-gradient(rgba(0,10,30,.55), rgba(0,10,30,.70)),
     url("Little_pexels-jdgromov-12381327.jpg");
+
     background-size:cover;
     background-position:center;
     background-repeat:no-repeat;
