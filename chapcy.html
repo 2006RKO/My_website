@@ -1,18 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>CHAPCY Worldwide Live Chat</title>
+
+<link rel="stylesheet" href="chapcy.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+
 <header class="header">
-    <img src="logo.png">
-    <h1>CHAPCY</h1>
-    <p>Worldwide Live Chat</p>
-</header>
 
-<div class="chat-container">
+<div class="logo">
 
-    <h2>Global Chat Room</h2>
+<img src="file_000000004f547243bb0fa43d66db1edf.png" alt="CHAPCY Logo">
 
-    <div class="chat-box" id="chatBox"></div>
+<div>
 
-    <div class="input-area">
-        <input type="text" placeholder="Type your message...">
-        <button class="send-btn">Send</button>
-    </div>
+<h1>CHAPCY</h1>
+
+<p>Worldwide Live Chat</p>
 
 </div>
+
+</div>
+
+</header>
+
+<!-- CHAT BOARD -->
+
+<section class="chat-container">
+
+<div class="chat-title">
+
+<img src="file_000000004f547243bb0fa43d66db1edf.png" alt="Logo">
+
+<div>
+
+<h2>Global Chat Room</h2>
+
+<span class="online">
+🟢 <span id="onlineCount">1,254</span> Users Online
+</span>
+
+</div>
+
+</div>
+
+<div class="chat-box" id="chatBox">
+
+<div class="message other">
+🇰🇪 Kevin : Welcome to CHAPCY 🌍
+</div>
+
+<div class="message me">
+🇹🇿 Said : Hello everyone 👋
+</div>
+
+</div>
+
+<div class="input-area">
+
+<button class="icon-btn">
+😊
+</button>
+
+<button class="icon-btn">
+📎
+</button>
+
+<input
+type="text"
+id="messageInput"
+placeholder="Type your message...">
+
+<button class="icon-btn">
+🎤
+</button>
+
+<button class="send-btn">
+<i class="fas fa-paper-plane"></i>
+Send
+</button>
+
+</div>
+
+</section>
+
+<script src="chapcy.js"></script>
+
+</body>
+</html>
