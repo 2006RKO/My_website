@@ -702,3 +702,28 @@ footer{
         box-shadow:0 0 10px #00d4ff;
     }
 }
+.hero{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    min-height:100vh;
+    padding:180px 20px 80px;
+}
+
+.hero-left{
+    max-width:750px;
+}
+
+.live-text{
+    color:#00d4ff;
+    font-size:24px;
+    margin:12px 0;
+    font-weight:bold;
+}
+
+.hero-left p{
+    margin:25px auto;
+    font-size:22px;
+    line-height:1.8;
+}
