@@ -239,4 +239,90 @@ nav{
     flex-direction:column;
     align-items:center;
 }
+/* ==========================
+   CONTACT BAR
+========================== */
+
+.contact-bar{
+    width:90%;
+    margin:30px auto 50px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:rgba(0,0,0,.35);
+    border:2px solid #00c3ff;
+    border-radius:22px;
+    padding:20px 30px;
+    box-shadow:0 0 25px rgba(0,195,255,.35);
+}
+
+.contact-item{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    flex:1;
+}
+
+.contact-item:not(:last-child){
+    border-right:1px solid rgba(0,195,255,.4);
+}
+
+.contact-item i{
+    font-size:45px;
+    color:#00d4ff;
+    width:60px;
+    text-align:center;
+}
+
+.contact-item h4{
+    color:#fff;
+    font-size:24px;
+    margin-bottom:5px;
+}
+
+.contact-item p{
+    color:#00d4ff;
+    font-size:20px;
+}
+
+.contact-item:hover{
+    transform:scale(1.05);
+    transition:.3s;
+}
+
+.contact-item i:hover{
+    color:#fff;
+    text-shadow:0 0 20px #00d4ff;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+.contact-bar{
+    flex-direction:column;
+    gap:20px;
+    padding:25px;
+}
+
+.contact-item{
+    width:100%;
+    border-right:none !important;
+    border-bottom:1px solid rgba(0,195,255,.3);
+    padding-bottom:20px;
+}
+
+.contact-item:last-child{
+    border-bottom:none;
+    padding-bottom:0;
+}
+
+.contact-item h4{
+    font-size:22px;
+}
+
+.contact-item p{
+    font-size:18px;
+}
+
 }
