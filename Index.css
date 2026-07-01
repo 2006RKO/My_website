@@ -66,21 +66,6 @@ nav a:hover{
     color:#00d4ff;
 }
 
-.join-btn{
-    background:#00c3ff;
-    color:#fff;
-    text-decoration:none;
-    padding:12px 28px;
-    border-radius:30px;
-    font-weight:bold;
-    box-shadow:0 0 20px #00c3ff;
-    transition:.3s;
-}
-
-.join-btn:hover{
-    background:#008cff;
-    transform:scale(1.08);
-}
 
 /* HERO */
 
@@ -239,6 +224,8 @@ nav{
     flex-direction:column;
     align-items:center;
 }
+    
+}
 /* ==========================
    CONTACT BAR
 ========================== */
@@ -302,27 +289,16 @@ nav{
 .contact-bar{
     flex-direction:column;
     gap:20px;
-    padding:25px;
 }
 
 .contact-item{
     width:100%;
-    border-right:none !important;
+    border-right:none;
     border-bottom:1px solid rgba(0,195,255,.3);
-    padding-bottom:20px;
 }
 
 .contact-item:last-child{
     border-bottom:none;
-    padding-bottom:0;
-}
-
-.contact-item h4{
-    font-size:22px;
-}
-
-.contact-item p{
-    font-size:18px;
 }
 
 }
