@@ -704,17 +704,46 @@ footer{
 }
 .hero{
     display:flex;
-    justify-content:center;
+    justify-content:flex-start;
     align-items:center;
-    text-align:center;
     min-height:100vh;
-    padding:180px 20px 80px;
+    padding:160px 8% 80px;
 }
 
 .hero-left{
-    max-width:750px;
+    max-width:650px;
+    text-align:left;
 }
 
+.hero-left h2{
+    font-size:42px;
+    color:#fff;
+    margin-bottom:10px;
+}
+
+.hero-left h1{
+    font-size:80px;
+    color:#00d4ff;
+    margin-bottom:20px;
+}
+
+.live-text{
+    font-size:24px;
+    color:#00d4ff;
+    margin:12px 0;
+    font-weight:bold;
+}
+
+.hero-left p{
+    font-size:22px;
+    line-height:1.8;
+    margin:30px 0;
+}
+
+.hero-btn{
+    display:inline-block;
+    margin-top:20px;
+}
 .live-text{
     color:#00d4ff;
     font-size:24px;
