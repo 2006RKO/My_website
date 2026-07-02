@@ -54,3 +54,18 @@ onChildAdded(chatRef, (snapshot) => {
     box.scrollTop = box.scrollHeight;
 
 });
+const stats = document.querySelector(".stats");
+
+function moveLeft(){
+    stats.scrollBy({
+        left:-320,
+        behavior:"smooth"
+    });
+}
+
+function moveRight(){
+    stats.scrollBy({
+        left:320,
+        behavior:"smooth"
+    });
+}
