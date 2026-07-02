@@ -19,34 +19,42 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 <!-- HEADER -->
 
 <header class="header">
-<link rel="stylesheet" href="livechat.css">
 
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <div class="logo-section">
+        <img src="images/logo.png" class="logo" alt="CHAPCY Logo">
 
-<script type="module"
-src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
-  
-<div class="logo">
-<img src="images/logo.png">
-<h2>CHAPCY</h2>
-</div>
+        <div>
+            <h2>CHAPCY</h2>
+            <span>Live Chat</span>
+        </div>
+    </div>
 
-<div class="community">
-🌍 Worldwide Community
-</div>
+    <div class="community">
 
-<div class="icons">
+        <div class="world">
+            🌍 <strong>Worldwide Community</strong>
+        </div>
 
-<i class="fa-solid fa-users"></i>
+        <div class="online">
+            🟢 Online: <span id="onlineCount">2456</span>
+        </div>
 
-<i class="fa-solid fa-bell"></i>
+    </div>
 
-<i class="fa-solid fa-gear"></i>
+    <div class="header-icons">
 
-<img src="images/users/profile.jpg" class="profile">
+        <button><i class="fa-solid fa-user-group"></i></button>
 
-</div>
+        <button class="notify">
+            <i class="fa-solid fa-bell"></i>
+            <span class="badge">3</span>
+        </button>
+
+        <button><i class="fa-solid fa-gear"></i></button>
+
+        <img src="images/profile.jpg" class="profile">
+
+    </div>
 
 </header>
 
