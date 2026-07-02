@@ -1,21 +1,11 @@
 /* ===================================
    CHAPCY MODERN UI - PART 1
 =================================== */
-
-/* BODY */
-
 body{
-    font-family:Arial,sans-serif;
-    color:#fff;
-    min-height:100vh;
-
     background:
-    linear-gradient(rgba(3,8,25,.82),rgba(3,8,25,.82)),
-    url("Little_pexels-jdgromov-12381327.jpg");
-
-    background-size:cover;
-    background-position:center;
+    radial-gradient(circle at top,#163cff 0%,#081120 45%,#020611 100%);
     background-attachment:fixed;
+    color:#fff;
 }
 
 /* HEADER */
