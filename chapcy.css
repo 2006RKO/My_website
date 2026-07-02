@@ -1,8 +1,8 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+/* ===================================
+   CHAPCY MODERN UI - PART 1
+=================================== */
+
+/* BODY */
 
 body{
     font-family:Arial,sans-serif;
@@ -10,34 +10,33 @@ body{
     min-height:100vh;
 
     background:
-    linear-gradient(rgba(0,10,30,.65),rgba(0,10,30,.65)),
+    linear-gradient(rgba(3,8,25,.82),rgba(3,8,25,.82)),
     url("Little_pexels-jdgromov-12381327.jpg");
 
     background-size:cover;
     background-position:center;
-    background-repeat:no-repeat;
     background-attachment:fixed;
 }
 
 /* HEADER */
 
 .header{
-    width:100%;
     position:fixed;
     top:0;
     left:0;
+    width:100%;
     z-index:1000;
 
     display:flex;
-    justify-content:center;
+    justify-content:space-between;
     align-items:center;
 
-    padding:18px;
+    padding:15px 25px;
 
-    background:rgba(0,0,0,.25);
-    backdrop-filter:blur(15px);
+    background:rgba(5,10,30,.55);
+    backdrop-filter:blur(18px);
 
-    border-bottom:1px solid rgba(0,212,255,.3);
+    border-bottom:1px solid rgba(0,212,255,.25);
 }
 
 .logo{
@@ -50,217 +49,184 @@ body{
     width:65px;
     height:65px;
     border-radius:50%;
-    box-shadow:0 0 20px #00d4ff;
+    border:2px solid #00cfff;
+    box-shadow:0 0 25px #00cfff;
 }
 
 .logo h1{
-    color:#00d4ff;
-    font-size:36px;
-    text-shadow:0 0 20px #00d4ff;
+    font-size:38px;
+    color:#15bfff;
+    text-shadow:0 0 18px #00cfff;
 }
 
 .logo p{
     color:#ddd;
-    font-size:17px;
+    font-size:18px;
 }
 
-/* CHAT BOARD */
+/* MAIN */
 
 .chat-board{
+    width:94%;
+    max-width:1180px;
 
-    width:92%;
-    max-width:1050px;
-
-    margin:130px auto 40px;
-
-    background:rgba(10,20,40,.55);
-
-    backdrop-filter:blur(18px);
-
-    border:2px solid rgba(0,212,255,.25);
-
-    border-radius:25px;
-
-    padding:25px;
-
-    box-shadow:0 0 35px rgba(0,212,255,.35);
-
+    margin:120px auto 40px;
 }
 
-/* TITLE */
+/* HERO CARD */
 
 .chat-header{
 
-    margin-bottom:20px;
+    background:rgba(8,18,45,.82);
 
+    border:2px solid #00bfff;
+
+    border-radius:30px;
+
+    padding:35px;
+
+    box-shadow:0 0 30px rgba(0,212,255,.35);
+
+    margin-bottom:35px;
 }
 
 .room{
 
     display:flex;
-    align-items:center;
-    gap:15px;
 
+    align-items:center;
+
+    gap:25px;
 }
 
 .room img{
 
-    width:55px;
-    height:55px;
+    width:110px;
+
+    height:110px;
 
     border-radius:50%;
 
-    box-shadow:0 0 15px #00d4ff;
+    border:3px solid #b34dff;
 
+    box-shadow:0 0 35px #b34dff;
 }
 
 .room h2{
 
-    font-size:30px;
+    font-size:50px;
 
-    color:#00d4ff;
+    color:white;
 
+    margin-bottom:10px;
 }
 
 .online{
 
-    margin-top:5px;
+    color:#d9d9d9;
 
-    color:#00ff88;
+    font-size:22px;
 
-    font-size:16px;
-
+    line-height:1.6;
 }
 
-/* CHAT */
+/* CHAT BOX */
 
 .chat-box{
 
-    height:470px;
+    height:420px;
 
-    overflow-y:auto;
+    background:rgba(8,15,35,.75);
 
-    background:rgba(0,0,0,.35);
+    border-radius:25px;
 
-    border-radius:20px;
+    border:1px solid rgba(255,255,255,.08);
 
     padding:20px;
 
-    margin-bottom:20px;
+    margin-top:25px;
 
+    margin-bottom:25px;
 }
 
-/* DEMO MESSAGE */
-
-.message{
-
-    max-width:80%;
-
-    padding:14px 18px;
-
-    margin:12px 0;
-
-    border-radius:18px;
-
-    line-height:1.6;
-
-}
-
-.other{
-
-    background:#2b3448;
-
-}
-
-.me{
-
-    margin-left:auto;
-
-    background:#00c3ff;
-
-}
-
-/* INPUT */
+/* INPUT AREA */
 
 .message-area{
 
     display:flex;
 
+    gap:12px;
+
     align-items:center;
-
-    gap:10px;
-
 }
 
 .tool-btn{
 
-    width:50px;
+    width:55px;
 
-    height:50px;
+    height:55px;
 
     border:none;
 
     border-radius:50%;
 
-    background:rgba(0,212,255,.12);
+    background:#091e40;
 
-    color:#00d4ff;
+    color:#00cfff;
 
     font-size:22px;
 
     cursor:pointer;
 
-    transition:.3s;
+    transition:.35s;
 
+    box-shadow:0 0 15px rgba(0,212,255,.25);
 }
 
 .tool-btn:hover{
 
-    background:#00d4ff;
+    background:#00cfff;
 
-    color:#000;
+    color:#00111f;
 
     transform:scale(1.08);
-
 }
 
 #messageInput{
 
     flex:1;
 
-    height:52px;
+    height:56px;
 
     border:none;
 
     outline:none;
 
-    border-radius:35px;
+    border-radius:40px;
 
-    padding:0 18px;
+    padding:0 20px;
 
     font-size:17px;
 
-    background:rgba(255,255,255,.10);
+    background:#12284b;
 
-    color:white;
-
+    color:#fff;
 }
 
 #messageInput::placeholder{
 
-    color:#ccc;
-
+    color:#cfcfcf;
 }
 
 #sendBtn{
 
     border:none;
 
-    padding:15px 30px;
+    border-radius:40px;
 
-    border-radius:35px;
+    padding:15px 35px;
 
-    background:linear-gradient(90deg,#00bfff,#00e5ff);
+    background:linear-gradient(90deg,#0066ff,#00d4ff);
 
     color:white;
 
@@ -270,293 +236,331 @@ body{
 
     cursor:pointer;
 
-    box-shadow:0 0 20px #00d4ff;
+    box-shadow:0 0 20px #00cfff;
 
-    transition:.3s;
-
+    transition:.35s;
 }
 
 #sendBtn:hover{
 
     transform:scale(1.05);
 
-    box-shadow:0 0 30px #00d4ff;
-
+    box-shadow:0 0 35px #00d4ff;
 }
+/* ===================================
+   CHAPCY MODERN UI - PART 2
+=================================== */
 
-/* SCROLL */
+/* FEATURES */
 
-.chat-box::-webkit-scrollbar{
-
-    width:7px;
-
-}
-
-.chat-box::-webkit-scrollbar-thumb{
-
-    background:#00c3ff;
-
-    border-radius:20px;
-
-}
-
-/* MOBILE */
-
-@media(max-width:768px){
-
-.logo img{
-
-width:55px;
-height:55px;
-
-}
-
-.logo h1{
-
-font-size:28px;
-
-}
-
-.logo p{
-
-font-size:14px;
-
-}
-
-.chat-board{
-
-width:95%;
-
-padding:18px;
-
-margin-top:110px;
-
-}
-
-.room h2{
-
-font-size:23px;
-
-}
-
-.chat-box{
-
-height:380px;
-
-}
-
-.message-area{
-
-flex-wrap:wrap;
-
-}
-
-#messageInput{
-
-width:100%;
-
-order:2;
-
-}
-
-.tool-btn{
-
-order:1;
-
-}
-
-#sendBtn{
-
-width:100%;
-
-order:3;
-
-}
-
-}
-/* ===== Cards ===== */
-
-.cards{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:25px;
+.features{
+    display:flex;
+    flex-direction:column;
+    gap:30px;
     margin-top:30px;
 }
 
+/* CARD */
+
 .card{
-    background:rgba(10,20,45,.85);
-    border:2px solid #00cfff;
-    border-radius:22px;
-    padding:35px 25px;
-    text-align:center;
+    display:flex;
+    align-items:center;
+    gap:30px;
+
+    padding:30px;
+
+    border-radius:28px;
+
+    background:rgba(8,15,35,.82);
+
     backdrop-filter:blur(15px);
-    transition:.4s;
-    box-shadow:0 0 18px rgba(0,212,255,.3);
+
+    transition:.35s;
 }
 
 .card:hover{
-    transform:translateY(-10px);
-    box-shadow:0 0 30px #00d4ff;
+    transform:translateY(-5px);
 }
 
-/* ICON */
+/* IMAGE */
 
-.card i{
-    width:110px;
-    height:110px;
-    line-height:110px;
+.card img{
+    width:230px;
+    height:230px;
+    object-fit:cover;
     border-radius:50%;
-    font-size:50px;
-    margin-bottom:20px;
 }
 
-/* Marketplace */
-
-.marketplace i{
-    color:#21c4ff;
-    border:2px solid #21c4ff;
-    box-shadow:0 0 20px #21c4ff;
-}
-
-/* Groups */
-
-.groups i{
-    color:#23ff7d;
-    border:2px solid #23ff7d;
-    box-shadow:0 0 20px #23ff7d;
-}
-
-/* Gaming */
-
-.gaming i{
-    color:#ff4dff;
-    border:2px solid #ff4dff;
-    box-shadow:0 0 20px #ff4dff;
-}
+/* CONTENT */
 
 .card h2{
-    color:white;
-    font-size:30px;
-    margin:15px 0;
+    font-size:42px;
+    margin-bottom:18px;
 }
 
 .card p{
+    font-size:22px;
     color:#ddd;
     line-height:1.8;
-    margin-bottom:30px;
+    margin-bottom:25px;
 }
 
 /* BUTTON */
 
 .card a{
     display:inline-block;
+
     text-decoration:none;
-    padding:14px 35px;
-    border-radius:35px;
-    font-size:18px;
+
+    padding:15px 40px;
+
+    border-radius:40px;
+
+    font-size:20px;
+
     font-weight:bold;
+
     transition:.3s;
 }
 
-/* Marketplace Button */
+/* CHAPCY TV */
+
+.marketplace{
+
+    border:2px solid #00cfff;
+
+    box-shadow:0 0 25px rgba(0,212,255,.30);
+}
+
+.marketplace img{
+
+    border:3px solid #00cfff;
+
+    box-shadow:0 0 30px #00cfff;
+}
+
+.marketplace h2{
+
+    color:#00cfff;
+}
 
 .marketplace a{
-    color:#21c4ff;
-    border:2px solid #21c4ff;
+
+    border:2px solid #00cfff;
+
+    color:#00cfff;
 }
 
 .marketplace a:hover{
-    background:#21c4ff;
-    color:#fff;
+
+    background:#00cfff;
+
+    color:#00111f;
 }
 
-/* Groups Button */
+/* BUSINESS */
+
+.groups{
+
+    border:2px solid #33ff66;
+
+    box-shadow:0 0 25px rgba(51,255,102,.30);
+}
+
+.groups img{
+
+    border:3px solid #33ff66;
+
+    box-shadow:0 0 30px #33ff66;
+}
+
+.groups h2{
+
+    color:#33ff66;
+}
 
 .groups a{
-    color:#23ff7d;
-    border:2px solid #23ff7d;
+
+    border:2px solid #33ff66;
+
+    color:#33ff66;
 }
 
 .groups a:hover{
-    background:#23ff7d;
-    color:#000;
+
+    background:#33ff66;
+
+    color:#00111f;
 }
 
-/* Gaming Button */
+/* GAMING */
+
+.gaming{
+
+    border:2px solid #ff4dff;
+
+    box-shadow:0 0 25px rgba(255,77,255,.30);
+}
+
+.gaming img{
+
+    border:3px solid #ff4dff;
+
+    box-shadow:0 0 30px #ff4dff;
+}
+
+.gaming h2{
+
+    color:#ff4dff;
+}
 
 .gaming a{
-    color:#ff4dff;
+
     border:2px solid #ff4dff;
+
+    color:#ff4dff;
 }
 
 .gaming a:hover{
+
     background:#ff4dff;
+
     color:#fff;
 }
-.game-logo{
-    width:110px;
-    height:110px;
-    object-fit:contain;
-    display:block;
-    margin:0 auto 20px;
-    border-radius:50%;
-    padding:10px;
-    border:2px solid #ff4dff;
-    background:rgba(255,255,255,.05);
-    box-shadow:0 0 25px #ff4dff;
-    transition:.3s;
+
+/* FOOTER STATS */
+
+.stats{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:20px;
+
+    margin-top:35px;
 }
 
-.game-logo:hover{
-    transform:scale(1.08);
-    box-shadow:0 0 40px #ff4dff;
+.stats div{
+
+    text-align:center;
+
+    padding:25px;
+
+    background:rgba(8,18,45,.85);
+
+    border:2px solid #00cfff;
+
+    border-radius:20px;
+
+    box-shadow:0 0 20px rgba(0,212,255,.25);
 }
-/* ===== BUSINESS GROUP LOGO ===== */
+
+.stats i{
+
+    font-size:42px;
+
+    color:#00cfff;
+
+    margin-bottom:15px;
+}
+
+.stats h3{
+
+    font-size:32px;
+
+    margin-bottom:8px;
+}
+
+.stats p{
+
+    color:#ddd;
+
+    font-size:18px;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+.card{
+    flex-direction:column;
+    text-align:center;
+}
 
 .card img{
-    width:100px;
-    height:100px;
-    object-fit:cover;
-    display:block;
-    margin:0 auto 20px;
-    border-radius:50%;
-    padding:8px;
-    background:rgba(255,255,255,.05);
-    box-shadow:0 0 25px #00d4ff;
-    transition:.3s;
+    width:180px;
+    height:180px;
 }
 
-.card:hover img{
-    transform:scale(1.08);
-    box-shadow:0 0 35px #00d4ff;
-}
-/* ===== CHAPCY TV ===== */
-
-.tv img{
-    width:110px;
-    height:110px;
-    object-fit:contain;
-    display:block;
-    margin:0 auto 20px;
-    border-radius:50%;
-    padding:10px;
-    background:rgba(255,255,255,.05);
-    border:2px solid #ff3b30;
-    box-shadow:0 0 25px #ff3b30;
-    transition:.3s;
+.card h2{
+    font-size:32px;
 }
 
-.tv:hover img{
-    transform:scale(1.08);
-    box-shadow:0 0 40px #ff3b30;
+.card p{
+    font-size:18px;
 }
 
-.tv a{
-    color:#ff3b30;
-    border:2px solid #ff3b30;
+.stats{
+    grid-template-columns:repeat(2,1fr);
 }
 
-.tv a:hover{
-    background:#ff3b30;
-    color:#fff;
 }
+
+@media(max-width:600px){
+
+.logo h1{
+    font-size:28px;
+}
+
+.logo p{
+    font-size:14px;
+}
+
+.room{
+    flex-direction:column;
+    text-align:center;
+}
+
+.room h2{
+    font-size:34px;
+}
+
+.online{
+    font-size:18px;
+}
+
+.stats{
+    grid-template-columns:1fr;
+}
+
+.card img{
+    width:150px;
+    height:150px;
+}
+
+.card h2{
+    font-size:28px;
+}
+
+.card p{
+    font-size:16px;
+}
+
+.card a{
+    width:100%;
+    text-align:center;
+}
+
+#sendBtn{
+    width:100%;
+}
+
+.message-area{
+    flex-wrap:wrap;
+}
+
+#messageInput{
+    width:100%;
+}
+    }
