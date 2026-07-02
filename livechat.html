@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>CHAPCY Live Chat</title>
+
+<link rel="stylesheet" href="livechat.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header class="header">
+<link rel="stylesheet" href="livechat.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<script type="module"
+src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
+  
+<div class="logo">
+<img src="images/logo.png">
+<h2>CHAPCY</h2>
+</div>
+
+<div class="community">
+🌍 Worldwide Community
+</div>
+
+<div class="icons">
+
+<i class="fa-solid fa-users"></i>
+
+<i class="fa-solid fa-bell"></i>
+
+<i class="fa-solid fa-gear"></i>
+
+<img src="images/users/profile.jpg" class="profile">
+
+</div>
+
+</header>
+
+<!-- MAIN -->
+
+<div class="container">
+
+<!-- LEFT -->
+
+<div class="left">
+
+<button>+ New Chat</button>
+
+<button>Chat Rooms</button>
+
+<input type="text" placeholder="Search users...">
+
+</div>
+
+<!-- CENTER -->
+
+<div class="center">
+
+<div class="chat-header">
+
+<h2>🌍 General Chat</h2>
+
+</div>
+  <div class="input-area">
+
+<button id="emojiBtn">
+😀
+</button>
+
+<input
+type="text"
+id="messageInput"
+placeholder="Type your message...">
+
+<button id="cameraBtn">
+<i class="fa-solid fa-camera"></i>
+</button>
+
+<button id="imageBtn">
+<i class="fa-solid fa-image"></i>
+</button>
+
+<button id="attachBtn">
+<i class="fa-solid fa-paperclip"></i>
+</button>
+
+<button id="voiceBtn">
+<i class="fa-solid fa-microphone"></i>
+</button>
+
+<button id="sendBtn">
+<i class="fa-solid fa-paper-plane"></i>
+</button>
+
+  </div>
+
+<div class="messages">
+
+</div>
+
+<div class="input-area">
+
+<input type="text"
+placeholder="Type your message...">
+
+<button>
+<i class="fa-solid fa-paper-plane"></i>
+</button>
+
+</div>
+
+</div>
+
+<!-- RIGHT -->
+
+<!-- RIGHT -->
+
+<div class="right">
+
+<h3>📹 Video Chat</h3>
+
+<div class="video-box">
+    <video id="localVideo" autoplay muted></video>
+</div>
+
+<h3>😀 Emoji</h3>
+
+<div class="emoji-container">
+
+<emoji-picker></emoji-picker>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script src="livechat.js"></script>
+
+</body>
+</html>
