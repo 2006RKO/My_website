@@ -72,3 +72,6 @@ input.addEventListener("keypress", function(e){
     }
 
 });
+const input = document.getElementById("messageInput");
+const sendBtn = document.getElementById("sendBtn");
+// ...
