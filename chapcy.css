@@ -743,3 +743,17 @@ transform:translateY(-10px);
     width:350px;
     border-radius:20px;
 }
+.hero-right{
+    flex:1;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.hero-right img{
+    width:100%;
+    max-width:480px;
+    border-radius:20px;
+    box-shadow:0 0 30px rgba(0,212,255,.4);
+    object-fit:cover;
+}
