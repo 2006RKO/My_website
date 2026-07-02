@@ -69,3 +69,25 @@ function moveRight(){
         behavior:"smooth"
     });
 }
+const slides = document.querySelectorAll(".group-slide");
+
+let current = 0;
+
+function autoSlide(){
+
+    slides.forEach(slide=>{
+        slide.classList.remove("active");
+    });
+
+    slides[current].classList.add("active");
+
+    current++;
+
+    if(current >= slides.length){
+        current = 0;
+    }
+}
+
+autoSlide();
+
+setInterval(autoSlide,3000);
