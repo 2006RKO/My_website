@@ -17,19 +17,35 @@ body{
 /* HEADER */
 
 .header{
-    height:70px;
-    background:#111827;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:75px;
+
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding:0 20px;
-    border-bottom:1px solid #1e3a8a;
+
+    padding:0 25px;
+
+    background:rgba(8,15,35,.95);
+    backdrop-filter:blur(18px);
+
+    border-bottom:2px solid rgba(37,99,235,.35);
+
+    box-shadow:0 4px 20px rgba(0,0,0,.35);
+
+    z-index:1000;
 }
 
-.logo{
-    display:flex;
-    align-items:center;
-    gap:10px;
+.logo img{
+    width:55px;
+    height:55px;
+    border-radius:50%;
+    border:2px solid #2563eb;
+    box-shadow:0 0 18px #2563eb;
+
 }
 
 .logo img{
@@ -254,23 +270,18 @@ emoji-picker{
 .header-icons{
     display:flex;
     align-items:center;
-    gap:18px;
+    gap:22px;
 }
 
-.header-icons button{
-    width:45px;
-    height:45px;
-    border:none;
-    border-radius:50%;
-    background:transparent;
-    color:white;
-    font-size:22px;
-    cursor:pointer;
-    position:relative;
+.header-icons i{
+    font-size:24px;
+    color:#fff;
+    transition:.3s;
 }
 
-.header-icons button:hover{
-    color:#3b82f6;
+.header-icons i:hover{
+    color:#00d4ff;
+    transform:scale(1.15);
 }
 
 .badge{
