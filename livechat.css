@@ -188,3 +188,15 @@ emoji-picker{
     --border-color:#2563eb;
     --indicator-color:#3b82f6;
 }
+.message p{
+    margin:0;
+    font-size:16px;
+}
+
+.message small{
+    display:block;
+    text-align:right;
+    margin-top:5px;
+    color:#ddd;
+    font-size:11px;
+}
