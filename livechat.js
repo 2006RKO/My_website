@@ -75,3 +75,46 @@ input.addEventListener("keypress", function(e){
 const input = document.getElementById("messageInput");
 const sendBtn = document.getElementById("sendBtn");
 // ...
+/* ==========================
+   GROUP SLIDESHOW
+========================== */
+
+const slides = document.querySelectorAll(".slide");
+const dots = document.querySelectorAll(".slider-dots span");
+
+let current = 0;
+
+function showSlide(index){
+
+    slides.forEach(slide => slide.classList.remove("active"));
+    dots.forEach(dot => dot.classList.remove("active"));
+
+    slides[index].classList.add("active");
+    dots[index].classList.add("active");
+
+    current = index;
+}
+
+// Auto slide kila sekunde 3
+setInterval(() => {
+
+    current++;
+
+    if(current >= slides.length){
+        current = 0;
+    }
+
+    showSlide(current);
+
+}, 3000);
+
+// Dots clickable
+dots.forEach((dot,index)=>{
+
+    dot.addEventListener("click",()=>{
+
+        showSlide(index);
+
+    });
+
+});
