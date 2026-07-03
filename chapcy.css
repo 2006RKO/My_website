@@ -1232,3 +1232,78 @@ opacity:0;
         opacity:0;
     }
 }
+/* ===== SLIDESHOW FIX ===== */
+
+.groups-section{
+    width:100%;
+    max-width:900px;
+    margin:70px auto;
+}
+
+.slideshow{
+    position:relative;
+    width:100%;
+    height:540px;
+    overflow:hidden;
+}
+
+.group-slide{
+    position:absolute;
+    inset:0;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+}
+
+.group-slide.active{
+    display:flex;
+}
+
+/* Logo zote zilingane */
+
+.group-slide img{
+    width:160px;
+    height:160px;
+    object-fit:cover;
+    border-radius:50%;
+}
+
+/* Footer logo isiwe kubwa */
+
+.footer-logo img{
+    width:90px;
+    height:90px;
+    object-fit:cover;
+    border-radius:50%;
+    display:block;
+    margin:auto;
+}
+
+/* Social icons */
+
+.footer-social{
+    display:flex;
+    justify-content:center;
+    gap:18px;
+    margin:25px 0;
+}
+
+.footer-social a{
+    width:50px;
+    height:50px;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#1e293b;
+    color:#fff;
+    font-size:22px;
+    text-decoration:none;
+    transition:.3s;
+}
+
+.footer-social a:hover{
+    background:#00cfff;
+    transform:scale(1.1);
+}
