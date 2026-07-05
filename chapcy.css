@@ -752,3 +752,11 @@ opacity:0;
 }
 
    }
+        .join-btn,
+.watch-btn{
+    opacity:1 !important;
+    visibility:visible !important;
+    display:inline-block !important;
+    color:#fff !important;
+    z-index:999;
+}
