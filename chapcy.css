@@ -1,7 +1,6 @@
-/* ==========================================
-   CHAPCY WORLDWIDE LIVE CHAT
-   CSS PART 1
-========================================== */
+/*=========================================
+        CHAPCY PREMIUM CSS PART 1
+=========================================*/
 
 /* RESET */
 
@@ -16,873 +15,254 @@ html{
 }
 
 body{
-    font-family:Arial, Helvetica, sans-serif;
+    font-family:Arial,sans-serif;
+    background:linear-gradient(135deg,#07142b,#0b2447,#123b71);
     color:#fff;
     overflow-x:hidden;
-
-    background:linear-gradient(
-    -45deg,
-    #020617,
-    #0f172a,
-    #1e3a8a,
-    #312e81,
-    #020617);
-
-    background-size:400% 400%;
-    animation:bgMove 15s ease infinite;
 }
 
-/* Animated Background */
+/* CONTAINER */
 
-@keyframes bgMove{
-
-0%{
-background-position:0% 50%;
+.container{
+    width:95%;
+    max-width:1400px;
+    margin:auto;
 }
 
-50%{
-background-position:100% 50%;
-}
-
-100%{
-background-position:0% 50%;
-}
-
-}
-
-/* =========================
-   HEADER
-========================= */
+/* ================= HEADER ================= */
 
 .header{
+    position:sticky;
+    top:0;
+    z-index:1000;
 
-position:fixed;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 
-top:0;
+    padding:15px 40px;
 
-left:0;
+    background:rgba(8,15,35,.85);
+    backdrop-filter:blur(12px);
 
-width:100%;
-
-height:85px;
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-padding:15px 35px;
-
-background:rgba(8,15,35,.82);
-
-backdrop-filter:blur(18px);
-
-border-bottom:1px solid rgba(255,255,255,.12);
-
-z-index:1000;
-
-box-shadow:0 5px 20px rgba(0,0,0,.35);
-
+    border-bottom:1px solid rgba(255,255,255,.08);
 }
 
-/* LOGO */
-
 .logo{
-
-display:flex;
-
-align-items:center;
-
-gap:15px;
-
+    display:flex;
+    align-items:center;
+    gap:15px;
 }
 
 .logo img{
-
-width:60px;
-
-height:60px;
-
-border-radius:50%;
-
-object-fit:cover;
-
-box-shadow:0 0 20px #00cfff;
-
-transition:.4s;
-
-}
-
-.logo img:hover{
-
-transform:rotate(8deg) scale(1.08);
-
+    width:60px;
+    height:60px;
+    object-fit:contain;
 }
 
 .logo h1{
-
-font-size:34px;
-
-color:#00d4ff;
-
-letter-spacing:2px;
-
+    font-size:30px;
+    color:#4fc3ff;
+    letter-spacing:2px;
 }
 
 .logo p{
-
-font-size:15px;
-
-color:#d7d7d7;
-
-margin-top:2px;
-
+    font-size:14px;
+    color:#d8e6ff;
 }
 
-/* HEADER ICONS */
-
 .header-icons{
-
-display:flex;
-
-gap:22px;
-
+    display:flex;
+    gap:18px;
 }
 
 .header-icons i{
+    width:42px;
+    height:42px;
 
-width:45px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 
-height:45px;
+    border-radius:50%;
 
-display:flex;
+    background:rgba(255,255,255,.08);
 
-justify-content:center;
-
-align-items:center;
-
-border-radius:50%;
-
-background:rgba(255,255,255,.05);
-
-font-size:20px;
-
-cursor:pointer;
-
-transition:.35s;
-
+    cursor:pointer;
+    transition:.35s;
 }
 
 .header-icons i:hover{
-
-background:#2563eb;
-
-transform:translateY(-4px);
-
-box-shadow:0 0 20px #2563eb;
-
+    background:#0ea5e9;
+    transform:scale(1.12);
 }
 
-/* =========================
-   CONTAINER
-========================= */
-
-.container{
-
-width:92%;
-
-max-width:1250px;
-
-margin:120px auto 40px;
-
-}
-
-/* =========================
-   HERO SECTION
-========================= */
+/* ================= HERO ================= */
 
 .hero-card{
 
-display:flex;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 
-align-items:center;
+    gap:50px;
 
-justify-content:space-between;
+    margin:50px 0;
 
-gap:45px;
+    padding:45px;
 
-padding:45px;
+    border-radius:28px;
 
-border-radius:30px;
+    background:rgba(255,255,255,.06);
 
-background:rgba(15,23,42,.85);
+    backdrop-filter:blur(18px);
 
-border:2px solid rgba(0,212,255,.18);
-
-backdrop-filter:blur(20px);
-
-box-shadow:0 0 35px rgba(0,212,255,.22);
-
-margin-bottom:45px;
+    box-shadow:0 20px 50px rgba(0,0,0,.35);
 
 }
 
 .hero-left{
-
-flex:1;
-
+    flex:1;
 }
 
 .hero-icon{
 
-width:90px;
+    width:85px;
+    height:85px;
 
-height:90px;
+    border-radius:50%;
 
-display:flex;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 
-justify-content:center;
+    background:#0ea5e9;
 
-align-items:center;
+    font-size:36px;
 
-border-radius:50%;
-
-background:#2563eb;
-
-font-size:38px;
-
-box-shadow:0 0 25px #2563eb;
-
-margin-bottom:25px;
-
-animation:pulse 2.5s infinite;
-
-}
-
-@keyframes pulse{
-
-0%{
-transform:scale(1);
-}
-
-50%{
-transform:scale(1.08);
-}
-
-100%{
-transform:scale(1);
-}
+    margin-bottom:25px;
 
 }
 
 .hero-left h2{
 
-font-size:48px;
-
-margin-bottom:18px;
-
-}
-
-.hero-left p{
-
-font-size:18px;
-
-line-height:1.8;
-
-color:#d9d9d9;
-
-margin-bottom:30px;
-
-}
-
-/* HERO BUTTONS */
-
-.btn{
-
-display:inline-block;
-
-padding:15px 34px;
-
-margin:8px;
-
-border-radius:50px;
-
-text-decoration:none;
-
-font-weight:bold;
-
-transition:.35s;
-
-}
-
-.btn-blue{
-
-background:linear-gradient(90deg,#2563eb,#00cfff);
-
-color:#fff;
-
-box-shadow:0 0 20px rgba(37,99,235,.45);
-
-}
-
-.btn-blue:hover{
-
-transform:translateY(-5px);
-
-box-shadow:0 0 30px #00cfff;
-
-}
-
-.btn-dark{
-
-background:#1e293b;
-
-color:white;
-
-border:2px solid #475569;
-
-}
-
-.btn-dark:hover{
-
-background:#334155;
-
-transform:translateY(-5px);
-
-}
-
-/* HERO IMAGE */
-
-.hero-right{
-
-flex:1;
-
-display:flex;
-
-justify-content:center;
-
-}
-
-.hero-right img{
-
-width:100%;
-
-max-width:470px;
-
-border-radius:25px;
-
-box-shadow:0 0 35px rgba(0,212,255,.35);
-
-animation:floatImage 5s ease-in-out infinite;
-
-}
-
-@keyframes floatImage{
-
-0%,100%{
-transform:translateY(0);
-}
-
-50%{
-transform:translateY(-12px);
-}
-
-}
-/* ==========================================
-   CHAPCY CSS PART 2
-   FEATURES + GROUP SLIDESHOW
-==========================================*/
-
-/* =========================
-   FEATURES
-========================= */
-
-.features{
-    display:flex;
-    flex-direction:column;
-    gap:30px;
-    margin:60px 0;
-}
-
-.card{
-    display:flex;
-    align-items:center;
-    gap:30px;
-
-    background:rgba(15,23,42,.88);
-
-    border:2px solid rgba(255,255,255,.08);
-
-    border-radius:28px;
-
-    padding:30px;
-
-    backdrop-filter:blur(18px);
-
-    transition:.4s;
-
-    overflow:hidden;
-
-    position:relative;
-}
-
-.card::before{
-
-content:"";
-
-position:absolute;
-
-left:-100%;
-
-top:0;
-
-width:100%;
-
-height:100%;
-
-background:linear-gradient(90deg,
-transparent,
-rgba(255,255,255,.12),
-transparent);
-
-transition:.8s;
-
-}
-
-.card:hover::before{
-
-left:100%;
-
-}
-
-.card:hover{
-
-transform:translateY(-8px);
-
-box-shadow:0 0 30px rgba(0,212,255,.35);
-
-}
-
-.card img{
-
-width:170px;
-
-height:170px;
-
-border-radius:50%;
-
-object-fit:cover;
-
-box-shadow:0 0 25px rgba(0,212,255,.35);
-
-transition:.4s;
-
-}
-
-.card:hover img{
-
-transform:scale(1.08) rotate(5deg);
-
-}
-
-.content{
-
-flex:1;
-
-}
-
-.content h2{
-
-font-size:34px;
-
-margin-bottom:15px;
-
-}
-
-.content p{
-
-font-size:17px;
-
-line-height:1.8;
-
-color:#ddd;
-
-margin-bottom:25px;
-
-}
-
-/* BUTTON COLORS */
-
-.red-btn{
-
-background:#ff3b30;
-
-color:white;
-
-}
-
-.green-btn{
-
-background:#00c853;
-
-color:white;
-
-}
-
-.purple-btn{
-
-background:#7c4dff;
-
-color:white;
-
-}
-
-.red-btn:hover,
-.green-btn:hover,
-.purple-btn:hover{
-
-transform:translateY(-5px);
-
-box-shadow:0 0 20px rgba(255,255,255,.25);
-
-}
-
-/* =========================
-   GROUP SLIDESHOW
-========================= */
-
-.groups-section{
-
-margin:70px 0;
-
-}
-
-.group-title{
-
-text-align:center;
-
-font-size:38px;
-
-margin-bottom:35px;
-
-color:#fff;
-
-letter-spacing:1px;
-
-}
-
-.slideshow{
-
-position:relative;
-
-height:500px;
-
-overflow:hidden;
-
-}
-
-.group-slide{
-
-position:absolute;
-
-inset:0;
-
-display:flex;
-
-flex-direction:column;
-
-justify-content:center;
-
-align-items:center;
-
-text-align:center;
-
-padding:40px;
-
-border-radius:30px;
-
-background:rgba(15,23,42,.92);
-
-border:2px solid rgba(0,212,255,.18);
-
-backdrop-filter:blur(20px);
-
-opacity:0;
-
-visibility:hidden;
-
-transform:translateY(80px);
-
-transition:all .8s ease;
-
-}
-
-.group-slide.active{
-
-opacity:1;
-
-visibility:visible;
-
-transform:translateY(0);
-
-}
-
-.group-slide img{
-
-width:170px;
-
-height:170px;
-
-border-radius:50%;
-
-object-fit:cover;
-
-box-shadow:0 0 30px #00cfff;
-
-margin-bottom:25px;
-
-animation:logoFloat 3s ease-in-out infinite;
-
-}
-
-@keyframes logoFloat{
-
-0%,100%{
-
-transform:translateY(0);
-
-}
-
-50%{
-
-transform:translateY(-10px);
-
-}
-
-}
-
-.group-slide h3{
-
-font-size:36px;
-
-margin-bottom:15px;
-
-}
-
-.group-slide p{
-
-font-size:18px;
-
-line-height:1.8;
-
-color:#ddd;
-
-max-width:700px;
-
-margin-bottom:30px;
-
-}
-
-.join-btn{
-
-display:inline-block;
-
-padding:15px 45px;
-
-border-radius:50px;
-
-background:linear-gradient(90deg,#2563eb,#00cfff);
-
-color:white;
-
-text-decoration:none;
-
-font-size:18px;
-
-font-weight:bold;
-
-transition:.35s;
-
-box-shadow:0 0 25px rgba(37,99,235,.4);
-
-}
-
-.join-btn:hover{
-
-transform:scale(1.08);
-
-box-shadow:0 0 35px #00cfff;
-
-}
-
-/* DOTS */
-
-.slider-dots{
-
-display:flex;
-
-justify-content:center;
-
-gap:12px;
-
-margin-top:30px;
-
-}
-
-.dot{
-
-width:14px;
-
-height:14px;
-
-border-radius:50%;
-
-background:#666;
-
-cursor:pointer;
-
-transition:.35s;
-
-}
-
-.dot.active{
-
-background:#00ff99;
-
-box-shadow:0 0 15px #00ff99;
-
-transform:scale(1.25);
-
-}
-/* ==========================================
-   CHAPCY CSS PART 3
-   STATS + FOOTER + RESPONSIVE
-==========================================*/
-
-/* ==========================
-   STATS NAVIGATION
-========================== */
-
-.stats-nav{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:20px;
-    margin:40px 0 20px;
-}
-
-.stats-nav button{
-    width:55px;
-    height:55px;
-    border:none;
-    border-radius:50%;
-    background:linear-gradient(135deg,#2563eb,#00cfff);
-    color:#fff;
-    font-size:22px;
-    cursor:pointer;
-    transition:.35s;
-    box-shadow:0 0 20px rgba(0,212,255,.35);
-}
-
-.stats-nav button:hover{
-    transform:scale(1.12);
-    box-shadow:0 0 30px #00cfff;
-}
-
-/* ==========================
-   STATS CAROUSEL
-========================== */
-
-.stats{
-    display:flex;
-    gap:25px;
-    overflow-x:auto;
-    scroll-behavior:smooth;
-    scroll-snap-type:x mandatory;
-    padding:20px 5px 40px;
-}
-
-.stats::-webkit-scrollbar{
-    display:none;
-}
-
-.stat-box{
-    flex:0 0 270px;
-    scroll-snap-align:center;
-
-    background:rgba(15,23,42,.9);
-
-    border:2px solid rgba(0,212,255,.18);
-
-    border-radius:25px;
-
-    padding:35px 25px;
-
-    text-align:center;
-
-    transition:.35s;
-}
-
-.stat-box:hover{
-
-    transform:translateY(-8px);
-
-    border-color:#00cfff;
-
-    box-shadow:0 0 30px rgba(0,212,255,.4);
-
-}
-
-.stat-box i{
-
-    font-size:55px;
-
-    color:#00cfff;
+    font-size:42px;
 
     margin-bottom:18px;
 
 }
 
-.stat-box h3{
+.hero-left p{
 
-    font-size:40px;
+    line-height:1.9;
+
+    color:#d8e6ff;
+
+    margin-bottom:35px;
+
+}
+
+.hero-buttons{
+
+    display:flex;
+    gap:18px;
+    flex-wrap:wrap;
+
+}
+
+.btn{
+
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+
+    text-decoration:none;
+
+    padding:15px 28px;
+
+    border-radius:50px;
 
     color:#fff;
 
-    margin-bottom:10px;
+    font-weight:bold;
+
+    transition:.35s;
 
 }
 
-.stat-box p{
+.btn-blue{
 
-    color:#d7d7d7;
-
-    font-size:18px;
+    background:#0ea5e9;
 
 }
 
-/* ==========================
-   FOOTER
-========================== */
+.btn-dark{
 
-.footer{
+    background:#16213e;
 
-    margin-top:70px;
+}
 
-    padding:50px 25px;
+.btn:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:0 12px 25px rgba(0,0,0,.35);
+
+}
+
+.hero-right{
+
+    flex:1;
+    text-align:center;
+
+}
+
+.hero-right img{
+
+    width:100%;
+    max-width:520px;
+
+    border-radius:25px;
+
+    transition:.4s;
+
+}
+
+.hero-right img:hover{
+
+    transform:scale(1.04);
+
+}
+
+/* ================= GLOBAL COMMUNITY ================= */
+
+.global-card{
+
+    background:rgba(255,255,255,.06);
+
+    backdrop-filter:blur(15px);
+
+    border-radius:25px;
+
+    padding:35px;
 
     text-align:center;
 
-    background:rgba(8,12,25,.92);
+    margin-bottom:35px;
 
-    border-top:2px solid rgba(0,212,255,.2);
+    box-shadow:0 15px 40px rgba(0,0,0,.30);
 
 }
 
-.footer h2{
+.global-card img{
 
-    color:#00cfff;
+    width:230px;
+
+    margin-bottom:20px;
+
+}
+
+.global-card h2{
 
     font-size:34px;
 
@@ -890,325 +270,402 @@ transform:scale(1.25);
 
 }
 
-.footer p{
+.global-card p{
 
-    color:#cfcfcf;
+    max-width:800px;
 
-    font-size:17px;
+    margin:auto;
 
     line-height:1.8;
 
-    max-width:750px;
+    color:#d8e6ff;
+
+}
+
+.global-card .btn{
+
+    margin-top:25px;
+
+}
+
+/* ================= CHAPCY TV ================= */
+
+.tv-card{
+
+    background:rgba(255,255,255,.06);
+
+    backdrop-filter:blur(15px);
+
+    border-radius:25px;
+
+    padding:35px;
+
+    text-align:center;
+
+    margin-bottom:45px;
+
+    box-shadow:0 15px 40px rgba(0,0,0,.30);
+
+}
+
+.tv-card img{
+
+    width:220px;
+
+    margin-bottom:20px;
+
+}
+
+.tv-card h2{
+
+    font-size:34px;
+
+    margin-bottom:15px;
+
+}
+
+.tv-card p{
+
+    color:#d8e6ff;
+
+    line-height:1.8;
+
+    max-width:780px;
 
     margin:auto;
 
 }
 
-.footer-links{
+.red-btn{
 
-    margin:30px 0;
-
-    display:flex;
-
-    justify-content:center;
-
-    gap:20px;
-
-    flex-wrap:wrap;
-
-}
-
-.footer-links a{
-
-    width:50px;
-
-    height:50px;
-
-    border-radius:50%;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    text-decoration:none;
-
-    background:#1e293b;
-
-    color:white;
-
-    font-size:22px;
-
-    transition:.35s;
-
-}
-
-.footer-links a:hover{
-
-    background:#00cfff;
-
-    color:#fff;
-
-    transform:translateY(-5px);
-
-    box-shadow:0 0 20px #00cfff;
-
-}
-
-.copyright{
+    background:#e53935;
 
     margin-top:25px;
 
-    color:#888;
-
-    font-size:15px;
-
 }
 
-/* ==========================
-   SCROLLBAR
-========================== */
+.red-btn:hover{
 
-::-webkit-scrollbar{
-    width:8px;
-}
-
-::-webkit-scrollbar-track{
-    background:#081018;
-}
-
-::-webkit-scrollbar-thumb{
-    background:#00cfff;
-    border-radius:20px;
-}
-
-/* ==========================
-   MOBILE RESPONSIVE
-========================== */
-
-@media(max-width:992px){
-
-.hero-card,
-.card{
-
-flex-direction:column;
-
-text-align:center;
+    background:#ff3b30;
 
 }
+/*=========================================
+        CHAPCY PREMIUM CSS PART 2
+      GROUPS SLIDESHOW
+=========================================*/
 
-.hero-right img,
-.card img{
-
-width:220px;
-height:220px;
-
+.groups-section{
+    margin:60px 0;
 }
 
-.content h2{
-
-font-size:30px;
-
-}
-
-.group-slide{
-
-padding:25px;
-
-}
-
-.group-slide img{
-
-width:140px;
-height:140px;
-
-}
-
-.group-slide h3{
-
-font-size:30px;
-
-}
-
-}
-
-@media(max-width:768px){
-
-.header{
-
-padding:15px;
-
-height:75px;
-
-}
-
-.logo img{
-
-width:50px;
-height:50px;
-
-}
-
-.logo h1{
-
-font-size:28px;
-
-}
-
-.logo p{
-
-font-size:13px;
-
-}
-
-.header-icons{
-
-gap:10px;
-
-}
-
-.header-icons i{
-
-width:40px;
-height:40px;
-font-size:18px;
-
-}
-
-.container{
-
-width:95%;
-
-margin-top:100px;
-
-}
-
-.hero-card{
-
-padding:25px;
-
-}
-
-.hero-left h2{
-
-font-size:34px;
-
-}
-
-.hero-left p{
-
-font-size:16px;
-
-}
-
-.btn{
-
-width:100%;
-
-text-align:center;
-
-margin:8px 0;
-
-}
-
-.card{
-
-padding:22px;
-
-}
-
-.card img{
-
-width:150px;
-height:150px;
-
-}
-
-.content h2{
-
-font-size:26px;
-
-}
-
-.content p{
-
-font-size:16px;
-
+.group-title{
+    text-align:center;
+    font-size:38px;
+    color:#4fc3ff;
+    margin-bottom:35px;
 }
 
 .slideshow{
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
 
-height:520px;
+.slides-container{
+    width:100%;
+    position:relative;
+    overflow:hidden;
+}
+
+.group-slide{
+    display:none;
+    text-align:center;
+    background:rgba(255,255,255,.06);
+    backdrop-filter:blur(18px);
+    border-radius:25px;
+    padding:35px;
+    box-shadow:0 20px 45px rgba(0,0,0,.35);
+    animation:fadeSlide .6s ease;
+}
+
+.group-slide.active{
+    display:block;
+}
+
+@keyframes fadeSlide{
+
+from{
+opacity:0;
+transform:translateY(20px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
 
 }
 
 .group-slide img{
+    width:100%;
+    max-width:420px;
+    border-radius:18px;
+    margin-bottom:20px;
+    transition:.4s;
+}
 
-width:120px;
-height:120px;
-
+.group-slide img:hover{
+    transform:scale(1.05);
 }
 
 .group-slide h3{
-
-font-size:26px;
-
+    font-size:30px;
+    margin-bottom:15px;
+    color:#4fc3ff;
 }
 
 .group-slide p{
+    font-size:18px;
+    color:#d8e6ff;
+    line-height:1.8;
+    max-width:760px;
+    margin:0 auto 30px;
+}
 
-font-size:16px;
+.join-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:15px 35px;
+    background:#0ea5e9;
+    color:#fff;
+    text-decoration:none;
+    border-radius:50px;
+    font-size:17px;
+    font-weight:bold;
+    transition:.35s;
+}
 
+.join-btn:hover{
+    background:#0284c7;
+    transform:translateY(-5px);
+    box-shadow:0 12px 25px rgba(14,165,233,.45);
+}
+
+.slide-btn{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    width:60px;
+    height:60px;
+    border:none;
+    border-radius:50%;
+    background:rgba(255,255,255,.12);
+    color:#fff;
+    font-size:22px;
+    cursor:pointer;
+    transition:.3s;
+    z-index:5;
+}
+
+.slide-btn:hover{
+    background:#0ea5e9;
+    transform:translateY(-50%) scale(1.1);
+}
+
+.slide-btn.prev{
+    left:-20px;
+}
+
+.slide-btn.next{
+    right:-20px;
+}
+
+.slider-dots{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:12px;
+    margin-top:30px;
+}
+
+.dot{
+    width:14px;
+    height:14px;
+    border-radius:50%;
+    background:#6b7280;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.dot.active{
+    background:#0ea5e9;
+    transform:scale(1.4);
+}
+
+.dot:hover{
+    background:#38bdf8;
+}
+
+.group-slide:hover{
+    box-shadow:0 25px 60px rgba(14,165,233,.25);
+/*=========================================
+        CHAPCY PREMIUM CSS PART 3
+=========================================*/
+
+
+/* ==========================
+        STATS SECTION
+========================== */
+
+.stats-nav{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    margin:40px 0;
+}
+
+.stats-nav button{
+    width:55px;
+    height:55px;
+    border:none;
+    border-radius:50%;
+    background:#0ea5e9;
+    color:#fff;
+    font-size:22px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.stats-nav button:hover{
+    transform:scale(1.12);
+    background:#0284c7;
+}
+
+.stats{
+    display:flex;
+    gap:20px;
+    overflow-x:auto;
+    scroll-behavior:smooth;
+    padding:20px;
+}
+
+.stats::-webkit-scrollbar{
+    display:none;
 }
 
 .stat-box{
-
-flex:0 0 230px;
-
+    min-width:250px;
+    text-align:center;
+    padding:35px 20px;
+    background:rgba(255,255,255,.08);
+    border-radius:22px;
+    backdrop-filter:blur(15px);
+    transition:.4s;
 }
 
-.footer h2{
-
-font-size:28px;
-
+.stat-box:hover{
+    transform:translateY(-10px);
+    box-shadow:0 15px 35px rgba(14,165,233,.35);
 }
 
-.footer p{
-
-font-size:15px;
-
+.stat-box i{
+    font-size:45px;
+    color:#38bdf8;
+    margin-bottom:15px;
 }
 
-}
-.ripple{
-position:absolute;
-border-radius:50%;
-transform:scale(0);
-background:rgba(255,255,255,.4);
-animation:ripple .7s linear;
-pointer-events:none;
+.stat-box h3{
+    font-size:32px;
+    color:#fff;
+    margin-bottom:10px;
 }
 
-.btn,
-.join-btn{
-position:relative;
-overflow:hidden;
+.stat-box p{
+    color:#dbeafe;
+    font-size:17px;
 }
 
-@keyframes ripple{
 
-to{
-
-transform:scale(4);
-
-opacity:0;
-
-}
-
-}
 /* ==========================
-   RIPPLE BUTTON EFFECT
+          FOOTER
+========================== */
+
+.footer{
+    margin-top:70px;
+    background:#081221;
+    padding:60px 20px 30px;
+    text-align:center;
+}
+
+.footer-logo img{
+    width:90px;
+    margin-bottom:15px;
+}
+
+.footer-logo h2{
+    color:#4fc3ff;
+    font-size:34px;
+}
+
+.footer-logo p{
+    color:#cbd5e1;
+    margin-top:10px;
+}
+
+.footer-links{
+    margin:35px 0;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:18px;
+}
+
+.footer-links a{
+    color:white;
+    text-decoration:none;
+    transition:.3s;
+}
+
+.footer-links a:hover{
+    color:#38bdf8;
+}
+
+.footer-social{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    margin:25px 0;
+}
+
+.footer-social a{
+    width:52px;
+    height:52px;
+    border-radius:50%;
+    background:#0f172a;
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:22px;
+    transition:.3s;
+}
+
+.footer-social a:hover{
+    background:#0ea5e9;
+    transform:translateY(-8px);
+}
+
+.copyright{
+    margin-top:30px;
+    color:#94a3b8;
+    font-size:15px;
+}
+
+
+/* ==========================
+       RIPPLE EFFECT
 ========================== */
 
 .btn,
@@ -1221,89 +678,77 @@ opacity:0;
     position:absolute;
     border-radius:50%;
     transform:scale(0);
-    background:rgba(255,255,255,.4);
+    background:rgba(255,255,255,.5);
     animation:ripple .7s linear;
-    pointer-events:none;
 }
 
 @keyframes ripple{
-    to{
-        transform:scale(4);
-        opacity:0;
-    }
-}
-/* ===== SLIDESHOW FIX ===== */
 
-.groups-section{
+to{
+transform:scale(4);
+opacity:0;
+}
+
+}
+
+
+/* ==========================
+      RESPONSIVE DESIGN
+========================== */
+
+@media(max-width:900px){
+
+.hero-card{
+    flex-direction:column;
+    text-align:center;
+}
+
+.hero-right img{
     width:100%;
-    max-width:900px;
-    margin:70px auto;
 }
 
-.slideshow{
-    position:relative;
+.header{
+    flex-direction:column;
+    gap:15px;
+}
+
+.group-slide img{
     width:100%;
-    height:540px;
-    overflow:hidden;
 }
 
-.group-slide{
-    position:absolute;
-    inset:0;
-    display:none;
-    justify-content:center;
-    align-items:center;
+.group-title{
+    font-size:28px;
+}
+
+}
+
+@media(max-width:600px){
+
+.hero-buttons{
     flex-direction:column;
 }
 
-.group-slide.active{
-    display:flex;
+.btn,
+.join-btn{
+    width:100%;
+    justify-content:center;
 }
 
-/* Logo zote zilingane */
-
-.group-slide img{
-    width:160px;
-    height:160px;
-    object-fit:cover;
-    border-radius:50%;
+.slide-btn{
+    width:45px;
+    height:45px;
 }
 
-/* Footer logo isiwe kubwa */
-
-.footer-logo img{
-    width:90px;
-    height:90px;
-    object-fit:cover;
-    border-radius:50%;
-    display:block;
-    margin:auto;
+.stat-box{
+    min-width:210px;
 }
 
-/* Social icons */
+.footer-links{
+    flex-direction:column;
+}
 
 .footer-social{
-    display:flex;
-    justify-content:center;
-    gap:18px;
-    margin:25px 0;
+    gap:15px;
 }
 
-.footer-social a{
-    width:50px;
-    height:50px;
-    border-radius:50%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:#1e293b;
-    color:#fff;
-    font-size:22px;
-    text-decoration:none;
-    transition:.3s;
-}
-
-.footer-social a:hover{
-    background:#00cfff;
-    transform:scale(1.1);
-}
+   }
