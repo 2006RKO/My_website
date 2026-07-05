@@ -1,7 +1,7 @@
-/*==========================================
-      CHAPCY WORLDWIDE LIVE CHAT
-            JAVASCRIPT PART 1
-==========================================*/
+/*=========================================
+        CHAPCY PREMIUM JAVASCRIPT
+=========================================*/
+
 
 /* ==========================
       GROUP SLIDESHOW
@@ -11,9 +11,10 @@ const slides = document.querySelectorAll(".group-slide");
 const dots = document.querySelectorAll(".dot");
 
 let currentSlide = 0;
-let slideInterval;
+let autoSlide;
 
-/* Show Slide */
+
+/* Show Current Slide */
 
 function showSlide(index){
 
@@ -25,9 +26,7 @@ function showSlide(index){
         dot.classList.remove("active");
     });
 
-    if(slides[index]){
-        slides[index].classList.add("active");
-    }
+    slides[index].classList.add("active");
 
     if(dots[index]){
         dots[index].classList.add("active");
@@ -35,67 +34,65 @@ function showSlide(index){
 
 }
 
-/* Next Slide */
+
+/* Next */
 
 function nextSlide(){
 
     currentSlide++;
 
     if(currentSlide >= slides.length){
+
         currentSlide = 0;
+
     }
 
     showSlide(currentSlide);
 
 }
 
-/* Previous Slide */
+
+/* Previous */
 
 function previousSlide(){
 
     currentSlide--;
 
     if(currentSlide < 0){
-        currentSlide = slides.length - 1;
+
+        currentSlide = slides.length-1;
+
     }
 
     showSlide(currentSlide);
 
 }
 
+
 /* Auto Slide */
 
-function startSlider(){
+function startSlide(){
 
-    slideInterval = setInterval(nextSlide,4500);
-
-}
-
-/* Stop Slider */
-
-function stopSlider(){
-
-    clearInterval(slideInterval);
+    autoSlide = setInterval(nextSlide,4000);
 
 }
 
-/* Click Dots */
 
-dots.forEach((dot,index)=>{
+/* Stop */
 
-    dot.addEventListener("click",()=>{
+function stopSlide(){
 
-        currentSlide = index;
+    clearInterval(autoSlide);
 
-        showSlide(currentSlide);
+}
 
-        stopSlider();
 
-        startSlider();
+/* Start */
 
-    });
+showSlide(currentSlide);
 
-});
+startSlide();
+
 
 /* Pause on Hover */
 
@@ -103,277 +100,129 @@ const slideshow = document.querySelector(".slideshow");
 
 if(slideshow){
 
-    slideshow.addEventListener("mouseenter",stopSlider);
+slideshow.addEventListener("mouseenter",stopSlide);
 
-    slideshow.addEventListener("mouseleave",startSlider);
-
-}
-
-/* Start */
-
-if(slides.length > 0){
-
-    showSlide(currentSlide);
-
-    startSlider();
+slideshow.addEventListener("mouseleave",startSlide);
 
 }
-/*==========================================
-        CHAPCY JAVASCRIPT PART 2
-      STATS AUTO CAROUSEL
-==========================================*/
 
-const stats = document.querySelector(".stats");
 
-let statsDirection = 1;
-let statsInterval;
+/* Dots */
 
-/* Move Right */
+dots.forEach((dot,index)=>{
+
+dot.addEventListener("click",()=>{
+
+currentSlide=index;
+
+showSlide(currentSlide);
+
+stopSlide();
+
+startSlide();
+
+});
+
+});
+
+
+/* ==========================
+      STATS SCROLL
+========================== */
+
+const stats=document.querySelector(".stats");
 
 function moveRight(){
 
-    if(!stats) return;
+if(stats){
 
-    stats.scrollBy({
-        left:320,
-        behavior:"smooth"
-    });
+stats.scrollBy({
+
+left:300,
+
+behavior:"smooth"
+
+});
 
 }
 
-/* Move Left */
+}
 
 function moveLeft(){
 
-    if(!stats) return;
+if(stats){
 
-    stats.scrollBy({
-        left:-320,
-        behavior:"smooth"
-    });
+stats.scrollBy({
+
+left:-300,
+
+behavior:"smooth"
+
+});
 
 }
+
+}
+
 
 /* Auto Scroll */
 
-function startStats(){
-
-    statsInterval = setInterval(()=>{
-
-        if(!stats) return;
-
-        if(statsDirection === 1){
-
-            stats.scrollBy({
-                left:320,
-                behavior:"smooth"
-            });
-
-            if(stats.scrollLeft + stats.clientWidth >= stats.scrollWidth - 10){
-
-                statsDirection = -1;
-
-            }
-
-        }else{
-
-            stats.scrollBy({
-                left:-320,
-                behavior:"smooth"
-            });
-
-            if(stats.scrollLeft <= 10){
-
-                statsDirection = 1;
-
-            }
-
-        }
-
-    },4500);
-
-}
-
-/* Stop Auto Scroll */
-
-function stopStats(){
-
-    clearInterval(statsInterval);
-
-}
-
-/* Pause on Hover */
-
 if(stats){
 
-    stats.addEventListener("mouseenter",stopStats);
+setInterval(()=>{
 
-    stats.addEventListener("mouseleave",startStats);
+stats.scrollBy({
+
+left:250,
+
+behavior:"smooth"
+
+});
+
+if(stats.scrollLeft>=stats.scrollWidth-stats.clientWidth){
+
+stats.scrollTo({
+
+left:0,
+
+behavior:"smooth"
+
+});
 
 }
 
-/* Touch Support */
-
-let startX = 0;
-
-if(stats){
-
-    stats.addEventListener("touchstart",(e)=>{
-
-        startX = e.touches[0].clientX;
-
-    });
-
-    stats.addEventListener("touchend",(e)=>{
-
-        let endX = e.changedTouches[0].clientX;
-
-        if(startX - endX > 50){
-
-            moveRight();
-
-        }
-
-        if(endX - startX > 50){
-
-            moveLeft();
-
-        }
-
-    });
+},5000);
 
 }
 
-/* Start */
-
-startStats();
-/*==========================================
-      CHAPCY JAVASCRIPT PART 3
-      PREMIUM ANIMATIONS
-==========================================*/
-
 
 /* ==========================
-   PAGE FADE IN
+      HEADER EFFECT
 ========================== */
 
-window.addEventListener("load",()=>{
+const header=document.querySelector(".header");
 
-    document.body.style.opacity="1";
+window.addEventListener("scroll",()=>{
 
-});
+if(window.scrollY>50){
 
-document.body.style.opacity="0";
-document.body.style.transition="opacity .8s ease";
+header.style.background="rgba(5,10,30,.95)";
 
+header.style.boxShadow="0 10px 25px rgba(0,0,0,.4)";
 
-/* ==========================
-   LOADING SCREEN
-========================== */
+}else{
 
-const loader=document.querySelector(".loader");
+header.style.background="rgba(5,10,30,.75)";
 
-window.addEventListener("load",()=>{
+header.style.boxShadow="none";
 
-    if(loader){
-
-        loader.style.opacity="0";
-
-        setTimeout(()=>{
-
-            loader.style.display="none";
-
-        },700);
-
-    }
+}
 
 });
 
 
 /* ==========================
-   COUNT UP ANIMATION
-========================== */
-
-const counters=document.querySelectorAll(".stat-box h3");
-
-const speed=80;
-
-counters.forEach(counter=>{
-
-    const update=()=>{
-
-        const target=parseInt(counter.innerText.replace(/,/g,""));
-
-        const current=parseInt(counter.dataset.count)||0;
-
-        const increment=Math.ceil(target/speed);
-
-        if(current<target){
-
-            const value=current+increment;
-
-            counter.dataset.count=value;
-
-            counter.innerText=value.toLocaleString()+"+";
-
-            requestAnimationFrame(update);
-
-        }else{
-
-            counter.innerText=target.toLocaleString()+"+";
-
-        }
-
-    };
-
-    update();
-
-});
-
-
-/* ==========================
-   SCROLL REVEAL
-========================== */
-
-const revealItems=document.querySelectorAll(
-
-".card,.hero-card,.group-slide,.stat-box"
-
-);
-
-const observer=new IntersectionObserver(entries=>{
-
-    entries.forEach(entry=>{
-
-        if(entry.isIntersecting){
-
-            entry.target.style.opacity="1";
-
-            entry.target.style.transform="translateY(0)";
-
-        }
-
-    });
-
-},{
-    threshold:.2
-});
-
-revealItems.forEach(item=>{
-
-    item.style.opacity="0";
-
-    item.style.transform="translateY(50px)";
-
-    item.style.transition=".8s";
-
-    observer.observe(item);
-
-});
-
-
-/* ==========================
-   RIPPLE BUTTON EFFECT
+      BUTTON RIPPLE
 ========================== */
 
 document.querySelectorAll(".btn,.join-btn").forEach(button=>{
@@ -382,9 +231,9 @@ button.addEventListener("click",function(e){
 
 const ripple=document.createElement("span");
 
-const size=Math.max(this.clientWidth,this.clientHeight);
-
 const rect=this.getBoundingClientRect();
+
+const size=Math.max(rect.width,rect.height);
 
 ripple.style.width=size+"px";
 
@@ -394,7 +243,7 @@ ripple.style.left=(e.clientX-rect.left-size/2)+"px";
 
 ripple.style.top=(e.clientY-rect.top-size/2)+"px";
 
-ripple.className="ripple";
+ripple.classList.add("ripple");
 
 this.appendChild(ripple);
 
@@ -410,23 +259,50 @@ ripple.remove();
 
 
 /* ==========================
-   ACTIVE HEADER ON SCROLL
+      FADE IN
 ========================== */
 
-const header=document.querySelector(".header");
+window.onload=()=>{
 
-window.addEventListener("scroll",()=>{
+document.body.style.opacity="1";
 
-if(window.scrollY>40){
+};
 
-header.style.background="rgba(5,10,25,.95)";
-header.style.boxShadow="0 5px 25px rgba(0,0,0,.5)";
+document.body.style.opacity="0";
 
-}else{
+document.body.style.transition="opacity .8s ease";
 
-header.style.background="rgba(8,15,35,.82)";
-header.style.boxShadow="none";
+
+/* ==========================
+      SCROLL REVEAL
+========================== */
+
+const reveal=document.querySelectorAll(".hero-card,.global-card,.tv-card,.group-slide,.stat-box");
+
+const observer=new IntersectionObserver(entries=>{
+
+entries.forEach(entry=>{
+
+if(entry.isIntersecting){
+
+entry.target.style.opacity="1";
+
+entry.target.style.transform="translateY(0)";
 
 }
+
+});
+
+});
+
+reveal.forEach(item=>{
+
+item.style.opacity="0";
+
+item.style.transform="translateY(40px)";
+
+item.style.transition=".7s";
+
+observer.observe(item);
 
 });
