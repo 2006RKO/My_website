@@ -344,172 +344,189 @@ body{
 
 }
 
-.red-btn:hover{
-
-    background:#ff3b30;
-
-}
-/*=========================================
-        CHAPCY PREMIUM CSS PART 2
-      GROUPS SLIDESHOW
-=========================================*/
+/*========================
+GROUPS SECTION
+========================*/
 
 .groups-section{
-    margin:60px 0;
+    width:100%;
+    padding:70px 20px;
+    background:#05091f;
+    text-align:center;
 }
 
 .group-title{
-    text-align:center;
-    font-size:38px;
-    color:#4fc3ff;
-    margin-bottom:35px;
+    font-size:48px;
+    color:#fff;
+    font-weight:bold;
+    margin-bottom:10px;
 }
 
-.slideshow{
-    position:relative;
+.group-title span{
+    color:#8b5cf6;
+}
+
+.group-subtitle{
+    color:#bfc9da;
+    font-size:18px;
+    margin-bottom:40px;
+}
+
+/*========================
+SLIDER
+========================*/
+
+.slider-wrapper{
     display:flex;
     align-items:center;
-    justify-content:center;
+    gap:15px;
 }
 
-.slides-container{
+.slider-track{
+    display:flex;
+    gap:25px;
+    overflow-x:auto;
+    scroll-behavior:smooth;
+    scrollbar-width:none;
     width:100%;
-    position:relative;
-    overflow:hidden;
+    padding:20px 10px;
 }
 
-.group-slide{
+.slider-track::-webkit-scrollbar{
     display:none;
-    text-align:center;
-    background:rgba(255,255,255,.06);
-    backdrop-filter:blur(18px);
+}
+
+/*========================
+CARDS
+========================*/
+
+.group-card{
+    min-width:280px;
+    background:#08162f;
     border-radius:25px;
-    padding:35px;
-    box-shadow:0 20px 45px rgba(0,0,0,.35);
-    animation:fadeSlide .6s ease;
-}
-
-.group-slide.active{
-    display:block;
-}
-
-@keyframes fadeSlide{
-
-from{
-opacity:0;
-transform:translateY(20px);
-}
-
-to{
-opacity:1;
-transform:translateY(0);
-}
-
-}
-
-.group-slide img{
-    width:100%;
-    max-width:420px;
-    border-radius:18px;
-    margin-bottom:20px;
+    padding:18px;
     transition:.4s;
+    border:2px solid rgba(0,180,255,.2);
+    box-shadow:0 0 15px rgba(0,0,0,.4);
 }
 
-.group-slide img:hover{
-    transform:scale(1.05);
+.group-card:hover{
+    transform:translateY(-8px) scale(1.05);
+    border-color:#8b5cf6;
+    box-shadow:0 0 35px rgba(139,92,246,.7);
 }
 
-.group-slide h3{
-    font-size:30px;
-    margin-bottom:15px;
-    color:#4fc3ff;
+.group-card img{
+    width:100%;
+    height:230px;
+    object-fit:cover;
+    border-radius:18px;
 }
 
-.group-slide p{
-    font-size:18px;
-    color:#d8e6ff;
-    line-height:1.8;
-    max-width:760px;
-    margin:0 auto 30px;
+.group-card h3{
+    color:#fff;
+    margin:18px 0 10px;
+    font-size:25px;
 }
+
+.group-card p{
+    color:#d0d8e5;
+    font-size:15px;
+    line-height:1.7;
+    min-height:80px;
+}
+
+/*========================
+BUTTON
+========================*/
 
 .join-btn{
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-    padding:15px 35px;
-    background:#0ea5e9;
+    display:inline-block;
+    margin-top:18px;
+    padding:14px 35px;
+    border-radius:35px;
+    background:linear-gradient(135deg,#6d28d9,#2563eb);
     color:#fff;
     text-decoration:none;
-    border-radius:50px;
-    font-size:17px;
     font-weight:bold;
-    transition:.35s;
+    transition:.3s;
 }
 
 .join-btn:hover{
-    background:#0284c7;
-    transform:translateY(-5px);
-    box-shadow:0 12px 25px rgba(14,165,233,.45);
+    transform:scale(1.08);
+    box-shadow:0 0 25px #8b5cf6;
 }
 
+/*========================
+ARROWS
+========================*/
+
 .slide-btn{
-    position:absolute;
-    top:50%;
-    transform:translateY(-50%);
     width:60px;
     height:60px;
-    border:none;
     border-radius:50%;
-    background:rgba(255,255,255,.12);
+    border:2px solid #7c3aed;
+    background:#101530;
     color:#fff;
-    font-size:22px;
     cursor:pointer;
+    font-size:22px;
     transition:.3s;
-    z-index:5;
 }
 
 .slide-btn:hover{
-    background:#0ea5e9;
-    transform:translateY(-50%) scale(1.1);
+    background:#7c3aed;
+    transform:scale(1.1);
 }
 
-.slide-btn.prev{
-    left:-20px;
-}
-
-.slide-btn.next{
-    right:-20px;
-}
+/*========================
+DOTS
+========================*/
 
 .slider-dots{
     display:flex;
     justify-content:center;
-    align-items:center;
     gap:12px;
     margin-top:30px;
 }
 
-.dot{
-    width:14px;
-    height:14px;
+.slider-dots span{
+    width:12px;
+    height:12px;
     border-radius:50%;
-    background:#6b7280;
-    cursor:pointer;
-    transition:.3s;
+    background:#555;
 }
 
-.dot.active{
-    background:#0ea5e9;
-    transform:scale(1.4);
+.slider-dots .active{
+    background:#8b5cf6;
+    box-shadow:0 0 12px #8b5cf6;
 }
 
-.dot:hover{
-    background:#38bdf8;
+/*========================
+MOBILE
+========================*/
+
+@media(max-width:768px){
+
+.group-title{
+    font-size:34px;
 }
 
-.group-slide:hover{
-    box-shadow:0 25px 60px rgba(14,165,233,.25);
+.group-card{
+    min-width:250px;
+}
+
+.group-card img{
+    height:190px;
+}
+
+.slide-btn{
+    width:50px;
+    height:50px;
+}
+
+}
+
+
 /*=========================================
         CHAPCY PREMIUM CSS PART 3
 =========================================*/
