@@ -2,307 +2,225 @@
         CHAPCY PREMIUM JAVASCRIPT
 =========================================*/
 
+/*=========================
+      GROUPS CAROUSEL
+==========================*/
 
-/* ==========================
-      GROUP SLIDESHOW
-========================== */
-
-const slides = document.querySelectorAll(".group-slide");
+const slider = document.querySelector(".slider-track");
 const dots = document.querySelectorAll(".dot");
 
-let currentSlide = 0;
-let autoSlide;
+let current = 0;
+const cardWidth = 305; // upana wa card + gap
 
+function updateDots() {
+    dots.forEach(dot => dot.classList.remove("active"));
 
-/* Show Current Slide */
+    if (dots.length > 0) {
+        dots[current % dots.length].classList.add("active");
+    }
+}
 
-function showSlide(index){
+function nextSlide() {
+    if (!slider) return;
 
-    slides.forEach((slide)=>{
-        slide.classList.remove("active");
+    current++;
+
+    slider.scrollTo({
+        left: current * cardWidth,
+        behavior: "smooth"
     });
 
-    dots.forEach((dot)=>{
-        dot.classList.remove("active");
+    if (slider.scrollLeft >= slider.scrollWidth - slider.clientWidth - 20) {
+        current = 0;
+
+        setTimeout(() => {
+            slider.scrollTo({
+                left: 0,
+                behavior: "smooth"
+            });
+        }, 500);
+    }
+
+    updateDots();
+}
+
+function previousSlide() {
+    if (!slider) return;
+
+    current--;
+
+    if (current < 0) {
+        current = 0;
+    }
+
+    slider.scrollTo({
+        left: current * cardWidth,
+        behavior: "smooth"
     });
 
-    slides[index].classList.add("active");
-
-    if(dots[index]){
-        dots[index].classList.add("active");
-    }
-
+    updateDots();
 }
-
-
-/* Next */
-
-function nextSlide(){
-
-    currentSlide++;
-
-    if(currentSlide >= slides.length){
-
-        currentSlide = 0;
-
-    }
-
-    showSlide(currentSlide);
-
-}
-
-
-/* Previous */
-
-function previousSlide(){
-
-    currentSlide--;
-
-    if(currentSlide < 0){
-
-        currentSlide = slides.length-1;
-
-    }
-
-    showSlide(currentSlide);
-
-}
-
 
 /* Auto Slide */
 
-function startSlide(){
+if (slider) {
 
-    autoSlide = setInterval(nextSlide,4000);
-
-}
-
-
-/* Stop */
-
-function stopSlide(){
-
-    clearInterval(autoSlide);
+    setInterval(nextSlide, 4000);
 
 }
 
-
-/* Start */
-
-showSlide(currentSlide);
-
-startSlide();
-
-
-/* Pause on Hover */
-
-const slideshow = document.querySelector(".slideshow");
-
-if(slideshow){
-
-slideshow.addEventListener("mouseenter",stopSlide);
-
-slideshow.addEventListener("mouseleave",startSlide);
-
-}
-
-
-/* Dots */
-
-dots.forEach((dot,index)=>{
-
-dot.addEventListener("click",()=>{
-
-currentSlide=index;
-
-showSlide(currentSlide);
-
-stopSlide();
-
-startSlide();
-
-});
-
-});
-
-
-/* ==========================
+/*=========================
       STATS SCROLL
-========================== */
+==========================*/
 
-const stats=document.querySelector(".stats");
+const stats = document.querySelector(".stats");
 
-function moveRight(){
+function moveRight() {
 
-if(stats){
+    if (stats) {
 
-stats.scrollBy({
+        stats.scrollBy({
+            left: 300,
+            behavior: "smooth"
+        });
 
-left:300,
-
-behavior:"smooth"
-
-});
-
-}
+    }
 
 }
 
-function moveLeft(){
+function moveLeft() {
 
-if(stats){
+    if (stats) {
 
-stats.scrollBy({
+        stats.scrollBy({
+            left: -300,
+            behavior: "smooth"
+        });
 
-left:-300,
-
-behavior:"smooth"
-
-});
-
-}
+    }
 
 }
 
+if (stats) {
 
-/* Auto Scroll */
+    setInterval(() => {
 
-if(stats){
+        stats.scrollBy({
+            left: 250,
+            behavior: "smooth"
+        });
 
-setInterval(()=>{
+        if (stats.scrollLeft >= stats.scrollWidth - stats.clientWidth) {
 
-stats.scrollBy({
+            stats.scrollTo({
+                left: 0,
+                behavior: "smooth"
+            });
 
-left:250,
+        }
 
-behavior:"smooth"
-
-});
-
-if(stats.scrollLeft>=stats.scrollWidth-stats.clientWidth){
-
-stats.scrollTo({
-
-left:0,
-
-behavior:"smooth"
-
-});
+    }, 5000);
 
 }
 
-},5000);
-
-}
-
-
-/* ==========================
+/*=========================
       HEADER EFFECT
-========================== */
+==========================*/
 
-const header=document.querySelector(".header");
+const header = document.querySelector(".header");
 
-window.addEventListener("scroll",()=>{
+window.addEventListener("scroll", () => {
 
-if(window.scrollY>50){
+    if (!header) return;
 
-header.style.background="rgba(5,10,30,.95)";
+    if (window.scrollY > 50) {
 
-header.style.boxShadow="0 10px 25px rgba(0,0,0,.4)";
+        header.style.background = "rgba(5,10,30,.95)";
+        header.style.boxShadow = "0 10px 25px rgba(0,0,0,.4)";
 
-}else{
+    } else {
 
-header.style.background="rgba(5,10,30,.75)";
+        header.style.background = "rgba(5,10,30,.75)";
+        header.style.boxShadow = "none";
 
-header.style.boxShadow="none";
-
-}
-
-});
-
-
-/* ==========================
-      BUTTON RIPPLE
-========================== */
-
-document.querySelectorAll(".btn,.join-btn").forEach(button=>{
-
-button.addEventListener("click",function(e){
-
-const ripple=document.createElement("span");
-
-const rect=this.getBoundingClientRect();
-
-const size=Math.max(rect.width,rect.height);
-
-ripple.style.width=size+"px";
-
-ripple.style.height=size+"px";
-
-ripple.style.left=(e.clientX-rect.left-size/2)+"px";
-
-ripple.style.top=(e.clientY-rect.top-size/2)+"px";
-
-ripple.classList.add("ripple");
-
-this.appendChild(ripple);
-
-setTimeout(()=>{
-
-ripple.remove();
-
-},700);
+    }
 
 });
 
+/*=========================
+      RIPPLE
+==========================*/
+
+document.querySelectorAll(".btn,.join-btn").forEach(button => {
+
+    button.addEventListener("click", function(e) {
+
+        const ripple = document.createElement("span");
+
+        const rect = this.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+
+        ripple.style.width = size + "px";
+        ripple.style.height = size + "px";
+        ripple.style.left = (e.clientX - rect.left - size / 2) + "px";
+        ripple.style.top = (e.clientY - rect.top - size / 2) + "px";
+
+        ripple.classList.add("ripple");
+
+        this.appendChild(ripple);
+
+        setTimeout(() => {
+
+            ripple.remove();
+
+        }, 700);
+
+    });
+
 });
 
-
-/* ==========================
+/*=========================
       FADE IN
-========================== */
+==========================*/
 
-window.onload=()=>{
+window.onload = () => {
 
-document.body.style.opacity="1";
+    document.body.style.opacity = "1";
 
 };
 
-document.body.style.opacity="0";
+document.body.style.opacity = "0";
+document.body.style.transition = "opacity .8s ease";
 
-document.body.style.transition="opacity .8s ease";
-
-
-/* ==========================
+/*=========================
       SCROLL REVEAL
-========================== */
+==========================*/
 
-const reveal=document.querySelectorAll(".hero-card,.global-card,.tv-card,.group-slide,.stat-box");
+const reveal = document.querySelectorAll(
+".hero-card,.global-card,.tv-card,.group-card,.stat-box"
+);
 
-const observer=new IntersectionObserver(entries=>{
+const observer = new IntersectionObserver(entries => {
 
-entries.forEach(entry=>{
+    entries.forEach(entry => {
 
-if(entry.isIntersecting){
+        if (entry.isIntersecting) {
 
-entry.target.style.opacity="1";
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translateY(0)";
 
-entry.target.style.transform="translateY(0)";
+        }
 
-}
+    });
 
 });
 
-});
+reveal.forEach(item => {
 
-reveal.forEach(item=>{
+    item.style.opacity = "0";
+    item.style.transform = "translateY(40px)";
+    item.style.transition = ".7s";
 
-item.style.opacity="0";
-
-item.style.transform="translateY(40px)";
-
-item.style.transition=".7s";
-
-observer.observe(item);
+    observer.observe(item);
 
 });
