@@ -777,3 +777,22 @@ opacity:0;
     color:#fff !important;
     z-index:999;
 }
+
+.slider-track{
+    display:flex;
+    gap:25px;
+    overflow:hidden;
+    scroll-behavior:smooth;
+    padding:20px;
+}
+
+.group-card{
+    flex:0 0 280px;
+    transition:.4s;
+}
+
+.group-card.active{
+    transform:scale(1.08);
+    box-shadow:0 0 35px #8b5cf6;
+    border:2px solid #8b5cf6;
+}
