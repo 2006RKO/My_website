@@ -349,26 +349,33 @@ GROUPS SECTION
 ========================*/
 
 .groups-section{
+    position:relative;
+    min-height:700px;
+    overflow:hidden;
+}
+
+.bg-video{
+    position:absolute;
+    top:0;
+    left:0;
     width:100%;
-    padding:70px 20px;
-    text-align:center;
+    height:100%;
+    object-fit:cover;
+    z-index:1;
 }
 
-.group-title{
-    font-size:48px;
-    color:#fff;
-    font-weight:bold;
-    margin-bottom:10px;
+.bg-overlay{
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,.55);
+    z-index:2;
 }
 
-.group-title span{
-    color:#8b5cf6;
-}
-
-.group-subtitle{
-    color:#bfc9da;
-    font-size:18px;
-    margin-bottom:40px;
+.group-title,
+.group-subtitle,
+.slider-track{
+    position:relative;
+    z-index:3;
 }
 
 /*========================
