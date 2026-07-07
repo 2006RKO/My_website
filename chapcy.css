@@ -351,7 +351,6 @@ GROUPS SECTION
 .groups-section{
     width:100%;
     padding:70px 20px;
-    background:#05091f;
     text-align:center;
 }
 
@@ -797,42 +796,3 @@ opacity:0;
     border:2px solid #8b5cf6;
 }
 
-.groups-section{
-    position:relative;
-    overflow:hidden;
-    padding:70px 30px;
-    border-radius:30px;
-}
-
-.bg-video{
-    position:absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    z-index:-2;
-}
-
-.bg-overlay{
-    position:absolute;
-    inset:0;
-    background:linear-gradient(
-        rgba(5,10,30,.65),
-        rgba(5,10,30,.75)
-    );
-    backdrop-filter:blur(2px);
-    z-index:-1;
-}
-
-/* Cards juu ya video */
-.slider-track{
-    position:relative;
-    z-index:2;
-}
-
-.group-title,
-.group-subtitle{
-    position:relative;
-    z-index:2;
-}
