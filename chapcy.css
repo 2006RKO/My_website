@@ -14,9 +14,10 @@ html{
     scroll-behavior:smooth;
 }
 
+
 body{
+    margin:0;
     font-family:Arial,sans-serif;
-    background:linear-gradient(135deg,#07142b,#0b2447,#123b71);
     color:#fff;
     overflow-x:hidden;
 }
@@ -801,5 +802,31 @@ opacity:0;
     transform:scale(1.08);
     box-shadow:0 0 35px #8b5cf6;
     border:2px solid #8b5cf6;
+}
+
+/* ===== WEBSITE VIDEO BACKGROUND ===== */
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    color:#fff;
+    overflow-x:hidden;
+}
+
+.bg-video-page{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    z-index:-2;
+}
+
+.bg-overlay-page{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.55);
+    z-index:-1;
 }
 
