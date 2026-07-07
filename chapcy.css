@@ -829,4 +829,82 @@ body{
     background:rgba(0,0,0,.55);
     z-index:-1;
 }
+/*==========================
+PREMIUM VIDEO BACKGROUND
+==========================*/
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    color:#fff;
+    overflow-x:hidden;
+}
+
+.bg-video{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    z-index:-2;
+}
+
+.overlay{
+    position:fixed;
+    inset:0;
+    background:linear-gradient(
+        rgba(3,10,30,.65),
+        rgba(5,15,45,.75)
+    );
+    z-index:-1;
+}
+
+/*==========================
+GLASS HEADER
+==========================*/
+
+.header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:18px 40px;
+
+    background:rgba(10,15,40,.35);
+
+    backdrop-filter:blur(20px);
+
+    border-bottom:1px solid rgba(255,255,255,.15);
+}
+
+.logo img{
+    width:65px;
+    height:65px;
+}
+
+.logo h1{
+    color:#4fc3ff;
+    font-size:32px;
+    letter-spacing:2px;
+}
+
+.logo p{
+    color:#dbeafe;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin:0 14px;
+    transition:.3s;
+}
+
+nav a:hover{
+    color:#38bdf8;
+}
 
