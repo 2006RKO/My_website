@@ -724,3 +724,16 @@ CHAPCY TV
     border-radius:35px;
 
     background:
+            .stats{
+    margin-bottom:90px;
+}
+
+.footer{
+    margin-top:90px;
+}
+
+.footer-logo img{
+    width:180px;
+    display:block;
+    margin:0 auto 30px;
+}
