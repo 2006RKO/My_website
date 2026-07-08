@@ -1,11 +1,9 @@
 /*=========================================
-        CHAPCY PREMIUM CSS V3
+        CHAPCY V10 ULTRA PREMIUM
               PART 1
 =========================================*/
 
-/*==============================
-RESET
-==============================*/
+/* RESET */
 
 *{
     margin:0;
@@ -17,153 +15,391 @@ html{
     scroll-behavior:smooth;
 }
 
-body{
-    font-family:Arial,sans-serif;
-    background:#050b1f;
-    color:#fff;
-    overflow-x:hidden;
-    line-height:1.6;
+:root{
+
+    --bg:#050816;
+    --bg2:#08122d;
+
+    --cyan:#00d9ff;
+    --blue:#2563eb;
+    --purple:#7c3aed;
+    --pink:#ff3df5;
+
+    --glass:rgba(12,20,45,.65);
+    --border:rgba(255,255,255,.12);
+
+    --text:#ffffff;
+    --sub:#d6e8ff;
+
 }
 
-/*==============================
-VIDEO BACKGROUND
-==============================*/
+/* BODY */
+
+body{
+
+    font-family:"Segoe UI",Arial,sans-serif;
+
+    background:
+    radial-gradient(circle at top,#132b6d 0%,#050816 55%,#02040d 100%);
+
+    color:var(--text);
+
+    overflow-x:hidden;
+
+    line-height:1.7;
+
+    min-height:100vh;
+
+}
+
+/* VIDEO */
 
 .bg-video{
+
     position:fixed;
-    top:0;
-    left:0;
+
+    inset:0;
+
     width:100%;
     height:100%;
+
     object-fit:cover;
-    z-index:-2;
+
+    z-index:-3;
+
+    filter:
+    brightness(.35)
+    saturate(1.2);
+
 }
+
+/* OVERLAY */
 
 .overlay{
+
     position:fixed;
+
     inset:0;
-    background:linear-gradient(
-        rgba(3,8,25,.60),
-        rgba(5,15,35,.82)
+
+    z-index:-2;
+
+    background:
+
+    linear-gradient(
+    rgba(3,8,20,.45),
+    rgba(2,5,18,.88)
     );
-    z-index:-1;
+
 }
 
-/*==============================
-CONTAINER
-==============================*/
+/* ANIMATED BACKGROUND */
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    width:700px;
+    height:700px;
+
+    border-radius:50%;
+
+    background:
+    radial-gradient(
+    rgba(0,217,255,.18),
+    transparent 70%
+    );
+
+    top:-250px;
+    left:-200px;
+
+    animation:floatGlow 12s linear infinite;
+
+    z-index:-1;
+
+}
+
+body::after{
+
+    content:"";
+
+    position:fixed;
+
+    width:650px;
+    height:650px;
+
+    border-radius:50%;
+
+    background:
+    radial-gradient(
+    rgba(124,58,237,.20),
+    transparent 70%
+    );
+
+    right:-180px;
+    bottom:-180px;
+
+    animation:floatGlow2 15s linear infinite;
+
+    z-index:-1;
+
+}
+
+/* CONTAINER */
 
 .container{
+
     width:95%;
-    max-width:1400px;
+
+    max-width:1500px;
+
     margin:auto;
+
 }
 
-/*==============================
-HEADER
-==============================*/
+/* SCROLLBAR */
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#071022;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:
+    linear-gradient(
+    var(--cyan),
+    var(--purple)
+    );
+
+    border-radius:30px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:
+    linear-gradient(
+    var(--pink),
+    var(--cyan)
+    );
+
+}
+
+/* ANIMATIONS */
+
+@keyframes floatGlow{
+
+0%{
+
+transform:
+translateY(0)
+translateX(0);
+
+}
+
+50%{
+
+transform:
+translateY(40px)
+translateX(50px);
+
+}
+
+100%{
+
+transform:
+translateY(0)
+translateX(0);
+
+}
+
+}
+
+@keyframes floatGlow2{
+
+0%{
+
+transform:
+translateY(0)
+translateX(0);
+
+}
+
+50%{
+
+transform:
+translateY(-40px)
+translateX(-60px);
+
+}
+
+100%{
+
+transform:
+translateY(0)
+translateX(0);
+
+}
+
+}
+/*=========================================
+        CHAPCY V10 ULTRA PREMIUM
+              PART 2
+=========================================*/
+
+/* HEADER */
 
 .header{
 
     position:sticky;
     top:0;
     left:0;
-    z-index:1000;
+    z-index:9999;
+
+    width:100%;
 
     display:flex;
     justify-content:space-between;
     align-items:center;
 
-    padding:18px 40px;
+    padding:18px 50px;
 
-    background:rgba(5,10,25,.45);
+    background:rgba(8,15,35,.55);
 
-    backdrop-filter:blur(22px);
+    backdrop-filter:blur(28px);
+    -webkit-backdrop-filter:blur(28px);
 
     border-bottom:1px solid rgba(255,255,255,.08);
 
-    transition:.4s;
+    box-shadow:
+        0 10px 35px rgba(0,0,0,.35);
+
+    transition:.45s;
 
 }
 
 .header:hover{
 
-    background:rgba(5,10,25,.60);
+    background:rgba(8,15,35,.75);
+
+    box-shadow:
+        0 0 25px rgba(0,217,255,.25);
 
 }
 
-/*==============================
-LOGO
-==============================*/
+/* LOGO */
 
 .logo{
 
     display:flex;
     align-items:center;
-    gap:15px;
+    gap:18px;
+
+    cursor:pointer;
 
 }
 
 .logo img{
 
-    width:65px;
-    height:65px;
+    width:72px;
+    height:72px;
+
     object-fit:contain;
 
-    filter:drop-shadow(0 0 12px rgba(56,189,248,.45));
+    transition:.45s;
+
+    filter:
+        drop-shadow(0 0 12px #00d9ff)
+        drop-shadow(0 0 22px rgba(0,217,255,.45));
 
 }
 
-.logo h1{
+.logo:hover img{
+
+    transform:
+        rotate(-6deg)
+        scale(1.08);
+
+    filter:
+        drop-shadow(0 0 18px #00d9ff)
+        drop-shadow(0 0 35px #7c3aed);
+
+}
+
+.logo-text{
+
+    display:flex;
+    flex-direction:column;
+
+}
+
+.logo-text h1{
 
     font-size:34px;
-    color:#38bdf8;
+    font-weight:900;
+
     letter-spacing:2px;
-    font-weight:800;
+
+    background:linear-gradient(
+        90deg,
+        #00d9ff,
+        #6d5dfc,
+        #ff3df5
+    );
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
 
 }
 
-.logo p{
+.logo-text p{
 
-    color:#dbeafe;
+    color:#d9ecff;
+
     font-size:15px;
 
+    margin-top:4px;
+
 }
 
-/*==============================
-NAVIGATION
-==============================*/
+/* NAVIGATION */
 
 nav{
 
     display:flex;
     align-items:center;
-    gap:25px;
+    gap:30px;
 
 }
 
 nav a{
 
-    color:#fff;
-    text-decoration:none;
-    font-size:17px;
-    font-weight:600;
-
-    transition:.35s;
-
     position:relative;
 
-}
+    color:white;
 
-nav a i{
+    text-decoration:none;
 
-    margin-right:6px;
+    font-size:17px;
+
+    font-weight:700;
+
+    transition:.35s;
 
 }
 
 nav a:hover{
 
-    color:#38bdf8;
+    color:#00d9ff;
 
 }
 
@@ -176,12 +412,18 @@ nav a::after{
     left:0;
     bottom:-8px;
 
-    width:0;
-    height:2px;
+    width:0%;
+    height:3px;
 
-    background:#38bdf8;
+    border-radius:30px;
 
-    transition:.35s;
+    background:linear-gradient(
+        90deg,
+        #00d9ff,
+        #7c3aed
+    );
+
+    transition:.4s;
 
 }
 
@@ -191,21 +433,19 @@ nav a:hover::after{
 
 }
 
-/*==============================
-HEADER ICONS
-==============================*/
+/* HEADER ICONS */
 
 .header-icons{
 
     display:flex;
-    gap:15px;
+    gap:16px;
 
 }
 
 .header-icons i{
 
-    width:48px;
-    height:48px;
+    width:52px;
+    height:52px;
 
     display:flex;
     justify-content:center;
@@ -215,69 +455,157 @@ HEADER ICONS
 
     background:rgba(255,255,255,.08);
 
+    color:white;
+
     cursor:pointer;
 
-    transition:.35s;
+    transition:.4s;
 
 }
 
 .header-icons i:hover{
 
-    background:#0ea5e9;
+    transform:
+        translateY(-5px)
+        scale(1.08);
 
-    transform:translateY(-4px);
+    background:linear-gradient(
+        135deg,
+        #00d9ff,
+        #2563eb,
+        #7c3aed
+    );
 
-    box-shadow:0 0 20px rgba(56,189,248,.45);
+    box-shadow:
+        0 0 20px #00d9ff,
+        0 0 40px rgba(124,58,237,.5);
 
 }
 
-/*==============================
-HERO
-==============================*/
+/*=========================================
+        CHAPCY V10 ULTRA PREMIUM
+              PART 3
+=========================================*/
+
+/* HERO */
 
 .hero{
 
+    position:relative;
+
     text-align:center;
 
-    padding:110px 20px 90px;
+    padding:140px 20px 120px;
+
+    overflow:hidden;
 
 }
+
+/* HERO GLOW */
+
+.hero::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:500px;
+    height:500px;
+
+    border-radius:50%;
+
+    background:
+    radial-gradient(
+        rgba(0,217,255,.22),
+        transparent 70%
+    );
+
+    left:50%;
+    top:45%;
+
+    transform:translate(-50%,-50%);
+
+    animation:heroGlow 8s ease-in-out infinite;
+
+    z-index:-1;
+
+}
+
+/* TITLE */
 
 .hero h1{
 
-    font-size:62px;
+    font-size:72px;
 
-    line-height:1.2;
+    line-height:1.15;
 
-    margin-bottom:20px;
+    font-weight:900;
 
-    font-weight:800;
+    letter-spacing:2px;
+
+    margin-bottom:25px;
+
+    background:linear-gradient(
+        90deg,
+        #ffffff,
+        #00d9ff,
+        #7c3aed
+    );
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
 
 }
 
-.hero span{
+/* SPECIAL TEXT */
 
-    color:#38bdf8;
+.hero h1 span{
+
+    background:linear-gradient(
+        90deg,
+        #00d9ff,
+        #ff3df5
+    );
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
 
 }
+
+/* PARAGRAPH */
 
 .hero p{
 
-    max-width:850px;
+    width:90%;
+    max-width:900px;
 
     margin:auto;
 
+    font-size:20px;
+
     color:#dbeafe;
 
-    font-size:19px;
-
-    line-height:1.9;
+    line-height:2;
 
 }
 
-/*==============================
-MAIN BUTTON
-==============================*/
+/* BUTTON AREA */
+
+.hero-buttons{
+
+    margin-top:45px;
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:20px;
+
+    flex-wrap:wrap;
+
+}
+
+/* PRIMARY BUTTON */
 
 .btn{
 
@@ -285,249 +613,1691 @@ MAIN BUTTON
 
     align-items:center;
 
-    gap:10px;
+    justify-content:center;
 
-    margin-top:35px;
+    gap:12px;
 
-    padding:16px 36px;
+    padding:18px 42px;
 
-    border-radius:50px;
+    border-radius:60px;
 
     text-decoration:none;
 
-    color:white;
+    font-size:18px;
 
-    font-weight:bold;
+    font-weight:700;
+
+    color:#fff;
 
     background:linear-gradient(
         135deg,
-        #0ea5e9,
-        #2563eb
+        #00d9ff,
+        #2563eb,
+        #7c3aed
     );
 
-    transition:.35s;
+    transition:.4s;
+
+    box-shadow:
+        0 0 25px rgba(0,217,255,.35);
 
 }
 
 .btn:hover{
 
-    transform:translateY(-6px);
+    transform:
+        translateY(-6px)
+        scale(1.05);
 
     box-shadow:
-    0 0 18px #38bdf8,
-    0 12px 30px rgba(56,189,248,.35);
+        0 0 30px #00d9ff,
+        0 0 60px rgba(124,58,237,.5);
 
-        }
+}
 
-/*=========================================
-        CHAPCY PREMIUM CSS V3
-              PART 2
-=========================================*/
+/* SECONDARY BUTTON */
 
-/*==============================
-GLOBAL COMMUNITY
-==============================*/
+.btn-outline{
 
-.global-card{
+    display:inline-flex;
 
-    margin:70px auto;
-    padding:50px 35px;
+    align-items:center;
 
-    border-radius:35px;
+    justify-content:center;
 
-    background:rgba(20,28,55,.60);
+    padding:18px 42px;
 
-    backdrop-filter:blur(20px);
+    border-radius:60px;
 
-    border:1px solid rgba(255,255,255,.10);
+    text-decoration:none;
 
-    box-shadow:
-    0 20px 50px rgba(0,0,0,.45);
+    color:#fff;
+
+    font-weight:700;
+
+    border:2px solid rgba(255,255,255,.18);
+
+    background:rgba(255,255,255,.05);
+
+    backdrop-filter:blur(18px);
+
+    transition:.4s;
+
+}
+
+.btn-outline:hover{
+
+    border-color:#00d9ff;
+
+    background:rgba(0,217,255,.12);
+
+    transform:translateY(-5px);
+
+}
+
+/* HERO STATS */
+
+.hero-stats{
+
+    margin-top:60px;
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:45px;
+
+    flex-wrap:wrap;
+
+}
+
+.hero-stats .item{
 
     text-align:center;
 
 }
 
-.global-card img{
+.hero-stats h2{
 
-    width:240px;
-    max-width:100%;
+    font-size:40px;
+
+    color:#00d9ff;
+
+    margin-bottom:8px;
+
+}
+
+.hero-stats span{
+
+    color:#dbeafe;
+
+    font-size:16px;
+
+}
+
+/* ANIMATION */
+
+@keyframes heroGlow{
+
+0%,100%{
+
+transform:
+translate(-50%,-50%)
+scale(1);
+
+}
+
+50%{
+
+transform:
+translate(-50%,-50%)
+scale(1.2);
+
+}
+
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.hero{
+
+padding:100px 20px 80px;
+
+}
+
+.hero h1{
+
+font-size:42px;
+
+}
+
+.hero p{
+
+font-size:17px;
+
+}
+
+.hero-buttons{
+
+flex-direction:column;
+
+align-items:center;
+
+}
+
+.hero-stats{
+
+gap:25px;
+
+}
+
+.hero-stats h2{
+
+font-size:28px;
+
+}
+
+}
+
+/*=========================================
+        CHAPCY V10 ULTRA PREMIUM
+              PART 5
+=========================================*/
+
+/* GROUP CARD */
+
+.group-card{
+
+    position:relative;
+
+    flex:0 0 340px;
+
+    padding:22px;
+
+    border-radius:32px;
+
+    overflow:hidden;
+
+    background:rgba(12,20,45,.72);
+
+    backdrop-filter:blur(30px);
+    -webkit-backdrop-filter:blur(30px);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    transition:.45s ease;
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,.45);
+
+}
+
+/* RGB BORDER */
+
+.group-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    padding:2px;
+
+    border-radius:32px;
+
+    background:linear-gradient(
+        135deg,
+        #00d9ff,
+        #2563eb,
+        #7c3aed,
+        #ff3df5,
+        #00d9ff
+    );
+
+    background-size:400% 400%;
+
+    animation:rgbBorder 8s linear infinite;
+
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+
+    -webkit-mask-composite:xor;
+    mask-composite:exclude;
+
+}
+
+/* SHINE EFFECT */
+
+.group-card::after{
+
+    content:"";
+
+    position:absolute;
+
+    top:-120%;
+    left:-40%;
+
+    width:60%;
+    height:300%;
+
+    background:rgba(255,255,255,.12);
+
+    transform:rotate(25deg);
+
+    transition:1s;
+
+}
+
+.group-card:hover::after{
+
+    left:140%;
+
+}
+
+/* HOVER */
+
+.group-card:hover{
+
+    transform:
+        translateY(-15px)
+        scale(1.04);
+
+    box-shadow:
+        0 0 25px rgba(0,217,255,.60),
+        0 0 55px rgba(124,58,237,.45),
+        0 30px 60px rgba(0,0,0,.55);
+
+}
+
+/* IMAGE */
+
+.group-card img{
+
+    width:100%;
+
+    height:220px;
+
+    object-fit:cover;
+
+    border-radius:24px;
+
+    transition:.45s;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.35);
+
+}
+
+.group-card:hover img{
+
+    transform:scale(1.08);
+
+}
+
+/* TITLE */
+
+.group-card h3{
+
+    margin-top:22px;
+
+    font-size:28px;
+
+    font-weight:800;
+
+    color:#ffffff;
+
+    line-height:1.3;
+
+}
+
+/* DESCRIPTION */
+
+.group-card p{
+
+    margin-top:15px;
+
+    color:#dcecff;
+
+    font-size:16px;
+
+    line-height:1.8;
+
+    min-height:95px;
+
+}
+
+/* BUTTON */
+
+.join-btn{
+
+    display:inline-flex;
+
+    justify-content:center;
+    align-items:center;
+
+    margin-top:22px;
+
+    width:100%;
+
+    padding:16px;
+
+    border-radius:50px;
+
+    text-decoration:none;
+
+    color:#fff;
+
+    font-size:16px;
+
+    font-weight:700;
+
+    background:linear-gradient(
+        135deg,
+        #00d9ff,
+        #2563eb,
+        #7c3aed
+    );
+
+    transition:.35s;
+
+    box-shadow:
+        0 10px 25px rgba(37,99,235,.35);
+
+}
+
+.join-btn:hover{
+
+    transform:scale(1.05);
+
+    box-shadow:
+        0 0 25px #00d9ff,
+        0 0 50px rgba(124,58,237,.45);
+
+}
+
+/* RGB BORDER ANIMATION */
+
+@keyframes rgbBorder{
+
+0%{
+background-position:0% 50%;
+}
+
+50%{
+background-position:100% 50%;
+}
+
+100%{
+background-position:0% 50%;
+}
+
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.group-card{
+
+    flex:0 0 100%;
+
+}
+
+.group-card img{
+
+    height:200px;
+
+}
+
+.group-card h3{
+
+    font-size:22px;
+
+}
+
+.group-card p{
+
+    font-size:15px;
+
+}
+
+}
+
+/*=========================================
+        CHAPCY V10 ULTRA PREMIUM
+              PART 6
+=========================================*/
+
+/* BUTTONS */
+
+.btn,
+.join-btn,
+button{
+
+    display:inline-flex;
+
+    justify-content:center;
+    align-items:center;
+
+    gap:10px;
+
+    padding:16px 35px;
+
+    border:none;
+
+    border-radius:60px;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+    font-weight:700;
+
+    color:#fff;
+
+    text-decoration:none;
+
+    background:linear-gradient(
+        135deg,
+        #00d9ff,
+        #2563eb,
+        #7c3aed
+    );
+
+    background-size:250% 250%;
+
+    animation:buttonGradient 6s linear infinite;
+
+    transition:.35s;
+
+    box-shadow:
+        0 10px 25px rgba(37,99,235,.35);
+
+}
+
+.btn:hover,
+.join-btn:hover,
+button:hover{
+
+    transform:
+        translateY(-5px)
+        scale(1.05);
+
+    box-shadow:
+        0 0 20px #00d9ff,
+        0 0 40px #7c3aed,
+        0 20px 45px rgba(0,0,0,.45);
+
+}
+
+/* SEARCH BAR */
+
+.search-box{
+
+    position:relative;
+
+    max-width:650px;
+
+    margin:35px auto;
+
+}
+
+.search-box input{
+
+    width:100%;
+
+    padding:18px 65px 18px 22px;
+
+    border-radius:60px;
+
+    border:1px solid rgba(255,255,255,.10);
+
+    background:rgba(255,255,255,.08);
+
+    backdrop-filter:blur(20px);
+
+    color:#fff;
+
+    font-size:17px;
+
+    outline:none;
+
+    transition:.35s;
+
+}
+
+.search-box input:focus{
+
+    border-color:#00d9ff;
+
+    box-shadow:
+        0 0 20px rgba(0,217,255,.35);
+
+}
+
+.search-box i{
+
+    position:absolute;
+
+    right:24px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    color:#00d9ff;
+
+    font-size:20px;
+
+}
+
+/* INPUTS */
+
+input,
+textarea,
+select{
+
+    width:100%;
+
+    padding:16px 20px;
+
+    margin-top:15px;
+
+    border-radius:18px;
+
+    border:1px solid rgba(255,255,255,.10);
+
+    background:rgba(255,255,255,.06);
+
+    backdrop-filter:blur(18px);
+
+    color:white;
+
+    font-size:16px;
+
+    outline:none;
+
+    transition:.35s;
+
+}
+
+input::placeholder,
+textarea::placeholder{
+
+    color:#bcd2ff;
+
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+
+    border-color:#00d9ff;
+
+    box-shadow:
+        0 0 18px rgba(0,217,255,.35);
+
+}
+
+/* FORM CARD */
+
+.form-card{
+
+    max-width:700px;
+
+    margin:60px auto;
+
+    padding:35px;
+
+    border-radius:30px;
+
+    background:rgba(12,20,45,.70);
+
+    backdrop-filter:blur(30px);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    box-shadow:
+        0 15px 45px rgba(0,0,0,.45);
+
+}
+
+/* BUTTON ANIMATION */
+
+@keyframes buttonGradient{
+
+0%{
+
+background-position:0% 50%;
+
+}
+
+50%{
+
+background-position:100% 50%;
+
+}
+
+100%{
+
+background-position:0% 50%;
+
+}
+
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.btn,
+.join-btn,
+button{
+
+width:100%;
+
+}
+
+.search-box{
+
+width:100%;
+
+}
+
+.form-card{
+
+padding:22px;
+
+}
+
+}
+  /*=========================================
+        CHAPCY V10 ULTRA PREMIUM
+              PART 7
+=========================================*/
+
+/* PREMIUM STATS */
+
+.stats{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(260px,1fr));
+
+    gap:30px;
+
+    margin:100px auto;
+
+}
+
+/* CARD */
+
+.stat-box{
+
+    position:relative;
+
+    overflow:hidden;
+
+    padding:40px 30px;
+
+    border-radius:30px;
+
+    text-align:center;
+
+    background:rgba(12,20,45,.72);
+
+    backdrop-filter:blur(28px);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    transition:.45s;
+
+    box-shadow:
+    0 15px 45px rgba(0,0,0,.40);
+
+}
+
+/* RGB BORDER */
+
+.stat-box::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    padding:2px;
+
+    border-radius:30px;
+
+    background:linear-gradient(
+    135deg,
+    #00d9ff,
+    #2563eb,
+    #7c3aed,
+    #ff3df5,
+    #00d9ff
+    );
+
+    background-size:400% 400%;
+
+    animation:statsBorder 8s linear infinite;
+
+    -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+
+    -webkit-mask-composite:xor;
+
+    mask-composite:exclude;
+
+}
+
+/* HOVER */
+
+.stat-box:hover{
+
+    transform:
+    translateY(-12px)
+    scale(1.03);
+
+    box-shadow:
+    0 0 25px rgba(0,217,255,.45),
+    0 0 50px rgba(124,58,237,.35),
+    0 25px 60px rgba(0,0,0,.55);
+
+}
+
+/* ICON */
+
+.stat-box i{
+
+    width:90px;
+    height:90px;
+
+    margin:auto;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    border-radius:50%;
+
+    font-size:38px;
+
+    color:#fff;
+
+    background:
+    linear-gradient(
+    135deg,
+    #00d9ff,
+    #2563eb,
+    #7c3aed
+    );
+
+    box-shadow:
+    0 0 25px rgba(0,217,255,.40);
+
     margin-bottom:25px;
 
 }
 
-.global-card h2{
+/* NUMBER */
 
-    font-size:40px;
-    margin-bottom:20px;
+.stat-box h3{
+
+    font-size:42px;
+
+    margin-bottom:12px;
+
+    font-weight:900;
+
+    background:
+    linear-gradient(
+    90deg,
+    #fff,
+    #00d9ff,
+    #7c3aed
+    );
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
 
 }
 
-.global-card p{
+/* TEXT */
 
-    color:#dbeafe;
-    max-width:850px;
-    margin:15px auto;
+.stat-box p{
+
+    color:#dcecff;
+
+    line-height:1.8;
+
+    font-size:17px;
+
+}
+
+/* FLOAT GLOW */
+
+.stat-box::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:180px;
+    height:180px;
+
+    background:
+    radial-gradient(
+    rgba(0,217,255,.20),
+    transparent 70%
+    );
+
+    top:-80px;
+    right:-80px;
+
+}
+
+/* BORDER ANIMATION */
+
+@keyframes statsBorder{
+
+0%{
+background-position:0% 50%;
+}
+
+50%{
+background-position:100% 50%;
+}
+
+100%{
+background-position:0% 50%;
+}
+
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.stat-box{
+
+padding:30px 20px;
+
+}
+
+.stat-box h3{
+
+font-size:34px;
+
+}
+
+.stat-box i{
+
+width:75px;
+height:75px;
+
+font-size:30px;
+
+}
+
+}
+  /*=========================================
+        CHAPCY V10 ULTRA PREMIUM
+              PART 8
+=========================================*/
+
+/* CHAPCY TV */
+
+.tv-card{
+
+    position:relative;
+
+    margin:100px auto;
+
+    padding:70px 40px;
+
+    border-radius:35px;
+
+    text-align:center;
+
+    overflow:hidden;
+
+    background:rgba(12,20,45,.72);
+
+    backdrop-filter:blur(30px);
+    -webkit-backdrop-filter:blur(30px);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.45);
+
+}
+
+/* RGB BORDER */
+
+.tv-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    padding:2px;
+
+    border-radius:35px;
+
+    background:linear-gradient(
+        135deg,
+        #00d9ff,
+        #2563eb,
+        #7c3aed,
+        #ff3df5,
+        #00d9ff
+    );
+
+    background-size:400% 400%;
+
+    animation:tvBorder 8s linear infinite;
+
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+
+    -webkit-mask-composite:xor;
+    mask-composite:exclude;
+
+}
+
+.tv-card img{
+
+    width:220px;
+
+    max-width:100%;
+
+    margin-bottom:25px;
+
+    filter:drop-shadow(0 0 20px rgba(0,217,255,.5));
+
+    transition:.4s;
+
+}
+
+.tv-card:hover img{
+
+    transform:scale(1.08);
+
+}
+
+.tv-card h2{
+
+    font-size:46px;
+
+    margin-bottom:18px;
+
+    background:linear-gradient(
+        90deg,
+        #ffffff,
+        #00d9ff,
+        #7c3aed
+    );
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+
+}
+
+.tv-card p{
+
+    max-width:900px;
+
+    margin:auto;
+
+    color:#dcecff;
+
     line-height:1.9;
 
+    font-size:18px;
+
 }
 
-/*==============================
-GROUPS SECTION
-==============================*/
+/* FOOTER */
 
-.groups-section{
+.footer{
 
-    margin-top:90px;
-    padding:40px 0 80px;
+    margin-top:120px;
+
+    padding:70px 20px 35px;
+
+    text-align:center;
+
+    background:rgba(5,10,25,.85);
+
+    backdrop-filter:blur(25px);
+
+    border-top:1px solid rgba(255,255,255,.08);
+
+}
+
+.footer-logo img{
+
+    width:170px;
+
+    margin-bottom:20px;
+
+    filter:drop-shadow(0 0 18px #00d9ff);
+
+}
+
+.footer h3{
+
+    font-size:32px;
+
+    margin-bottom:12px;
+
+    color:#fff;
+
+}
+
+.footer p{
+
+    color:#cfe5ff;
+
+    margin-bottom:30px;
+
+}
+
+/* SOCIAL ICONS */
+
+.footer-social{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:18px;
+
+    margin-bottom:35px;
+
+}
+
+.footer-social a{
+
+    width:58px;
+
+    height:58px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    border-radius:50%;
+
+    text-decoration:none;
+
+    color:#fff;
+
+    background:rgba(255,255,255,.08);
+
+    transition:.35s;
+
+}
+
+.footer-social a:hover{
+
+    background:linear-gradient(
+        135deg,
+        #00d9ff,
+        #2563eb,
+        #7c3aed
+    );
+
+    transform:translateY(-6px);
+
+    box-shadow:
+        0 0 20px #00d9ff,
+        0 0 45px rgba(124,58,237,.45);
+
+}
+
+/* COPYRIGHT */
+
+.copyright{
+
+    margin-top:30px;
+
+    padding-top:25px;
+
+    border-top:1px solid rgba(255,255,255,.08);
+
+    color:#9eb9dd;
+
+    font-size:15px;
+
+}
+
+/* BORDER ANIMATION */
+
+@keyframes tvBorder{
+
+0%{
+background-position:0% 50%;
+}
+
+50%{
+background-position:100% 50%;
+}
+
+100%{
+background-position:0% 50%;
+}
+
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.tv-card{
+
+padding:45px 20px;
+
+}
+
+.tv-card h2{
+
+font-size:34px;
+
+}
+
+.footer-social{
+
+flex-wrap:wrap;
+
+}
+
+}
+/*=========================================
+        CHAPCY V10 ULTRA PREMIUM
+              PART 9
+        RESPONSIVE DESIGN
+=========================================*/
+
+/* ==========================
+   LARGE TABLETS
+========================== */
+
+@media (max-width:1200px){
+
+.container{
+
+    width:96%;
+
+}
+
+.header{
+
+    padding:18px 25px;
+
+}
+
+.hero h1{
+
+    font-size:58px;
+
+}
+
+.group-card{
+
+    flex:0 0 300px;
+
+}
+
+}
+
+
+/* ==========================
+   TABLETS
+========================== */
+
+@media (max-width:992px){
+
+.header{
+
+    flex-wrap:wrap;
+
+    gap:18px;
+
+}
+
+nav{
+
+    width:100%;
+
+    justify-content:center;
+
+    flex-wrap:wrap;
+
+}
+
+.hero{
+
+    padding:100px 20px;
+
+}
+
+.hero h1{
+
+    font-size:48px;
+
+}
+
+.hero p{
+
+    font-size:18px;
+
+}
+
+.global-card{
+
+    padding:45px 25px;
 
 }
 
 .group-title{
 
-    text-align:center;
-
-    font-size:52px;
-
-    color:#fff;
-
-    font-weight:800;
+    font-size:40px;
 
 }
 
-.group-title span{
+.slider-track{
 
-    color:#38bdf8;
+    gap:20px;
+
+}
+
+.stats{
+
+    grid-template-columns:
+    repeat(2,1fr);
+
+}
+
+.footer-social{
+
+    flex-wrap:wrap;
+
+}
+
+}
+
+
+/* ==========================
+   MOBILE
+========================== */
+
+@media (max-width:768px){
+
+.header{
+
+    padding:15px;
+
+    flex-direction:column;
+
+}
+
+.logo{
+
+    flex-direction:column;
+
+    text-align:center;
+
+}
+
+.logo img{
+
+    width:80px;
+    height:80px;
+
+}
+
+.logo-text h1{
+
+    font-size:28px;
+
+}
+
+.logo-text p{
+
+    font-size:14px;
+
+}
+
+nav{
+
+    gap:14px;
+
+}
+
+nav a{
+
+    font-size:15px;
+
+}
+
+.hero{
+
+    padding:80px 18px;
+
+}
+
+.hero h1{
+
+    font-size:38px;
+
+}
+
+.hero p{
+
+    font-size:16px;
+
+}
+
+.hero-buttons{
+
+    flex-direction:column;
+
+    width:100%;
+
+}
+
+.btn,
+.btn-outline,
+.join-btn{
+
+    width:100%;
+
+}
+
+.global-card{
+
+    padding:35px 18px;
+
+}
+
+.global-card img{
+
+    width:170px;
+
+}
+
+.global-card h2{
+
+    font-size:30px;
+
+}
+
+.group-title{
+
+    font-size:32px;
 
 }
 
 .group-subtitle{
 
-    text-align:center;
-
-    max-width:700px;
-
-    margin:18px auto 45px;
-
-    color:#dbeafe;
-
-    font-size:18px;
-
-    line-height:1.8;
+    font-size:16px;
 
 }
-
-/*==============================
-SLIDER
-==============================*/
 
 .slider-track{
 
-    display:flex;
-
-    gap:30px;
-
-    overflow-x:auto;
-
-    scroll-behavior:smooth;
-
-    padding:30px 20px;
-
-    scrollbar-width:none;
-
-    scroll-snap-type:x mandatory;
+    padding:10px;
 
 }
 
-.slider-track::-webkit-scrollbar{
-
-    display:none;
-
-}
-
-/*==============================
-PREMIUM GROUP CARD
-==============================*/
 .group-card{
-    flex:0 0 330px;
-    padding:22px;
-    border-radius:28px;
 
-    background:linear-gradient(
-        145deg,
-        rgba(20,30,60,.92),
-        rgba(10,18,45,.82)
-    );
-
-    backdrop-filter:blur(25px);
-    -webkit-backdrop-filter:blur(25px);
-
-    border:1px solid rgba(56,189,248,.25);
-
-    box-shadow:
-        0 10px 30px rgba(0,0,0,.45),
-        inset 0 1px 1px rgba(255,255,255,.08);
-
-    transition:.45s;
-    overflow:hidden;
-    position:relative;
-}
-
-/* Glass Shine */
-
-.group-card::before{
-
-content:"";
-
-position:absolute;
-
-top:0;
-left:-120%;
-
-width:80%;
-height:100%;
-
-background:linear-gradient(
-90deg,
-transparent,
-rgba(255,255,255,.20),
-transparent
-);
-
-transition:.8s;
+    flex:0 0 100%;
 
 }
-
-.group-card:hover::before{
-
-left:150%;
-
-}
-
-.group-card:hover{
-    transform:translateY(-12px) scale(1.04);
-
-    border-color:#38bdf8;
-
-    box-shadow:
-        0 0 25px rgba(56,189,248,.8),
-        0 0 60px rgba(37,99,235,.45),
-        0 25px 50px rgba(0,0,0,.55);
-}
-
-/*==============================
-IMAGE
-==============================*/
 
 .group-card img{
 
-width:100%;
+    height:190px;
 
-height:220px;
+}
 
-object-fit:cover;
+.stats{
 
-border-radius:20px;
+    grid-template-columns:1fr;
+
+}
+
+.stat-box{
+
+    padding:28px 18px;
+
+}
+
+.tv-card{
+
+    padding:35px 18px;
+
+}
+
+.tv-card h2{
+
+    font-size:30px;
+
+}
+
+.footer{
+
+    padding:50px 15px 25px;
+
+}
+
+.footer-logo img{
+
+    width:140px;
+
+}
+
+.footer h3{
+
+    font-size:24px;
+
+}
+
+.footer p{
+
+    font-size:15px;
+
+}
+
+}
+
+
+/* ==========================
+   SMALL MOBILE
+========================== */
+
+@media (max-width:480px){
+
+.hero h1{
+
+    font-size:30px;
+
+}
+
+.hero p{
+
+    font-size:15px;
+
+}
+
+.logo img{
+
+    width:65px;
+    height:65px;
+
+}
+
+.logo-text h1{
+
+    font-size:24px;
+
+}
+
+.group-card h3{
+
+    font-size:21px;
+
+}
+
+.group-card p{
+
+    font-size:15px;
+
+}
+
+.stat-box h3{
+
+    font-size:30px;
+
+}
+
+}
+  /*=========================================
+        CHAPCY V10 ULTRA PREMIUM
+              PART 10
+        FINAL PREMIUM EFFECTS
+=========================================*/
+
+/* PAGE FADE */
+
+body{
+
+    animation:pageFade .9s ease;
+
+}
+
+@keyframes pageFade{
+
+from{
+
+opacity:0;
+
+transform:translateY(20px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+/* FLOATING ANIMATION */
+
+@keyframes floating{
+
+0%,100%{
+
+transform:translateY(0);
+
+}
+
+50%{
+
+transform:translateY(-10px);
+
+}
+
+}
+
+.logo img,
+.global-card img,
+.tv-card img{
+
+animation:floating 5s ease-in-out infinite;
+
+}
+
+/* PREMIUM HOVER */
+
+.group-card,
+.stat-box,
+.global-card,
+.tv-card{
+
+transition:
+transform .45s,
+box-shadow .45s;
+
+}
+
+.group-card:hover,
+.stat-box:hover,
+.global-card:hover,
+.tv-card:hover{
+
+transform:
+translateY(-12px)
+scale(1.02);
+
+}
+
+/* GLOW TEXT */
+
+.hero h1,
+.group-title,
+.global-card h2,
+.tv-card h2{
+
+text-shadow:
+
+0 0 12px rgba(0,217,255,.35),
+0 0 30px rgba(124,58,237,.25);
+
+}
+
+/* ICON EFFECT */
+
+.header-icons i,
+.footer-social a{
+
+transition:.35s;
+
+}
+
+.header-icons i:hover,
+.footer-social a:hover{
+
+transform:
+translateY(-5px)
+rotate(8deg);
+
+}
+
+/* IMAGE HOVER */
+
+.group-card img{
 
 transition:.45s;
 
@@ -535,275 +2305,175 @@ transition:.45s;
 
 .group-card:hover img{
 
-transform:scale(1.08);
+transform:
+scale(1.08)
+rotate(1deg);
 
 }
 
-/*==============================
-TEXT
-==============================*/
+/* GLASS EFFECT */
 
-.group-card h3{
+.group-card,
+.global-card,
+.stat-box,
+.tv-card{
 
-margin-top:20px;
+backdrop-filter:blur(25px);
+-webkit-backdrop-filter:blur(25px);
 
-font-size:28px;
+}
 
-font-weight:bold;
+/* SMOOTH LINKS */
+
+a{
+
+transition:.35s;
+
+}
+
+/* SELECTION */
+
+::selection{
+
+background:#00d9ff;
 
 color:#fff;
 
-line-height:1.3;
+}
+
+/* PREMIUM SCROLL */
+
+html{
+
+scroll-behavior:smooth;
 
 }
 
-.group-card p{
+/* FADE UP */
 
-margin-top:14px;
+.fade-up{
 
-color:#dbeafe;
+opacity:0;
 
-font-size:16px;
+transform:translateY(50px);
 
-line-height:1.8;
-
-min-height:90px;
+animation:fadeUp .9s forwards;
 
 }
 
-/*==============================
-BUTTON
-==============================*/
+@keyframes fadeUp{
 
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+/* PULSE BUTTON */
+
+.btn,
 .join-btn{
-    display:inline-block;
-    padding:15px 35px;
-    border-radius:50px;
 
-    background:linear-gradient(135deg,#06b6d4,#2563eb,#7c3aed);
+position:relative;
 
-    color:#fff;
-    font-weight:bold;
-    text-decoration:none;
-
-    transition:.35s;
-}
-
-.join-btn:hover{
-    transform:scale(1.08);
-
-    box-shadow:
-        0 0 20px #38bdf8,
-        0 0 40px #7c3aed;
-}
-
-/*=========================================
-        CHAPCY PREMIUM CSS V3
-              PART 3
-=========================================*/
-
-/*==============================
-STATS SECTION
-==============================*/
-
-.stats{
-
-    display:flex;
-
-    gap:25px;
-
-    overflow-x:auto;
-
-    scroll-behavior:smooth;
-
-    padding:20px;
-
-    scrollbar-width:none;
+overflow:hidden;
 
 }
 
-.stats::-webkit-scrollbar{
+.btn::before,
+.join-btn::before{
 
-    display:none;
+content:"";
 
-}
+position:absolute;
 
-.stat-box{
+top:50%;
+left:50%;
 
-    flex:0 0 270px;
+width:0;
+height:0;
 
-    padding:35px 25px;
+background:rgba(255,255,255,.25);
 
-    text-align:center;
+border-radius:50%;
 
-    border-radius:28px;
+transform:translate(-50%,-50%);
 
-    background:rgba(20,28,55,.70);
-
-    backdrop-filter:blur(20px);
-
-    border:1px solid rgba(255,255,255,.12);
-
-    transition:.4s;
-
-    box-shadow:0 15px 35px rgba(0,0,0,.35);
+transition:.6s;
 
 }
 
-.stat-box:hover{
+.btn:hover::before,
+.join-btn:hover::before{
 
-    transform:translateY(-10px);
-
-    border-color:#38bdf8;
-
-    box-shadow:
-    0 0 20px #38bdf8,
-    0 15px 40px rgba(56,189,248,.35);
+width:350px;
+height:350px;
 
 }
 
-.stat-box i{
-
-    font-size:48px;
-
-    color:#38bdf8;
-
-    margin-bottom:18px;
-
-}
-
-.stat-box h3{
-
-    font-size:34px;
-
-    margin-bottom:10px;
-
-}
-
-.stat-box p{
-
-    color:#dbeafe;
-
-    line-height:1.7;
-
-}
-
-/*==============================
-CHAPCY TV
-==============================*/
-
-.tv-card{
-
-    margin:90px auto;
-
-    padding:55px 35px;
-
-    text-align:center;
-
-    border-radius:35px;
-
-    background:
-            .stats{
-    margin-bottom:90px;
-}
+/* FOOTER */
 
 .footer{
-    margin-top:90px;
+
+position:relative;
+
+overflow:hidden;
+
 }
 
-.footer-logo img{
-    width:180px;
-    display:block;
-    margin:0 auto 30px;
+.footer::before{
+
+content:"";
+
+position:absolute;
+
+top:0;
+left:-100%;
+
+width:60%;
+height:100%;
+
+background:linear-gradient(
+
+90deg,
+
+transparent,
+
+rgba(255,255,255,.08),
+
+transparent
+
+);
+
+animation:footerLight 6s linear infinite;
+
 }
 
-        /* ===========================
-   WORLD NEWS GROUP CARD
-=========================== */
+@keyframes footerLight{
 
-.group-card{
-    width:320px;
-    padding:25px;
-    border-radius:20px;
-    text-align:center;
-    background:rgba(255,255,255,.08);
-    backdrop-filter:blur(18px);
-    border:1px solid rgba(0,255,255,.3);
-    box-shadow:0 0 20px rgba(0,255,255,.25);
-    transition:.4s;
-    overflow:hidden;
-}
+100%{
 
-.group-card:hover{
-    transform:translateY(-10px) scale(1.03);
-    box-shadow:
-        0 0 20px #00ffff,
-        0 0 40px rgba(0,255,255,.6);
-}
+left:150%;
 
-.group-card img{
-    width:120px;
-    height:120px;
-    object-fit:contain;
-    margin-bottom:15px;
-    filter:drop-shadow(0 0 15px #00ffff);
-    animation:newsFloat 4s ease-in-out infinite;
-}
-
-.group-card h3{
-    color:#00ffff;
-    font-size:24px;
-    margin-bottom:12px;
-}
-
-.group-card p{
-    color:#ddd;
-    line-height:1.7;
-    font-size:15px;
-    margin-bottom:20px;
-}
-
-.join-btn{
-    display:inline-block;
-    padding:12px 28px;
-    background:linear-gradient(45deg,#00c6ff,#0072ff);
-    color:#fff;
-    text-decoration:none;
-    border-radius:50px;
-    font-weight:bold;
-    transition:.3s;
-}
-
-.join-btn:hover{
-    background:linear-gradient(45deg,#00ffff,#005eff);
-    transform:scale(1.08);
-    box-shadow:0 0 20px #00ffff;
-}
-
-@keyframes newsFloat{
-    0%,100%{
-        transform:translateY(0);
-    }
-    50%{
-        transform:translateY(-10px);
-    }
-}
-
-/* Mobile */
-
-@media(max-width:768px){
-
-.group-card{
-    width:100%;
-}
-
-.group-card img{
-    width:100px;
-    height:100px;
-}
-
-.group-card h3{
-    font-size:20px;
 }
 
 }
+
+/* FINAL GLOW */
+
+.group-card:hover,
+.global-card:hover,
+.stat-box:hover,
+.tv-card:hover{
+
+box-shadow:
+
+0 0 25px #00d9ff,
+0 0 50px rgba(0,217,255,.35),
+0 0 90px rgba(124,58,237,.25);
+
+        }
