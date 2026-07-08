@@ -807,154 +807,16 @@ font-size:28px;
 =========================================*/
 
 /* GROUPS SECTION */
-
+<div class="slider-track">
 .groups-section{
-
-    position:relative;
-
-    width:100%;
-
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:25px;
     margin:80px auto;
-
-    overflow:hidden;
-
 }
-
-/* SLIDER */
-
-.slider-track{
-
-    display:flex;
-
-    gap:30px;
-
-    overflow-x:auto;
-
-    overflow-y:hidden;
-
-    scroll-behavior:smooth;
-
-    scroll-snap-type:x mandatory;
-
-    padding:20px;
-
-    scrollbar-width:none;
-
-}
-
-.slider-track::-webkit-scrollbar{
-
-    display:none;
-
-}
-
-/* EACH CARD */
 
 .group-card{
-
-    scroll-snap-align:center;
-
-    flex:0 0 340px;
-
-}
-
-/* ARROWS */
-
-.slider-btn{
-
-    position:absolute;
-
-    top:50%;
-
-    transform:translateY(-50%);
-
-    width:60px;
-
-    height:60px;
-
-    border:none;
-
-    border-radius:50%;
-
-    cursor:pointer;
-
-    color:#fff;
-
-    font-size:22px;
-
-    background:rgba(10,20,40,.75);
-
-    backdrop-filter:blur(20px);
-
-    z-index:10;
-
-    transition:.35s;
-
-}
-
-.slider-btn:hover{
-
-    background:linear-gradient(
-        135deg,
-        #00d9ff,
-        #2563eb,
-        #7c3aed
-    );
-
-    transform:translateY(-50%) scale(1.1);
-
-}
-
-.prev-btn{
-
-    left:10px;
-
-}
-
-.next-btn{
-
-    right:10px;
-
-}
-
-/* DOTS */
-
-.slider-dots{
-
-    display:flex;
-
-    justify-content:center;
-
-    gap:12px;
-
-    margin-top:30px;
-
-}
-
-.slider-dots .dot{
-
-    width:14px;
-
-    height:14px;
-
-    border-radius:50%;
-
-    background:rgba(255,255,255,.25);
-
-    cursor:pointer;
-
-    transition:.35s;
-
-}
-
-.slider-dots .dot.active{
-
-    background:#00d9ff;
-
-    transform:scale(1.3);
-
-    box-shadow:0 0 15px #00d9ff;
-
+    width:100%;
 }
 
 /* MOBILE */
