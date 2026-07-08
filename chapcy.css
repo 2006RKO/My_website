@@ -737,3 +737,94 @@ CHAPCY TV
     display:block;
     margin:0 auto 30px;
 }
+
+        /* ===========================
+   WORLD NEWS GROUP CARD
+=========================== */
+
+.group-card{
+    width:320px;
+    padding:25px;
+    border-radius:20px;
+    text-align:center;
+    background:rgba(255,255,255,.08);
+    backdrop-filter:blur(18px);
+    border:1px solid rgba(0,255,255,.3);
+    box-shadow:0 0 20px rgba(0,255,255,.25);
+    transition:.4s;
+    overflow:hidden;
+}
+
+.group-card:hover{
+    transform:translateY(-10px) scale(1.03);
+    box-shadow:
+        0 0 20px #00ffff,
+        0 0 40px rgba(0,255,255,.6);
+}
+
+.group-card img{
+    width:120px;
+    height:120px;
+    object-fit:contain;
+    margin-bottom:15px;
+    filter:drop-shadow(0 0 15px #00ffff);
+    animation:newsFloat 4s ease-in-out infinite;
+}
+
+.group-card h3{
+    color:#00ffff;
+    font-size:24px;
+    margin-bottom:12px;
+}
+
+.group-card p{
+    color:#ddd;
+    line-height:1.7;
+    font-size:15px;
+    margin-bottom:20px;
+}
+
+.join-btn{
+    display:inline-block;
+    padding:12px 28px;
+    background:linear-gradient(45deg,#00c6ff,#0072ff);
+    color:#fff;
+    text-decoration:none;
+    border-radius:50px;
+    font-weight:bold;
+    transition:.3s;
+}
+
+.join-btn:hover{
+    background:linear-gradient(45deg,#00ffff,#005eff);
+    transform:scale(1.08);
+    box-shadow:0 0 20px #00ffff;
+}
+
+@keyframes newsFloat{
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(-10px);
+    }
+}
+
+/* Mobile */
+
+@media(max-width:768px){
+
+.group-card{
+    width:100%;
+}
+
+.group-card img{
+    width:100px;
+    height:100px;
+}
+
+.group-card h3{
+    font-size:20px;
+}
+
+}
