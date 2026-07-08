@@ -448,33 +448,29 @@ SLIDER
 /*==============================
 PREMIUM GROUP CARD
 ==============================*/
-
 .group-card{
+    flex:0 0 330px;
+    padding:22px;
+    border-radius:28px;
 
-    flex:0 0 310px;
+    background:linear-gradient(
+        145deg,
+        rgba(20,30,60,.92),
+        rgba(10,18,45,.82)
+    );
 
-    position:relative;
+    backdrop-filter:blur(25px);
+    -webkit-backdrop-filter:blur(25px);
 
-    overflow:hidden;
-
-    border-radius:30px;
-
-    background:rgba(20,28,55,.72);
-
-    backdrop-filter:blur(20px);
-
-    border:1px solid rgba(255,255,255,.12);
-
-    padding:18px;
-
-    transition:.45s;
-
-    scroll-snap-align:center;
+    border:1px solid rgba(56,189,248,.25);
 
     box-shadow:
-    0 15px 40px rgba(0,0,0,.45),
-    0 0 20px rgba(59,130,246,.18);
+        0 10px 30px rgba(0,0,0,.45),
+        inset 0 1px 1px rgba(255,255,255,.08);
 
+    transition:.45s;
+    overflow:hidden;
+    position:relative;
 }
 
 /* Glass Shine */
@@ -509,17 +505,14 @@ left:150%;
 }
 
 .group-card:hover{
+    transform:translateY(-12px) scale(1.04);
 
-transform:
-translateY(-12px)
-scale(1.05);
+    border-color:#38bdf8;
 
-border-color:#38bdf8;
-
-box-shadow:
-0 0 20px #38bdf8,
-0 0 45px rgba(56,189,248,.45);
-
+    box-shadow:
+        0 0 25px rgba(56,189,248,.8),
+        0 0 60px rgba(37,99,235,.45),
+        0 25px 50px rgba(0,0,0,.55);
 }
 
 /*==============================
@@ -583,39 +576,25 @@ BUTTON
 ==============================*/
 
 .join-btn{
+    display:inline-block;
+    padding:15px 35px;
+    border-radius:50px;
 
-display:inline-block;
+    background:linear-gradient(135deg,#06b6d4,#2563eb,#7c3aed);
 
-margin-top:22px;
+    color:#fff;
+    font-weight:bold;
+    text-decoration:none;
 
-padding:15px 35px;
-
-border-radius:40px;
-
-background:linear-gradient(
-135deg,
-#7c3aed,
-#2563eb
-);
-
-text-decoration:none;
-
-color:#fff;
-
-font-weight:bold;
-
-transition:.35s;
-
+    transition:.35s;
 }
 
 .join-btn:hover{
+    transform:scale(1.08);
 
-transform:scale(1.08);
-
-box-shadow:
-0 0 18px #7c3aed,
-0 0 35px #2563eb;
-
+    box-shadow:
+        0 0 20px #38bdf8,
+        0 0 40px #7c3aed;
 }
 
 /*=========================================
