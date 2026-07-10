@@ -1,83 +1,213 @@
+/*====================================================
+           CHAPCY V12 ULTRA SLIDER
+                  PART 1
+====================================================*/
+
 "use strict";
 
 document.addEventListener("DOMContentLoaded", () => {
 
+/*========================
+      GET ELEMENTS
+========================*/
+
 const slider = document.getElementById("groupSlider");
-const cards = document.querySelectorAll(".group-card");
 const prevBtn = document.querySelector(".prev-btn");
 const nextBtn = document.querySelector(".next-btn");
 const dots = document.querySelectorAll(".dot");
 
-if(!slider || cards.length===0) return;
+if (!slider) {
+    console.log("CHAPCY V12 Slider Not Found");
+    return;
+}
 
-let current = 0;
-let autoSlide;
+/*========================
+      ORIGINAL CARDS
+========================*/
 
-const gap = 25;
+let cards = [...slider.children];
+
+/*========================
+      CREATE CLONES
+========================*/
+
+cards.forEach(card => {
+
+    const clone = card.cloneNode(true);
+
+    clone.classList.add("clone");
+
+    slider.appendChild(clone);
+
+});
+
+/*========================
+      REFRESH CARDS
+========================*/
+
+cards = [...slider.children];
+
+/*========================
+      VARIABLES
+========================*/
+
+let currentIndex = 0;
+
+let autoSlide = null;
+
+let isDragging = false;
+
+let startX = 0;
+
+let scrollLeft = 0;
+
+const GAP = 25;
+
+/*========================
+      CARD WIDTH
+========================*/
 
 function cardWidth(){
-    return cards[0].offsetWidth + gap;
+
+    return cards[0].offsetWidth + GAP;
+
 }
+
+/*========================
+      UPDATE DOTS
+========================*/
 
 function updateDots(){
 
-    dots.forEach((dot,index)=>{
+    if(!dots.length) return;
 
-        dot.classList.toggle("active",index===current);
+    dots.forEach(dot=>dot.classList.remove("active"));
 
-    });
+    dots[currentIndex % (cards.length/2)]
+        ?.classList.add("active");
 
 }
 
-function goToSlide(index){
+});
+ /*====================================================
+           CHAPCY V12 ULTRA SLIDER
+                  PART 2
+====================================================*/
 
-    if(index<0){
-        index=cards.length-1;
-    }
+/*========================
+        GO TO SLIDE
+========================*/
 
-    if(index>=cards.length){
-        index=0;
-    }
+function goToSlide(index, smooth = true){
 
-    current=index;
+    currentIndex = index;
 
     slider.scrollTo({
-        left:cardWidth()*current,
-        behavior:"smooth"
+
+        left: cardWidth() * currentIndex,
+
+        behavior: smooth ? "smooth" : "instant"
+
     });
 
     updateDots();
 
 }
 
+/*========================
+        NEXT SLIDE
+========================*/
+
 function nextSlide(){
-    goToSlide(current+1);
+
+    currentIndex++;
+
+    goToSlide(currentIndex);
+
 }
+
+/*========================
+      PREVIOUS SLIDE
+========================*/
 
 function prevSlide(){
-    goToSlide(current-1);
+
+    currentIndex--;
+
+    if(currentIndex < 0){
+
+        currentIndex = (cards.length / 2) - 1;
+
+        goToSlide(currentIndex, false);
+
+    }else{
+
+        goToSlide(currentIndex);
+
+    }
+
 }
 
-nextBtn.addEventListener("click",nextSlide);
-prevBtn.addEventListener("click",prevSlide);
+/*========================
+     INFINITE LOOP
+========================*/
 
-dots.forEach((dot,index)=>{
+slider.addEventListener("scroll", () => {
 
-    dot.addEventListener("click",()=>{
+    const half = cards.length / 2;
 
-        stopAuto();
-        goToSlide(index);
-        startAuto();
+    if(currentIndex >= half){
 
-    });
+        currentIndex = 0;
+
+        setTimeout(() => {
+
+            goToSlide(currentIndex, false);
+
+        }, 350);
+
+    }
 
 });
 
-function startAuto(){
+/*========================
+      BUTTON EVENTS
+========================*/
 
-    stopAuto();
+if(nextBtn){
 
-    autoSlide=setInterval(()=>{
+    nextBtn.addEventListener("click", () => {
+
+        nextSlide();
+
+    });
+
+}
+
+if(prevBtn){
+
+    prevBtn.addEventListener("click", () => {
+
+        prevSlide();
+
+    });
+
+}
+/*====================================================
+           CHAPCY V12 ULTRA SLIDER
+                  PART 3
+====================================================*/
+
+
+/*========================
+        AUTO PLAY
+========================*/
+
+let autoPlay;
+
+function startAutoPlay(){
+
+    autoPlay = setInterval(()=>{
 
         nextSlide();
 
@@ -85,69 +215,282 @@ function startAuto(){
 
 }
 
-function stopAuto(){
 
-    clearInterval(autoSlide);
+function stopAutoPlay(){
+
+    clearInterval(autoPlay);
 
 }
 
-slider.addEventListener("mouseenter",stopAuto);
-slider.addEventListener("mouseleave",startAuto);
 
-slider.addEventListener("touchstart",stopAuto);
-slider.addEventListener("touchend",startAuto);
 
-let startX=0;
-let endX=0;
+/*========================
+   PAUSE WHEN HOVER
+========================*/
+
+slider.addEventListener("mouseenter",()=>{
+
+    stopAutoPlay();
+
+});
+
+
+slider.addEventListener("mouseleave",()=>{
+
+    startAutoPlay();
+
+});
+
+
+
+/*========================
+   TOUCH CONTROL
+========================*/
+
+let startX = 0;
+let endX = 0;
+
 
 slider.addEventListener("touchstart",(e)=>{
 
-    startX=e.changedTouches[0].clientX;
+    stopAutoPlay();
+
+    startX = e.touches[0].clientX;
 
 });
 
-slider.addEventListener("touchend",(e)=>{
 
-    endX=e.changedTouches[0].clientX;
 
-    if(startX-endX>50){
+slider.addEventListener("touchmove",(e)=>{
+
+    endX = e.touches[0].clientX;
+
+});
+
+
+
+slider.addEventListener("touchend",()=>{
+
+
+    let distance = startX - endX;
+
+
+    if(distance > 50){
 
         nextSlide();
 
     }
 
-    if(endX-startX>50){
+
+    if(distance < -50){
 
         prevSlide();
 
     }
 
+
+    startAutoPlay();
+
+
 });
 
-document.addEventListener("keydown",(e)=>{
 
-    if(e.key==="ArrowRight"){
+
+/*========================
+     MOUSE DRAG SLIDER
+========================*/
+
+let isDragging = false;
+let dragStart = 0;
+
+
+slider.addEventListener("mousedown",(e)=>{
+
+    isDragging = true;
+
+    dragStart = e.pageX;
+
+    stopAutoPlay();
+
+});
+
+
+
+slider.addEventListener("mouseup",(e)=>{
+
+    if(!isDragging) return;
+
+
+    let distance = dragStart - e.pageX;
+
+
+    if(distance > 50){
 
         nextSlide();
 
     }
 
-    if(e.key==="ArrowLeft"){
+
+    if(distance < -50){
 
         prevSlide();
 
     }
 
+
+    isDragging = false;
+
+    startAutoPlay();
+
 });
 
-window.addEventListener("resize",()=>{
 
-    goToSlide(current);
+
+slider.addEventListener("mouseleave",()=>{
+
+    isDragging = false;
 
 });
 
-goToSlide(0);
 
-startAuto();
+
+/*========================
+      START SLIDER
+========================*/
+
+startAutoPlay();
+/*====================================================
+           CHAPCY V12 ULTRA SLIDER
+                  PART 4
+====================================================*/
+
+
+/*========================
+      ACTIVE CARD EFFECT
+========================*/
+
+function updateActiveCard(){
+
+    const sliderCenter = slider.scrollLeft + 
+                         (slider.offsetWidth / 2);
+
+
+    cards.forEach(card=>{
+
+
+        const cardCenter = card.offsetLeft + 
+                           (card.offsetWidth / 2);
+
+
+        const distance = Math.abs(
+            sliderCenter - cardCenter
+        );
+
+
+        if(distance < card.offsetWidth / 2){
+
+
+            card.classList.add("active");
+
+
+        }else{
+
+
+            card.classList.remove("active");
+
+
+        }
+
+
+    });
+
+}
+
+
+
+/*========================
+     SCROLL UPDATE
+========================*/
+
+slider.addEventListener("scroll",()=>{
+
+    updateActiveCard();
+
+});
+
+
+
+/*========================
+     INITIAL ACTIVE
+========================*/
+
+setTimeout(()=>{
+
+    updateActiveCard();
+
+},500);
+
+
+
+/*========================
+    CENTER ACTIVE CARD
+========================*/
+
+function centerActiveCard(){
+
+
+    const activeCard = document.querySelector(".active");
+
+
+    if(activeCard){
+
+
+        const position =
+        activeCard.offsetLeft -
+        (slider.offsetWidth / 2) +
+        (activeCard.offsetWidth / 2);
+
+
+
+        slider.scrollTo({
+
+            left:position,
+
+            behavior:"smooth"
+
+        });
+
+
+    }
+
+}
+
+
+
+/*========================
+      CLICK CARD FOCUS
+========================*/
+
+cards.forEach(card=>{
+
+
+    card.addEventListener("click",()=>{
+
+
+        cards.forEach(c=>{
+
+            c.classList.remove("active");
+
+        });
+
+
+        card.classList.add("active");
+
+
+        centerActiveCard();
+
+
+    });
+
 
 });
