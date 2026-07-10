@@ -1,950 +1,1054 @@
-/*====================================================
-              CHAPCY V11 ULTRA CSS
-                  PART 1
-====================================================*/
+/*================ GOOGLE FONT ================*/
 
-/*========================
-        RESET
-========================*/
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+/*================ RESET ================*/
 
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
 }
 
 html{
-    scroll-behavior:smooth;
+scroll-behavior:smooth;
 }
 
 body{
 
-    font-family:Arial,Helvetica,sans-serif;
-    background:#000;
-    color:#fff;
-    overflow-x:hidden;
-    min-height:100vh;
-    position:relative;
+background:#060816;
+color:#fff;
+overflow-x:hidden;
+position:relative;
 
 }
 
-/*========================
-     VIDEO BACKGROUND
-========================*/
+/*================ BACKGROUND ================*/
 
-.bg-video{
+.background{
 
-    position:fixed;
-    top:0;
-    left:0;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:-5;
 
-    width:100%;
-    height:100%;
+background:
+radial-gradient(circle at top left,#5b1fff33,transparent 40%),
+radial-gradient(circle at bottom right,#00d4ff22,transparent 40%),
+linear-gradient(135deg,#050816,#090b22,#060816);
 
-    object-fit:cover;
-
-    z-index:-3;
-
-}
-
-/*========================
-       DARK OVERLAY
-========================*/
-
-.overlay{
-
-    position:fixed;
-    inset:0;
-
-    background:
-    linear-gradient(
-    180deg,
-    rgba(0,0,0,.45),
-    rgba(0,0,0,.70));
-
-    backdrop-filter:blur(3px);
-
-    z-index:-2;
+overflow:hidden;
 
 }
 
-/*========================
-      MAIN CONTAINER
-========================*/
+.grid{
 
-.container{
+position:absolute;
+width:100%;
+height:100%;
 
-    width:100%;
-    max-width:1600px;
+background-image:
 
-    margin:auto;
+linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
 
-    padding:30px;
+linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
 
-    position:relative;
+background-size:60px 60px;
 
-    z-index:5;
-
-}
-
-/*========================
-    GLOBAL IMAGE
-========================*/
-
-.global-image{
-
-    width:100%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    margin:35px 0;
+opacity:.2;
 
 }
 
-.global-image img{
+.glow{
 
-    width:100%;
-    max-width:700px;
+position:absolute;
+border-radius:50%;
+filter:blur(90px);
 
-    border-radius:28px;
-
-    object-fit:cover;
-
-    border:3px solid rgba(255,255,255,.15);
-
-    box-shadow:
-    0 15px 60px rgba(0,0,0,.55);
-
-    transition:.5s;
+animation:floatGlow 8s infinite ease-in-out;
 
 }
 
-.global-image img:hover{
+.glow1{
 
-    transform:scale(1.02);
+width:320px;
+height:320px;
+background:#5b2dff;
+top:-100px;
+left:-100px;
 
-    box-shadow:
-    0 20px 70px
-    rgba(0,180,255,.45);
+}
+
+.glow2{
+
+width:260px;
+height:260px;
+background:#00d8ff;
+right:-80px;
+top:120px;
+
+animation-delay:2s;
 
 }
 
-/*========================
-      SECTION SPACE
-========================*/
+.glow3{
 
-section{
+width:250px;
+height:250px;
+background:#ff00ff;
+bottom:-100px;
+left:45%;
 
-    margin-bottom:70px;
+animation-delay:4s;
 
 }
-/*====================================================
-              CHAPCY V11 ULTRA CSS
-                  PART 2
-====================================================*/
 
-/*========================
-         HEADER
-========================*/
+@keyframes floatGlow{
+
+0%,100%{
+
+transform:translateY(0);
+
+}
+
+50%{
+
+transform:translateY(40px);
+
+}
+
+}
+
+/*================ HEADER ================*/
 
 .header{
 
-    position:sticky;
-    top:0;
+position:fixed;
 
-    width:100%;
+top:20px;
+left:50%;
 
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+transform:translateX(-50%);
 
-    gap:20px;
+width:95%;
 
-    padding:18px 35px;
+display:flex;
 
-    background:rgba(10,10,25,.55);
+justify-content:space-between;
 
-    backdrop-filter:blur(18px);
+align-items:center;
 
-    -webkit-backdrop-filter:blur(18px);
+padding:15px 30px;
 
-    border-bottom:1px solid rgba(255,255,255,.12);
+background:rgba(18,22,50,.55);
 
-    z-index:1000;
+backdrop-filter:blur(18px);
+
+border:1px solid rgba(255,255,255,.12);
+
+border-radius:60px;
+
+box-shadow:
+
+0 0 30px rgba(0,140,255,.25);
+
+z-index:999;
 
 }
 
-/*========================
-          LOGO
-========================*/
-
 .logo{
 
-    display:flex;
-    align-items:center;
-    gap:15px;
+display:flex;
+
+align-items:center;
+
+gap:15px;
 
 }
 
 .logo img{
 
-    width:65px;
-    height:65px;
+width:60px;
 
-    object-fit:contain;
+height:60px;
 
-    border-radius:50%;
-
-    box-shadow:0 0 20px rgba(0,180,255,.45);
+border-radius:50%;
 
 }
 
-.logo-text h1{
+.logo h2{
 
-    font-size:30px;
-    font-weight:800;
+font-size:28px;
 
-    color:#ffffff;
-
-    letter-spacing:2px;
+font-weight:700;
 
 }
 
-.logo-text p{
+.logo p{
 
-    margin-top:4px;
+font-size:13px;
 
-    font-size:14px;
-
-    color:#d5d5d5;
+opacity:.8;
 
 }
 
-/*========================
-       NAVIGATION
-========================*/
+/*================ MENU ================*/
 
 nav{
 
-    display:flex;
-    align-items:center;
-    gap:14px;
+display:flex;
 
-    flex-wrap:wrap;
+gap:15px;
 
 }
 
 nav a{
 
-    text-decoration:none;
+text-decoration:none;
 
-    color:#ffffff;
+color:#fff;
 
-    font-size:16px;
-    font-weight:600;
+padding:12px 20px;
 
-    padding:12px 18px;
+border-radius:30px;
 
-    border-radius:14px;
+transition:.35s;
 
-    display:flex;
-    align-items:center;
-    gap:8px;
-
-    transition:.35s;
+font-weight:500;
 
 }
 
-nav a:hover{
+nav a:hover,
 
-    background:rgba(0,170,255,.22);
+nav .active{
 
-    color:#00d9ff;
+background:linear-gradient(45deg,#6a11ff,#00c6ff);
 
-    transform:translateY(-3px);
-
-}
-
-nav a.active{
-
-    background:linear-gradient(135deg,#00c6ff,#0072ff);
-
-    color:#fff;
-
-    box-shadow:0 10px 25px rgba(0,140,255,.45);
+box-shadow:0 0 20px #5f8bff;
 
 }
 
-/*========================
-      HEADER ICONS
-========================*/
+/*================ HEADER ICONS ================*/
 
 .header-icons{
 
-    display:flex;
-    align-items:center;
-    gap:14px;
+display:flex;
+
+align-items:center;
+
+gap:15px;
 
 }
 
 .header-icons i{
 
-    width:46px;
-    height:46px;
+width:45px;
 
-    border-radius:50%;
+height:45px;
 
-    display:flex;
-    justify-content:center;
-    align-items:center;
+display:flex;
 
-    background:rgba(255,255,255,.08);
+justify-content:center;
 
-    color:#ffffff;
+align-items:center;
 
-    font-size:18px;
+border-radius:50%;
 
-    cursor:pointer;
+background:rgba(255,255,255,.08);
 
-    transition:.35s;
+cursor:pointer;
+
+transition:.3s;
 
 }
 
 .header-icons i:hover{
 
-    background:#00b7ff;
+background:#6a11ff;
 
-    color:#ffffff;
+transform:translateY(-5px);
 
-    transform:
-           /*====================================================
-              CHAPCY V11 ULTRA CSS
-                  PART 3
-====================================================*/
+}
 
-/*========================
-        HERO SECTION
-========================*/
+.login-btn{
+
+text-decoration:none;
+
+padding:12px 26px;
+
+border-radius:35px;
+
+color:#fff;
+
+background:linear-gradient(45deg,#6a11ff,#00c6ff);
+
+font-weight:600;
+
+transition:.4s;
+
+}
+
+.login-btn:hover{
+
+transform:scale(1.06);
+
+box-shadow:0 0 25px #6a11ff;
+
+}
+
+/*================ HERO ================*/
 
 .hero{
 
-    width:100%;
+width:95%;
 
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
+margin:160px auto 80px;
 
-    text-align:center;
+display:grid;
 
-    padding:80px 20px 60px;
+grid-template-columns:1fr 1fr;
+
+gap:60px;
+
+align-items:center;
+
+}
+
+.hero-tag{
+
+display:inline-block;
+
+padding:10px 18px;
+
+border-radius:30px;
+
+background:rgba(0,180,255,.12);
+
+border:1px solid #00d4ff;
+
+margin-bottom:20px;
 
 }
 
 .hero h1{
 
-    font-size:clamp(42px,7vw,85px);
+font-size:72px;
 
-    font-weight:900;
+line-height:1.1;
 
-    line-height:1.1;
+font-weight:800;
 
-    color:#ffffff;
-
-    text-shadow:
-    0 8px 25px rgba(0,0,0,.55);
-
-    margin-bottom:20px;
+margin-bottom:20px;
 
 }
 
 .hero h1 span{
 
-    display:block;
+background:linear-gradient(45deg,#00d4ff,#b300ff);
 
-    margin-top:10px;
+-webkit-background-clip:text;
 
-    background:linear-gradient(
-    90deg,
-    #00d4ff,
-    #00ff95,
-    #00d4ff);
-
-    background-size:300%;
-
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-
-    animation:heroGlow 6s linear infinite;
+-webkit-text-fill-color:transparent;
 
 }
 
 .hero p{
 
-    max-width:850px;
+font-size:20px;
 
-    font-size:20px;
+line-height:1.8;
 
-    line-height:1.8;
+opacity:.85;
 
-    color:#eeeeee;
+max-width:650px;
 
-    margin-bottom:45px;
-
-    text-shadow:
-    0 3px 12px rgba(0,0,0,.45);
+margin-bottom:35px;
 
 }
 
-/*========================
-      HERO BUTTONS
-========================*/
+/*================ BUTTONS ================*/
 
 .hero-buttons{
 
-    display:flex;
+display:flex;
 
-    gap:20px;
+gap:20px;
 
-    flex-wrap:wrap;
-
-    justify-content:center;
+margin-bottom:40px;
 
 }
 
-.hero-buttons a{
+.chat-btn,
 
-    text-decoration:none;
+.tv-btn{
 
-    color:#fff;
+text-decoration:none;
 
-    padding:16px 34px;
+padding:18px 35px;
 
-    border-radius:50px;
+border-radius:60px;
 
-    font-size:18px;
+font-weight:700;
 
-    font-weight:700;
-
-    transition:.4s
-      /*====================================================
-              CHAPCY V11 ULTRA CSS
-                  PART 5
-====================================================*/
-
-/*=========================
-   SLIDESHOW CONTAINER
-=========================*/
-
-.slider-container{
-    position:relative;
-    width:100%;
-    overflow:hidden;
-    margin:40px auto;
-}
-
-.slider-track{
-    display:flex;
-    gap:25px;
-    transition:transform .6s ease;
-    will-change:transform;
-}
-
-.group-card{
-    flex:0 0 350px;
-    min-width:350px;
-    max-width:350px;
-}
-
-      
-/*========================
-      GROUP CARD
-========================*/
-
-.group-card{
-
-    position:relative;
-
-    min-width:360px;
-    max-width:360px;
-
-    background:rgba(255,255,255,.08);
-
-    backdrop-filter:blur(18px);
-    -webkit-backdrop-filter:blur(18px);
-
-    border:1px solid rgba(255,255,255,.12);
-
-    border-radius:28px;
-
-    overflow:hidden;
-
-    transition:.45s ease;
-
-    box-shadow:
-    0 12px 35px rgba(0,0,0,.35);
-
-}
-  
-
-/*========================
-      CARD IMAGE
-========================*/
-
-.group-card img{
-
-    width:100%;
-    height:240px;
-
-    object-fit:cover;
-
-    display:block;
-
-    transition:.45s;
+transition:.4s;
 
 }
 
-/*========================
-      CARD TITLE
-========================*/
+.chat-btn{
 
-.group-card h3{
+background:linear-gradient(45deg,#00d4ff,#6a11ff);
 
-    padding:20px 20px 10px;
-
-    font-size:24px;
-
-    font-weight:800;
-
-    color:#ffffff;
+color:#fff;
 
 }
 
-/*========================
-      CARD TEXT
-========================*/
+.tv-btn{
 
-.group-card p{
+border:2px solid #8f4fff;
 
-    padding:0 20px;
-
-    color:#d9d9d9;
-
-    font-size:16px;
-
-    line-height:1.7;
-
-    min-height:90px;
+color:#fff;
 
 }
 
-/*========================
-      JOIN BUTTON
-========================*/
+.chat-btn:hover,
 
-.join-btn{
+.tv-btn:hover{
 
-    display:block;
+transform:translateY(-8px);
 
-    margin:25px 20px 22px;
-
-    text-align:center;
-
-    text-decoration:none;
-
-    color:#fff;
-
-    font-size:17px;
-
-    font-weight:700;
-
-    padding:15px;
-
-    border-radius:16px;
-
-    background:linear-gradient(135deg,#00c6ff,#0072ff);
-
-    transition:.35s;
-
-    box-shadow:
-    0 10px 25px rgba(0,150,255,.35);
+box-shadow:0 0 30px #6a11ff;
 
 }
 
-.join-btn:hover{
+/*================ STATS ================*/
 
-    transform:translateY(-4px);
+.stats{
 
-    box-shadow:
-    0 15px 35px rgba(0,180,255,.55);
+display:flex;
 
-}
+gap:20px;
 
-/*========================
-      HOVER EFFECT
-========================*/
-
-.group-card:hover{
-
-    transform:translateY(-12px) scale(1.03);
-
-    border-color:#00d4ff;
-
-    box-shadow:
-    0 20px 45px rgba(0,180,255,.35);
+flex-wrap:wrap;
 
 }
 
-.group-card:hover img{
-
-    transform:scale(1.08);
-
-      }
-      /*====================================================
-              CHAPCY V11 ULTRA CSS
-                  PART 6
-====================================================*/
-
-/*========================
-      CARD ANIMATION
-========================*/
-
-.group-card{
-
-    animation:cardFade .8s ease;
-
-}
-
-@keyframes cardFade{
-
-    from{
-
-        opacity:0;
-        transform:translateY(40px);
-
-    }
-
-    to{
-
-        opacity:1;
-        transform:translateY(0);
-
-    }
-
-}
-
-/*========================
-      IMAGE OVERLAY
-========================*/
-
-.group-card::before{
-
-    content:"";
-
-    position:absolute;
-
-    top:0;
-    left:0;
-
-    width:100%;
-    height:240px;
-
-    background:linear-gradient(
-    to top,
-    rgba(0,0,0,.45),
-    rgba(0,0,0,0));
-
-    z-index:1;
-
-}
-
-.group-card img{
-
-    position:relative;
-    z-index:0;
-
-}
-
-/*========================
-      CARD CONTENT
-========================*/
-
-.group-card h3,
-.group-card p,
-.join-btn{
-
-    position:relative;
-
-    z-index:2;
-
-}
-
-/*========================
-      BUTTON EFFECT
-========================*/
-
-.join-btn:active{
-
-    transform:scale(.96);
-
-}
-
-/*========================
-      SLIDER BUTTONS
-========================*/
-
-.slider-btn{
-
-    opacity:.85;
-
-}
-
-.slider-btn:hover{
-
-    opacity:1;
-
-}
-
-/*========================
-      DOTS
-========================*/
-
-.dot{
-
-    cursor:pointer;
-
-}
-
-.dot:hover{
-
-    transform
-      /*====================================================
-              CHAPCY V11 ULTRA CSS
-                  PART 7
-====================================================*/
-
-/*========================
-         FOOTER
-========================*/
-
-.footer{
-
-    width:100%;
-
-    margin-top:80px;
-
-    padding:60px 25px 30px;
-
-    background:rgba(8,10,25,.80);
-
-    backdrop-filter:blur(18px);
-    -webkit-backdrop-filter:blur(18px);
-
-    border-top:1px solid rgba(255,255,255,.12);
-
-    text-align:center;
-
-}
-
-.footer-logo{
-
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-
-    gap:15px;
-
-}
-
-.footer-logo img{
-
-    width:90px;
-    height:90px;
-
-    object-fit:contain;
-
-    border-radius:50%;
-
-    box-shadow:0 0 25px rgba(0,180,255,.45);
-
-}
-
-.footer-logo h2{
-
-    font-size:32px;
-
-    font-weight:800;
-
-    color:#ffffff;
-
-    letter-spacing:2px;
-
-}
-
-.footer-logo p{
-
-    color:#d7d7d7;
-
-    font-size:16px;
-
-}
-
-/*========================
-      FOOTER LINKS
-========================*/
-
-.footer-links{
-
-    display:flex;
-
-    justify-content:center;
-
-    flex-wrap:wrap;
-
-    gap:18px;
-
-    margin:35px 0;
-
-}
-
-.footer-links a{
-
-    text-decoration:none;
-
-    color:#ffffff;
-
-    font-size:16px;
-
-    padding:12px 20px;
-
-    border-radius:14px;
-
-    transition:.35s;
-
-}
-
-.footer-links a:hover{
-
-    background:#00bfff;
-
-    color:#fff;
-
-    transform:translateY(-3px);
-
-}
-
-/*========================
-      SOCIAL ICONS
-========================*/
-
-.footer-social{
-
-    display:flex;
-
-    justify-content:center;
-
-    gap:18px;
-
-    margin-bottom:30px;
-
-}
-
-.footer-social a{
-
-    width:50px;
-    height:50px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    border-radius:50%;
-
-    background:rgba(255,255,255,.08);
-
-    color:#fff;
-
-    font-size:20px;
-
-    text-decoration:none;
-
-    transition:.35s;
-
-}
-
-.footer-social a:hover{
-
-    background:#00c6ff;
-
-    transform:translateY(-5px) scale(1.1);
-
-    box-shadow:
-          /*====================================================
-              CHAPCY V11 ULTRA CSS
-                  PART 8
-====================================================*/
-
-/*========================
-      RESPONSIVE TABLET
-========================*/
-
-@media (max-width:992px){
-
-.header{
-
-flex-direction:column;
+.stats div{
 
 padding:20px;
 
+min-width:120px;
+
+text-align:center;
+
+border-radius:18px;
+
+background:rgba(255,255,255,.06);
+
+border:1px solid rgba(255,255,255,.08);
+
+backdrop-filter:blur(12px);
+
 }
 
-nav{
+.stats h2{
+
+color:#00d4ff;
+
+font-size:28px;
+
+}
+
+.stats p{
+
+margin-top:8px;
+
+font-size:14px;
+
+opacity:.75;
+
+}
+
+/*================ HERO IMAGE ================*/
+
+.hero-image{
+
+display:flex;
 
 justify-content:center;
 
 }
 
-.hero h1{
+.hero-image img{
 
-font-size:55px;
+width:100%;
+
+max-width:650px;
+
+animation:floatImage 5s ease-in-out infinite;
+
+filter:drop-shadow(0 0 40px #00d4ff);
 
 }
 
-.slider-track .group-card{
+@keyframes floatImage{
 
-flex:0 0 320px;
+0%,100%{
+
+transform:translateY(0);
 
 }
 
-.global-card{
+50%{
+
+transform:translateY(-18px);
+
+}
+
+}
+/*================ GROUP COLORS ================*/
+
+/* Football */
+
+.group-card.football{
+
+border:1px solid #00ff88;
+
+box-shadow:0 0 25px rgba(0,255,136,.35);
+
+}
+
+.group-card.football:hover{
+
+box-shadow:
+0 0 20px #00ff88,
+0 0 50px #00ff88;
+
+}
+
+
+/* eFootball */
+
+.group-card.efootball{
+
+border:1px solid #00d4ff;
+
+box-shadow:0 0 25px rgba(0,212,255,.35);
+
+}
+
+.group-card.efootball:hover{
+
+box-shadow:
+0 0 20px #00d4ff,
+0 0 50px #00d4ff;
+
+}
+
+
+/* Sports */
+
+.group-card.sports{
+
+border:1px solid #8a2eff;
+
+box-shadow:0 0 25px rgba(138,46,255,.35);
+
+}
+
+.group-card.sports:hover{
+
+box-shadow:
+0 0 20px #8a2eff,
+0 0 50px #8a2eff;
+
+}
+
+
+/* News */
+
+.group-card.news{
+
+border:1px solid #1da1ff;
+
+box-shadow:0 0 25px rgba(29,161,255,.35);
+
+}
+
+.group-card.news:hover{
+
+box-shadow:
+0 0 20px #1da1ff,
+0 0 50px #1da1ff;
+
+}
+
+
+/* Betting */
+
+.group-card.betting{
+
+border:1px solid #ff3c41;
+
+box-shadow:0 0 25px rgba(255,60,65,.35);
+
+}
+
+.group-card.betting:hover{
+
+box-shadow:
+0 0 20px #ff3c41,
+0 0 50px #ff3c41;
+
+}
+
+
+/* PUBG */
+
+.group-card.gaming{
+
+border:1px solid #ff8a00;
+
+box-shadow:0 0 25px rgba(255,138,0,.35);
+
+}
+
+.group-card.gaming:hover{
+
+box-shadow:
+0 0 20px #ff8a00,
+0 0 50px #ff8a00;
+
+}
+
+
+/* Music */
+
+.group-card.music{
+
+border:1px solid #ff00cc;
+
+box-shadow:0 0 25px rgba(255,0,204,.35);
+
+}
+
+.group-card.music:hover{
+
+box-shadow:
+0 0 20px #ff00cc,
+0 0 50px #ff00cc;
+
+}
+
+
+/* Food */
+
+.group-card.food{
+
+border:1px solid #ffb300;
+
+box-shadow:0 0 25px rgba(255,179,0,.35);
+
+}
+
+.group-card.food:hover{
+
+box-shadow:
+0 0 20px #ffb300,
+0 0 50px #ffb300;
+
+}
+
+
+/* Education */
+
+.group-card.education{
+
+border:1px solid #ffee00;
+
+box-shadow:0 0 25px rgba(255,238,0,.35);
+
+}
+
+.group-card.education:hover{
+
+box-shadow:
+0 0 20px #ffee00,
+0 0 50px #ffee00;
+
+}
+
+
+/* Art */
+
+.group-card.art{
+
+border:1px solid #ff66ff;
+
+box-shadow:0 0 25px rgba(255,102,255,.35);
+
+}
+
+.group-card.art:hover{
+
+box-shadow:
+0 0 20px #ff66ff,
+0 0 50px #ff66ff;
+
+}
+
+
+/* Business */
+
+.group-card.business{
+
+border:1px solid #00ffaa;
+
+box-shadow:0 0 25px rgba(0,255,170,.35);
+
+}
+
+.group-card.business:hover{
+
+box-shadow:
+0 0 20px #00ffaa,
+0 0 50px #00ffaa;
+
+}
+
+
+/* CHAPCY TV */
+
+.group-card.tv{
+
+border:1px solid #7b5cff;
+
+box-shadow:0 0 25px rgba(123,92,255,.35);
+
+}
+
+.group-card.tv:hover{
+
+box-shadow:
+0 0 20px #7b5cff,
+0 0 50px #7b5cff;
+
+}
+/*================ FEATURES ================*/
+
+.features{
+
+width:95%;
+margin:90px auto;
+
+}
+
+.features-grid{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+
+gap:25px;
+
+margin-top:40px;
+
+}
+
+.feature-card{
 
 padding:30px;
 
+border-radius:25px;
+
+background:rgba(255,255,255,.06);
+
+backdrop-filter:blur(18px);
+
+border:1px solid rgba(255,255,255,.08);
+
+text-align:center;
+
+transition:.4s;
+
+}
+
+.feature-card:hover{
+
+transform:translateY(-12px);
+
+box-shadow:0 0 30px rgba(0,212,255,.4);
+
+}
+
+.feature-card i{
+
+font-size:55px;
+
+margin-bottom:20px;
+
+color:#00d4ff;
+
+}
+
+.feature-card h3{
+
+margin-bottom:15px;
+
+font-size:24px;
+
+}
+
+.feature-card p{
+
+opacity:.8;
+
+line-height:1.7;
+
+}
+
+
+/*================ FOOTER ================*/
+
+.footer{
+
+margin-top:80px;
+
+padding:60px 5% 30px;
+
+background:#050714;
+
+border-top:1px solid rgba(255,255,255,.08);
+
+}
+
+.footer-top{
+
+display:grid;
+
+grid-template-columns:2fr 1fr 1fr 1fr;
+
+gap:40px;
+
+}
+
+.footer-logo img{
+
+width:70px;
+
+margin-bottom:15px;
+
+}
+
+.footer-logo h2{
+
+font-size:30px;
+
+margin-bottom:10px;
+
+}
+
+.footer-logo p{
+
+opacity:.8;
+
+}
+
+.footer-links h3,
+.footer-social h3{
+
+margin-bottom:18px;
+
+}
+
+.footer-links a{
+
+display:block;
+
+color:#ddd;
+
+text-decoration:none;
+
+margin-bottom:12px;
+
+transition:.3s;
+
+}
+
+.footer-links a:hover{
+
+color:#00d4ff;
+
+padding-left:8px;
+
+}
+
+.footer-social a{
+
+display:inline-flex;
+
+align-items:center;
+
+justify-content:center;
+
+width:45px;
+
+height:45px;
+
+margin-right:10px;
+
+border-radius:50%;
+
+background:rgba(255,255,255,.08);
+
+color:#fff;
+
+text-decoration:none;
+
+transition:.3s;
+
+}
+
+.footer-social a:hover{
+
+background:#00d4ff;
+
+transform:translateY(-6px);
+
+}
+
+.footer hr{
+
+margin:35px 0;
+
+border:none;
+
+height:1px;
+
+background:rgba(255,255,255,.08);
+
+}
+
+.footer-bottom{
+
+display:flex;
+
+justify-content:space-between;
+
+flex-wrap:wrap;
+
+gap:15px;
+
+opacity:.8;
+
+}
+
+
+/*================ ANIMATIONS ================*/
+
+.group-card{
+
+animation:floatCard 5s ease-in-out infinite;
+
+}
+
+.group-card:nth-child(2){
+
+animation-delay:.4s;
+
+}
+
+.group-card:nth-child(3){
+
+animation-delay:.8s;
+
+}
+
+.group-card:nth-child(4){
+
+animation-delay:1.2s;
+
+}
+
+.group-card:nth-child(5){
+
+animation-delay:1.6s;
+
+}
+
+.group-card:nth-child(6){
+
+animation-delay:2s;
+
+}
+
+@keyframes floatCard{
+
+0%,100%{
+
+transform:translateY(0);
+
+}
+
+50%{
+
+transform:translateY(-10px);
+
 }
 
 }
 
-/*========================
-      RESPONSIVE MOBILE
-========================*/
 
-@media (max-width:768px){
+/*================ SCROLLBAR ================*/
 
-.container{
+::-webkit-scrollbar{
 
-padding:15px;
+width:10px;
 
 }
 
-.header{
+::-webkit-scrollbar-track{
 
-padding:15px;
+background:#060816;
 
 }
 
-.logo{
+::-webkit-scrollbar-thumb{
+
+background:#00d4ff;
+
+border-radius:20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+background:#6a11ff;
+
+}
+
+
+/*================ RESPONSIVE ================*/
+
+@media(max-width:1100px){
+
+.hero{
+
+grid-template-columns:1fr;
+
+text-align:center;
+
+}
+
+.hero-image{
+
+margin-top:40px;
+
+}
+
+.community-card{
 
 flex-direction:column;
 
@@ -952,16 +1056,24 @@ text-align:center;
 
 }
 
-.logo img{
+.footer-top{
 
-width:60px;
-height:60px;
+grid-template-columns:1fr 1fr;
 
 }
 
-.logo-text h1{
+}
 
-font-size:24px;
+
+@media(max-width:768px){
+
+.header{
+
+padding:15px;
+
+flex-wrap:wrap;
+
+border-radius:25px;
 
 }
 
@@ -971,32 +1083,97 @@ width:100%;
 
 justify-content:center;
 
-gap:8px;
+margin-top:15px;
 
-}
-
-nav a{
-
-font-size:14px;
-
-padding:10px 14px;
-
-}
-
-.header-icons{
-
-margin-top:10px;
-
-}
-
-.hero{
-
-padding:50px 15px;
+flex-wrap:wrap;
 
 }
 
 .hero h1{
 
-font-size:42px;
+font-size:48px;
 
-      }
+}
+
+.hero p{
+
+font-size:17px;
+
+}
+
+.hero-buttons{
+
+flex-direction:column;
+
+}
+
+.stats{
+
+justify-content:center;
+
+}
+
+.group-card{
+
+min-width:270px;
+
+}
+
+.footer-top{
+
+grid-template-columns:1fr;
+
+text-align:center;
+
+}
+
+.footer-bottom{
+
+justify-content:center;
+
+text-align:center;
+
+}
+
+}
+
+
+@media(max-width:500px){
+
+.hero{
+
+margin-top:140px;
+
+}
+
+.hero h1{
+
+font-size:38px;
+
+}
+
+.section-title h2{
+
+font-size:30px;
+
+}
+
+.community-text h2{
+
+font-size:30px;
+
+}
+
+.community-image img{
+
+width:180px;
+
+}
+
+.group-card{
+
+min-width:240px;
+
+}
+
+}
