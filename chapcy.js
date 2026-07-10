@@ -1,656 +1,153 @@
- /*====================================================
-              CHAPCY V11 ULTRA JAVASCRIPT
-                    PART 1
-====================================================*/
-
 "use strict";
 
-
-/*========================
-        INITIALIZE
-========================*/
-
-document.addEventListener("DOMContentLoaded",()=>{
-
-
-/*========================
-      GET ELEMENTS
-========================*/
-
+document.addEventListener("DOMContentLoaded", () => {
 
 const slider = document.getElementById("groupSlider");
-
 const cards = document.querySelectorAll(".group-card");
-
-const nextBtn = document.querySelector(".next-btn");
-
 const prevBtn = document.querySelector(".prev-btn");
-
+const nextBtn = document.querySelector(".next-btn");
 const dots = document.querySelectorAll(".dot");
 
+if(!slider || cards.length===0) return;
 
-
-/*========================
-        CHECK SLIDER
-========================*/
-
-if(!slider){
-
-    console.log("CHAPCY Slider not found");
-
-    return;
-
-}
-
-
-
-/*========================
-       VARIABLES
-========================*/
-
-
-let currentIndex = 0;
-
+let current = 0;
 let autoSlide;
 
-let isDragging = false;
+const gap = 25;
 
-let startX = 0;
+function cardWidth(){
+    return cards[0].offsetWidth + gap;
+}
 
-let scrollStart = 0;
+function updateDots(){
 
+    dots.forEach((dot,index)=>{
 
-
-/*========================
-       CARD WIDTH
-========================*/
-
-
-const getCardWidth = ()=>{
-
-    if(cards.length > 0){
-
-        return cards[0].offsetWidth + 30;
-
-    }
-
-    return 0;
-
-};
-
-
-
-/*========================
-       EXPORT DATA
-========================*/
-
-
-window.CHAPCY = {
-
-    slider,
-
-    cards,
-
-    dots,
-
-    nextBtn,
-
-    prevBtn,
-
-    currentIndex,
-
-    getCardWidth,
-
-    startAuto:null
-
-};
-
-
-
-});
- /*====================================================
-              CHAPCY V11 ULTRA JAVASCRIPT
-                    PART 2
-====================================================*/
-
-
-/*========================
-      SLIDE FUNCTION
-========================*/
-
-
-function goToSlide(index){
-
-    if(index < 0){
-
-        index = cards.length - 1;
-
-    }
-
-
-    if(index >= cards.length){
-
-        index = 0;
-
-    }
-
-
-    currentIndex = index;
-
-
-    slider.scrollTo({
-
-        left: getCardWidth() * currentIndex,
-
-        behavior:"smooth"
+        dot.classList.toggle("active",index===current);
 
     });
 
+}
+
+function goToSlide(index){
+
+    if(index<0){
+        index=cards.length-1;
+    }
+
+    if(index>=cards.length){
+        index=0;
+    }
+
+    current=index;
+
+    slider.scrollTo({
+        left:cardWidth()*current,
+        behavior:"smooth"
+    });
 
     updateDots();
 
 }
 
-
-
-/*========================
-        NEXT BUTTON
-========================*/
-
-
-if(nextBtn){
-
-nextBtn.addEventListener("click",()=>{
-
-
-    goToSlide(currentIndex + 1);
-
-
-});
-
+function nextSlide(){
+    goToSlide(current+1);
 }
 
-
-
-/*========================
-        PREVIOUS BUTTON
-========================*/
-
-
-if(prevBtn){
-
-prevBtn.addEventListener("click",()=>{
-
-
-    goToSlide(currentIndex - 1);
-
-
-});
-
+function prevSlide(){
+    goToSlide(current-1);
 }
 
-
-
-/*========================
-      UPDATE DOTS
-========================*/
-
-
-function updateDots(){
-
-
-    dots.forEach((dot,index)=>{
-
-
-        dot.classList.remove("active");
-
-
-        if(index === currentIndex){
-
-            dot.classList.add("active");
-
-        }
-
-
-    });
-
-
-}
- /*====================================================
-              CHAPCY V11 ULTRA JAVASCRIPT
-                    PART 3
-====================================================*/
-
-
-/*========================
-        AUTO SLIDE
-========================*/
-
-
-function startAutoSlide(){
-
-
-    autoSlide = setInterval(()=>{
-
-
-        goToSlide(currentIndex + 1);
-
-
-    },4000);
-
-
-}
-
-
-
-/*========================
-        STOP SLIDE
-========================*/
-
-
-function stopAutoSlide(){
-
-
-    clearInterval(autoSlide);
-
-
-}
-
-
-
-/*========================
-       START SLIDER
-========================*/
-
-
-startAutoSlide();
-
-
-
-/*========================
-   PAUSE ON HOVER / TOUCH
-========================*/
-
-
-slider.addEventListener("mouseenter",()=>{
-
-
-    stopAutoSlide();
-
-
-});
-
-
-
-slider.addEventListener("mouseleave",()=>{
-
-
-    startAutoSlide();
-
-
-});
-
-
-
-slider.addEventListener("touchstart",()=>{
-
-
-    stopAutoSlide();
-
-
-});
-
-
-
-slider.addEventListener("touchend",()=>{
-
-
-    startAutoSlide();
-
-
-});
-/*====================================================
-              CHAPCY V11 ULTRA JAVASCRIPT
-                    PART 4
-====================================================*/
-
-
-/*========================
-        DOT CONTROL
-========================*/
-
+nextBtn.addEventListener("click",nextSlide);
+prevBtn.addEventListener("click",prevSlide);
 
 dots.forEach((dot,index)=>{
 
-
     dot.addEventListener("click",()=>{
 
-
-        stopAutoSlide();
-
-
+        stopAuto();
         goToSlide(index);
-
-
-        startAutoSlide();
-
+        startAuto();
 
     });
 
-
 });
 
+function startAuto(){
 
+    stopAuto();
 
-/*========================
-   UPDATE SLIDE WHEN SCROLL
-========================*/
+    autoSlide=setInterval(()=>{
 
+        nextSlide();
 
-slider.addEventListener("scroll",()=>{
+    },4000);
 
+}
 
-    let position = slider.scrollLeft;
+function stopAuto(){
 
+    clearInterval(autoSlide);
 
-    let index = Math.round(
-        position / getCardWidth()
-    );
+}
 
+slider.addEventListener("mouseenter",stopAuto);
+slider.addEventListener("mouseleave",startAuto);
 
-    if(index !== currentIndex){
+slider.addEventListener("touchstart",stopAuto);
+slider.addEventListener("touchend",startAuto);
 
-
-        currentIndex = index;
-
-
-        updateDots();
-
-
-    }
-
-
-});
-
-
-
-/*========================
-      INITIAL DOT
-========================*/
-
-
-updateDots();
- /*====================================================
-              CHAPCY V11 ULTRA JAVASCRIPT
-                    PART 5
-====================================================*/
-
-
-/*========================
-        TOUCH SWIPE
-========================*/
-
+let startX=0;
+let endX=0;
 
 slider.addEventListener("touchstart",(e)=>{
 
-
-    isDragging = true;
-
-
-    startX = e.touches[0].clientX;
-
-
-    scrollStart = slider.scrollLeft;
-
-
-    stopAutoSlide();
-
+    startX=e.changedTouches[0].clientX;
 
 });
 
+slider.addEventListener("touchend",(e)=>{
 
+    endX=e.changedTouches[0].clientX;
 
-slider.addEventListener("touchmove",(e)=>{
+    if(startX-endX>50){
 
-
-    if(!isDragging) return;
-
-
-    let moveX = e.touches[0].clientX;
-
-
-    let distance = startX - moveX;
-
-
-    slider.scrollLeft = scrollStart + distance;
-
-
-
-});
-
-
-
-slider.addEventListener("touchend",()=>{
-
-
-    isDragging = false;
-
-
-    let index = Math.round(
-        slider.scrollLeft / getCardWidth()
-    );
-
-
-    goToSlide(index);
-
-
-    startAutoSlide();
-
-
-});
-
-
-
-/*========================
-       MOUSE DRAG
-========================*/
-
-
-slider.addEventListener("mousedown",(e)=>{
-
-
-    isDragging = true;
-
-
-    startX = e.pageX;
-
-
-    scrollStart = slider.scrollLeft;
-
-
-    stopAutoSlide();
-
-
-    slider.style.cursor="grabbing";
-
-
-});
-
-
-
-slider.addEventListener("mousemove",(e)=>{
-
-
-    if(!isDragging) return;
-
-
-    e.preventDefault();
-
-
-    let distance = startX - e.pageX;
-
-
-    slider.scrollLeft = scrollStart + distance;
-
-
-});
-
-
-
-slider.addEventListener("mouseup",()=>{
-
-
-    isDragging=false;
-
-
-    slider.style.cursor="grab";
-
-
-    let index=Math.round(
-        slider.scrollLeft / getCardWidth()
-    );
-
-
-    goToSlide(index);
-
-
-    startAutoSlide();
-
-
-});
-
-
-
-slider.addEventListener("mouseleave",()=>{
-
-
-    if(isDragging){
-
-
-        isDragging=false;
-
-
-        slider.style.cursor="grab";
-
+        nextSlide();
 
     }
 
+    if(endX-startX>50){
+
+        prevSlide();
+
+    }
 
 });
- /*====================================================
-              CHAPCY V11 ULTRA JAVASCRIPT
-                    PART 6
-====================================================*/
-
-
-/*========================
-      KEYBOARD CONTROL
-========================*/
-
 
 document.addEventListener("keydown",(e)=>{
 
+    if(e.key==="ArrowRight"){
 
-    if(e.key === "ArrowRight"){
-
-
-        stopAutoSlide();
-
-
-        goToSlide(currentIndex + 1);
-
-
-        startAutoSlide();
-
+        nextSlide();
 
     }
 
+    if(e.key==="ArrowLeft"){
 
-
-    if(e.key === "ArrowLeft"){
-
-
-        stopAutoSlide();
-
-
-        goToSlide(currentIndex - 1);
-
-
-        startAutoSlide();
-
+        prevSlide();
 
     }
-
 
 });
-
-
-
-/*========================
-       WINDOW RESIZE
-========================*/
-
 
 window.addEventListener("resize",()=>{
 
-
-    setTimeout(()=>{
-
-
-        goToSlide(currentIndex);
-
-
-    },300);
-
+    goToSlide(current);
 
 });
-
-
-
-/*========================
-      VISIBILITY CONTROL
-========================*/
-
-
-document.addEventListener("visibilitychange",()=>{
-
-
-    if(document.hidden){
-
-
-        stopAutoSlide();
-
-
-    }else{
-
-
-        startAutoSlide();
-
-
-    }
-
-
-});
-
-
-
-/*========================
-      CURSOR STYLE
-========================*/
-
-
-slider.style.cursor="grab";
-
-
-
-/*========================
-       FINAL START
-========================*/
-
 
 goToSlide(0);
 
+startAuto();
 
-console.log(
-"🔥 CHAPCY V11 ULTRA SLIDER READY 🔥"
-);
+});
