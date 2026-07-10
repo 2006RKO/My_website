@@ -433,6 +433,31 @@ nav a.active{
                   PART 5
 ====================================================*/
 
+/*=========================
+   SLIDESHOW CONTAINER
+=========================*/
+
+.slider-container{
+    position:relative;
+    width:100%;
+    overflow:hidden;
+    margin:40px auto;
+}
+
+.slider-track{
+    display:flex;
+    gap:25px;
+    transition:transform .6s ease;
+    will-change:transform;
+}
+
+.group-card{
+    flex:0 0 350px;
+    min-width:350px;
+    max-width:350px;
+}
+
+      
 /*========================
       GROUP CARD
 ========================*/
@@ -461,6 +486,7 @@ nav a.active{
     0 12px 35px rgba(0,0,0,.35);
 
 }
+  
 
 /*========================
       CARD IMAGE
