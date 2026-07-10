@@ -1,113 +1,117 @@
-//================ GROUP SLIDER ================
+//================ CHAPCY PREMIUM SLIDER ================
 
 const slider = document.getElementById("groupSlider");
-
 const cards = document.querySelectorAll(".group-card");
-
 const dots = document.querySelectorAll(".dot");
 
-const prev = document.querySelector(".prev");
+const nextBtn = document.querySelector(".next");
+const prevBtn = document.querySelector(".prev");
 
-const next = document.querySelector(".next");
+let current = 0;
 
-let index = 0;
+function getCardWidth() {
+    return cards[0].offsetWidth + 25;
+}
 
-const cardWidth = 345;
+function updateSlider() {
 
+    slider.style.transform =
+        `translateX(-${current * getCardWidth()}px)`;
 
-//================ UPDATE ================
+    cards.forEach(card => {
+        card.classList.remove("active-card");
+    });
 
-function updateSlider(){
+    cards[current].classList.add("active-card");
 
-slider.style.transform =
-`translateX(-${index * cardWidth}px)`;
+    dots.forEach(dot => {
+        dot.classList.remove("active");
+    });
 
-
-cards.forEach(card=>{
-
-card.classList.remove("active-card");
-
-});
-
-cards[index].classList.add("active-card");
-
-
-dots.forEach(dot=>{
-
-dot.classList.remove("active");
-
-});
-
-if(dots[index % dots.length]){
-
-dots[index % dots.length].classList.add("active");
+    if (dots[current]) {
+        dots[current].classList.add("active");
+    }
 
 }
 
+function nextSlide() {
+
+    current++;
+
+    if (current >= cards.length) {
+
+        current = 0;
+
+    }
+
+    updateSlider();
+
 }
 
+function prevSlide() {
 
-//================ NEXT ================
+    current--;
 
-function nextSlide(){
+    if (current < 0) {
 
-index++;
+        current = cards.length - 1;
 
-if(index>=cards.length){
+    }
 
-index=0;
+    updateSlider();
 
 }
+
+nextBtn.onclick = nextSlide;
+
+prevBtn.onclick = prevSlide;
+
+//================ AUTO SLIDER ================
+
+setInterval(nextSlide,3000);
+
+//================ DOTS =================
+
+dots.forEach((dot,index)=>{
+
+dot.onclick=()=>{
+
+current=index;
 
 updateSlider();
 
 }
 
+});
 
-//================ PREVIOUS ================
+//================ TOUCH SWIPE ================
 
-function prevSlide(){
+let startX=0;
 
-index--;
+slider.addEventListener("touchstart",(e)=>{
 
-if(index<0){
-
-index=cards.length-1;
-
-}
-
-updateSlider();
-
-}
-
-
-//================ BUTTONS ================
-
-next.addEventListener("click",nextSlide);
-
-prev.addEventListener("click",prevSlide);
-
-
-//================ AUTO SLIDE ================
-
-setInterval(nextSlide,3500);
-
-
-//================ DOTS ================
-
-dots.forEach((dot,i)=>{
-
-dot.addEventListener("click",()=>{
-
-index=i;
-
-updateSlider();
+startX=e.touches[0].clientX;
 
 });
 
+slider.addEventListener("touchend",(e)=>{
+
+let endX=e.changedTouches[0].clientX;
+
+if(startX-endX>50){
+
+nextSlide();
+
+}
+
+if(endX-startX>50){
+
+prevSlide();
+
+}
+
 });
 
-
-//================ START ================
+//================ START =================
 
 updateSlider();
