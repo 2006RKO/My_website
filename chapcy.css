@@ -967,52 +967,54 @@ width:12
         PART 4
 ==================================================*/
 
-/*================ FEATURES ================*/
+/*================ WHY CHOOSE CHAPCY ================*/
 
 .features{
 
 width:95%;
 max-width:1400px;
-
 margin:100px auto;
+
+}
+
+.features .title{
+
+text-align:center;
+font-size:52px;
+font-weight:700;
+margin-bottom:60px;
 
 }
 
 .features-grid{
 
 display:grid;
-
-grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-
-gap:25px;
-
-margin-top:40px;
+grid-template-columns:repeat(4,1fr);
+gap:30px;
 
 }
 
 .feature-card{
 
-background:rgba(20,25,50,.65);
-
+background:rgba(18,25,50,.75);
 border:1px solid rgba(255,255,255,.08);
+backdrop-filter:blur(20px);
 
-backdrop-filter:blur(18px);
+border-radius:25px;
 
-border-radius:28px;
-
-padding:35px;
+padding:35px 25px;
 
 text-align:center;
 
-transition:.4s;
+transition:.35s;
 
 }
 
 .feature-card:hover{
 
-transform:translateY(-12px);
+transform:translateY(-10px);
 
-box-shadow:0 0 30px rgba(0,212,255,.35);
+box-shadow:0 0 30px #00d4ff;
 
 }
 
@@ -1020,15 +1022,15 @@ box-shadow:0 0 30px rgba(0,212,255,.35);
 
 font-size:55px;
 
-color:#00d4ff;
-
 margin-bottom:20px;
+
+color:#00d4ff;
 
 }
 
 .feature-card h3{
 
-font-size:25px;
+font-size:24px;
 
 margin-bottom:15px;
 
@@ -1041,6 +1043,34 @@ font-size:16px;
 line-height:1.7;
 
 opacity:.85;
+
+}
+
+/*============= MOBILE =============*/
+
+@media(max-width:992px){
+
+.features-grid{
+
+grid-template-columns:repeat(2,1fr);
+
+}
+
+}
+
+@media(max-width:600px){
+
+.features .title{
+
+font-size:38px;
+
+}
+
+.features-grid{
+
+grid-template-columns:1fr;
+
+}
 
 }
 
