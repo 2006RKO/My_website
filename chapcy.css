@@ -26,6 +26,8 @@ body{
 }
 
 .layer-blur{
+    height:0;
+    width:30rem;
     position:fixed;
     inset:0;
     background:rgba(0,0,0,.45);
@@ -36,9 +38,11 @@ body{
 /* Container */
 
 .container{
-    width:90%;
-    max-width:1300px;
-    margin:auto;
+    width:100%;
+    position:relative;
+    margin:0;
+    padding:0 2rem
+    overflow:hidden;
 }
 
 /* Header */
@@ -48,7 +52,7 @@ body{
     justify-content:space-between;
     align-items:center;
     margin-top:20px;
-    padding:15px 30px;
+    padding:1rem 5rem;
     background:rgba(255,255,255,.08);
     border:1px solid rgba(255,255,255,.15);
     backdrop-filter:blur(18px);
