@@ -1,600 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHAPCY</title>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
 
-<title>CHAPCY | Global Community</title>
-
-<link rel="stylesheet" href="chapcy.css">
-
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 
 <body>
 
-<!--================ BACKGROUND ================-->
+    <!-- Background -->
+    <img src="images/gradient.png" class="gradient" alt="">
+    <div class="layer-blur"></div>
 
-<div class="bg">
-<div class="blur blur1"></div>
-<div class="blur blur2"></div>
-<div class="blur blur3"></div>
-</div>
+    <!-- Container -->
+    <div class="container">
 
-<!--================ HEADER ================-->
+        <!-- Header -->
+        <header>
 
-<header class="header">
+            <h2 class="logo">CHAPCY</h2>
 
-<div class="logo">
+            <nav>
 
-<img src="file_000000004f547243bb0fa43d66db1edf.png" alt="CHAPCY">
+                <a href="#">Home</a>
 
-<div>
+                <a href="#">Features</a>
 
-<h2>CHAPCY</h2>
+                <a href="#">Community</a>
 
-<p>Global Live Chat</p>
+                <a href="#">About</a>
 
-</div>
+                <a href="#">Contact</a>
 
-</div>
+            </nav>
 
-<nav>
+            <button class="btn-chapcy">
+                Download
+            </button>
 
-<a href="#" class="active">
-<i class="fa-solid fa-house"></i>
-Home
-</a>
+        </header>
 
-<a href="#groups">
-Groups
-</a>
+        <!-- Hero Section -->
+        <section class="hero">
 
-<a href="people.html">
-Community
-</a>
+            <div class="tag-box">
 
-<a href="livechat.html">
-Live Chat
-</a>
+                <div class="tag">
+                    Welcome to CHAPCY
+                </div>
 
-<a href="videos.html">
-CHAPCY TV
-</a>
+            </div>
 
-</nav>
+            <h1>
+                Global Community <br>
+                For Chat
+            </h1>
 
-<div class="header-right">
+            <p class="description">
+                Chat with friends, watch videos,
+                join communities and connect with
+                millions of people around the world.
+            </p>
 
-<i class="fa-solid fa-magnifying-glass"></i>
+            <div class="buttons">
 
-<i class="fa-regular fa-bell"></i>
+                <a href="#" class="btn-get">
+                    Get Started
+                </a>
 
-<a href="login.html" class="login">
+                <a href="#" class="btn-learn">
+                    Learn More
+                </a>
 
-Login
+            </div>
 
-</a>
-
-</div>
-
-</header>
-
-<!--================ HERO ================-->
-
-<section class="hero">
-
-<div class="hero-left">
-
-<span class="hero-tag">
-
-
-</span>
-
-<h1>
-
-Global Community
-
-<span>Live Chat</span>
-
-</h1>
-
-<p>
-
-Connect with millions of people worldwide.
-
-Meet new friends, chat live,
-
-watch videos and discover amazing communities.
-
-</p>
-
-<div class="hero-buttons">
-
-<a href="livechat.html" class="btn1">
-
-Enter Global Chat
-
-</a>
-
-<div class="hero-buttons">
-    <a href="livechat.html" class="btn1">
-        Enter Global Chat
-    </a>
-</div>
-
-<div class="hero-right">
-
-<div class="globe-card">
-
-<img src="file_000000002b8071f4b410ea7b9a3969d6.png" alt="">
-
-<div class="online online1"></div>
-<div class="online online2"></div>
-<div class="online online3"></div>
-<div class="online online4"></div>
-
-</div>
-
-</div>
-</section>
-    <!--================ GROUPS START ================-->
-
-<section class="groups" id="groups">
-
-<h2 class="title">
-
-</h2>
-
-<div class="slider">
-
-<div class="slider-track" id="groupSlider">
-    <!--================ FOOTBALL ================-->
-
-<div class="group-card football">
-
-<img src="file_00000000f6b071f48327e5197952e1ff.png" alt="Football">
-
-<h3>⚽ Football</h3>
-
-<p>
-Latest football news, transfers,
-fixtures, live scores and fan discussions.
-</p>
-
-<a href="football.html" class="join-btn">
-
-Join Chat
-
-</a>
-
-</div>
-
-<!--================ EFOOTBALL ================-->
-
-<div class="group-card efootball">
-
-<img src="file_0000000056bc71f4a363399654e8a3dd.png" alt="eFootball">
-
-<h3>🎮 eFootball</h3>
-
-<p>
-Build your dream squad,
-play tournaments and share gameplay.
-</p>
-
-<a href="efootball.html" class="join-btn">
-
-Join Chat
-
-</a>
-
-</div>
-
-<!--================ SPORTS ================-->
-
-<div class="group-card sports">
-
-<img src="file_00000000ee1071f48c465cfc2dd7157c.png" alt="Sports">
-
-<h3>🏆 Sports</h3>
-
-<p>
-Basketball, Tennis,
-Volleyball, Boxing and more.
-</p>
-
-<a href="sports.html" class="join-btn">
-
-Join Chat
-
-</a>
-
-</div>
-
-<!--================ NEWS ================-->
-
-<div class="group-card news">
-
-<img src="file_00000000bdb471f488fbf6d8c64b40c3.png" alt="News">
-
-<h3>📰 World News</h3>
-
-<p>
-Breaking news,
-technology, politics and world updates.
-</p>
-
-<a href="news.html" class="join-btn">
-
-Join Chat
-
-</a>
-
-</div>
-
-<!--================ BETTING ================-->
-
-<div class="group-card betting">
-
-<img src="file_00000000ed7871f4925c076a1a655b15.png" alt="Betting">
-
-<h3>🎰 Betting</h3>
-
-<p>
-Football predictions,
-odds analysis and jackpot discussions.
-</p>
-
-<a href="betting.html" class="join-btn">
-
-Join Chat
-
-</a>
-
-</div>
-
-<!--================ PUBG ================-->
-
-<div class="group-card gaming">
-
-<img src="file_00000000c28c71f4b62c08fb5b2d7870.png" alt="Gaming">
-
-<h3>🎮 PUBG & COD</h3>
-
-<p>
-Battle Royale community,
-tips, squads and tournaments.
-</p>
-
-<a href="gaming.html" class="join-btn">
-
-Join Chat
-
-</a>
-
-</div>
-
-<!--================ MUSIC ================-->
-
-<div class="group-card music">
-
-<img src="file_00000000e86471f4b386c6acc7d23f5b.png" alt="Music">
-
-<h3>🎵 Music</h3>
-
-<p>
-Share songs,
-discover artists and playlists worldwide.
-</p>
-
-<a href="music.html" class="join-btn">
-
-Join Chat
-
-</a>
-
-</div>
-
-<!--================ FOOD ================-->
-
-<div class="group-card food">
-
-<img src="file_00000000c68871f48c1a80d96ec0e300.png" alt="Food">
-
-<h3>🍔 Food</h3>
-
-<p>
-Recipes,
-cooking ideas and delicious meals.
-</p>
-
-<a href="food.html" class="join-btn">
-
-Join Chat
-
-</a>
-
-</div>
-
-<!--================ EDUCATION ================-->
-
-<div class="group-card education">
-
-<img src="file_000000006d2871f49a121851a52fc041.png" alt="Education">
-
-<h3>📚 Education</h3>
-
-<p>
-Learn languages,
-science and technology together.
-</p>
-
-<a href="education.html" class="join-btn">
-
-Join Chat
-
-</a>
-
-</div>
-
-<!--================ ART ================-->
-
-<div class="group-card art">
-
-<img src="file_000000009d0c71f48ea69bd0ea0c0f4f.png" alt="Art">
-
-<h3>🎨 Art</h3>
-
-<p>
-Painting,
-drawing and digital creativity.
-</p>
-
-<a href="art.html" class="join-btn">
-
-Join Chat
-
-</a>
-
-</div>
-
-<!--================ BUSINESS ================-->
-
-<div class="group-card business">
-
-<img src="file_00000000f9b47243acad6a855347db20.png" alt="Business">
-
-<h3>💼 Business</h3>
-
-<p>
-Entrepreneurs,
-networking and investment ideas.
-</p>
-
-<a href="business.html" class="join-btn">
-
-Join Chat
-
-</a>
-
-</div>
-
-<!--================ CHAPCY TV ================-->
-
-<div class="group-card tv">
-
-<img src="file_00000000f8187246ada067dc5e5a807b.png" alt="CHAPCY TV">
-
-<h3>📺 CHAPCY TV</h3>
-
-<p>
-Watch live videos,
-movies, shorts and reels.
-</p>
-
-<a href="videos.html" class="join-btn">
-
-Watch Now
-
-</a>
+        </section>
 
     </div>
-    </div>
 
-<button class="slider-btn prev">
+    <script src="slider.js"></script>
 
-<i class="fas fa-chevron-left"></i>
-
-</button>
-
-<button class="slider-btn next">
-
-<i class="fas fa-chevron-right"></i>
-
-</button>
-
-<div class="slider-dots">
-
-<span class="dot active"></span>
-
-<span class="dot"></span>
-
-<span class="dot"></span>
-
-<span class="dot"></span>
-
-<span class="dot"></span>
-
-<span class="dot"></span>
-
-<span class="dot"></span>
-
-<span class="dot"></span>
-
-<span class="dot"></span>
-
-<span class="dot"></span>
-
-<span class="dot"></span>
-
-<span class="dot"></span>
-
-</div>
-
-</div>
-
-</section>
-    <!--================ WHY CHOOSE CHAPCY ================-->
-
-<section class="features">
-
-<div class="why-title">
-
-<span>WHY US</span>
-
-<h2>Why Choose CHAPCY?</h2>
-
-<p>
-Explore the features that make CHAPCY the best global community.
-</p>
-
-</div>
-
-<div class="features-grid">
-
-<!-- Live Chat -->
-
-<div class="feature-card">
-
-<div class="feature-icon">
-<img src="file_00000000034471f4b3154d128bfa5188.png" alt="Live Chat">
-</div>
-
-<h3>Live Chat</h3>
-
-<p>
-Chat instantly with people from every country.
-</p>
-
-<div class="line blue"></div>
-
-</div>
-
-<!-- Worldwide -->
-
-<div class="feature-card">
-
-<div class="feature-icon">
-<img src="file_00000000a40471f488e35e9426342029.png" alt="Worldwide">
-</div>
-
-<h3>Worldwide</h3>
-
-<p>
-Meet new friends from over 195 countries.
-</p>
-
-<div class="line purple"></div>
-
-</div>
-
-<!-- CHAPCY TV -->
-
-<div class="feature-card">
-
-<div class="feature-icon">
-<i class="fas fa-tv"></i>
-</div>
-
-<h3>CHAPCY TV</h3>
-
-<p>
-Watch videos, reels and live entertainment.
-</p>
-
-<div class="line blue"></div>
-
-</div>
-
-<!-- Safe Community -->
-
-<div class="feature-card">
-
-<div class="feature-icon">
-<img src="file_00000000c5d871f4834987adb1613418.png" alt="Safe Community">
-</div>
-
-<h3>Safe Community</h3>
-
-<p>
-Secure chatting and trusted global community.
-</p>
-
-<div class="line green"></div>
-
-</div>
-
-</div>
-
-</section>
-
-<!--================ SHARE CHAPCY ================-->
-
-<section class="share-box">
-
-<div class="share-left">
-
-<div class="share-icon">
-
-<i class="fas fa-share-alt"></i>
-
-</div>
-
-<div>
-
-<h2>Share CHAPCY to People</h2>
-
-<p>
-Invite your friends and family to join CHAPCY and be part of a global community.
-</p>
-
-</div>
-
-</div>
-
-<div class="share-right">
-
-<a href="#" class="share-btn">
-
-Share Now
-
-<i class="fas fa-arrow-right"></i>
-
-</a>
-
-<div class="share-social">
-
-<a href="#"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-
-<a href="#"><i class="fab fa-facebook"></i> Facebook</a>
-
-<a href="#"><i class="fab fa-instagram"></i> Instagram</a>
-
-<a href="#"><i class="fab fa-x-twitter"></i> X</a>
-
-<a href="#"><i class="fas fa-link"></i> Copy Link</a>
-
-</div>
-
-</div>
-</section>
-
-<script src="slider.js"></script>
 </body>
 </html>
-
