@@ -968,84 +968,91 @@ width:12
 ==================================================*/
 
 /*================ WHY CHOOSE CHAPCY ================*/
-
 .features{
-
-width:95%;
-max-width:1400px;
-margin:100px auto;
-
+    width:95%;
+    max-width:1400px;
+    margin:120px auto;
+    text-align:center;
 }
 
-.features .title{
+.why-title{
+    margin-bottom:60px;
+}
 
-text-align:center;
-font-size:52px;
-font-weight:700;
-margin-bottom:60px;
+.why-title span{
+    display:inline-block;
+    padding:10px 25px;
+    border:2px solid #00d4ff;
+    border-radius:40px;
+    color:#00d4ff;
+    font-weight:700;
+    margin-bottom:20px;
+}
 
+.why-title h2{
+    font-size:60px;
+    margin-bottom:20px;
+}
+
+.why-title p{
+    max-width:650px;
+    margin:auto;
+    color:#ccc;
+    font-size:20px;
 }
 
 .features-grid{
-
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:30px;
-
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:30px;
+    margin-top:50px;
 }
 
 .feature-card{
-
-background:rgba(18,25,50,.75);
-border:1px solid rgba(255,255,255,.08);
-backdrop-filter:blur(20px);
-
-border-radius:25px;
-
-padding:35px 25px;
-
-text-align:center;
-
-transition:.35s;
-
+    background:#11172d;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:25px;
+    padding:35px 25px;
+    text-align:center;
 }
 
-.feature-card:hover{
-
-transform:translateY(-10px);
-
-box-shadow:0 0 30px #00d4ff;
-
+.feature-icon{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin-bottom:25px;
 }
 
-.feature-card i{
-
-font-size:55px;
-
-margin-bottom:20px;
-
-color:#00d4ff;
-
+.feature-icon img{
+    width:120px;
+    height:120px;
+    object-fit:contain;
 }
 
-.feature-card h3{
-
-font-size:24px;
-
-margin-bottom:15px;
-
+.feature-icon i{
+    font-size:90px;
+    color:#1ea7ff;
 }
 
-.feature-card p{
-
-font-size:16px;
-
-line-height:1.7;
-
-opacity:.85;
-
+.line{
+    width:70px;
+    height:5px;
+    border-radius:20px;
+    margin:25px auto 0;
 }
 
+.blue{
+    background:#00bfff;
+}
+
+.purple{
+    background:#b100ff;
+}
+
+.green{
+    background:#00ff88;
+}
+.
 /*============= MOBILE =============*/
 
 @media(max-width:992px){
