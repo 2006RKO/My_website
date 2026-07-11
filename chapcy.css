@@ -447,27 +447,143 @@ box-shadow:0 0 20px #00d4ff;
 .header-right{
 
 display:flex;
+/*================ HEADER =================*/
+
+.header{
+
+position:fixed;
+top:15px;
+left:50%;
+transform:translateX(-50%);
+
+width:95%;
+max-width:1400px;
+
+display:flex;
+align-items:center;
+justify-content:space-between;
+
+padding:14px 24px;
+
+background:rgba(15,20,45,.65);
+
+backdrop-filter:blur(20px);
+
+border:1px solid rgba(255,255,255,.10);
+
+border-radius:35px;
+
+box-shadow:0 10px 40px rgba(0,0,0,.35);
+
+z-index:1000;
+
+}
+
+.logo{
+
+display:flex;
+align-items:center;
+gap:14px;
+
+flex-shrink:0;
+
+}
+
+.logo img{
+
+width:52px;
+height:52px;
+
+border-radius:50%;
+
+object-fit:cover;
+
+border:2px solid rgba(255,255,255,.15);
+
+}
+
+.logo h2{
+
+font-size:20px;
+font-weight:700;
+line-height:1;
+
+margin-bottom:4px;
+
+}
+
+.logo p{
+
+font-size:12px;
+
+color:#bfc8ff;
+
+}
+
+nav{
+
+display:flex;
 
 align-items:center;
 
-gap:15px;
+gap:8px;
+
+margin:auto;
+
+}
+
+nav a{
+
+padding:12px 18px;
+
+border-radius:18px;
+
+text-decoration:none;
+
+color:#fff;
+
+font-size:15px;
+
+font-weight:600;
+
+transition:.3s;
+
+}
+
+nav a:hover,
+
+nav a.active{
+
+background:linear-gradient(135deg,#6a11ff,#00c6ff);
+
+box-shadow:0 0 20px rgba(0,212,255,.5);
+
+}
+
+.header-right{
+
+display:flex;
+
+align-items:center;
+
+gap:14px;
 
 }
 
 .header-right i{
 
-width:45px;
-height:45px;
+width:42px;
+height:42px;
 
 display:flex;
 
-justify-content:center;
-
 align-items:center;
+
+justify-content:center;
 
 border-radius:50%;
 
-background:rgba(255,255,255,.08);
+background:rgba(255,255,255,.06);
 
 cursor:pointer;
 
@@ -477,25 +593,25 @@ transition:.3s;
 
 .header-right i:hover{
 
-background:#00d4ff;
+background:#00c6ff;
 
-transform:translateY(-5px);
+transform:translateY(-3px);
 
 }
 
 .login{
 
-text-decoration:none;
+padding:11px 24px;
 
-padding:12px 25px;
+border-radius:25px;
 
-border-radius:30px;
-
-background:linear-gradient(45deg,#6a11ff,#00d4ff);
+background:linear-gradient(135deg,#6a11ff,#00c6ff);
 
 color:#fff;
 
-font-weight:bold;
+text-decoration:none;
+
+font-weight:600;
 
 transition:.3s;
 
