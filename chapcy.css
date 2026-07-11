@@ -1299,3 +1299,235 @@ text-align:center;
 }
 
 }
+/*================ WHY CHOOSE CHAPCY ================*/
+
+.features{
+    width:95%;
+    max-width:1400px;
+    margin:120px auto;
+}
+
+.why-title{
+    text-align:center;
+    margin-bottom:60px;
+}
+
+.why-title span{
+    display:inline-block;
+    padding:8px 22px;
+    border-radius:30px;
+    background:rgba(0,212,255,.12);
+    color:#00d4ff;
+    border:1px solid #00d4ff;
+    font-size:14px;
+    font-weight:600;
+    margin-bottom:18px;
+}
+
+.why-title h2{
+    font-size:48px;
+    margin-bottom:15px;
+}
+
+.why-title p{
+    max-width:650px;
+    margin:auto;
+    color:#bfc8e8;
+    line-height:1.8;
+}
+
+/*================ FEATURE GRID ================*/
+
+.features-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:30px;
+}
+
+.feature-card{
+    position:relative;
+    background:rgba(15,22,45,.75);
+    border:1px solid rgba(255,255,255,.08);
+    backdrop-filter:blur(18px);
+    border-radius:28px;
+    padding:35px 28px;
+    text-align:center;
+    overflow:hidden;
+    transition:.4s;
+}
+
+.feature-card:hover{
+    transform:translateY(-12px);
+    box-shadow:0 0 35px rgba(0,212,255,.30);
+}
+
+.feature-icon{
+    width:110px;
+    height:110px;
+    margin:auto;
+    margin-bottom:25px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border-radius:50%;
+    background:rgba(255,255,255,.05);
+}
+
+.feature-icon img{
+    width:78px;
+    height:78px;
+    object-fit:contain;
+}
+
+.feature-icon i{
+    font-size:55px;
+    color:#00d4ff;
+}
+
+.feature-card h3{
+    font-size:25px;
+    margin-bottom:15px;
+}
+
+.feature-card p{
+    color:#cfd8ff;
+    line-height:1.8;
+    margin-bottom:25px;
+}
+
+.line{
+    width:70px;
+    height:5px;
+    border-radius:20px;
+    margin:auto;
+}
+
+.blue{
+    background:#00d4ff;
+}
+
+.purple{
+    background:#8b5cf6;
+}
+
+.green{
+    background:#00ff88;
+}
+
+/*================ SHARE BOX ================*/
+
+.share-box{
+    width:95%;
+    max-width:1400px;
+    margin:80px auto;
+    background:rgba(15,22,45,.80);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:30px;
+    padding:40px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:40px;
+    flex-wrap:wrap;
+}
+
+.share-left{
+    display:flex;
+    align-items:center;
+    gap:25px;
+}
+
+.share-icon{
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#00d4ff,#6a11ff);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.share-icon i{
+    color:#fff;
+    font-size:38px;
+}
+
+.share-left h2{
+    font-size:34px;
+    margin-bottom:10px;
+}
+
+.share-left p{
+    color:#cfd8ff;
+    line-height:1.8;
+}
+
+.share-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:16px 34px;
+    border-radius:35px;
+    text-decoration:none;
+    color:#fff;
+    font-weight:700;
+    background:linear-gradient(135deg,#00d4ff,#6a11ff);
+    transition:.35s;
+}
+
+.share-btn:hover{
+    transform:translateY(-5px);
+    box-shadow:0 0 25px #00d4ff;
+}
+
+.share-social{
+    margin-top:25px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:15px;
+}
+
+.share-social a{
+    text-decoration:none;
+    color:#fff;
+    padding:12px 18px;
+    border-radius:30px;
+    background:rgba(255,255,255,.06);
+    transition:.3s;
+}
+
+.share-social a:hover{
+    background:#00d4ff;
+}
+
+/*================ MOBILE ================*/
+
+@media(max-width:768px){
+
+.why-title h2{
+    font-size:34px;
+}
+
+.share-box{
+    padding:25px;
+}
+
+.share-left{
+    flex-direction:column;
+    text-align:center;
+}
+
+.share-right{
+    width:100%;
+}
+
+.share-btn{
+    width:100%;
+    justify-content:center;
+}
+
+.share-social{
+    justify-content:center;
+}
+
+        }
