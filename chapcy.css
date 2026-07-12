@@ -218,10 +218,20 @@ nav .active{
 
 @media(max-width:992px){
 
-.header{
-    flex-direction:column;
-    gap:20px;
-}
+..header{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:18px 25px;
+
+    border-radius:35px;
+
+    width:95%;
+    margin:20px auto;
+};
+
 
 nav{
     flex-wrap:wrap;
