@@ -221,21 +221,40 @@ nav .active{
 
 @media(max-width:992px){
 
-..header{
+.header{
+    padding:15px;
+    border-radius:25px;
+}
+
+.logo{
+    justify-content:center;
+}
+
+.logo img{
+    width:50px;
+    height:50px;
+}
+
+.logo-text h2{
+    font-size:22px;
+}
+
+.logo-text span{
+    font-size:12px;
+}
+
+nav{
     display:flex;
     flex-wrap:wrap;
-    justify-content:space-between;
-    align-items:center;
+    justify-content:center;
+    gap:15px;
+    margin:15px 0;
+}
 
-    padding:18px 25px;
-
-    border-radius:35px;
-
-    width:95%;
-    margin:20px auto;
-};
-
-
+.nav-right{
+    justify-content:center;
+}
+    
 nav{
     flex-wrap:wrap;
     justify-content:center;
