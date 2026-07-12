@@ -84,7 +84,10 @@ body::before{
 
 nav{
     display:flex;
-    gap:35px;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:18px;
+    margin-top:15px;
 }
 
 nav a{
