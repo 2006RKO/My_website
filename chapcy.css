@@ -234,60 +234,52 @@ nav{
 =========================*/
 
 .group-card{
-    width:300px;
-    min-height:470px;
-    padding:25px 20px;
-    border-radius:28px;
-    text-align:center;
-    position:relative;
-    overflow:hidden;
+    width:280px;
+    min-height:520px;
+    margin:auto;
 
-    background:rgba(15,20,45,.45);
+    padding:25px 20px;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    align-items:center;
+
+    border-radius:28px;
+
+    background:rgba(18,18,45,.55);
     backdrop-filter:blur(18px);
-    -webkit-backdrop-filter:blur(18px);
 
     border:1px solid rgba(0,255,255,.35);
-    box-shadow:
-    0 0 25px rgba(0,180,255,.18),
-    inset 0 0 15px rgba(255,255,255,.05);
 
-    transition:.4s ease;
+    box-shadow:0 0 30px rgba(0,200,255,.25);
+
+    transition:.4s;
 }
 
 .group-card:hover{
-    transform:translateY(-10px) scale(1.03);
-    border-color:#00eaff;
-    box-shadow:
-    0 0 45px rgba(0,234,255,.45),
-    0 0 80px rgba(130,0,255,.35);
+    transform:translateY(-10px);
+    box-shadow:0 0 45px #00d9ff;
 }
 
 /* LOGO */
 
 .group-logo{
-    width:110px;
-    height:110px;
-    margin:auto;
-    border-radius:25px;
-
-    background:linear-gradient(135deg,#00d9ff,#7b2cff);
+    width:95px;
+    height:95px;
+    border-radius:50%;
     display:flex;
     justify-content:center;
     align-items:center;
-
-    box-shadow:
-    0 0 35px rgba(0,220,255,.5);
-
-    margin-bottom:25px;
+    background:linear-gradient(135deg,#00c8ff,#6d2cff);
+    box-shadow:0 0 25px #00c8ff;
 }
 
 .group-logo img{
-    width:70px;
-    height:70px;
+    width:65px;
+    height:65px;
     object-fit:contain;
-    border-radius:15px;
 }
-
 /* TITLE */
 
 .group-card h3{
@@ -321,24 +313,19 @@ nav{
 /* JOIN BUTTON */
 
 .join-btn{
-    display:inline-block;
     width:100%;
-    padding:16px;
-
+    padding:18px;
     border-radius:50px;
+    text-align:center;
     text-decoration:none;
     color:#fff;
-    font-size:18px;
     font-weight:700;
 
     background:linear-gradient(90deg,#00c8ff,#6d2cff,#00c8ff);
     background-size:300%;
+    animation:flow 4s linear infinite;
 
-    transition:.4s;
-    animation:flow 5s linear infinite;
-
-    box-shadow:
-    0 0 20px rgba(0,200,255,.45);
+    box-shadow:0 0 20px rgba(0,200,255,.5);
 }
 
 .join-btn:hover{
