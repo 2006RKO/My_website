@@ -281,20 +281,35 @@ nav{
       CHAPCY GROUP CARD
 =========================*/
 
+/*==========================
+     GROUP SECTION
+==========================*/
+
+.group-section{
+    width:100%;
+    display:flex;
+    justify-content:center;
+    margin:70px 0;
+}
+
+/*==========================
+      GROUP CARD
+==========================*/
+
 .group-card{
-    width:230px;
+    width:250px;
     height:560px;
-    margin:50px auto;
-    padding:25px 18px;
 
     display:flex;
     flex-direction:column;
     align-items:center;
     justify-content:space-between;
 
-    border-radius:30px;
+    padding:30px 20px;
 
-    background:rgba(15,18,45,.55);
+    border-radius:28px;
+
+    background:rgba(18,20,55,.55);
     backdrop-filter:blur(20px);
     -webkit-backdrop-filter:blur(20px);
 
@@ -308,104 +323,121 @@ nav{
 
 .group-card:hover{
     transform:translateY(-10px);
+    border-color:#00d9ff;
+
     box-shadow:
-    0 0 45px #00d9ff;
+    0 0 45px rgba(0,217,255,.7);
 }
 
-/* Logo */
+/* LOGO */
 
 .group-logo{
-    width:90px;
-    height:90px;
+    width:95px;
+    height:95px;
     border-radius:50%;
+
     display:flex;
     justify-content:center;
     align-items:center;
 
     background:linear-gradient(135deg,#00c8ff,#6d2cff);
 
-    box-shadow:0 0 20px #00d9ff;
+    box-shadow:0 0 25px #00c8ff;
 }
 
 .group-logo img{
-    width:60px;
-    height:60px;
+    width:65px;
+    height:65px;
     object-fit:contain;
 }
 
-/* Title */
+/* TITLE */
 
-.group-card h2{
-    font-size:24px;
+.group-card h3{
     text-align:center;
+    font-size:28px;
+    font-weight:700;
     color:#fff;
 }
 
-/* Description */
-
-.group-card p{
-    color:#d8d8d8;
-    text-align:center;
-    line-height:1.7;
-    font-size:15px;
-}
-
-/* Online Dot */
+/* ONLINE */
 
 .online{
     width:12px;
     height:12px;
     border-radius:50%;
-    background:#00ff55;
-    box-shadow:0 0 15px #00ff55;
+    background:#00ff66;
+    box-shadow:0 0 15px #00ff66;
 }
 
-/* Join Button */
+/* DESCRIPTION */
+
+.group-card p{
+    text-align:center;
+    color:#d6d6d6;
+    line-height:1.8;
+    font-size:16px;
+}
+
+/* BUTTON */
 
 .join-btn{
     width:100%;
-    padding:16px;
+    padding:17px 0;
 
-    border:none;
     border-radius:50px;
 
-    color:#fff;
-    font-size:17px;
-    font-weight:700;
     text-decoration:none;
-    text-align:center;
+    color:#fff;
+    font-weight:700;
+    font-size:18px;
 
-    background:linear-gradient(90deg,#00c8ff,#6b2dff,#00c8ff);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+
+    background:linear-gradient(
+    90deg,
+    #00c8ff,
+    #6d2cff,
+    #00c8ff);
+
     background-size:300%;
 
     animation:flow 4s linear infinite;
 
-    box-shadow:0 0 25px rgba(0,200,255,.4);
+    box-shadow:0 0 20px rgba(0,200,255,.5);
 
     transition:.3s;
 }
 
 .join-btn:hover{
     transform:scale(1.05);
-    box-shadow:0 0 35px #00d9ff;
+
+    box-shadow:
+    0 0 35px #00d9ff;
 }
 
 @keyframes flow{
-    0%{
-        background-position:0%;
-    }
-    100%{
-        background-position:300%;
-    }
+
+0%{
+background-position:0%;
 }
 
-/* Mobile */
+100%{
+background-position:300%;
+}
+
+}
+
+/* MOBILE */
 
 @media(max-width:768px){
 
 .group-card{
     width:220px;
-    height:530px;
+    height:500px;
 }
 
 .group-logo{
@@ -418,12 +450,16 @@ nav{
     height:55px;
 }
 
-.group-card h2{
+.group-card h3{
     font-size:22px;
 }
 
 .group-card p{
     font-size:14px;
+}
+
+.join-btn{
+    font-size:16px;
 }
 
 }
