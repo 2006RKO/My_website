@@ -392,31 +392,238 @@ nav{
     font-weight:700;
     font-size:18px;
 
+/*=========================
+    GROUP SECTION
+=========================*/
+
+.group-section{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin:80px auto;
+}
+
+/*=========================
+      PREMIUM CARD
+=========================*/
+
+.group-card{
+
+    position:relative;
+
+    width:240px;
+    height:580px;
+
+    padding:30px 20px;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:space-between;
+
+    overflow:hidden;
+
+    border-radius:35px;
+
+    background:rgba(12,18,40,.55);
+
+    backdrop-filter:blur(22px);
+    -webkit-backdrop-filter:blur(22px);
+
+    border:1px solid rgba(255,255,255,.12);
+
+    box-shadow:
+    0 0 30px rgba(0,190,255,.25);
+
+    transition:.45s;
+}
+
+/* Glow */
+
+.group-glow{
+
+    position:absolute;
+
+    width:320px;
+    height:320px;
+
+    background:radial-gradient(circle,
+    rgba(0,200,255,.35),
+    transparent 70%);
+
+    top:-130px;
+    left:-70px;
+
+    animation:moveGlow 6s linear infinite;
+
+}
+
+@keyframes moveGlow{
+
+0%{
+transform:rotate(0deg);
+}
+
+100%{
+transform:rotate(360deg);
+}
+
+}
+
+.group-card:hover{
+
+    transform:translateY(-12px);
+
+    box-shadow:
+    0 0 45px #00d9ff,
+    0 0 80px rgba(110,45,255,.4);
+
+}
+
+/*=========================
+        LOGO
+=========================*/
+
+.group-logo{
+
+    width:95px;
+    height:95px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    border-radius:25px;
+
+    background:linear-gradient(135deg,#00d0ff,#6a2dff);
+
+    box-shadow:
+    0 0 30px rgba(0,210,255,.5);
+
+    z-index:2;
+
+}
+
+.group-logo img{
+
+    width:60px;
+    height:60px;
+
+    object-fit:contain;
+
+}
+
+/*=========================
+       TITLE
+=========================*/
+
+.group-card h2{
+
+    font-size:30px;
+    font-weight:700;
+
+    color:#fff;
+
+    z-index:2;
+
+}
+
+/*=========================
+      STATUS
+=========================*/
+
+.status{
+
+    color:#2dff82;
+
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    font-size:15px;
+
+    z-index:2;
+
+}
+
+.status i{
+
+    font-size:10px;
+
+}
+
+/*=========================
+      DESCRIPTION
+=========================*/
+
+.group-card p{
+
+    color:#d5d5d5;
+
+    text-align:center;
+
+    line-height:1.8;
+
+    font-size:15px;
+
+    z-index:2;
+
+}
+
+/*=========================
+      BUTTON
+=========================*/
+
+.join-btn{
+
+    width:100%;
+
+    padding:17px;
+
+    border-radius:50px;
+
+    text-decoration:none;
+
+    text-align:center;
+
+    color:#fff;
+
+    font-size:18px;
+
+    font-weight:700;
+
     display:flex;
     justify-content:center;
     align-items:center;
     gap:10px;
 
-    background:linear-gradient(
+    background:
+    linear-gradient(
     90deg,
-    #00c8ff,
-    #6d2cff,
-    #00c8ff);
+    #00d4ff,
+    #6b2dff,
+    #00d4ff);
 
     background-size:300%;
 
     animation:flow 4s linear infinite;
 
-    box-shadow:0 0 20px rgba(0,200,255,.5);
+    box-shadow:
+    0 0 25px rgba(0,200,255,.45);
 
     transition:.3s;
+
+    z-index:2;
+
 }
 
 .join-btn:hover{
+
     transform:scale(1.05);
 
     box-shadow:
-    0 0 35px #00d9ff;
+    0 0 40px #00d9ff;
+
 }
 
 @keyframes flow{
@@ -431,35 +638,43 @@ background-position:300%;
 
 }
 
-/* MOBILE */
+/*=========================
+      MOBILE
+=========================*/
 
 @media(max-width:768px){
 
 .group-card{
+
     width:220px;
-    height:500px;
+    height:540px;
+
 }
 
 .group-logo{
+
     width:80px;
     height:80px;
+
 }
 
 .group-logo img{
+
     width:55px;
     height:55px;
+
 }
 
-.group-card h3{
-    font-size:22px;
-}
+.group-card h2{
 
-.group-card p{
-    font-size:14px;
+    font-size:25px;
+
 }
 
 .join-btn{
+
     font-size:16px;
-}
 
 }
+
+    }
