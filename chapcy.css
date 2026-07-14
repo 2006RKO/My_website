@@ -125,3 +125,71 @@ body{
         opacity:0;
     }
 }
+  /*==========================
+      GROUP CARD
+==========================*/
+
+.group-card{
+    width:95%;
+    max-width:430px;
+    height:220px;
+    margin:25px auto;
+
+    display:flex;
+    overflow:hidden;
+
+    border-radius:25px;
+
+    background:rgba(255,255,255,.05);
+    backdrop-filter:blur(8px);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    opacity:.55;
+
+    transition:.4s ease;
+}
+
+/* Ikiguswa au kuhover */
+
+.group-card:hover,
+.group-card:active{
+    opacity:1;
+    transform:scale(1.02);
+
+    background:rgba(18,20,80,.45);
+
+    box-shadow:
+    0 0 35px rgba(143,76,255,.6);
+}
+
+/* Kushoto */
+
+.card-left,
+.card-right{
+    width:50%;
+    height:100%;
+}
+
+.card-left{
+    border-right:1px solid rgba(255,255,255,.12);
+}
+
+/* Picha zote ziwe size sawa */
+
+.card-left img,
+.card-right img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    display:block;
+    padding:10px;
+    transition:.35s;
+}
+
+/* Picha ziongezeke kidogo ukigusa */
+
+.group-card:hover img,
+.group-card:active img{
+    transform:scale(1.05);
+}
