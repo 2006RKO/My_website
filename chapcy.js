@@ -13,7 +13,7 @@ function createBubble(fromTop = true) {
     bubble.style.width = (Math.random() * 80 + 80) + "px";
 
     // Speed random
-    const duration = Math.random() * 4 + 8;
+    const duration = Math.random() * 2 + 4;
     bubble.style.animationDuration = duration + "s";
 
     if (fromTop) {
