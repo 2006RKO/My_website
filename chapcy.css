@@ -66,13 +66,13 @@ body::before{
 }
 
 .logo img{
-    width:150px;
-    height:150px;
+    width:75px;
+    height:70px;
 }
 
 .logo-text h2{
     font-size:20px;
-    margin:0;
+    margin:50;
 }
 
 .logo-text span{
