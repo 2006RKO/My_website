@@ -125,8 +125,8 @@ body{
         opacity:0;
     }
 }
-  /*==========================
-      GROUP CARD
+/*==========================
+        GROUP CARD V13
 ==========================*/
 
 .group-card{
@@ -135,7 +135,7 @@ body{
     height:220px;
     margin:25px auto;
 
-    display:flex;
+    position:relative;
     overflow:hidden;
 
     border-radius:25px;
@@ -150,47 +150,69 @@ body{
     transition:.4s ease;
 }
 
-/* Ikiguswa au kuhover */
-
 .group-card:hover,
 .group-card:active{
     opacity:1;
-    transform:scale(1.02);
+    transform:scale(1.03);
 
     background:rgba(18,20,80,.45);
 
-    box-shadow:
-    0 0 35px rgba(143,76,255,.6);
+    box-shadow:0 0 35px rgba(143,76,255,.6);
 }
 
-/* Kushoto */
+/* Sehemu ya juu */
 
-.card-left,
-.card-right{
-    width:150%;
-    height:100%;
-}
-
-.card-left{
-    border-right:1px solid rgba(255,255,255,.12);
-    width:150%;
-}
-
-/* Picha zote ziwe size sawa */
-
-.card-left img,
-.card-right img{
+.top-section,
+.bottom-section{
+    position:absolute;
     width:100%;
     height:100%;
-    object-fit:contain;
-    display:block;
-    padding:10px;
+    overflow:hidden;
+}
+
+/* Picha ya juu */
+
+.top-section{
+    clip-path:polygon(0 0,100% 0,100% 35%,0 65%);
+}
+
+/* Picha ya chini */
+
+.bottom-section{
+    clip-path:polygon(0 65%,100% 35%,100% 100%,0 100%);
+}
+
+/* Picha */
+
+.top-section img,
+.bottom-section img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
     transition:.35s;
 }
 
-/* Picha ziongezeke kidogo ukigusa */
+/* Mstari wa ulalo */
+
+.diagonal-line{
+    position:absolute;
+    top:50%;
+    left:-15%;
+    width:130%;
+    height:4px;
+
+    background:#fff;
+
+    transform:rotate(-18deg);
+
+    z-index:20;
+
+    box-shadow:0 0 18px #ffffff;
+}
+
+/* Zoom */
 
 .group-card:hover img,
 .group-card:active img{
-    transform:scale(1.05);
+    transform:scale(1.08);
 }
