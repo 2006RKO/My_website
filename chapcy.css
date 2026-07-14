@@ -41,25 +41,38 @@ body{
 
 .bubble img{
     position:absolute;
-    top:0;
-    width:140px;
-    animation:floatBubble 10s linear infinite;
+    top:-200px;
+    opacity:0;
+    filter:drop-shadow(0 0 18px #8f4cff);
+    animation:fallBubble linear forwards;
 }
 
-.bubble img:nth-child(1){left:5%;animation-delay:0s;}
-.bubble img:nth-child(2){left:20%;animation-delay:2s;}
-.bubble img:nth-child(3){left:35%;animation-delay:4s;}
-.bubble img:nth-child(4){left:50%;animation-delay:6s;}
-.bubble img:nth-child(5){left:65%;animation-delay:8s;}
-.bubble img:nth-child(6){left:80%;animation-delay:10s;}
-.bubble img:nth-child(7){left:92%;animation-delay:12s;}
+@keyframes fallBubble{
 
-@keyframes floatBubble{
-    from{
-        transform: translateY(-250px);
+    0%{
+        transform:translateY(-250px) translateX(0) rotate(0deg);
+        opacity:0;
     }
 
-    to{
-        transform: translateY(calc(100vh + 350px));
+    10%{
+        opacity:1;
     }
+
+    25%{
+        transform:translateY(25vh) translateX(-35px) rotate(-8deg);
+    }
+
+    50%{
+        transform:translateY(50vh) translateX(35px) rotate(8deg);
+    }
+
+    75%{
+        transform:translateY(75vh) translateX(-25px) rotate(-5deg);
+    }
+
+    100%{
+        transform:translateY(120vh) translateX(30px) rotate(12deg);
+        opacity:0;
+    }
+
 }
