@@ -104,8 +104,8 @@ nav{
 }
 
 .card{
-    width:400px;
-    height:500px;
+    width:200px;
+    height:300px;
     background:rgba(15,18,45,.75);
     border:1px solid rgba(255,255,255,.15);
     border-radius:25px;
