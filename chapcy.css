@@ -42,6 +42,8 @@ body{
 
 .bubble img{
     position:absolute;
+    pointer-events:auto;
+    touch-action:manipulation;
     top:-200px;
     opacity:0;
     filter:drop-shadow(0 0 18px #8f4cff);
