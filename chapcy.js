@@ -6,7 +6,7 @@ function createBubble(fromTop = true) {
     bubble.src = "file_00000000a59871f4b637e576e04f574d.png";
 
     bubble.style.left = Math.random() * 100 + "%";
-    bubble.style.width = (Math.random() * 50 + 40) + "px";
+    bubble.style.width = (Math.random() * 90 + 90) + "px";
 
     const duration = Math.random() * 4 + 8;
     bubble.style.animationDuration = duration + "s";
