@@ -179,11 +179,6 @@ nav{
     backdrop-filter:blur(20px);
 }
 
-.globe-card img{
-    width:250px;
-    animation:spin 18s linear infinite;
-}
-
 @keyframes spin{
     from{
         transform:rotate(0deg);
