@@ -167,12 +167,13 @@ body{
 
 .card-left,
 .card-right{
-    width:50%;
+    width:150%;
     height:100%;
 }
 
 .card-left{
     border-right:1px solid rgba(255,255,255,.12);
+    width:150%;
 }
 
 /* Picha zote ziwe size sawa */
