@@ -76,3 +76,48 @@ body{
     }
 
 }
+/*==========================
+   BUBBLES ZA CHINI
+==========================*/
+
+.bubble img.top-bubble{
+    top:-200px;
+    bottom:auto;
+    animation:fallBubble linear forwards;
+}
+
+.bubble img.bottom-bubble{
+    top:auto;
+    bottom:-200px;
+    animation:riseBubble linear forwards;
+}
+
+@keyframes riseBubble{
+
+    0%{
+        transform:translateY(250px) translateX(0) rotate(0deg);
+        opacity:0;
+    }
+
+    10%{
+        opacity:1;
+    }
+
+    25%{
+        transform:translateY(-25vh) translateX(-35px) rotate(-8deg);
+    }
+
+    50%{
+        transform:translateY(-50vh) translateX(35px) rotate(8deg);
+    }
+
+    75%{
+        transform:translateY(-75vh) translateX(-25px) rotate(-5deg);
+    }
+
+    100%{
+        transform:translateY(-120vh) translateX(30px) rotate(12deg);
+        opacity:0;
+    }
+
+}
