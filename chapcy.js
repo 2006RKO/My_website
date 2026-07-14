@@ -10,7 +10,7 @@ function createBubble(fromTop = true) {
     bubble.style.left = Math.random() * 100 + "%";
 
     // Size random (90px - 180px)
-    bubble.style.width = (Math.random() * 80 + 80) + "px";
+    bubble.style.width = (Math.random() * 70 + 70) + "px";
 
     // Speed random
     const duration = Math.random() * 2 + 4;
