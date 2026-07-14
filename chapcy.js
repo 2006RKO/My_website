@@ -45,3 +45,28 @@ function startLoop() {
 }
 
 startLoop();
+let activeBubble = null;
+
+document.addEventListener("pointerdown", (e) => {
+    if (e.target.parentElement?.classList.contains("bubble")) {
+        activeBubble = e.target;
+
+        // Simamisha animation wakati unavuta
+        activeBubble.style.animationPlayState = "paused";
+    }
+});
+
+document.addEventListener("pointermove", (e) => {
+    if (!activeBubble) return;
+
+    activeBubble.style.left = (e.clientX - activeBubble.offsetWidth / 2) + "px";
+    activeBubble.style.top = (e.clientY - activeBubble.offsetHeight / 2) + "px";
+});
+
+document.addEventListener("pointerup", () => {
+    if (activeBubble) {
+        // Endelea na animation
+        activeBubble.style.animationPlayState = "running";
+        activeBubble = null;
+    }
+});
