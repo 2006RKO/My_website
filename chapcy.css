@@ -32,24 +32,19 @@ body{
 ==========================*/
 
 .bubble{
-    position:fixed;
-    inset:0;
-    overflow:hidden;
-    pointer-events:auto;
-    touch-action:none;
-    z-index:100;
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 100;
 }
-
 .bubble img{
     position:absolute;
     pointer-events:auto;
     touch-action:manipulation;
-    top:-200px;
     opacity:0;
     filter:drop-shadow(0 0 18px #8f4cff);
-    animation:fallBubble linear forwards;
 }
-
 @keyframes fallBubble{
 
     0%{
