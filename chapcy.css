@@ -48,7 +48,7 @@ body{
 @keyframes fallBubble{
 
     0%{
-        transform:translateY(-250px) translateX(0) rotate(0deg);
+        transform:translate(0,-200px) rotate(0deg);
         opacity:0;
     }
 
@@ -56,23 +56,26 @@ body{
         opacity:1;
     }
 
-    25%{
-        transform:translateY(25vh) translateX(-35px) rotate(-8deg);
+    20%{
+        transform:translate(-40px,20vh) rotate(-8deg);
     }
 
-    50%{
-        transform:translateY(50vh) translateX(35px) rotate(8deg);
+    40%{
+        transform:translate(40px,40vh) rotate(8deg);
     }
 
-    75%{
-        transform:translateY(75vh) translateX(-25px) rotate(-5deg);
+    60%{
+        transform:translate(-30px,60vh) rotate(-6deg);
+    }
+
+    80%{
+        transform:translate(35px,80vh) rotate(6deg);
     }
 
     100%{
-        transform:translateY(120vh) translateX(30px) rotate(12deg);
+        transform:translate(0,120vh) rotate(12deg);
         opacity:0;
     }
-
 }
 /*==========================
    BUBBLES ZA CHINI
@@ -93,7 +96,7 @@ body{
 @keyframes riseBubble{
 
     0%{
-        transform:translateY(250px) translateX(0) rotate(0deg);
+        transform:translate(0,200px) rotate(0deg);
         opacity:0;
     }
 
@@ -101,21 +104,24 @@ body{
         opacity:1;
     }
 
-    25%{
-        transform:translateY(-25vh) translateX(-35px) rotate(-8deg);
+    20%{
+        transform:translate(40px,-20vh) rotate(8deg);
     }
 
-    50%{
-        transform:translateY(-50vh) translateX(35px) rotate(8deg);
+    40%{
+        transform:translate(-40px,-40vh) rotate(-8deg);
     }
 
-    75%{
-        transform:translateY(-75vh) translateX(-25px) rotate(-5deg);
+    60%{
+        transform:translate(30px,-60vh) rotate(6deg);
+    }
+
+    80%{
+        transform:translate(-35px,-80vh) rotate(-6deg);
     }
 
     100%{
-        transform:translateY(-120vh) translateX(30px) rotate(12deg);
+        transform:translate(0,-120vh) rotate(-12deg);
         opacity:0;
     }
-
 }
