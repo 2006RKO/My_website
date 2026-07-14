@@ -66,8 +66,8 @@ body::before{
 }
 
 .logo img{
-    width:55px;
-    height:55px;
+    width:150px;
+    height:150px;
 }
 
 .logo-text h2{
@@ -126,7 +126,7 @@ nav{
 }
 
 .card-image{
-    width:30px;
+    width:130px;
     height:130px;
     margin:0 auto 25px;
     background-image:url("file_000000002b8071f4b410ea7b9a3969d6.png");
