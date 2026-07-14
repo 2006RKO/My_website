@@ -38,9 +38,15 @@ body{
     display:flex;
     align-item:center;
     justify-content:space-around;
-    position:absolute;
+    position:fixed;
+    overflow:hidden;
     buttom:-70px;
 }
+.bubble{
+    position:absolute;
+    width:60px;
+    top:-80px;
+    animation:fall 12s linear infinite;
 @keyframes bubble {
     0%{
         transform:translateY (0);
