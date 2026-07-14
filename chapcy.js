@@ -1,80 +1,35 @@
-//================ CHAPCY PREMIUM SLIDER ================
+const bubbleContainer = document.querySelector(".bubble");
 
-const slider = document.getElementById("groupSlider");
-const cards = document.querySelectorAll(".group-card");
-const dots = document.querySelectorAll(".dot");
+function createBubble() {
 
-const nextBtn = document.querySelector(".next");
-const prevBtn = document.querySelector(".prev");
+    const bubble = document.createElement("img");
 
-let current = 0;
+    bubble.src = "file_00000000a59871f4b637e576e04f574d.png";
 
-function getCardWidth() {
-    return cards[0].offsetWidth + 25;
-}
+    bubble.style.left = Math.random() * 100 + "%";
 
-function updateSlider() {
+    const size = Math.random() * 90 + 60;
+    bubble.style.width = size + "px";
 
-    slider.style.transform =
-        `translateX(-${current * getCardWidth()}px)`;
+    const duration = Math.random() * 6 + 8;
+    bubble.style.animationDuration = duration + "s";
 
-    cards.forEach(card => {
-        card.classList.remove("active-card");
-    });
+    bubble.style.animationDelay = "0s";
 
-    cards[current].classList.add("active-card");
+    bubbleContainer.appendChild(bubble);
 
-    dots.forEach(dot => {
-        dot.classList.remove("active");
-    });
-
-    if (dots[current]) {
-        dots[current].classList.add("active");
-    }
+    setTimeout(() => {
+        bubble.remove();
+    }, duration * 1000);
 
 }
 
-function nextSlide() {
+setInterval(createBubble, 500);
 
-    current++;
-
-    if (current >= cards.length) {
-
-        current = 0;
-
-    }
-
-    updateSlider();
-
-}
-
-function prevSlide() {
-
-    current--;
-
-    if (current < 0) {
-
-        current = cards.length - 1;
-
-    }
-
-    updateSlider();
-
-}
-
-nextBtn.onclick = nextSlide;
-
-prevBtn.onclick = prevSlide;
-
-//================ AUTO SLIDER ================
-
-setInterval(nextSlide,3000);
-
-//================ DOTS =================
-
-dots.forEach((dot,index)=>{
-
-dot.onclick=()=>{
+// Tengeneza baadhi zianze tayari zikiwa kwenye screen
+for(let i = 0; i < 20; i++){
+    setTimeout(createBubble, i * 250);
+}dot.onclick=()=>{
 
 current=index;
 
