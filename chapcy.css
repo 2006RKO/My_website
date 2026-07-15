@@ -82,24 +82,21 @@ body{
 
 .group-container{
     width:95%;
-    max-width:900px;
-    min-height:420px;
-
+    height:420px;
     margin:30px auto;
-    padding:20px;
 
+    background:rgba(18,20,80,.4);
+    border:2px solid #8f4cff;
     border-radius:30px;
 
-    background:rgba(18,20,80,.35);
-    backdrop-filter:blur(15px);
+    box-shadow:0 0 30px rgba(143,76,255,.6);
 
-    border:2px solid rgba(255,255,255,.12);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
 
-    box-shadow:
-        0 0 40px rgba(143,76,255,.6);
-
-    position:relative;
-    overflow:hidden;
+    color:#fff;
 }
 
 /* Glow animation */
