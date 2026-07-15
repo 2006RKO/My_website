@@ -95,60 +95,6 @@ document.addEventListener("DOMContentLoaded", function () {
     box.style.color = "#fff";
     box.style.fontFamily = "Arial, sans-serif";
 
-    box.innerHTML = `
-        <h2 style="text-align:center;margin:0;color:#fff;">
-            🌍 CHAPCY GROUPS
-        </h2>
-
-        <p style="text-align:center;color:#ccc;margin:15px 0 25px;">
-            Welcome to CHAPCY Worldwide
-        </p>
-
-        <div style="
-            display:grid;
-            grid-template-columns:repeat(2,1fr);
-            gap:15px;
-        ">
-
-            <div style="
-                background:rgba(255,255,255,.08);
-                border-radius:15px;
-                padding:20px;
-                text-align:center;">
-                💬<br><br>
-                <b>Global Chat</b>
-            </div>
-
-            <div style="
-                background:rgba(255,255,255,.08);
-                border-radius:15px;
-                padding:20px;
-                text-align:center;">
-                👥<br><br>
-                <b>Business Groups</b>
-            </div>
-
-            <div style="
-                background:rgba(255,255,255,.08);
-                border-radius:15px;
-                padding:20px;
-                text-align:center;">
-                🎮<br><br>
-                <b>Gaming Zone</b>
-            </div>
-
-            <div style="
-                background:rgba(255,255,255,.08);
-                border-radius:15px;
-                padding:20px;
-                text-align:center;">
-                📺<br><br>
-                <b>CHAPCY TV</b>
-            </div>
-
-        </div>
-    `;
-
     document.body.appendChild(box);
 
 });
