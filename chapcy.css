@@ -76,54 +76,19 @@ body{
         transform:translate(0,120vh) rotate(12deg);
         opacity:0;
     }
-/*==========================
-     CHAPCY BIG CONTAINER
-==========================*/
-
-.group-container{
-    width:95%;
-    height:420px;
-    margin:30px auto;
-
-    background:rgba(18,20,80,.4);
-    border:2px solid #8f4cff;
-    border-radius:30px;
-
-    box-shadow:0 0 30px rgba(143,76,255,.6);
-
+.chapcy-box{
+    width:90%;
+    max-width:700px;
+    height:250px;
+    margin:40px auto;
+    background:rgba(10,20,60,0.75);
+    backdrop-filter:blur(15px);
+    border:2px solid rgba(255,255,255,0.2);
+    border-radius:25px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.5);
+    color:white;
     display:flex;
+    flex-direction:column;
     justify-content:center;
     align-items:center;
-    flex-direction:column;
-
-    color:#fff;
-}
-
-/* Glow animation */
-
-.group-container::before{
-    content:"";
-    position:absolute;
-    top:-50%;
-    left:-50%;
-    width:200%;
-    height:200%;
-    background:linear-gradient(
-        45deg,
-        transparent,
-        rgba(255,255,255,.18),
-        transparent
-    );
-
-    transform:rotate(25deg);
-    animation:shine 6s linear infinite;
-}
-
-@keyframes shine{
-    from{
-        transform:translateX(-100%) rotate(25deg);
-    }
-    to{
-        transform:translateX(100%) rotate(25deg);
-    }
 }
