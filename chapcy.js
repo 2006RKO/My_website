@@ -72,29 +72,3 @@ function startLoop() {
 }
 
 startLoop();
-
-
-document.addEventListener("DOMContentLoaded", function () {
-
-    const box = document.createElement("div");
-
-    box.style.position = "absolute";
-    box.style.top = "340px";
-    box.style.left = "50%";
-    box.style.transform = "translateX(-50%)";
-    box.style.width = "95%";
-    box.style.maxWidth = "950px";
-    box.style.minHeight = "420px";
-    box.style.background = "rgba(15,20,60,0.85)";
-    box.style.backdropFilter = "blur(18px)";
-    box.style.border = "2px solid rgba(255,255,255,.15)";
-    box.style.borderRadius = "35px";
-    box.style.boxShadow = "0 0 30px rgba(0,170,255,.5)";
-    box.style.padding = "35px";
-    box.style.zIndex = "99999";
-    box.style.color = "#fff";
-    box.style.fontFamily = "Arial, sans-serif";
-
-    document.body.appendChild(box);
-
-});
