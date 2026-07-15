@@ -72,3 +72,33 @@ function startLoop() {
 }
 
 startLoop();
+
+
+window.addEventListener("load", () => {
+
+    const box = document.createElement("div");
+
+    box.style.position = "fixed";
+    box.style.top = "180px";
+    box.style.left = "50%";
+    box.style.transform = "translateX(-50%)";
+    box.style.width = "90%";
+    box.style.maxWidth = "700px";
+    box.style.height = "260px";
+    box.style.background = "rgba(15,20,60,0.85)";
+    box.style.backdropFilter = "blur(15px)";
+    box.style.borderRadius = "20px";
+    box.style.border = "1px solid rgba(255,255,255,.2)";
+    box.style.boxShadow = "0 0 30px rgba(0,150,255,.5)";
+    box.style.zIndex = "99999";
+
+    box.innerHTML = `
+        <h2 style="color:white;text-align:center;margin-top:25px;">CHAPCY GROUPS</h2>
+        <p style="color:#ddd;text-align:center;">Welcome to CHAPCY</p>
+    `;
+
+    document.body.appendChild(box);
+
+});
+
+ 
