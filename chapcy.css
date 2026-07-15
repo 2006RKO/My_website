@@ -76,19 +76,3 @@ body{
         transform:translate(0,120vh) rotate(12deg);
         opacity:0;
     }
-.chapcy-box{
-    width:90%;
-    max-width:700px;
-    height:250px;
-    margin:40px auto;
-    background:rgba(10,20,60,0.75);
-    backdrop-filter:blur(15px);
-    border:2px solid rgba(255,255,255,0.2);
-    border-radius:25px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.5);
-    color:white;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-}
