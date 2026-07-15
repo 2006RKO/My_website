@@ -74,7 +74,7 @@ function startLoop() {
 startLoop();
 
 
-window.addEventListener("load", () => {
+document.addEventListener("DOMContentLoaded", function () {
 
     const box = document.createElement("div");
 
@@ -83,22 +83,72 @@ window.addEventListener("load", () => {
     box.style.left = "50%";
     box.style.transform = "translateX(-50%)";
     box.style.width = "90%";
-    box.style.maxWidth = "700px";
-    box.style.height = "260px";
+    box.style.maxWidth = "800px";
+    box.style.minHeight = "320px";
     box.style.background = "rgba(15,20,60,0.85)";
-    box.style.backdropFilter = "blur(15px)";
-    box.style.borderRadius = "20px";
-    box.style.border = "1px solid rgba(255,255,255,.2)";
-    box.style.boxShadow = "0 0 30px rgba(0,150,255,.5)";
+    box.style.backdropFilter = "blur(18px)";
+    box.style.border = "2px solid rgba(255,255,255,.15)";
+    box.style.borderRadius = "25px";
+    box.style.boxShadow = "0 0 30px rgba(0,170,255,.5)";
+    box.style.padding = "25px";
     box.style.zIndex = "99999";
+    box.style.color = "#fff";
+    box.style.fontFamily = "Arial, sans-serif";
 
     box.innerHTML = `
-        <h2 style="color:white;text-align:center;margin-top:25px;">CHAPCY GROUPS</h2>
-        <p style="color:#ddd;text-align:center;">Welcome to CHAPCY</p>
+        <h2 style="text-align:center;margin:0;color:#fff;">
+            🌍 CHAPCY GROUPS
+        </h2>
+
+        <p style="text-align:center;color:#ccc;margin:15px 0 25px;">
+            Welcome to CHAPCY Worldwide
+        </p>
+
+        <div style="
+            display:grid;
+            grid-template-columns:repeat(2,1fr);
+            gap:15px;
+        ">
+
+            <div style="
+                background:rgba(255,255,255,.08);
+                border-radius:15px;
+                padding:20px;
+                text-align:center;">
+                💬<br><br>
+                <b>Global Chat</b>
+            </div>
+
+            <div style="
+                background:rgba(255,255,255,.08);
+                border-radius:15px;
+                padding:20px;
+                text-align:center;">
+                👥<br><br>
+                <b>Business Groups</b>
+            </div>
+
+            <div style="
+                background:rgba(255,255,255,.08);
+                border-radius:15px;
+                padding:20px;
+                text-align:center;">
+                🎮<br><br>
+                <b>Gaming Zone</b>
+            </div>
+
+            <div style="
+                background:rgba(255,255,255,.08);
+                border-radius:15px;
+                padding:20px;
+                text-align:center;">
+                📺<br><br>
+                <b>CHAPCY TV</b>
+            </div>
+
+        </div>
     `;
 
     document.body.appendChild(box);
 
 });
-
- 
