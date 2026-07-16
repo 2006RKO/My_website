@@ -40,7 +40,7 @@ function createBubble(fromTop = true) {
     /* Random Speed */
 
     const duration =
-        Math.random() * 2 + 4;
+        Math.random() * 4 + 8;
 
 
     bubble.style.animationDuration =
@@ -109,29 +109,88 @@ function createBubble(fromTop = true) {
         CREATE BUBBLE BATCH
 ===================================================== */
 
-function createBatch(fromTop) {
+function createBubble(fromTop = true) {
 
-    for (
-        let i = 0;
-        i < 15;
-        i++
-    ) {
+    if (!bubbleContainer) return;
 
-        setTimeout(
-            () => {
 
-                createBubble(fromTop);
+    const bubble = document.createElement("img");
 
-            },
 
-            i * 200
+    bubble.src =
+        "file_00000000a59871f4b637e576e04f574d.png";
 
-        );
+
+    /* Position random */
+
+    bubble.style.left =
+        Math.random() * 100 + "%";
+
+
+    /* BUBBLE NDOGO */
+
+    bubble.style.width =
+        Math.random() * 30 + 35 + "px";
+
+
+    /* KUSHUKA KWA POLEPOLE */
+
+    const duration =
+        Math.random() * 4 + 8;
+
+
+    bubble.style.animationDuration =
+        duration + "s";
+
+
+    if (fromTop) {
+
+        bubble.classList.add("top-bubble");
+
+    } else {
+
+        bubble.classList.add("bottom-bubble");
 
     }
 
-}
 
+    bubble.addEventListener(
+        "pointerdown",
+        () => {
+
+            bubble.style.transition =
+                "0.25s ease";
+
+            bubble.style.transform +=
+                " scale(1.5)";
+
+            bubble.style.opacity =
+                "0";
+
+
+            setTimeout(() => {
+
+                bubble.remove();
+
+            }, 250);
+
+        }
+    );
+
+
+    bubbleContainer.appendChild(bubble);
+
+
+    bubble.addEventListener(
+        "animationend",
+        () => {
+
+            bubble.remove();
+
+        }
+    );
+
+}
 
 /* =====================================================
         BUBBLE LOOP
