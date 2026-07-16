@@ -1,149 +1,328 @@
-/* Google Font */
+/* =========================
+        GOOGLE FONT
+========================= */
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+
+/* =========================
+        RESET
+========================= */
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+
     font-family: 'Poppins', sans-serif;
 }
 
+
+/* =========================
+        BODY
+========================= */
+
 body {
+
     background: #050816;
+
     overflow-x: hidden;
+
     color: #fff;
+
 }
+
 
 /* =========================
         BACKGROUND
 ========================= */
 
 .background {
+
     position: fixed;
+
     top: 0;
     left: 0;
+
     width: 100%;
     height: 100%;
+
     object-fit: cover;
+
     z-index: -2;
 
-    filter: brightness(1.4)
-            contrast(1.15)
-            saturate(1.2);
+    filter:
+        brightness(1.4)
+        contrast(1.15)
+        saturate(1.2);
+
 }
+
+
+/* =========================
+        CHAPCY LOGO
+========================= */
+
+.logo {
+
+    width: 100%;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 20px 0;
+
+}
+
+
+.logo img {
+
+    width: 220px;
+
+    max-width: 80%;
+
+    filter:
+        drop-shadow(0 0 15px #0066ff)
+        drop-shadow(0 0 30px #8f4cff);
+
+}
+
 
 /* =========================
         CHAPCY BUBBLES
 ========================= */
 
 .bubble {
+
     position: fixed;
+
     inset: 0;
+
     overflow: hidden;
+
     pointer-events: none;
+
     z-index: 100;
+
 }
+
 
 .bubble img {
+
     position: absolute;
+
     pointer-events: auto;
+
     touch-action: manipulation;
+
     opacity: 0;
-    filter: drop-shadow(0 0 18px #8f4cff);
+
+    filter:
+        drop-shadow(0 0 18px #8f4cff);
+
 }
 
-/* Bubble Animation */
+
+/* =========================
+        BUBBLE ANIMATION
+========================= */
+
 @keyframes fallBubble {
 
+
     0% {
-        transform: translate(0, -200px) rotate(0deg);
+
+        transform:
+            translate(0, -200px)
+            rotate(0deg);
+
         opacity: 0;
+
     }
+
 
     10% {
+
         opacity: 1;
+
     }
+
 
     20% {
-        transform: translate(-40px, 20vh) rotate(-8deg);
+
+        transform:
+            translate(-40px, 20vh)
+            rotate(-8deg);
+
     }
+
 
     40% {
-        transform: translate(40px, 40vh) rotate(8deg);
+
+        transform:
+            translate(40px, 40vh)
+            rotate(8deg);
+
     }
+
 
     60% {
-        transform: translate(-30px, 60vh) rotate(-6deg);
+
+        transform:
+            translate(-30px, 60vh)
+            rotate(-6deg);
+
     }
+
 
     80% {
-        transform: translate(35px, 80vh) rotate(6deg);
+
+        transform:
+            translate(35px, 80vh)
+            rotate(6deg);
+
     }
 
+
     100% {
-        transform: translate(0, 120vh) rotate(12deg);
+
+        transform:
+            translate(0, 120vh)
+            rotate(12deg);
+
         opacity: 0;
+
     }
+
 }
+
 
 /* =========================
         GLOBAL CHAT
 ========================= */
 
 .global-chat {
+
     width: 100%;
+
     min-height: 100vh;
-    padding: 25px 15px;
+
+    padding: 20px 15px;
+
     text-align: center;
+
 }
 
-/* Heading */
+
 .global-chat h1 {
+
     text-align: center;
+
     padding: 25px 0;
-    font-size: 28px;
+
+    font-size: 26px;
+
+    color: #fff;
+
+    text-shadow:
+
+        0 0 10px #0066ff,
+
+        0 0 20px #8f4cff;
+
 }
+
 
 /* =========================
         CONTAINER
 ========================= */
 
 .container {
+
     width: 100%;
+
     max-width: 1200px;
+
     margin: auto;
+
     border: none;
+
 }
+
 
 /* =========================
         CHAPCY CARD
 ========================= */
 
 .chapcy-item {
+
     width: 90%;
+
     max-width: 380px;
 
-    margin: 25px auto;
+    margin: 20px auto;
+
     padding: 12px;
 
-    background: rgba(5, 8, 22, 0.85);
+    background:
+
+        rgba(5, 8, 22, 0.9);
 
     border-radius: 22px;
 
-    border: 1px solid rgba(255, 255, 255, 0.15);
-
-    box-shadow:
-        0 0 20px rgba(0, 140, 255, 0.35),
-        inset 0 0 20px rgba(255, 255, 255, 0.03);
-
     overflow: hidden;
 
+    border: 1px solid
+
+        rgba(255, 255, 255, 0.2);
+
+    box-shadow:
+
+        0 0 20px
+
+        rgba(0, 140, 255, 0.5),
+
+        0 0 50px
+
+        rgba(143, 76, 255, 0.25);
+
     transition: 0.4s ease;
+
 }
 
-/* Picha ndani ya card */
+
+/* =========================
+        CARD HOVER
+========================= */
+
+.chapcy-item:hover {
+
+    transform: translateY(-8px);
+
+    box-shadow:
+
+        0 0 35px
+
+        rgba(0, 140, 255, 0.8),
+
+        0 0 70px
+
+        rgba(143, 76, 255, 0.5);
+
+}
+
+
+/* =========================
+        CARD IMAGE
+========================= */
+
 .chapcy-item img {
+
     width: 100%;
+
     height: 600px;
 
     object-fit: cover;
@@ -151,57 +330,90 @@ body {
     display: block;
 
     border-radius: 16px;
+
 }
 
-/* Card title */
-.chapcy-item h2 {
-    margin: 15px 0 8px;
+
+/* =========================
+        CARD CONTENT
+========================= */
+
+.card-content {
+
+    padding: 18px 10px 10px;
+
+}
+
+
+.card-content h2 {
+
     font-size: 20px;
+
+    margin-bottom: 8px;
+
 }
 
-/* Card text */
-.chapcy-item p {
+
+.card-content p {
+
     font-size: 14px;
+
     color: #ccc;
-    margin-bottom: 15px;
+
+    margin-bottom: 18px;
+
 }
 
-/* Button */
-.chapcy-item button {
-    background: linear-gradient(135deg, #0066ff, #8f4cff);
 
-    padding: 10px 25px;
+/* =========================
+        BUTTON
+========================= */
+
+.chapcy-item button {
+
+    background:
+
+        linear-gradient(
+
+            135deg,
+
+            #0066ff,
+
+            #8f4cff
+
+        );
+
+    padding: 12px 28px;
 
     color: white;
 
     border: none;
 
-    border-radius: 25px;
+    border-radius: 30px;
 
     cursor: pointer;
+
+    font-size: 15px;
 
     font-weight: 600;
 
     transition: 0.3s ease;
+
 }
 
-/* Button hover */
+
 .chapcy-item button:hover {
-    transform: scale(1.05);
+
+    transform: scale(1.08);
 
     box-shadow:
+
         0 0 15px #0066ff,
+
         0 0 30px #8f4cff;
+
 }
 
-/* Card hover */
-.chapcy-item:hover {
-    transform: translateY(-8px) scale(1.02);
-
-    box-shadow:
-        0 0 30px rgba(0, 140, 255, 0.6),
-        0 0 60px rgba(143, 76, 255, 0.3);
-}
 
 /* =========================
         MOBILE
@@ -209,16 +421,34 @@ body {
 
 @media (max-width: 600px) {
 
-    .chapcy-item {
-        width: 92%;
-        max-width: 350px;
+
+    .logo img {
+
+        width: 180px;
+
     }
+
+
+    .chapcy-item {
+
+        width: 92%;
+
+        max-width: 350px;
+
+    }
+
 
     .chapcy-item img {
+
         height: 550px;
+
     }
 
+
     .global-chat h1 {
-        font-size: 23px;
+
+        font-size: 22px;
+
     }
+
 }
