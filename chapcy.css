@@ -76,3 +76,42 @@ body{
         transform:translate(0,120vh) rotate(12deg);
         opacity:0;
     }
+
+ .Global chat{
+    width:100px;
+    Background:center;
+    Background-size:cover;
+}
+
+ .Global chat h1{
+     text-align:center;
+     padding:25px 0px;
+ }
+
+.container[
+border:none;
+}
+
+.chapcy item{
+    flex-besis:20%;
+    padding:20px 0px;
+    Background:white;
+    box-shadow:0px 0px 10px 3 px lightgrey;
+}
+
+ .chapcy button {
+     Background:blue;
+     padding:10px 25px;
+     color:white;
+     border:none;
+ }
+
+.chapcy item: hover{
+    Background :white;
+    
+    
+
+
+
+
+     
