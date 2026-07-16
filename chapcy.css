@@ -259,9 +259,9 @@ body {
 
 .chapcy-item {
 
-    width: 90%;
+    width: 70%;
 
-    max-width: 380px;
+    max-width: 300px;
 
     margin: 20px auto;
 
@@ -323,7 +323,7 @@ body {
 
     width: 100%;
 
-    height: 600px;
+    height: 400px;
 
     object-fit: cover;
 
