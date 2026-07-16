@@ -235,103 +235,432 @@ startLoop();
 
 
 
-/* =====================================================
-        USER PROFILE MENU
-===================================================== */
+/*=========================================
+      CHAPCY V13 PROFILE
+=========================================*/
 
+"use strict";
 
-/* Fungua Profile */
+/*=========================
+      GET ELEMENTS
+=========================*/
 
-function toggleProfile() {
+const profileBtn = document.querySelector(".profile-btn");
 
+const profileMenu = document.getElementById("profileMenu");
 
-    const profileMenu =
-        document.getElementById(
-            "profileMenu"
-        );
+/*=========================
+      OPEN / CLOSE MENU
+=========================*/
 
+function toggleProfile(){
 
-    if (!profileMenu) return;
-
-
-    profileMenu.classList.toggle(
-        "show"
-    );
+    profileMenu.classList.toggle("show");
 
 }
 
+profileBtn.addEventListener("click",toggleProfile);
 
-/* Funga Profile Ukibonyeza Nje */
+/*=========================
+      CLOSE WHEN CLICK OUTSIDE
+=========================*/
 
-document.addEventListener(
-    "click",
-    (event) => {
+document.addEventListener("click",(e)=>{
 
+    if(
+        !profileMenu.contains(e.target) &&
+        !profileBtn.contains(e.target)
+    ){
 
-        const profile =
-            document.querySelector(
-                ".user-profile"
-            );
-
-
-        const profileMenu =
-            document.getElementById(
-                "profileMenu"
-            );
-
-
-        if (
-
-            profile &&
-
-            profileMenu &&
-
-            !profile.contains(event.target)
-
-        ) {
-
-            profileMenu.classList.remove(
-                "show"
-            );
-
-        }
+        profileMenu.classList.remove("show");
 
     }
-);
 
+});
 
-/* =====================================================
-        LOGOUT
-===================================================== */
+/*=========================
+      ESC KEY CLOSE
+=========================*/
 
-const logoutButton =
-    document.querySelector(
-        ".logout-btn"
-    );
+document.addEventListener("keydown",(e)=>{
 
+    if(e.key==="Escape"){
 
-if (logoutButton) {
+        profileMenu.classList.remove("show");
 
+    }
 
-    logoutButton.addEventListener(
-        "click",
-        () => {
+});
 
+/*=========================
+      PROFILE STATS
+=========================*/
 
-            const confirmLogout =
-                confirm(
-                    "Are you sure you want to logout?"
-                );
+const stats={
 
+    chats:0,
 
-            if (confirmLogout) {
+    friends:0,
 
-                window.location.href =
-                    "index.html";
+    groups:0,
 
-            }
+    likes:0,
 
-        }
-    );
+    followers:0,
+
+    following:0
+
+};
+
+function updateProfileStats(){
+
+    document.getElementById("chatCount").textContent=stats.chats;
+
+    document.getElementById("friendCount").textContent=stats.friends;
+
+    document.getElementById("groupCount").textContent=stats.groups;
+
+    document.getElementById("likeCount").textContent=stats.likes;
+
+    document.getElementById("followersCount").textContent=stats.followers;
+
+    document.getElementById("followingCount").textContent=stats.following;
 
 }
+
+updateProfileStats();
+
+/*=========================
+      FUNCTIONS
+=========================*/
+
+function addChat(){
+
+    stats.chats++;
+
+    updateProfileStats();
+
+}
+
+function addFriend(){
+
+    stats.friends++;
+
+    updateProfileStats();
+
+}
+
+function addGroup(){
+
+    stats.groups++;
+
+    updateProfileStats();
+
+}
+
+function addLike(){
+
+    stats.likes++;
+
+    updateProfileStats();
+
+}
+
+function addFollower(){
+
+    stats.followers++;
+
+    updateProfileStats();
+
+}
+
+function addFollowing(){
+
+    stats.following++;
+
+    updateProfileStats();
+
+                }
+/*=========================================
+      CHAPCY V13 PROFILE PART 2
+=========================================*/
+
+/*=========================
+      ANIMATE COUNTERS
+=========================*/
+
+function animateCounter(id,value){
+
+    const element=document.getElementById(id);
+
+    let start=0;
+
+    const speed=20;
+
+    const timer=setInterval(()=>{
+
+        if(start>=value){
+
+            clearInterval(timer);
+
+            element.textContent=value;
+
+        }else{
+
+            start++;
+
+            element.textContent=start;
+
+        }
+
+    },speed);
+
+}
+
+/* UPDATE WITH ANIMATION */
+
+function updateProfileStats(){
+
+    animateCounter("chatCount",stats.chats);
+
+    animateCounter("friendCount",stats.friends);
+
+    animateCounter("groupCount",stats.groups);
+
+    animateCounter("likeCount",stats.likes);
+
+    animateCounter("followersCount",stats.followers);
+
+    animateCounter("followingCount",stats.following);
+
+}
+
+/*=========================
+      USER INFO
+=========================*/
+
+const userName=localStorage.getItem("chapcy_name") || "Guest";
+
+const userEmail=localStorage.getItem("chapcy_email") || "guest@chapcy.com";
+
+document.querySelector(".profile-name").textContent=userName;
+
+document.querySelector(".profile-email").textContent=userEmail;
+
+/*=========================
+      ONLINE STATUS
+=========================*/
+
+const status=document.querySelector(".status");
+
+status.textContent="🟢 Online";
+
+/*=========================
+      NOTIFICATION BADGE
+=========================*/
+
+let notifications=0;
+
+const badge=document.querySelector(".badge");
+
+if(badge){
+
+    badge.textContent=notifications;
+
+}
+
+function addNotification(){
+
+    notifications++;
+
+    if(badge){
+
+        badge.textContent=notifications;
+
+    }
+
+}
+
+/*=========================
+      DARK MODE
+=========================*/
+
+const savedTheme=localStorage.getItem("chapcy_theme");
+
+if(savedTheme==="dark"){
+
+    document.body.classList.add("dark");
+
+}
+
+function toggleDarkMode(){
+
+    document.body.classList.toggle("dark");
+
+    if(document.body.classList.contains("dark")){
+
+        localStorage.setItem("chapcy_theme","dark");
+
+    }else{
+
+        localStorage.setItem("chapcy_theme","light");
+
+    }
+
+}
+
+/*=========================
+      SAVE USER
+=========================*/
+
+function saveUser(name,email){
+
+    localStorage.setItem("chapcy_name",name);
+
+    localStorage.setItem("chapcy_email",email);
+
+                        }
+/*=========================================
+      CHAPCY V13 PROFILE PART 3
+=========================================*/
+
+/*=========================
+      PROFILE PHOTO
+=========================*/
+
+const avatar =
+document.getElementById("profileAvatar");
+
+const avatarInput =
+document.getElementById("avatarInput");
+
+/* CLICK AVATAR */
+
+if(avatar){
+
+    avatar.addEventListener("click",()=>{
+
+        avatarInput.click();
+
+    });
+
+}
+
+/* CHANGE PHOTO */
+
+if(avatarInput){
+
+avatarInput.addEventListener("change",(e)=>{
+
+    const file=e.target.files[0];
+
+    if(!file) return;
+
+    const reader=new FileReader();
+
+    reader.onload=function(){
+
+        avatar.innerHTML=
+        `<img src="${reader.result}"
+        class="avatar-image">`;
+
+        localStorage.setItem(
+            "chapcy_avatar",
+            reader.result
+        );
+
+    };
+
+    reader.readAsDataURL(file);
+
+});
+
+}
+
+/* LOAD PHOTO */
+
+const savedAvatar=
+localStorage.getItem("chapcy_avatar");
+
+if(savedAvatar && avatar){
+
+    avatar.innerHTML=
+    `<img src="${savedAvatar}"
+    class="avatar-image">`;
+
+}
+
+/*=========================
+      LOGOUT
+=========================*/
+
+const logoutBtn=
+document.querySelector(".logout-btn");
+
+if(logoutBtn){
+
+logoutBtn.addEventListener("click",()=>{
+
+    if(confirm("Logout from CHAPCY?")){
+
+        localStorage.removeItem("chapcy_name");
+        localStorage.removeItem("chapcy_email");
+        localStorage.removeItem("chapcy_avatar");
+
+        location.reload();
+
+    }
+
+});
+
+}
+
+/*=========================
+      DAILY REWARD
+=========================*/
+
+const rewardBtn=
+document.querySelector(".reward-btn");
+
+if(rewardBtn){
+
+rewardBtn.addEventListener("click",()=>{
+
+    const today=
+    new Date().toDateString();
+
+    const lastReward=
+    localStorage.getItem("reward");
+
+    if(lastReward===today){
+
+        alert("Reward already claimed today.");
+
+    }else{
+
+        localStorage.setItem("reward",today);
+
+        alert("🎁 Reward Claimed!");
+
+    }
+
+});
+
+}
+
+/*=========================
+      PREMIUM BUTTON
+=========================*/
+
+const premiumBtn=
+document.querySelector(".premium-btn");
+
+if(premiumBtn){
+
+premiumBtn.addEventListener("click",()=>{
+
+    alert("CHAPCY Premium Coming Soon 🚀");
+
+});
+
+                }
