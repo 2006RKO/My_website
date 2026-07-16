@@ -1,460 +1,485 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
 
-<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CHAPCY</title>
 
-    <title>CHAPCY</title>
+<link rel="stylesheet" href="chapcy.css">
 
-    <link rel="stylesheet" href="chapcy.css">
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head><body><!-- =========================
+        BACKGROUND
+========================== -->
 
-</head>
+<img
+    src="file_00000000272071f485bba23f009160b7.png"
+    class="background"
+    alt="Background"
+>
 
-<body>
 
-    <!-- =========================
-            BACKGROUND
-    ========================== -->
+<!-- =========================
+        CHAPCY LOGO
+========================== -->
+
+<div class="logo">
 
     <img
-        src="file_00000000272071f485bba23f009160b7.png"
-        class="background"
-        alt="Background"
+        src="file_00000000dd9471f4a7cfe6138290e021.png"
+        alt="CHAPCY Logo"
+    >
+
+</div>
+
+
+<!-- =========================
+        USER PROFILE
+========================== -->
+
+<div class="user-profile">
+
+
+    <!-- PROFILE BUTTON -->
+
+    <button
+        class="profile-btn"
+        id="profileBtn"
+        type="button"
+    >
+
+        <i class="fa-solid fa-user"></i>
+
+    </button>
+
+
+    <!-- AVATAR UPLOAD -->
+
+    <input
+        type="file"
+        id="avatarInput"
+        accept="image/*"
+        hidden
     >
 
 
     <!-- =========================
-            CHAPCY LOGO
+            PROFILE MENU
     ========================== -->
 
-    <div class="logo">
-
-        <img
-            src="file_00000000dd9471f4a7cfe6138290e021.png"
-            alt="CHAPCY Logo"
-        >
-
-    </div>
-
-<!-- PROFILE BUTTON -->
-
-<button class="profile-btn" id="profileBtn">
-
-    <i class="fa-solid fa-user"></i>
-
-</button>
+    <div
+        class="profile-menu"
+        id="profileMenu"
+    >
 
 
-        <div class="user-profile">
-
-    <!-- Profile Button -->
-
-    <input type="file" id="avatarInput" accept="image/*" hidden>
-
-    <!-- Profile Menu -->
-
-    <div class="profile-menu" id="profileMenu">
+        <!-- PROFILE HEADER -->
 
         <div class="profile-header">
 
-            <div class="profile-avatar">
+
+            <div
+                class="profile-avatar"
+                id="profileAvatar"
+            >
+
                 <i class="fa-solid fa-user"></i>
+
             </div>
+
 
             <h2 class="profile-name">
+
                 User Name 👑
+
             </h2>
 
+
             <span class="status online">
-                ● Online
+
+                🟢 Online
+
             </span>
 
+
             <p class="profile-email">
+
                 user@email.com
+
             </p>
 
+
             <div class="premium-badge">
+
                 💎 Premium Member
+
             </div>
 
-        </div>
-
-        <div class="profile-stats">
-
-        <div class="menu-links">
-
-            <a href="#">
-                <i class="fa-solid fa-user"></i>
-                My Profile
-            </a>
-
-            <a href="#">
-                <i class="fa-solid fa-pen"></i>
-                Edit Profile
-            </a>
-
-            <a href="#">
-                <i class="fa-solid fa-bell"></i>
-                Notifications
-            </a>
-
-            <a href="#">
-                <i class="fa-solid fa-user-group"></i>
-                Friends
-            </a>
-
-            <a href="#">
-                <i class="fa-solid fa-users"></i>
-                Groups
-            </a>
-
-            <a href="#">
-                <i class="fa-solid fa-gem"></i>
-                Premium
-            </a>
-
-            <a href="#">
-                <i class="fa-solid fa-gift"></i>
-                Daily Reward
-            </a>
-
-            <a href="#">
-                <i class="fa-solid fa-wallet"></i>
-                Wallet
-            </a>
-
-            <a href="#">
-                <i class="fa-solid fa-share-nodes"></i>
-                Invite Friends
-            </a>
-
-            <a href="#">
-                <i class="fa-solid fa-moon"></i>
-                Dark Mode
-            </a>
-
-            <a href="#">
-                <i class="fa-solid fa-language"></i>
-                Language
-            </a>
-
-            <a href="#">
-                <i class="fa-solid fa-palette"></i>
-                Theme Color
-            </a>
-
-            <a href="#">
-                <i class="fa-solid fa-lock"></i>
-                Privacy
-            </a>
-
-            <a href="#">
-                <i class="fa-solid fa-gear"></i>
-                Settings
-            </a>
-
-            <a href="#">
-                <i class="fa-solid fa-circle-question"></i>
-                Help Center
-            </a>
 
         </div>
-
-        <!--=========================
-        USER STATS
-==========================-->
-
-<div class="profile-stats">
-
-    <div class="stat-box">
-
-        <i class="fa-solid fa-comments"></i>
-
-        <h3 id="chatCount">0</h3>
-
-        <span>Chats</span>
-
-    </div>
-
-    <div class="stat-box">
-
-        <i class="fa-solid fa-user-group"></i>
-
-        <h3 id="friendCount">0</h3>
-
-        <span>Friends</span>
-
-    </div>
-
-    <div class="stat-box">
-
-        <i class="fa-solid fa-users"></i>
-
-        <h3 id="groupCount">0</h3>
-
-        <span>Groups</span>
-
-    </div>
-
-    <div class="stat-box">
-
-        <i class="fa-solid fa-heart"></i>
-
-        <h3 id="likeCount">0</h3>
-
-        <span>Likes</span>
-
-    </div>
-
-    <div class="stat-box">
-
-        <i class="fa-solid fa-user-plus"></i>
-
-        <h3 id="followersCount">0</h3>
-
-        <span>Followers</span>
-
-    </div>
-
-    <div class="stat-box">
-
-        <i class="fa-solid fa-user-check"></i>
-
-        <h3 id="followingCount">0</h3>
-
-        <span>Following</span>
-
-    </div>
-
-</div>
-
-
-<!--=========================
-        PREMIUM CARD
-==========================-->
-
-<div class="premium-card">
-
-    <div class="premium-left">
-
-        <i class="fa-solid fa-gem"></i>
-
-        <div>
-
-            <h4>CHAPCY Premium</h4>
-
-            <p>Unlock premium features</p>
-
-        </div>
-
-    </div>
-
-    <button class="premium-btn">
-
-        Upgrade
-
-    </button>
-
-</div>
-
-        <!--=========================
-        MENU LINKS
-==========================-->
-
-<div class="menu-links">
-
-    <a href="profile.html">
-
-        <div class="left">
-            <i class="fa-solid fa-user"></i>
-            <span>My Profile</span>
-        </div>
-
-        <i class="fa-solid fa-chevron-right arrow"></i>
-
-    </a>
-
-    <a href="edit-profile.html">
-
-        <div class="left">
-            <i class="fa-solid fa-user-pen"></i>
-            <span>Edit Profile</span>
-        </div>
-
-        <i class="fa-solid fa-chevron-right arrow"></i>
-
-    </a>
-
-    <a href="friends.html">
-
-        <div class="left">
-            <i class="fa-solid fa-user-group"></i>
-            <span>Friends</span>
-        </div>
-
-        <i class="fa-solid fa-chevron-right arrow"></i>
-
-    </a>
-
-    <a href="groups.html">
-
-        <div class="left">
-            <i class="fa-solid fa-users"></i>
-            <span>My Groups</span>
-        </div>
-
-        <i class="fa-solid fa-chevron-right arrow"></i>
-
-    </a>
-
-    <a href="notifications.html">
-
-        <div class="left">
-            <i class="fa-solid fa-bell"></i>
-            <span>Notifications</span>
-        </div>
-
-        <span class="badge">0</span>
-
-    </a>
-
-    <a href="wallet.html">
-
-        <div class="left">
-            <i class="fa-solid fa-wallet"></i>
-            <span>Wallet</span>
-        </div>
-
-        <i class="fa-solid fa-chevron-right arrow"></i>
-
-    </a>
-
-    <a href="premium.html">
-
-        <div class="left">
-            <i class="fa-solid fa-gem"></i>
-            <span>Premium</span>
-        </div>
-
-        <span class="badge vip">VIP</span>
-
-    </a>
-
-    <a href="settings.html">
-
-        <div class="left">
-            <i class="fa-solid fa-gear"></i>
-            <span>Settings</span>
-        </div>
-
-        <i class="fa-solid fa-chevron-right arrow"></i>
-
-    </a>
-
-    <a href="help.html">
-
-        <div class="left">
-            <i class="fa-solid fa-circle-question"></i>
-            <span>Help Center</span>
-        </div>
-
-        <i class="fa-solid fa-chevron-right arrow"></i>
-
-    </a>
-
-</div>
-
-<!--=========================
-      LOGOUT BUTTON
-==========================-->
-
-<button class="logout-btn">
-
-    <i class="fa-solid fa-right-from-bracket"></i>
-
-    Logout
-
-</button>
-    </div>
-        </div>
-
-    <!-- =========================
-            BUBBLE CONTAINER
-    ========================== -->
-
-    <div class="bubble"></div>
-
-
-    <!-- =========================
-            GLOBAL CHAT SECTION
-    ========================== -->
-
-    <section class="global-chat">
-
-        <h1>
-            Community Chat Room
-        </h1>
 
 
         <!-- =========================
-                CARD CONTAINER
+                USER STATS
         ========================== -->
 
-        <div class="container">
+        <div class="profile-stats">
 
 
-            <!-- =========================
-                    CHAPCY CARD
-            ========================== -->
+            <div class="stat-box">
 
-            <div class="chapcy-item">
+                <i class="fa-solid fa-comments"></i>
 
-                <img
-                    src="file_000000002b8071f4b410ea7b9a3969d6.png"
-                    alt="Community Chat Room"
-                >
+                <h3 id="chatCount">0</h3>
 
+                <span>Chats</span>
 
-                <div class="card-content">
-
-                    <h2>
-                        🌍 Worldwide Live Chat
-                    </h2>
-
-                    <p>
-                        Connect and chat with people from all around the world.
-                    </p>
+            </div>
 
 
-                    <button onclick="window.location.href='chat.html'">
+            <div class="stat-box">
 
-                        <i class="fa-solid fa-comments"></i>
+                <i class="fa-solid fa-user-group"></i>
 
-                        Join Chat
+                <h3 id="friendCount">0</h3>
 
-                    </button>
+                <span>Friends</span>
 
-                </div>
+            </div>
+
+
+            <div class="stat-box">
+
+                <i class="fa-solid fa-users"></i>
+
+                <h3 id="groupCount">0</h3>
+
+                <span>Groups</span>
+
+            </div>
+
+
+            <div class="stat-box">
+
+                <i class="fa-solid fa-heart"></i>
+
+                <h3 id="likeCount">0</h3>
+
+                <span>Likes</span>
+
+            </div>
+
+
+            <div class="stat-box">
+
+                <i class="fa-solid fa-user-plus"></i>
+
+                <h3 id="followersCount">0</h3>
+
+                <span>Followers</span>
+
+            </div>
+
+
+            <div class="stat-box">
+
+                <i class="fa-solid fa-user-check"></i>
+
+                <h3 id="followingCount">0</h3>
+
+                <span>Following</span>
 
             </div>
 
 
         </div>
 
-    </section>
+
+        <!-- =========================
+                PREMIUM CARD
+        ========================== -->
+
+        <div class="premium-card">
 
 
-    <!-- =========================
-            JAVASCRIPT
-    ========================== -->
+            <div class="premium-left">
 
-    <script src="chapcy.js"></script>
+
+                <i class="fa-solid fa-gem"></i>
+
+
+                <div>
+
+                    <h4>CHAPCY Premium</h4>
+
+                    <p>Unlock premium features</p>
+
+                </div>
+
+
+            </div>
+
+
+            <button
+                class="premium-btn"
+                type="button"
+            >
+
+                Upgrade
+
+            </button>
+
+
+        </div>
+
+
+        <!-- =========================
+                MENU LINKS
+        ========================== -->
+
+        <div class="menu-links">
+
+
+            <a href="profile.html">
+
+                <div class="left">
+
+                    <i class="fa-solid fa-user"></i>
+
+                    <span>My Profile</span>
+
+                </div>
+
+                <i class="fa-solid fa-chevron-right arrow"></i>
+
+            </a>
+
+
+            <a href="edit-profile.html">
+
+                <div class="left">
+
+                    <i class="fa-solid fa-user-pen"></i>
+
+                    <span>Edit Profile</span>
+
+                </div>
+
+                <i class="fa-solid fa-chevron-right arrow"></i>
+
+            </a>
+
+
+            <a href="friends.html">
+
+                <div class="left">
+
+                    <i class="fa-solid fa-user-group"></i>
+
+                    <span>Friends</span>
+
+                </div>
+
+                <i class="fa-solid fa-chevron-right arrow"></i>
+
+            </a>
+
+
+            <a href="groups.html">
+
+                <div class="left">
+
+                    <i class="fa-solid fa-users"></i>
+
+                    <span>My Groups</span>
+
+                </div>
+
+                <i class="fa-solid fa-chevron-right arrow"></i>
+
+            </a>
+
+
+            <a href="notifications.html">
+
+                <div class="left">
+
+                    <i class="fa-solid fa-bell"></i>
+
+                    <span>Notifications</span>
+
+                </div>
+
+                <span class="badge">0</span>
+
+            </a>
+
+
+            <a href="wallet.html">
+
+                <div class="left">
+
+                    <i class="fa-solid fa-wallet"></i>
+
+                    <span>Wallet</span>
+
+                </div>
+
+                <i class="fa-solid fa-chevron-right arrow"></i>
+
+            </a>
+
+
+            <a href="premium.html">
+
+                <div class="left">
+
+                    <i class="fa-solid fa-gem"></i>
+
+                    <span>Premium</span>
+
+                </div>
+
+                <span class="badge vip">VIP</span>
+
+            </a>
+
+
+            <a href="settings.html">
+
+                <div class="left">
+
+                    <i class="fa-solid fa-gear"></i>
+
+                    <span>Settings</span>
+
+                </div>
+
+                <i class="fa-solid fa-chevron-right arrow"></i>
+
+            </a>
+
+
+            <a href="help.html">
+
+                <div class="left">
+
+                    <i class="fa-solid fa-circle-question"></i>
+
+                    <span>Help Center</span>
+
+                </div>
+
+                <i class="fa-solid fa-chevron-right arrow"></i>
+
+            </a>
+
+
+        </div>
+
+
+        <!-- =========================
+                LOGOUT
+        ========================== -->
+
+        <button
+            class="logout-btn"
+            type="button"
+        >
+
+            <i class="fa-solid fa-right-from-bracket"></i>
+
+            Logout
+
+        </button>
+
+
+    </div>
+
+
+</div>
+
+
+<!-- =========================
+        BUBBLE CONTAINER
+========================== -->
+
+<div class="bubble"></div>
+
+
+<!-- =========================
+        GLOBAL CHAT SECTION
+========================== -->
+
+<section class="global-chat">
+
+
+    <h1>
+
+        Community Chat Room
+
+    </h1>
+
+
+    <div class="container">
+
+
+        <div class="chapcy-item">
+
+
+            <img
+                src="file_000000002b8071f4b410ea7b9a3969d6.png"
+                alt="Community Chat Room"
+            >
+
+
+            <div class="card-content">
+
+
+                <h2>
+
+                    🌍 Worldwide Live Chat
+
+                </h2>
+
+
+                <p>
+
+                    Connect and chat with people from all around the world.
+
+                </p>
+
+
+                <button
+                    type="button"
+                    onclick="window.location.href='chat.html'"
+                >
+
+                    <i class="fa-solid fa-comments"></i>
+
+                    Join Chat
+
+                </button>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+<!-- =========================
+        JAVASCRIPT
+========================== -->
+
+<script src="chapcy.js"></script>
 
 </body>
-
 </html>
