@@ -501,106 +501,319 @@ body {
       CHAPCY V13 PROFILE CSS PART 1
 ======================================*/
 
-/* USER PROFILE */
+/*=====================================
+      CHAPCY PROFILE RESPONSIVE
+======================================*/
 
-.user-profile{
-    position:fixed;
-    top:20px;
-    right:20px;
-    z-index:999;
-}
 
-/* PROFILE BUTTON */
+/* =========================
+      TABLET
+========================= */
 
-.profile-btn{
+@media (max-width: 768px) {
 
-    width:60px;
-    height:60px;
+    .user-profile {
 
-    border:none;
-    outline:none;
+        top: 15px;
 
-    border-radius:50%;
+        right: 15px;
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    }
 
-    cursor:pointer;
 
-    color:#fff;
-    font-size:24px;
+    .profile-menu {
 
-    background:linear-gradient(
-        135deg,
-        #00bfff,
-        #6d4cff,
-        #c93cff
-    );
+        top: 68px;
 
-    box-shadow:
-        0 0 20px #00bfff,
-        0 0 40px rgba(140,80,255,.6);
+        right: 0;
 
-    transition:.35s;
-}
+        width: min(380px, calc(100vw - 30px));
 
-.profile-btn:hover{
+        max-width: calc(100vw - 30px);
 
-    transform:scale(1.08);
+        max-height: calc(100vh - 85px);
 
-    box-shadow:
-        0 0 30px #00d9ff,
-        0 0 55px rgba(180,80,255,.8);
+        overflow-y: auto;
 
-}
+        padding: 18px;
 
-/* PROFILE MENU */
+    }
 
-.profile-menu{
 
-    position:absolute;
+    .profile-stats {
 
-    top:75px;
-    right:0;
+        grid-template-columns: repeat(2, 1fr);
 
-    width:340px;
-    max-width:95vw;
+        gap: 10px;
 
-    padding:22px;
+    }
 
-    border-radius:28px;
 
-    background:rgba(18,25,65,.88);
+    .stat-box {
 
-    backdrop-filter:blur(25px);
+        padding: 12px 8px;
 
-    border:1px solid rgba(255,255,255,.12);
-
-    box-shadow:
-        0 0 25px rgba(0,180,255,.35),
-        0 0 60px rgba(120,60,255,.25);
-
-    opacity:0;
-    visibility:hidden;
-
-    transform:translateY(-15px) scale(.95);
-
-    transition:.35s ease;
-
-    overflow:hidden;
+    }
 
 }
 
-/* SHOW MENU */
 
-.profile-menu.show{
+/* =========================
+      MOBILE
+========================= */
 
-    opacity:1;
+@media (max-width: 480px) {
 
-    visibility:visible;
+    .user-profile {
 
-    transform:translateY(0) scale(1);
+        top: 12px;
+
+        right: 12px;
+
+    }
+
+
+    .profile-btn {
+
+        width: 52px;
+
+        height: 52px;
+
+        font-size: 21px;
+
+    }
+
+
+    .profile-menu {
+
+        top: 65px;
+
+        left: 50%;
+
+        right: auto;
+
+        width: calc(100vw - 20px);
+
+        max-width: calc(100vw - 20px);
+
+        max-height: calc(100vh - 80px);
+
+        overflow-y: auto;
+
+        padding: 15px;
+
+        transform: translate(-50%, -15px) scale(.95);
+
+    }
+
+
+    .profile-menu.show {
+
+        transform: translate(-50%, 0) scale(1);
+
+    }
+
+
+    .profile-avatar {
+
+        width: 75px;
+
+        height: 75px;
+
+        font-size: 30px;
+
+    }
+
+
+    .profile-name {
+
+        font-size: 20px;
+
+    }
+
+
+    .profile-email {
+
+        font-size: 12px;
+
+        word-break: break-word;
+
+    }
+
+
+    .profile-stats {
+
+        grid-template-columns: repeat(2, 1fr);
+
+        gap: 8px;
+
+    }
+
+
+    .stat-box {
+
+        padding: 10px 5px;
+
+    }
+
+
+    .stat-box h3 {
+
+        font-size: 18px;
+
+    }
+
+
+    .stat-box span {
+
+        font-size: 11px;
+
+    }
+
+
+    .premium-card {
+
+        gap: 10px;
+
+        padding: 12px;
+
+    }
+
+
+    .premium-left {
+
+        gap: 8px;
+
+    }
+
+
+    .premium-left i {
+
+        width: 40px;
+
+        height: 40px;
+
+        font-size: 18px;
+
+    }
+
+
+    .premium-left h4 {
+
+        font-size: 13px;
+
+    }
+
+
+    .premium-left p {
+
+        font-size: 10px;
+
+    }
+
+
+    .premium-btn {
+
+        padding: 8px 10px;
+
+        font-size: 11px;
+
+    }
+
+
+    .menu-links {
+
+        gap: 8px;
+
+    }
+
+
+    .menu-links a {
+
+        padding: 12px;
+
+        font-size: 13px;
+
+    }
+
+
+    .left {
+
+        gap: 10px;
+
+    }
+
+
+    .left i {
+
+        font-size: 17px;
+
+    }
+
+
+    .logout-btn {
+
+        font-size: 15px;
+
+        padding: 13px;
+
+    }
+
+}
+
+
+/* =========================
+      VERY SMALL PHONE
+========================= */
+
+@media (max-width: 360px) {
+
+    .profile-menu {
+
+        width: calc(100vw - 14px);
+
+        max-width: calc(100vw - 14px);
+
+        padding: 12px;
+
+    }
+
+
+    .profile-stats {
+
+        gap: 6px;
+
+    }
+
+
+    .stat-box h3 {
+
+        font-size: 16px;
+
+    }
+
+
+    .stat-box span {
+
+        font-size: 10px;
+
+    }
+
+
+    .premium-card {
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+    }
+
+
+    .premium-btn {
+
+        width: 100%;
+
+    }
 
 }
 /*=====================================
@@ -1108,4 +1321,4 @@ body {
 
 }
 
-        }
+}
