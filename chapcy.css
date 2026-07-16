@@ -401,99 +401,225 @@ body {
     }
 
 }
- /* =========================
-        USER PROFILE
-========================= */
+ /*=========================
+      USER PROFILE
+=========================*/
 
-.user-profile {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 500;
+.user-profile{
+    position:fixed;
+    top:20px;
+    right:20px;
+    z-index:999;
 }
 
+/*=========================
+      PROFILE BUTTON
+=========================*/
 
-/* PROFILE BUTTON */
+.profile-btn{
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    border:2px solid rgba(255,255,255,.6);
+    cursor:pointer;
 
-.profile-btn {
-    width: 52px;
-    height: 52px;
+    background:linear-gradient(135deg,#00c6ff,#6d4cff,#c63dff);
 
-    border-radius: 50%;
+    color:#fff;
+    font-size:26px;
 
-    border: 2px solid rgba(255,255,255,0.7);
-
-    background:
-        linear-gradient(
-            135deg,
-            #00bfff,
-            #7045ff,
-            #c832ff
-        );
-
-    color: white;
-
-    font-size: 22px;
-
-    cursor: pointer;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 
     box-shadow:
-        0 0 15px #007bff,
-        0 0 30px #8f4cff;
+        0 0 15px #00bfff,
+        0 0 35px #8a2eff,
+        inset 0 0 15px rgba(255,255,255,.25);
+
+    transition:.35s;
 }
 
+.profile-btn:hover{
+    transform:scale(1.08);
+    box-shadow:
+        0 0 25px #00bfff,
+        0 0 45px #b04cff;
+}
 
-/* PROFILE MENU */
+/*=========================
+      PROFILE MENU
+=========================*/
 
-.profile-menu {
-    position: absolute;
+.profile-menu{
 
-    top: 65px;
-    right: 0;
+    position:absolute;
+    top:75px;
+    right:0;
 
-    width: 270px;
+    width:320px;
 
-    padding: 18px;
+    padding:22px;
 
-    border-radius: 20px;
+    border-radius:28px;
 
     background:
-        linear-gradient(
-            145deg,
-            rgba(15, 30, 80, 0.95),
-            rgba(60, 20, 100, 0.95)
-        );
+    linear-gradient(
+        145deg,
+        rgba(22,25,70,.95),
+        rgba(55,25,110,.95)
+    );
 
-    backdrop-filter: blur(20px);
+    backdrop-filter:blur(30px);
 
-    border: 1px solid
-        rgba(255,255,255,0.25);
+    border:1px solid rgba(255,255,255,.18);
 
     box-shadow:
-        0 0 25px
-        rgba(0,120,255,0.5),
+        0 0 30px rgba(0,170,255,.45),
+        0 0 60px rgba(160,60,255,.35);
 
-        0 0 50px
-        rgba(150,50,255,0.3);
+    opacity:0;
+    visibility:hidden;
 
-    opacity: 0;
+    transform:translateY(-20px) scale(.95);
 
-    visibility: hidden;
-
-    transform: translateY(-10px);
-
-    transition: 0.3s ease;
+    transition:.35s ease;
 }
 
+/* MENU OPEN */
 
-/* MENU IKIFUNGUKA */
+.profile-menu.show{
 
-.profile-menu.show {
+    opacity:1;
+    visibility:visible;
 
-    opacity: 1;
+    transform:translateY(0) scale(1);
 
-    visibility: visible;
+}
 
-    transform: translateY(0);
+/*=========================
+      PROFILE HEADER
+=========================*/
+
+.profile-header{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.profile-avatar{
+
+    width:90px;
+    height:90px;
+
+    border-radius:50%;
+
+    margin:auto;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:38px;
+    color:white;
+
+    background:
+    linear-gradient(135deg,#00c6ff,#8c4dff);
+
+    box-shadow:
+        0 0 25px #00bfff,
+        0 0 45px #8c4dff;
+
+}
+
+.profile-name{
+
+    color:#fff;
+    font-size:24px;
+    font-weight:700;
+    margin-top:12px;
+
+}
+
+.profile-email{
+
+    color:#cfd8ff;
+    font-size:15px;
+
+}
+
+/*=========================
+      MENU LINKS
+=========================*/
+
+.profile-menu a{
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    text-decoration:none;
+
+    color:#fff;
+
+    padding:14px 16px;
+
+    margin-top:10px;
+
+    border-radius:14px;
+
+    background:rgba(255,255,255,.05);
+
+    transition:.3s;
+
+}
+
+.profile-menu a:hover{
+
+    background:
+    linear-gradient(90deg,#009dff,#8d39ff);
+
+    transform:translateX(5px);
+
+}
+
+/*=========================
+      LOGOUT BUTTON
+=========================*/
+
+.logout-btn{
+
+    width:100%;
+
+    margin-top:20px;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:50px;
+
+    background:
+    linear-gradient(90deg,#00c6ff,#c83cff);
+
+    color:#fff;
+
+    font-size:17px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 0 20px rgba(0,180,255,.45);
+
+    transition:.3s;
+
+}
+
+.logout-btn:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:
+        0 0 30px rgba(180,80,255,.7);
 
 }
