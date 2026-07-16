@@ -130,19 +130,26 @@ body {
         BUBBLE ANIMATION
 ========================= */
 
-@keyframes fallBubble {
+.top-bubble {
 
+    position: absolute;
+
+    top: -150px;
+
+    animation: fallBubble 5s linear forwards;
+
+}
+
+
+@keyframes fallBubble {
 
     0% {
 
-        transform:
-            translate(0, -200px)
-            rotate(0deg);
+        transform: translateY(0);
 
         opacity: 0;
 
     }
-
 
     10% {
 
@@ -150,56 +157,21 @@ body {
 
     }
 
+    90% {
 
-    20% {
-
-        transform:
-            translate(-40px, 20vh)
-            rotate(-8deg);
+        opacity: 1;
 
     }
-
-
-    40% {
-
-        transform:
-            translate(40px, 40vh)
-            rotate(8deg);
-
-    }
-
-
-    60% {
-
-        transform:
-            translate(-30px, 60vh)
-            rotate(-6deg);
-
-    }
-
-
-    80% {
-
-        transform:
-            translate(35px, 80vh)
-            rotate(6deg);
-
-    }
-
 
     100% {
 
-        transform:
-            translate(0, 120vh)
-            rotate(12deg);
+        transform: translateY(120vh);
 
         opacity: 0;
 
     }
 
 }
-
-
 /* =========================
         GLOBAL CHAT
 ========================= */
