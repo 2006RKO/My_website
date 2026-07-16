@@ -196,43 +196,34 @@ function createBubble(fromTop = true) {
         BUBBLE LOOP
 ===================================================== */
 
+/* =====================================================
+        BUBBLE LOOP
+===================================================== */
+
 function startLoop() {
 
+    /* Bubble moja kutoka juu */
 
-    /* Bubbles Kutoka Juu */
-
-    createBatch(true);
-
-
-    /* Baada Ya Sekunde 5 Kutoka Chini */
-
-    setTimeout(
-        () => {
-
-            createBatch(false);
-
-        },
-
-        5000
-
-    );
+    createBubble(true);
 
 
-    /* Rudia Kila Sekunde 10 */
+    /* Bubble nyingine baada ya sekunde 5 */
 
-    setTimeout(
-        startLoop,
+    setTimeout(() => {
 
-        10000
+        createBubble(false);
 
-    );
+    }, 5000);
+
+
+    /* Rudia kila sekunde 10 */
+
+    setTimeout(startLoop, 10000);
 
 }
 
 
 startLoop();
-
-
 
 
 /*=========================================
@@ -255,11 +246,24 @@ const profileMenu = document.getElementById("profileMenu");
 
 function toggleProfile(){
 
+    if (!profileMenu) return;
+
     profileMenu.classList.toggle("show");
 
 }
 
-profileBtn.addEventListener("click",toggleProfile);
+
+if (profileBtn && profileMenu) {
+
+    profileBtn.addEventListener("click", (e) => {
+
+        e.stopPropagation();
+
+        toggleProfile();
+
+    });
+
+}
 
 /*=========================
       CLOSE WHEN CLICK OUTSIDE
@@ -282,16 +286,20 @@ document.addEventListener("click",(e)=>{
       ESC KEY CLOSE
 =========================*/
 
-document.addEventListener("keydown",(e)=>{
+document.addEventListener("click", (e) => {
 
-    if(e.key==="Escape"){
+    if (
+        profileMenu &&
+        profileBtn &&
+        !profileMenu.contains(e.target) &&
+        !profileBtn.contains(e.target)
+    ) {
 
         profileMenu.classList.remove("show");
 
     }
 
 });
-
 /*=========================
       PROFILE STATS
 =========================*/
