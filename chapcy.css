@@ -80,7 +80,7 @@ body {
 
 ..logo img {
 
-    width: 220px;
+    width: 100px;
 
     max-width: 70%;
 
@@ -206,23 +206,18 @@ body {
 
 }
 
-
-/* =========================
-        CONTAINER
-========================= */
-
-.container {
-
+/* CONTAINER */
+.container{
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
-
-    max-width: 1300px;
-
-    margin: auto;
-
-    border: none;
-
+    z-index: 5;
 }
-
 
 /* =========================
         CHAPCY CARD
