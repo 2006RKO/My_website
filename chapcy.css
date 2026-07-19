@@ -812,6 +812,8 @@ body{
     scroll-behavior:smooth;
     scroll-snap-type:x mandatory;
     scrollbar-width:none;
+
+    padding:0 20px;   /* nafasi kushoto na kulia */
 }
 
 .slider-track::-webkit-scrollbar{
@@ -820,9 +822,9 @@ body{
 
 /* CARD */
 
-..group-card{
-    min-width:100%;
-    max-width:360px;
+.group-card{
+    flex:0 0 82%;
+    max-width:320px;
     min-height:650px;
 
     display:flex;
@@ -833,7 +835,7 @@ body{
 
     background:rgba(8,10,35,.88);
     backdrop-filter:blur(18px);
-    
+
     border:2px solid rgba(120,60,255,.45);
     border-radius:32px;
 
