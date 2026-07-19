@@ -678,67 +678,47 @@ const prev = document.querySelector(".prev");
 const next = document.querySelector(".next");
 const dots = document.querySelectorAll(".dot");
 
+if(track && cards.length){
+
 let index = 0;
 
-function updateSlider() {
+function updateSlider(){
 
-    const cardWidth = cards[0].offsetWidth + 18;
+    const cardWidth = cards[0].offsetWidth;
 
     track.scrollTo({
-        left: index * cardWidth,
-        behavior: "smooth"
+        left:index * cardWidth,
+        behavior:"smooth"
     });
 
-    dots.forEach(dot => dot.classList.remove("active"));
+    dots.forEach(dot=>dot.classList.remove("active"));
 
-    if (dots[index]) {
+    if(dots[index]){
         dots[index].classList.add("active");
     }
 }
 
-next.addEventListener("click", () => {
+next?.addEventListener("click",()=>{
 
-    index++;
-
-    if (index >= cards.length) {
-        index = 0;
-    }
+    index=(index+1)%cards.length;
 
     updateSlider();
 
 });
 
-prev.addEventListener("click", () => {
+prev?.addEventListener("click",()=>{
 
-    index--;
-
-    if (index < 0) {
-        index = cards.length - 1;
-    }
+    index=(index-1+cards.length)%cards.length;
 
     updateSlider();
 
 });
 
-// Auto Slide
-setInterval(() => {
+dots.forEach((dot,i)=>{
 
-    index++;
+    dot.addEventListener("click",()=>{
 
-    if (index >= cards.length) {
-        index = 0;
-    }
-
-    updateSlider();
-
-}, 4000);
-
-// Dot Click
-dots.forEach((dot, i) => {
-
-    dot.addEventListener("click", () => {
-
-        index = i;
+        index=i;
 
         updateSlider();
 
@@ -746,37 +726,58 @@ dots.forEach((dot, i) => {
 
 });
 
-// Swipe Support
-let startX = 0;
+let autoSlide=setInterval(()=>{
 
-track.addEventListener("touchstart", (e) => {
+    index=(index+1)%cards.length;
 
-    startX = e.touches[0].clientX;
+    updateSlider();
+
+},4000);
+
+track.addEventListener("mouseenter",()=>clearInterval(autoSlide));
+
+track.addEventListener("mouseleave",()=>{
+
+    autoSlide=setInterval(()=>{
+
+        index=(index+1)%cards.length;
+
+        updateSlider();
+
+    },4000);
 
 });
 
-track.addEventListener("touchend", (e) => {
+let startX=0;
 
-    let endX = e.changedTouches[0].clientX;
+track.addEventListener("touchstart",(e)=>{
 
-    if (startX - endX > 50) {
+    startX=e.touches[0].clientX;
 
-        index++;
+});
 
-        if (index >= cards.length) index = 0;
+track.addEventListener("touchend",(e)=>{
+
+    const endX=e.changedTouches[0].clientX;
+
+    if(startX-endX>50){
+
+        index=(index+1)%cards.length;
 
         updateSlider();
 
     }
 
-    if (endX - startX > 50) {
+    if(endX-startX>50){
 
-        index--;
-
-        if (index < 0) index = cards.length - 1;
+        index=(index-1+cards.length)%cards.length;
 
         updateSlider();
 
     }
 
 });
+
+updateSlider();
+
+}
