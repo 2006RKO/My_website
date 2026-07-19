@@ -781,3 +781,81 @@ track.addEventListener("touchend",(e)=>{
 updateSlider();
 
 }
+
+
+
+const track = document.querySelector(".slider-track");
+const cards = document.querySelectorAll(".group-card");
+const prev = document.querySelector(".prev");
+const next = document.querySelector(".next");
+
+let current = 0;
+
+function updateCoverflow() {
+
+    cards.forEach((card, index) => {
+
+        card.classList.remove("active");
+
+        let offset = index - current;
+
+        if (offset === 0) {
+
+            card.style.transform =
+                "translateX(0) scale(1)";
+            card.style.opacity = "1";
+            card.style.zIndex = "10";
+
+            card.classList.add("active");
+
+        }
+
+        else if (offset === -1) {
+
+            card.style.transform =
+                "translateX(-35px) scale(.82) rotateY(18deg)";
+            card.style.opacity = ".55";
+            card.style.zIndex = "5";
+
+        }
+
+        else if (offset === 1) {
+
+            card.style.transform =
+                "translateX(35px) scale(.82) rotateY(-18deg)";
+            card.style.opacity = ".55";
+            card.style.zIndex = "5";
+
+        }
+
+        else {
+
+            card.style.transform =
+                "scale(.68)";
+            card.style.opacity = "0";
+            card.style.zIndex = "1";
+
+        }
+
+    });
+
+    const cardWidth = cards[0].offsetWidth + 20;
+
+    track.scrollTo({
+        left: current * cardWidth,
+        behavior: "smooth"
+    });
+
+}
+
+next.onclick = () => {
+    current = (current + 1) % cards.length;
+    updateCoverflow();
+};
+
+prev.onclick = () => {
+    current = (current - 1 + cards.length) % cards.length;
+    updateCoverflow();
+};
+
+updateCoverflow();
