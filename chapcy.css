@@ -801,19 +801,18 @@ body{
     width:100%;
     max-width:430px;
     margin:40px auto;
-    position:relative;
     overflow:hidden;
+    position:relative;
 }
 
 .slider-track{
     display:flex;
-    gap:20px;
+    gap:16px;
     overflow-x:auto;
-    scroll-behavior:smooth;
     scroll-snap-type:x mandatory;
+    scroll-behavior:smooth;
     scrollbar-width:none;
-
-    padding:0 20px;   /* nafasi kushoto na kulia */
+    padding:0 35px;
 }
 
 .slider-track::-webkit-scrollbar{
@@ -823,39 +822,44 @@ body{
 /* CARD */
 
 .group-card{
-    flex:0 0 82%;
-    max-width:320px;
-    min-height:650px;
+    flex:0 0 72%;
+    max-width:280px;
+    min-height:620px;
 
     display:flex;
     flex-direction:column;
     align-items:center;
 
-    padding:30px 22px;
+    padding:25px 18px;
 
     background:rgba(8,10,35,.88);
     backdrop-filter:blur(18px);
 
     border:2px solid rgba(120,60,255,.45);
-    border-radius:32px;
+    border-radius:30px;
 
     box-shadow:
         0 0 15px rgba(120,60,255,.35),
-        0 0 35px rgba(0,170,255,.25),
-        inset 0 0 20px rgba(255,255,255,.03);
+        0 0 35px rgba(0,170,255,.25);
 
-    transition:.4s;
+    scroll-snap-align:center;
+    transition:.35s;
 }
 
-.group-card:hover{
-    transform:translateY(-8px) scale(1.02);
+.group-card{
+    transform:scale(.88);
+    opacity:.7;
+}
 
-    border-color:#b14cff;
-
+.group-card.active{
+    transform:scale(1);
+    opacity:1;
+    border-color:#b03dff;
     box-shadow:
-        0 0 25px #00d9ff,
-        0 0 55px #9b3dff;
+        0 0 25px #b03dff,
+        0 0 50px #00bfff;
 }
+
 /* IMAGE */
 
 .group-card img{
