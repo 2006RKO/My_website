@@ -820,22 +820,27 @@ body{
 
 /* CARD */
 
-.group-card{
+..group-card{
     min-width:100%;
-    min-height:640px;
+    max-width:360px;
+    min-height:650px;
+
     display:flex;
     flex-direction:column;
-    overflow:hidden;
+    align-items:center;
 
-    background:rgba(8,12,35,.85);
-    backdrop-filter:blur(18px);
+    padding:30px 22px;
 
-    border:2px solid rgba(0,255,255,.25);
-    border-radius:30px;
+    background:rgba(6,8,30,.88);
+    backdrop-filter:blur(20px);
+
+    border:2px solid rgba(120,60,255,.45);
+    border-radius:32px;
 
     box-shadow:
-        0 0 20px rgba(0,255,255,.25),
-        0 0 45px rgba(140,0,255,.25);
+        0 0 15px rgba(120,60,255,.35),
+        0 0 35px rgba(0,170,255,.25),
+        inset 0 0 20px rgba(255,255,255,.03);
 
     transition:.4s;
 }
@@ -843,44 +848,46 @@ body{
 .group-card:hover{
     transform:translateY(-8px) scale(1.02);
 
-    border-color:#a855ff;
+    border-color:#b14cff;
 
     box-shadow:
         0 0 25px #00d9ff,
-        0 0 60px #a855ff;
+        0 0 55px #9b3dff;
 }
-
 /* IMAGE */
 
 .group-card img{
-    width:150px;
-    height:150px;
+    width:170px;
+    height:170px;
+
+    margin-bottom:25px;
+
     object-fit:cover;
 
-    margin:30px auto 15px;
-
-    border-radius:25px;
+    border-radius:28px;
 
     border:2px solid rgba(255,255,255,.15);
 
     box-shadow:
-        0 0 20px rgba(0,191,255,.45);
+        0 0 18px #00cfff,
+        0 0 40px #8a2eff;
 }
-
 /* CONTENT */
 
 .group-card h3{
-    text-align:center;
-    font-size:28px;
-    margin:10px 20px;
+    font-size:30px;
+    font-weight:700;
     color:#fff;
+    text-align:center;
+    margin-bottom:12px;
 }
 
-.group-card p{
+..group-card p{
     text-align:center;
-    color:#d8dcff;
-    margin:0 25px 25px;
-    line-height:1.7;
+    color:#cfd7ff;
+    line-height:1.8;
+    font-size:15px;
+    margin-bottom:30px;
 }
 
  /*=========================
