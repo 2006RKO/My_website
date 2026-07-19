@@ -667,8 +667,116 @@ if(premiumBtn){
 
 premiumBtn.addEventListener("click",()=>{
 
-    alert("CHAPCY Premium Coming Soon 🚀");
+    alert("CHAPCY Premium Coming Soon hi 🚀");
 
 });
 
                 }
+const track = document.querySelector(".slider-track");
+const cards = document.querySelectorAll(".group-card");
+const prev = document.querySelector(".prev");
+const next = document.querySelector(".next");
+const dots = document.querySelectorAll(".dot");
+
+let index = 0;
+
+function updateSlider() {
+
+    const cardWidth = cards[0].offsetWidth + 18;
+
+    track.scrollTo({
+        left: index * cardWidth,
+        behavior: "smooth"
+    });
+
+    dots.forEach(dot => dot.classList.remove("active"));
+
+    if (dots[index]) {
+        dots[index].classList.add("active");
+    }
+}
+
+next.addEventListener("click", () => {
+
+    index++;
+
+    if (index >= cards.length) {
+        index = 0;
+    }
+
+    updateSlider();
+
+});
+
+prev.addEventListener("click", () => {
+
+    index--;
+
+    if (index < 0) {
+        index = cards.length - 1;
+    }
+
+    updateSlider();
+
+});
+
+// Auto Slide
+setInterval(() => {
+
+    index++;
+
+    if (index >= cards.length) {
+        index = 0;
+    }
+
+    updateSlider();
+
+}, 4000);
+
+// Dot Click
+dots.forEach((dot, i) => {
+
+    dot.addEventListener("click", () => {
+
+        index = i;
+
+        updateSlider();
+
+    });
+
+});
+
+// Swipe Support
+let startX = 0;
+
+track.addEventListener("touchstart", (e) => {
+
+    startX = e.touches[0].clientX;
+
+});
+
+track.addEventListener("touchend", (e) => {
+
+    let endX = e.changedTouches[0].clientX;
+
+    if (startX - endX > 50) {
+
+        index++;
+
+        if (index >= cards.length) index = 0;
+
+        updateSlider();
+
+    }
+
+    if (endX - startX > 50) {
+
+        index--;
+
+        if (index < 0) index = cards.length - 1;
+
+        updateSlider();
+
+    }
+
+});
