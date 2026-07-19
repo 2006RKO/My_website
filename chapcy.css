@@ -1037,55 +1037,55 @@ background:linear-gradient(180deg,#8e24aa,#512da8);
 /* NEWS */
 
 .news{
-background:linear-gradient(180deg,#ff6d00,#d84315);
+   background:transparent;
 }
 
 /* BETTING */
 
 .betting{
-background:linear-gradient(180deg,#ff9800,#ef6c00);
+   background:transparent;
 }
 
 /* GAMING */
 
 .gaming{
-background:linear-gradient(180deg,#ec407a,#8e24aa);
+   background:transparent;
 }
 
 /* MUSIC */
 
 .music{
-background:linear-gradient(180deg,#7b1fa2,#4527a0);
+   background:transparent;
 }
 
 /* FOOD */
 
 .food{
-background:linear-gradient(180deg,#ff7043,#d84315);
+bbackground:transparent;
 }
 
 /* EDUCATION */
 
 .education{
-background:linear-gradient(180deg,#1976d2,#0d47a1);
+   background:transparent;
 }
 
 /* ART */
 
 .art{
-background:linear-gradient(180deg,#ff4081,#c2185b);
+   background:transparent;
 }
 
 /* BUSINESS */
 
 .business{
-background:linear-gradient(180deg,#26a69a,#00695c);
+   background:transparent;
 }
 
 /* TV */
 
 .tv{
-background:linear-gradient(180deg,#3949ab,#1a237e);
+   background:transparent;
 }
 
 /*=========================
