@@ -222,9 +222,10 @@ body {
 ========================= */
 
 .chapcy-item{
-    width:92%;
-    max-width:420px;
-    padding:16px;
+    width:95%;
+    max-width:430px;
+    padding:18px;
+    text-align:center;
 
     background:linear-gradient(
         145deg,
@@ -233,16 +234,11 @@ body {
     );
 
     border-radius:25px;
-
     backdrop-filter:blur(18px);
-
-    border:1px solid rgba(120,170,255,.4);
 
     box-shadow:
         0 0 25px rgba(0,110,255,.35),
         0 0 50px rgba(140,50,255,.3);
-
-    text-align:center;
 }
 /* =========================
         CARD HOVER
@@ -262,9 +258,9 @@ body {
         CARD IMAGE
 ========================= */
 
-.chapcy-item img{
+..chapcy-item img{
     width:100%;
-    height:280px;
+    height:250px;
     object-fit:cover;
     border-radius:18px;
 }
@@ -363,7 +359,7 @@ body {
 
     .chapcy-item img {
 
-        height: 550px;
+        height: 350px;
 
     }
 
@@ -1288,4 +1284,191 @@ body {
 
 }
 
+}
+
+
+/*=========================
+      GROUP CARD
+=========================*/
+
+.group-card{
+    min-width:100%;
+    scroll-snap-align:center;
+
+    border-radius:25px;
+    padding:18px;
+
+    text-align:center;
+
+    border:1px solid rgba(255,255,255,.15);
+
+    backdrop-filter:blur(18px);
+
+    transition:.4s ease;
+}
+
+.group-card:hover{
+    transform:translateY(-8px) scale(1.02);
+}
+
+/*=========================
+      IMAGES
+=========================*/
+
+.group-card img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+    border-radius:18px;
+}
+
+.group-card h3{
+    color:#fff;
+    font-size:24px;
+    margin:15px 0 10px;
+}
+
+.group-card p{
+    color:#f1f1f1;
+    font-size:15px;
+    line-height:1.6;
+    margin-bottom:18px;
+}
+
+/*=========================
+      FOOTBALL
+=========================*/
+
+.group-card.football{
+    background:linear-gradient(145deg,#0d5d2b,#38d66b);
+    box-shadow:0 0 25px #38d66b;
+}
+
+/*=========================
+      EFOOTBALL
+=========================*/
+
+.group-card.efootball{
+    background:linear-gradient(145deg,#004d99,#00bfff);
+    box-shadow:0 0 25px #00bfff;
+}
+
+/*=========================
+      SPORTS
+=========================*/
+
+.group-card.sports{
+    background:linear-gradient(145deg,#6a11cb,#a64dff);
+    box-shadow:0 0 25px #b366ff;
+}
+
+/*=========================
+      NEWS
+=========================*/
+
+.group-card.news{
+    background:linear-gradient(145deg,#37474f,#607d8b);
+    box-shadow:0 0 25px #78909c;
+}
+
+/*=========================
+      BETTING
+=========================*/
+
+.group-card.betting{
+    background:linear-gradient(145deg,#ff9800,#ffd54f);
+    box-shadow:0 0 25px #ffd54f;
+}
+
+/*=========================
+      GAMING
+=========================*/
+
+.group-card.gaming{
+    background:linear-gradient(145deg,#3f0d7a,#8a2eff);
+    box-shadow:0 0 25px #8a2eff;
+}
+
+/*=========================
+      MUSIC
+=========================*/
+
+.group-card.music{
+    background:linear-gradient(145deg,#c2185b,#ff4fa3);
+    box-shadow:0 0 25px #ff4fa3;
+}
+
+/*=========================
+      FOOD
+=========================*/
+
+.group-card.food{
+    background:linear-gradient(145deg,#e65100,#ff7043);
+    box-shadow:0 0 25px #ff7043;
+}
+
+/*=========================
+      EDUCATION
+=========================*/
+
+.group-card.education{
+    background:linear-gradient(145deg,#00796b,#26c6da);
+    box-shadow:0 0 25px #26c6da;
+}
+
+/*=========================
+      ART
+=========================*/
+
+.group-card.art{
+    background:linear-gradient(145deg,#8e24aa,#ec407a);
+    box-shadow:0 0 25px #ec407a;
+}
+
+/*=========================
+      BUSINESS
+=========================*/
+
+.group-card.business{
+    background:linear-gradient(145deg,#37474f,#78909c);
+    box-shadow:0 0 25px #78909c;
+}
+
+/*=========================
+      CHAPCY TV
+=========================*/
+
+.group-card.tv{
+    background:linear-gradient(145deg,#b71c1c,#ff5252);
+    box-shadow:0 0 25px #ff5252;
+}
+
+/*=========================
+      BUTTON
+=========================*/
+
+.join-btn{
+    display:inline-block;
+    padding:13px 35px;
+
+    border-radius:35px;
+
+    text-decoration:none;
+
+    color:#fff;
+    font-weight:700;
+
+    background:linear-gradient(90deg,#ffffff33,#ffffff15);
+
+    border:1px solid rgba(255,255,255,.3);
+
+    backdrop-filter:blur(10px);
+
+    transition:.3s;
+}
+
+.join-btn:hover{
+    background:#fff;
+    color:#111;
+    transform:scale(1.05);
 }
