@@ -1291,26 +1291,25 @@ body {
       GROUP SLIDER
 =========================*/
 
-.group-slider{
-    width:95%;
-    max-width:430px;
-    margin:40px auto;
+..group-slider{
+    width:100%;
+    max-width:100%;
+    padding:0 20px;
+    margin:50px auto;
     position:relative;
 }
 
 .slider-track{
     display:flex;
-    gap:18px;
-    overflow-x:auto;
-    scroll-snap-type:x mandatory;
+    overflow:hidden;
     scroll-behavior:smooth;
-    scrollbar-width:none;
 }
 
-.slider-track::-webkit-scrollbar{
-    display:none;
+.group-card{
+    flex:0 0 100%;
+    max-width:100%;
+    border-radius:30px;
 }
-
 /*=========================
       GROUP CARD
 =========================*/
