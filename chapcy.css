@@ -831,9 +831,9 @@ body{
 
     padding:30px 22px;
 
-    background:rgba(6,8,30,.88);
-    backdrop-filter:blur(20px);
-
+    background:rgba(8,10,35,.88);
+    backdrop-filter:blur(18px);
+    
     border:2px solid rgba(120,60,255,.45);
     border-radius:32px;
 
