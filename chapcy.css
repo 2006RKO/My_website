@@ -1025,19 +1025,19 @@ body{
 /* FOOTBALL */
 
 .football{
-background:linear-gradient(180deg,#00c853,#009688);
+background:transparent;
 }
 
 /* EFOOTBALL */
 
 .efootball{
-background:linear-gradient(180deg,#1e88e5,#0d47a1);
+background:transparent;
 }
 
 /* SPORTS */
 
 .sports{
-background:linear-gradient(180deg,#8e24aa,#512da8);
+background:transparent;
 }
 
 /* NEWS */
