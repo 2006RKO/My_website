@@ -1287,6 +1287,30 @@ body {
 }
 
 
+/*=/*=========================
+      GROUP SLIDER
+=========================*/
+
+.group-slider{
+    width:95%;
+    max-width:430px;
+    margin:40px auto;
+    position:relative;
+}
+
+.slider-track{
+    display:flex;
+    gap:18px;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    scroll-behavior:smooth;
+    scrollbar-width:none;
+}
+
+.slider-track::-webkit-scrollbar{
+    display:none;
+}
+
 /*=========================
       GROUP CARD
 =========================*/
@@ -1295,152 +1319,49 @@ body {
     min-width:100%;
     scroll-snap-align:center;
 
-    border-radius:25px;
-    padding:18px;
-
-    text-align:center;
-
-    border:1px solid rgba(255,255,255,.15);
+    border-radius:28px;
+    overflow:hidden;
 
     backdrop-filter:blur(18px);
 
-    transition:.4s ease;
+    border:1px solid rgba(255,255,255,.15);
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,.35);
+
+    transition:.35s;
 }
 
 .group-card:hover{
-    transform:translateY(-8px) scale(1.02);
+    transform:translateY(-8px);
 }
 
 /*=========================
-      IMAGES
+      IMAGE
 =========================*/
 
 .group-card img{
     width:100%;
-    height:220px;
+    height:230px;
     object-fit:cover;
-    border-radius:18px;
 }
+
+/*=========================
+      CONTENT
+=========================*/
 
 .group-card h3{
     color:#fff;
     font-size:24px;
-    margin:15px 0 10px;
+    margin:18px 20px 10px;
+    font-weight:700;
 }
 
 .group-card p{
     color:#f1f1f1;
     font-size:15px;
     line-height:1.6;
-    margin-bottom:18px;
-}
-
-/*=========================
-      FOOTBALL
-=========================*/
-
-.group-card.football{
-    background:linear-gradient(145deg,#0d5d2b,#38d66b);
-    box-shadow:0 0 25px #38d66b;
-}
-
-/*=========================
-      EFOOTBALL
-=========================*/
-
-.group-card.efootball{
-    background:linear-gradient(145deg,#004d99,#00bfff);
-    box-shadow:0 0 25px #00bfff;
-}
-
-/*=========================
-      SPORTS
-=========================*/
-
-.group-card.sports{
-    background:linear-gradient(145deg,#6a11cb,#a64dff);
-    box-shadow:0 0 25px #b366ff;
-}
-
-/*=========================
-      NEWS
-=========================*/
-
-.group-card.news{
-    background:linear-gradient(145deg,#37474f,#607d8b);
-    box-shadow:0 0 25px #78909c;
-}
-
-/*=========================
-      BETTING
-=========================*/
-
-.group-card.betting{
-    background:linear-gradient(145deg,#ff9800,#ffd54f);
-    box-shadow:0 0 25px #ffd54f;
-}
-
-/*=========================
-      GAMING
-=========================*/
-
-.group-card.gaming{
-    background:linear-gradient(145deg,#3f0d7a,#8a2eff);
-    box-shadow:0 0 25px #8a2eff;
-}
-
-/*=========================
-      MUSIC
-=========================*/
-
-.group-card.music{
-    background:linear-gradient(145deg,#c2185b,#ff4fa3);
-    box-shadow:0 0 25px #ff4fa3;
-}
-
-/*=========================
-      FOOD
-=========================*/
-
-.group-card.food{
-    background:linear-gradient(145deg,#e65100,#ff7043);
-    box-shadow:0 0 25px #ff7043;
-}
-
-/*=========================
-      EDUCATION
-=========================*/
-
-.group-card.education{
-    background:linear-gradient(145deg,#00796b,#26c6da);
-    box-shadow:0 0 25px #26c6da;
-}
-
-/*=========================
-      ART
-=========================*/
-
-.group-card.art{
-    background:linear-gradient(145deg,#8e24aa,#ec407a);
-    box-shadow:0 0 25px #ec407a;
-}
-
-/*=========================
-      BUSINESS
-=========================*/
-
-.group-card.business{
-    background:linear-gradient(145deg,#37474f,#78909c);
-    box-shadow:0 0 25px #78909c;
-}
-
-/*=========================
-      CHAPCY TV
-=========================*/
-
-.group-card.tv{
-    background:linear-gradient(145deg,#b71c1c,#ff5252);
-    box-shadow:0 0 25px #ff5252;
+    margin:0 20px 20px;
 }
 
 /*=========================
@@ -1448,21 +1369,25 @@ body {
 =========================*/
 
 .join-btn{
-    display:inline-block;
-    padding:13px 35px;
+    display:block;
+    width:calc(100% - 40px);
+    margin:0 20px 22px;
 
-    border-radius:35px;
+    padding:14px;
+
+    text-align:center;
+
+    border-radius:50px;
 
     text-decoration:none;
 
-    color:#fff;
     font-weight:700;
 
-    background:linear-gradient(90deg,#ffffff33,#ffffff15);
+    color:#fff;
 
-    border:1px solid rgba(255,255,255,.3);
+    background:rgba(255,255,255,.18);
 
-    backdrop-filter:blur(10px);
+    border:1px solid rgba(255,255,255,.25);
 
     transition:.3s;
 }
@@ -1470,5 +1395,186 @@ body {
 .join-btn:hover{
     background:#fff;
     color:#111;
-    transform:scale(1.05);
+}
+
+/*=========================
+   FOOTBALL
+=========================*/
+
+.football{
+background:linear-gradient(180deg,#00b894,#00897b);
+}
+
+/*=========================
+   EFOOTBALL
+=========================*/
+
+.efootball{
+background:linear-gradient(180deg,#1e90ff,#0050c8);
+}
+
+/*=========================
+   SPORTS
+=========================*/
+
+.sports{
+background:linear-gradient(180deg,#8e44ad,#5e35b1);
+}
+
+/*=========================
+   NEWS
+=========================*/
+
+.news{
+background:linear-gradient(180deg,#ff6b00,#d84315);
+}
+
+/*=========================
+   BETTING
+=========================*/
+
+.betting{
+background:linear-gradient(180deg,#ff9800,#ef6c00);
+}
+
+/*=========================
+   GAMING
+=========================*/
+
+.gaming{
+background:linear-gradient(180deg,#e91e63,#9c27b0);
+}
+
+/*=========================
+   MUSIC
+=========================*/
+
+.music{
+background:linear-gradient(180deg,#7b1fa2,#512da8);
+}
+
+/*=========================
+   FOOD
+=========================*/
+
+.food{
+background:linear-gradient(180deg,#ff7043,#d84315);
+}
+
+/*=========================
+   EDUCATION
+=========================*/
+
+.education{
+background:linear-gradient(180deg,#1976d2,#0d47a1);
+}
+
+/*=========================
+   ART
+=========================*/
+
+.art{
+background:linear-gradient(180deg,#ff4081,#c2185b);
+}
+
+/*=========================
+   BUSINESS
+=========================*/
+
+.business{
+background:linear-gradient(180deg,#26a69a,#00695c);
+}
+
+/*=========================
+   TV
+=========================*/
+
+.tv{
+background:linear-gradient(180deg,#3f51b5,#1a237e);
+}
+
+/*=========================
+      BUTTONS
+=========================*/
+
+.slider-btn{
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+
+width:45px;
+height:45px;
+
+border:none;
+border-radius:50%;
+
+background:rgba(255,255,255,.2);
+
+backdrop-filter:blur(12px);
+
+color:#fff;
+
+cursor:pointer;
+
+font-size:18px;
+
+z-index:10;
+}
+
+.prev{
+left:-10px;
+}
+
+.next{
+right:-10px;
+}
+
+.slider-btn:hover{
+background:#fff;
+color:#111;
+}
+
+/*=========================
+      DOTS
+=========================*/
+
+.slider-dots{
+display:flex;
+justify-content:center;
+gap:8px;
+margin-top:20px;
+}
+
+.dot{
+width:10px;
+height:10px;
+border-radius:50%;
+background:#777;
+transition:.3s;
+}
+
+.dot.active{
+width:28px;
+border-radius:20px;
+background:#fff;
+}
+
+/*=========================
+      MOBILE
+=========================*/
+
+@media(max-width:480px){
+
+.group-slider{
+width:94%;
+}
+
+.group-card img{
+height:210px;
+}
+
+.group-card h3{
+font-size:22px;
+}
+
 }
