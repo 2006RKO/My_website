@@ -894,67 +894,101 @@ body{
     padding:0 20px 22px;
 }
 
-/* JOIN CHAT */
+/*=========================
+      CARD BUTTONS
+=========================*/
+
+.card-buttons{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    padding:0 22px 24px;
+}
+
+/*=========================
+      JOIN GROUP
+=========================*/
 
 .join-btn{
-    display:block;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
     width:100%;
-    padding:14px;
-    text-align:center;
+    height:56px;
+
     text-decoration:none;
     color:#fff;
-    font-size:16px;
+    font-size:17px;
     font-weight:700;
-    border-radius:40px;
 
-    background:linear-gradient(90deg,#00bfff,#7b2cff);
+    border-radius:18px;
 
-    box-shadow:0 0 15px rgba(0,191,255,.45);
+    background:linear-gradient(135deg,#00d4ff,#7b2cff,#b400ff);
 
-    transition:.3s;
+    border:1px solid rgba(255,255,255,.15);
+
+    box-shadow:
+        0 0 18px rgba(0,212,255,.45),
+        0 0 35px rgba(123,44,255,.35);
+
+    transition:.35s;
 }
 
 .join-btn:hover{
+
     transform:translateY(-3px);
-    box-shadow:0 0 30px #00bfff;
+
+    box-shadow:
+        0 0 22px #00d4ff,
+        0 0 45px #8a2eff;
+
 }
 
-/* PAYMENT BUTTON */
+/*=========================
+    PAYMENT METHOD
+=========================*/
 
 .payment-btn{
     display:flex;
     justify-content:center;
     align-items:center;
 
-    width:calc(100% - 40px);
-    margin:12px 20px 22px;
-    padding:15px;
+    width:100%;
+    height:56px;
 
     text-decoration:none;
-    font-size:16px;
-    font-weight:700;
     color:#fff;
+    font-size:17px;
+    font-weight:700;
 
-    border-radius:40px;
+    border-radius:18px;
 
-    background:linear-gradient(135deg,#FFD700,#FF9800,#FF5722);
+    background:rgba(255,255,255,.05);
+
+    border:2px solid #8a2eff;
+
+    backdrop-filter:blur(12px);
 
     box-shadow:
-        0 0 15px rgba(255,193,7,.6),
-        0 0 35px rgba(255,87,34,.5);
-
-    border:1px solid rgba(255,255,255,.25);
+        inset 0 0 12px rgba(138,46,255,.25),
+        0 0 18px rgba(138,46,255,.35);
 
     transition:.35s;
-    animation:paymentGlow 2s infinite;
 }
 
 .payment-btn:hover{
-    transform:translateY(-4px) scale(1.03);
+
+    background:linear-gradient(135deg,#8a2eff,#00cfff);
+
+    border-color:#00cfff;
 
     box-shadow:
-        0 0 20px #FFD700,
-        0 0 45px #FF9800;
+        0 0 25px #8a2eff,
+        0 0 45px #00cfff;
+
+    transform:translateY(-3px);
+
 }
 
 @keyframes paymentGlow{
