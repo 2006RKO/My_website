@@ -903,48 +903,58 @@ body{
     box-shadow:0 0 30px #00bfff;
 }
 
-/* PAYMENT */
+/* PAYMENT BUTTON */
 
 .payment-btn{
-    display:block;
-    width:100%;
-    padding:14px;
-    text-align:center;
-    text-decoration:none;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 
-    color:#fff;
+    width:calc(100% - 40px);
+    margin:12px 20px 22px;
+    padding:15px;
+
+    text-decoration:none;
     font-size:16px;
     font-weight:700;
+    color:#fff;
 
     border-radius:40px;
 
-    background:linear-gradient(90deg,#ff9800,#ff3d00);
+    background:linear-gradient(135deg,#FFD700,#FF9800,#FF5722);
 
-    box-shadow:0 0 18px rgba(255,152,0,.5);
+    box-shadow:
+        0 0 15px rgba(255,193,7,.6),
+        0 0 35px rgba(255,87,34,.5);
 
+    border:1px solid rgba(255,255,255,.25);
+
+    transition:.35s;
     animation:paymentGlow 2s infinite;
-
-    transition:.3s;
 }
 
 .payment-btn:hover{
-    transform:translateY(-3px);
+    transform:translateY(-4px) scale(1.03);
+
+    box-shadow:
+        0 0 20px #FFD700,
+        0 0 45px #FF9800;
 }
 
 @keyframes paymentGlow{
 
     0%{
-        box-shadow:0 0 10px #ff9800;
+        box-shadow:0 0 12px #FFD700;
     }
 
     50%{
         box-shadow:
-            0 0 25px #ff9800,
-            0 0 45px #ff5722;
+            0 0 25px #FFD700,
+            0 0 50px #FF9800;
     }
 
     100%{
-        box-shadow:0 0 10px #ff9800;
+        box-shadow:0 0 12px #FFD700;
     }
 
 }
