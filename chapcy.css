@@ -820,7 +820,7 @@ body{
 
 /* CARD */
 
-..group-card{
+.group-card{
     min-width:100%;
     min-height:650px;
     display:flex;
@@ -866,7 +866,6 @@ body{
     margin:0 20px 20px;
 }
 
-.join-btn{
  /*=========================
       CARD BUTTONS
 =========================*/
