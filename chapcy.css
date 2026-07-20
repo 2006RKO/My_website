@@ -786,25 +786,27 @@ body{
     max-width:430px;
     margin:45px auto;
     position:relative;
-    overflow:hidden;
+    overflow:visible;
     perspective:1200px;
 }
 
 .slider-track{
     display:flex;
     align-items:center;
-    gap:18px;
+    justify-content:center;
+    gap:22px;
 
     overflow-x:auto;
+    overflow-y:visible;
+
     scroll-behavior:smooth;
     scroll-snap-type:x mandatory;
 
     scrollbar-width:none;
     -ms-overflow-style:none;
 
-    padding:20px 50px;
+    padding:30px 90px;
 }
-
 .slider-track::-webkit-scrollbar{
     display:none;
 }
@@ -812,8 +814,9 @@ body{
 /* CARD */
 
 .group-card{
-    flex:0 0 82%;
-    max-width:320px;
+    flex:0 0 260px;
+     width:260px
+    max-width:260px;
     min-height:650px;
 
     display:flex;
@@ -829,8 +832,8 @@ body{
 
     scroll-snap-align:center;
 
-    transform:scale(.82);
-    opacity:.45;
+    transform:scale(.85);
+    opacity:.65;
 
     transition:.45s ease;
 
@@ -843,7 +846,7 @@ body{
 
 .group-card.active{
 
-    transform:scale(1);
+    transform:scale(1.08);
 
     opacity:1;
 
@@ -853,7 +856,7 @@ body{
         0 0 25px #00cfff,
         0 0 50px #8a2eff;
 
-    z-index:5;
+    z-index:10;
 
 }
 
@@ -1035,17 +1038,19 @@ body{
 @media(max-width:600px){
 
 .group-slider{
-    width:100%;
+    overflow:visible;
 }
 
 .slider-track{
-    padding:15px 35px;
+    padding:20px 75px;
+          gap:18px;
 }
 
 .group-card{
-    flex:0 0 85%;
-    max-width:300px;
-    min-height:620px;
+    flex:0 0 250px;
+          width:250px;
+    max-width:250px;
+          transform:scale (.18);
 }
 
 .group-card img{
