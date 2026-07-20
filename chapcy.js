@@ -1,861 +1,508 @@
-/* =====================================================
-        CHAPCY.JS
-        BUBBLES + USER PROFILE
-===================================================== */
-
-
-/* =====================================================
-        BUBBLE SYSTEM
-===================================================== */
-
-const bubbleContainer = document.querySelector(".bubble");
-
-
-function createBubble(fromTop = true) {
-
-    if (!bubbleContainer) return;
-
-
-    const bubble = document.createElement("img");
-
-
-    /* Bubble Image */
-
-    bubble.src =
-        "file_00000000a59871f4b637e576e04f574d.png";
-
-
-    /* Random Position */
-
-    bubble.style.left =
-        Math.random() * 100 + "%";
-
-
-    /* Random Size */
-
-    bubble.style.width =
-        Math.random() * 70 + 70 + "px";
-
-
-    /* Random Speed */
-
-    const duration =
-        Math.random() * 4 + 8;
-
-
-    bubble.style.animationDuration =
-        duration + "s";
-
-
-    /* Bubble Direction */
-
-    if (fromTop) {
-
-        bubble.classList.add("top-bubble");
-
-    } else {
-
-        bubble.classList.add("bottom-bubble");
-
-    }
-
-
-    /* Bubble Ikiguswa */
-
-    bubble.addEventListener(
-        "pointerdown",
-        () => {
-
-            bubble.style.transition =
-                "0.25s ease";
-
-            bubble.style.transform +=
-                " scale(1.5)";
-
-            bubble.style.opacity =
-                "0";
-
-
-            setTimeout(() => {
-
-                bubble.remove();
-
-            }, 250);
-
-        }
-    );
-
-
-    /* Ongeza Bubble Kwenye Page */
-
-    bubbleContainer.appendChild(bubble);
-
-
-    /* Ondoa Baada Ya Animation */
-
-    bubble.addEventListener(
-        "animationend",
-        () => {
-
-            bubble.remove();
-
-        }
-    );
-
-}
-
-
-/* =====================================================
-        CREATE BUBBLE BATCH
-===================================================== */
-
-function createBubble(fromTop = true) {
-
-    if (!bubbleContainer) return;
-
-
-    const bubble = document.createElement("img");
-
-
-    bubble.src =
-        "file_00000000a59871f4b637e576e04f574d.png";
-
-
-    /* Position random */
-
-    bubble.style.left =
-        Math.random() * 100 + "%";
-
-
-    /* BUBBLE NDOGO */
-
-    bubble.style.width =
-        Math.random() * 30 + 35 + "px";
-
-
-    /* KUSHUKA KWA POLEPOLE */
-
-    const duration =
-        Math.random() * 4 + 8;
-
-
-    bubble.style.animationDuration =
-        duration + "s";
-
-
-    if (fromTop) {
-
-        bubble.classList.add("top-bubble");
-
-    } else {
-
-        bubble.classList.add("bottom-bubble");
-
-    }
-
-
-    bubble.addEventListener(
-        "pointerdown",
-        () => {
-
-            bubble.style.transition =
-                "0.25s ease";
-
-            bubble.style.transform +=
-                " scale(1.5)";
-
-            bubble.style.opacity =
-                "0";
-
-
-            setTimeout(() => {
-
-                bubble.remove();
-
-            }, 250);
-
-        }
-    );
-
-
-    bubbleContainer.appendChild(bubble);
-
-
-    bubble.addEventListener(
-        "animationend",
-        () => {
-
-            bubble.remove();
-
-        }
-    );
-
-}
-
-/* =====================================================
-        BUBBLE LOOP
-===================================================== */
-
-/* =====================================================
-        BUBBLE LOOP
-===================================================== */
-
-function startLoop() {
-
-    /* Bubble moja kutoka juu */
-
-    createBubble(true);
-
-
-    /* Bubble nyingine baada ya sekunde 5 */
-
-    setTimeout(() => {
-
-        createBubble(false);
-
-    }, 5000);
-
-
-    /* Rudia kila sekunde 10 */
-
-    setTimeout(startLoop, 10000);
-
-}
-
-
-startLoop();
-
-
 /*=========================================
-      CHAPCY V13 PROFILE
+          CHAPCY JS PART 1
+           BUBBLE SYSTEM
 =========================================*/
 
 "use strict";
 
-/*=========================
-      GET ELEMENTS
-=========================*/
+const bubbleContainer = document.querySelector(".bubble");
 
-const profileBtn = document.querySelector(".profile-btn");
+/* CREATE BUBBLE */
 
-const profileMenu = document.getElementById("profileMenu");
+function createBubble(fromTop = true){
 
-/*=========================
-      OPEN / CLOSE MENU
-=========================*/
+    if(!bubbleContainer) return;
 
-function toggleProfile(){
+    const bubble = document.createElement("img");
 
-    if (!profileMenu) return;
+    bubble.src = "file_00000000a59871f4b637e576e04f574d.png";
 
-    profileMenu.classList.toggle("show");
+    bubble.style.left = Math.random() * 100 + "%";
+
+    const size = Math.random() * 35 + 35;
+    bubble.style.width = size + "px";
+
+    const duration = Math.random() * 4 + 8;
+    bubble.style.animationDuration = duration + "s";
+
+    if(fromTop){
+
+        bubble.classList.add("top-bubble");
+
+    }else{
+
+        bubble.classList.add("bottom-bubble");
+
+    }
+
+    /* POP */
+
+    bubble.addEventListener("pointerdown",()=>{
+
+        bubble.style.transition=".25s";
+
+        bubble.style.transform+=" scale(1.6)";
+
+        bubble.style.opacity="0";
+
+        setTimeout(()=>{
+
+            bubble.remove();
+
+        },250);
+
+    });
+
+    bubble.addEventListener("animationend",()=>{
+
+        bubble.remove();
+
+    });
+
+    bubbleContainer.appendChild(bubble);
 
 }
 
+/* LOOP */
 
-if (profileBtn && profileMenu) {
+function bubbleLoop(){
 
-    profileBtn.addEventListener("click", (e) => {
+    createBubble(true);
+
+    setTimeout(()=>{
+
+        createBubble(false);
+
+    },5000);
+
+}
+
+bubbleLoop();
+
+setInterval(bubbleLoop,10000);
+/*=========================================
+          CHAPCY JS PART 2
+            USER PROFILE
+=========================================*/
+
+const profileBtn = document.querySelector(".profile-btn");
+const profileMenu = document.getElementById("profileMenu");
+
+/* OPEN / CLOSE PROFILE */
+
+if(profileBtn && profileMenu){
+
+    profileBtn.addEventListener("click",(e)=>{
 
         e.stopPropagation();
 
-        toggleProfile();
+        profileMenu.classList.toggle("show");
+
+    });
+
+    document.addEventListener("click",(e)=>{
+
+        if(
+            !profileMenu.contains(e.target) &&
+            !profileBtn.contains(e.target)
+        ){
+
+            profileMenu.classList.remove("show");
+
+        }
 
     });
 
 }
 
-/*=========================
-      CLOSE WHEN CLICK OUTSIDE
-=========================*/
-
-document.addEventListener("click",(e)=>{
-
-    if(
-        !profileMenu.contains(e.target) &&
-        !profileBtn.contains(e.target)
-    ){
-
-        profileMenu.classList.remove("show");
-
-    }
-
-});
-
-/*=========================
-      ESC KEY CLOSE
-=========================*/
-
-document.addEventListener("click", (e) => {
-
-    if (
-        profileMenu &&
-        profileBtn &&
-        !profileMenu.contains(e.target) &&
-        !profileBtn.contains(e.target)
-    ) {
-
-        profileMenu.classList.remove("show");
-
-    }
-
-});
-/*=========================
-      PROFILE STATS
-=========================*/
+/* USER DATA */
 
 const stats={
 
     chats:0,
-
     friends:0,
-
     groups:0,
-
     likes:0,
-
     followers:0,
-
     following:0
 
 };
 
+/* UPDATE STATS */
+
+function setValue(id,value){
+
+    const el=document.getElementById(id);
+
+    if(el){
+
+        el.textContent=value;
+
+    }
+
+}
+
 function updateProfileStats(){
 
-    document.getElementById("chatCount").textContent=stats.chats;
-
-    document.getElementById("friendCount").textContent=stats.friends;
-
-    document.getElementById("groupCount").textContent=stats.groups;
-
-    document.getElementById("likeCount").textContent=stats.likes;
-
-    document.getElementById("followersCount").textContent=stats.followers;
-
-    document.getElementById("followingCount").textContent=stats.following;
+    setValue("chatCount",stats.chats);
+    setValue("friendCount",stats.friends);
+    setValue("groupCount",stats.groups);
+    setValue("likeCount",stats.likes);
+    setValue("followersCount",stats.followers);
+    setValue("followingCount",stats.following);
 
 }
 
 updateProfileStats();
 
-/*=========================
-      FUNCTIONS
-=========================*/
+/* USER NAME */
 
-function addChat(){
+const nameBox=document.querySelector(".profile-name");
+const emailBox=document.querySelector(".profile-email");
+const status=document.querySelector(".status");
 
-    stats.chats++;
+if(nameBox){
 
-    updateProfileStats();
-
-}
-
-function addFriend(){
-
-    stats.friends++;
-
-    updateProfileStats();
+    nameBox.textContent=
+    localStorage.getItem("chapcy_name") || "Guest";
 
 }
 
-function addGroup(){
+if(emailBox){
 
-    stats.groups++;
-
-    updateProfileStats();
-
-}
-
-function addLike(){
-
-    stats.likes++;
-
-    updateProfileStats();
+    emailBox.textContent=
+    localStorage.getItem("chapcy_email") || "guest@chapcy.com";
 
 }
 
-function addFollower(){
+if(status){
 
-    stats.followers++;
-
-    updateProfileStats();
-
-}
-
-function addFollowing(){
-
-    stats.following++;
-
-    updateProfileStats();
+    status.textContent="🟢 Online";
 
                 }
 /*=========================================
-      CHAPCY V13 PROFILE PART 2
+          CHAPCY JS PART 3
+     AVATAR • LOGOUT • PREMIUM
 =========================================*/
 
-/*=========================
-      ANIMATE COUNTERS
-=========================*/
+/* AVATAR */
 
-function animateCounter(id,value){
+const avatar = document.getElementById("profileAvatar");
+const avatarInput = document.getElementById("avatarInput");
 
-    const element=document.getElementById(id);
+if (avatar && avatarInput) {
 
-    let start=0;
+    avatar.addEventListener("click", () => {
+        avatarInput.click();
+    });
 
-    const speed=20;
+    avatarInput.addEventListener("change", (e) => {
 
-    const timer=setInterval(()=>{
+        const file = e.target.files[0];
 
-        if(start>=value){
+        if (!file) return;
 
-            clearInterval(timer);
+        const reader = new FileReader();
 
-            element.textContent=value;
+        reader.onload = function () {
 
-        }else{
+            avatar.innerHTML =
+            `<img src="${reader.result}" class="avatar-image">`;
 
-            start++;
+            localStorage.setItem(
+                "chapcy_avatar",
+                reader.result
+            );
 
-            element.textContent=start;
+        };
+
+        reader.readAsDataURL(file);
+
+    });
+
+    const savedAvatar =
+    localStorage.getItem("chapcy_avatar");
+
+    if (savedAvatar) {
+
+        avatar.innerHTML =
+        `<img src="${savedAvatar}" class="avatar-image">`;
+
+    }
+
+}
+
+/* LOGOUT */
+
+const logoutBtn =
+document.querySelector(".logout-btn");
+
+if (logoutBtn) {
+
+    logoutBtn.addEventListener("click", () => {
+
+        if (confirm("Logout from CHAPCY?")) {
+
+            localStorage.removeItem("chapcy_name");
+            localStorage.removeItem("chapcy_email");
+            localStorage.removeItem("chapcy_avatar");
+
+            location.reload();
 
         }
-
-    },speed);
-
-}
-
-/* UPDATE WITH ANIMATION */
-
-function updateProfileStats(){
-
-    animateCounter("chatCount",stats.chats);
-
-    animateCounter("friendCount",stats.friends);
-
-    animateCounter("groupCount",stats.groups);
-
-    animateCounter("likeCount",stats.likes);
-
-    animateCounter("followersCount",stats.followers);
-
-    animateCounter("followingCount",stats.following);
-
-}
-
-/*=========================
-      USER INFO
-=========================*/
-
-const userName=localStorage.getItem("chapcy_name") || "Guest";
-
-const userEmail=localStorage.getItem("chapcy_email") || "guest@chapcy.com";
-
-document.querySelector(".profile-name").textContent=userName;
-
-document.querySelector(".profile-email").textContent=userEmail;
-
-/*=========================
-      ONLINE STATUS
-=========================*/
-
-const status=document.querySelector(".status");
-
-status.textContent="🟢 Online";
-
-/*=========================
-      NOTIFICATION BADGE
-=========================*/
-
-let notifications=0;
-
-const badge=document.querySelector(".badge");
-
-if(badge){
-
-    badge.textContent=notifications;
-
-}
-
-function addNotification(){
-
-    notifications++;
-
-    if(badge){
-
-        badge.textContent=notifications;
-
-    }
-
-}
-
-/*=========================
-      DARK MODE
-=========================*/
-
-const savedTheme=localStorage.getItem("chapcy_theme");
-
-if(savedTheme==="dark"){
-
-    document.body.classList.add("dark");
-
-}
-
-function toggleDarkMode(){
-
-    document.body.classList.toggle("dark");
-
-    if(document.body.classList.contains("dark")){
-
-        localStorage.setItem("chapcy_theme","dark");
-
-    }else{
-
-        localStorage.setItem("chapcy_theme","light");
-
-    }
-
-}
-
-/*=========================
-      SAVE USER
-=========================*/
-
-function saveUser(name,email){
-
-    localStorage.setItem("chapcy_name",name);
-
-    localStorage.setItem("chapcy_email",email);
-
-                        }
-/*=========================================
-      CHAPCY V13 PROFILE PART 3
-=========================================*/
-
-/*=========================
-      PROFILE PHOTO
-=========================*/
-
-const avatar =
-document.getElementById("profileAvatar");
-
-const avatarInput =
-document.getElementById("avatarInput");
-
-/* CLICK AVATAR */
-
-if(avatar){
-
-    avatar.addEventListener("click",()=>{
-
-        avatarInput.click();
 
     });
 
 }
 
-/* CHANGE PHOTO */
+/* PREMIUM */
 
-if(avatarInput){
-
-avatarInput.addEventListener("change",(e)=>{
-
-    const file=e.target.files[0];
-
-    if(!file) return;
-
-    const reader=new FileReader();
-
-    reader.onload=function(){
-
-        avatar.innerHTML=
-        `<img src="${reader.result}"
-        class="avatar-image">`;
-
-        localStorage.setItem(
-            "chapcy_avatar",
-            reader.result
-        );
-
-    };
-
-    reader.readAsDataURL(file);
-
-});
-
-}
-
-/* LOAD PHOTO */
-
-const savedAvatar=
-localStorage.getItem("chapcy_avatar");
-
-if(savedAvatar && avatar){
-
-    avatar.innerHTML=
-    `<img src="${savedAvatar}"
-    class="avatar-image">`;
-
-}
-
-/*=========================
-      LOGOUT
-=========================*/
-
-const logoutBtn=
-document.querySelector(".logout-btn");
-
-if(logoutBtn){
-
-logoutBtn.addEventListener("click",()=>{
-
-    if(confirm("Logout from CHAPCY?")){
-
-        localStorage.removeItem("chapcy_name");
-        localStorage.removeItem("chapcy_email");
-        localStorage.removeItem("chapcy_avatar");
-
-        location.reload();
-
-    }
-
-});
-
-}
-
-/*=========================
-      DAILY REWARD
-=========================*/
-
-const rewardBtn=
-document.querySelector(".reward-btn");
-
-if(rewardBtn){
-
-rewardBtn.addEventListener("click",()=>{
-
-    const today=
-    new Date().toDateString();
-
-    const lastReward=
-    localStorage.getItem("reward");
-
-    if(lastReward===today){
-
-        alert("Reward already claimed today.");
-
-    }else{
-
-        localStorage.setItem("reward",today);
-
-        alert("🎁 Reward Claimed!");
-
-    }
-
-});
-
-}
-
-/*=========================
-      PREMIUM BUTTON
-=========================*/
-
-const premiumBtn=
+const premiumBtn =
 document.querySelector(".premium-btn");
 
-if(premiumBtn){
+if (premiumBtn) {
 
-premiumBtn.addEventListener("click",()=>{
+    premiumBtn.addEventListener("click", () => {
 
-    alert("CHAPCY Premium Coming Soon hi 🚀");
+        alert("🚀 CHAPCY Premium Coming Soon");
 
-});
+    });
 
-                }
+}
+
+/* DAILY REWARD */
+
+const rewardBtn =
+document.querySelector(".reward-btn");
+
+if (rewardBtn) {
+
+    rewardBtn.addEventListener("click", () => {
+
+        const today =
+        new Date().toDateString();
+
+        const reward =
+        localStorage.getItem("reward");
+
+        if (reward === today) {
+
+            alert("🎁 Reward already claimed today.");
+
+        } else {
+
+            localStorage.setItem("reward", today);
+
+            alert("🎉 Reward Claimed Successfully!");
+
+        }
+
+    });
+
+}
+/*=========================================
+          CHAPCY JS PART 4
+          COVERFLOW SLIDER
+=========================================*/
+
 const track = document.querySelector(".slider-track");
 const cards = document.querySelectorAll(".group-card");
 const prev = document.querySelector(".prev");
 const next = document.querySelector(".next");
 const dots = document.querySelectorAll(".dot");
 
-if(track && cards.length){
+if (track && cards.length > 0) {
 
-let index = 0;
+    let current = 0;
 
-function updateSlider(){
+    function updateSlider() {
 
-    const cardWidth = cards[0].offsetWidth;
+        cards.forEach((card, index) => {
 
-    track.scrollTo({
-        left:index * cardWidth,
-        behavior:"smooth"
-    });
+            card.classList.remove("active");
 
-    dots.forEach(dot=>dot.classList.remove("active"));
+            if (index === current) {
 
-    if(dots[index]){
-        dots[index].classList.add("active");
-    }
-}
+                card.classList.add("active");
 
-next?.addEventListener("click",()=>{
+                card.style.transform = "scale(1)";
+                card.style.opacity = "1";
+                card.style.zIndex = "10";
 
-    index=(index+1)%cards.length;
+            } else if (
+                index === current - 1 ||
+                (current === 0 && index === cards.length - 1)
+            ) {
 
-    updateSlider();
+                card.style.transform =
+                    "translateX(-35px) scale(.85)";
 
-});
+                card.style.opacity = ".6";
+                card.style.zIndex = "5";
 
-prev?.addEventListener("click",()=>{
+            } else if (
+                index === current + 1 ||
+                (current === cards.length - 1 && index === 0)
+            ) {
 
-    index=(index-1+cards.length)%cards.length;
+                card.style.transform =
+                    "translateX(35px) scale(.85)";
 
-    updateSlider();
+                card.style.opacity = ".6";
+                card.style.zIndex = "5";
 
-});
+            } else {
 
-dots.forEach((dot,i)=>{
+                card.style.transform = "scale(.7)";
+                card.style.opacity = "0";
+                card.style.zIndex = "1";
 
-    dot.addEventListener("click",()=>{
+            }
 
-        index=i;
+        });
 
-        updateSlider();
+        dots.forEach(dot => dot.classList.remove("active"));
 
-    });
+        if (dots[current]) {
+            dots[current].classList.add("active");
+        }
 
-});
-
-let autoSlide=setInterval(()=>{
-
-    index=(index+1)%cards.length;
-
-    updateSlider();
-
-},4000);
-
-track.addEventListener("mouseenter",()=>clearInterval(autoSlide));
-
-track.addEventListener("mouseleave",()=>{
-
-    autoSlide=setInterval(()=>{
-
-        index=(index+1)%cards.length;
-
-        updateSlider();
-
-    },4000);
-
-});
-
-let startX=0;
-
-track.addEventListener("touchstart",(e)=>{
-
-    startX=e.touches[0].clientX;
-
-});
-
-track.addEventListener("touchend",(e)=>{
-
-    const endX=e.changedTouches[0].clientX;
-
-    if(startX-endX>50){
-
-        index=(index+1)%cards.length;
-
-        updateSlider();
+        cards[current].scrollIntoView({
+            behavior: "smooth",
+            inline: "center",
+            block: "nearest"
+        });
 
     }
 
-    if(endX-startX>50){
+    /* NEXT */
 
-        index=(index-1+cards.length)%cards.length;
+    if (next) {
 
-        updateSlider();
+        next.addEventListener("click", () => {
+
+            current++;
+
+            if (current >= cards.length) {
+
+                current = 0;
+
+            }
+
+            updateSlider();
+
+        });
 
     }
 
-});
+    /* PREVIOUS */
 
-updateSlider();
+    if (prev) {
 
-}
+        prev.addEventListener("click", () => {
 
+            current--;
 
+            if (current < 0) {
 
-const track = document.querySelector(".slider-track");
-const cards = document.querySelectorAll(".group-card");
-const prev = document.querySelector(".prev");
-const next = document.querySelector(".next");
+                current = cards.length - 1;
 
-let current = 0;
+            }
 
-function updateCoverflow() {
+            updateSlider();
 
-    cards.forEach((card, index) => {
+        });
 
-        card.classList.remove("active");
+    }
 
-        let offset = index - current;
+    /* DOTS */
 
-        if (offset === 0) {
+    dots.forEach((dot, index) => {
 
-            card.style.transform =
-                "translateX(0) scale(1)";
-            card.style.opacity = "1";
-            card.style.zIndex = "10";
+        dot.addEventListener("click", () => {
 
-            card.classList.add("active");
+            current = index;
 
-        }
+            updateSlider();
 
-        else if (offset === -1) {
+        });
 
-            card.style.transform =
-                "translateX(-35px) scale(.82) rotateY(18deg)";
-            card.style.opacity = ".55";
-            card.style.zIndex = "5";
+    });
 
-        }
+    /* AUTO SLIDE */
 
-        else if (offset === 1) {
+    let auto = setInterval(() => {
 
-            card.style.transform =
-                "translateX(35px) scale(.82) rotateY(-18deg)";
-            card.style.opacity = ".55";
-            card.style.zIndex = "5";
+        current++;
+
+        if (current >= cards.length) {
+
+            current = 0;
 
         }
 
-        else {
+        updateSlider();
 
-            card.style.transform =
-                "scale(.68)";
-            card.style.opacity = "0";
-            card.style.zIndex = "1";
+    }, 4000);
+
+    /* PAUSE */
+
+    track.addEventListener("mouseenter", () => {
+
+        clearInterval(auto);
+
+    });
+
+    track.addEventListener("mouseleave", () => {
+
+        auto = setInterval(() => {
+
+            current++;
+
+            if (current >= cards.length) {
+
+                current = 0;
+
+            }
+
+            updateSlider();
+
+        }, 4000);
+
+    });
+
+    /* SWIPE */
+
+    let startX = 0;
+
+    track.addEventListener("touchstart", e => {
+
+        startX = e.touches[0].clientX;
+
+    });
+
+    track.addEventListener("touchend", e => {
+
+        const endX = e.changedTouches[0].clientX;
+
+        if (startX - endX > 50) {
+
+            current = (current + 1) % cards.length;
+
+            updateSlider();
+
+        }
+
+        if (endX - startX > 50) {
+
+            current = (current - 1 + cards.length) % cards.length;
+
+            updateSlider();
 
         }
 
     });
 
-    const cardWidth = cards[0].offsetWidth + 20;
-
-    track.scrollTo({
-        left: current * cardWidth,
-        behavior: "smooth"
-    });
+    updateSlider();
 
 }
-
-next.onclick = () => {
-    current = (current + 1) % cards.length;
-    updateCoverflow();
-};
-
-prev.onclick = () => {
-    current = (current - 1 + cards.length) % cards.length;
-    updateCoverflow();
-};
-
-updateCoverflow();
