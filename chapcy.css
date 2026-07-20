@@ -777,126 +777,110 @@ body{
 
           }
 /*=========================================
-        CHAPCY CSS PART 4
-          GROUP SLIDER
+        CHAPCY CSS PART 4A
+          COVERFLOW SLIDER
 =========================================*/
 
 .group-slider{
     width:100%;
-    max-width:100%;
-    margin:45px auto;
     position:relative;
-    overflow:visible;
-    perspective:1200px;
+    margin:60px auto;
+    overflow:hidden;
 }
 
 .slider-track{
     display:flex;
     align-items:center;
-    justify-content:center;
-    gap:22px;
+    gap:20px;
 
     overflow-x:auto;
-    overflow-y:visible;
-
     scroll-behavior:smooth;
     scroll-snap-type:x mandatory;
 
+    padding:25px calc(50% - 150px);
+
     scrollbar-width:none;
     -ms-overflow-style:none;
-
-    padding:30px 90px;
 }
+
 .slider-track::-webkit-scrollbar{
     display:none;
 }
 
-/* CARD */
-
 .group-card{
-    flex:0 0 260px;
-     width:260px
-    max-width:260px;
-    min-height:650px;
+    flex:0 0 300px;
+    width:300px;
+    min-height:640px;
 
     display:flex;
     flex-direction:column;
 
+    border-radius:28px;
     overflow:hidden;
 
-    background:rgba(8,10,35,.92);
-    backdrop-filter:blur(20px);
+    background:rgba(10,15,45,.92);
+    backdrop-filter:blur(18px);
 
-    border:2px solid rgba(120,60,255,.45);
-    border-radius:30px;
+    border:2px solid rgba(130,70,255,.35);
 
     scroll-snap-align:center;
 
-    transform:scale(.85);
-    opacity:.65;
+    transform:scale(.82);
 
-    transition:.45s ease;
+    opacity:.55;
+
+    transition:
+    transform .45s ease,
+    opacity .45s ease,
+    box-shadow .45s ease;
 
     box-shadow:
-        0 0 20px rgba(0,170,255,.20),
-        0 0 35px rgba(120,60,255,.20);
+    0 0 20px rgba(0,170,255,.18),
+    0 0 35px rgba(140,60,255,.15);
 }
-
-/* ACTIVE CARD */
 
 .group-card.active{
 
-    transform:scale(1.08);
+    transform:scale(1);
 
     opacity:1;
 
-    border-color:#b03dff;
+    z-index:5;
+
+    border-color:#9b4dff;
 
     box-shadow:
-        0 0 25px #00cfff,
-        0 0 50px #8a2eff;
-
-    z-index:10;
+    0 0 30px #00cfff,
+    0 0 60px rgba(155,77,255,.8);
 
 }
-
-/* IMAGE */
 
 .group-card img{
-    width:100%;
-    height:260px;
-    object-fit:cover;
-}
 
-/* TITLE */
+    width:100%;
+    height:250px;
+    object-fit:cover;
+
+}
 
 .group-card h3{
-    margin-top:18px;
+
+    margin:18px 15px 10px;
     text-align:center;
+    font-size:26px;
 
-    font-size:28px;
-    color:#fff;
 }
-
-/* DESCRIPTION */
 
 .group-card p{
 
-    padding:15px 20px;
-
-    color:#d7dcff;
-
+    padding:0 18px;
     text-align:center;
-
     line-height:1.7;
-
-    font-size:15px;
+    color:#d9ddff;
 
     flex:1;
 
 }
-
-/* BUTTONS */
 
 .card-buttons{
 
@@ -905,71 +889,69 @@ body{
 
     gap:14px;
 
-    padding:0 20px 22px;
+    padding:18px;
 
 }
 
-/* JOIN */
+/*=========================================
+        CHAPCY CSS PART 4B
+      BUTTONS • ARROWS • MOBILE
+=========================================*/
 
+/* JOIN BUTTON */
 .join-btn{
-
     display:flex;
     justify-content:center;
     align-items:center;
 
+    width:100%;
     height:55px;
 
     text-decoration:none;
-
-    border-radius:18px;
-
     color:#fff;
     font-weight:700;
+
+    border-radius:18px;
 
     background:linear-gradient(
         135deg,
         #00cfff,
-        #7b2cff,
+        #6d4cff,
         #b400ff
     );
 
     transition:.35s;
-
 }
 
 .join-btn:hover{
-
     transform:translateY(-3px);
 
     box-shadow:
-        0 0 20px #00cfff,
+        0 0 18px #00cfff,
         0 0 35px #8a2eff;
-
 }
 
-/* PAYMENT */
-
+/* PAYMENT BUTTON */
 .payment-btn{
-
     display:flex;
     justify-content:center;
     align-items:center;
 
+    width:100%;
     height:55px;
 
     text-decoration:none;
 
-    border-radius:18px;
-
     color:#fff;
     font-weight:700;
+
+    border-radius:18px;
 
     border:2px solid #8a2eff;
 
     background:rgba(255,255,255,.05);
 
     transition:.35s;
-
 }
 
 .payment-btn:hover{
@@ -982,8 +964,6 @@ body{
 
     border-color:#00cfff;
 
-    transform:translateY(-3px);
-
 }
 
 /* ARROWS */
@@ -993,11 +973,10 @@ body{
     position:absolute;
 
     top:50%;
-
     transform:translateY(-50%);
 
-    width:46px;
-    height:46px;
+    width:48px;
+    height:48px;
 
     border:none;
     border-radius:50%;
@@ -1011,7 +990,7 @@ body{
 
     backdrop-filter:blur(15px);
 
-    z-index:20;
+    z-index:100;
 
     transition:.3s;
 
@@ -1020,55 +999,60 @@ body{
 .slider-btn:hover{
 
     background:#fff;
-
     color:#111;
 
 }
 
 .prev{
-    left:8px;
+    left:12px;
 }
 
 .next{
-    right:8px;
+    right:12px;
 }
 
 /* MOBILE */
 
-@media(max-width:600px){
-
-.group-slider{
-    overflow:visible;
-}
+@media(max-width:768px){
 
 .slider-track{
-    padding:20px 75px;
-          gap:18px;
+
+    padding:20px calc(50% - 130px);
+
+    gap:16px;
+
 }
 
 .group-card{
-    flex:0 0 250px;
-          width:250px;
-    max-width:250px;
-          transform:scale (.18);
+
+    flex:0 0 260px;
+    width:260px;
+    min-height:600px;
+
 }
 
 .group-card img{
-    height:230px;
+
+    height:220px;
+
 }
 
 .group-card h3{
-    font-size:24px;
+
+    font-size:22px;
+
 }
 
 .group-card p{
+
     font-size:14px;
+
 }
 
 .slider-btn{
 
-    width:40px;
-    height:40px;
+    width:42px;
+    height:42px;
 
     font-size:16px;
 
