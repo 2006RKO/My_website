@@ -28,7 +28,7 @@ body{
     height:100%;
     object-fit:cover;
     z-index:-2;
-    filter:brightness(1.2) contrast(1.1) saturate(1.2);
+    filter:brightness(1.15) contrast(1.1) saturate(1.2);
 }
 
 /* LOGO */
@@ -41,15 +41,14 @@ body{
 }
 
 .logo img{
-    width:110px;
-    max-width:100%;
+    width:90px;
     height:auto;
     filter:
-        drop-shadow(0 0 15px #008cff)
+        drop-shadow(0 0 15px #00bfff)
         drop-shadow(0 0 30px #8a2eff);
 }
 
-/* BUBBLE CONTAINER */
+/* BUBBLES */
 .bubble{
     position:fixed;
     inset:0;
@@ -60,13 +59,13 @@ body{
 
 .bubble img{
     position:absolute;
-    pointer-events:auto;
     opacity:0;
+    pointer-events:auto;
     touch-action:manipulation;
     filter:drop-shadow(0 0 15px #8a2eff);
 }
 
-/* BUBBLE ANIMATION */
+/* ANIMATION */
 .top-bubble{
     top:-150px;
     animation:fallBubble linear forwards;
@@ -82,15 +81,12 @@ body{
         transform:translateY(0);
         opacity:0;
     }
-
     10%{
         opacity:1;
     }
-
     90%{
         opacity:1;
     }
-
     100%{
         transform:translateY(120vh);
         opacity:0;
@@ -102,15 +98,12 @@ body{
         transform:translateY(0);
         opacity:0;
     }
-
     10%{
         opacity:1;
     }
-
     90%{
         opacity:1;
     }
-
     100%{
         transform:translateY(-120vh);
         opacity:0;
@@ -144,12 +137,11 @@ body{
     z-index:5;
 }
 
-/* CARD */
+/* HERO CARD */
 .chapcy-item{
     width:95%;
     max-width:420px;
     overflow:hidden;
-
     border-radius:25px;
 
     background:linear-gradient(
@@ -219,7 +211,6 @@ body{
         0 0 35px #8a2eff;
 }
 
-/* MOBILE */
 @media(max-width:600px){
 
 .logo img{
@@ -239,8 +230,6 @@ body{
 }
 
 }
-
-
 /*=========================================
         CHAPCY CSS PART 2
            USER PROFILE
@@ -251,13 +240,13 @@ body{
     position:fixed;
     top:20px;
     right:20px;
-    z-index:999;
+    z-index:9999;
 }
 
 /* PROFILE BUTTON */
 .profile-btn{
-    width:58px;
-    height:58px;
+    width:60px;
+    height:60px;
     border:none;
     border-radius:50%;
     cursor:pointer;
@@ -272,8 +261,8 @@ body{
     background:linear-gradient(135deg,#00c6ff,#6d4cff,#c63dff);
 
     box-shadow:
-        0 0 15px rgba(0,191,255,.5),
-        0 0 35px rgba(138,46,255,.4);
+        0 0 18px rgba(0,191,255,.55),
+        0 0 35px rgba(138,46,255,.45);
 
     transition:.3s;
 }
@@ -285,7 +274,7 @@ body{
 /* PROFILE MENU */
 .profile-menu{
     position:absolute;
-    top:72px;
+    top:75px;
     right:0;
 
     width:320px;
@@ -301,29 +290,30 @@ body{
         rgba(55,25,110,.96)
     );
 
-    backdrop-filter:blur(25px);
+    backdrop-filter:blur(20px);
 
-    border:1px solid rgba(255,255,255,.15);
+    border:1px solid rgba(255,255,255,.12);
 
     box-shadow:
-        0 0 30px rgba(0,170,255,.3),
-        0 0 50px rgba(140,60,255,.25);
+        0 0 25px rgba(0,170,255,.35),
+        0 0 45px rgba(138,46,255,.30);
 
     opacity:0;
     visibility:hidden;
 
-    transform:translateY(-15px) scale(.95);
+    transform:translateY(-15px);
 
-    transition:.35s;
+    transition:.35s ease;
 }
 
+/* SHOW MENU */
 .profile-menu.show{
     opacity:1;
     visibility:visible;
-    transform:translateY(0) scale(1);
+    transform:translateY(0);
 }
 
-/* PROFILE HEADER */
+/* HEADER */
 .profile-header{
     text-align:center;
     margin-bottom:20px;
@@ -334,7 +324,8 @@ body{
     width:90px;
     height:90px;
 
-    margin:0 auto 15px;
+    margin:auto;
+    margin-bottom:15px;
 
     border-radius:50%;
 
@@ -349,7 +340,7 @@ body{
     background:linear-gradient(135deg,#00c6ff,#8a2eff);
 
     box-shadow:
-        0 0 20px #00bfff,
+        0 0 18px #00bfff,
         0 0 35px #8a2eff;
 }
 
@@ -362,7 +353,7 @@ body{
 
 /* NAME */
 .profile-name{
-    font-size:23px;
+    font-size:22px;
     font-weight:700;
     color:#fff;
 }
@@ -373,7 +364,7 @@ body{
 
     margin:10px 0;
 
-    padding:5px 15px;
+    padding:6px 16px;
 
     border-radius:30px;
 
@@ -386,7 +377,7 @@ body{
 
 /* EMAIL */
 .profile-email{
-    color:#c9d2ff;
+    color:#cfd7ff;
     font-size:14px;
 }
 
@@ -400,7 +391,7 @@ body{
 
     border-radius:30px;
 
-    font-weight:bold;
+    font-weight:700;
 
     background:linear-gradient(
         90deg,
@@ -408,8 +399,7 @@ body{
         #b03dff
     );
 
-    box-shadow:
-        0 0 18px rgba(138,46,255,.45);
+    box-shadow:0 0 18px rgba(138,46,255,.45);
 }
 
 /* STATS */
@@ -436,7 +426,6 @@ body{
 
 .stat-box:hover{
     transform:translateY(-4px);
-
     background:rgba(255,255,255,.08);
 }
 
@@ -452,8 +441,8 @@ body{
 }
 
 .stat-box span{
-    color:#c9d2ff;
     font-size:13px;
+    color:#cfd7ff;
 }
 
 /* MOBILE */
@@ -466,39 +455,9 @@ body{
 
 .profile-btn{
     width:52px;
-    height:52px;
-    font-size:22px;
+    height:52px
 }
-
-.profile-menu{
-    width:calc(100vw - 20px);
-    right:0;
-    padding:18px;
-}
-
-.profile-avatar{
-    width:75px;
-    height:75px;
-    font-size:30px;
-}
-
-.profile-name{
-    font-size:20px;
-}
-
-.profile-email{
-    font-size:12px;
-}
-
-.profile-stats{
-    gap:8px;
-}
-
-.stat-box{
-    padding:12px;
-}
-
-}
+          
 
  /*=========================================
         CHAPCY CSS PART 3
@@ -510,7 +469,6 @@ body{
     display:flex;
     justify-content:space-between;
     align-items:center;
-
     gap:15px;
 
     margin:20px 0;
@@ -526,8 +484,7 @@ body{
 
     border:1px solid rgba(255,255,255,.12);
 
-    box-shadow:
-        0 0 20px rgba(0,191,255,.18);
+    box-shadow:0 0 20px rgba(0,191,255,.18);
 }
 
 /* LEFT SIDE */
@@ -550,11 +507,7 @@ body{
     font-size:22px;
     color:#fff;
 
-    background:linear-gradient(
-        135deg,
-        #00bfff,
-        #8a2eff
-    );
+    background:linear-gradient(135deg,#00bfff,#8a2eff);
 }
 
 .premium-left h4{
@@ -564,7 +517,7 @@ body{
 }
 
 .premium-left p{
-    color:#c9d2ff;
+    color:#cfd7ff;
     font-size:12px;
 }
 
@@ -577,8 +530,8 @@ body{
 
     cursor:pointer;
 
-    font-weight:700;
     color:#fff;
+    font-weight:700;
 
     background:linear-gradient(
         90deg,
@@ -608,7 +561,6 @@ body{
     padding:15px 18px;
 
     text-decoration:none;
-
     color:#fff;
 
     border-radius:16px;
@@ -642,12 +594,12 @@ body{
     font-size:20px;
 }
 
-/* RIGHT ARROW */
+/* RIGHT */
 .arrow{
     opacity:.7;
 }
 
-/* BADGE */
+/* BADGES */
 .badge{
     min-width:24px;
     height:24px;
@@ -663,23 +615,16 @@ body{
     background:#ff3b30;
 
     color:#fff;
-
     font-size:12px;
     font-weight:bold;
 }
 
-/* VIP BADGE */
 .badge.vip{
-    background:linear-gradient(
-        90deg,
-        gold,
-        orange
-    );
-
+    background:linear-gradient(90deg,gold,orange);
     color:#111;
 }
 
-/* LOGOUT */
+/* LOGOUT BUTTON */
 .logout-btn{
     width:100%;
 
@@ -694,7 +639,6 @@ body{
 
     font-size:16px;
     font-weight:700;
-
     color:#fff;
 
     background:linear-gradient(
@@ -703,8 +647,7 @@ body{
         #ff7b00
     );
 
-    box-shadow:
-        0 0 20px rgba(255,90,90,.35);
+    box-shadow:0 0 20px rgba(255,90,90,.35);
 
     transition:.3s;
 }
@@ -712,8 +655,7 @@ body{
 .logout-btn:hover{
     transform:translateY(-3px);
 
-    box-shadow:
-        0 0 30px rgba(255,90,90,.55);
+    box-shadow:0 0 30px rgba(255,90,90,.55);
 }
 
 /* TABLET */
@@ -789,10 +731,8 @@ body{
     font-size:14px;
 }
 
-}
-
-
-/*=========================================
+          }
+          /*=========================================
         CHAPCY CSS PART 4
           GROUP SLIDER
 =========================================*/
@@ -801,8 +741,8 @@ body{
     width:100%;
     max-width:430px;
     margin:40px auto;
-    overflow:hidden;
     position:relative;
+    overflow:hidden;
 }
 
 .slider-track{
@@ -812,7 +752,7 @@ body{
     scroll-snap-type:x mandatory;
     scroll-behavior:smooth;
     scrollbar-width:none;
-    padding:0 35px;
+    padding:0 30px;
 }
 
 .slider-track::-webkit-scrollbar{
@@ -821,396 +761,67 @@ body{
 
 /* CARD */
 
-..group-card{
-    flex:0 0 80%;
-    max-width:320px;
-    min-height:660px;;
+.group-card{
+    flex:0 0 75%;
+    max-width:300px;
+    min-height:650px;
 
     display:flex;
     flex-direction:column;
     align-items:center;
 
-    padding:25px 18px;
-
-    background:rgba(8,10,35,.88);
+    background:rgba(8,10,35,.90);
     backdrop-filter:blur(18px);
 
     border:2px solid rgba(120,60,255,.45);
     border-radius:30px;
+
+    overflow:hidden;
 
     box-shadow:
         0 0 15px rgba(120,60,255,.35),
         0 0 35px rgba(0,170,255,.25);
 
     scroll-snap-align:center;
-    transition:.35s;
-}
 
-.group-card{
     transform:scale(.88);
-    opacity:.7;
+    opacity:.65;
+
+    transition:.35s;
 }
 
 .group-card.active{
     transform:scale(1);
     opacity:1;
+
     border-color:#b03dff;
+
     box-shadow:
         0 0 25px #b03dff,
         0 0 50px #00bfff;
 }
 
 /* IMAGE */
- .group-card img{
-    width:100%;
-    height:260px;
-    object-fit:cover;
-
-    margin-bottom:20px;
-
-    border-radius:28px 28px 0 0;
-    border:none;
-
-    box-shadow:
-        0 0 18px #00cfff,
-        0 0 40px #8a2eff;
- }
-          
-/* CONTENT */
-
-.group-card h3{
-    font-size:30px;
-    font-weight:700;
-    color:#fff;
-    text-align:center;
-    margin-bottom:12px;
-}
-
-..group-card p{
-    text-align:center;
-    color:#cfd7ff;
-    line-height:1.8;
-    font-size:15px;
-    margin-bottom:30px;
-}
-
- /*=========================
-      CARD BUTTONS
-=========================*/
-
-.card-buttons{
-    display:flex;
-    flex-direction:column;
-    gap:12px;
-    padding:0 20px 22px;
-}
-
-/*=========================
-      CARD BUTTONS
-=========================*/
-
-.card-buttons{
-    display:flex;
-    flex-direction:column;
-    gap:14px;
-    padding:0 22px 24px;
-}
-
-/*=========================
-      JOIN GROUP
-=========================*/
-
-.join-btn{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    width:100%;
-    height:56px;
-
-    text-decoration:none;
-    color:#fff;
-    font-size:17px;
-    font-weight:700;
-
-    border-radius:18px;
-
-    background:linear-gradient(135deg,#00d4ff,#7b2cff,#b400ff);
-
-    border:1px solid rgba(255,255,255,.15);
-
-    box-shadow:
-        0 0 18px rgba(0,212,255,.45),
-        0 0 35px rgba(123,44,255,.35);
-
-    transition:.35s;
-}
-
-.join-btn:hover{
-
-    transform:translateY(-3px);
-
-    box-shadow:
-        0 0 22px #00d4ff,
-        0 0 45px #8a2eff;
-
-}
-
-/*=========================
-    PAYMENT METHOD
-=========================*/
-
-.payment-btn{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    width:100%;
-    height:56px;
-
-    text-decoration:none;
-    color:#fff;
-    font-size:17px;
-    font-weight:700;
-
-    border-radius:18px;
-
-    background:rgba(255,255,255,.05);
-
-    border:2px solid #8a2eff;
-
-    backdrop-filter:blur(12px);
-
-    box-shadow:
-        inset 0 0 12px rgba(138,46,255,.25),
-        0 0 18px rgba(138,46,255,.35);
-
-    transition:.35s;
-}
-
-.payment-btn:hover{
-
-    background:linear-gradient(135deg,#8a2eff,#00cfff);
-
-    border-color:#00cfff;
-
-    box-shadow:
-        0 0 25px #8a2eff,
-        0 0 45px #00cfff;
-
-    transform:translateY(-3px);
-
-}
-
-@keyframes paymentGlow{
-
-    0%{
-        box-shadow:0 0 12px #FFD700;
-    }
-
-    50%{
-        box-shadow:
-            0 0 25px #FFD700,
-            0 0 50px #FF9800;
-    }
-
-    100%{
-        box-shadow:0 0 12px #FFD700;
-    }
-
-}
-
-/* FOOTBALL */
-
-.football{
-background:transparent;
-}
-
-/* EFOOTBALL */
-
-.efootball{
-background:transparent;
-}
-
-/* SPORTS */
-
-.sports{
-background:transparent;
-}
-
-/* NEWS */
-
-.news{
-   background:transparent;
-}
-
-/* BETTING */
-
-.betting{
-   background:transparent;
-}
-
-/* GAMING */
-
-.gaming{
-   background:transparent;
-}
-
-/* MUSIC */
-
-.music{
-   background:transparent;
-}
-
-/* FOOD */
-
-.food{
-bbackground:transparent;
-}
-
-/* EDUCATION */
-
-.education{
-   background:transparent;
-}
-
-/* ART */
-
-.art{
-   background:transparent;
-}
-
-/* BUSINESS */
-
-.business{
-   background:transparent;
-}
-
-/* TV */
-
-.tv{
-   background:transparent;
-}
-
-/*=========================
-      BUTTONS
-=========================*/
-
-.slider-btn{
-
-    position:absolute;
-
-    top:50%;
-
-    transform:translateY(-50%);
-
-    width:45px;
-    height:45px;
-
-    border:none;
-    border-radius:50%;
-
-    cursor:pointer;
-
-    color:#fff;
-
-    font-size:18px;
-
-    background:rgba(255,255,255,.18);
-
-    backdrop-filter:blur(12px);
-
-    z-index:20;
-
-    transition:.3s;
-
-}
-
-.slider-btn:hover{
-
-    background:#fff;
-
-    color:#111;
-
-}
-
-.prev{
-    left:8px;
-}
-
-.next{
-    right:8px;
-}
-
-/*=========================
-      DOTS
-=========================*/
-
-.slider-dots{
-
-    display:flex;
-
-    justify-content:center;
-
-    gap:8px;
-
-    margin-top:20px;
-
-}
-
-.dot{
-
-    width:10px;
-    height:10px;
-
-    border-radius:50%;
-
-    background:#777;
-
-    transition:.3s;
-
-}
-
-.dot.active{
-
-    width:28px;
-
-    border-radius:20px;
-
-    background:#fff;
-
-}
-
-/*=========================
-      MOBILE
-=========================*/
-
-@media(max-width:600px){
-
-.group-slider{
-    width:94%;
-}
 
 .group-card img{
     width:100%;
-    height:270px;
+    height:260px;
+    object-fit:cover;
 }
 
+/* CONTENT */
+
 .group-card h3{
-    font-size:22px;
+    margin-top:20px;
+    font-size:26px;
+    color:#fff;
+    text-align:center;
 }
 
 .group-card p{
-    font-size:14px;
-}
-
-.join-btn{
-    padding:13px;
-}
-
-.slider-btn{
-    width:40px;
-    height:40px;
-}
-
+    padding:15px 20px;
+    text-align:center;
+    color:#cfd7ff;
+    line-height:1.7;
+    font-size:15px;
 }
