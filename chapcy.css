@@ -783,7 +783,7 @@ body{
 
 .group-slider{
     width:100%;
-    max-width:430px;
+    max-width:100%;
     margin:45px auto;
     position:relative;
     overflow:visible;
