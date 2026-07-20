@@ -1059,3 +1059,386 @@ body{
 }
 
 }
+/*=========================================
+        CHAPCY REPUTATION SIDEBAR
+=========================================*/
+
+/* MENU BUTTON */
+
+.menu-btn{
+
+    position:fixed;
+    top:20px;
+    left:20px;
+
+    width:55px;
+    height:55px;
+
+    border:none;
+    border-radius:50%;
+
+    cursor:pointer;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-size:22px;
+    color:#fff;
+
+    background:linear-gradient(
+        135deg,
+        #00cfff,
+        #8a2eff
+    );
+
+    box-shadow:
+        0 0 20px #00cfff,
+        0 0 35px #8a2eff;
+
+    z-index:3000;
+}
+
+/* OVERLAY */
+
+.sidebar-overlay{
+
+    position:fixed;
+    inset:0;
+
+    background:rgba(0,0,0,.55);
+
+    opacity:0;
+    visibility:hidden;
+
+    transition:.35s;
+
+    z-index:2998;
+
+}
+
+.sidebar-overlay.active{
+
+    opacity:1;
+    visibility:visible;
+
+}
+
+/* SIDEBAR */
+
+.sidebar{
+
+    position:fixed;
+
+    top:0;
+    left:-330px;
+
+    width:320px;
+    max-width:90%;
+
+    height:100vh;
+
+    overflow-y:auto;
+
+    background:linear-gradient(
+        180deg,
+        rgba(10,15,45,.98),
+        rgba(25,15,70,.98)
+    );
+
+    backdrop-filter:blur(25px);
+
+    border-right:2px solid rgba(138,46,255,.35);
+
+    transition:.45s ease;
+
+    z-index:2999;
+
+    box-shadow:
+        0 0 35px rgba(0,191,255,.18);
+
+}
+
+.sidebar.active{
+
+    left:0;
+
+}
+
+/* HEADER */
+
+.sidebar-header{
+
+    text-align:center;
+
+    padding:28px 20px;
+
+}
+
+.sidebar-logo{
+
+    width:85px;
+
+    filter:
+    drop-shadow(0 0 18px #00cfff)
+    drop-shadow(0 0 30px #8a2eff);
+
+}
+
+.sidebar-header h2{
+
+    margin-top:12px;
+
+    font-size:30px;
+
+    color:#fff;
+
+}
+
+.sidebar-header p{
+
+    color:#9fd7ff;
+
+    margin-top:6px;
+
+}
+
+/* USER */
+
+.user-box{
+
+    margin:18px;
+
+    padding:20px;
+
+    border-radius:22px;
+
+    text-align:center;
+
+    background:rgba(255,255,255,.05);
+
+}
+
+.user-avatar{
+
+    width:90px;
+    height:90px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    border:3px solid #8a2eff;
+
+}
+
+.online{
+
+    display:inline-block;
+
+    margin-top:8px;
+
+    color:#38ff95;
+
+}
+
+/* LEVEL */
+
+.level{
+
+    margin-top:18px;
+
+}
+
+.level-top{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-bottom:8px;
+
+    font-size:13px;
+
+}
+
+.level-bar{
+
+    height:10px;
+
+    background:#222;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+}
+
+.level-fill{
+
+    width:72%;
+
+    height:100%;
+
+    border-radius:20px;
+
+    background:linear-gradient(
+        90deg,
+        #00cfff,
+        #b03dff
+    );
+
+}
+
+/* REPUTATION */
+
+.reputation-box{
+
+    margin:20px;
+
+    padding:20px;
+
+    text-align:center;
+
+    border-radius:22px;
+
+    background:linear-gradient(
+        135deg,
+        rgba(0,191,255,.15),
+        rgba(138,46,255,.18)
+    );
+
+}
+
+.reputation-box h3{
+
+    color:#fff;
+
+}
+
+.reputation-box h1{
+
+    margin:10px 0;
+
+    font-size:34px;
+
+    color:#00cfff;
+
+}
+
+.reputation-box p{
+
+    color:#d6deff;
+
+}
+
+/* MENU */
+
+.sidebar nav{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
+    padding:0 15px 20px;
+
+}
+
+.sidebar nav a{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    padding:15px 18px;
+
+    text-decoration:none;
+
+    color:#fff;
+
+    border-radius:18px;
+
+    background:rgba(255,255,255,.05);
+
+    transition:.3s;
+
+}
+
+.sidebar nav a:hover{
+
+    background:linear-gradient(
+        135deg,
+        rgba(0,191,255,.22),
+        rgba(138,46,255,.25)
+    );
+
+    transform:translateX(6px);
+
+}
+
+.sidebar nav i{
+
+    width:22px;
+
+    color:#00cfff;
+
+}
+
+/* LOGOUT */
+
+.logout{
+
+    width:calc(100% - 30px);
+
+    margin:15px;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:18px;
+
+    cursor:pointer;
+
+    color:#fff;
+
+    font-size:16px;
+    font-weight:700;
+
+    background:linear-gradient(
+        135deg,
+        #ff4b5c,
+        #ff7b00
+    );
+
+}
+
+.logout:hover{
+
+    box-shadow:
+        0 0 20px #ff4b5c;
+
+}
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+.sidebar{
+
+    width:290px;
+
+}
+
+.menu-btn{
+
+    width:50px;
+    height:50px;
+
+}
+
+}
