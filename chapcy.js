@@ -481,3 +481,71 @@ track.addEventListener("mouseleave",()=>{
 updateSlider();
 
           }
+/*=========================================
+     CHAPCY SIDEBAR
+=========================================*/
+
+const menuBtn = document.getElementById("menuBtn");
+const sidebar = document.getElementById("sidebar");
+const overlay = document.getElementById("overlay");
+
+/* OPEN */
+function openSidebar() {
+    sidebar.classList.add("active");
+    overlay.classList.add("active");
+}
+
+/* CLOSE */
+function closeSidebar() {
+    sidebar.classList.remove("active");
+    overlay.classList.remove("active");
+}
+
+/* BUTTON */
+if (menuBtn) {
+    menuBtn.addEventListener("click", openSidebar);
+}
+
+/* OVERLAY */
+if (overlay) {
+    overlay.addEventListener("click", closeSidebar);
+}
+
+/* ESC */
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+        closeSidebar();
+    }
+});
+
+/*=============================
+      SWIPE OPEN / CLOSE
+=============================*/
+
+let startX = 0;
+let endX = 0;
+
+/* Touch Start */
+document.addEventListener("touchstart", (e) => {
+    startX = e.touches[0].clientX;
+});
+
+/* Touch End */
+document.addEventListener("touchend", (e) => {
+
+    endX = e.changedTouches[0].clientX;
+
+    /* Swipe kutoka kushoto kwenda kulia */
+    if (startX < 30 && endX - startX > 80) {
+        openSidebar();
+    }
+
+    /* Swipe kufunga */
+    if (sidebar.classList.contains("active") &&
+        startX > 180 &&
+        startX - endX > 80) {
+        closeSidebar();
+    }
+
+});
+
