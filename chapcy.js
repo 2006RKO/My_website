@@ -5,10 +5,10 @@
 
 "use strict";
 
+/* BUBBLE CONTAINER */
 const bubbleContainer = document.querySelector(".bubble");
 
 /* CREATE BUBBLE */
-
 function createBubble(fromTop = true){
 
     if(!bubbleContainer) return;
@@ -17,14 +17,18 @@ function createBubble(fromTop = true){
 
     bubble.src = "file_00000000a59871f4b637e576e04f574d.png";
 
+    /* RANDOM POSITION */
     bubble.style.left = Math.random() * 100 + "%";
 
+    /* RANDOM SIZE */
     const size = Math.random() * 35 + 35;
     bubble.style.width = size + "px";
 
+    /* RANDOM SPEED */
     const duration = Math.random() * 4 + 8;
     bubble.style.animationDuration = duration + "s";
 
+    /* DIRECTION */
     if(fromTop){
 
         bubble.classList.add("top-bubble");
@@ -35,14 +39,11 @@ function createBubble(fromTop = true){
 
     }
 
-    /* POP */
-
+    /* POP EFFECT */
     bubble.addEventListener("pointerdown",()=>{
 
-        bubble.style.transition=".25s";
-
+        bubble.style.transition="0.25s ease";
         bubble.style.transform+=" scale(1.6)";
-
         bubble.style.opacity="0";
 
         setTimeout(()=>{
@@ -53,6 +54,7 @@ function createBubble(fromTop = true){
 
     });
 
+    /* REMOVE AFTER ANIMATION */
     bubble.addEventListener("animationend",()=>{
 
         bubble.remove();
@@ -63,8 +65,7 @@ function createBubble(fromTop = true){
 
 }
 
-/* LOOP */
-
+/* CREATE LOOP */
 function bubbleLoop(){
 
     createBubble(true);
@@ -77,18 +78,30 @@ function bubbleLoop(){
 
 }
 
+/* START */
 bubbleLoop();
 
+/* REPEAT EVERY 10 SECONDS */
 setInterval(bubbleLoop,10000);
 /*=========================================
           CHAPCY JS PART 2
             USER PROFILE
 =========================================*/
 
+/* GET ELEMENTS */
+
 const profileBtn = document.querySelector(".profile-btn");
 const profileMenu = document.getElementById("profileMenu");
 
 /* OPEN / CLOSE PROFILE */
+
+function toggleProfile(){
+
+    if(!profileMenu) return;
+
+    profileMenu.classList.toggle("show");
+
+}
 
 if(profileBtn && profileMenu){
 
@@ -96,26 +109,42 @@ if(profileBtn && profileMenu){
 
         e.stopPropagation();
 
-        profileMenu.classList.toggle("show");
-
-    });
-
-    document.addEventListener("click",(e)=>{
-
-        if(
-            !profileMenu.contains(e.target) &&
-            !profileBtn.contains(e.target)
-        ){
-
-            profileMenu.classList.remove("show");
-
-        }
+        toggleProfile();
 
     });
 
 }
 
-/* USER DATA */
+/* CLOSE WHEN CLICK OUTSIDE */
+
+document.addEventListener("click",(e)=>{
+
+    if(
+        profileMenu &&
+        profileBtn &&
+        !profileMenu.contains(e.target) &&
+        !profileBtn.contains(e.target)
+    ){
+
+        profileMenu.classList.remove("show");
+
+    }
+
+});
+
+/* ESC KEY CLOSE */
+
+document.addEventListener("keydown",(e)=>{
+
+    if(e.key==="Escape"){
+
+        profileMenu.classList.remove("show");
+
+    }
+
+});
+
+/* USER STATS */
 
 const stats={
 
@@ -128,19 +157,21 @@ const stats={
 
 };
 
-/* UPDATE STATS */
+/* UPDATE VALUE */
 
 function setValue(id,value){
 
-    const el=document.getElementById(id);
+    const element=document.getElementById(id);
 
-    if(el){
+    if(element){
 
-        el.textContent=value;
+        element.textContent=value;
 
     }
 
 }
+
+/* UPDATE ALL */
 
 function updateProfileStats(){
 
@@ -155,31 +186,41 @@ function updateProfileStats(){
 
 updateProfileStats();
 
-/* USER NAME */
+/* USER INFO */
 
-const nameBox=document.querySelector(".profile-name");
-const emailBox=document.querySelector(".profile-email");
-const status=document.querySelector(".status");
+const profileName=document.querySelector(".profile-name");
+const profileEmail=document.querySelector(".profile-email");
+const profileStatus=document.querySelector(".status");
 
-if(nameBox){
+if(profileName){
 
-    nameBox.textContent=
+    profileName.textContent=
     localStorage.getItem("chapcy_name") || "Guest";
 
 }
 
-if(emailBox){
+if(profileEmail){
 
-    emailBox.textContent=
+    profileEmail.textContent=
     localStorage.getItem("chapcy_email") || "guest@chapcy.com";
 
 }
 
-if(status){
+if(profileStatus){
 
-    status.textContent="🟢 Online";
+    profileStatus.textContent="🟢 Online";
 
-                }
+}
+
+/* SAVE USER */
+
+function saveUser(name,email){
+
+    localStorage.setItem("chapcy_name",name);
+
+    localStorage.setItem("chapcy_email",email);
+
+}
 /*=========================================
           CHAPCY JS PART 3
      AVATAR • LOGOUT • PREMIUM
@@ -192,10 +233,12 @@ const avatarInput = document.getElementById("avatarInput");
 
 if (avatar && avatarInput) {
 
+    /* CLICK AVATAR */
     avatar.addEventListener("click", () => {
         avatarInput.click();
     });
 
+    /* CHANGE PHOTO */
     avatarInput.addEventListener("change", (e) => {
 
         const file = e.target.files[0];
@@ -204,7 +247,7 @@ if (avatar && avatarInput) {
 
         const reader = new FileReader();
 
-        reader.onload = function () {
+        reader.onload = () => {
 
             avatar.innerHTML =
             `<img src="${reader.result}" class="avatar-image">`;
@@ -220,6 +263,7 @@ if (avatar && avatarInput) {
 
     });
 
+    /* LOAD SAVED PHOTO */
     const savedAvatar =
     localStorage.getItem("chapcy_avatar");
 
@@ -232,30 +276,7 @@ if (avatar && avatarInput) {
 
 }
 
-/* LOGOUT */
-
-const logoutBtn =
-document.querySelector(".logout-btn");
-
-if (logoutBtn) {
-
-    logoutBtn.addEventListener("click", () => {
-
-        if (confirm("Logout from CHAPCY?")) {
-
-            localStorage.removeItem("chapcy_name");
-            localStorage.removeItem("chapcy_email");
-            localStorage.removeItem("chapcy_avatar");
-
-            location.reload();
-
-        }
-
-    });
-
-}
-
-/* PREMIUM */
+/* PREMIUM BUTTON */
 
 const premiumBtn =
 document.querySelector(".premium-btn");
@@ -282,34 +303,58 @@ if (rewardBtn) {
         const today =
         new Date().toDateString();
 
-        const reward =
+        const lastReward =
         localStorage.getItem("reward");
 
-        if (reward === today) {
+        if (lastReward === today) {
 
             alert("🎁 Reward already claimed today.");
 
-        } else {
-
-            localStorage.setItem("reward", today);
-
-            alert("🎉 Reward Claimed Successfully!");
+            return;
 
         }
+
+        localStorage.setItem("reward", today);
+
+        alert("🎉 Reward Claimed Successfully!");
 
     });
 
 }
+
+/* LOGOUT */
+
+const logoutBtn =
+document.querySelector(".logout-btn");
+
+if (logoutBtn) {
+
+    logoutBtn.addEventListener("click", () => {
+
+        const confirmLogout =
+        confirm("Logout from CHAPCY?");
+
+        if (!confirmLogout) return;
+
+        localStorage.removeItem("chapcy_name");
+        localStorage.removeItem("chapcy_email");
+        localStorage.removeItem("chapcy_avatar");
+        localStorage.removeItem("reward");
+
+        location.reload();
+
+    });
+
+             }
 /*=========================================
           CHAPCY JS PART 4
-          COVERFLOW SLIDER
+          GROUP SLIDER
 =========================================*/
 
 const track = document.querySelector(".slider-track");
 const cards = document.querySelectorAll(".group-card");
-const prev = document.querySelector(".prev");
-const next = document.querySelector(".next");
-const dots = document.querySelectorAll(".dot");
+const prevBtn = document.querySelector(".prev");
+const nextBtn = document.querySelector(".next");
 
 if (track && cards.length > 0) {
 
@@ -325,113 +370,58 @@ if (track && cards.length > 0) {
 
                 card.classList.add("active");
 
-                card.style.transform = "scale(1)";
-                card.style.opacity = "1";
-                card.style.zIndex = "10";
-
-            } else if (
-                index === current - 1 ||
-                (current === 0 && index === cards.length - 1)
-            ) {
-
-                card.style.transform =
-                    "translateX(-35px) scale(.85)";
-
-                card.style.opacity = ".6";
-                card.style.zIndex = "5";
-
-            } else if (
-                index === current + 1 ||
-                (current === cards.length - 1 && index === 0)
-            ) {
-
-                card.style.transform =
-                    "translateX(35px) scale(.85)";
-
-                card.style.opacity = ".6";
-                card.style.zIndex = "5";
-
-            } else {
-
-                card.style.transform = "scale(.7)";
-                card.style.opacity = "0";
-                card.style.zIndex = "1";
-
             }
 
         });
 
-        dots.forEach(dot => dot.classList.remove("active"));
+        const gap = 18;
+        const cardWidth = cards[0].offsetWidth + gap;
 
-        if (dots[current]) {
-            dots[current].classList.add("active");
-        }
+        track.scrollTo({
 
-        cards[current].scrollIntoView({
-            behavior: "smooth",
-            inline: "center",
-            block: "nearest"
+            left: current * cardWidth,
+
+            behavior: "smooth"
+
         });
 
     }
 
     /* NEXT */
 
-    if (next) {
+    nextBtn?.addEventListener("click", () => {
 
-        next.addEventListener("click", () => {
+        current++;
 
-            current++;
+        if (current >= cards.length) {
 
-            if (current >= cards.length) {
+            current = 0;
 
-                current = 0;
+        }
 
-            }
+        updateSlider();
 
-            updateSlider();
-
-        });
-
-    }
+    });
 
     /* PREVIOUS */
 
-    if (prev) {
+    prevBtn?.addEventListener("click", () => {
 
-        prev.addEventListener("click", () => {
+        current--;
 
-            current--;
+        if (current < 0) {
 
-            if (current < 0) {
+            current = cards.length - 1;
 
-                current = cards.length - 1;
+        }
 
-            }
-
-            updateSlider();
-
-        });
-
-    }
-
-    /* DOTS */
-
-    dots.forEach((dot, index) => {
-
-        dot.addEventListener("click", () => {
-
-            current = index;
-
-            updateSlider();
-
-        });
+        updateSlider();
 
     });
 
     /* AUTO SLIDE */
 
-    let auto = setInterval(() => {
+    let autoSlide = setInterval(() => {
 
         current++;
 
@@ -445,17 +435,17 @@ if (track && cards.length > 0) {
 
     }, 4000);
 
-    /* PAUSE */
+    /* PAUSE AUTO */
 
     track.addEventListener("mouseenter", () => {
 
-        clearInterval(auto);
+        clearInterval(autoSlide);
 
     });
 
     track.addEventListener("mouseleave", () => {
 
-        auto = setInterval(() => {
+        autoSlide = setInterval(() => {
 
             current++;
 
@@ -471,23 +461,29 @@ if (track && cards.length > 0) {
 
     });
 
-    /* SWIPE */
+    /* TOUCH SWIPE */
 
     let startX = 0;
 
-    track.addEventListener("touchstart", e => {
+    track.addEventListener("touchstart", (e) => {
 
         startX = e.touches[0].clientX;
 
     });
 
-    track.addEventListener("touchend", e => {
+    track.addEventListener("touchend", (e) => {
 
         const endX = e.changedTouches[0].clientX;
 
         if (startX - endX > 50) {
 
-            current = (current + 1) % cards.length;
+            current++;
+
+            if (current >= cards.length) {
+
+                current = 0;
+
+            }
 
             updateSlider();
 
@@ -495,13 +491,41 @@ if (track && cards.length > 0) {
 
         if (endX - startX > 50) {
 
-            current = (current - 1 + cards.length) % cards.length;
+            current--;
+
+            if (current < 0) {
+
+                current = cards.length - 1;
+
+            }
 
             updateSlider();
 
         }
 
     });
+
+    /* ACTIVE CARD WHEN SCROLL */
+
+    track.addEventListener("scroll", () => {
+
+        const cardWidth = cards[0].offsetWidth + 18;
+
+        const index = Math.round(track.scrollLeft / cardWidth);
+
+        if (index !== current && index >= 0 && index < cards.length) {
+
+            current = index;
+
+            cards.forEach(card => card.classList.remove("active"));
+
+            cards[current].classList.add("active");
+
+        }
+
+    });
+
+    /* START */
 
     updateSlider();
 
