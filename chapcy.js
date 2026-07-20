@@ -348,11 +348,11 @@ if (logoutBtn) {
              }
 /*=========================================
           CHAPCY JS PART 4
-        COVERFLOW GROUP SLIDER
+        GROUP COVERFLOW
 =========================================*/
 
 const track = document.querySelector(".slider-track");
-const cards = [...document.querySelectorAll(".group-card")];
+const cards = document.querySelectorAll(".group-card");
 const prevBtn = document.querySelector(".prev");
 const nextBtn = document.querySelector(".next");
 
@@ -362,69 +362,25 @@ let current = 0;
 
 function updateSlider(){
 
-    cards.forEach((card,index)=>{
+    cards.forEach(card=>card.classList.remove("active"));
 
-        const offset = index - current;
-
-        card.classList.remove("active");
-
-        if(offset === 0){
-
-            card.classList.add("active");
-
-            card.style.transform =
-            "translateX(0) scale(1)";
-            card.style.opacity = "1";
-            card.style.zIndex = "10";
-
-        }
-
-        else if(offset === -1){
-
-            card.style.transform =
-            "translateX(-35px) scale(.88)";
-            card.style.opacity = ".75";
-            card.style.zIndex = "8";
-
-        }
-
-        else if(offset === 1){
-
-            card.style.transform =
-            "translateX(35px) scale(.88)";
-            card.style.opacity = ".75";
-            card.style.zIndex = "8";
-
-        }
-
-        else{
-
-            card.style.transform =
-            "scale(.75)";
-            card.style.opacity = ".25";
-            card.style.zIndex = "1";
-
-        }
-
-    });
+    cards[current].classList.add("active");
 
     cards[current].scrollIntoView({
-
         behavior:"smooth",
         inline:"center",
         block:"nearest"
-
     });
 
 }
 
-function next(){
+function nextSlide(){
 
     current++;
 
-    if(current >= cards.length){
+    if(current>=cards.length){
 
-        current = 0;
+        current=0;
 
     }
 
@@ -432,13 +388,13 @@ function next(){
 
 }
 
-function prev(){
+function prevSlide(){
 
     current--;
 
-    if(current < 0){
+    if(current<0){
 
-        current = cards.length - 1;
+        current=cards.length-1;
 
     }
 
@@ -446,12 +402,25 @@ function prev(){
 
 }
 
-nextBtn?.addEventListener("click",next);
-prevBtn?.addEventListener("click",prev);
+/* BUTTONS */
 
-/* AUTO */
+nextBtn.addEventListener("click",()=>{
 
-let auto = setInterval(next,4000);
+    nextSlide();
+
+});
+
+prevBtn.addEventListener("click",()=>{
+
+    prevSlide();
+
+});
+
+/* AUTO SLIDE */
+
+let auto=setInterval(nextSlide,3500);
+
+/* STOP AUTO WHEN TOUCH */
 
 track.addEventListener("touchstart",()=>{
 
@@ -461,37 +430,54 @@ track.addEventListener("touchstart",()=>{
 
 track.addEventListener("touchend",()=>{
 
-    auto = setInterval(next,4000);
+    auto=setInterval(nextSlide,3500);
 
 });
 
-let startX = 0;
+/* SWIPE */
 
-track.addEventListener("touchstart",e=>{
+let startX=0;
 
-    startX = e.touches[0].clientX;
+track.addEventListener("touchstart",(e)=>{
+
+    startX=e.touches[0].clientX;
 
 });
 
-track.addEventListener("touchend",e=>{
+track.addEventListener("touchend",(e)=>{
 
-    const endX = e.changedTouches[0].clientX;
+    let endX=e.changedTouches[0].clientX;
 
     if(startX-endX>50){
 
-        next();
+        nextSlide();
 
     }
 
     if(endX-startX>50){
 
-        prev();
+        prevSlide();
 
     }
 
 });
 
+/* MOUSE */
+
+track.addEventListener("mouseenter",()=>{
+
+    clearInterval(auto);
+
+});
+
+track.addEventListener("mouseleave",()=>{
+
+    auto=setInterval(nextSlide,3500);
+
+});
+
+/* START */
+
 updateSlider();
 
-}
-}
+          }
