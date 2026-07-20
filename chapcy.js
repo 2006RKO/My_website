@@ -348,185 +348,150 @@ if (logoutBtn) {
              }
 /*=========================================
           CHAPCY JS PART 4
-          GROUP SLIDER
+        COVERFLOW GROUP SLIDER
 =========================================*/
 
 const track = document.querySelector(".slider-track");
-const cards = document.querySelectorAll(".group-card");
+const cards = [...document.querySelectorAll(".group-card")];
 const prevBtn = document.querySelector(".prev");
 const nextBtn = document.querySelector(".next");
 
-if (track && cards.length > 0) {
+if(track && cards.length){
 
-    let current = 0;
+let current = 0;
 
-    function updateSlider() {
+function updateSlider(){
 
-        cards.forEach((card, index) => {
+    cards.forEach((card,index)=>{
 
-            card.classList.remove("active");
+        const offset = index - current;
 
-            if (index === current) {
+        card.classList.remove("active");
 
-                card.classList.add("active");
+        if(offset === 0){
 
-            }
+            card.classList.add("active");
 
-        });
+            card.style.transform =
+            "translateX(0) scale(1)";
+            card.style.opacity = "1";
+            card.style.zIndex = "10";
 
-        const gap = 18;
-        const cardWidth = cards[0].offsetWidth + gap;
+        }
 
-        track.scrollTo({
+        else if(offset === -1){
 
-            left: current * cardWidth,
+            card.style.transform =
+            "translateX(-35px) scale(.88)";
+            card.style.opacity = ".75";
+            card.style.zIndex = "8";
 
-            behavior: "smooth"
+        }
 
-        });
+        else if(offset === 1){
+
+            card.style.transform =
+            "translateX(35px) scale(.88)";
+            card.style.opacity = ".75";
+            card.style.zIndex = "8";
+
+        }
+
+        else{
+
+            card.style.transform =
+            "scale(.75)";
+            card.style.opacity = ".25";
+            card.style.zIndex = "1";
+
+        }
+
+    });
+
+    cards[current].scrollIntoView({
+
+        behavior:"smooth",
+        inline:"center",
+        block:"nearest"
+
+    });
+
+}
+
+function next(){
+
+    current++;
+
+    if(current >= cards.length){
+
+        current = 0;
 
     }
 
-    /* NEXT */
+    updateSlider();
 
-    nextBtn?.addEventListener("click", () => {
+}
 
-        current++;
+function prev(){
 
-        if (current >= cards.length) {
+    current--;
 
-            current = 0;
+    if(current < 0){
 
-        }
+        current = cards.length - 1;
 
-        updateSlider();
-
-    });
-
-    /* PREVIOUS */
-
-    prevBtn?.addEventListener("click", () => {
-
-        current--;
-
-        if (current < 0) {
-
-            current = cards.length - 1;
-
-        }
-
-        updateSlider();
-
-    });
-
-    /* AUTO SLIDE */
-
-    let autoSlide = setInterval(() => {
-
-        current++;
-
-        if (current >= cards.length) {
-
-            current = 0;
-
-        }
-
-        updateSlider();
-
-    }, 4000);
-
-    /* PAUSE AUTO */
-
-    track.addEventListener("mouseenter", () => {
-
-        clearInterval(autoSlide);
-
-    });
-
-    track.addEventListener("mouseleave", () => {
-
-        autoSlide = setInterval(() => {
-
-            current++;
-
-            if (current >= cards.length) {
-
-                current = 0;
-
-            }
-
-            updateSlider();
-
-        }, 4000);
-
-    });
-
-    /* TOUCH SWIPE */
-
-    let startX = 0;
-
-    track.addEventListener("touchstart", (e) => {
-
-        startX = e.touches[0].clientX;
-
-    });
-
-    track.addEventListener("touchend", (e) => {
-
-        const endX = e.changedTouches[0].clientX;
-
-        if (startX - endX > 50) {
-
-            current++;
-
-            if (current >= cards.length) {
-
-                current = 0;
-
-            }
-
-            updateSlider();
-
-        }
-
-        if (endX - startX > 50) {
-
-            current--;
-
-            if (current < 0) {
-
-                current = cards.length - 1;
-
-            }
-
-            updateSlider();
-
-        }
-
-    });
-
-    /* ACTIVE CARD WHEN SCROLL */
-
-    track.addEventListener("scroll", () => {
-
-        const cardWidth = cards[0].offsetWidth + 18;
-
-        const index = Math.round(track.scrollLeft / cardWidth);
-
-        if (index !== current && index >= 0 && index < cards.length) {
-
-            current = index;
-
-            cards.forEach(card => card.classList.remove("active"));
-
-            cards[current].classList.add("active");
-
-        }
-
-    });
-
-    /* START */
+    }
 
     updateSlider();
 
+}
+
+nextBtn?.addEventListener("click",next);
+prevBtn?.addEventListener("click",prev);
+
+/* AUTO */
+
+let auto = setInterval(next,4000);
+
+track.addEventListener("touchstart",()=>{
+
+    clearInterval(auto);
+
+});
+
+track.addEventListener("touchend",()=>{
+
+    auto = setInterval(next,4000);
+
+});
+
+let startX = 0;
+
+track.addEventListener("touchstart",e=>{
+
+    startX = e.touches[0].clientX;
+
+});
+
+track.addEventListener("touchend",e=>{
+
+    const endX = e.changedTouches[0].clientX;
+
+    if(startX-endX>50){
+
+        next();
+
+    }
+
+    if(endX-startX>50){
+
+        prev();
+
+    }
+
+});
+
+updateSlider();
+
+}
 }
