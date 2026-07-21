@@ -562,3 +562,67 @@ storyInput.addEventListener("change", () => {
 
 });
 
+/*=========================================
+        CHAPCY REWARD SYSTEM
+=========================================*/
+
+const xpReward = document.getElementById("xpReward");
+const xpText = document.getElementById("xpText");
+
+function showXP(points){
+
+    xpText.innerHTML = "+" + points + " XP";
+
+    xpReward.classList.add("show");
+
+    setTimeout(()=>{
+
+        xpReward.classList.remove("show");
+
+    },3000);
+
+}
+
+/* Daily Login */
+
+window.addEventListener("load",()=>{
+
+    setTimeout(()=>{
+
+        showXP(15);
+
+    },1000);
+
+});
+
+/* Floating Likes */
+
+function floatingLike(){
+
+    const like=document.createElement("div");
+
+    like.className="like-float";
+
+    like.innerHTML="❤️";
+
+    like.style.left=Math.random()*window.innerWidth+"px";
+
+    like.style.top=(window.innerHeight-120)+"px";
+
+    document.body.appendChild(like);
+
+    setTimeout(()=>{
+
+        like.remove();
+
+    },2500);
+
+}
+
+/* Demo */
+
+setInterval(()=>{
+
+    floatingLike();
+
+},4000);
