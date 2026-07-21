@@ -2098,3 +2098,98 @@ font-size:13px;
 }
 
 }
+/*=========================================
+        CHAPCY REWARD SYSTEM
+=========================================*/
+
+.xp-reward{
+
+    position:fixed;
+    top:30px;
+    left:50%;
+
+    transform:translateX(-50%) translateY(-120px);
+
+    z-index:99999;
+
+    transition:.8s;
+
+    opacity:0;
+
+}
+
+.xp-reward.show{
+
+    transform:translateX(-50%) translateY(0);
+
+    opacity:1;
+
+}
+
+.xp-box{
+
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    padding:16px 28px;
+
+    border-radius:40px;
+
+    color:#fff;
+
+    font-weight:700;
+
+    background:linear-gradient(
+        135deg,
+        #00cfff,
+        #8a2eff,
+        #ff2bd6
+    );
+
+    box-shadow:
+    0 0 25px #00cfff,
+    0 0 50px #8a2eff;
+
+}
+
+.xp-box i{
+
+    color:gold;
+    font-size:22px;
+
+}
+
+.like-float{
+
+    position:fixed;
+
+    font-size:28px;
+
+    animation:likeFly 2.5s linear forwards;
+
+    pointer-events:none;
+
+    z-index:9999;
+
+}
+
+@keyframes likeFly{
+
+0%{
+
+opacity:1;
+
+transform:translateY(0) scale(.5);
+
+}
+
+100%{
+
+opacity:0;
+
+transform:translateY(-250px) scale(1.8);
+
+}
+
+}
