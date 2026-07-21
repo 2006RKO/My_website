@@ -635,6 +635,9 @@ const notificationPanel = document.getElementById("notificationPanel");
 const notificationList = document.getElementById("notificationList");
 
 
+if(notificationBtn && notificationPanel && notificationList){
+
+
 notificationBtn.addEventListener("click", function(e){
 
     e.stopPropagation();
@@ -644,7 +647,7 @@ notificationBtn.addEventListener("click", function(e){
 });
 
 
-// Notifications data
+// Notifications
 
 const notifications = [
 
@@ -669,38 +672,52 @@ text:"You earned +15 XP"
 ];
 
 
-// Add notifications
 
 notifications.forEach(item=>{
 
-    const div = document.createElement("div");
 
-    div.className="notification-item";
+const div=document.createElement("div");
 
-    div.innerHTML=`
+div.className="notification-item";
 
-    <i class="fa-solid ${item.icon}"></i>
 
-    <div>
-        <h4>${item.title}</h4>
-        <p>${item.text}</p>
-    </div>
+div.innerHTML=`
 
-    `;
+<i class="fa-solid ${item.icon}"></i>
 
-    notificationList.appendChild(div);
+<div>
+
+<h4>${item.title}</h4>
+
+<p>${item.text}</p>
+
+</div>
+
+`;
+
+
+notificationList.appendChild(div);
+
+
+});
+
+
+
+// CLOSE OUTSIDE
+
+document.addEventListener("click",(e)=>{
+
+
+if(!e.target.closest(".notification-box")){
+
+
+notificationPanel.classList.remove("show");
+
+
+}
+
 
 });
 
 
-// Close when clicking outside
-
-document.addEventListener("click",function(e){
-
-    if(!e.target.closest(".notification-box")){
-
-        notificationPanel.classList.remove("show");
-
-    }
-
-});
+}
