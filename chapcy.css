@@ -1686,3 +1686,306 @@ body{
 }
 
 }
+/*=========================================
+        CHAPCY CSS PART 6
+      ULTRA SEARCH BAR
+=========================================*/
+
+.search-section{
+
+    width:min(95%,900px);
+
+    margin:10px auto 30px;
+
+    padding:0 10px;
+
+}
+
+.search-box{
+
+    position:relative;
+
+    display:flex;
+    align-items:center;
+
+    height:68px;
+
+    padding:0 8px 0 20px;
+
+    border-radius:60px;
+
+    background:rgba(12,18,45,.82);
+
+    backdrop-filter:blur(25px);
+
+    overflow:hidden;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    transition:.45s ease;
+
+}
+
+/* Animated Border */
+
+.search-box::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:-2px;
+
+    border-radius:60px;
+
+    background:linear-gradient(
+        90deg,
+        #00cfff,
+        #8a2eff,
+        #ff2bd6,
+        #00cfff
+    );
+
+    background-size:400%;
+
+    animation:borderFlow 8s linear infinite;
+
+    z-index:-2;
+
+}
+
+.search-box::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:2px;
+
+    border-radius:60px;
+
+    background:rgba(10,15,40,.94);
+
+    z-index:-1;
+
+}
+
+@keyframes borderFlow{
+
+0%{
+background-position:0%;
+}
+
+100%{
+background-position:400%;
+}
+
+}
+
+/* Focus */
+
+.search-box:focus-within{
+
+transform:scale(1.02);
+
+box-shadow:
+
+0 0 20px #00cfff,
+
+0 0 40px #8a2eff,
+
+0 0 70px rgba(0,191,255,.35);
+
+}
+
+/* Search Icon */
+
+.search-icon{
+
+width:45px;
+height:45px;
+
+border-radius:50%;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+background:linear-gradient(
+135deg,
+#00cfff,
+#8a2eff
+);
+
+color:#fff;
+
+animation:pulse 2.5s infinite;
+
+flex-shrink:0;
+
+}
+
+@keyframes pulse{
+
+0%{
+
+transform:scale(1);
+
+}
+
+50%{
+
+transform:scale(1.12);
+
+box-shadow:
+
+0 0 18px #00cfff,
+
+0 0 30px #8a2eff;
+
+}
+
+100%{
+
+transform:scale(1);
+
+}
+
+}
+
+.search-icon i{
+
+font-size:18px;
+
+}
+
+/* INPUT */
+
+.search-box input{
+
+flex:1;
+
+margin:0 15px;
+
+background:none;
+
+border:none;
+
+outline:none;
+
+color:#fff;
+
+font-size:16px;
+
+font-weight:500;
+
+}
+
+.search-box input::placeholder{
+
+color:#b9c8ff;
+
+animation:placeholderMove 4s ease-in-out infinite;
+
+}
+
+@keyframes placeholderMove{
+
+0%{
+
+letter-spacing:0;
+
+}
+
+50%{
+
+letter-spacing:.8px;
+
+}
+
+100%{
+
+letter-spacing:0;
+
+}
+
+}
+
+/* FILTER */
+
+.filter-btn{
+
+width:48px;
+height:48px;
+
+border:none;
+
+border-radius:50%;
+
+cursor:pointer;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+background:linear-gradient(
+135deg,
+#8a2eff,
+#00cfff
+);
+
+color:#fff;
+
+transition:.35s;
+
+}
+
+.filter-btn:hover{
+
+transform:rotate(180deg) scale(1.08);
+
+box-shadow:
+
+0 0 20px #00cfff,
+
+0 0 35px #8a2eff;
+
+}
+
+.filter-btn:active{
+
+transform:scale(.92);
+
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.search-box{
+
+height:60px;
+
+}
+
+.search-icon{
+
+width:40px;
+height:40px;
+
+}
+
+.search-box input{
+
+font-size:14px;
+
+}
+
+.filter-btn{
+
+width:42px;
+height:42px;
+
+}
+
+}
