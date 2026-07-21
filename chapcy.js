@@ -626,3 +626,81 @@ setInterval(()=>{
     floatingLike();
 
 },4000);
+/*=========================================
+      CHAPCY NOTIFICATION SYSTEM
+=========================================*/
+
+const notificationBtn = document.getElementById("notificationBtn");
+const notificationPanel = document.getElementById("notificationPanel");
+const notificationList = document.getElementById("notificationList");
+
+
+notificationBtn.addEventListener("click", function(e){
+
+    e.stopPropagation();
+
+    notificationPanel.classList.toggle("show");
+
+});
+
+
+// Notifications data
+
+const notifications = [
+
+{
+icon:"fa-thumbs-up",
+title:"New Like",
+text:"Someone liked your post"
+},
+
+{
+icon:"fa-user-plus",
+title:"Friend Request",
+text:"You have a new friend request"
+},
+
+{
+icon:"fa-star",
+title:"XP Reward",
+text:"You earned +15 XP"
+}
+
+];
+
+
+// Add notifications
+
+notifications.forEach(item=>{
+
+    const div = document.createElement("div");
+
+    div.className="notification-item";
+
+    div.innerHTML=`
+
+    <i class="fa-solid ${item.icon}"></i>
+
+    <div>
+        <h4>${item.title}</h4>
+        <p>${item.text}</p>
+    </div>
+
+    `;
+
+    notificationList.appendChild(div);
+
+});
+
+
+// Close when clicking outside
+
+document.addEventListener("click",function(e){
+
+    if(!e.target.closest(".notification-box")){
+
+        notificationPanel.classList.remove("show");
+
+    }
+
+});
