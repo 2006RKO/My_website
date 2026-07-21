@@ -396,7 +396,14 @@ Logout
 
         <div class="story-card add-story">
 
-            <div class="story-ring">
+            <input
+                type="file"
+                id="storyInput"
+                accept="image/*,video/*"
+                hidden>
+
+            <div class="story-ring"
+                 onclick="document.getElementById('storyInput').click()">
 
                 <div class="story-avatar add-avatar">
 
@@ -412,111 +419,15 @@ Logout
 
         </div>
 
-        <!-- STORY 1 -->
-
-        <div class="story-card">
-
-            <div class="story-ring">
-
-                <img src="avatar.png" class="story-avatar">
-
-                <span class="online-dot"></span>
-
-            </div>
-
-            <span class="story-name">
-
-                Alex
-
-                <i class="fa-solid fa-circle-check verified"></i>
-
-            </span>
-
-        </div>
-
-        <!-- STORY 2 -->
-
-        <div class="story-card">
-
-            <div class="story-ring">
-
-                <img src="avatar2.png" class="story-avatar">
-
-                <span class="online-dot"></span>
-
-            </div>
-
-            <span class="story-name">
-
-                Sarah
-
-            </span>
-
-        </div>
-
-        <!-- STORY 3 -->
-
-        <div class="story-card">
-
-            <div class="story-ring">
-
-                <img src="avatar3.png" class="story-avatar">
-
-                <span class="online-dot"></span>
-
-            </div>
-
-            <span class="story-name">
-
-                David
-
-            </span>
-
-        </div>
-
-        <!-- STORY 4 -->
-
-        <div class="story-card">
-
-            <div class="story-ring">
-
-                <img src="avatar4.png" class="story-avatar">
-
-                <span class="online-dot"></span>
-
-            </div>
-
-            <span class="story-name">
-
-                Emma
-
-            </span>
-
-        </div>
-
-        <!-- STORY 5 -->
-
-        <div class="story-card">
-
-            <div class="story-ring">
-
-                <img src="avatar5.png" class="story-avatar">
-
-                <span class="online-dot"></span>
-
-            </div>
-
-            <span class="story-name">
-
-                Michael
-
-            </span>
-
-        </div>
+        <!-- Friend stories zitaongezwa hapa na JavaScript -->
+        <div id="friendsStories"></div>
 
     </div>
 
 </section>
+
+
+        
 <div class="container">
 
     <div class="chapcy-item">
