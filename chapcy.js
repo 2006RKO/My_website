@@ -548,4 +548,17 @@ document.addEventListener("touchend", (e) => {
     }
 
 });
+const storyInput = document.getElementById("storyInput");
+
+storyInput.addEventListener("change", () => {
+
+    const file = storyInput.files[0];
+
+    if (!file) return;
+
+    alert("Story selected: " + file.name);
+
+    // Baadaye hapa tutapakia kwenye Firebase Storage.
+
+});
 
