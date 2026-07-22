@@ -2228,3 +2228,196 @@ transform:translateY(-250px) scale(1.8);
     }
 
 }
+/*=========================================
+        WORLDWIDE REWARD SECTION
+=========================================*/
+
+.live-status{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:12px;
+
+    margin:15px 0 22px;
+
+    color:#ffffff;
+    font-size:15px;
+    font-weight:600;
+}
+
+.reward-line{
+    width:100%;
+    height:2px;
+
+    border:none;
+
+    margin:28px 0;
+
+    background:linear-gradient(
+        90deg,
+        transparent,
+        #00d9ff,
+        #9d4dff,
+        transparent
+    );
+}
+
+/* Reward Box */
+
+.reward-box{
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.12);
+
+    border-radius:22px;
+
+    padding:22px;
+
+    backdrop-filter:blur(15px);
+
+    text-align:center;
+
+    box-shadow:
+        0 0 18px rgba(0,191,255,.15);
+
+}
+
+.reward-box h3{
+
+    color:#fff;
+
+    font-size:24px;
+
+    margin-bottom:10px;
+
+}
+
+.reward-box p{
+
+    color:#cfcfcf;
+
+    font-size:14px;
+
+    margin-bottom:18px;
+
+}
+
+/* XP & Coin Cards */
+
+.reward-items{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:15px;
+
+    margin-bottom:22px;
+
+}
+
+.reward-card{
+
+    flex:1;
+
+    padding:18px;
+
+    border-radius:18px;
+
+    background:rgba(255,255,255,.08);
+
+    border:1px solid rgba(255,255,255,.1);
+
+    transition:.3s;
+
+}
+
+.reward-card:hover{
+
+    transform:translateY(-5px);
+
+    background:rgba(0,191,255,.15);
+
+}
+
+.reward-card i{
+
+    font-size:30px;
+
+    color:#ffd700;
+
+    margin-bottom:10px;
+
+}
+
+.reward-card h4{
+
+    color:#fff;
+
+    font-size:20px;
+
+}
+
+/* Timer */
+
+.timer{
+
+    margin:20px 0;
+
+    font-size:26px;
+
+    font-weight:700;
+
+    color:#00e5ff;
+
+    text-shadow:0 0 12px #00e5ff;
+
+}
+
+/* Claim Button */
+
+#claimReward{
+
+    width:100%;
+
+    height:58px;
+
+    border:none;
+
+    border-radius:35px;
+
+    background:#555;
+
+    color:#fff;
+
+    font-size:18px;
+
+    font-weight:700;
+
+    cursor:not-allowed;
+
+    transition:.35s;
+
+}
+
+#claimReward:not(:disabled){
+
+    cursor:pointer;
+
+    background:linear-gradient(
+        135deg,
+        #00d26a,
+        #00ff95
+    );
+
+    box-shadow:
+        0 0 18px rgba(0,255,136,.45);
+
+}
+
+#claimReward:not(:disabled):hover{
+
+    transform:scale(1.03);
+
+}
