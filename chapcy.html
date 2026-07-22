@@ -270,79 +270,104 @@ Logout
 
         <div class="card-content">
 
-    <h2>🌍 Worldwide Live Chat</h2>
+    <!-- TOP -->
+    <div class="card-top">
 
-    <div class="live-status">
-        🔴 LIVE • 👥 <span id="onlineUsers">0</span> Online
+        <h2>🌍 Worldwide Live Chat</h2>
+
+        <div class="live-status">
+            <i class="fa-solid fa-circle"></i>
+            <span>12,548 Users Online</span>
+        </div>
+
+        <button
+            class="join-chat-btn"
+            onclick="window.location.href='chat.html'">
+
+            <i class="fa-solid fa-comments"></i>
+            Join Chat
+
+        </button>
+
     </div>
 
-    <button
-        type="button"
-        onclick="window.location.href='chat.html'">
+    <div class="reward-line"></div>
 
-        <i class="fa-solid fa-comments"></i>
-        Join Chat
-
-    </button>
-
-    <hr class="reward-line">
+    <!-- DAILY CHALLENGE -->
 
     <div class="reward-box">
 
-    <h3>🎁 Daily Challenge</h3>
+        <h3>🎯 Daily Challenge</h3>
 
-    <div class="challenge-list">
+        <p>Complete today's missions to unlock your reward.</p>
 
-        <div class="challenge-item" id="stayTask">
-            <i class="fa-solid fa-circle"></i>
-            <span>Stay in chat for 5 minutes</span>
+        <div class="challenge-list">
+
+            <div class="challenge-item completed">
+                <i class="fa-solid fa-check-circle"></i>
+                <span>Join Worldwide Chat</span>
+            </div>
+
+            <div class="challenge-item">
+                <i class="fa-regular fa-circle"></i>
+                <span>Send 10 Messages</span>
+            </div>
+
+            <div class="challenge-item">
+                <i class="fa-regular fa-circle"></i>
+                <span>React to 5 Posts</span>
+            </div>
+
         </div>
 
-        <div class="challenge-item" id="messageTask">
-            <i class="fa-solid fa-circle"></i>
-            <span>Send 3 messages</span>
+        <!-- PROGRESS -->
+
+        <div class="progress-area">
+
+            <div class="progress-top">
+                <span>Progress</span>
+                <span id="progressText">1 / 3</span>
+            </div>
+
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+
         </div>
 
-        <div class="challenge-item" id="likeTask">
-            <i class="fa-solid fa-circle"></i>
-            <span>Receive 1 like</span>
+        <!-- REWARD -->
+
+        <div class="reward-preview">
+
+            <div>
+                ⭐
+                <h4>+2 XP</h4>
+            </div>
+
+            <div>
+                🪙
+                <h4>+1 Coin</h4>
+            </div>
+
         </div>
+
+        <!-- TIMER -->
+
+        <div class="timer" id="rewardTimer">
+            00:15:00
+        </div>
+
+        <!-- CLAIM -->
+
+        <button id="claimReward" disabled>
+
+            🎁 Claim Reward
+
+        </button>
 
     </div>
 
-    <div class="progress-area">
-
-        <div class="progress-top">
-            <span>Progress</span>
-            <span id="progressText">0%</span>
         </div>
-
-        <div class="progress-bar">
-            <div class="progress-fill" id="progressFill"></div>
-        </div>
-
-    </div>
-
-    <div class="reward-preview">
-
-        <div>
-            ⭐
-            <h4>+1 XP</h4>
-        </div>
-
-        <div>
-            🪙
-            <h4>+1 Coin</h4>
-        </div>
-
-    </div>
-
-    <button id="claimReward" disabled>
-        🔒 Locked
-    </button>
-
-    </div>
-</div>
 
       <section class="group-slider">
 
