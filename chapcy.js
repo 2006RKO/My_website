@@ -779,3 +779,115 @@ window.addEventListener("load", () => {
     }
 
 });
+
+/*=========================================
+      CHAPCY DAILY CHALLENGE SYSTEM
+=========================================*/
+
+const progressFill = document.getElementById("progressFill");
+const progressText = document.getElementById("progressText");
+const rewardTimer = document.getElementById("rewardTimer");
+const claimReward = document.getElementById("claimReward");
+
+let completed = 1;
+const total = 3;
+
+updateProgress();
+
+function updateProgress(){
+
+    const percent = (completed / total) * 100;
+
+    progressFill.style.width = percent + "%";
+
+    progressText.textContent = `${completed} / ${total}`;
+
+}
+
+/* ==========================
+      TIMER
+========================== */
+
+let time = 15 * 60; // 15 minutes
+
+const timer = setInterval(()=>{
+
+    let minutes = Math.floor(time / 60);
+    let seconds = time % 60;
+
+    rewardTimer.textContent =
+        `${String(minutes).padStart(2,"0")}:${String(seconds).padStart(2,"0")}`;
+
+    if(time <= 0){
+
+        clearInterval(timer);
+
+        rewardTimer.textContent = "Reward Ready 🎉";
+
+        claimReward.disabled = false;
+
+    }
+
+    time--;
+
+},1000);
+
+/* ==========================
+      CLAIM REWARD
+========================== */
+
+claimReward.addEventListener("click",()=>{
+
+    if(claimReward.disabled) return;
+
+    // Reward ndogo ili economy ibaki stable
+    const xp = 2;
+    const coins = 1;
+
+    document.getElementById("xpText").textContent =
+        `+${xp} XP   •   +${coins} Coin`;
+
+    document.getElementById("xpReward").classList.add("show");
+
+    setTimeout(()=>{
+        document.getElementById("xpReward").classList.remove("show");
+    },3000);
+
+    alert(`🎉 Reward Claimed!\n\n⭐ +${xp} XP\n🪙 +${coins} Coin`);
+
+    claimReward.disabled = true;
+    claimReward.textContent = "✅ Reward Claimed";
+
+});
+
+/* ==========================
+   DEMO MISSIONS
+========================== */
+
+setTimeout(()=>{
+
+    completed = 2;
+
+    updateProgress();
+
+    document.querySelectorAll(".challenge-item")[1].classList.add("completed");
+
+    document.querySelectorAll(".challenge-item")[1]
+        .querySelector("i")
+        .className = "fa-solid fa-check-circle";
+
+},5000);
+
+setTimeout(()=>{
+
+    completed = 3;
+
+    updateProgress();
+
+    document.querySelectorAll(".challenge-item")[2].classList.add("completed");
+
+    document.querySelectorAll(".challenge-item")[2]
+        .querySelector("i")
+        .className = "fa-solid fa-check-circle";
+
+},10000);
