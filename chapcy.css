@@ -2021,3 +2021,112 @@ transform:translateY(-250px) scale(1.8);
 }
 
 }
+/*=========================================
+        CHAPCY BOTTOM NAVIGATION
+=========================================*/
+
+.bottom-nav{
+    position:fixed;
+    bottom:15px;
+    left:50%;
+    transform:translateX(-50%);
+
+    width:95%;
+    max-width:500px;
+    height:75px;
+
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+
+    background:rgba(8,12,35,.92);
+    backdrop-filter:blur(20px);
+
+    border:1px solid rgba(0,255,255,.2);
+    border-radius:25px;
+
+    box-shadow:
+        0 0 20px rgba(0,255,255,.15),
+        0 0 40px rgba(138,43,226,.15);
+
+    z-index:9999;
+}
+
+.nav-item{
+    flex:1;
+    text-decoration:none;
+    color:#9aa5c3;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+
+    transition:.35s ease;
+}
+
+.nav-item i{
+    font-size:22px;
+    margin-bottom:4px;
+    transition:.35s;
+}
+
+.nav-item span{
+    font-size:11px;
+    font-weight:600;
+    transition:.35s;
+}
+
+/* Hover */
+.nav-item:hover{
+    color:#00eaff;
+    transform:translateY(-3px);
+}
+
+/* Active */
+.nav-item.active{
+    color:#00eaff;
+}
+
+.nav-item.active i{
+    transform:translateY(-8px) scale(1.15);
+    text-shadow:
+        0 0 10px #00eaff,
+        0 0 20px #00eaff,
+        0 0 35px #8a2eff;
+}
+
+/* Circle nyuma ya active icon */
+.nav-item.active::before{
+    content:"";
+    position:absolute;
+
+    width:50px;
+    height:50px;
+
+    background:linear-gradient(135deg,#00eaff,#8a2eff);
+
+    border-radius:50%;
+    filter:blur(18px);
+
+    opacity:.25;
+}
+
+/* Simu ndogo */
+@media(max-width:480px){
+
+    .bottom-nav{
+        width:96%;
+        height:70px;
+        bottom:10px;
+    }
+
+    .nav-item i{
+        font-size:20px;
+    }
+
+    .nav-item span{
+        font-size:10px;
+    }
+
+}
