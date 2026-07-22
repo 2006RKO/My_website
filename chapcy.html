@@ -289,36 +289,59 @@ Logout
 
     <div class="reward-box">
 
-        <h3>🎁 Daily Chat Reward</h3>
+    <h3>🎁 Daily Challenge</h3>
 
-        <p>Stay active in chat to unlock your reward.</p>
+    <div class="challenge-list">
 
-        <div class="reward-items">
-
-            <div class="reward-card">
-                ⭐
-                <h4>+1 XP</h4>
-            </div>
-
-            <div class="reward-card">
-                🪙
-                <h4>+1 Coin</h4>
-            </div>
-
+        <div class="challenge-item" id="stayTask">
+            <i class="fa-solid fa-circle"></i>
+            <span>Stay in chat for 5 minutes</span>
         </div>
 
-        <div class="timer">
-            ⏳
-            <span id="rewardTimer">05:00</span>
+        <div class="challenge-item" id="messageTask">
+            <i class="fa-solid fa-circle"></i>
+            <span>Send 3 messages</span>
         </div>
 
-        <button id="claimReward" disabled>
-            Waiting...
-        </button>
+        <div class="challenge-item" id="likeTask">
+            <i class="fa-solid fa-circle"></i>
+            <span>Receive 1 like</span>
+        </div>
 
     </div>
 
+    <div class="progress-area">
+
+        <div class="progress-top">
+            <span>Progress</span>
+            <span id="progressText">0%</span>
         </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+    </div>
+
+    <div class="reward-preview">
+
+        <div>
+            ⭐
+            <h4>+1 XP</h4>
+        </div>
+
+        <div>
+            🪙
+            <h4>+1 Coin</h4>
+        </div>
+
+    </div>
+
+    <button id="claimReward" disabled>
+        🔒 Locked
+    </button>
+
+    </div>
 </div>
 
       <section class="group-slider">
