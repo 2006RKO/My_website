@@ -721,3 +721,61 @@ notificationPanel.classList.remove("show");
 
 
 }
+/*=========================================
+        TOP PROFILE AVATAR
+=========================================*/
+
+const topProfile = document.getElementById("topProfile");
+const profileImage = document.getElementById("profileImage");
+const profileInput = document.getElementById("profileInput");
+
+// Fungua Gallery
+topProfile.addEventListener("click", () => {
+    profileInput.click();
+});
+
+// Chagua picha
+profileInput.addEventListener("change", (e) => {
+
+    const file = e.target.files[0];
+
+    if (!file) return;
+
+    // Hakikisha ni image
+    if (!file.type.startsWith("image/")) {
+        alert("Please select an image.");
+        return;
+    }
+
+    // Preview
+    const reader = new FileReader();
+
+    reader.onload = function(event){
+
+        profileImage.src = event.target.result;
+
+        // Hifadhi kwa browser (temporary)
+        localStorage.setItem(
+            "chapcyProfileImage",
+            event.target.result
+        );
+
+    };
+
+    reader.readAsDataURL(file);
+
+});
+
+// Rudisha picha iliyohifadhiwa
+window.addEventListener("load", () => {
+
+    const savedImage =
+        localStorage.getItem("chapcyProfileImage");
+
+    if(savedImage){
+
+        profileImage.src = savedImage;
+
+    }
+
+});
