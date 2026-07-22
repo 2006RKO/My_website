@@ -127,99 +127,382 @@ body{
         0 0 25px #8a2eff;
 }
 
-/*=========================
-   WORLDWIDE CARD
-==========================*/
+/*=========================================
+        CHAPCY WORLDWIDE CARD V2
+=========================================*/
 
 .container{
     width:100%;
     display:flex;
     justify-content:center;
-    padding:25px 18px;
+    padding:25px 15px;
 }
 
 .chapcy-item{
     width:95%;
-    max-width:520px;
+    max-width:540px;
 
-    background:linear-gradient(180deg,#11152f,#2b1b7b);
-    border-radius:32px;
     overflow:hidden;
+    border-radius:30px;
 
-    border:2px solid rgba(110,170,255,.35);
+    background:linear-gradient(180deg,#101938,#22156a);
+
+    border:2px solid rgba(0,220,255,.25);
 
     box-shadow:
-        0 0 25px rgba(0,180,255,.35),
-        0 0 60px rgba(170,0,255,.25);
+    0 0 25px rgba(0,191,255,.30),
+    0 0 55px rgba(138,46,255,.25);
 
     transition:.35s;
 }
 
 .chapcy-item:hover{
-    transform:translateY(-8px) scale(1.02);
+    transform:translateY(-8px);
 }
+
+/* IMAGE */
 
 .chapcy-item img{
     width:100%;
-    height:340px;
+    height:320px;
     object-fit:cover;
-    display:block;
 }
+
+/* CONTENT */
 
 .card-content{
-    padding:28px;
+    padding:25px;
 }
 
-.card-content h2{
-    font-size:2rem;
-    font-weight:800;
-    color:#fff;
+/* TOP */
+
+.card-top h2{
+    font-size:30px;
+    text-align:center;
+    margin-bottom:10px;
+}
+
+.live-status{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+
+    color:#00ff95;
+    font-weight:700;
     margin-bottom:20px;
 }
 
-.card-content button{
+.live-status i{
+    color:#00ff95;
+}
+
+/* JOIN BUTTON */
+
+.join-chat-btn{
+
     width:100%;
-    height:70px;
+    height:60px;
 
     border:none;
-    border-radius:40px;
-
-    font-size:1.4rem;
-    font-weight:700;
-    color:#fff;
-
-    background:linear-gradient(90deg,#24b8ff,#b43cff);
+    border-radius:35px;
 
     cursor:pointer;
 
-    box-shadow:0 0 20px rgba(173,78,255,.5);
+    color:#fff;
+    font-size:18px;
+    font-weight:700;
+
+    background:linear-gradient(
+    135deg,
+    #00cfff,
+    #8a2eff);
+
+    transition:.3s;
+
 }
 
-.card-content button:hover{
+.join-chat-btn:hover{
+
     transform:scale(1.03);
+
 }
-@media (max-width:480px){
 
-    .chapcy-item{
-        width:96%;
-    }
+/* LINE */
 
-    .chapcy-item img{
-        height:280px;
-    }
+.reward-line{
 
-    .card-content{
-        padding:22px;
-    }
+    width:100%;
+    height:2px;
 
-    .card-content h2{
-        font-size:1.7rem;
-    }
+    margin:28px 0;
 
-    .card-content button{
-        height:62px;
-        font-size:1.2rem;
-    }
+    background:linear-gradient(
+    90deg,
+    transparent,
+    #00cfff,
+    #8a2eff,
+    transparent);
+
+}
+
+/* REWARD */
+
+.reward-box{
+
+    text-align:center;
+
+}
+
+.reward-box h3{
+
+    font-size:25px;
+    margin-bottom:8px;
+
+}
+
+.reward-box p{
+
+    color:#cfd5ff;
+    margin-bottom:18px;
+
+}
+
+/* XP + COINS */
+
+.reward-items{
+
+    display:flex;
+    gap:15px;
+
+}
+
+.reward-card{
+
+    flex:1;
+
+    padding:18px;
+
+    border-radius:18px;
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.08);
+
+}
+
+.reward-card i{
+
+    font-size:28px;
+
+    color:#ffd700;
+
+    margin-bottom:8px;
+
+}
+
+.reward-card h4{
+
+    font-size:24px;
+
+}
+
+/* TIMER */
+
+.timer{
+
+    margin:22px 0;
+
+    font-size:28px;
+
+    font-weight:700;
+
+    color:#00eaff;
+
+}
+
+/* CLAIM */
+
+#claimReward{
+
+    width:100%;
+    height:60px;
+
+    border:none;
+    border-radius:35px;
+
+    background:#555;
+
+    color:#fff;
+
+    font-size:18px;
+    font-weight:700;
+
+}
+
+#claimReward:disabled{
+
+    cursor:not-allowed;
+
+}
+
+#claimReward:not(:disabled){
+
+    cursor:pointer;
+
+    background:linear-gradient(
+    135deg,
+    #00d26a,
+    #00ff88);
+
+    box-shadow:
+    0 0 20px rgba(0,255,136,.45);
+
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.chapcy-item img{
+
+height:260px;
+
+}
+
+.card-top h2{
+
+font-size:24px;
+
+}
+
+.reward-items{
+
+flex-direction:row;
+
+}
+
+.reward-card{
+
+padding:15px;
+
+}
+
+.reward-card h4{
+
+font-size:20px;
+
+}
+
+.timer{
+
+font-size:22px;
+
+}
+
+}
+
+.challenge-list{
+    margin:20px 0;
+}
+
+.challenge-item{
+
+    display:flex;
+    align-items:center;
+
+    gap:12px;
+
+    padding:12px 15px;
+
+    margin-bottom:12px;
+
+    border-radius:15px;
+
+    background:rgba(255,255,255,.05);
+
+    color:#fff;
+}
+
+.challenge-item.completed{
+
+    background:rgba(0,255,150,.15);
+
+    border:1px solid #00ff95;
+
+}
+
+.challenge-item.completed i{
+
+    color:#00ff95;
+
+}
+
+.progress-area{
+
+    margin:20px 0;
+
+}
+
+.progress-top{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-bottom:10px;
+
+    color:#fff;
+
+}
+
+.progress-bar{
+
+    width:100%;
+
+    height:12px;
+
+    background:#222;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+}
+
+.progress-fill{
+
+    width:0%;
+
+    height:100%;
+
+    background:linear-gradient(90deg,#00e5ff,#8a2eff);
+
+    transition:.4s;
+
+}
+
+.reward-preview{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:20px;
+
+    margin:25px 0;
+
+}
+
+.reward-preview div{
+
+    flex:1;
+
+    padding:15px;
+
+    border-radius:18px;
+
+    background:rgba(255,255,255,.05);
 
 }
 /*=========================================
