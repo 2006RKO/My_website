@@ -270,25 +270,55 @@ Logout
 
         <div class="card-content">
 
-            <h2>
-                🌍 Worldwide Live Chat
-            </h2>
+    <h2>🌍 Worldwide Live Chat</h2>
 
-            <button
-                type="button"
-                onclick="window.location.href='chat.html'"
-            >
+    <div class="live-status">
+        🔴 LIVE • 👥 <span id="onlineUsers">0</span> Online
+    </div>
 
-                <i class="fa-solid fa-comments"></i>
+    <button
+        type="button"
+        onclick="window.location.href='chat.html'">
 
-                Join Chat
+        <i class="fa-solid fa-comments"></i>
+        Join Chat
 
-            </button>
+    </button>
+
+    <hr class="reward-line">
+
+    <div class="reward-box">
+
+        <h3>🎁 Daily Chat Reward</h3>
+
+        <p>Stay active in chat to unlock your reward.</p>
+
+        <div class="reward-items">
+
+            <div class="reward-card">
+                ⭐
+                <h4>+1 XP</h4>
+            </div>
+
+            <div class="reward-card">
+                🪙
+                <h4>+1 Coin</h4>
+            </div>
 
         </div>
 
+        <div class="timer">
+            ⏳
+            <span id="rewardTimer">05:00</span>
+        </div>
+
+        <button id="claimReward" disabled>
+            Waiting...
+        </button>
+
     </div>
 
+        </div>
 </div>
 
       <section class="group-slider">
