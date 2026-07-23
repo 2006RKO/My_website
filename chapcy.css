@@ -886,17 +886,17 @@ right:0;
     overflow:hidden;
 }
 
-.slider-track{
+..slider-track{
     display:flex;
     align-items:center;
-    gap:20px;
+    gap:30px;
 
     overflow-x:auto;
     scroll-behavior:smooth;
     scroll-snap-type:x mandatory;
 
-    padding:25px calc(50% - 150px);
-
+    padding:40px 50px;
+          
     scrollbar-width:none;
     -ms-overflow-style:none;
 }
@@ -906,8 +906,8 @@ right:0;
 }
 
 .group-card{
-    flex:0 0 300px;
-    width:300px;
+    flex:0 0 320px;
+    width:320px;
     min-height:640px;
 
     display:flex;
