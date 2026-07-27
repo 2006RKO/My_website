@@ -1067,3 +1067,44 @@ for(let i=0;i<4;i++){
 addActivity();
 
 }
+const db = getDatabase();
+
+const activityRef = query(
+    ref(db, "activities"),
+    limitToLast(6)
+);
+
+onValue(activityRef, (snapshot) => {
+
+    activityFeed.innerHTML = "";
+
+    const data = snapshot.val();
+
+    if (!data) return;
+
+    Object.values(data)
+        .sort((a, b) => b.time - a.time)
+        .forEach(item => {
+
+            activityFeed.innerHTML += `
+                <div class="activity-card">
+
+                    <div class="activity-avatar">
+                        <img src="${item.avatar}">
+                        <span class="country">${item.flag}</span>
+                    </div>
+
+                    <div class="activity-info">
+                        <h4>${item.username} ${item.action}</h4>
+                    </div>
+
+                    <div class="activity-icon">
+                        ${item.icon}
+                    </div>
+
+                </div>
+            `;
+
+        });
+
+});
