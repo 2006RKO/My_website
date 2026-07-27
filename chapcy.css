@@ -2798,55 +2798,66 @@ transform:scale(1);
 .online-box small{
     color:#b8c5ff;
 }
-/*=========================================
-      WORLDWIDE BOX V15 EFFECTS
-=========================================*/
+/*==============================
+  PART 2C - GLASS HOVER EFFECT
+===============================*/
 
 .chapcy-item{
     position:relative;
     overflow:hidden;
+    transition:.5s ease;
 }
+
+.chapcy-item:hover{
+    transform:translateY(-8px) scale(1.01);
+    box-shadow:
+        0 0 25px rgba(0,255,255,.25),
+        0 0 60px rgba(138,46,255,.18);
+}
+
+/* Animated Border */
 
 .chapcy-item::before{
     content:"";
     position:absolute;
-    inset:-3px;
+    inset:-2px;
+    border-radius:30px;
+    padding:2px;
 
     background:linear-gradient(
         45deg,
-        #00cfff,
+        #00e5ff,
         #8a2eff,
-        #ff2bd6,
-        #00ff95,
-        #00cfff
+        #00ff88,
+        #00e5ff
     );
 
-    background-size:400%;
-    animation:borderRotate 8s linear infinite;
+    background-size:400% 400%;
 
-    z-index:-2;
+    animation:borderFlow 6s linear infinite;
+
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+
+    -webkit-mask-composite:xor;
+            mask-composite:exclude;
+
+    pointer-events:none;
 }
 
-.chapcy-item::after{
-    content:"";
-    position:absolute;
-    inset:2px;
-
-    background:linear-gradient(180deg,#101938,#22156a);
-
-    border-radius:28px;
-
-    z-index:-1;
-}
-
-@keyframes borderRotate{
+@keyframes borderFlow{
 
 0%{
-background-position:0%;
+background-position:0% 50%;
+}
+
+50%{
+background-position:100% 50%;
 }
 
 100%{
-background-position:400%;
+background-position:0% 50%;
 }
 
 }
