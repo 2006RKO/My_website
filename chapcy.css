@@ -248,65 +248,42 @@ body{
 
 /* REWARD */
 
-.reward-box{
+.reward-preview{
 
-    text-align:center;
+    display:grid;
 
-}
+    grid-template-columns:1fr 1fr;
 
-.reward-box h3{
-
-    font-size:25px;
-    margin-bottom:8px;
-
-}
-
-.reward-box p{
-
-    color:#cfd5ff;
-    margin-bottom:18px;
-
-}
-
-/* XP + COINS */
-
-.reward-items{
-
-    display:flex;
     gap:15px;
+
+    margin:25px 0;
 
 }
 
 .reward-card{
 
-    flex:1;
+    padding:20px;
 
-    padding:18px;
+    border-radius:20px;
 
-    border-radius:18px;
+    text-align:center;
 
-    background:rgba(255,255,255,.05);
+    background:rgba(255,255,255,.06);
 
     border:1px solid rgba(255,255,255,.08);
 
-}
-
-.reward-card i{
-
-    font-size:28px;
-
-    color:#ffd700;
-
-    margin-bottom:8px;
+    transition:.35s;
 
 }
 
-.reward-card h4{
+.reward-card:hover{
 
-    font-size:24px;
+    transform:translateY(-5px);
+
+    box-shadow:
+        0 0 20px rgba(0,255,255,.25);
 
 }
-
 /* TIMER */
 
 .timer{
@@ -879,82 +856,80 @@ right:0;
           COVERFLOW SLIDER
 =========================================*/
 
-.group-slider{
+..group-slider{
     width:100%;
     position:relative;
-    margin:60px auto;
+    margin:50px auto;
     overflow:hidden;
 }
 
 .slider-track{
     display:flex;
     align-items:center;
-    gap:30px;
+    gap:20px;
 
     overflow-x:auto;
     scroll-behavior:smooth;
     scroll-snap-type:x mandatory;
 
-    padding:40px calc(50% - 160px);
-          
+    padding:30px calc(50% - 150px);
+
     scrollbar-width:none;
-    -ms-overflow-style:none;
 }
 
 .slider-track::-webkit-scrollbar{
     display:none;
 }
 
-..group-card{
-    flex:0 0 320px;
-    width:320px;
-    min-height:640px;
+.group-card{
+    flex:0 0 300px;
+    width:300px;
+    min-height:620px;
 
     display:flex;
     flex-direction:column;
 
-    border-radius:28px;
+    background:rgba(10,15,45,.95);
+
+    border-radius:30px;
     overflow:hidden;
 
-    background:rgba(10,15,45,.92);
-    backdrop-filter:blur(18px);
-
-    border:2px solid rgba(130,70,255,.35);
+    border:2px solid rgba(0,200,255,.25);
 
     scroll-snap-align:center;
 
-    transform:scale(.9);
-    opacity:.8;
+    transform:scale(.88);
+    opacity:.55;
 
-    transition:
-    transform .45s ease,
-    opacity .45s ease,
-    box-shadow .45s ease;
+    transition:.4s;
 
     box-shadow:
-    0 0 20px rgba(0,170,255,.18),
-    0 0 35px rgba(140,60,255,.15);
+        0 0 20px rgba(0,191,255,.18),
+        0 0 35px rgba(138,46,255,.15);
 }
 
 
 .group-card.active{
 
-    transform:scale(1.08);
+    transform:scale(1);
+
     opacity:1;
 
-    z-index:5;
-
-    border-color:#9b4dff;
+    border-color:#00cfff;
 
     box-shadow:
-    0 0 30px #00cfff,
-    0 0 60px rgba(155,77,255,.8);
+        0 0 25px #00cfff,
+        0 0 55px #8a2eff;
+
+    z-index:20;
+
 }
 
 .group-card img{
 
     width:100%;
-    height:250px;
+    height:220px;
+
     object-fit:cover;
 
 }
