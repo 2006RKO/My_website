@@ -2861,3 +2861,138 @@ background-position:0% 50%;
 }
 
 }
+/*=========================================
+      V17 LIVE WORLD ACTIVITY
+=========================================*/
+
+.live-activity{
+    position:relative;
+    margin:35px 20px;
+    padding:22px;
+    border-radius:28px;
+    background:rgba(18,22,60,.78);
+    backdrop-filter:blur(22px);
+    border:1px solid rgba(0,255,255,.18);
+    box-shadow:
+        0 0 35px rgba(0,200,255,.18),
+        inset 0 0 25px rgba(255,255,255,.03);
+    overflow:hidden;
+}
+
+.live-activity::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(
+        135deg,
+        transparent,
+        rgba(0,255,255,.05),
+        transparent,
+        rgba(140,0,255,.05)
+    );
+    animation:glassMove 8s linear infinite;
+}
+
+.activity-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.activity-header h2{
+    color:#fff;
+    font-size:20px;
+    font-weight:700;
+    letter-spacing:.5px;
+}
+
+.live-dot{
+    width:14px;
+    height:14px;
+    border-radius:50%;
+    background:#00ff80;
+    box-shadow:0 0 18px #00ff80;
+    animation:livePulse 1.2s infinite;
+}
+
+.activity-feed{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+.activity-card{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    padding:14px;
+    border-radius:18px;
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.08);
+    transition:.35s;
+}
+
+.activity-card:hover{
+    transform:translateY(-4px);
+    border-color:#00d9ff;
+    box-shadow:0 0 25px rgba(0,217,255,.28);
+}
+
+.activity-avatar{
+    position:relative;
+}
+
+.activity-avatar img{
+    width:55px;
+    height:55px;
+    border-radius:50%;
+    object-fit:cover;
+    border:2px solid #00d9ff;
+}
+
+.country{
+    position:absolute;
+    right:-5px;
+    bottom:-5px;
+    font-size:18px;
+}
+
+.activity-info{
+    flex:1;
+}
+
+.activity-info h4{
+    color:#fff;
+    font-size:16px;
+    margin-bottom:4px;
+}
+
+.activity-info p{
+    color:#9fb4ff;
+    font-size:13px;
+}
+
+.activity-icon{
+    font-size:28px;
+    animation:iconFloat 2s ease-in-out infinite;
+}
+
+@keyframes livePulse{
+    50%{
+        transform:scale(1.4);
+        opacity:.4;
+    }
+}
+
+@keyframes iconFloat{
+    50%{
+        transform:translateY(-6px);
+    }
+}
+
+@keyframes glassMove{
+    100%{
+        transform:translateX(100%);
+    }
+              }
