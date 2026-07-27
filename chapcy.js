@@ -1108,3 +1108,22 @@ onValue(activityRef, (snapshot) => {
         });
 
 });
+const cards = document.querySelectorAll(".group-card");
+
+function updateActiveCard(){
+
+    cards.forEach(card=>card.classList.remove("active"));
+
+    const center =
+    Math.round(sliderTrack.scrollLeft /
+    (cards[0].offsetWidth + 30));
+
+    if(cards[center]){
+        cards[center].classList.add("active");
+    }
+
+}
+
+sliderTrack.addEventListener("scroll", updateActiveCard);
+
+updateActiveCard();
