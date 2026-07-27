@@ -12,6 +12,185 @@
     box-sizing:border-box;
     font-family:'Poppins',sans-serif;
 }
+/*=========================================
+        CHAPCY V20
+   RESPONSIVE FOUNDATION
+=========================================*/
+
+:root{
+
+    --bg:#050816;
+    --card:#101533;
+    --card2:#181d45;
+
+    --cyan:#00d9ff;
+    --blue:#3b82ff;
+    --purple:#9c3cff;
+    --green:#00ff88;
+
+    --text:#ffffff;
+    --text2:#cfd8ff;
+
+    --radius:26px;
+
+    --shadow:
+    0 0 25px rgba(0,217,255,.18),
+    0 0 60px rgba(124,58,255,.15);
+
+}
+
+/* RESET */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+
+    background:var(--bg);
+
+    color:var(--text);
+
+    overflow-x:hidden;
+
+    font-family:"Poppins",sans-serif;
+
+}
+
+/* IMAGES */
+
+img{
+
+    max-width:100%;
+
+    display:block;
+
+    height:auto;
+
+}
+
+/* LINKS */
+
+a{
+
+    text-decoration:none;
+
+    color:inherit;
+
+}
+
+/* BUTTONS */
+
+button{
+
+    border:none;
+
+    outline:none;
+
+    cursor:pointer;
+
+    font-family:inherit;
+
+}
+
+/* MAIN CONTAINER */
+
+.container{
+
+    width:min(100%,1300px);
+
+    margin:auto;
+
+    padding:
+
+    clamp(12px,2vw,30px);
+
+}
+
+/* RESPONSIVE CARD */
+
+.chapcy-item{
+
+    width:100%;
+
+    border-radius:30px;
+
+    overflow:hidden;
+
+}
+
+/* RESPONSIVE TEXT */
+
+h1{
+font-size:clamp(28px,5vw,48px);
+}
+
+h2{
+font-size:clamp(22px,4vw,34px);
+}
+
+h3{
+font-size:clamp(18px,3vw,26px);
+}
+
+p,
+span,
+a,
+button{
+
+font-size:clamp(14px,2vw,17px);
+
+}
+
+/* SPACE */
+
+section{
+
+margin-top:30px;
+
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.container{
+
+padding:15px;
+
+}
+
+}
+
+/* TABLET */
+
+@media(min-width:769px){
+
+.container{
+
+padding:25px;
+
+}
+
+}
+
+/* DESKTOP */
+
+@media(min-width:1200px){
+
+.container{
+
+padding:40px;
+
+}
+
+          }
 
 /* BODY */
 body{
