@@ -1190,6 +1190,104 @@ right:0;
     padding:18px;
 
 }
+/* ==========================
+   ACTIVE CARD EFFECT
+========================== */
+
+.group-card{
+    position:relative;
+    transition:.45s ease;
+    transform-origin:center;
+}
+
+.group-card.active{
+
+    transform:
+        scale(1.08)
+        translateY(-18px);
+
+    box-shadow:
+        0 0 25px rgba(0,255,255,.35),
+        0 20px 60px rgba(0,0,0,.45);
+
+    z-index:20;
+
+    animation:floatingCard 3s ease-in-out infinite;
+}
+
+/* Glow Ring */
+
+.group-card.active::before{
+
+content:"";
+
+position:absolute;
+
+inset:-3px;
+
+border-radius:28px;
+
+padding:3px;
+
+background:linear-gradient(
+90deg,
+#00f0ff,
+#7b2fff,
+#ff00d4,
+#00f0ff
+);
+
+background-size:300%;
+
+animation:ringRotate 5s linear infinite;
+
+-webkit-mask:
+linear-gradient(#fff 0 0) content-box,
+linear-gradient(#fff 0 0);
+
+-webkit-mask-composite:xor;
+
+mask-composite:exclude;
+
+pointer-events:none;
+
+}
+
+/* Floating */
+
+@keyframes floatingCard{
+
+0%,100%{
+
+transform:
+scale(1.08)
+translateY(-18px);
+
+}
+
+50%{
+
+transform:
+scale(1.08)
+translateY(-28px);
+
+}
+
+}
+
+/* Animated Border */
+
+@keyframes ringRotate{
+
+0%{
+background-position:0%;
+}
+
+100%{
+background-position:300%;
+}
+
+}
 
 /*=========================================
         CHAPCY CSS PART 4B
