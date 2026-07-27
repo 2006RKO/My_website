@@ -961,3 +961,109 @@ card.style.setProperty("--y",y+"px");
 });
 
 }
+/*=========================================
+      CHAPCY V17 LIVE ACTIVITY
+=========================================*/
+
+const activityFeed = document.getElementById("activityFeed");
+
+const activities = [
+
+{
+avatar:"avatar1.png",
+flag:"🇹🇿",
+text:"Hassan joined Football",
+time:"Just now",
+icon:"⚽"
+},
+
+{
+avatar:"avatar2.png",
+flag:"🇰🇪",
+text:"Brian earned +15 XP",
+time:"Just now",
+icon:"⭐"
+},
+
+{
+avatar:"avatar3.png",
+flag:"🇺🇸",
+text:"Emma sent 5 messages",
+time:"Just now",
+icon:"💬"
+},
+
+{
+avatar:"avatar4.png",
+flag:"🇧🇷",
+text:"Lucas joined Music",
+time:"Just now",
+icon:"🎵"
+},
+
+{
+avatar:"avatar5.png",
+flag:"🇯🇵",
+text:"Yuki started Daily Streak",
+time:"Just now",
+icon:"🔥"
+}
+
+];
+
+function addActivity(){
+
+const item = activities[Math.floor(Math.random()*activities.length)];
+
+const card = document.createElement("div");
+
+card.className="activity-card";
+
+card.innerHTML=`
+
+<div class="activity-avatar">
+<img src="${item.avatar}">
+<span class="country">${item.flag}</span>
+</div>
+
+<div class="activity-info">
+<h4>${item.text}</h4>
+<p>${item.time}</p>
+</div>
+
+<div class="activity-icon">
+${item.icon}
+</div>
+
+`;
+
+card.style.opacity="0";
+card.style.transform="translateY(30px)";
+
+activityFeed.prepend(card);
+
+requestAnimationFrame(()=>{
+
+card.style.transition=".5s";
+
+card.style.opacity="1";
+
+card.style.transform="translateY(0)";
+
+});
+
+if(activityFeed.children.length>6){
+
+activityFeed.removeChild(activityFeed.lastElementChild);
+
+}
+
+}
+
+setInterval(addActivity,4000);
+
+for(let i=0;i<4;i++){
+
+addActivity();
+
+}
