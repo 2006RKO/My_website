@@ -378,47 +378,37 @@ body{
 /* JOIN BUTTON */
 
 .join-chat-btn{
+    position:relative;
+    overflow:hidden;
+}
 
-position:relative;
+.ripple{
 
-overflow:hidden;
+position:absolute;
 
-height:65px;
+width:20px;
+height:20px;
 
-font-size:20px;
+border-radius:50%;
 
-letter-spacing:.5px;
+background:rgba(255,255,255,.5);
 
-background:linear-gradient(
-135deg,
-#00cfff,
-#8a2eff,
-#ff2bd6
-);
+transform:translate(-50%,-50%);
 
-background-size:300%;
+animation:ripple .7s linear;
 
-animation:buttonFlow 5s linear infinite;
-
-box-shadow:
-
-0 0 20px rgba(0,207,255,.45),
-
-0 0 45px rgba(138,46,255,.35);
+pointer-events:none;
 
 }
 
-.join-chat-btn:hover{
+@keyframes ripple{
 
-transform:translateY(-4px) scale(1.02);
+to{
 
-}
+width:400px;
+height:400px;
 
-@keyframes buttonFlow{
-
-100%{
-
-background-position:300%;
+opacity:0;
 
 }
 
