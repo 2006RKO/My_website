@@ -273,21 +273,47 @@ Logout
     <!-- TOP -->
     <div class="card-top">
 
-        <h2>🌍 Worldwide Live Chat</h2>
+    <div class="live-badge">
+        <span class="live-dot"></span>
+        LIVE WORLDWIDE
+    </div>
 
-        <div class="live-status">
-            <i class="fa-solid fa-circle"></i>
-            <span>12,548 Users Online</span>
+    <h2>🌍 Worldwide Live Chat</h2>
+
+    <p class="welcome-text">
+        Meet people from every country, make friends, share ideas and chat in real time.
+    </p>
+
+    <div class="live-status">
+
+        <div class="online-box">
+            <i class="fa-solid fa-users"></i>
+            <span id="onlineCount">12,548</span>
+            <small>Online</small>
         </div>
 
-        <button
-            class="join-chat-btn"
-            onclick="window.location.href='chat.html'">
+        <div class="online-box">
+            <i class="fa-solid fa-earth-africa"></i>
+            <span>195</span>
+            <small>Countries</small>
+        </div>
 
+        <div class="online-box">
             <i class="fa-solid fa-comments"></i>
-            Join Chat
+            <span>24M+</span>
+            <small>Messages</small>
+        </div>
 
-        </button>
+    </div>
+
+    <button class="join-chat-btn"
+        onclick="window.location.href='chat.html'">
+
+        <i class="fa-solid fa-comments"></i>
+
+        Let's Chat
+
+    </button>
 
     </div>
 
