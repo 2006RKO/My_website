@@ -68,3 +68,12 @@ window.loginUser = function () {
     });
 
 };
+import {
+  getDatabase,
+  ref,
+  push,
+  set,
+  onValue,
+  query,
+  limitToLast
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
