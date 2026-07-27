@@ -891,3 +891,56 @@ setTimeout(()=>{
         .className = "fa-solid fa-check-circle";
 
 },10000);
+/*=========================================
+      LIVE ONLINE USERS
+=========================================*/
+
+const onlineCount = document.getElementById("onlineCount");
+
+if (onlineCount) {
+
+    let users = 12548;
+
+    setInterval(() => {
+
+        const change = Math.floor(Math.random() * 15);
+
+        if (Math.random() > 0.5) {
+            users += change;
+        } else {
+            users -= change;
+        }
+
+        if (users < 12000) users = 12000;
+        if (users > 15000) users = 15000;
+
+        onlineCount.textContent = users.toLocaleString();
+
+    }, 3000);
+
+}
+const joinBtn = document.querySelector(".join-chat-btn");
+
+if (joinBtn) {
+
+joinBtn.addEventListener("click", function(e){
+
+const ripple = document.createElement("span");
+
+ripple.className = "ripple";
+
+this.appendChild(ripple);
+
+const rect = this.getBoundingClientRect();
+
+ripple.style.left = (e.clientX - rect.left) + "px";
+
+ripple.style.top = (e.clientY - rect.top) + "px";
+
+setTimeout(()=>{
+ripple.remove();
+},700);
+
+});
+
+}
