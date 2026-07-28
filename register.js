@@ -3,7 +3,7 @@
                PART 3A
 =========================================*/
 
-"use strict";
+console.log("CHAPCY REGISTER JS STARTED");
 
 /*=========================
         ELEMENTS
