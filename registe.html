@@ -5,31 +5,36 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>CHAPCY V20</title>
+
 <meta name="theme-color" content="#050816">
 
-<title>CHAPCY | Authentication</title>
-
-<link rel="icon" href="logo.png">
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
 
 <link rel="stylesheet" href="register.css">
+
+<link rel="icon" href="logo.png">
 
 </head>
 
 <body>
 
 <!--============================
-        BACKGROUND
+      BACKGROUND
 =============================-->
 
 <div class="background">
 
 <img
-src="file_000000005b1081f49cef6fcfbfb36468.png"
+src="background.jpg"
 class="background-image"
 alt="Background">
 
@@ -42,194 +47,70 @@ alt="Background">
 </div>
 
 <!--============================
-        AUTH WRAPPER
+      MAIN CONTAINER
 =============================-->
 
-<div class="auth-wrapper">
-
-<div class="auth-container" id="authContainer">
+<div class="main-container">
 
 <!--============================
-        LOGIN PANEL
+      WELCOME PAGE
 =============================-->
 
-<div class="form-panel login-panel">
-
-<form id="loginForm" novalidate>
+<section
+class="welcome-page"
+id="welcomePage">
 
 <img
 src="logo.png"
-class="form-logo"
-alt="CHAPCY">
-
-<h2>Welcome Back</h2>
-
-<p>
-Login to continue your CHAPCY journey.
-</p>
-
-<div class="input-box">
-
-<input
-type="email"
-id="loginEmail"
-placeholder="Email Address"
-autocomplete="email"
-required>
-
-</div>
-
-<div class="input-box">
-
-<input
-type="password"
-id="loginPassword"
-placeholder="Password"
-autocomplete="current-password"
-required>
-
-<span class="toggle-password">👁</span>
-
-</div>
-
-<a href="#" class="forgot-link">
-
-Forgot Password?
-
-</a>
-
-<button
-type="submit"
-class="primary-btn">
-
-LOGIN
-
-</button>
-
-</form>
-
-</div>
-
-<!--============================
-        REGISTER PANEL
-=============================-->
-
-<div class="form-panel register-panel">
-
-<form id="registerForm" novalidate>
-
-<img
-src="logo.png"
-class="form-logo"
-alt="CHAPCY">
-
-<h2>Create Account</h2>
-
-<p>
-
-Join millions of people on CHAPCY.
-
-</p>
-
-<div class="input-box">
-
-<input
-type="text"
-id="fullName"
-placeholder="Full Name"
-autocomplete="name"
-required>
-
-</div>
-
-<div class="input-box">
-
-<input
-type="email"
-id="registerEmail"
-placeholder="Email Address"
-autocomplete="email"
-required>
-
-</div>
-
-<div class="input-box">
-
-<input
-type="password"
-id="registerPassword"
-placeholder="Password"
-autocomplete="new-password"
-required>
-
-<span class="toggle-password">👁</span>
-
-</div>
-
-<div class="input-box">
-
-<input
-type="password"
-id="confirmPassword"
-placeholder="Confirm Password"
-autocomplete="new-password"
-required>
-
-<span class="toggle-password">👁</span>
-
-</div>
-
-<button
-type="submit"
-class="primary-btn">
-
-CREATE ACCOUNT
-
-</button>
-
-</form>
-
-</div>
-
-<!--============================
-      DIAGONAL SLIDER
-=============================-->
-
-<div class="slider-panel">
-
-<div class="slider-content">
-
-<img
-src="logo.png"
-class="slider-logo"
+class="chapcy-logo"
 alt="CHAPCY">
 
 <h1>CHAPCY</h1>
 
-<p>
+<p class="subtitle">
 
 Connect • Chat • Share • Grow
 
 </p>
 
-<div class="slider-line"></div>
-
-<h3 id="sliderTitle">
+<h2>
 
 Welcome Back
 
-</h3>
+</h2>
 
-<p id="sliderText">
+<p class="choose">
 
-Don't have an account?
+Choose how you want to continue
 
 </p>
 
-<button
-type="button"
-id="switchBtn"
-class="switch-btn">
+<div class="choice-container">
+
+<!-- REGISTER -->
+
+<div
+class="choice-card register-card"
+id="registerCard">
+
+<div class="choice-icon">
+
+<img
+src="register-logo.png"
+alt="Register">
+
+</div>
+
+<h3>REGISTER</h3>
+
+<p>
+
+Create your account
+and get started.
+
+</p>
+
+<button>
 
 CREATE ACCOUNT
 
@@ -237,17 +118,95 @@ CREATE ACCOUNT
 
 </div>
 
+<!-- LOGIN -->
+
+<div
+class="choice-card login-card"
+id="loginCard">
+
+<div class="choice-icon">
+
+<img
+src="login-logo.png"
+alt="Login">
+
 </div>
+
+<h3>LOGIN</h3>
+
+<p>
+
+Login to your account
+and continue.
+
+</p>
+
+<button>
+
+LOGIN NOW
+
+</button>
 
 </div>
 
 </div>
+
+</section>
 
 <!--============================
-      JAVASCRIPT
+      REGISTER PAGE
 =============================-->
 
-<script type="module" src="register.js"></script>
+<section
+class="register-page"
+id="registerPage">
+
+<button
+class="back-btn"
+id="backRegister">
+
+← Back
+
+</button>
+
+<div
+class="page-content">
+
+<!-- FORM ITAKUJA BAADAYE -->
+
+</div>
+
+</section>
+
+<!--============================
+      LOGIN PAGE
+=============================-->
+
+<section
+class="login-page"
+id="loginPage">
+
+<button
+class="back-btn"
+id="backLogin">
+
+← Back
+
+</button>
+
+<div
+class="page-content">
+
+<!-- FORM ITAKUJA BAADAYE -->
+
+</div>
+
+</section>
+
+</div>
+
+<script src="register.js"></script>
 
 </body>
+
 </html>
