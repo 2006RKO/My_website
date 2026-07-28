@@ -1,5 +1,6 @@
 /*=========================================
-          CHAPCY REGISTER JS
+          CHAPCY BOOK FLIP JS
+               PART 3A
 =========================================*/
 
 "use strict";
@@ -8,71 +9,111 @@
         ELEMENTS
 =========================*/
 
-const welcomePage = document.getElementById("welcomePage");
-const registerPage = document.getElementById("registerPage");
-const loginPage = document.getElementById("loginPage");
+const book = document.querySelector(".book");
 
-const registerCard = document.getElementById("registerCard");
-const loginCard = document.getElementById("loginCard");
+const registerBtn = document.getElementById("registerBtn");
+const loginBtn = document.getElementById("loginBtn");
 
 const backRegister = document.getElementById("backRegister");
 const backLogin = document.getElementById("backLogin");
 
+const registerPanel = document.getElementById("registerPanel");
+const loginPanel = document.getElementById("loginPanel");
+
+const showLogin = document.getElementById("showLogin");
+const showRegister = document.getElementById("showRegister");
+
 /*=========================
-      CHANGE PAGE
+     OPEN REGISTER
 =========================*/
 
-function showPage(page){
+function openRegister(){
 
-    document.querySelectorAll(".page").forEach(p=>{
+    book.classList.remove("open-login");
 
-        p.classList.remove("active");
+    book.classList.add("open-register");
 
-    });
+    registerPanel.classList.add("active");
 
-    setTimeout(()=>{
-
-        page.classList.add("active");
-
-    },150);
+    loginPanel.classList.remove("active");
 
 }
 
 /*=========================
-       EVENTS
+      OPEN LOGIN
 =========================*/
 
-registerCard.addEventListener("click",()=>{
+function openLogin(){
 
-    showPage(registerPage);
+    book.classList.remove("open-register");
 
-});
+    book.classList.add("open-login");
 
-loginCard.addEventListener("click",()=>{
+    loginPanel.classList.add("active");
 
-    showPage(loginPage);
+    registerPanel.classList.remove("active");
 
-});
-
-backRegister.addEventListener("click",()=>{
-
-    showPage(welcomePage);
-
-});
-
-backLogin.addEventListener("click",()=>{
-
-    showPage(welcomePage);
-
-});
+}
 
 /*=========================
-     CARD RIPPLE EFFECT
+        CLOSE BOOK
 =========================*/
 
-document.querySelectorAll(".card").forEach(card=>{
+function closeBook(){
 
-    card.addEventListener("click",function(e){
+    book.classList.remove("open-register");
+
+    book.classList.remove("open-login");
+
+    registerPanel.classList.remove("active");
+
+    loginPanel.classList.remove("active");
+
+}
+
+/*=========================
+        EVENTS
+=========================*/
+
+registerBtn.addEventListener("click", openRegister);
+
+loginBtn.addEventListener("click", openLogin);
+
+backRegister.addEventListener("click", closeBook);
+
+backLogin.addEventListener("click", closeBook);
+
+/*=========================
+    SWITCH PANELS
+=========================*/
+
+showLogin.addEventListener("click", function(e){
+
+    e.preventDefault();
+
+    openLogin();
+
+});
+
+showRegister.addEventListener("click", function(e){
+
+    e.preventDefault();
+
+    openRegister();
+
+});
+/*=========================================
+        CHAPCY BOOK FLIP JS
+              PART 3B
+=========================================*/
+
+/*=========================
+      RIPPLE EFFECT
+=========================*/
+
+document.querySelectorAll("button").forEach(button=>{
+
+    button.addEventListener("click",function(e){
 
         const ripple=document.createElement("span");
 
@@ -80,18 +121,18 @@ document.querySelectorAll(".card").forEach(card=>{
 
         const size=Math.max(rect.width,rect.height);
 
+        ripple.style.position="absolute";
         ripple.style.width=size+"px";
         ripple.style.height=size+"px";
 
         ripple.style.left=(e.clientX-rect.left-size/2)+"px";
         ripple.style.top=(e.clientY-rect.top-size/2)+"px";
 
-        ripple.style.position="absolute";
         ripple.style.borderRadius="50%";
         ripple.style.background="rgba(255,255,255,.35)";
         ripple.style.transform="scale(0)";
-        ripple.style.animation="ripple .6s linear";
         ripple.style.pointerEvents="none";
+        ripple.style.animation="ripple .6s linear";
 
         this.style.position="relative";
         this.style.overflow="hidden";
@@ -109,43 +150,37 @@ document.querySelectorAll(".card").forEach(card=>{
 });
 
 /*=========================
-     PAGE LOAD EFFECT
-=========================*/
-
-window.addEventListener("load",()=>{
-
-    welcomePage.classList.add("active");
-
-});
-
-/*=========================
-    FLOATING PARTICLES
+     FLOATING PARTICLES
 =========================*/
 
 const particles=document.querySelector(".particles");
 
 function createParticle(){
 
+    if(!particles) return;
+
     const dot=document.createElement("span");
 
     dot.style.position="absolute";
 
-    dot.style.width=Math.random()*5+3+"px";
-    dot.style.height=dot.style.width;
+    const size=Math.random()*6+3;
 
-    dot.style.borderRadius="50%";
-
-    dot.style.background="rgba(255,255,255,.7)";
+    dot.style.width=size+"px";
+    dot.style.height=size+"px";
 
     dot.style.left=Math.random()*100+"%";
 
     dot.style.bottom="-20px";
 
+    dot.style.background="white";
+
     dot.style.opacity=Math.random();
+
+    dot.style.borderRadius="50%";
 
     dot.style.pointerEvents="none";
 
-    dot.style.animation=`floatUp ${6+Math.random()*5}s linear`;
+    dot.style.animation=`floatParticle ${6+Math.random()*5}s linear`;
 
     particles.appendChild(dot);
 
@@ -157,10 +192,31 @@ function createParticle(){
 
 }
 
-setInterval(createParticle,500);
+setInterval(createParticle,400);
 
 /*=========================
-     CREATE KEYFRAMES
+    BUTTON GLOW EFFECT
+=========================*/
+
+setInterval(()=>{
+
+    if(book.classList.contains("open-register") ||
+       book.classList.contains("open-login")){
+
+        book.style.filter="drop-shadow(0 0 25px #00cfff)";
+
+        setTimeout(()=>{
+
+            book.style.filter="";
+
+        },700);
+
+    }
+
+},3000);
+
+/*=========================
+     DYNAMIC KEYFRAMES
 =========================*/
 
 const style=document.createElement("style");
@@ -179,7 +235,7 @@ opacity:0;
 
 }
 
-@keyframes floatUp{
+@keyframes floatParticle{
 
 0%{
 
@@ -189,7 +245,7 @@ opacity:0;
 
 }
 
-20%{
+15%{
 
 opacity:1;
 
@@ -208,3 +264,25 @@ opacity:0;
 `;
 
 document.head.appendChild(style);
+
+/*=========================
+      PAGE LOADED
+=========================*/
+
+window.addEventListener("load",()=>{
+
+    book.style.opacity="0";
+
+    book.style.transform="translateY(50px)";
+
+    setTimeout(()=>{
+
+        book.style.transition=".8s ease";
+
+        book.style.opacity="1";
+
+        book.style.transform="translateY(0)";
+
+    },150);
+
+});
