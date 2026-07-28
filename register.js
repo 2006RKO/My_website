@@ -286,11 +286,16 @@ window.addEventListener("load",()=>{
     },150);
 
 });
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+const firebaseConfig = {
+  apiKey: "WEKA_API_KEY",
+  authDomain: "PROJECT.firebaseapp.com",
+  projectId: "PROJECT_ID",
+  storageBucket: "PROJECT.appspot.com",
+  messagingSenderId: "SENDER_ID",
+  appId: "APP_ID"
+};
 
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+firebase.initializeApp(firebaseConfig);
 /*=========================================
         CHAPCY FIREBASE AUTH
               PART 3C
