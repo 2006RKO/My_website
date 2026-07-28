@@ -646,3 +646,22 @@ width:80px;
 }
 
     }
+/* INITIAL STATES */
+
+.login-container,
+.register-container,
+.switch-panel{
+    transition:all .8s ease;
+}
+
+.register-container{
+    opacity:0;
+    pointer-events:none;
+    transform:translateX(-80px);
+}
+
+.login-container{
+    opacity:1;
+    pointer-events:auto;
+    transform:translateX(0);
+}
