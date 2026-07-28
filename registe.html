@@ -27,9 +27,7 @@ rel="stylesheet">
 
 <body>
 
-<!--============================
-      BACKGROUND
-=============================-->
+<!-- BACKGROUND -->
 
 <div class="background">
 
@@ -38,7 +36,7 @@ src="file_000000005b1081f49cef6fcfbfb36468.png"
 class="background-image"
 alt="Background">
 
-<div class="background-overlay"></div>
+<div class="overlay"></div>
 
 <div class="stars"></div>
 
@@ -46,23 +44,21 @@ alt="Background">
 
 </div>
 
-<!--============================
-      MAIN CONTAINER
-=============================-->
+<!-- MAIN -->
 
-<div class="main-container">
+<div class="container">
 
-<!--============================
-      WELCOME PAGE
-=============================-->
+<!-- WELCOME -->
 
 <section
-class="welcome-page"
+class="page active"
 id="welcomePage">
+
+<div class="glass-box">
 
 <img
 src="logo.png"
-class="chapcy-logo"
+class="logo"
 alt="CHAPCY">
 
 <h1>CHAPCY</h1>
@@ -79,21 +75,21 @@ Welcome Back
 
 </h2>
 
-<p class="choose">
+<p class="text">
 
 Choose how you want to continue
 
 </p>
 
-<div class="choice-container">
+<div class="cards">
 
 <!-- REGISTER -->
 
 <div
-class="choice-card register-card"
+class="card"
 id="registerCard">
 
-<div class="choice-icon">
+<div class="icon">
 
 <img
 src="register-logo.png"
@@ -101,12 +97,16 @@ alt="Register">
 
 </div>
 
-<h3>REGISTER</h3>
+<h3>
+
+REGISTER
+
+</h3>
 
 <p>
 
 Create your account
-and get started.
+and start your journey.
 
 </p>
 
@@ -121,10 +121,10 @@ CREATE ACCOUNT
 <!-- LOGIN -->
 
 <div
-class="choice-card login-card"
+class="card"
 id="loginCard">
 
-<div class="choice-icon">
+<div class="icon">
 
 <img
 src="login-logo.png"
@@ -132,12 +132,16 @@ alt="Login">
 
 </div>
 
-<h3>LOGIN</h3>
+<h3>
+
+LOGIN
+
+</h3>
 
 <p>
 
-Login to your account
-and continue.
+Continue using your
+existing account.
 
 </p>
 
@@ -151,18 +155,20 @@ LOGIN NOW
 
 </div>
 
+</div>
+
 </section>
 
-<!--============================
-      REGISTER PAGE
-=============================-->
+<!-- REGISTER -->
 
 <section
-class="register-page"
+class="page"
 id="registerPage">
 
+<div class="glass-box">
+
 <button
-class="back-btn"
+class="back"
 id="backRegister">
 
 ← Back
@@ -170,24 +176,26 @@ id="backRegister">
 </button>
 
 <div
-class="page-content">
+class="form-area">
 
-<!-- FORM ITAKUJA BAADAYE -->
+<!-- FORM ITAKUJA -->
+
+</div>
 
 </div>
 
 </section>
 
-<!--============================
-      LOGIN PAGE
-=============================-->
+<!-- LOGIN -->
 
 <section
-class="login-page"
+class="page"
 id="loginPage">
 
+<div class="glass-box">
+
 <button
-class="back-btn"
+class="back"
 id="backLogin">
 
 ← Back
@@ -195,9 +203,11 @@ id="backLogin">
 </button>
 
 <div
-class="page-content">
+class="form-area">
 
-<!-- FORM ITAKUJA BAADAYE -->
+<!-- LOGIN FORM -->
+
+</div>
 
 </div>
 
