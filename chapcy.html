@@ -1,212 +1,894 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>CHAPCY V20</title>
+<title>CHAPCY V21</title>
 
-<meta name="theme-color" content="#050816">
+<link rel="stylesheet" href="style.css">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-
-<link rel="preconnect"
-href="https://fonts.gstatic.com"
-crossorigin>
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
 rel="stylesheet">
-
-<link rel="stylesheet" href="register.css">
-
-<link rel="icon" href="logo.png">
 
 </head>
 
 <body>
 
-<!--============================
-      BACKGROUND
-=============================-->
+<!-- BACKGROUND -->
 
-<div class="background">
+<img src="background.jpg"
+class="background"
+alt="Background">
 
-<img
-src="file_000000005b1081f49cef6fcfbfb36468.png"
-class="background-image"
-alt="Background">">
+<!-- BUBBLES -->
 
-<div class="background-overlay"></div>
+<div class="bubble"></div>
 
-<div class="stars"></div>
+<!-- SIDEBAR BUTTON -->
 
-<div class="particles"></div>
+<button
+id="menuBtn"
+class="menu-btn">
+
+<i class="fa-solid fa-bars"></i>
+
+</button>
+
+<!-- OVERLAY -->
+
+<div
+id="overlay"
+class="sidebar-overlay">
 
 </div>
 
-<!--============================
-      MAIN CONTAINER
-=============================-->
+<!-- SIDEBAR -->
 
-<div class="main-container">
+<aside
+id="sidebar"
+class="sidebar">
 
-<!--============================
-      WELCOME PAGE
-=============================-->
-
-<section
-class="welcome-page"
-id="welcomePage">
+<div class="sidebar-header">
 
 <img
 src="logo.png"
-class="chapcy-logo"
-alt="CHAPCY">
+class="sidebar-logo">
 
-<h1>CHAPCY</h1>
+<h2>CHAPCY</h2>
 
-<p class="subtitle">
+<p>Worldwide Community</p>
 
-Connect • Chat • Share • Grow
+</div>
+
+<div class="user-box">
+
+<img
+src="default-avatar.png"
+class="user-avatar"
+id="profileImage">
+
+<span class="online">
+🟢 Online
+</span>
+
+<input
+type="file"
+id="profileInput"
+accept="image/*"
+hidden>
+
+</div>
+
+<div class="reputation-box">
+
+<h3>Reputation</h3>
+
+<h1>1250</h1>
+
+<p>Global Member</p>
+
+</div>
+
+<nav>
+
+<a href="#">
+
+<i class="fa-solid fa-house"></i>
+
+<span>Home</span>
+
+</a>
+
+<a href="#">
+
+<i class="fa-solid fa-comments"></i>
+
+<span>Chats</span>
+
+</a>
+
+<a href="#">
+
+<i class="fa-solid fa-users"></i>
+
+<span>Groups</span>
+
+</a>
+
+<a href="#">
+
+<i class="fa-solid fa-video"></i>
+
+<span>Live</span>
+
+</a>
+
+<a href="#">
+
+<i class="fa-solid fa-gear"></i>
+
+<span>Settings</span>
+
+</a>
+
+</nav>
+
+<button class="logout">
+
+Logout
+
+</button>
+
+</aside>
+
+<!-- TOP PROFILE -->
+
+<div
+class="top-profile"
+id="topProfile">
+
+<img
+src="default-avatar.png"
+class="top-avatar"
+id="profileImage">
+
+<span class="online-dot"></span>
+
+</div>
+
+<!-- NOTIFICATION -->
+
+<div class="notification-box">
+
+<button
+id="notificationBtn"
+class="notification-btn">
+
+<i class="fa-solid fa-bell"></i>
+
+<span
+class="notification-count">
+
+3
+
+</span>
+
+</button>
+
+<div
+id="notificationPanel"
+class="notification-panel">
+
+<div
+class="notification-header">
+
+<h3>Notifications</h3>
+
+</div>
+
+<div
+id="notificationList"
+class="notification-list">
+
+</div>
+
+</div>
+
+</div>
+
+<!-- SEARCH -->
+
+<section
+class="search-section">
+
+<div class="search-box">
+
+<div class="search-icon">
+
+<i class="fa-solid fa-search"></i>
+
+</div>
+
+<input
+type="text"
+placeholder="Search people, groups...">
+
+<button
+class="filter-btn">
+
+<i class="fa-solid fa-sliders"></i>
+
+</button>
+
+</div>
+
+      </section>
+<!--=========================================
+        WORLDWIDE LIVE CARD
+==========================================-->
+
+<section class="container">
+
+<div class="chapcy-item">
+
+<img src="worldwide.jpg" alt="Worldwide">
+
+<div class="card-content">
+
+<div class="live-badge">
+
+<span class="live-dot"></span>
+
+LIVE WORLDWIDE
+
+</div>
+
+<div class="card-top">
+
+<h2>Worldwide Chat</h2>
+
+</div>
+
+<p class="welcome-text">
+
+Meet people around the world, join communities,
+share ideas and build new friendships with CHAPCY.
 
 </p>
 
-<h2>
+<div class="live-status">
 
-Welcome Back
+<div class="online-box">
+
+<i class="fa-solid fa-users"></i>
+
+<span id="onlineCount">
+
+12548
+
+</span>
+
+<small>Online</small>
+
+</div>
+
+<div class="online-box">
+
+<i class="fa-solid fa-earth-africa"></i>
+
+<span>
+
+195
+
+</span>
+
+<small>Countries</small>
+
+</div>
+
+<div class="online-box">
+
+<i class="fa-solid fa-comments"></i>
+
+<span>
+
+845K
+
+</span>
+
+<small>Messages</small>
+
+</div>
+
+</div>
+
+<button class="join-chat-btn join-btn">
+
+Join Worldwide Chat
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+<!--=========================================
+      DAILY CHALLENGE
+==========================================-->
+
+<section class="container">
+
+<div class="chapcy-item">
+
+<div class="card-content">
+
+<h2 style="text-align:center;">
+
+Daily Challenge
 
 </h2>
 
-<p class="choose">
+<div class="challenge-list">
 
-Choose how you want to continue
+<div class="challenge-item completed">
 
-</p>
+<i class="fa-solid fa-check-circle"></i>
 
-<div class="choice-container">
+<span>
 
-<!-- REGISTER -->
+Login Today
 
-<div
-class="choice-card register-card"
-id="registerCard">
-
-<div class="choice-icon">
-
-<img
-src="register-logo.png"
-alt="Register">
+</span>
 
 </div>
 
-<h3>REGISTER</h3>
+<div class="challenge-item">
+
+<i class="fa-regular fa-circle"></i>
+
+<span>
+
+Send 5 Messages
+
+</span>
+
+</div>
+
+<div class="challenge-item">
+
+<i class="fa-regular fa-circle"></i>
+
+<span>
+
+Join One Group
+
+</span>
+
+</div>
+
+</div>
+
+<div class="progress-area">
+
+<div class="progress-top">
+
+<span>
+
+Progress
+
+</span>
+
+<span id="progressText">
+
+1 / 3
+
+</span>
+
+</div>
+
+<div class="progress-bar">
+
+<div
+id="progressFill"
+class="progress-fill">
+
+</div>
+
+</div>
+
+</div>
+
+<div class="reward-line"></div>
+
+<div class="reward-preview">
+
+<div class="reward-card">
+
+<h3>
+
+⭐ 2 XP
+
+</h3>
 
 <p>
 
-Create your account
-and get started.
+Experience
 
 </p>
 
-<button>
-
-CREATE ACCOUNT
-
-</button>
-
 </div>
 
-<!-- LOGIN -->
+<div class="reward-card">
 
-<div
-class="choice-card login-card"
-id="loginCard">
+<h3>
 
-<div class="choice-icon">
+🪙 1 Coin
 
-<img
-src="login-logo.png"
-alt="Login">
-
-</div>
-
-<h3>LOGIN</h3>
+</h3>
 
 <p>
 
-Login to your account
-and continue.
+Reward
 
 </p>
 
-<button>
-
-LOGIN NOW
-
-</button>
-
 </div>
 
 </div>
-
-</section>
-
-<!--============================
-      REGISTER PAGE
-=============================-->
-
-<section
-class="register-page"
-id="registerPage">
-
-<button
-class="back-btn"
-id="backRegister">
-
-← Back
-
-</button>
 
 <div
-class="page-content">
+id="rewardTimer"
+class="timer">
 
-<!-- FORM ITAKUJA BAADAYE -->
+15:00
 
 </div>
 
-</section>
-
-<!--============================
-      LOGIN PAGE
-=============================-->
-
-<section
-class="login-page"
-id="loginPage">
-
 <button
-class="back-btn"
-id="backLogin">
+id="claimReward"
+disabled>
 
-← Back
+Claim Reward
 
 </button>
 
-<div
-class="page-content">
-
-<!-- FORM ITAKUJA BAADAYE -->
+</div>
 
 </div>
 
 </section>
 
+<!--=========================================
+          XP POPUP
+==========================================-->
+
+<div
+id="xpReward"
+class="xp-reward">
+
+<div class="xp-box">
+
+<i class="fa-solid fa-star"></i>
+
+<span id="xpText">
+
++15 XP
+
+</span>
+
 </div>
 
-<script src="register.js"></script>
+</div>
+<!--=========================================
+            CHAPCY MOMENTS
+==========================================-->
+
+<section class="moments">
+
+<div class="moments-header">
+
+<h2>Moments</h2>
+
+<a href="#" class="view-all">
+
+View All
+
+<i class="fa-solid fa-arrow-right"></i>
+
+</a>
+
+</div>
+
+<div class="moments-scroll">
+
+<!-- ADD STORY -->
+
+<div class="story-card">
+
+<div class="story-ring">
+
+<div class="story-avatar add-avatar">
+
+<i class="fa-solid fa-plus"></i>
+
+</div>
+
+</div>
+
+<span class="story-name">
+
+Your Story
+
+</span>
+
+<input
+type="file"
+id="storyInput"
+accept="image/*"
+hidden>
+
+</div>
+
+<!-- STORY 1 -->
+
+<div class="story-card">
+
+<div class="story-ring">
+
+<img
+src="avatar1.png"
+class="story-avatar"
+alt="User">
+
+<span class="online-dot"></span>
+
+</div>
+
+<span class="story-name">
+
+Hassan
+
+<i class="fa-solid fa-circle-check verified"></i>
+
+</span>
+
+</div>
+
+<!-- STORY 2 -->
+
+<div class="story-card">
+
+<div class="story-ring">
+
+<img
+src="avatar2.png"
+class="story-avatar"
+alt="User">
+
+<span class="online-dot"></span>
+
+</div>
+
+<span class="story-name">
+
+Emma
+
+<i class="fa-solid fa-circle-check verified"></i>
+
+</span>
+
+</div>
+
+<!-- STORY 3 -->
+
+<div class="story-card">
+
+<div class="story-ring">
+
+<img
+src="avatar3.png"
+class="story-avatar"
+alt="User">
+
+<span class="online-dot"></span>
+
+</div>
+
+<span class="story-name">
+
+Brian
+
+</span>
+
+</div>
+
+<!-- STORY 4 -->
+
+<div class="story-card">
+
+<div class="story-ring">
+
+<img
+src="avatar4.png"
+class="story-avatar"
+alt="User">
+
+<span class="online-dot"></span>
+
+</div>
+
+<span class="story-name">
+
+Sophia
+
+</span>
+
+</div>
+
+<!-- STORY 5 -->
+
+<div class="story-card">
+
+<div class="story-ring">
+
+<img
+src="avatar5.png"
+class="story-avatar"
+alt="User">
+
+<span class="online-dot"></span>
+
+</div>
+
+<span class="story-name">
+
+Lucas
+
+<i class="fa-solid fa-circle-check verified"></i>
+
+</span>
+
+</div>
+
+<!-- STORY 6 -->
+
+<div class="story-card">
+
+<div class="story-ring">
+
+<img
+src="avatar6.png"
+class="story-avatar"
+alt="User">
+
+<span class="online-dot"></span>
+
+</div>
+
+<span class="story-name">
+
+Yuki
+
+</span>
+
+</div>
+
+</div>
+
+</section>
+<!--=========================================
+        CHAPCY GROUPS SLIDER
+==========================================-->
+
+<section class="group-slider">
+
+    <!-- LEFT BUTTON -->
+    <button class="slider-btn prev">
+        <i class="fa-solid fa-chevron-left"></i>
+    </button>
+
+    <!-- SLIDER -->
+    <div class="slider-track">
+
+        <!-- CARD 1 -->
+        <div class="group-card active">
+
+            <img src="football.jpg" alt="Football">
+
+            <h3>Football</h3>
+
+            <p>
+                Join football lovers from every country.
+                Chat, livestream, tournaments and rewards.
+            </p>
+
+            <div class="card-buttons">
+
+                <a href="#" class="join-btn">
+                    <i class="fa-solid fa-users"></i>
+                    Join Group
+                </a>
+
+                <a href="#" class="payment-btn">
+                    <i class="fa-solid fa-crown"></i>
+                    Premium
+                </a>
+
+            </div>
+
+        </div>
+
+        <!-- CARD 2 -->
+        <div class="group-card">
+
+            <img src="music.jpg" alt="Music">
+
+            <h3>Music</h3>
+
+            <p>
+                Discover artists, albums, live rooms and
+                worldwide music community.
+            </p>
+
+            <div class="card-buttons">
+
+                <a href="#" class="join-btn">
+                    Join Group
+                </a>
+
+                <a href="#" class="payment-btn">
+                    Premium
+                </a>
+
+            </div>
+
+        </div>
+
+        <!-- CARD 3 -->
+        <div class="group-card">
+
+            <img src="gaming.jpg" alt="Gaming">
+
+            <h3>Gaming</h3>
+
+            <p>
+                Play with gamers around the world,
+                tournaments and live voice chat.
+            </p>
+
+            <div class="card-buttons">
+
+                <a href="#" class="join-btn">
+                    Join Group
+                </a>
+
+                <a href="#" class="payment-btn">
+                    Premium
+                </a>
+
+            </div>
+
+        </div>
+
+        <!-- CARD 4 -->
+        <div class="group-card">
+
+            <img src="anime.jpg" alt="Anime">
+
+            <h3>Anime</h3>
+
+            <p>
+                Meet anime fans worldwide and enjoy
+                discussions, videos and events.
+            </p>
+
+            <div class="card-buttons">
+
+                <a href="#" class="join-btn">
+                    Join Group
+                </a>
+
+                <a href="#" class="payment-btn">
+                    Premium
+                </a>
+
+            </div>
+
+        </div>
+
+        <!-- CARD 5 -->
+        <div class="group-card">
+
+            <img src="business.jpg" alt="Business">
+
+            <h3>Business</h3>
+
+            <p>
+                Connect entrepreneurs, investors,
+                freelancers and companies globally.
+            </p>
+
+            <div class="card-buttons">
+
+                <a href="#" class="join-btn">
+                    Join Group
+                </a>
+
+                <a href="#" class="payment-btn">
+                    Premium
+                </a>
+
+            </div>
+
+        </div>
+
+        <!-- CARD 6 -->
+        <div class="group-card">
+
+            <img src="coding.jpg" alt="Coding">
+
+            <h3>Coding</h3>
+
+            <p>
+                Learn programming, AI, websites,
+                Android apps and software together.
+            </p>
+
+            <div class="card-buttons">
+
+                <a href="#" class="join-btn">
+                    Join Group
+                </a>
+
+                <a href="#" class="payment-btn">
+                    Premium
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- RIGHT BUTTON -->
+    <button class="slider-btn next">
+        <i class="fa-solid fa-chevron-right"></i>
+    </button>
+
+</section>
+<!--=========================================
+      XP REWARD POPUP
+==========================================-->
+
+<div id="xpReward" class="xp-reward">
+
+    <div class="xp-box">
+
+        <i class="fa-solid fa-star"></i>
+
+        <span id="xpText">
+            +15 XP
+        </span>
+
+    </div>
+
+</div>
+
+
+<!--=========================================
+        JAVASCRIPT
+==========================================-->
+
+<script type="module" src="firebase.js"></script>
+
+<script src="script.js"></script>
 
 </body>
-
 </html>
