@@ -1,210 +1,237 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Register</title>
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<meta charset="UTF-8">
 
-  <style>
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family:Arial,sans-serif;
-    }
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-  body{
-    margin:0;
-    padding:0;
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
+<meta
+name="theme-color"
+content="#050816">
 
-    background:
-    linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.55)),
-    url("file_0000000005347246b81a1dcb123db1a2.png");
+<title>CHAPCY | Login</title>
 
-    background-size:cover;
-    background-position:center;
-    background-repeat:no-repeat;
-    background-attachment:fixed;
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
 
-    font-family:Arial,sans-serif;
-  }
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
 
-    .register-form{
-    width:400px;
-    padding:35px;
-    border-radius:25px;
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
 
-    background:
-        linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.45)),
-        url("file_0000000005347246b81a1dcb123db1a2.png");
+<link rel="stylesheet"
+href="style.css">
 
-    background-size:cover;
-    background-position:center;
-    background-repeat:no-repeat;
+<link rel="icon"
+href="logo.png">
 
-    border:2px solid #00d4ff;
-    box-shadow:0 0 35px rgba(0,212,255,.8);
-    backdrop-filter:blur(15px);
-    }
-    
-    .input-box{
-      display:flex;
-      align-items:center;
-      background:rgba(255,255,255,.2);
-      margin:12px 0;
-      padding:12px;
-      border-radius:8px;
-    }
-
-    .input-box i{
-      margin-right:10px;
-    }
-
-    .input-box input{
-      width:100%;
-      border:none;
-      outline:none;
-      background:transparent;
-      color:white;
-      font-size:16px;
-    }
-
-    .input-box input::placeholder{
-      color:#ddd;
-    }
-
-    button{
-      width:100%;
-      padding:12px;
-      margin-top:15px;
-      border:none;
-      border-radius:8px;
-      background:#00c6ff;
-      color:white;
-      font-size:16px;
-      cursor:pointer;
-      transition:.3s;
-    }
-
-    button:hover{
-      background:#0072ff;
-    }
-    .loading-screen{
-    position:fixed;
-    inset:0;
-    background:linear-gradient(180deg,#07081b,#090b20,#060718);
-    display:none;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-    z-index:9999;
-}
-
-.loading-logo{
-    width:180px;
-    height:180px;
-    border-radius:50%;
-    margin-bottom:25px;
-    box-shadow:0 0 35px #8b5cf6;
-}
-
-.loading-screen h2{
-    color:#fff;
-    font-size:58px;
-    font-weight:bold;
-    letter-spacing:4px;
-    margin-bottom:20px;
-}
-
-.loading-screen p{
-    color:#8b5cf6;
-    font-size:28px;
-    font-family:'Poppins',sans-serif;
-}
-
-.loading-screen p::after{
-    content:"";
-    animation:dots 1.5s infinite;
-}
-
-@keyframes dots{
-    0%{content:"";}
-    25%{content:".";}
-    50%{content:"..";}
-    75%{content:"...";}
-    100%{content:"....";}
-}
-    .login-link{
-    margin-top:20px;
-    color:#fff;
-    font-size:15px;
-    text-align:center;
-}
-
-.login-link a{
-    color:#00c6ff;
-    text-decoration:none;
-    font-weight:bold;
-    transition:.3s;
-}
-
-.login-link a:hover{
-    color:#8b5cf6;
-    text-decoration:underline;
-}
-
-.login-link i{
-    margin-right:5px;
-}
-  </style>
 </head>
 
 <body>
 
-<div class="overlay"></div>
+<!--============================
+      BACKGROUND
+=============================-->
 
-<div class="register-form">
+<div class="background">
 
-  <h2>Register</h2>
+<img
+src="file_000000005b1081f49cef6fcfbfb36468.png"
+class="background-image">
 
-  <div class="input-box">
-    <i class="fa fa-user"></i>
-    <input type="text" id="name" placeholder="Full Name">
-  </div>
+<div class="background-overlay"></div>
 
-  <div class="input-box">
-    <i class="fa fa-envelope"></i>
-    <input type="email" id="email" placeholder="Email">
-  </div>
+<div class="stars"></div>
 
-  <div class="input-box">
-    <i class="fa fa-lock"></i>
-    <input type="password" id="password" placeholder="Password">
-  </div>
-  <button onclick="registerUser()">Register</button>
+<div class="particles"></div>
 
-<p class="login-link">
-    Already have an account?
-    <a href="Login.html">
-        <i class="fa-solid fa-right-to-bracket"></i> Login
-    </a>
+</div>
+
+<!--============================
+      MAIN CONTAINER
+=============================-->
+
+<div class="auth-wrapper">
+
+<div class="auth-container">
+
+<!--=================================
+        DIAGONAL SLIDER PANEL
+==================================-->
+
+<div class="switch-panel" id="switchPanel">
+
+    <div class="panel-content">
+
+        <img src="logo.png" class="panel-logo">
+
+        <h1>CHAPCY</h1>
+
+        <p>
+            Connect • Chat • Share • Grow
+        </p>
+
+        <div class="panel-line"></div>
+
+        <h3 id="panelTitle">
+            Welcome Back
+        </h3>
+
+        <span id="panelText">
+
+            Don't have an account?
+
+        </span>
+
+        <button
+            id="switchBtn"
+            class="switch-btn">
+
+            CREATE ACCOUNT
+
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!--=================================
+        REGISTER FORM
+==================================-->
+
+<div class="register-container">
+
+<form id="registerForm">
+
+<h2>Create Account</h2>
+
+<p>
+Join the CHAPCY community.
 </p>
 
+<div class="input-group">
+
+<input
+type="text"
+id="regName"
+placeholder="Full Name"
+required>
+
 </div>
 
-<div id="loadingScreen" class="loading-screen">
-    <img src="file_000000004f547243bb0fa43d66db1edf.png" class="loading-logo" alt="CHAPCY Logo">
-    <h2>CHAPCY</h2>
-    <p>Loading...</p>
+<div class="input-group">
+
+<input
+type="email"
+id="regEmail"
+placeholder="Email Address"
+required>
+
 </div>
 
-<script type="module" src="firebase.js"></script>
+<div class="input-group">
+
+<input
+type="password"
+id="regPassword"
+placeholder="Password"
+required>
+
+</div>
+
+<div class="input-group">
+
+<input
+type="password"
+id="regConfirm"
+placeholder="Confirm Password"
+required>
+
+</div>
+
+<button
+type="submit"
+class="register-btn">
+
+CREATE ACCOUNT
+
+</button>
+
+</form>
+
+</div>
+
+
+
+<!--=================================
+          LOGIN FORM
+==================================-->
+
+<div class="login-container">
+
+<form id="loginForm">
+
+<h2>Login</h2>
+
+<p>
+
+Welcome back to CHAPCY.
+
+</p>
+
+<div class="input-group">
+
+<input
+type="email"
+id="loginEmail"
+placeholder="Email Address"
+required>
+
+</div>
+
+<div class="input-group">
+
+<input
+type="password"
+id="loginPassword"
+placeholder="Password"
+required>
+
+</div>
+
+<a
+href="#"
+class="forgot">
+
+Forgot Password?
+
+</a>
+
+<button
+type="submit"
+class="login-btn">
+
+LOGIN
+
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+<script src="register.css"></script>
 
 </body>
+
 </html>
