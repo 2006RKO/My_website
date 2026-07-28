@@ -286,3 +286,145 @@ window.addEventListener("load",()=>{
     },150);
 
 });
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+/*=========================================
+        CHAPCY FIREBASE AUTH
+              PART 3C
+=========================================*/
+
+
+const registerForm = document.getElementById("registerForm");
+const loginForm = document.getElementById("loginForm");
+
+
+
+/*=========================
+        REGISTER
+=========================*/
+
+
+registerForm.addEventListener("submit", (e)=>{
+
+    e.preventDefault();
+
+
+    const email =
+    registerForm.querySelector('input[type="email"]').value;
+
+
+    const password =
+    registerForm.querySelectorAll('input[type="password"]')[0].value;
+
+
+    firebase.auth()
+    .createUserWithEmailAndPassword(email,password)
+
+    .then((userCredential)=>{
+
+
+        const user = userCredential.user;
+
+
+        // SAVE USER DATA
+
+        return firebase.firestore()
+        .collection("users")
+        .doc(user.uid)
+        .set({
+
+            email:email,
+
+            xp:0,
+
+            coins:0,
+
+            level:1,
+
+            friends:0,
+
+            joined:
+            new Date()
+
+        });
+
+
+    })
+
+
+    .then(()=>{
+
+
+        alert("Welcome to CHAPCY 🚀");
+
+
+        window.location.href="chapcy.html";
+
+
+    })
+
+
+    .catch(error=>{
+
+
+        alert(error.message);
+
+
+    });
+
+
+});
+
+
+
+
+
+/*=========================
+          LOGIN
+=========================*/
+
+
+loginForm.addEventListener("submit",(e)=>{
+
+
+    e.preventDefault();
+
+
+    const email =
+    loginForm.querySelector('input[type="email"]').value;
+
+
+    const password =
+    loginForm.querySelector('input[type="password"]').value;
+
+
+
+    firebase.auth()
+
+    .signInWithEmailAndPassword(email,password)
+
+    .then(()=>{
+
+
+        alert("Welcome Back CHAPCY 🌍");
+
+
+        window.location.href="chapcy.html";
+
+
+    })
+
+
+    .catch(error=>{
+
+
+        alert(error.message);
+
+
+    });
+
+
+});
