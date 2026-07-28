@@ -384,51 +384,53 @@ transform:scale(1.15);
 
 .logo-box{
 
-    width:120px;
-    height:120px;
+    width:140px;
+    height:140px;
 
     border-radius:50%;
 
     display:flex;
 
     justify-content:center;
-
     align-items:center;
 
     background:rgba(255,255,255,.08);
 
-    border:1px solid rgba(255,255,255,.12);
+    border:2px solid rgba(255,255,255,.15);
 
-    margin-bottom:20px;
+    box-shadow:
+        0 0 35px rgba(0,207,255,.25);
 
-    animation:floatLogo 4s ease-in-out infinite;
+    margin-bottom:25px;
+
+    overflow:hidden;
 
 }
 
 .logo{
 
-    width:80px;
+    width:95px;
+    height:95px;
 
-    filter:drop-shadow(0 0 18px #00cfff);
+    object-fit:contain;
 
-}
+    animation:logoFloat 4s ease-in-out infinite;
 
-@keyframes floatLogo{
-
-0%,100%{
-
-transform:translateY(0);
+    filter:drop-shadow(0 0 12px rgba(0,207,255,.8));
 
 }
 
-50%{
+@keyframes logoFloat{
 
-transform:translateY(-12px);
+    0%,100%{
+        transform:translateY(0) rotate(0deg);
+    }
+
+    50%{
+        transform:translateY(-8px) rotate(2deg);
+    }
 
 }
-
-}
-
 /*=========================
         TEXT
 =========================*/
