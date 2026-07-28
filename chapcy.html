@@ -1,660 +1,212 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>CHAPCY</title>
+<title>CHAPCY V20</title>
 
-<link rel="stylesheet" href="chapcy.css">
+<meta name="theme-color" content="#050816">
 
-<link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+<link rel="stylesheet" href="register.css">
+
+<link rel="icon" href="logo.png">
 
 </head>
+
 <body>
-      <!-- MENU BUTTON -->
-<button class="menu-btn" id="menuBtn">
-    <i class="fas fa-bars"></i>
-</button>
 
-<!-- OVERLAY -->
-<div class="sidebar-overlay" id="overlay"></div>
+<!--============================
+      BACKGROUND
+=============================-->
 
-<!-- SIDEBAR -->
-<aside class="sidebar" id="sidebar">
-
-<div class="sidebar-header">
-
-<img src="logo.png" class="sidebar-logo">
-
-<h2>CHAPCY</h2>
-
-<p>Build Your Legacy.</p>
-
-</div>
-
-<div class="user-box">
-
-<img src="avatar.png" class="user-avatar">
-
-<h3>SAID</h3>
-
-<span class="online">🟢 Online</span>
-
-<div class="level">
-
-<div class="level-top">
-<span>LEVEL 12</span>
-<span>72%</span>
-</div>
-
-<div class="level-bar">
-<div class="level-fill"></div>
-</div>
-
-</div>
-
-</div>
-
-<div class="reputation-box">
-
-<h3>⭐ Reputation</h3>
-
-<h1>2450 XP</h1>
-
-<p>#18 Global Rank</p>
-
-</div>
-
-<nav>
-
-<a href="#"><i class="fas fa-home"></i> Home</a>
-
-<a href="#"><i class="fas fa-users"></i> My Groups</a>
-
-<a href="#"><i class="fas fa-trophy"></i> Reputation</a>
-
-<a href="#"><i class="fas fa-fire"></i> Daily Streak</a>
-
-<a href="#"><i class="fas fa-medal"></i> Badges</a>
-
-<a href="#"><i class="fas fa-ranking-star"></i> Leaderboard</a>
-
-<a href="#"><i class="fas fa-tv"></i> CHAPCY TV</a>
-
-<a href="#"><i class="fas fa-wallet"></i> Wallet</a>
-
-<a href="#"><i class="fas fa-crown"></i> Premium</a>
-
-<a href="#"><i class="fas fa-cog"></i> Settings</a>
-
-</nav>
-
-<button class="logout">
-<i class="fas fa-right-from-bracket"></i>
-Logout
-</button>
-
-</aside>
-      
-      <!-- =========================
-        BACKGROUND
-========================== -->
+<div class="background">
 
 <img
-    src="file_00000000272071f485bba23f009160b7.png"
-    class="background"
-    alt="Background"
->
+src="background.jpg"
+class="file_000000005b1081f49cef6fcfbfb36468.png"
+alt="Background">
 
+<div class="background-overlay"></div>
 
-<!-- =========================
-        CHAPCY LOGO
-========================== -->
+<div class="stars"></div>
 
-<div class="logo">
-
-    <img
-        src="file_00000000dd9471f4a7cfe6138290e021.png"
-        alt="CHAPCY Logo"
-    >
+<div class="particles"></div>
 
 </div>
 
+<!--============================
+      MAIN CONTAINER
+=============================-->
 
+<div class="main-container">
 
-            <!--=========================================
-      CHAPCY NOTIFICATIONS
-==========================================-->
+<!--============================
+      WELCOME PAGE
+=============================-->
 
-<div class="notification-box">
+<section
+class="welcome-page"
+id="welcomePage">
 
-    <button class="notification-btn" id="notificationBtn">
+<img
+src="logo.png"
+class="chapcy-logo"
+alt="CHAPCY">
 
-        <i class="fa-solid fa-bell"></i>
+<h1>CHAPCY</h1>
 
-        <span class="notification-count" id="notificationCount">3</span>
+<p class="subtitle">
 
-    </button>
+Connect • Chat • Share • Grow
 
-    <div class="notification-panel" id="notificationPanel">
+</p>
 
-        <div class="notification-header">
+<h2>
 
-            <h2>🔔 Notifications</h2>
+Welcome Back
 
-            <span>Today</span>
+</h2>
 
-        </div>
-          
+<p class="choose">
 
-        <div class="notification-list" id="notificationList">
+Choose how you want to continue
 
-            <!-- Notifications zitaongezwa na JavaScript -->
+</p>
 
-        </div>
+<div class="choice-container">
 
-    </div>
+<!-- REGISTER -->
 
-</div>
-      <!--=========================================
-        TOP PROFILE
-==========================================-->
+<div
+class="choice-card register-card"
+id="registerCard">
 
-<div class="top-profile" id="topProfile">
+<div class="choice-icon">
 
-    <img
-        id="profileImage"
-        class="top-avatar"
-        src="avatar.png"
-        alt="Profile">
-
-    <span class="online-dot"></span>
-
-    <input
-        type="file"
-        id="profileInput"
-        accept="image/*"
-        hidden>
+<img
+src="register-logo.png"
+alt="Register">
 
 </div>
-      
-      <!--=========================================
-        ULTRA SEARCH BAR
-==========================================-->
 
-<section class="search-section">
+<h3>REGISTER</h3>
 
-    <div class="search-box">
+<p>
 
-        <div class="search-icon">
-            <i class="fa-solid fa-magnifying-glass"></i>
-        </div>
+Create your account
+and get started.
 
-        <input
-            type="text"
-            placeholder="Search people, groups, posts..."
-        >
+</p>
 
-        <button class="filter-btn">
+<button>
 
-            <i class="fa-solid fa-sliders"></i>
+CREATE ACCOUNT
 
-        </button>
+</button>
 
-    </div>
+</div>
 
-</section>
-     <!--=========================================
-            CHAPCY MOMENTS
-==========================================-->
+<!-- LOGIN -->
 
-<section class="moments">
+<div
+class="choice-card login-card"
+id="loginCard">
 
-    <div class="moments-header">
+<div class="choice-icon">
 
-        <h2>✨ Moments</h2>
+<img
+src="login-logo.png"
+alt="Login">
 
-        <a href="#" class="view-all">
-            View All
-            <i class="fa-solid fa-arrow-right"></i>
-        </a>
+</div>
 
-    </div>
+<h3>LOGIN</h3>
 
-    <div class="moments-scroll">
+<p>
 
-        <!-- YOUR STORY -->
+Login to your account
+and continue.
 
-        <div class="story-card add-story">
+</p>
 
-            <input
-                type="file"
-                id="storyInput"
-                accept="image/*,video/*"
-                hidden>
+<button>
 
-            <div class="story-ring"
-                 onclick="document.getElementById('storyInput').click()">
+LOGIN NOW
 
-                <div class="story-avatar add-avatar">
+</button>
 
-                    <i class="fa-solid fa-plus"></i>
+</div>
 
-                </div>
-
-            </div>
-
-            <span class="story-name">
-                Your Story
-            </span>
-
-        </div>
-
-        <!-- Friend stories zitaongezwa hapa na JavaScript -->
-        <div id="friendsStories"></div>
-
-    </div>
+</div>
 
 </section>
 
+<!--============================
+      REGISTER PAGE
+=============================-->
 
-        
-<div class="container">
+<section
+class="register-page"
+id="registerPage">
 
-    <div class="chapcy-item">
+<button
+class="back-btn"
+id="backRegister">
 
-        <img
-            src="file_000000002b8071f4b410ea7b9a3969d6.png"
-            alt="Community Chat Room"
-        >
+← Back
 
-        <div class="card-content">
+</button>
 
-    <!-- TOP -->
-    <div class="card-top">
+<div
+class="page-content">
 
-    <div class="live-badge">
-        <span class="live-dot"></span>
-        LIVE WORLDWIDE
-    </div>
-
-    <h2>🌍 Worldwide Live Chat</h2>
-
-    <p class="welcome-text">
-        Meet people from every country, make friends, share ideas and chat in real time.
-    </p>
-
-    <div class="live-status">
-
-        <div class="online-box">
-            <i class="fa-solid fa-users"></i>
-            <span id="onlineCount">12,548</span>
-            <small>Online</small>
-        </div>
-
-        <div class="online-box">
-            <i class="fa-solid fa-earth-africa"></i>
-            <span>195</span>
-            <small>Countries</small>
-        </div>
-
-        <div class="online-box">
-            <i class="fa-solid fa-comments"></i>
-            <span>24M+</span>
-            <small>Messages</small>
-        </div>
-
-    </div>
-
-    <button class="join-chat-btn"
-        onclick="window.location.href='chat.html'">
-
-        <i class="fa-solid fa-comments"></i>
-
-        Let's Chat
-
-    </button>
-
-    </div>
-
-    <div class="reward-line"></div>
-
-    <!-- DAILY CHALLENGE -->
-
-    <div class="reward-box">
-
-        <h3>🎯 Daily Challenge</h3>
-
-        <p>Complete today's missions to unlock your reward.</p>
-
-        <div class="challenge-list">
-
-            <div class="challenge-item completed">
-                <i class="fa-solid fa-check-circle"></i>
-                <span>Join Worldwide Chat</span>
-            </div>
-
-            <div class="challenge-item">
-                <i class="fa-regular fa-circle"></i>
-                <span>Send 10 Messages</span>
-            </div>
-
-            <div class="challenge-item">
-                <i class="fa-regular fa-circle"></i>
-                <span>React to 5 Posts</span>
-            </div>
-
-        </div>
-
-        <!-- PROGRESS -->
-
-        <div class="progress-area">
-
-            <div class="progress-top">
-                <span>Progress</span>
-                <span id="progressText">1 / 3</span>
-            </div>
-
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill"></div>
-            </div>
-
-        </div>
-
-        <!-- REWARD -->
-
-        <div class="reward-preview">
-
-            <div>
-                ⭐
-                <h4>+2 XP</h4>
-            </div>
-
-            <div>
-                🪙
-                <h4>+1 Coin</h4>
-            </div>
-
-        </div>
-
-        <!-- TIMER -->
-
-        <div class="timer" id="rewardTimer">
-            00:15:00
-        </div>
-
-        <!-- CLAIM -->
-
-        <button id="claimReward" disabled>
-
-            🎁 Claim Reward
-
-        </button>
-
-    </div>
-        </div>
-    </div>
-</div>
-      <section class="live-activity">
-
-    <div class="activity-header">
-        <h2>🌍 LIVE WORLD ACTIVITY</h2>
-        <span class="live-dot"></span>
-    </div>
-
-    <div id="activityFeed" class="activity-feed">
-          <div class="activity-card">
-
-    <div class="activity-avatar">
-        <img src="avatar1.png" alt="">
-        <span class="country">🇹🇿</span>
-    </div>
-
-    <div class="activity-info">
-        <h4>Hassan joined Football</h4>
-        <p>2 seconds ago</p>
-    </div>
-
-    <div class="activity-icon">
-        ⚽
-    </div>
+<!-- FORM ITAKUJA BAADAYE -->
 
 </div>
 
-<div class="activity-card">
+</section>
 
-    <div class="activity-avatar">
-        <img src="avatar2.png" alt="">
-        <span class="country">🇯🇵</span>
-    </div>
+<!--============================
+      LOGIN PAGE
+=============================-->
 
-    <div class="activity-info">
-        <h4>Yuki earned +15 XP</h4>
-        <p>5 seconds ago</p>
-    </div>
+<section
+class="login-page"
+id="loginPage">
 
-    <div class="activity-icon">
-        ⭐
-    </div>
+<button
+class="back-btn"
+id="backLogin">
 
-</div>
+← Back
 
-    </div>
+</button>
 
-      </section>
+<div
+class="page-content">
 
-      <section class="group-slider">
-
-    <button class="slider-btn prev">
-        <i class="fas fa-chevron-left"></i>
-    </button>
-
-    <div class="slider-track">
-     <!-- Football -->
-<div class="group-card football">
-    <img src="file_00000000f6b071f48327e5197952e1ff.png" alt="Football">
-    <h3>⚽ Football</h3>
-    <p>Latest football news, transfers, fixtures, live scores and fan discussions.</p>
-
-    <div class="card-buttons">
-        <a href="football.html" class="join-btn">💬 Join Chat</a>
-        <a href="payment.html?group=football" class="payment-btn">💳 Payment Method</a>
-    </div>
-</div>
-
-<!-- eFootball -->
-<div class="group-card efootball">
-    <img src="file_0000000056bc71f4a363399654e8a3dd.png" alt="eFootball">
-    <h3>🎮 eFootball</h3>
-    <p>Build your dream squad, play tournaments and share gameplay.</p>
-
-    <div class="card-buttons">
-        <a href="efootball.html" class="join-btn">💬 Join Chat</a>
-        <a href="payment.html?group=efootball" class="payment-btn">💳 Payment Method</a>
-    </div>
-</div>
-
-<!-- Sports -->
-<div class="group-card sports">
-    <img src="file_00000000ee1071f48c465cfc2dd7157c.png" alt="Sports">
-    <h3>🏆 Sports</h3>
-    <p>Basketball, Tennis, Volleyball, Boxing and more.</p>
-
-    <div class="card-buttons">
-        <a href="sports.html" class="join-btn">💬 Join Chat</a>
-        <a href="payment.html?group=sports" class="payment-btn">💳 Payment Method</a>
-    </div>
-</div>
-
-<!-- World News -->
-<div class="group-card news">
-    <img src="file_00000000bdb471f488fbf6d8c64b40c3.png" alt="News">
-    <h3>📰 World News</h3>
-    <p>Breaking news, technology, politics and world updates.</p>
-
-    <div class="card-buttons">
-        <a href="news.html" class="join-btn">💬 Join Chat</a>
-        <a href="payment.html?group=news" class="payment-btn">💳 Payment Method</a>
-    </div>
-</div>
-
-<!-- Betting -->
-<div class="group-card betting">
-    <img src="file_00000000ed7871f4925c076a1a655b15.png" alt="Betting">
-    <h3>🎰 Betting</h3>
-    <p>Football predictions, odds analysis and jackpot discussions.</p>
-
-    <div class="card-buttons">
-        <a href="betting.html" class="join-btn">💬 Join Chat</a>
-        <a href="payment.html?group=betting" class="payment-btn">💳 Payment Method</a>
-    </div>
-</div>
-
-<!-- Gaming -->
-<div class="group-card gaming">
-    <img src="file_00000000c28c71f4b62c08fb5b2d7870.png" alt="Gaming">
-    <h3>🎮 PUBG & COD</h3>
-    <p>Battle Royale community, tips, squads and tournaments.</p>
-
-    <div class="card-buttons">
-        <a href="gaming.html" class="join-btn">💬 Join Chat</a>
-        <a href="payment.html?group=gaming" class="payment-btn">💳 Payment Method</a>
-    </div>
-</div>
-
-<!-- Music -->
-<div class="group-card music">
-    <img src="file_00000000e86471f4b386c6acc7d23f5b.png" alt="Music">
-    <h3>🎵 Music</h3>
-    <p>Share songs, discover artists and playlists worldwide.</p>
-
-    <div class="card-buttons">
-        <a href="music.html" class="join-btn">💬 Join Chat</a>
-        <a href="payment.html?group=music" class="payment-btn">💳 Payment Method</a>
-    </div>
-</div>
-
-<!-- Food -->
-<div class="group-card food">
-    <img src="file_00000000c68871f48c1a80d96ec0e300.png" alt="Food">
-    <h3>🍔 Food</h3>
-    <p>Recipes, cooking ideas and delicious meals.</p>
-
-    <div class="card-buttons">
-        <a href="food.html" class="join-btn">💬 Join Chat</a>
-        <a href="payment.html?group=food" class="payment-btn">💳 Payment Method</a>
-    </div>
-</div>
-
-<!-- Education -->
-<div class="group-card education">
-    <img src="file_000000006d2871f49a121851a52fc041.png" alt="Education">
-    <h3>📚 Education</h3>
-    <p>Learn languages, science and technology together.</p>
-
-    <div class="card-buttons">
-        <a href="education.html" class="join-btn">💬 Join Chat</a>
-        <a href="payment.html?group=education" class="payment-btn">💳 Payment Method</a>
-    </div>
-</div>
-
-<!-- Art -->
-<div class="group-card art">
-    <img src="file_000000009d0c71f48ea69bd0ea0c0f4f.png" alt="Art">
-    <h3>🎨 Art</h3>
-    <p>Painting, drawing and digital creativity.</p>
-
-    <div class="card-buttons">
-        <a href="art.html" class="join-btn">💬 Join Chat</a>
-        <a href="payment.html?group=art" class="payment-btn">💳 Payment Method</a>
-    </div>
-</div>
-
-<!-- Business -->
-<div class="group-card business">
-    <img src="file_00000000f9b47243acad6a855347db20.png" alt="Business">
-    <h3>💼 Business</h3>
-    <p>Entrepreneurs, networking and investment ideas.</p>
-
-    <div class="card-buttons">
-        <a href="business.html" class="join-btn">💬 Join Chat</a>
-        <a href="payment.html?group=business" class="payment-btn">💳 Payment Method</a>
-    </div>
-</div>
-
-<!-- CHAPCY TV -->
-<div class="group-card tv">
-    <img src="file_00000000f8187246ada067dc5e5a807b.png" alt="CHAPCY TV">
-    <h3>📺 CHAPCY TV</h3>
-    <p>Watch live videos, movies, shorts and reels.</p>
-
-    <div class="card-buttons">
-        <a href="videos.html" class="join-btn">📺 Watch Now</a>
-        <a href="payment.html?group=tv" class="payment-btn">💳 Payment Method</a>
-    </div>
-</div>  
-    </div>
-            <!-- slider-track -->
-
-    <button class="slider-btn next">
-        <i class="fas fa-chevron-right"></i>
-    </button>
-
-      </section>  
-      <!--=========================================
-      CHAPCY XP ANIMATION
-==========================================-->
-
-<div id="xpReward" class="xp-reward">
-
-    <div class="xp-box">
-
-        <i class="fa-solid fa-star"></i>
-
-        <span id="xpText">+15 XP</span>
-
-    </div>
+<!-- FORM ITAKUJA BAADAYE -->
 
 </div>
 
-<div id="floatingLikes"></div>
+</section>
 
-<!-- ==========================
-     BOTTOM NAVIGATION
-========================== -->
-<nav class="bottom-nav">
+</div>
 
-    <a href="index.html" class="nav-item active">
-        <i class="fa-solid fa-house"></i>
-        <span>Home</span>
-    </a>
+<script src="register.js"></script>
 
-    <a href="chat.html" class="nav-item">
-        <i class="fa-solid fa-comments"></i>
-        <span>Chats</span>
-    </a>
-
-    <a href="moments.html" class="nav-item">
-        <i class="fa-solid fa-clapperboard"></i>
-        <span>Moments</span>
-    </a>
-
-    <a href="rewards.html" class="nav-item">
-        <i class="fa-solid fa-trophy"></i>
-        <span>Rewards</span>
-    </a>
-
-    <a href="profile.html" class="nav-item">
-        <i class="fa-solid fa-user"></i>
-        <span>Profile</span>
-    </a>
-
-</nav>
-
-<!-- Firebase -->
-<script type="module" src="firebase.js"></script>
-
-<!-- JavaScript -->
-          <script type="module" src="chapcy.js"></script>
 </body>
+
 </html>
