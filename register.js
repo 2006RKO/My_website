@@ -1,135 +1,144 @@
+/*=========================================
+          CHAPCY REGISTER JS
+=========================================*/
+
 "use strict";
 
-/*=========================================
-          CHAPCY AUTH V18
-=========================================*/
+/*=========================
+      ELEMENTS
+=========================*/
 
-const authContainer = document.querySelector(".auth-container");
-const switchBtn = document.getElementById("switchBtn");
+const welcomePage = document.getElementById("welcomePage");
+const registerPage = document.getElementById("registerPage");
+const loginPage = document.getElementById("loginPage");
 
-const panelTitle = document.getElementById("panelTitle");
-const panelText = document.getElementById("panelText");
+const registerCard = document.getElementById("registerCard");
+const loginCard = document.getElementById("loginCard");
 
-const loginForm = document.getElementById("loginForm");
-const registerForm = document.getElementById("registerForm");
+const backRegister = document.getElementById("backRegister");
+const backLogin = document.getElementById("backLogin");
 
-let registerMode = false;
+/*=========================
+      INITIAL STATE
+=========================*/
 
-/*=========================================
-        LOGIN ↔ REGISTER ANIMATION
-=========================================*/
+registerPage.style.display = "none";
+loginPage.style.display = "none";
 
-switchBtn.addEventListener("click", () => {
+/*=========================
+      SHOW PAGE
+=========================*/
 
-    registerMode = !registerMode;
+function showPage(page){
 
-    authContainer.classList.toggle("active");
+    welcomePage.style.display = "none";
+    registerPage.style.display = "none";
+    loginPage.style.display = "none";
 
-    if (registerMode) {
+    page.style.display = "block";
 
-        panelTitle.textContent = "Welcome!";
-        panelText.textContent = "Already have an account?";
-        switchBtn.textContent = "LOGIN";
+    page.style.opacity = "0";
+    page.style.transform = "translateX(40px)";
 
-    } else {
+    setTimeout(() => {
 
-        panelTitle.textContent = "Welcome Back";
-        panelText.textContent = "Don't have an account?";
-        switchBtn.textContent = "CREATE ACCOUNT";
+        page.style.transition = "0.4s ease";
+        page.style.opacity = "1";
+        page.style.transform = "translateX(0)";
 
-    }
+    },20);
+
+}
+
+/*=========================
+      SHOW WELCOME
+=========================*/
+
+function showWelcome(){
+
+    registerPage.style.display = "none";
+    loginPage.style.display = "none";
+
+    welcomePage.style.display = "block";
+
+    welcomePage.style.opacity = "0";
+    welcomePage.style.transform = "translateX(-40px)";
+
+    setTimeout(()=>{
+
+        welcomePage.style.transition = "0.4s ease";
+        welcomePage.style.opacity = "1";
+        welcomePage.style.transform = "translateX(0)";
+
+    },20);
+
+}
+
+/*=========================
+      EVENTS
+=========================*/
+
+registerCard.addEventListener("click",()=>{
+
+    showPage(registerPage);
 
 });
 
-/*=========================================
-        SHOW / HIDE PASSWORD
-=========================================*/
+loginCard.addEventListener("click",()=>{
 
-document.querySelectorAll(".toggle-password").forEach(icon => {
+    showPage(loginPage);
 
-    icon.addEventListener("click", () => {
+});
 
-        const input = icon.previousElementSibling;
+backRegister.addEventListener("click",()=>{
 
-        if (!input) return;
+    showWelcome();
 
-        if (input.type === "password") {
+});
 
-            input.type = "text";
-            icon.innerHTML = "🙈";
+backLogin.addEventListener("click",()=>{
 
-        } else {
+    showWelcome();
 
-            input.type = "password";
-            icon.innerHTML = "👁";
+});
 
-        }
+/*=========================
+      CARD HOVER EFFECT
+=========================*/
+
+const cards = document.querySelectorAll(".choice-card");
+
+cards.forEach(card=>{
+
+    card.addEventListener("mouseenter",()=>{
+
+        card.style.transform = "translateY(-8px) scale(1.02)";
+
+    });
+
+    card.addEventListener("mouseleave",()=>{
+
+        card.style.transform = "";
 
     });
 
 });
 
-/*=========================================
-          LOGIN BUTTON
-=========================================*/
+/*=========================
+      PAGE FADE IN
+=========================*/
 
-loginForm.addEventListener("submit", (e) => {
+window.addEventListener("load",()=>{
 
-    e.preventDefault();
+    welcomePage.style.opacity = "0";
+    welcomePage.style.transform = "scale(.95)";
 
-    const btn = loginForm.querySelector(".login-btn");
+    setTimeout(()=>{
 
-    btn.disabled = true;
-    btn.textContent = "Signing In...";
+        welcomePage.style.transition = "0.5s ease";
+        welcomePage.style.opacity = "1";
+        welcomePage.style.transform = "scale(1)";
 
-    setTimeout(() => {
-
-        btn.disabled = false;
-        btn.textContent = "LOGIN";
-
-        // Firebase Login itawekwa hapa
-
-    }, 1500);
-
-});
-
-/*=========================================
-          REGISTER BUTTON
-=========================================*/
-
-registerForm.addEventListener("submit", (e) => {
-
-    e.preventDefault();
-
-    const btn = registerForm.querySelector(".register-btn");
-
-    btn.disabled = true;
-    btn.textContent = "Creating...";
-
-    setTimeout(() => {
-
-        btn.disabled = false;
-        btn.textContent = "CREATE ACCOUNT";
-
-        // Firebase Register itawekwa hapa
-
-    }, 1500);
-
-});
-
-/*=========================================
-           PAGE FADE
-=========================================*/
-
-window.addEventListener("load", () => {
-
-    document.body.style.opacity = "0";
-
-    setTimeout(() => {
-
-        document.body.style.transition = "opacity .8s ease";
-        document.body.style.opacity = "1";
-
-    }, 100);
+    },100);
 
 });
