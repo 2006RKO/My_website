@@ -1,58 +1,46 @@
 "use strict";
 
 /*=========================================
-        CHAPCY AUTH V18
+      CHAPCY AUTH V18
 =========================================*/
 
+const authContainer = document.getElementById("authContainer");
 const switchBtn = document.getElementById("switchBtn");
-const switchPanel = document.getElementById("switchPanel");
 
-const panelTitle = document.getElementById("panelTitle");
-const panelText = document.getElementById("panelText");
+const sliderTitle = document.getElementById("sliderTitle");
+const sliderText = document.getElementById("sliderText");
 
-const loginContainer = document.querySelector(".login-container");
-const registerContainer = document.querySelector(".register-container");
-
-let registerMode = false;
+const loginForm = document.getElementById("loginForm");
+const registerForm = document.getElementById("registerForm");
 
 /*=========================================
-        SWITCH LOGIN / REGISTER
+      LOGIN ↔ REGISTER
 =========================================*/
+
+let registerMode = false;
 
 switchBtn.addEventListener("click", () => {
 
     registerMode = !registerMode;
 
+    authContainer.classList.toggle("active");
+
     if(registerMode){
 
-        switchPanel.style.left = "0";
+        sliderTitle.textContent = "Welcome Back";
 
-        loginContainer.style.opacity = "0";
-        loginContainer.style.pointerEvents = "none";
-        loginContainer.style.transform = "translateX(80px)";
+        sliderText.textContent =
+        "Already have an account? Login now.";
 
-        registerContainer.style.opacity = "1";
-        registerContainer.style.pointerEvents = "auto";
-        registerContainer.style.transform = "translateX(0)";
-
-        panelTitle.textContent = "Welcome!";
-        panelText.textContent = "Already have an account?";
         switchBtn.textContent = "LOGIN";
 
     }else{
 
-        switchPanel.style.left = "50%";
+        sliderTitle.textContent = "New Here?";
 
-        loginContainer.style.opacity = "1";
-        loginContainer.style.pointerEvents = "auto";
-        loginContainer.style.transform = "translateX(0)";
+        sliderText.textContent =
+        "Create your account and start chatting worldwide.";
 
-        registerContainer.style.opacity = "0";
-        registerContainer.style.pointerEvents = "none";
-        registerContainer.style.transform = "translateX(-80px)";
-
-        panelTitle.textContent = "Welcome Back";
-        panelText.textContent = "Don't have an account?";
         switchBtn.textContent = "CREATE ACCOUNT";
 
     }
@@ -60,54 +48,99 @@ switchBtn.addEventListener("click", () => {
 });
 
 /*=========================================
-        INITIAL STATE
+      SHOW / HIDE PASSWORD
 =========================================*/
 
-loginContainer.style.opacity = "1";
-loginContainer.style.pointerEvents = "auto";
+document.querySelectorAll(".toggle-password").forEach(icon=>{
 
-registerContainer.style.opacity = "0";
-registerContainer.style.pointerEvents = "none";
-registerContainer.style.transform = "translateX(-80px)";
+    icon.addEventListener("click",()=>{
 
-loginContainer.style.transition = ".8s";
-registerContainer.style.transition = ".8s";
-switchPanel.style.transition = ".9s cubic-bezier(.68,-0.55,.27,1.55)";
+        const input = icon.previousElementSibling;
+
+        if(input.type==="password"){
+
+            input.type="text";
+
+            icon.textContent="🙈";
+
+        }else{
+
+            input.type="password";
+
+            icon.textContent="👁";
+
+        }
+
+    });
+
+});
 
 /*=========================================
-        MOBILE SUPPORT
+      LOGIN BUTTON
 =========================================*/
 
-function updateMobile(){
+loginForm.addEventListener("submit",(e)=>{
 
-    if(window.innerWidth <= 900){
+    e.preventDefault();
 
-        if(registerMode){
+    const btn = loginForm.querySelector(".primary-btn");
 
-            switchPanel.style.top = "0";
-        }else{
+    btn.disabled = true;
 
-            switchPanel.style.top = "50%";
-        }
+    btn.textContent = "Signing In...";
 
-    }else{
+    setTimeout(()=>{
 
-        switchPanel.style.top = "0";
+        btn.disabled = false;
 
-        if(registerMode){
+        btn.textContent = "LOGIN";
 
-            switchPanel.style.left = "0";
+        // Firebase Login itawekwa hapa
 
-        }else{
+    },1800);
 
-            switchPanel.style.left = "50%";
+});
 
-        }
+/*=========================================
+      REGISTER BUTTON
+=========================================*/
 
-    }
+registerForm.addEventListener("submit",(e)=>{
 
-}
+    e.preventDefault();
 
-window.addEventListener("resize", updateMobile);
+    const btn = registerForm.querySelector(".primary-btn");
 
-updateMobile();
+    btn.disabled = true;
+
+    btn.textContent = "Creating...";
+
+    setTimeout(()=>{
+
+        btn.disabled = false;
+
+        btn.textContent = "CREATE ACCOUNT";
+
+        // Firebase Register itawekwa hapa
+
+    },1800);
+
+});
+
+/*=========================================
+      SMALL FADE EFFECT
+=========================================*/
+
+window.addEventListener("load",()=>{
+
+    document.body.style.opacity="0";
+
+    setTimeout(()=>{
+
+        document.body.style.transition=".8s";
+
+        document.body.style.opacity="1";
+
+    },100);
+
+});
