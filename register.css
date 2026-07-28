@@ -523,13 +523,21 @@ form p{
 
 }
 
-.slider-logo{
-
    /*=========================================
         CHAPCY AUTH V18
               PART 2C
 =========================================*/
+.slider-logo{
 
+    width:120px;
+
+    margin-bottom:25px;
+
+    filter:drop-shadow(0 0 25px rgba(255,255,255,.45));
+
+    animation:logoFloat 5s ease-in-out infinite;
+
+}
 /*==============================
       ACTIVE STATES
 ==============================*/
