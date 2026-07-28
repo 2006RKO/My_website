@@ -231,15 +231,37 @@ transform:translateY(-40px);
 
 .book{
 
-    position:relative;
-
     width:420px;
 
-    max-width:100%;
+    max-width:92%;
 
-    height:680px;
+    min-height:670px;
 
-    transform-style:preserve-3d;
+    border-radius:35px;
+
+    overflow:hidden;
+
+}
+
+.cover{
+
+    border-radius:35px;
+
+    background:
+
+    linear-gradient(
+    180deg,
+    rgba(10,18,48,.72),
+    rgba(10,18,48,.88));
+
+    backdrop-filter:blur(30px);
+
+    border:1px solid
+    rgba(255,255,255,.12);
+
+    box-shadow:
+
+    0 30px 80px rgba(0,0,0,.45);
 
 }
 
@@ -390,26 +412,35 @@ transform:scale(1.15);
 
 .logo{
 
-    width:95px;
-    height:95px;
+    width:120px;
+
+    margin-bottom:25px;
 
     object-fit:contain;
 
-    animation:logoFloat 4s ease-in-out infinite;
+    filter:
 
-    filter:drop-shadow(0 0 12px rgba(0,207,255,.8));
+    drop-shadow(0 0 35px #00cfff);
+
+    animation:
+
+    logoFloat 4s ease-in-out infinite;
 
 }
 
 @keyframes logoFloat{
 
-    0%,100%{
-        transform:translateY(0) rotate(0deg);
-    }
+0%,100%{
 
-    50%{
-        transform:translateY(-8px) rotate(2deg);
-    }
+transform:translateY(0);
+
+}
+
+50%{
+
+transform:translateY(-8px);
+
+}
 
 }
 /*=========================
