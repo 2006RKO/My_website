@@ -1,12 +1,13 @@
 /*=========================================
-          CHAPCY REGISTER CSS
-               PART 2
+          CHAPCY BOOK CSS PART 2A
 =========================================*/
 
 /* GOOGLE FONT */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
-/* RESET */
+/*=========================
+        RESET
+=========================*/
 
 *{
     margin:0;
@@ -32,35 +33,39 @@ body{
 
 }
 
-/*=========================================
-            BACKGROUND
-=========================================*/
+/*=========================
+      BACKGROUND
+=========================*/
 
 .background{
 
     position:fixed;
-    inset:0;
 
-    overflow:hidden;
+    inset:0;
 
     z-index:-10;
 
+    overflow:hidden;
+
 }
 
-.background-image{
+.bg-image{
 
     width:100%;
     height:100%;
 
     object-fit:cover;
 
-    filter:brightness(.25);
+    filter:
+    brightness(.35)
+    saturate(1.15);
 
-    animation:bgZoom 18s linear infinite alternate;
+    animation:
+    backgroundZoom 20s ease-in-out infinite alternate;
 
 }
 
-@keyframes bgZoom{
+@keyframes backgroundZoom{
 
 0%{
 
@@ -76,41 +81,51 @@ transform:scale(1.08);
 
 }
 
-.overlay{
+.bg-overlay{
 
     position:absolute;
+
     inset:0;
 
     background:
+
     linear-gradient(
+
     180deg,
-    rgba(5,8,22,.15),
+
+    rgba(5,8,22,.20),
+
     rgba(5,8,22,.88)
+
     );
 
 }
 
-/*=========================================
-              STARS
-=========================================*/
+/*=========================
+        STARS
+=========================*/
 
 .stars{
 
     position:absolute;
+
     inset:0;
 
     background-image:
+
     radial-gradient(#ffffff 1px,transparent 1px);
 
     background-size:45px 45px;
 
     opacity:.18;
 
-    animation:moveStars 120s linear infinite;
+    animation:
+
+    starsMove 120s linear infinite;
 
 }
 
-@keyframes moveStars{
+@keyframes starsMove{
 
 from{
 
@@ -120,62 +135,62 @@ transform:translateY(0);
 
 to{
 
-transform:translateY(-500px);
+transform:translateY(-450px);
 
 }
 
 }
 
-/*=========================================
-            PARTICLES
-=========================================*/
+/*=========================
+      PARTICLES
+=========================*/
 
 .particles::before,
 .particles::after{
 
-    content:"";
+content:"";
 
-    position:absolute;
+position:absolute;
 
-    border-radius:50%;
+border-radius:50%;
 
-    filter:blur(90px);
+filter:blur(100px);
 
 }
 
 .particles::before{
 
-    width:380px;
-    height:380px;
+width:420px;
+height:420px;
 
-    background:#00cfff;
+background:#00cfff;
 
-    top:-120px;
-    left:-100px;
+top:-140px;
+left:-120px;
 
-    opacity:.25;
+opacity:.25;
 
-    animation:floatOne 10s ease-in-out infinite;
+animation:blobOne 9s ease-in-out infinite;
 
 }
 
 .particles::after{
 
-    width:350px;
-    height:350px;
+width:360px;
+height:360px;
 
-    background:#8a2eff;
+background:#8a2eff;
 
-    bottom:-100px;
-    right:-120px;
+bottom:-120px;
+right:-100px;
 
-    opacity:.22;
+opacity:.22;
 
-    animation:floatTwo 12s ease-in-out infinite;
+animation:blobTwo 11s ease-in-out infinite;
 
 }
 
-@keyframes floatOne{
+@keyframes blobOne{
 
 0%,100%{
 
@@ -185,13 +200,13 @@ transform:translateY(0);
 
 50%{
 
-transform:translateY(40px);
+transform:translateY(45px);
 
 }
 
 }
 
-@keyframes floatTwo{
+@keyframes blobTwo{
 
 0%,100%{
 
@@ -201,19 +216,20 @@ transform:translateY(0);
 
 50%{
 
-transform:translateY(-35px);
+transform:translateY(-40px);
 
 }
 
 }
 
-/*=========================================
-             CONTAINER
-=========================================*/
+/*=========================
+      MAIN CONTAINER
+=========================*/
 
 .container{
 
     width:100%;
+
     min-height:100vh;
 
     display:flex;
@@ -224,19 +240,154 @@ transform:translateY(-35px);
 
     padding:25px;
 
-    position:relative;
+    perspective:2200px;
 
 }
 
-/*=========================================
-                PAGE
-=========================================*/
+/*=========================
+        BOOK
+=========================*/
 
-.page{
+.book{
+
+    position:relative;
+
+    width:420px;
+
+    max-width:100%;
+
+    height:680px;
+
+    transform-style:preserve-3d;
+
+}
+
+/*=========================
+       INSIDE PAGE
+=========================*/
+
+.inside-page{
 
     position:absolute;
 
-    width:100%;
+    inset:0;
+
+    border-radius:28px;
+
+    overflow:hidden;
+
+    background:
+
+    rgba(12,18,45,.78);
+
+    backdrop-filter:blur(25px);
+
+    border:
+
+    1px solid rgba(255,255,255,.12);
+
+    box-shadow:
+
+    0 25px 70px rgba(0,0,0,.45);
+
+}
+/*=========================================
+          CHAPCY BOOK CSS PART 2B
+         COVER • LOGO • BUTTONS
+=========================================*/
+
+/*=========================
+        BOOK COVER
+=========================*/
+
+.cover{
+
+    position:absolute;
+
+    inset:0;
+
+    z-index:10;
+
+    border-radius:28px;
+
+    overflow:hidden;
+
+    background:rgba(10,15,40,.82);
+
+    backdrop-filter:blur(25px);
+
+    border:1px solid rgba(255,255,255,.12);
+
+    box-shadow:
+    0 25px 80px rgba(0,0,0,.55),
+    0 0 40px rgba(0,210,255,.15);
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:35px;
+
+    transform-origin:left center;
+
+    transition:1s cubic-bezier(.25,.8,.25,1);
+
+}
+
+/*=========================
+        COVER GLOW
+=========================*/
+
+.cover-glow{
+
+    position:absolute;
+
+    width:380px;
+    height:380px;
+
+    border-radius:50%;
+
+    background:
+    radial-gradient(circle,
+    rgba(0,207,255,.35),
+    transparent 70%);
+
+    filter:blur(40px);
+
+    animation:glowMove 6s ease-in-out infinite;
+
+}
+
+@keyframes glowMove{
+
+0%,100%{
+
+transform:scale(1);
+
+}
+
+50%{
+
+transform:scale(1.15);
+
+}
+
+}
+
+/*=========================
+          LOGO
+=========================*/
+
+.logo-box{
+
+    width:120px;
+    height:120px;
+
+    border-radius:50%;
 
     display:flex;
 
@@ -244,95 +395,25 @@ transform:translateY(-35px);
 
     align-items:center;
 
-    opacity:0;
-
-    visibility:hidden;
-
-    transform:translateY(40px) scale(.96);
-
-    transition:
-    opacity .45s ease,
-    transform .45s ease,
-    visibility .45s;
-
-}
-
-.page.active{
-
-    opacity:1;
-
-    visibility:visible;
-
-    transform:translateY(0) scale(1);
-
-}
-/*=========================================
-          GLASS BOX
-=========================================*/
-
-.glass-box{
-
-    width:100%;
-    max-width:460px;
-
-    padding:35px 28px;
-
-    border-radius:30px;
-
-    background:rgba(10,15,40,.70);
-
-    backdrop-filter:blur(22px);
+    background:rgba(255,255,255,.08);
 
     border:1px solid rgba(255,255,255,.12);
 
-    box-shadow:
-    0 20px 60px rgba(0,0,0,.45),
-    0 0 30px rgba(0,210,255,.12);
+    margin-bottom:20px;
 
-    text-align:center;
-
-    animation:boxShow .8s ease;
+    animation:floatLogo 4s ease-in-out infinite;
 
 }
-
-@keyframes boxShow{
-
-from{
-
-opacity:0;
-transform:translateY(35px);
-
-}
-
-to{
-
-opacity:1;
-transform:translateY(0);
-
-}
-
-}
-
-/*=========================================
-              LOGO
-=========================================*/
 
 .logo{
 
-    width:110px;
+    width:80px;
 
-    display:block;
-
-    margin:0 auto 20px;
-
-    animation:logoFloat 4s ease-in-out infinite;
-
-    filter:
-    drop-shadow(0 0 15px #00cfff);
+    filter:drop-shadow(0 0 18px #00cfff);
 
 }
 
-@keyframes logoFloat{
+@keyframes floatLogo{
 
 0%,100%{
 
@@ -342,150 +423,335 @@ transform:translateY(0);
 
 50%{
 
-transform:translateY(-10px);
+transform:translateY(-12px);
 
 }
 
 }
 
-h1{
+/*=========================
+        TEXT
+=========================*/
 
-    font-size:38px;
+.cover h1{
+
+    font-size:42px;
 
     font-weight:800;
 
     letter-spacing:3px;
 
-    margin-bottom:8px;
+    margin-bottom:10px;
 
 }
 
-.subtitle{
+.tagline{
 
     color:#00d8ff;
 
     font-size:15px;
 
-    margin-bottom:22px;
+    margin-bottom:28px;
 
 }
 
-h2{
+.cover h2{
 
-    font-size:28px;
+    font-size:30px;
 
     margin-bottom:10px;
 
 }
 
-.text{
+.description{
 
-    color:#d6d6d6;
+    color:#d8d8d8;
 
-    margin-bottom:30px;
+    font-size:15px;
 
-}
+    text-align:center;
 
-/*=========================================
-             CARDS
-================================
-cards{
+    line-height:1.7;
 
-    display:grid;
-
-    gap:20px;
+    margin-bottom:35px;
 
 }
 
-.card{
+/*=========================
+        BUTTON AREA
+=========================*/
 
-    background:rgba(255,255,255,.06);
+.button-area{
 
-    border:1px solid rgba(255,255,255,.08);
+    width:100%;
 
-    border-radius:22px;
+    display:flex;
 
-    padding:24px;
+    flex-direction:column;
 
-    transition:.35s;
+    gap:18px;
+
+}
+
+/*=========================
+      REGISTER BUTTON
+=========================*/
+
+.register-btn,
+.login-btn{
+
+    width:100%;
+
+    height:58px;
+
+    border:none;
+
+    border-radius:16px;
 
     cursor:pointer;
 
+    font-size:15px;
+
+    font-weight:700;
+
+    color:#fff;
+
+    transition:.35s;
+
+    position:relative;
+
+    overflow:hidden;
+
 }
 
-.card:hover{
+.register-btn{
+
+    background:
+    linear-gradient(90deg,#00cfff,#008cff);
+
+}
+
+.login-btn{
+
+    background:
+    linear-gradient(90deg,#8a2eff,#d84cff);
+
+}
+
+.register-btn:hover,
+.login-btn:hover{
 
     transform:
-    translateY(-8px)
+    translateY(-4px)
     scale(1.02);
+
+    box-shadow:
+    0 0 30px rgba(0,210,255,.35);
+
+}
+
+.register-btn::before,
+.login-btn::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+
+    left:-120%;
+
+    width:80%;
+
+    height:100%;
+
+    background:
+    linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,.35),
+    transparent);
+
+    transition:.7s;
+
+}
+
+.register-btn:hover::before,
+.login-btn:hover::before{
+
+    left:140%;
+
+}
+
+/*=========================
+        FOOTER
+=========================*/
+
+.bottom-text{
+
+    margin-top:30px;
+
+    font-size:13px;
+
+    color:#b8c6ff;
+
+    text-align:center;
+
+    opacity:.9;
+
+}
+/*=========================================
+         CHAPCY BOOK CSS PART 2C
+      REGISTER & LOGIN FORM STYLES
+=========================================*/
+
+/*=========================
+       FORM PANEL
+=========================*/
+
+.form-panel{
+
+    position:absolute;
+
+    inset:0;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    padding:35px;
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transition:.5s ease;
+
+}
+
+.form-panel.active{
+
+    opacity:1;
+
+    visibility:visible;
+
+}
+
+/*=========================
+        TITLES
+=========================*/
+
+.form-panel h2{
+
+    font-size:32px;
+
+    font-weight:700;
+
+    margin-bottom:8px;
+
+}
+
+.form-panel p{
+
+    color:#bfc8e6;
+
+    margin-bottom:30px;
+
+    font-size:14px;
+
+}
+
+/*=========================
+        FORM
+=========================*/
+
+.form{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+}
+
+/*=========================
+      INPUT BOX
+=========================*/
+
+.input-box{
+
+    width:100%;
+
+}
+
+.input-box input{
+
+    width:100%;
+
+    height:58px;
+
+    padding:0 18px;
+
+    border-radius:16px;
+
+    border:1px solid
+    rgba(255,255,255,.12);
+
+    background:
+    rgba(255,255,255,.06);
+
+    backdrop-filter:blur(18px);
+
+    color:#fff;
+
+    font-size:15px;
+
+    outline:none;
+
+    transition:.35s;
+
+}
+
+.input-box input::placeholder{
+
+    color:#b9c4df;
+
+}
+
+.input-box input:focus{
 
     border-color:#00cfff;
 
     box-shadow:
-    0 0 25px rgba(0,210,255,.30);
+    0 0 18px
+    rgba(0,207,255,.35);
 
 }
 
-.icon{
+/*=========================
+      SUBMIT BUTTON
+=========================*/
 
-    width:75px;
-    height:75px;
-
-    margin:auto;
-
-    margin-bottom:18px;
-
-    border-radius:50%;
-
-    background:rgba(255,255,255,.08);
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-}
-
-.icon img{
-
-    width:42px;
-
-}
-
-.card h3{
-
-    margin-bottom:12px;
-
-    font-size:22px;
-
-}
-
-.card p{
-
-    color:#d8d8d8;
-
-    font-size:14px;
-
-    line-height:1.7;
-
-    margin-bottom:20px;
-
-}
-
-/*=========================================
-              BUTTON
-=========================================*/
-
-.card button{
+.submit-btn{
 
     width:100%;
 
-    height:52px;
+    height:58px;
 
     border:none;
 
-    border-radius:14px;
+    border-radius:16px;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+    font-weight:700;
+
+    color:#fff;
 
     background:
     linear-gradient(
@@ -494,167 +760,499 @@ cards{
     #8a2eff
     );
 
-    color:#fff;
-
-    font-weight:700;
-
-    cursor:pointer;
-
-    transition:.3s;
+    transition:.35s;
 
 }
 
-.card button:hover{
+.submit-btn:hover{
 
-    transform:scale(1.03);
+    transform:
+    translateY(-3px)
+    scale(1.02);
 
     box-shadow:
-    0 0 25px rgba(0,210,255,.40);
+    0 0 25px
+    rgba(0,207,255,.35);
 
 }
 
-/*=========================================
-           BACK BUTTON
-=========================================*/
+/*=========================
+      BACK BUTTON
+=========================*/
 
-.back{
+.back-btn{
 
     position:absolute;
 
-    top:18px;
+    top:20px;
 
-    left:18px;
+    left:20px;
+
+    width:90px;
+
+    height:42px;
 
     border:none;
 
-    padding:10px 18px;
+    border-radius:50px;
 
-    border-radius:30px;
-
-    background:#00cfff;
+    cursor:pointer;
 
     color:#fff;
 
     font-weight:600;
 
-    cursor:pointer;
+    background:
+    rgba(255,255,255,.08);
 
-    transition:.3s;
+    border:1px solid
+    rgba(255,255,255,.12);
 
-}
-
-.back:hover{
-
-    background:#8a2eff;
-
-    transform:translateX(-3px);
+    transition:.35s;
 
 }
 
-.form-area{
+.back-btn:hover{
 
-    margin-top:70px;
+    background:#00cfff;
 
-    min-height:350px;
+    transform:translateX(-4px);
 
 }
 
+/*=========================
+      SWITCH TEXT
+=========================*/
+
+.switch-text{
+
+    margin-top:25px;
+
+    text-align:center;
+
+    color:#cfd8ef;
+
+    font-size:14px;
+
+}
+
+.switch-text a{
+
+    color:#00cfff;
+
+    text-decoration:none;
+
+    font-weight:700;
+
+}
+
+.switch-text a:hover{
+
+    color:#8a2eff;
+
+}
+
+/*=========================
+      BOOK SPINE
+=========================*/
+
+.book-spine{
+
+    position:absolute;
+
+    left:0;
+
+    top:0;
+
+    width:12px;
+
+    height:100%;
+
+    background:
+    linear-gradient(
+    180deg,
+    #0b0f2d,
+    #202b63,
+    #0b0f2d
+    );
+
+    border-radius:
+    28px 0 0 28px;
+
+    box-shadow:
+    inset 2px 0 6px
+    rgba(255,255,255,.08);
+
+}
 /*=========================================
-            RESPONSIVE
+        CHAPCY BOOK CSS PART 2D
+   BOOK FLIP • RESPONSIVE • ANIMATION
 =========================================*/
 
-@media (max-width:768px){
+/*=========================
+        BOOK FLIP
+=========================*/
 
-.glass-box{
+.book{
 
-max-width:95%;
+    transition:1s cubic-bezier(.25,.8,.25,1);
 
-padding:28px 22px;
+    transform-style:preserve-3d;
+
+}
+
+.book.open-register .cover,
+.book.open-login .cover{
+
+    transform:
+    rotateY(-165deg);
+
+    box-shadow:
+    35px 0 70px
+    rgba(0,0,0,.45);
+
+}
+
+/*=========================
+      INSIDE PAGE
+=========================*/
+
+.inside-page{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    transform:translateZ(-1px);
+
+}
+
+/*=========================
+      PANEL ACTIVE
+=========================*/
+
+.book.open-register
+.register-panel{
+
+    opacity:1;
+
+    visibility:visible;
+
+    animation:
+    pageFade .8s ease;
+
+}
+
+.book.open-login
+.login-panel{
+
+    opacity:1;
+
+    visibility:visible;
+
+    animation:
+    pageFade .8s ease;
+
+}
+
+@keyframes pageFade{
+
+0%{
+
+opacity:0;
+
+transform:
+translateX(50px);
+
+}
+
+100%{
+
+opacity:1;
+
+transform:
+translateX(0);
+
+}
+
+}
+
+/*=========================
+     COVER SHADOW
+=========================*/
+
+.cover::after{
+
+content:"";
+
+position:absolute;
+
+top:0;
+
+right:0;
+
+width:12px;
+
+height:100%;
+
+background:
+
+linear-gradient(
+
+90deg,
+
+rgba(0,0,0,.45),
+
+transparent
+
+);
+
+opacity:0;
+
+transition:.8s;
+
+}
+
+.book.open-register
+.cover::after,
+
+.book.open-login
+.cover::after{
+
+opacity:1;
+
+}
+
+/*=========================
+      BUTTON EFFECT
+=========================*/
+
+.register-btn:active,
+.login-btn:active,
+.submit-btn:active{
+
+transform:scale(.96);
+
+}
+
+/*=========================
+      RESPONSIVE
+=========================*/
+
+@media(max-width:768px){
+
+.book{
+
+width:95%;
+
+height:650px;
+
+}
+
+.cover{
+
+padding:28px;
+
+}
+
+.cover h1{
+
+font-size:34px;
+
+}
+
+.cover h2{
+
+font-size:25px;
+
+}
+
+.logo-box{
+
+width:100px;
+height:100px;
 
 }
 
 .logo{
 
-width:90px;
-
-}
-
-h1{
-
-font-size:32px;
-
-}
-
-h2{
-
-font-size:24px;
+width:70px;
 
 }
 
 }
 
-@media (max-width:480px){
+@media(max-width:480px){
 
-.glass-box{
+.book{
 
-padding:24px 18px;
-
-border-radius:24px;
+height:620px;
 
 }
 
-.logo{
+.cover{
 
-width:75px;
+padding:22px;
+
+border-radius:22px;
 
 }
 
-h1{
+.inside-page{
+
+border-radius:22px;
+
+}
+
+.cover h1{
 
 font-size:28px;
 
+letter-spacing:2px;
+
 }
 
-.subtitle{
+.cover h2{
+
+font-size:22px;
+
+}
+
+.tagline{
 
 font-size:13px;
 
 }
 
-.text{
+.description{
+
+font-size:13px;
+
+}
+
+.register-btn,
+.login-btn,
+.submit-btn{
+
+height:52px;
 
 font-size:14px;
 
 }
 
-.card{
+.input-box input{
 
-padding:20px;
+height:52px;
 
-}
-
-.icon{
-
-width:65px;
-height:65px;
+font-size:14px;
 
 }
 
-.icon img{
+.form-panel{
 
-width:36px;
-
-}
-
-.card h3{
-
-font-size:20px;
+padding:25px;
 
 }
 
-.card button{
+}
 
-height:48px;
+/*=========================
+     FLOATING ANIMATION
+=========================*/
+
+.book{
+
+animation:
+
+floatingBook
+
+5s ease-in-out infinite;
+
+}
+
+@keyframes floatingBook{
+
+0%,100%{
+
+transform:
+
+translateY(0);
+
+}
+
+50%{
+
+transform:
+
+translateY(-10px);
+
+}
+
+}
+
+/*=========================
+      GLOW BORDER
+=========================*/
+
+.book::before{
+
+content:"";
+
+position:absolute;
+
+inset:-2px;
+
+border-radius:30px;
+
+padding:2px;
+
+background:
+
+linear-gradient(
+
+135deg,
+
+#00cfff,
+
+#8a2eff,
+
+#00cfff
+
+);
+
+-webkit-mask:
+
+linear-gradient(#fff 0 0) content-box,
+
+linear-gradient(#fff 0 0);
+
+-webkit-mask-composite:xor;
+
+mask-composite:exclude;
+
+opacity:.5;
+
+animation:
+
+borderGlow 5s linear infinite;
+
+pointer-events:none;
+
+}
+
+@keyframes borderGlow{
+
+0%{
+
+filter:hue-rotate(0deg);
+
+}
+
+100%{
+
+filter:hue-rotate(360deg);
 
 }
 
