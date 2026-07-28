@@ -1,70 +1,27 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 
 import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+  getAuth
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
 import {
-  getDatabase
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+  getFirestore
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDIID2LpzjLiqaLeLJKgp-Vd7tNIyN-M1k",
-  authDomain: "rko-website-design-2f792.firebaseapp.com",
-  databaseURL: "https://rko-website-design-2f792-default-rtdb.firebaseio.com",
-  projectId: "rko-website-design-2f792",
-  storageBucket: "rko-website-design-2f792.firebasestorage.app",
-  messagingSenderId: "782567629866",
-  appId: "1:782567629866:web:2aa401ae2c256b778b4f53"
+  apiKey: "AIzaSyD0k-VGDQCb07z8VU1lfj4PS0nQ1SJjt-U",
+  authDomain: "rko-website-design-8e1b6.firebaseapp.com",
+  projectId: "rko-website-design-8e1b6",
+  storageBucket: "rko-website-design-8e1b6.firebasestorage.app",
+  messagingSenderId: "18344688958",
+  appId: "1:18344688958:web:605719f065d65fddf1c06f",
+  measurementId: "G-JYRSY3P5DC"
 };
 
 const app = initializeApp(firebaseConfig);
+
 const auth = getAuth(app);
-const db = getDatabase(app);
 
-export { db };
+const db = getFirestore(app);
 
-// REGISTER
-window.registerUser = function () {
-
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
-
-  createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-
-      document.getElementById("loadingScreen").style.display = "flex";
-
-      setTimeout(() => {
-        window.location.href = "chapcy.html";
-      }, 2000);
-
-    })
-    .catch((error) => {
-      alert(error.message);
-    });
-
-};
-
-window.loginUser = function () {
-
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
-
-  signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-
-      document.getElementById("loadingScreen").style.display = "flex";
-
-      setTimeout(() => {
-        window.location.href = "chapcy.html";
-      }, 2000);
-
-    })
-    .catch((error) => {
-      alert(error.message);
-    });
-
-};
+export { auth, db };
