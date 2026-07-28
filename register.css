@@ -1,8 +1,13 @@
 /*=========================================
-        CHAPCY AUTH V18
+        CHAPCY AUTH V18 ULTIMATE
+               PART 2A
 =========================================*/
 
+/* GOOGLE FONT */
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+/* RESET */
 
 *{
     margin:0;
@@ -11,24 +16,28 @@
     font-family:'Poppins',sans-serif;
 }
 
+html{
+    scroll-behavior:smooth;
+}
+
 body{
 
     width:100%;
     min-height:100vh;
 
-    overflow:hidden;
-
     display:flex;
     justify-content:center;
     align-items:center;
+
+    overflow:hidden;
 
     background:#050816;
 
 }
 
-/*============================
-      BACKGROUND
-============================*/
+/*=========================================
+            BACKGROUND
+=========================================*/
 
 .background{
 
@@ -36,7 +45,9 @@ body{
 
     inset:0;
 
-    z-index:-5;
+    z-index:-100;
+
+    overflow:hidden;
 
 }
 
@@ -45,10 +56,11 @@ body{
     position:absolute;
 
     width:100%;
-
     height:100%;
 
     object-fit:cover;
+
+    animation:bgZoom 18s ease-in-out infinite alternate;
 
 }
 
@@ -59,19 +71,100 @@ body{
     inset:0;
 
     background:
-    linear-gradient(
-    135deg,
-    rgba(0,0,0,.55),
-    rgba(10,12,45,.45),
-    rgba(0,0,0,.60));
 
-    backdrop-filter:blur(3px);
+    linear-gradient(
+
+    135deg,
+
+    rgba(0,0,0,.65),
+
+    rgba(8,10,35,.35),
+
+    rgba(0,0,0,.70)
+
+    );
+
+    backdrop-filter:blur(4px);
 
 }
 
-/*============================
-      MAIN CARD
-============================*/
+/*=========================================
+            STARS
+=========================================*/
+
+.stars{
+
+    position:absolute;
+
+    inset:0;
+
+    background-image:
+
+    radial-gradient(#ffffff 1px,transparent 1px);
+
+    background-size:65px 65px;
+
+    opacity:.18;
+
+    animation:starsMove 120s linear infinite;
+
+}
+
+/*=========================================
+            PARTICLES
+=========================================*/
+
+.particles{
+
+    position:absolute;
+
+    inset:0;
+
+    overflow:hidden;
+
+}
+
+.particles::before,
+.particles::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:420px;
+    height:420px;
+
+    border-radius:50%;
+
+    filter:blur(140px);
+
+}
+
+.particles::before{
+
+    top:-100px;
+    left:-120px;
+
+    background:#00cfff55;
+
+    animation:particle1 12s ease-in-out infinite;
+
+}
+
+.particles::after{
+
+    right:-120px;
+    bottom:-100px;
+
+    background:#8a2eff55;
+
+    animation:particle2 12s ease-in-out infinite;
+
+}
+
+/*=========================================
+          AUTH WRAPPER
+=========================================*/
 
 .auth-wrapper{
 
@@ -83,9 +176,13 @@ body{
 
     align-items:center;
 
-    padding:25px;
+    padding:35px;
 
 }
+
+/*=========================================
+         MAIN GLASS CARD
+=========================================*/
 
 .auth-container{
 
@@ -93,42 +190,41 @@ body{
 
     width:100%;
 
-    max-width:1150px;
+    max-width:1180px;
 
-    min-height:700px;
+    height:720px;
 
     overflow:hidden;
 
-    border-radius:35px;
+    border-radius:36px;
 
     background:rgba(255,255,255,.08);
 
     backdrop-filter:blur(25px);
 
-    border:1px solid rgba(255,255,255,.15);
+    border:1px solid rgba(255,255,255,.12);
 
     box-shadow:
 
-    0 0 60px rgba(0,255,255,.15),
+    0 0 30px rgba(0,207,255,.20),
 
-    0 0 120px rgba(138,46,255,.15);
+    0 0 80px rgba(138,46,255,.18);
 
 }
 
-/*============================
-      LOGIN / REGISTER
-============================*/
+/*=========================================
+             FORMS
+=========================================*/
 
-.login-container,
-.register-container{
+.form-panel{
 
     position:absolute;
+
+    top:0;
 
     width:50%;
 
     height:100%;
-
-    padding:80px;
 
     display:flex;
 
@@ -136,15 +232,17 @@ body{
 
     align-items:center;
 
+    padding:70px;
+
 }
 
-.register-container{
+.login-panel{
 
     left:0;
 
 }
 
-.login-container{
+.register-panel{
 
     right:0;
 
@@ -158,11 +256,27 @@ form{
 
 }
 
+.form-logo{
+
+    width:95px;
+
+    display:block;
+
+    margin:0 auto 25px;
+
+    filter:drop-shadow(0 0 25px rgba(0,255,255,.45));
+
+}
+
 form h2{
 
-    color:white;
+    color:#fff;
 
-    font-size:34px;
+    text-align:center;
+
+    font-size:36px;
+
+    font-weight:800;
 
     margin-bottom:10px;
 
@@ -170,29 +284,39 @@ form h2{
 
 form p{
 
-    color:#cfcfcf;
+    color:#d8d8d8;
+
+    text-align:center;
 
     margin-bottom:35px;
 
-}
-
-/*============================
-      INPUT
-============================*/
-
-.input-group{
-
-    margin-bottom:18px;
+    line-height:1.6;
 
 }
+/*=========================================
+         CHAPCY AUTH V18
+              PART 2B
+=========================================*/
 
-.input-group input{
+/*==============================
+        INPUT BOXES
+==============================*/
+
+.input-box{
+
+    position:relative;
+
+    margin-bottom:22px;
+
+}
+
+.input-box input{
 
     width:100%;
 
-    height:58px;
+    height:60px;
 
-    padding:0 20px;
+    padding:0 22px;
 
     border:none;
 
@@ -200,41 +324,78 @@ form p{
 
     border-radius:18px;
 
-    color:white;
-
     font-size:16px;
+
+    color:#fff;
 
     background:rgba(255,255,255,.08);
 
-    border:1px solid rgba(255,255,255,.10);
+    border:1px solid rgba(255,255,255,.12);
+
+    backdrop-filter:blur(15px);
+
+    transition:.35s;
 
 }
 
-.input-group input::placeholder{
+.input-box input::placeholder{
 
-    color:#cccccc;
+    color:#d8d8d8;
 
 }
 
-.input-group input:focus{
+.input-box input:focus{
 
     border-color:#00cfff;
 
-    box-shadow:0 0 20px rgba(0,207,255,.35);
+    box-shadow:
+
+    0 0 25px rgba(0,207,255,.35);
+
+    background:rgba(255,255,255,.12);
 
 }
 
-/*============================
-      BUTTONS
-============================*/
+/*==============================
+     PASSWORD ICON
+==============================*/
 
-.login-btn,
-.register-btn,
+.toggle-password{
+
+    position:absolute;
+
+    right:20px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    cursor:pointer;
+
+    color:#d9d9d9;
+
+    font-size:18px;
+
+    transition:.3s;
+
+}
+
+.toggle-password:hover{
+
+    color:#00cfff;
+
+}
+
+/*==============================
+         BUTTONS
+==============================*/
+
+.primary-btn,
 .switch-btn{
 
     width:100%;
 
-    height:58px;
+    height:60px;
 
     border:none;
 
@@ -242,211 +403,185 @@ form p{
 
     cursor:pointer;
 
-    color:white;
+    color:#fff;
 
     font-size:16px;
 
     font-weight:700;
 
+    letter-spacing:.5px;
+
     background:
-    linear-gradient(135deg,#00cfff,#8a2eff);
+
+    linear-gradient(
+    135deg,
+    #00cfff,
+    #8a2eff);
 
     transition:.35s;
 
+    box-shadow:
+
+    0 10px 35px rgba(0,207,255,.28);
+
 }
 
-.login-btn:hover,
-.register-btn:hover,
+.primary-btn:hover,
 .switch-btn:hover{
 
     transform:translateY(-4px);
 
     box-shadow:
 
-    0 15px 40px rgba(0,207,255,.35);
+    0 18px 45px rgba(0,207,255,.45);
 
 }
+
+/*==============================
+       FORGOT LINK
+==============================*/
+
+.forgot-link{
+
+    display:inline-block;
+
+    margin:8px 0 25px;
+
+    color:#8fdfff;
+
+    text-decoration:none;
+
+    transition:.3s;
+
+}
+
+.forgot-link:hover{
+
+    color:#fff;
+
+}
+
 /*=========================================
-        DIAGONAL SLIDER PANEL
+        DIAGONAL PANEL
 =========================================*/
 
-.switch-panel{
+.slider-panel{
 
     position:absolute;
 
     top:0;
-    left:50%;
+
+    right:0;
 
     width:50%;
+
     height:100%;
 
     overflow:hidden;
 
     display:flex;
+
     justify-content:center;
+
     align-items:center;
 
-    background:linear-gradient(
+    background:
+
+    linear-gradient(
     135deg,
     #00cfff,
     #8a2eff,
     #5f27cd);
 
     clip-path:polygon(
-    10% 0%,
-    100% 0%,
-    90% 100%,
-    0% 100%);
+    12% 0,
+    100% 0,
+    88% 100%,
+    0 100%);
 
     transition:.9s cubic-bezier(.68,-0.55,.27,1.55);
 
-    z-index:20;
+    z-index:50;
 
 }
 
-/*============================
-     PANEL CONTENT
-============================*/
+/*==============================
+      PANEL CONTENT
+==============================*/
 
-.panel-content{
+.slider-content{
 
-    width:80%;
+    width:78%;
 
     text-align:center;
 
     color:#fff;
 
-    z-index:5;
+    position:relative;
+
+    z-index:10;
 
 }
 
-.panel-logo{
+.slider-logo{
 
-    width:110px;
+   /*=========================================
+        CHAPCY AUTH V18
+              PART 2C
+=========================================*/
 
-    margin-bottom:20px;
+/*==============================
+      ACTIVE STATES
+==============================*/
 
-    filter:drop-shadow(0 0 25px rgba(255,255,255,.45));
+.auth-container.active .slider-panel{
 
-    animation:logoFloat 4s ease-in-out infinite;
-
-}
-
-.panel-content h1{
-
-    font-size:48px;
-
-    font-weight:800;
-
-    letter-spacing:2px;
+    right:50%;
 
 }
 
-.panel-content p{
+.auth-container.active .login-panel{
 
-    margin:15px 0;
+    opacity:0;
 
-    opacity:.9;
+    visibility:hidden;
 
-    font-size:18px;
-
-}
-
-.panel-line{
-
-    width:90px;
-
-    height:4px;
-
-    margin:22px auto;
-
-    border-radius:50px;
-
-    background:#fff;
+    transform:translateX(-80px);
 
 }
 
-#panelTitle{
+.auth-container.active .register-panel{
 
-    font-size:30px;
+    opacity:1;
 
-    margin-bottom:15px;
+    visibility:visible;
 
-}
-
-#panelText{
-
-    display:block;
-
-    margin-bottom:30px;
-
-    font-size:16px;
-
-    opacity:.95;
+    transform:translateX(0);
 
 }
 
-/*============================
-     GLASS REFLECTION
-============================*/
+.login-panel,
+.register-panel{
 
-.switch-panel::before{
-
-    content:"";
-
-    position:absolute;
-
-    width:180%;
-
-    height:180%;
-
-    background:linear-gradient(
-
-    120deg,
-
-    transparent 30%,
-
-    rgba(255,255,255,.28) 50%,
-
-    transparent 70%
-
-    );
-
-    transform:rotate(25deg);
-
-    animation:glassMove 8s linear infinite;
+    transition:.8s cubic-bezier(.68,-0.55,.27,1.55);
 
 }
 
-/*============================
-     GLOW LIGHTS
-============================*/
+.register-panel{
 
-.switch-panel::after{
+    opacity:0;
 
-    content:"";
+    visibility:hidden;
 
-    position:absolute;
-
-    width:420px;
-
-    height:420px;
-
-    border-radius:50%;
-
-    background:#ffffff55;
-
-    filter:blur(110px);
-
-    animation:lightPulse 5s ease-in-out infinite;
+    transform:translateX(80px);
 
 }
 
-/*============================
+/*==============================
      FLOATING CIRCLES
-============================*/
+==============================*/
 
-.panel-content::before{
+.slider-content::before{
 
     content:"";
 
@@ -460,15 +595,15 @@ form p{
 
     background:rgba(255,255,255,.12);
 
-    top:80px;
+    top:40px;
 
-    left:60px;
+    left:-10px;
 
-    animation:floatCircle 6s infinite ease-in-out;
+    animation:floatCircle1 6s ease-in-out infinite;
 
 }
 
-.panel-content::after{
+.slider-content::after{
 
     content:"";
 
@@ -482,41 +617,69 @@ form p{
 
     background:rgba(255,255,255,.18);
 
-    bottom:90px;
+    bottom:40px;
 
-    right:80px;
+    right:-10px;
 
-    animation:floatCircle2 8s infinite ease-in-out;
-
-}
-
-/*============================
-      FORGOT LINK
-============================*/
-
-.forgot{
-
-    display:inline-block;
-
-    margin:8px 0 28px;
-
-    color:#9fdcff;
-
-    text-decoration:none;
-
-    transition:.3s;
+    animation:floatCircle2 8s ease-in-out infinite;
 
 }
 
-.forgot:hover{
+/*==============================
+        ANIMATIONS
+==============================*/
 
-    color:#fff;
+@keyframes bgZoom{
+
+0%{
+
+transform:scale(1);
 
 }
 
-/*============================
-      ANIMATIONS
-============================*/
+100%{
+
+transform:scale(1.12);
+
+}
+
+}
+
+@keyframes starsMove{
+
+0%{
+
+background-position:0 0;
+
+}
+
+100%{
+
+background-position:0 1200px;
+
+}
+
+}
+
+@keyframes particle1{
+
+50%{
+
+transform:translate(120px,80px);
+
+}
+
+}
+
+@keyframes particle2{
+
+50%{
+
+transform:translate(-120px,-80px);
+
+}
+
+}
 
 @keyframes logoFloat{
 
@@ -548,15 +711,15 @@ transform:translateX(120%) rotate(25deg);
 
 50%{
 
-transform:scale(1.25);
+transform:scale(1.2);
 
-opacity:.6;
-
-}
+opacity:.65;
 
 }
 
-@keyframes floatCircle{
+}
+
+@keyframes floatCircle1{
 
 50%{
 
@@ -570,98 +733,128 @@ transform:translateY(-20px);
 
 50%{
 
-transform:translate(-18px,-18px);
+transform:translate(-15px,-15px);
 
 }
 
 }
 
-/*============================
-      MOBILE
-============================*/
+/*==============================
+        MOBILE
+==============================*/
 
 @media(max-width:900px){
 
-.auth-container{
+.auth-wrapper{
 
-max-width:430px;
-
-min-height:760px;
+padding:18px;
 
 }
 
-.login-container,
-.register-container{
+.auth-container{
+
+height:auto;
+
+min-height:820px;
+
+border-radius:28px;
+
+}
+
+.login-panel,
+.register-panel{
 
 width:100%;
 
 height:50%;
 
-padding:40px 30px;
+padding:40px 28px;
 
 }
 
-.register-container{
+.login-panel{
 
 top:0;
 left:0;
 
 }
 
-.login-container{
+.register-panel{
 
 bottom:0;
 right:0;
 
 }
 
-.switch-panel{
-
-left:0;
-
-top:50%;
+.slider-panel{
 
 width:100%;
 
-height:50%;
+height:42%;
+
+top:58%;
+
+right:0;
 
 clip-path:polygon(
-0 12%,
+0 10%,
 100% 0,
 100% 100%,
-0 88%);
+0 90%);
 
 }
 
-.panel-content h1{
+.auth-container.active .slider-panel{
+
+top:0;
+
+right:0;
+
+}
+
+.slider-logo{
+
+width:85px;
+
+}
+
+.slider-content h1{
 
 font-size:36px;
 
 }
 
-.panel-logo{
+#sliderTitle{
 
-width:80px;
+font-size:24px;
 
 }
 
-    }
-/* INITIAL STATES */
+.slider-content p{
 
-.login-container,
-.register-container,
-.switch-panel{
-    transition:all .8s ease;
+font-size:15px;
+
 }
 
-.register-container{
-    opacity:0;
-    pointer-events:none;
-    transform:translateX(-80px);
+form h2{
+
+font-size:30px;
+
 }
 
-.login-container{
-    opacity:1;
-    pointer-events:auto;
-    transform:translateX(0);
+.input-box input{
+
+height:55px;
+
+font-size:15px;
+
+}
+
+.primary-btn,
+.switch-btn{
+
+height:55px;
+
+}
+
 }
