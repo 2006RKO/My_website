@@ -1292,3 +1292,284 @@ filter:hue-rotate(360deg);
 }
 
 }
+/*=========================================
+        CHAPCY WELCOME ROCKET
+=========================================*/
+
+.welcome-box{
+    position:relative;
+    width:100%;
+    text-align:center;
+    margin-top:20px;
+    overflow:hidden;
+}
+
+
+/* ROCKET */
+
+.rocket{
+
+    font-size:45px;
+
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+
+    bottom:-60px;
+
+    animation:
+    rocketFly 3s ease-in-out infinite;
+
+    filter:
+    drop-shadow(0 0 15px #00ffff);
+
+    z-index:5;
+}
+
+
+/* ROCKET MOVEMENT */
+
+@keyframes rocketFly{
+
+    0%{
+        bottom:-60px;
+        opacity:0;
+        transform:
+        translateX(-50%)
+        scale(.7)
+        rotate(-15deg);
+    }
+
+
+    20%{
+        opacity:1;
+    }
+
+
+    70%{
+        bottom:70px;
+
+        transform:
+        translateX(-50%)
+        scale(1)
+        rotate(0deg);
+    }
+
+
+    85%{
+        bottom:80px;
+
+        transform:
+        translateX(-50%)
+        scale(1.2);
+    }
+
+
+    100%{
+
+        bottom:100px;
+
+        opacity:0;
+
+        transform:
+        translateX(-50%)
+        scale(.3);
+
+    }
+
+}
+
+
+
+/* EXPLOSION */
+
+.explosion{
+
+    position:absolute;
+
+    top:0;
+    left:50%;
+
+    transform:
+    translateX(-50%)
+    scale(0);
+
+    font-size:35px;
+
+    opacity:0;
+
+    animation:
+    boom 3s infinite;
+
+    z-index:4;
+
+}
+
+
+
+@keyframes boom{
+
+
+    0%,70%{
+
+        opacity:0;
+        transform:
+        translateX(-50%)
+        scale(0);
+
+    }
+
+
+    75%{
+
+        opacity:1;
+
+        transform:
+        translateX(-50%)
+        scale(1.5);
+
+    }
+
+
+    90%{
+
+        opacity:1;
+
+        transform:
+        translateX(-50%)
+        scale(1);
+
+    }
+
+
+    100%{
+
+        opacity:0;
+
+        transform:
+        translateX(-50%)
+        scale(2);
+
+    }
+
+}
+
+
+
+/* WELCOME TEXT */
+
+.welcome-title{
+
+    position:relative;
+
+    margin-top:55px;
+
+    font-size:32px;
+
+    font-weight:800;
+
+    text-transform:uppercase;
+
+    color:white;
+
+    letter-spacing:2px;
+
+
+    animation:
+
+    welcomeGlow 2s infinite alternate;
+
+}
+
+
+
+/* TEXT GLOW */
+
+@keyframes welcomeGlow{
+
+    from{
+
+        text-shadow:
+
+        0 0 10px #00ffff,
+        0 0 20px #0066ff;
+
+        transform:scale(1);
+
+    }
+
+
+    to{
+
+        text-shadow:
+
+        0 0 20px #ff00ff,
+        0 0 40px #00ffff;
+
+        transform:scale(1.05);
+
+    }
+
+}
+
+
+
+/* POINTER */
+
+.pointer{
+
+    margin-top:10px;
+
+    font-size:30px;
+
+    animation:
+
+    pointerMove 1s infinite;
+
+}
+
+
+
+@keyframes pointerMove{
+
+    0%,100%{
+
+        transform:translateY(0);
+
+    }
+
+
+    50%{
+
+        transform:translateY(-12px);
+
+    }
+
+}
+
+
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+    .rocket{
+
+        font-size:38px;
+    }
+
+
+    .welcome-title{
+
+        font-size:25px;
+
+    }
+
+
+    .explosion{
+
+        font-size:28px;
+
+    }
+
+          }
