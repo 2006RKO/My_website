@@ -287,12 +287,13 @@ window.addEventListener("load",()=>{
 
 });
 const firebaseConfig = {
-  apiKey: "WEKA_API_KEY",
-  authDomain: "PROJECT.firebaseapp.com",
-  projectId: "PROJECT_ID",
-  storageBucket: "PROJECT.appspot.com",
-  messagingSenderId: "SENDER_ID",
-  appId: "APP_ID"
+  apiKey: "AIzaSyD0k-VGDQCb07z8VU1lfj4PS0nQ1SJjt-U",
+  authDomain: "rko-website-design-8e1b6.firebaseapp.com",
+  projectId: "rko-website-design-8e1b6",
+  storageBucket: "rko-website-design-8e1b6.firebasestorage.app",
+  messagingSenderId: "18344688958",
+  appId: "1:18344688958:web:605719f065d65fddf1c06f",
+  measurementId: "G-JYRSY3P5DC"
 };
 
 firebase.initializeApp(firebaseConfig);
