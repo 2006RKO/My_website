@@ -1,23 +1,23 @@
 "use strict";
 
 /*=========================================
-      CHAPCY AUTH V18
+          CHAPCY AUTH V18
 =========================================*/
 
-const authContainer = document.getElementById("authContainer");
+const authContainer = document.querySelector(".auth-container");
 const switchBtn = document.getElementById("switchBtn");
 
-const sliderTitle = document.getElementById("sliderTitle");
-const sliderText = document.getElementById("sliderText");
+const panelTitle = document.getElementById("panelTitle");
+const panelText = document.getElementById("panelText");
 
 const loginForm = document.getElementById("loginForm");
 const registerForm = document.getElementById("registerForm");
 
-/*=========================================
-      LOGIN ↔ REGISTER
-=========================================*/
-
 let registerMode = false;
+
+/*=========================================
+        LOGIN ↔ REGISTER ANIMATION
+=========================================*/
 
 switchBtn.addEventListener("click", () => {
 
@@ -25,22 +25,16 @@ switchBtn.addEventListener("click", () => {
 
     authContainer.classList.toggle("active");
 
-    if(registerMode){
+    if (registerMode) {
 
-        sliderTitle.textContent = "Welcome Back";
-
-        sliderText.textContent =
-        "Already have an account? Login now.";
-
+        panelTitle.textContent = "Welcome!";
+        panelText.textContent = "Already have an account?";
         switchBtn.textContent = "LOGIN";
 
-    }else{
+    } else {
 
-        sliderTitle.textContent = "New Here?";
-
-        sliderText.textContent =
-        "Create your account and start chatting worldwide.";
-
+        panelTitle.textContent = "Welcome Back";
+        panelText.textContent = "Don't have an account?";
         switchBtn.textContent = "CREATE ACCOUNT";
 
     }
@@ -48,26 +42,26 @@ switchBtn.addEventListener("click", () => {
 });
 
 /*=========================================
-      SHOW / HIDE PASSWORD
+        SHOW / HIDE PASSWORD
 =========================================*/
 
-document.querySelectorAll(".toggle-password").forEach(icon=>{
+document.querySelectorAll(".toggle-password").forEach(icon => {
 
-    icon.addEventListener("click",()=>{
+    icon.addEventListener("click", () => {
 
         const input = icon.previousElementSibling;
 
-        if(input.type==="password"){
+        if (!input) return;
 
-            input.type="text";
+        if (input.type === "password") {
 
-            icon.textContent="🙈";
+            input.type = "text";
+            icon.innerHTML = "🙈";
 
-        }else{
+        } else {
 
-            input.type="password";
-
-            icon.textContent="👁";
+            input.type = "password";
+            icon.innerHTML = "👁";
 
         }
 
@@ -76,71 +70,66 @@ document.querySelectorAll(".toggle-password").forEach(icon=>{
 });
 
 /*=========================================
-      LOGIN BUTTON
+          LOGIN BUTTON
 =========================================*/
 
-loginForm.addEventListener("submit",(e)=>{
+loginForm.addEventListener("submit", (e) => {
 
     e.preventDefault();
 
-    const btn = loginForm.querySelector(".primary-btn");
+    const btn = loginForm.querySelector(".login-btn");
 
     btn.disabled = true;
-
     btn.textContent = "Signing In...";
 
-    setTimeout(()=>{
+    setTimeout(() => {
 
         btn.disabled = false;
-
         btn.textContent = "LOGIN";
 
         // Firebase Login itawekwa hapa
 
-    },1800);
+    }, 1500);
 
 });
 
 /*=========================================
-      REGISTER BUTTON
+          REGISTER BUTTON
 =========================================*/
 
-registerForm.addEventListener("submit",(e)=>{
+registerForm.addEventListener("submit", (e) => {
 
     e.preventDefault();
 
-    const btn = registerForm.querySelector(".primary-btn");
+    const btn = registerForm.querySelector(".register-btn");
 
     btn.disabled = true;
-
     btn.textContent = "Creating...";
 
-    setTimeout(()=>{
+    setTimeout(() => {
 
         btn.disabled = false;
-
         btn.textContent = "CREATE ACCOUNT";
 
         // Firebase Register itawekwa hapa
 
-    },1800);
+    }, 1500);
 
 });
 
 /*=========================================
-      SMALL FADE EFFECT
+           PAGE FADE
 =========================================*/
 
-window.addEventListener("load",()=>{
+window.addEventListener("load", () => {
 
-    document.body.style.opacity="0";
+    document.body.style.opacity = "0";
 
-    setTimeout(()=>{
+    setTimeout(() => {
 
-        document.body.style.transition=".8s";
+        document.body.style.transition = "opacity .8s ease";
+        document.body.style.opacity = "1";
 
-        document.body.style.opacity="1";
-
-    },100);
+    }, 100);
 
 });
