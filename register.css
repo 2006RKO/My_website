@@ -1,8 +1,13 @@
 /*=========================================
-            CHAPCY REGISTER CSS
+          CHAPCY REGISTER CSS
+               PART 2
 =========================================*/
 
+/* GOOGLE FONT */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
 /* RESET */
+
 *{
     margin:0;
     padding:0;
@@ -10,353 +15,254 @@
     font-family:'Poppins',sans-serif;
 }
 
+html{
+    scroll-behavior:smooth;
+}
+
 body{
+
     width:100%;
     min-height:100vh;
+
     overflow:hidden;
+
     background:#050816;
+
     color:#fff;
+
 }
 
 /*=========================================
-           BACKGROUND
+            BACKGROUND
 =========================================*/
 
 .background{
+
     position:fixed;
     inset:0;
+
     overflow:hidden;
-    z-index:-3;
+
+    z-index:-10;
+
 }
 
 .background-image{
+
     width:100%;
     height:100%;
+
     object-fit:cover;
-    filter:brightness(.35);
+
+    filter:brightness(.25);
+
+    animation:bgZoom 18s linear infinite alternate;
+
 }
 
-.background-overlay{
+@keyframes bgZoom{
+
+0%{
+
+transform:scale(1);
+
+}
+
+100%{
+
+transform:scale(1.08);
+
+}
+
+}
+
+.overlay{
+
     position:absolute;
     inset:0;
+
     background:
     linear-gradient(
     180deg,
-    rgba(5,8,22,.35),
-    rgba(5,8,22,.85)
+    rgba(5,8,22,.15),
+    rgba(5,8,22,.88)
     );
+
 }
 
 /*=========================================
-            STARS
+              STARS
 =========================================*/
 
 .stars{
+
     position:absolute;
     inset:0;
+
     background-image:
-    radial-gradient(#ffffffcc 1px,transparent 1px);
+    radial-gradient(#ffffff 1px,transparent 1px);
+
     background-size:45px 45px;
-    opacity:.25;
-    animation:starsMove 90s linear infinite;
+
+    opacity:.18;
+
+    animation:moveStars 120s linear infinite;
+
 }
 
-@keyframes starsMove{
+@keyframes moveStars{
 
 from{
+
 transform:translateY(0);
+
 }
 
 to{
-transform:translateY(-200px);
+
+transform:translateY(-500px);
+
 }
 
 }
 
 /*=========================================
-          PARTICLES
+            PARTICLES
 =========================================*/
 
 .particles::before,
 .particles::after{
+
     content:"";
+
     position:absolute;
-    width:500px;
-    height:500px;
+
     border-radius:50%;
-    filter:blur(100px);
-    opacity:.35;
+
+    filter:blur(90px);
+
 }
 
 .particles::before{
-    top:-150px;
-    left:-120px;
+
+    width:380px;
+    height:380px;
+
     background:#00cfff;
+
+    top:-120px;
+    left:-100px;
+
+    opacity:.25;
+
+    animation:floatOne 10s ease-in-out infinite;
+
 }
 
 .particles::after{
-    bottom:-150px;
-    right:-120px;
+
+    width:350px;
+    height:350px;
+
     background:#8a2eff;
+
+    bottom:-100px;
+    right:-120px;
+
+    opacity:.22;
+
+    animation:floatTwo 12s ease-in-out infinite;
+
+}
+
+@keyframes floatOne{
+
+0%,100%{
+
+transform:translateY(0);
+
+}
+
+50%{
+
+transform:translateY(40px);
+
+}
+
+}
+
+@keyframes floatTwo{
+
+0%,100%{
+
+transform:translateY(0);
+
+}
+
+50%{
+
+transform:translateY(-35px);
+
+}
+
 }
 
 /*=========================================
-          MAIN CONTAINER
+             CONTAINER
 =========================================*/
 
-.main-container{
+.container{
+
     width:100%;
-    height:100vh;
+    min-height:100vh;
+
     display:flex;
+
     justify-content:center;
+
     align-items:center;
-    position:relative;
-}
-
-/*=========================================
-          PAGE
-=========================================*/
-
-.welcome-page,
-.register-page,
-.login-page{
-    position:absolute;
-    width:92%;
-    max-width:460px;
-
-    background:rgba(8,12,35,.78);
-    backdrop-filter:blur(18px);
-
-    border:1px solid rgba(255,255,255,.12);
-
-    border-radius:30px;
-
-    padding:35px 25px;
-
-    text-align:center;
-
-    box-shadow:
-    0 20px 60px rgba(0,0,0,.45);
-}
-
-.register-page,
-.login-page{
-    display:none;
-}
-
-/*=========================================
-            LOGO
-=========================================*/
-
-.chapcy-logo{
-    width:95px;
-    margin:auto;
-    display:block;
-    margin-bottom:15px;
-    filter:drop-shadow(0 0 20px #00cfff);
-}
-
-h1{
-    font-size:38px;
-    font-weight:800;
-    letter-spacing:3px;
-    color:#fff;
-}
-
-.subtitle{
-    color:#00d9ff;
-    margin-top:5px;
-    margin-bottom:20px;
-    font-size:14px;
-}
-
-h2{
-    font-size:28px;
-    margin-bottom:8px;
-}
-
-.choose{
-    color:#cfcfcf;
-    margin-bottom:28px;
-}
-
-/*=========================================
-         REGISTER & LOGIN CARD
-=========================================*/
-
-.choice-container{
-    display:flex;
-    flex-direction:column;
-    gap:20px;
-}
-
-.choice-card{
-
-    background:rgba(255,255,255,.06);
-
-    border:1px solid rgba(255,255,255,.08);
-
-    border-radius:22px;
 
     padding:25px;
 
-    transition:.35s;
-
-}
-
-.choice-card:hover{
-
-    transform:translateY(-6px);
-
-    border-color:#00cfff;
-
-    box-shadow:
-    0 0 30px rgba(0,210,255,.3);
-
-}
-
-.choice-icon{
-    width:75px;
-    height:75px;
-
-    margin:auto auto 15px;
-
-    border-radius:50%;
-
-    background:rgba(255,255,255,.08);
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
-
-.choice-icon img{
-    width:42px;
-}
-
-.choice-card h3{
-    margin-bottom:10px;
-    font-size:22px;
-}
-
-.choice-card p{
-    color:#d5d5d5;
-    line-height:1.6;
-    font-size:14px;
-    margin-bottom:20px;
-}
-
-.choice-card button{
-
-    width:100%;
-    height:52px;
-
-    border:none;
-    border-radius:14px;
-
-    background:
-    linear-gradient(
-    90deg,
-    #00cfff,
-    #8a2eff
-    );
-
-    color:#fff;
-
-    font-weight:700;
-
-    cursor:pointer;
-
-    transition:.3s;
-}
-
-.choice-card button:hover{
-
-    transform:scale(1.03);
-
-    box-shadow:
-    0 0 25px rgba(0,210,255,.45);
+    position:relative;
 
 }
 
 /*=========================================
-            BACK BUTTON
+                PAGE
 =========================================*/
 
-.back-btn{
+.page{
 
     position:absolute;
 
-    top:18px;
-    left:18px;
-
-    border:none;
-
-    padding:10px 18px;
-
-    border-radius:30px;
-
-    background:#00cfff;
-
-    color:#fff;
-
-    font-weight:600;
-
-    cursor:pointer;
-}
-
-.back-btn:hover{
-
-    background:#8a2eff;
-
-}
-
-.page-content{
-
-    margin-top:60px;
-    min-height:350px;
+    width:100%;
 
     display:flex;
+
     justify-content:center;
+
     align-items:center;
 
-    color:#bbb;
-}
+    opacity:0;
 
-/*=========================================
-            RESPONSIVE
-=========================================*/
+    visibility:hidden;
 
-@media(max-width:480px){
+    transform:translateY(40px) scale(.96);
 
-.welcome-page,
-.register-page,
-.login-page{
-
-width:95%;
-padding:28px 20px;
+    transition:
+    opacity .45s ease,
+    transform .45s ease,
+    visibility .45s;
 
 }
 
-h1{
-font-size:30px;
-}
+.page.active{
 
-h2{
-font-size:23px;
-}
+    opacity:1;
 
-.choice-card{
-padding:20px;
-}
+    visibility:visible;
 
-.choice-icon{
-width:65px;
-height:65px;
-}
-
-.choice-icon img{
-width:36px;
-}
+    transform:translateY(0) scale(1);
 
 }
