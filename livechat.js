@@ -1,120 +1,202 @@
-const picker = document.querySelector("emoji-picker");
+/*=========================================
+      CHAPCY V22 ULTRA
+         JAVASCRIPT PART 5
+=========================================*/
 
-const input = document.getElementById("messageInput");
+"use strict";
 
-picker.addEventListener("emoji-click",(event)=>{
+/*=========================
+      ELEMENTS
+=========================*/
 
-input.value += event.detail.unicode;
+const chatArea = document.querySelector(".chat-messages");
 
-input.focus();
+const input = document.querySelector(".chat-input input");
 
-});
-// Elements
-const input = document.getElementById("messageInput");
-const sendBtn = document.getElementById("sendBtn");
-const messages = document.getElementById("messages");
-const picker = document.querySelector("emoji-picker");
+const sendBtn = document.querySelector(".send");
 
-// Emoji Picker
-if (picker) {
-    picker.addEventListener("emoji-click", (event) => {
-        input.value += event.detail.unicode;
-        input.focus();
-    });
+const typing = document.querySelector(".typing-text");
+
+const emojiBtns = document.querySelectorAll(".emoji-panel span");
+
+
+/*=========================
+      AUTO SCROLL
+=========================*/
+
+function scrollBottom(){
+
+    chatArea.scrollTop = chatArea.scrollHeight;
+
 }
 
-// Kutuma message
-function sendMessage() {
+
+/*=========================
+      CREATE MESSAGE
+=========================*/
+
+function sendMessage(){
 
     const text = input.value.trim();
 
-    if (text === "") return;
+    if(text==="") return;
 
-    // Time
-    const now = new Date();
-
-    let hour = now.getHours();
-    let minute = now.getMinutes();
-
-    if (minute < 10) {
-        minute = "0" + minute;
-    }
-
-    const time = hour + ":" + minute;
-
-    // Message
     const message = document.createElement("div");
 
-    message.classList.add("message", "sent");
+    message.className="message me";
 
-    message.innerHTML = `
-        <p>${text}</p>
-        <small>${time}</small>
+    message.innerHTML=`
+
+        <div class="bubble">
+
+            ${text}
+
+            <div class="reactions">
+
+                <span>❤️</span>
+
+                <span>👍</span>
+
+                <span>🔥</span>
+
+            </div>
+
+        </div>
+
     `;
 
-    messages.appendChild(message);
+    chatArea.appendChild(message);
 
-    // Scroll mwisho
-    messages.scrollTop = messages.scrollHeight;
+    input.value="";
 
-    // Safisha input
-    input.value = "";
+    scrollBottom();
+
+    autoReply();
+
 }
 
-// Button Send
-sendBtn.addEventListener("click", sendMessage);
 
-// Enter Key
-input.addEventListener("keypress", function(e){
+/*=========================
+      SEND EVENTS
+=========================*/
 
-    if(e.key === "Enter"){
+sendBtn.onclick=sendMessage;
+
+input.addEventListener("keypress",e=>{
+
+    if(e.key==="Enter"){
+
         sendMessage();
+
     }
 
 });
-const input = document.getElementById("messageInput");
-const sendBtn = document.getElementById("sendBtn");
-// ...
-/* ==========================
-   GROUP SLIDESHOW
-========================== */
 
-const slides = document.querySelectorAll(".slide");
-const dots = document.querySelectorAll(".slider-dots span");
 
-let current = 0;
+/*=========================
+     EMOJI SUPPORT
+=========================*/
 
-function showSlide(index){
+emojiBtns.forEach(btn=>{
 
-    slides.forEach(slide => slide.classList.remove("active"));
-    dots.forEach(dot => dot.classList.remove("active"));
+    btn.onclick=()=>{
 
-    slides[index].classList.add("active");
-    dots[index].classList.add("active");
+        input.value+=btn.textContent;
 
-    current = index;
+        input.focus();
+
+    }
+
+});
+
+
+/*=========================
+    TYPING INDICATOR
+=========================*/
+
+let typingTimer;
+
+input.addEventListener("input",()=>{
+
+    typing.style.display="block";
+
+    clearTimeout(typingTimer);
+
+    typingTimer=setTimeout(()=>{
+
+        typing.style.display="none";
+
+    },1000);
+
+});
+
+
+/*=========================
+      AUTO REPLY
+=========================*/
+
+function autoReply(){
+
+    typing.style.display="block";
+
+    setTimeout(()=>{
+
+        typing.style.display="none";
+
+        const reply=document.createElement("div");
+
+        reply.className="message";
+
+        reply.innerHTML=`
+
+            <img src="avatar1.png" class="avatar">
+
+            <div class="bubble">
+
+                Thanks for your message 👋
+
+                <div class="reactions">
+
+                    <span>❤️</span>
+
+                    <span>😂</span>
+
+                    <span>🔥</span>
+
+                </div>
+
+            </div>
+
+        `;
+
+        chatArea.appendChild(reply);
+
+        scrollBottom();
+
+    },1800);
+
 }
 
-// Auto slide kila sekunde 3
-setInterval(() => {
 
-    current++;
+/*=========================
+     REACTION CLICK
+=========================*/
 
-    if(current >= slides.length){
-        current = 0;
+document.addEventListener("click",e=>{
+
+    if(e.target.parentElement?.classList.contains("reactions")){
+
+        e.target.style.background="#00d9ff";
+
+        e.target.style.color="#000";
+
     }
 
-    showSlide(current);
-
-}, 3000);
-
-// Dots clickable
-dots.forEach((dot,index)=>{
-
-    dot.addEventListener("click",()=>{
-
-        showSlide(index);
-
-    });
-
 });
+
+
+/*=========================
+      START
+=========================*/
+
+scrollBottom();
