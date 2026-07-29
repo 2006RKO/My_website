@@ -313,7 +313,7 @@ display:none;
 }
 /*=========================================
         CHAPCY V23
-      CENTER PANEL PART 1
+      CENTER PANEL PART 2
 =========================================*/
 
 /*=========================
@@ -631,5 +631,360 @@ display:none;
 
 }
 
-    
+    /*=========================================
+      CHAPCY V23 CENTER PANEL
+      PART 2 - CHAT MESSAGES
+=========================================*/
+
+/*=========================
+      MESSAGES AREA
+=========================*/
+
+.messages{
+
+    flex:1;
+
+    overflow-y:auto;
+
+    overflow-x:hidden;
+
+    padding:25px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:22px;
+
+    scroll-behavior:smooth;
+
+}
+
+.messages::-webkit-scrollbar{
+
+    width:6px;
+
+}
+
+.messages::-webkit-scrollbar-thumb{
+
+    background:rgba(255,255,255,.12);
+
+    border-radius:20px;
+
+}
+
+/*=========================
+      WELCOME CARD
+=========================*/
+
+.welcome-card{
+
+    position:relative;
+
+    overflow:hidden;
+
+    padding:28px;
+
+    border-radius:24px;
+
+    text-align:center;
+
+    background:rgba(255,255,255,.04);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    margin-bottom:10px;
+
+}
+
+.welcome-card h3{
+
+    color:#fff;
+
+    font-size:25px;
+
+    margin-bottom:12px;
+
+}
+
+.welcome-card p{
+
+    color:#bdd7ff;
+
+    line-height:1.8;
+
+    font-size:15px;
+
+}
+
+.welcome-glow{
+
+    position:absolute;
+
+    width:220px;
+
+    height:220px;
+
+    background:#00d9ff;
+
+    border-radius:50%;
+
+    filter:blur(110px);
+
+    opacity:.10;
+
+    top:-120px;
+
+    right:-120px;
+
+}
+
+/*=========================
+      CHAT MESSAGE
+=========================*/
+
+.message{
+
+    display:flex;
+
+    align-items:flex-end;
+
+    gap:12px;
+
+    animation:messageIn .35s ease;
+
+}
+
+.message.left{
+
+    justify-content:flex-start;
+
+}
+
+.message.right{
+
+    justify-content:flex-end;
+
+}
+
+/*=========================
+      AVATAR
+=========================*/
+
+.message img{
+
+    width:46px;
+
+    height:46px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    border:2px solid rgba(0,217,255,.6);
+
+    flex-shrink:0;
+
+}
+
+/*=========================
+      BUBBLE
+=========================*/
+
+.bubble{
+
+    position:relative;
+
+    max-width:72%;
+
+    padding:14px 18px;
+
+    border-radius:22px;
+
+    background:rgba(255,255,255,.06);
+
+    backdrop-filter:blur(18px);
+
+    -webkit-backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    transition:.30s;
+
+}
+
+.message.right .bubble{
+
+    background:linear-gradient(
+        135deg,
+        rgba(0,217,255,.22),
+        rgba(138,46,255,.28)
+    );
+
+}
+
+/*=========================
+      USER NAME
+=========================*/
+
+.bubble h4{
+
+    color:#00d9ff;
+
+    font-size:14px;
+
+    margin-bottom:6px;
+
+}
+
+/*=========================
+      TEXT
+=========================*/
+
+.bubble p{
+
+    color:#fff;
+
+    line-height:1.7;
+
+    word-break:break-word;
+
+    font-size:15px;
+
+}
+
+/*=========================
+      TIME
+=========================*/
+
+.msg-time{
+
+    display:block;
+
+    margin-top:8px;
+
+    text-align:right;
+
+    color:#9ab5d8;
+
+    font-size:11px;
+
+}
+
+/*=========================
+      REACTIONS
+=========================*/
+
+.reactions{
+
+    display:flex;
+
+    gap:8px;
+
+    margin-top:10px;
+
+}
+
+.reactions span{
+
+    padding:5px 10px;
+
+    border-radius:20px;
+
+    background:rgba(255,255,255,.06);
+
+    cursor:pointer;
+
+    font-size:13px;
+
+    transition:.3s;
+
+}
+
+.reactions span:hover{
+
+    transform:translateY(-2px);
+
+    background:rgba(0,217,255,.20);
+
+}
+
+/*=========================
+      BUBBLE HOVER
+=========================*/
+
+.bubble:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:
+
+    0 0 18px rgba(0,217,255,.15),
+
+    0 0 30px rgba(138,46,255,.10);
+
+}
+
+/*=========================
+      MESSAGE ANIMATION
+=========================*/
+
+@keyframes messageIn{
+
+from{
+
+opacity:0;
+
+transform:translateY(20px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+/*=========================
+      MOBILE
+=========================*/
+
+@media(max-width:768px){
+
+.messages{
+
+padding:15px;
+
+gap:18px;
+
+}
+
+.message img{
+
+width:40px;
+
+height:40px;
+
+}
+
+.bubble{
+
+max-width:85%;
+
+padding:12px 15px;
+
+}
+
+.bubble p{
+
+font-size:14px;
+
+}
+
+}
         
