@@ -1083,7 +1083,7 @@ right:0;
           COVERFLOW SLIDER
 =========================================*/
 
-..group-slider{
+.group-slider{
     width:100%;
     position:relative;
     margin:50px auto;
@@ -1294,37 +1294,60 @@ background-position:300%;
       BUTTONS • ARROWS • MOBILE
 =========================================*/
 
-/* JOIN BUTTON */
+/* RESPONSIVE JOIN BUTTON */
+
 .join-btn{
     display:flex;
     justify-content:center;
     align-items:center;
 
     width:100%;
-    height:55px;
+    max-width:520px;
 
-    text-decoration:none;
-    color:#fff;
-    font-weight:700;
+    margin:25px auto 0;
+
+    min-height:58px;
+    padding:16px 24px;
 
     border-radius:18px;
 
-    background:linear-gradient(
-        135deg,
-        #00cfff,
-        #6d4cff,
-        #b400ff
-    );
+    color:#fff;
+    font-weight:700;
+    text-decoration:none;
+
+    background:linear-gradient(135deg,#00cfff,#6d4cff,#b400ff);
 
     transition:.35s;
 }
 
 .join-btn:hover{
     transform:translateY(-3px);
+}
 
-    box-shadow:
-        0 0 18px #00cfff,
-        0 0 35px #8a2eff;
+@media(max-width:768px){
+
+.join-btn{
+
+    width:95%;
+    max-width:100%;
+    min-height:56px;
+
+    font-size:15px;
+
+}
+
+}
+
+@media(max-width:480px){
+
+.join-btn{
+
+    width:100%;
+    padding:15px;
+    font-size:14px;
+
+}
+
 }
 
 /* PAYMENT BUTTON */
