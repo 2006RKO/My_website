@@ -4,11 +4,9 @@
 <head>
 
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<title>CHAPCY V22 Ultra Live Chat</title>
+<title>CHAPCY V24 Ultra Live Chat</title>
 
 <link rel="stylesheet" href="livechat.css">
 
@@ -22,21 +20,17 @@ rel="stylesheet">
 
 <body>
 
-<!--==========================
-        BACKGROUND
-===========================-->
+<!-- BACKGROUND -->
 
 <div class="bg-glow"></div>
 
-<!--==========================
-        MAIN APP
-===========================-->
+<!-- MAIN -->
 
 <div class="chat-app">
 
-<!--==========================
-        TOP HEADER
-===========================-->
+<!-- =======================
+        HEADER
+======================== -->
 
 <header class="topbar">
 
@@ -54,256 +48,286 @@ rel="stylesheet">
 
 </div>
 
-<div class="online-info">
-
-<span class="online-dot"></span>
-
-2456 Online
-
-</div>
-
 <div class="top-icons">
 
+<button class="icon-btn">
 <i class="fa-solid fa-user-group"></i>
+</button>
 
+<button class="icon-btn">
 <i class="fa-regular fa-bell"></i>
+<span class="badge">5</span>
+</button>
 
+<button class="icon-btn">
 <i class="fa-solid fa-gear"></i>
+</button>
 
-<img src="default-avatar.png"
-class="profile">
+<img src="default-avatar.png" class="profile">
 
 </div>
 
 </header>
 
-<!--=========================================
-          CHAPCY V23 CENTER PANEL
-==========================================-->
-
-<div class="chat-app">
-
-<header class="topbar">
-...
-</header>
+<!-- =======================
+        CHAT LAYOUT
+======================== -->
 
 <div class="chat-layout">
 
-    <aside class="left-panel">
-        <!-- Chat list -->
-    </aside>
+<!-- =======================
+        LEFT PANEL
+======================== -->
 
-    <main class="center-panel">
-        <!-- Chat -->
-    </main>
+<aside class="left-panel">
 
-    <aside class="right-panel">
-        <!-- Online users -->
-    </aside>
+<h3>Chats</h3>
+
+<div id="roomList" class="room-list">
+
+<!-- Firebase Rooms -->
+
+</div>
+
+</aside>
+
+<!-- =======================
+      CENTER PANEL
+======================== -->
+
+<main class="center-panel">
+
+<!-- CHAT HEADER -->
+
+<div class="chat-header">
+
+<div class="room-info">
+
+<div class="room-icon">
+
+🌍
+
+</div>
+
+<div>
+
+<h2 id="roomName">
+
+General Chat
+
+</h2>
+
+<p>
+
+<span class="online-dot"></span>
+
+<span id="onlineCount">
+
+0 Online
+
+</span>
+
+</p>
 
 </div>
 
 </div>
 
-    <!--=========================
-            CHAT HEADER
-    ==========================-->
+<div class="header-actions">
 
-    <header class="chat-header">
+<button class="header-btn">
 
-        <div class="room-info">
+<i class="fa-solid fa-magnifying-glass"></i>
 
-            <div class="room-icon">
+</button>
 
-                🌍
+<button class="header-btn">
 
-            </div>
+<i class="fa-solid fa-phone"></i>
 
-            <div class="room-text">
+</button>
 
-                <h2>General Chat</h2>
+<button class="header-btn">
 
-                <p>
+<i class="fa-solid fa-video"></i>
 
-                    <span class="online-dot"></span>
+</button>
 
-                    <span id="onlineCount">
-                        2456 Users Online
-                    </span>
+<button class="header-btn">
 
-                </p>
+<i class="fa-solid fa-ellipsis-vertical"></i>
 
-            </div>
+</button>
 
-        </div>
+</div>
 
-        <div class="header-actions">
+</div>
 
-            <button class="header-btn">
+<!-- MESSAGES -->
 
-                <i class="fa-solid fa-magnifying-glass"></i>
+<section id="messages" class="messages">
 
-            </button>
+<div class="welcome-card">
 
-            <button class="header-btn">
+<h2>
 
-                <i class="fa-solid fa-phone"></i>
+✨ Welcome to CHAPCY
 
-            </button>
+</h2>
 
-            <button class="header-btn">
+<p>
 
-                <i class="fa-solid fa-video"></i>
+Meet people around the world,
+chat,
+make friends,
+and enjoy together.
 
-            </button>
+</p>
 
-            <button class="header-btn">
+</div>
 
-                <i class="fa-solid fa-ellipsis-vertical"></i>
+<!-- Firebase Messages -->
 
-            </button>
+</section>
 
-        </div>
+<!-- TYPING -->
 
-    </header>
+<div id="typingBox" class="typing-box">
 
-    <!--=========================
-          CHAT BODY
-    ==========================-->
+<div class="typing-animation">
 
-    <section
-    id="messages"
-    class="messages">
+<span></span>
 
-        <!-- Welcome -->
+<span></span>
 
-        <div class="welcome-card">
+<span></span>
 
-            <div class="welcome-glow"></div>
+</div>
 
-            <h3>
+<p id="typingUser">
 
-                ✨ Welcome to CHAPCY
+Someone is typing...
 
-            </h3>
+</p>
 
-            <p>
+</div>
 
-                Meet people around the world,
+<!-- MESSAGE BOX -->
 
-                chat,
-
-                make friends
-
-                and enjoy together.
-
-            </p>
-
-        </div>
-
-        <!-- Messages zitaingia hapa kupitia Firebase -->
-
-    </section>
-
-    <!--=========================
-        TYPING STATUS
-    ==========================-->
-
-    <div
-    id="typingBox"
-    class="typing-box">
-
-        <div class="typing-animation">
-
-            <span></span>
-
-            <span></span>
-
-            <span></span>
-
-        </div>
-
-        <span id="typingUser">
-
-            Someone is typing...
-
-        </span>
-
-    </div>
-
-    <!--=========================
-        MESSAGE INPUT
-    ==========================-->
-
-    <footer class="message-box">
 <footer class="message-box">
 
-    <!-- Left -->
+<div class="message-left">
 
-    <div class="message-left">
+<button id="emojiBtn" class="msg-btn">
 
-        <button class="msg-btn" id="emojiBtn">
-            <i class="fa-regular fa-face-smile"></i>
-        </button>
+<i class="fa-regular fa-face-smile"></i>
 
-        <label class="msg-btn">
-            <i class="fa-solid fa-paperclip"></i>
-            <input type="file" id="fileInput" hidden multiple>
-        </label>
+</button>
 
-        <label class="msg-btn">
-            <i class="fa-regular fa-image"></i>
-            <input type="file"
-                   id="imageInput"
-                   accept="image/*"
-                   hidden>
-        </label>
+<label class="msg-btn">
 
-        <label class="msg-btn">
-            <i class="fa-solid fa-video"></i>
-            <input type="file"
-                   id="videoInput"
-                   accept="video/*"
-                   hidden>
-        </label>
+<i class="fa-solid fa-paperclip"></i>
 
-    </div>
+<input
+type="file"
+id="fileInput"
+hidden
+multiple>
 
-    <!-- Center -->
+</label>
 
-    <div class="input-wrapper">
+<label class="msg-btn">
 
-        <textarea
-            id="messageInput"
-            rows="1"
-            placeholder="Write a message..."></textarea>
+<i class="fa-regular fa-image"></i>
 
-    </div>
+<input
+type="file"
+id="imageInput"
+accept="image/*"
+hidden>
 
-    <!-- Right -->
+</label>
 
-    <div class="message-right">
+<label class="msg-btn">
 
-        <button class="msg-btn" id="cameraBtn">
-            <i class="fa-solid fa-camera"></i>
-        </button>
+<i class="fa-solid fa-video"></i>
 
-        <button class="msg-btn" id="voiceBtn">
-            <i class="fa-solid fa-microphone"></i>
-        </button>
+<input
+type="file"
+id="videoInput"
+accept="video/*"
+hidden>
 
-        <button class="send-btn" id="sendBtn">
-            <i class="fa-solid fa-paper-plane"></i>
-        </button>
+</label>
 
-    </div>
+</div>
+
+<div class="input-wrapper">
+
+<textarea
+
+id="messageInput"
+
+rows="1"
+
+placeholder="Write a message...">
+
+</textarea>
+
+</div>
+
+<div class="message-right">
+
+<button id="cameraBtn" class="msg-btn">
+
+<i class="fa-solid fa-camera"></i>
+
+</button>
+
+<button id="voiceBtn" class="msg-btn">
+
+<i class="fa-solid fa-microphone"></i>
+
+</button>
+
+<button id="sendBtn" class="send-btn">
+
+<i class="fa-solid fa-paper-plane"></i>
+
+</button>
+
+</div>
 
 </footer>
+
 </main>
 
-</div> <!-- chat-app -->
+<!-- =======================
+      RIGHT PANEL
+======================== -->
+
+<aside class="right-panel">
+
+<h3>
+
+Online Users
+
+</h3>
+
+<div id="onlineUsers">
+
+<!-- Firebase Online Users -->
+
+</div>
+
+</aside>
+
+</div>
+
+</div>
 
 <script type="module" src="firebase.js"></script>
+
 <script src="livechat.js"></script>
 
 </body>
