@@ -212,110 +212,78 @@ Someone is typing...
 
 </div>
 
-<!-- MESSAGE BOX -->
+<!-- CHAT CONTAINER -->
 
-<footer class="message-box">
+<div class="chat-container">
 
-<div class="message-left">
 
-<button id="emojiBtn" class="msg-btn">
+    <!-- MESSAGES -->
 
-<i class="fa-regular fa-face-smile"></i>
+    <div class="messages">
 
-</button>
 
-<label class="msg-btn">
+        <div class="message other">
+            <div class="avatar">🌍</div>
+            <div class="bubble-msg">
+                Hello 👋 Welcome to CHAPCY
+                <span>12:30</span>
+            </div>
+        </div>
 
-<i class="fa-solid fa-paperclip"></i>
 
-<input
-type="file"
-id="fileInput"
-hidden
-multiple>
 
-</label>
+        <div class="message me">
 
-<label class="msg-btn">
+            <div class="bubble-msg">
+                Nice to be here 🔥
+                <span>12:31</span>
+            </div>
 
-<i class="fa-regular fa-image"></i>
+        </div>
 
-<input
-type="file"
-id="imageInput"
-accept="image/*"
-hidden>
 
-</label>
 
-<label class="msg-btn">
+        <div class="message other">
 
-<i class="fa-solid fa-video"></i>
+            <div class="avatar">👤</div>
 
-<input
-type="file"
-id="videoInput"
-accept="video/*"
-hidden>
+            <div class="bubble-msg">
+                Connect with people worldwide 🌎
+                <span>12:32</span>
+            </div>
 
-</label>
+        </div>
 
-</div>
 
-<div class="input-wrapper">
+    </div>
 
-<textarea
 
-id="messageInput"
 
-rows="1"
 
-placeholder="Write a message...">
+    <!-- INPUT AREA -->
 
-</textarea>
+    <div class="chat-input">
 
-</div>
 
-<div class="message-right">
+        <button class="emoji">
+            😊
+        </button>
 
-<button id="cameraBtn" class="msg-btn">
 
-<i class="fa-solid fa-camera"></i>
+        <input 
+        type="text" 
+        placeholder="Write a message...">
 
-</button>
 
-<button id="voiceBtn" class="msg-btn">
+        <button class="send">
+            ➤
+        </button>
 
-<i class="fa-solid fa-microphone"></i>
 
-</button>
+    </div>
 
-<button id="sendBtn" class="send-btn">
-
-<i class="fa-solid fa-paper-plane"></i>
-
-</button>
 
 </div>
-
-</footer>
-
-</main>
-
-<!-- =======================
-      RIGHT PANEL
-======================== -->
-
-<aside class="right-panel">
-
-<h3>
-
-Online Users
-
-</h3>
-
-<div id="onlineUsers">
-
 <!-- Firebase Online Users -->
 
 </div>
