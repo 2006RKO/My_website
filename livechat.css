@@ -1,9 +1,10 @@
 /*=========================================
-        CHAPCY V22 ULTRA LIVE CHAT
+        CHAPCY V24 ULTRA LIVE CHAT
               CSS PART 1
 =========================================*/
 
 /* GOOGLE FONT */
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
 /* RESET */
@@ -15,17 +16,36 @@
     font-family:'Poppins',sans-serif;
 }
 
+html,
+body{
+
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    background:#050816;
+
+}
+
+/* ROOT */
+
 :root{
 
     --bg:#050816;
+
     --card:#101533;
+
     --card2:#171d42;
 
     --cyan:#00d9ff;
+
     --purple:#8a2eff;
+
     --blue:#3d7dff;
 
+    --green:#00ff88;
+
     --text:#ffffff;
+
     --text2:#bfcfff;
 
 }
@@ -34,15 +54,15 @@
 
 body{
 
-    background:var(--bg);
-
     color:var(--text);
 
-    overflow:hidden;
+    background:var(--bg);
 
 }
 
-/* BACKGROUND */
+/*=========================
+      BACKGROUND
+=========================*/
 
 .bg-glow{
 
@@ -50,22 +70,30 @@ body{
 
     inset:0;
 
-    background:
-    radial-gradient(circle at top left,
-    rgba(0,217,255,.15),
-    transparent 40%),
+    z-index:-1;
 
-    radial-gradient(circle at bottom right,
-    rgba(138,46,255,.15),
+    overflow:hidden;
+
+    background:
+    radial-gradient(circle at 15% 20%,
+    rgba(0,217,255,.16),
+    transparent 38%),
+
+    radial-gradient(circle at 85% 80%,
+    rgba(138,46,255,.18),
     transparent 45%),
+
+    radial-gradient(circle at center,
+    rgba(61,125,255,.08),
+    transparent 60%),
 
     #050816;
 
-    z-index:-1;
-
 }
 
-/* MAIN */
+/*=========================
+      MAIN APP
+=========================*/
 
 .chat-app{
 
@@ -79,13 +107,12 @@ body{
 
 }
 
-/*==========================
+/*=========================
         HEADER
-==========================*/
+=========================*/
 
 .topbar{
-
-    height:75px;
+        height:74px;
 
     display:flex;
 
@@ -97,13 +124,15 @@ body{
 
     background:rgba(10,15,40,.82);
 
-    backdrop-filter:blur(18px);
+    backdrop-filter:blur(22px);
 
     border-bottom:1px solid rgba(255,255,255,.06);
 
 }
 
-/* LOGO */
+/*=========================
+        LOGO
+=========================*/
 
 .logo-box{
 
@@ -117,10 +146,14 @@ body{
 
 .logo{
 
-    width:55px;
+    width:52px;
+
+    object-fit:contain;
 
     filter:
-    drop-shadow(0 0 15px var(--cyan))
+
+    drop-shadow(0 0 14px var(--cyan))
+
     drop-shadow(0 0 25px var(--purple));
 
 }
@@ -128,6 +161,8 @@ body{
 .logo-box h1{
 
     font-size:24px;
+
+    font-weight:700;
 
 }
 
@@ -139,49 +174,9 @@ body{
 
 }
 
-/* ONLINE */
-
-.online-info{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:10px;
-
-    color:#00ff88;
-
-    font-weight:700;
-
-}
-
-.online-dot{
-
-    width:10px;
-
-    height:10px;
-
-    border-radius:50%;
-
-    background:#00ff88;
-
-    animation:pulse 1.5s infinite;
-
-}
-
-@keyframes pulse{
-
-50%{
-
-transform:scale(1.4);
-
-opacity:.5;
-
-}
-
-}
-
-/* RIGHT */
+/*=========================
+      TOP ICONS
+=========================*/
 
 .top-icons{
 
@@ -189,31 +184,79 @@ opacity:.5;
 
     align-items:center;
 
-    gap:18px;
+    gap:12px;
 
 }
 
-.top-icons i{
+.icon-btn{
 
-    font-size:20px;
+    width:45px;
+
+    height:45px;
+
+    border:none;
+
+    outline:none;
 
     cursor:pointer;
 
-    transition:.3s;
+    position:relative;
+
+    border-radius:50%;
+
+    color:#fff;
+
+    background:rgba(255,255,255,.06);
+
+    transition:.30s;
 
 }
 
-.top-icons i:hover{
+.icon-btn:hover{
+
+    transform:translateY(-2px);
 
     color:var(--cyan);
+
+    background:rgba(0,217,255,.14);
+
+}
+
+.badge{
+
+    position:absolute;
+
+    top:-2px;
+
+    right:-2px;
+
+    min-width:18px;
+
+    height:18px;
+
+    border-radius:20px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:#ff2b5c;
+
+    color:#fff;
+
+    font-size:10px;
+
+    font-weight:700;
 
 }
 
 .profile{
 
-    width:45px;
+    width:46px;
 
-    height:45px;
+    height:46px;
 
     border-radius:50%;
 
@@ -223,9 +266,9 @@ opacity:.5;
 
 }
 
-/*==========================
+/*=========================
         LAYOUT
-==========================*/
+=========================*/
 
 .chat-layout{
 
@@ -233,85 +276,175 @@ opacity:.5;
 
     display:grid;
 
-    grid-template-columns:280px 1fr 330px;
-
-    gap:0;
+    grid-template-columns:280px 1fr 320px;
 
     overflow:hidden;
 
 }
 
-/* PANELS */
+/*=========================
+        PANELS
+=========================*/
 
 .left-panel,
 .center-panel,
 .right-panel{
 
-    background:rgba(16,21,51,.92);
+    position:relative;
 
-    border-radius:28px;
+    overflow:hidden;
 
-    backdrop-filter:blur(18px);
+    background:rgba(16,21,51,.82);
 
-    border:1px solid rgba(255,255,255,.06);
-
-    box-shadow:
-
-    0 0 20px rgba(0,217,255,.08),
-
-    0 0 40px rgba(138,46,255,.08);
+    backdrop-filter:blur(20px);
 
 }
 
-/* MOBILE */
+/*=========================
+      PANEL LINES
+=========================*/
+
+.left-panel{
+
+    border-right:1px solid rgba(255,255,255,.08);
+
+}
+
+.center-panel{
+
+    border-right:1px solid rgba(255,255,255,.08);
+
+}
+
+/*=========================
+      LEFT PANEL
+=========================*/
+
+.left-panel{
+
+    padding:20px;
+
+}
+
+.left-panel h3{
+
+    margin-bottom:20px;
+
+    font-size:20px;
+
+}
+
+.room-list{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:14px;
+
+    overflow-y:auto;
+
+    height:100%;
+
+}
+
+/*=========================
+      RIGHT PANEL
+=========================*/
+
+.right-panel{
+
+    padding:20px;
+
+}
+
+.right-panel h3{
+
+    margin-bottom:20px;
+
+    font-size:20px;
+
+}
+
+#onlineUsers{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:12px;
+
+    overflow-y:auto;
+
+    height:100%;
+
+}
+
+/*=========================
+      SCROLLBAR
+=========================*/
+
+.room-list::-webkit-scrollbar,
+#onlineUsers::-webkit-scrollbar{
+
+    width:6px;
+
+}
+
+.room-list::-webkit-scrollbar-thumb,
+#onlineUsers::-webkit-scrollbar-thumb{
+
+    background:rgba(255,255,255,.12);
+
+    border-radius:20px;
+
+}
+
+/*=========================
+      RESPONSIVE
+=========================*/
 
 @media(max-width:900px){
 
 .chat-layout{
 
-grid-template-columns:1fr;
-
-padding:0;
+    grid-template-columns:1fr;
 
 }
 
 .left-panel,
 .right-panel{
 
-display:none;
+    display:none;
 
 }
 
-.center-panel{
+}
 
-border-radius:0;
+/*=========================
+     LANDSCAPE MOBILE
+=========================*/
 
-height:calc(100vh - 75px);
+@media(orientation:landscape) and (max-width:1200px){
+
+.chat-layout{
+
+    grid-template-columns:250px 1fr 280px;
 
 }
 
-.topbar{
+.left-panel,
+.right-panel{
 
-padding:0 15px;
-
-}
-
-.logo-box h1{
-
-font-size:20px;
-
-}
-
-.online-info{
-
-display:none;
+    display:block;
 
 }
 
 }
 /*=========================================
-        CHAPCY V23
-      CENTER PANEL PART 2
+        CHAPCY V24
+        CSS PART 2
+     CENTER PANEL + CHAT
 =========================================*/
 
 /*=========================
@@ -320,82 +453,16 @@ display:none;
 
 .center-panel{
 
-    position:relative;
-
-    width:min(100%,850px);
-
-    height:calc(100vh - 105px);
-
-    margin:15px auto;
-
     display:flex;
     flex-direction:column;
 
-    overflow:hidden;
+    height:100%;
 
-    border-radius:30px;
+    background:rgba(8,15,35,.35);
 
-    background:rgba(8,15,35,.22);
+    backdrop-filter:blur(25px);
 
-    backdrop-filter:blur(24px);
-    -webkit-backdrop-filter:blur(24px);
-
-    border:1px solid rgba(255,255,255,.08);
-
-    box-shadow:
-        0 10px 40px rgba(0,0,0,.35),
-        0 0 30px rgba(0,217,255,.12),
-        inset 0 0 20px rgba(255,255,255,.03);
-
-}
-
-/* Glass Glow */
-
-.center-panel::before{
-
-    content:"";
-
-    position:absolute;
-
-    width:260px;
-    height:260px;
-
-    border-radius:50%;
-
-    background:#00d9ff;
-
-    filter:blur(120px);
-
-    opacity:.08;
-
-    top:-120px;
-    left:-120px;
-
-    pointer-events:none;
-
-}
-
-.center-panel::after{
-
-    content:"";
-
-    position:absolute;
-
-    width:250px;
-    height:250px;
-
-    border-radius:50%;
-
-    background:#8a2eff;
-
-    filter:blur(120px);
-
-    opacity:.08;
-
-    bottom:-120px;
-    right:-120px;
-
-    pointer-events:none;
+    position:relative;
 
 }
 
@@ -405,7 +472,9 @@ display:none;
 
 .chat-header{
 
-    height:78px;
+    height:80px;
+
+    padding:0 25px;
 
     display:flex;
 
@@ -413,13 +482,9 @@ display:none;
 
     align-items:center;
 
-    padding:0 24px;
-
-    background:rgba(255,255,255,.04);
-
-    backdrop-filter:blur(15px);
-
     border-bottom:1px solid rgba(255,255,255,.08);
+
+    background:rgba(255,255,255,.03);
 
 }
 
@@ -439,8 +504,9 @@ display:none;
 
 .room-icon{
 
-    width:54px;
-    height:54px;
+    width:55px;
+
+    height:55px;
 
     border-radius:50%;
 
@@ -450,31 +516,33 @@ display:none;
 
     align-items:center;
 
-    font-size:26px;
+    font-size:28px;
 
-    background:rgba(255,255,255,.06);
+    background:linear-gradient(
+    135deg,
+    rgba(0,217,255,.25),
+    rgba(138,46,255,.25));
 
-    border:1px solid rgba(255,255,255,.08);
+    box-shadow:
+    0 0 18px rgba(0,217,255,.20);
 
 }
 
-.room-text h2{
+.room-info h2{
+
+    font-size:22px;
 
     color:#fff;
 
-    font-size:21px;
-
-    font-weight:700;
-
 }
 
-.room-text p{
+.room-info p{
 
-    margin-top:5px;
+    margin-top:4px;
 
     font-size:13px;
 
-    color:#b8d8ff;
+    color:#bfcfff;
 
 }
 
@@ -486,8 +554,9 @@ display:none;
 
     display:inline-block;
 
-    width:8px;
-    height:8px;
+    width:9px;
+
+    height:9px;
 
     border-radius:50%;
 
@@ -496,8 +565,10 @@ display:none;
     margin-right:6px;
 
     box-shadow:
-        0 0 10px #00ff88,
-        0 0 18px #00ff88;
+
+    0 0 12px #00ff88,
+
+    0 0 25px #00ff88;
 
     animation:onlinePulse 1.5s infinite;
 
@@ -505,18 +576,18 @@ display:none;
 
 @keyframes onlinePulse{
 
-    50%{
+50%{
 
-        transform:scale(1.4);
+transform:scale(1.4);
 
-        opacity:.5;
+opacity:.45;
 
-    }
+}
 
 }
 
 /*=========================
-      HEADER ACTIONS
+      HEADER BUTTONS
 =========================*/
 
 .header-actions{
@@ -532,110 +603,35 @@ display:none;
 .header-btn{
 
     width:44px;
+
     height:44px;
 
     border:none;
 
-    outline:none;
+    border-radius:50%;
 
     cursor:pointer;
 
     color:#fff;
 
-    border-radius:50%;
+    background:rgba(255,255,255,.05);
 
-    background:rgba(255,255,255,.06);
-
-    border:1px solid rgba(255,255,255,.06);
-
-    transition:.35s;
+    transition:.30s;
 
 }
 
 .header-btn:hover{
 
-    transform:translateY(-2px) scale(1.06);
+    transform:translateY(-2px);
 
     background:rgba(0,217,255,.18);
 
     color:#00d9ff;
 
-    box-shadow:
-        0 0 18px rgba(0,217,255,.20);
-
 }
 
 /*=========================
-      MOBILE
-=========================*/
-
-@media(max-width:768px){
-
-.center-panel{
-
-    width:calc(100% - 16px);
-
-    height:calc(100vh - 90px);
-
-    margin:8px;
-
-    border-radius:24px;
-
-}
-
-.chat-header{
-
-    height:72px;
-
-    padding:0 15px;
-
-}
-
-.room-icon{
-
-    width:46px;
-    height:46px;
-
-    font-size:22px;
-
-}
-
-.room-text h2{
-
-    font-size:18px;
-
-}
-
-.room-text p{
-
-    font-size:12px;
-
-}
-
-.header-actions{
-
-    gap:6px;
-
-}
-
-.header-btn{
-
-    width:38px;
-    height:38px;
-
-    font-size:14px;
-
-}
-
-}
-
-    /*=========================================
-      CHAPCY V23 CENTER PANEL
-      PART 2 - CHAT MESSAGES
-=========================================*/
-
-/*=========================
-      MESSAGES AREA
+      MESSAGES
 =========================*/
 
 .messages{
@@ -652,11 +648,15 @@ display:none;
 
     flex-direction:column;
 
-    gap:22px;
+    gap:18px;
 
     scroll-behavior:smooth;
 
 }
+
+/*=========================
+      SCROLLBAR
+=========================*/
 
 .messages::-webkit-scrollbar{
 
@@ -668,7 +668,7 @@ display:none;
 
     background:rgba(255,255,255,.12);
 
-    border-radius:20px;
+    border-radius:30px;
 
 }
 
@@ -682,25 +682,45 @@ display:none;
 
     overflow:hidden;
 
-    padding:28px;
+    padding:35px;
 
-    border-radius:24px;
+    border-radius:25px;
 
     text-align:center;
 
-    background:rgba(255,255,255,.04);
+    background:rgba(255,255,255,.05);
 
     border:1px solid rgba(255,255,255,.08);
 
-    margin-bottom:10px;
+}
+
+.welcome-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:250px;
+
+    height:250px;
+
+    background:#00d9ff;
+
+    border-radius:50%;
+
+    filter:blur(120px);
+
+    opacity:.08;
+
+    top:-120px;
+
+    right:-120px;
 
 }
 
-.welcome-card h3{
+.welcome-card h2{
 
-    color:#fff;
-
-    font-size:25px;
+    font-size:28px;
 
     margin-bottom:12px;
 
@@ -712,37 +732,167 @@ display:none;
 
     line-height:1.8;
 
-    font-size:15px;
+}
+
+/*=========================
+      TYPING BOX
+=========================*/
+
+.typing-box{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:12px 20px;
+
+    border-top:1px solid rgba(255,255,255,.05);
+
+    background:rgba(255,255,255,.03);
 
 }
 
-.welcome-glow{
+.typing-box p{
 
-    position:absolute;
+    color:#bfcfff;
 
-    width:220px;
-
-    height:220px;
-
-    background:#00d9ff;
-
-    border-radius:50%;
-
-    filter:blur(110px);
-
-    opacity:.10;
-
-    top:-120px;
-
-    right:-120px;
+    font-size:13px;
 
 }
 
 /*=========================
-      CHAT MESSAGE
+      TYPING ANIMATION
+=========================*/
+
+.typing-animation{
+
+    display:flex;
+
+    gap:4px;
+
+}
+
+.typing-animation span{
+
+    width:8px;
+
+    height:8px;
+
+    border-radius:50%;
+
+    background:#00d9ff;
+
+    animation:typing .9s infinite;
+
+}
+
+.typing-animation span:nth-child(2){
+
+animation-delay:.2s;
+
+}
+
+.typing-animation span:nth-child(3){
+
+animation-delay:.4s;
+
+}
+
+@keyframes typing{
+
+50%{
+
+transform:translateY(-5px);
+
+opacity:.45;
+
+}
+
+}
+
+/*=========================
+      MOBILE
+=========================*/
+
+@media(max-width:768px){
+
+.chat-header{
+
+height:72px;
+
+padding:0 15px;
+
+}
+
+.room-icon{
+
+width:48px;
+
+height:48px;
+
+font-size:24px;
+
+}
+
+.room-info h2{
+
+font-size:18px;
+
+}
+
+.room-info p{
+
+font-size:12px;
+
+}
+
+.messages{
+
+padding:15px;
+
+}
+
+.welcome-card{
+
+padding:25px;
+
+}
+
+.welcome-card h2{
+
+font-size:22px;
+
+}
+
+.header-actions{
+
+gap:6px;
+
+}
+
+.header-btn{
+
+width:38px;
+
+height:38px;
+
+}
+
+}
+/*=========================================
+        CHAPCY V24 CSS PART 3
+     MESSAGE BUBBLES & MEDIA
+=========================================*/
+
+/*=========================
+      MESSAGE ROW
 =========================*/
 
 .message{
+
+    width:100%;
 
     display:flex;
 
@@ -767,10 +917,10 @@ display:none;
 }
 
 /*=========================
-      AVATAR
+        AVATAR
 =========================*/
 
-.message img{
+.message-avatar{
 
     width:46px;
 
@@ -778,23 +928,59 @@ display:none;
 
     border-radius:50%;
 
-    object-fit:cover;
-
-    border:2px solid rgba(0,217,255,.6);
+    overflow:hidden;
 
     flex-shrink:0;
+
+    border:2px solid rgba(0,217,255,.55);
+
+}
+
+.message-avatar img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
 
 }
 
 /*=========================
-      BUBBLE
+      MESSAGE CONTENT
+=========================*/
+
+.message-content{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:6px;
+
+    max-width:72%;
+
+}
+
+/*=========================
+      USER NAME
+=========================*/
+
+.message-name{
+
+    font-size:13px;
+
+    color:#00d9ff;
+
+    font-weight:600;
+
+}
+
+/*=========================
+      MESSAGE BUBBLE
 =========================*/
 
 .bubble{
-
-    position:relative;
-
-    max-width:72%;
 
     padding:14px 18px;
 
@@ -802,11 +988,11 @@ display:none;
 
     background:rgba(255,255,255,.06);
 
-    backdrop-filter:blur(18px);
-
-    -webkit-backdrop-filter:blur(18px);
-
     border:1px solid rgba(255,255,255,.08);
+
+    backdrop-filter:blur(20px);
+
+    word-break:break-word;
 
     transition:.30s;
 
@@ -815,24 +1001,9 @@ display:none;
 .message.right .bubble{
 
     background:linear-gradient(
-        135deg,
-        rgba(0,217,255,.22),
-        rgba(138,46,255,.28)
-    );
-
-}
-
-/*=========================
-      USER NAME
-=========================*/
-
-.bubble h4{
-
-    color:#00d9ff;
-
-    font-size:14px;
-
-    margin-bottom:6px;
+    135deg,
+    rgba(0,217,255,.18),
+    rgba(138,46,255,.25));
 
 }
 
@@ -840,33 +1011,199 @@ display:none;
       TEXT
 =========================*/
 
-.bubble p{
+.message-text{
 
     color:#fff;
 
     line-height:1.7;
-
-    word-break:break-word;
 
     font-size:15px;
 
 }
 
 /*=========================
-      TIME
+      IMAGE
 =========================*/
 
-.msg-time{
+.message-image{
 
-    display:block;
+    width:100%;
+
+    max-width:280px;
+
+    border-radius:18px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.message-image:hover{
+
+    transform:scale(1.02);
+
+}
+
+/*=========================
+      VIDEO
+=========================*/
+
+.message-video{
+
+    width:100%;
+
+    max-width:320px;
+
+    border-radius:18px;
+
+}
+
+/*=========================
+      FILE CARD
+=========================*/
+
+.file-card{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:12px;
+
+    border-radius:16px;
+
+    background:rgba(255,255,255,.05);
+
+}
+
+.file-card i{
+
+    font-size:28px;
+
+    color:#00d9ff;
+
+}
+
+.file-info{
+
+    flex:1;
+
+}
+
+.file-name{
+
+    color:#fff;
+
+    font-size:14px;
+
+}
+
+.file-size{
+
+    color:#9db7e5;
+
+    font-size:12px;
+
+}
+
+/*=========================
+      VOICE NOTE
+=========================*/
+
+.voice-message{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+
+.voice-play{
+
+    width:42px;
+
+    height:42px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:#00d9ff;
+
+    color:#fff;
+
+    cursor:pointer;
+
+}
+
+.voice-bar{
+
+    flex:1;
+
+    height:6px;
+
+    border-radius:20px;
+
+    background:rgba(255,255,255,.12);
+
+    overflow:hidden;
+
+}
+
+.voice-progress{
+
+    width:35%;
+
+    height:100%;
+
+    background:#00d9ff;
+
+}
+
+/*=========================
+      MESSAGE FOOTER
+=========================*/
+
+.message-footer{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
 
     margin-top:8px;
 
-    text-align:right;
+}
 
-    color:#9ab5d8;
+/* TIME */
+
+.msg-time{
+
+    color:#8ca8d5;
 
     font-size:11px;
+
+}
+
+/* READ */
+
+.read-status{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:4px;
+
+    color:#00d9ff;
+
+    font-size:12px;
 
 }
 
@@ -878,54 +1215,56 @@ display:none;
 
     display:flex;
 
-    gap:8px;
+    gap:6px;
 
     margin-top:10px;
 
+    flex-wrap:wrap;
+
 }
 
-.reactions span{
+.reaction{
 
     padding:5px 10px;
 
     border-radius:20px;
 
-    background:rgba(255,255,255,.06);
-
     cursor:pointer;
 
-    font-size:13px;
+    background:rgba(255,255,255,.06);
 
     transition:.3s;
 
+    font-size:13px;
+
 }
 
-.reactions span:hover{
+.reaction:hover{
+
+    background:rgba(0,217,255,.15);
 
     transform:translateY(-2px);
-
-    background:rgba(0,217,255,.20);
 
 }
 
 /*=========================
-      BUBBLE HOVER
+      HOVER
 =========================*/
 
 .bubble:hover{
 
-    transform:translateY(-3px);
+    transform:translateY(-2px);
 
     box-shadow:
 
     0 0 18px rgba(0,217,255,.15),
 
-    0 0 30px rgba(138,46,255,.10);
+    0 0 28px rgba(138,46,255,.10);
 
 }
 
 /*=========================
-      MESSAGE ANIMATION
+      ANIMATION
 =========================*/
 
 @keyframes messageIn{
@@ -934,7 +1273,7 @@ from{
 
 opacity:0;
 
-transform:translateY(20px);
+transform:translateY(25px);
 
 }
 
@@ -954,15 +1293,7 @@ transform:translateY(0);
 
 @media(max-width:768px){
 
-.messages{
-
-padding:15px;
-
-gap:18px;
-
-}
-
-.message img{
+.message-avatar{
 
 width:40px;
 
@@ -970,153 +1301,98 @@ height:40px;
 
 }
 
-.bubble{
+.message-content{
 
-max-width:85%;
+max-width:84%;
+
+}
+
+.bubble{
 
 padding:12px 15px;
 
 }
 
-.bubble p{
+.message-text{
 
 font-size:14px;
 
 }
 
-}
-        .left-panel{
+.message-image{
 
-    position:relative;
-
-    border-radius:28px 0 0 28px;
-
-        }
-.center-panel{
-
-    position:relative;
+max-width:220px;
 
 }
-.right-panel{
 
-    position:relative;
+.message-video{
 
-    border-radius:0 28px 28px 0;
-
-}
-.left-panel::after{
-
-    content:"";
-
-    position:absolute;
-
-    top:0;
-
-    right:0;
-
-    width:1px;
-
-    height:100%;
-
-    background:linear-gradient(
-        to bottom,
-        transparent,
-        rgba(0,217,255,.45),
-        rgba(138,46,255,.35),
-        transparent
-    );
-
-    box-shadow:
-        0 0 12px rgba(0,217,255,.30);
-
-}
-.center-panel::after{
-
-    content:"";
-
-    position:absolute;
-
-    top:0;
-
-    right:0;
-
-    width:1px;
-
-    height:100%;
-
-    background:linear-gradient(
-        to bottom,
-        transparent,
-        rgba(0,217,255,.45),
-        rgba(138,46,255,.35),
-        transparent
-    );
-
-    box-shadow:
-        0 0 12px rgba(0,217,255,.30);
-
-}
-@media(max-width:900px){
-
-.left-panel::after,
-.center-panel::after{
-
-    display:none;
+max-width:240px;
 
 }
 
 }
 /*=========================================
-      CHAPCY V23
-      MESSAGE COMPOSER
+        CHAPCY V24 CSS PART 4
+      MESSAGE COMPOSER & INPUT
 =========================================*/
 
-/* MESSAGE BOX */
+/*=========================
+      MESSAGE BOX
+=========================*/
 
 .message-box{
 
     display:flex;
+
     align-items:flex-end;
+
     gap:12px;
 
-    padding:16px 18px;
+    padding:15px 18px;
 
-    background:rgba(10,18,40,.55);
+    background:rgba(10,18,40,.78);
 
     backdrop-filter:blur(25px);
-    -webkit-backdrop-filter:blur(25px);
 
     border-top:1px solid rgba(255,255,255,.08);
 
 }
 
-/* LEFT & RIGHT */
+/*=========================
+      LEFT & RIGHT
+=========================*/
 
 .message-left,
 .message-right{
 
     display:flex;
+
     align-items:center;
+
     gap:8px;
 
 }
 
-/* INPUT */
+/*=========================
+      INPUT WRAPPER
+=========================*/
 
 .input-wrapper{
 
     flex:1;
 
     display:flex;
-    align-items:center;
+
+    align-items:flex-end;
+
+    padding:10px 16px;
+
+    border-radius:28px;
 
     background:rgba(255,255,255,.05);
 
     border:1px solid rgba(255,255,255,.08);
-
-    border-radius:28px;
-
-    padding:10px 18px;
 
     transition:.35s;
 
@@ -1127,11 +1403,14 @@ font-size:14px;
     border-color:rgba(0,217,255,.5);
 
     box-shadow:
+
     0 0 18px rgba(0,217,255,.18);
 
 }
 
-/* TEXTAREA */
+/*=========================
+      TEXTAREA
+=========================*/
 
 #messageInput{
 
@@ -1165,7 +1444,23 @@ font-size:14px;
 
 }
 
-/* BUTTONS */
+#messageInput::-webkit-scrollbar{
+
+    width:4px;
+
+}
+
+#messageInput::-webkit-scrollbar-thumb{
+
+    background:rgba(255,255,255,.18);
+
+    border-radius:20px;
+
+}
+
+/*=========================
+      NORMAL BUTTONS
+=========================*/
 
 .msg-btn{
 
@@ -1173,21 +1468,21 @@ font-size:14px;
 
     height:46px;
 
+    border:none;
+
+    border-radius:50%;
+
     display:flex;
 
     justify-content:center;
 
     align-items:center;
 
-    border:none;
-
-    border-radius:50%;
-
     cursor:pointer;
 
-    background:rgba(255,255,255,.06);
-
     color:#fff;
+
+    background:rgba(255,255,255,.06);
 
     transition:.30s;
 
@@ -1195,21 +1490,23 @@ font-size:14px;
 
 .msg-btn:hover{
 
-    transform:translateY(-2px) scale(1.08);
+    transform:translateY(-2px) scale(1.06);
 
     color:#00d9ff;
 
-    background:rgba(0,217,255,.12);
+    background:rgba(0,217,255,.14);
 
 }
 
-/* SEND */
+/*=========================
+      SEND BUTTON
+=========================*/
 
 .send-btn{
 
-    width:52px;
+    width:54px;
 
-    height:52px;
+    height:54px;
 
     border:none;
 
@@ -1219,12 +1516,18 @@ font-size:14px;
 
     color:#fff;
 
+    font-size:18px;
+
     background:linear-gradient(
+
     135deg,
+
     #00d9ff,
+
     #8a2eff);
 
     box-shadow:
+
     0 0 18px rgba(0,217,255,.35);
 
     transition:.35s;
@@ -1233,14 +1536,17 @@ font-size:14px;
 
 .send-btn:hover{
 
-    transform:scale(1.08);
+    transform:scale(1.08) rotate(-8deg);
 
     box-shadow:
-    0 0 28px rgba(0,217,255,.5);
+
+    0 0 30px rgba(0,217,255,.45);
 
 }
 
-/* HIDDEN FILE INPUTS */
+/*=========================
+      FILE INPUTS
+=========================*/
 
 .message-box input[type=file]{
 
@@ -1248,46 +1554,194 @@ font-size:14px;
 
 }
 
-/* MOBILE */
+/*=========================
+      IMAGE PREVIEW
+=========================*/
+
+.preview-area{
+
+    display:none;
+
+    gap:10px;
+
+    padding:12px 18px;
+
+    overflow-x:auto;
+
+    background:rgba(255,255,255,.03);
+
+    border-top:1px solid rgba(255,255,255,.05);
+
+}
+
+.preview-item{
+
+    position:relative;
+
+}
+
+.preview-item img{
+
+    width:90px;
+
+    height:90px;
+
+    border-radius:14px;
+
+    object-fit:cover;
+
+}
+
+.preview-remove{
+
+    position:absolute;
+
+    top:-6px;
+
+    right:-6px;
+
+    width:22px;
+
+    height:22px;
+
+    border:none;
+
+    border-radius:50%;
+
+    cursor:pointer;
+
+    background:#ff3d5d;
+
+    color:#fff;
+
+}
+
+/*=========================
+      RECORDING
+=========================*/
+
+.recording{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    color:#ff4d6d;
+
+    font-size:14px;
+
+}
+
+.record-dot{
+
+    width:10px;
+
+    height:10px;
+
+    border-radius:50%;
+
+    background:#ff4d6d;
+
+    animation:recordPulse 1s infinite;
+
+}
+
+@keyframes recordPulse{
+
+50%{
+
+opacity:.35;
+
+transform:scale(1.4);
+
+}
+
+}
+
+/*=========================
+      SEND ANIMATION
+=========================*/
+
+.send-btn:active{
+
+    transform:scale(.92);
+
+}
+
+/*=========================
+      MOBILE
+=========================*/
 
 @media(max-width:768px){
 
 .message-box{
 
-    gap:8px;
+padding:12px;
 
-    padding:12px;
+gap:8px;
 
 }
 
 .msg-btn{
 
-    width:40px;
+width:40px;
 
-    height:40px;
+height:40px;
 
-    font-size:14px;
+font-size:15px;
 
 }
 
 .send-btn{
 
-    width:46px;
+width:46px;
 
-    height:46px;
+height:46px;
+
+font-size:16px;
 
 }
 
 .input-wrapper{
 
-    padding:8px 14px;
+padding:8px 12px;
 
 }
 
 #messageInput{
 
-    font-size:14px;
+font-size:14px;
+
+}
+
+.preview-item img{
+
+width:75px;
+
+height:75px;
 
 }
 
 }
+
+/*=========================
+      LANDSCAPE MOBILE
+=========================*/
+
+@media (orientation:landscape) and (max-width:950px){
+
+.message-box{
+
+padding:10px 14px;
+
+}
+
+#messageInput{
+
+max-height:80px;
+
+}
+
+       }
