@@ -77,206 +77,189 @@ class="profile">
 
 </header>
 
-<!--==========================
-        BODY
-===========================-->
-
-<div class="chat-layout">
-
-<!--==========================
-        LEFT PANEL
-===========================-->
-
-<aside class="left-panel">
-
-<button class="new-chat">
-
-<i class="fa-solid fa-plus"></i>
-
-New Chat
-
-</button>
-
-<div class="search">
-
-<input
-type="text"
-placeholder="Search users...">
-
-</div>
-
-<h3>
-
-ONLINE USERS
-
-</h3>
-
-<div class="user-list">
-
-</div>
-
-<h3>
-
-POPULAR ROOMS
-
-</h3>
-
-<div class="room-list">
-
-</div>
-
-</aside>
-
-<!--==========================
-        CENTER PANEL
-===========================-->
+<!--=========================================
+          CHAPCY V23 CENTER PANEL
+==========================================-->
 
 <main class="center-panel">
 
-<div class="chat-header">
+    <!--=========================
+            CHAT HEADER
+    ==========================-->
 
-<h2>
+    <header class="chat-header">
 
-# 🌍 General Chat
+        <div class="room-info">
 
-</h2>
+            <div class="room-icon">
 
-<div>
+                🌍
 
-<i class="fa-solid fa-magnifying-glass"></i>
+            </div>
 
-<i class="fa-solid fa-phone"></i>
+            <div class="room-text">
 
-<i class="fa-solid fa-video"></i>
+                <h2>General Chat</h2>
 
-</div>
+                <p>
 
-</div>
+                    <span class="online-dot"></span>
 
-<div
-id="messages"
-class="messages">
+                    <span id="onlineCount">
+                        2456 Users Online
+                    </span>
 
-</div>
+                </p>
 
-<div class="typing">
+            </div>
 
-Sophia is typing...
+        </div>
 
-</div>
+        <div class="header-actions">
 
-<div class="message-box">
+            <button class="header-btn">
 
-<button>
+                <i class="fa-solid fa-magnifying-glass"></i>
 
-😀
+            </button>
 
-</button>
+            <button class="header-btn">
 
-<input
-id="messageInput"
-type="text"
-placeholder="Type your message...">
+                <i class="fa-solid fa-phone"></i>
 
-<button>
+            </button>
 
-<i class="fa-solid fa-image"></i>
+            <button class="header-btn">
 
-</button>
+                <i class="fa-solid fa-video"></i>
 
-<button>
+            </button>
 
-<i class="fa-solid fa-camera"></i>
+            <button class="header-btn">
 
-</button>
+                <i class="fa-solid fa-ellipsis-vertical"></i>
 
-<button
-id="sendBtn"
-class="send">
+            </button>
 
-<i class="fa-solid fa-paper-plane"></i>
+        </div>
 
-</button>
+    </header>
 
-</div>
+    <!--=========================
+          CHAT BODY
+    ==========================-->
+
+    <section
+    id="messages"
+    class="messages">
+
+        <!-- Welcome -->
+
+        <div class="welcome-card">
+
+            <div class="welcome-glow"></div>
+
+            <h3>
+
+                ✨ Welcome to CHAPCY
+
+            </h3>
+
+            <p>
+
+                Meet people around the world,
+
+                chat,
+
+                make friends
+
+                and enjoy together.
+
+            </p>
+
+        </div>
+
+        <!-- Messages zitaingia hapa kupitia Firebase -->
+
+    </section>
+
+    <!--=========================
+        TYPING STATUS
+    ==========================-->
+
+    <div
+    id="typingBox"
+    class="typing-box">
+
+        <div class="typing-animation">
+
+            <span></span>
+
+            <span></span>
+
+            <span></span>
+
+        </div>
+
+        <span id="typingUser">
+
+            Someone is typing...
+
+        </span>
+
+    </div>
+
+    <!--=========================
+        MESSAGE INPUT
+    ==========================-->
+
+    <footer class="message-box">
+
+        <button class="input-btn">
+
+            <i class="fa-regular fa-face-smile"></i>
+
+        </button>
+
+        <input
+
+        id="messageInput"
+
+        type="text"
+
+        placeholder="Type your message...">
+
+        <button class="input-btn">
+
+            <i class="fa-solid fa-paperclip"></i>
+
+        </button>
+
+        <button class="input-btn">
+
+            <i class="fa-solid fa-camera"></i>
+
+        </button>
+
+        <button class="input-btn">
+
+            <i class="fa-solid fa-microphone"></i>
+
+        </button>
+
+        <button
+
+        id="sendBtn"
+
+        class="send-btn">
+
+            <i class="fa-solid fa-paper-plane"></i>
+
+        </button>
+
+    </footer>
 
 </main>
-
-<!--==========================
-        RIGHT PANEL
-===========================-->
-
-<aside class="right-panel">
-
-<h3>
-
-📹 Video Chat
-
-</h3>
-
-<div class="video-box">
-
-<img
-src="video-placeholder.jpg">
-
-</div>
-
-<div class="call-buttons">
-
-<button>
-
-<i class="fa-solid fa-video"></i>
-
-</button>
-
-<button>
-
-<i class="fa-solid fa-microphone"></i>
-
-</button>
-
-<button>
-
-<i class="fa-solid fa-repeat"></i>
-
-</button>
-
-<button class="end">
-
-<i class="fa-solid fa-phone"></i>
-
-</button>
-
-</div>
-
-<h3>
-
-Users
-
-</h3>
-
-<div class="members">
-
-</div>
-
-<h3>
-
-😀 Emoji
-
-</h3>
-
-<div class="emoji-panel">
-
-😀 😂 ❤️ 🔥 👍 🎉 😍 😎 😭 🤝 🌍
-
-</div>
-
-</aside>
-
-</div>
-
-</div>
-
 <script type="module" src="firebase.js"></script>
 
 <script src="livechat.js"></script>
