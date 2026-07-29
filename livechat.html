@@ -236,51 +236,69 @@ class="profile">
     ==========================-->
 
     <footer class="message-box">
+<footer class="message-box">
 
-        <button class="input-btn">
+    <!-- Left -->
 
+    <div class="message-left">
+
+        <button class="msg-btn" id="emojiBtn">
             <i class="fa-regular fa-face-smile"></i>
-
         </button>
 
-        <input
-
-        id="messageInput"
-
-        type="text"
-
-        placeholder="Type your message...">
-
-        <button class="input-btn">
-
+        <label class="msg-btn">
             <i class="fa-solid fa-paperclip"></i>
+            <input type="file" id="fileInput" hidden multiple>
+        </label>
 
-        </button>
+        <label class="msg-btn">
+            <i class="fa-regular fa-image"></i>
+            <input type="file"
+                   id="imageInput"
+                   accept="image/*"
+                   hidden>
+        </label>
 
-        <button class="input-btn">
+        <label class="msg-btn">
+            <i class="fa-solid fa-video"></i>
+            <input type="file"
+                   id="videoInput"
+                   accept="video/*"
+                   hidden>
+        </label>
 
+    </div>
+
+    <!-- Center -->
+
+    <div class="input-wrapper">
+
+        <textarea
+            id="messageInput"
+            rows="1"
+            placeholder="Write a message..."></textarea>
+
+    </div>
+
+    <!-- Right -->
+
+    <div class="message-right">
+
+        <button class="msg-btn" id="cameraBtn">
             <i class="fa-solid fa-camera"></i>
-
         </button>
 
-        <button class="input-btn">
-
+        <button class="msg-btn" id="voiceBtn">
             <i class="fa-solid fa-microphone"></i>
-
         </button>
 
-        <button
-
-        id="sendBtn"
-
-        class="send-btn">
-
+        <button class="send-btn" id="sendBtn">
             <i class="fa-solid fa-paper-plane"></i>
-
         </button>
 
-    </footer>
+    </div>
 
+</footer>
 </main>
 
 </div> <!-- chat-app -->
