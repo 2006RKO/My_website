@@ -1,226 +1,286 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>CHAPCY Live Chat</title>
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>CHAPCY V22 Ultra Live Chat</title>
 
 <link rel="stylesheet" href="livechat.css">
 
 <link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
 
 </head>
 
 <body>
-  <link rel="stylesheet" href="livechat.css">
 
-<!-- HEADER -->
+<!--==========================
+        BACKGROUND
+===========================-->
 
-<header class="header">
+<div class="bg-glow"></div>
 
-    <div class="logo-section">
-        <img src="images/logo.png" class="logo" alt="CHAPCY Logo">
+<!--==========================
+        MAIN APP
+===========================-->
 
-        <div>
-            <h2>CHAPCY</h2>
-            <span>Live Chat</span>
-        </div>
-    </div>
+<div class="chat-app">
 
-    <div class="community">
+<!--==========================
+        TOP HEADER
+===========================-->
 
-        <div class="world">
-            🌍 <strong>Worldwide Community</strong>
-        </div>
+<header class="topbar">
 
-        <div class="online">
-            🟢 Online: <span id="onlineCount">2456</span>
-        </div>
+<div class="logo-box">
 
-    </div>
+<img src="logo.png" class="logo">
 
-    <div class="header-icons">
+<div>
 
-        <button><i class="fa-solid fa-user-group"></i></button>
+<h1>CHAPCY</h1>
 
-        <button class="notify">
-            <i class="fa-solid fa-bell"></i>
-            <span class="badge">3</span>
-        </button>
+<p>🌍 Worldwide Community</p>
 
-        <button><i class="fa-solid fa-gear"></i></button>
+</div>
 
-        <img src="images/profile.jpg" class="profile">
+</div>
 
-    </div>
+<div class="online-info">
+
+<span class="online-dot"></span>
+
+2456 Online
+
+</div>
+
+<div class="top-icons">
+
+<i class="fa-solid fa-user-group"></i>
+
+<i class="fa-regular fa-bell"></i>
+
+<i class="fa-solid fa-gear"></i>
+
+<img src="default-avatar.png"
+class="profile">
+
+</div>
 
 </header>
 
-<!-- MAIN -->
+<!--==========================
+        BODY
+===========================-->
 
-<div class="container">
-<!-- LEFT SIDEBAR -->
-<div class="group-slider">
+<div class="chat-layout">
 
-    <!-- Football -->
-    <div class="slide active">
-        <img src="file_00000000f6b071f48327e5197952e1ff.png" alt="Football">
-        <div class="slide-content">
-            <h3>⚽ Football Live Chat</h3>
-            <p>Join football fans worldwide. Discuss matches, transfers and leagues.</p>
-            <a href="football.html" class="slide-btn">Join Group</a>
-        </div>
-    </div>
+<!--==========================
+        LEFT PANEL
+===========================-->
 
-    <!-- Sports -->
-    <div class="slide">
-        <img src="file_00000000ee1071f48c465cfc2dd7157c.png" alt="Sports">
-        <div class="slide-content">
-            <h3>🏆 Sports Live Chat</h3>
-            <p>Talk about basketball, tennis, cricket and every sport.</p>
-            <a href="sports.html" class="slide-btn">Join Group</a>
-        </div>
-    </div>
+<aside class="left-panel">
 
-    <!-- Music -->
-    <div class="slide">
-        <img src="file_00000000e86471f4b386c6acc7d23f5b.png" alt="Music">
-        <div class="slide-content">
-            <h3>🎵 Music Live Chat</h3>
-            <p>Meet music lovers, share playlists and discover new artists.</p>
-            <a href="music.html" class="slide-btn">Join Group</a>
-        </div>
-    </div>
+<button class="new-chat">
 
-    <!-- Education -->
-    <div class="slide">
-        <img src="file_000000006d2871f49a121851a52fc041.png" alt="Education">
-        <div class="slide-content">
-            <h3>📚 Education Live Chat</h3>
-            <p>Learn languages and connect with students worldwide.</p>
-            <a href="education.html" class="slide-btn">Join Group</a>
-        </div>
-    </div>
+<i class="fa-solid fa-plus"></i>
 
-    <!-- Business -->
-    <div class="slide">
-        <img src="file_00000000f9b47243acad6a855347db20.png" alt="Business">
-        <div class="slide-content">
-            <h3>💼 Business Groups</h3>
-            <p>Network with entrepreneurs and investors around the world.</p>
-            <a href="groups.html" class="slide-btn">Join Group</a>
-        </div>
-    </div>
+New Chat
 
-    <!-- Gaming -->
-    <div class="slide">
-        <img src="file_0000000034c871fda89a1d513465f1a9.png" alt="Gaming">
-        <div class="slide-content">
-            <h3>🎮 Gaming Zone</h3>
-            <p>Play games, compete with friends and join gaming communities.</p>
-            <a href="gaming.html" class="slide-btn">Join Group</a>
-        </div>
-    </div>
-
-</div>
-
-<div class="slider-dots">
-    <span class="active"></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-</div>
-
-<!-- CENTER -->
-
-<div class="center">
-
-<div class="chat-header">
-
-<h2>🌍 General Chat</h2>
-
-</div>
-  <div class="input-area">
-
-<button id="emojiBtn">
-😀
 </button>
+
+<div class="search">
 
 <input
 type="text"
-id="messageInput"
-placeholder="Type your message...">
-
-<button id="cameraBtn">
-<i class="fa-solid fa-camera"></i>
-</button>
-
-<button id="imageBtn">
-<i class="fa-solid fa-image"></i>
-</button>
-
-<button id="attachBtn">
-<i class="fa-solid fa-paperclip"></i>
-</button>
-
-<button id="voiceBtn">
-<i class="fa-solid fa-microphone"></i>
-</button>
-
-<button id="sendBtn">
-<i class="fa-solid fa-paper-plane"></i>
-</button>
-
-  </div>
-
-<div class="messages">
+placeholder="Search users...">
 
 </div>
 
-<div class="input-area">
+<h3>
 
-<input type="text"
+ONLINE USERS
+
+</h3>
+
+<div class="user-list">
+
+</div>
+
+<h3>
+
+POPULAR ROOMS
+
+</h3>
+
+<div class="room-list">
+
+</div>
+
+</aside>
+
+<!--==========================
+        CENTER PANEL
+===========================-->
+
+<main class="center-panel">
+
+<div class="chat-header">
+
+<h2>
+
+# 🌍 General Chat
+
+</h2>
+
+<div>
+
+<i class="fa-solid fa-magnifying-glass"></i>
+
+<i class="fa-solid fa-phone"></i>
+
+<i class="fa-solid fa-video"></i>
+
+</div>
+
+</div>
+
+<div
+id="messages"
+class="messages">
+
+</div>
+
+<div class="typing">
+
+Sophia is typing...
+
+</div>
+
+<div class="message-box">
+
+<button>
+
+😀
+
+</button>
+
+<input
+id="messageInput"
+type="text"
 placeholder="Type your message...">
 
 <button>
+
+<i class="fa-solid fa-image"></i>
+
+</button>
+
+<button>
+
+<i class="fa-solid fa-camera"></i>
+
+</button>
+
+<button
+id="sendBtn"
+class="send">
+
 <i class="fa-solid fa-paper-plane"></i>
+
 </button>
 
 </div>
 
-</div>
+</main>
 
-<!-- RIGHT -->
+<!--==========================
+        RIGHT PANEL
+===========================-->
 
-<!-- RIGHT -->
+<aside class="right-panel">
 
-<div class="right">
+<h3>
 
-<h3>📹 Video Chat</h3>
+📹 Video Chat
+
+</h3>
 
 <div class="video-box">
-    <video id="localVideo" autoplay muted></video>
-</div>
 
-<h3>😀 Emoji</h3>
-
-<div class="emoji-container">
-
-<emoji-picker></emoji-picker>
+<img
+src="video-placeholder.jpg">
 
 </div>
 
+<div class="call-buttons">
+
+<button>
+
+<i class="fa-solid fa-video"></i>
+
+</button>
+
+<button>
+
+<i class="fa-solid fa-microphone"></i>
+
+</button>
+
+<button>
+
+<i class="fa-solid fa-repeat"></i>
+
+</button>
+
+<button class="end">
+
+<i class="fa-solid fa-phone"></i>
+
+</button>
+
 </div>
+
+<h3>
+
+Users
+
+</h3>
+
+<div class="members">
+
+</div>
+
+<h3>
+
+😀 Emoji
+
+</h3>
+
+<div class="emoji-panel">
+
+😀 😂 ❤️ 🔥 👍 🎉 😍 😎 😭 🤝 🌍
+
+</div>
+
+</aside>
 
 </div>
 
 </div>
+
+<script type="module" src="firebase.js"></script>
 
 <script src="livechat.js"></script>
 
 </body>
+
 </html>
