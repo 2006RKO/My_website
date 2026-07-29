@@ -1066,3 +1066,228 @@ font-size:14px;
 }
 
 }
+/*=========================================
+      CHAPCY V23
+      MESSAGE COMPOSER
+=========================================*/
+
+/* MESSAGE BOX */
+
+.message-box{
+
+    display:flex;
+    align-items:flex-end;
+    gap:12px;
+
+    padding:16px 18px;
+
+    background:rgba(10,18,40,.55);
+
+    backdrop-filter:blur(25px);
+    -webkit-backdrop-filter:blur(25px);
+
+    border-top:1px solid rgba(255,255,255,.08);
+
+}
+
+/* LEFT & RIGHT */
+
+.message-left,
+.message-right{
+
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+}
+
+/* INPUT */
+
+.input-wrapper{
+
+    flex:1;
+
+    display:flex;
+    align-items:center;
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:28px;
+
+    padding:10px 18px;
+
+    transition:.35s;
+
+}
+
+.input-wrapper:focus-within{
+
+    border-color:rgba(0,217,255,.5);
+
+    box-shadow:
+    0 0 18px rgba(0,217,255,.18);
+
+}
+
+/* TEXTAREA */
+
+#messageInput{
+
+    width:100%;
+
+    min-height:24px;
+
+    max-height:140px;
+
+    resize:none;
+
+    overflow-y:auto;
+
+    border:none;
+
+    outline:none;
+
+    background:transparent;
+
+    color:#fff;
+
+    font-size:15px;
+
+    line-height:1.6;
+
+}
+
+#messageInput::placeholder{
+
+    color:#9bb8ff;
+
+}
+
+/* BUTTONS */
+
+.msg-btn{
+
+    width:46px;
+
+    height:46px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    border:none;
+
+    border-radius:50%;
+
+    cursor:pointer;
+
+    background:rgba(255,255,255,.06);
+
+    color:#fff;
+
+    transition:.30s;
+
+}
+
+.msg-btn:hover{
+
+    transform:translateY(-2px) scale(1.08);
+
+    color:#00d9ff;
+
+    background:rgba(0,217,255,.12);
+
+}
+
+/* SEND */
+
+.send-btn{
+
+    width:52px;
+
+    height:52px;
+
+    border:none;
+
+    border-radius:50%;
+
+    cursor:pointer;
+
+    color:#fff;
+
+    background:linear-gradient(
+    135deg,
+    #00d9ff,
+    #8a2eff);
+
+    box-shadow:
+    0 0 18px rgba(0,217,255,.35);
+
+    transition:.35s;
+
+}
+
+.send-btn:hover{
+
+    transform:scale(1.08);
+
+    box-shadow:
+    0 0 28px rgba(0,217,255,.5);
+
+}
+
+/* HIDDEN FILE INPUTS */
+
+.message-box input[type=file]{
+
+    display:none;
+
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.message-box{
+
+    gap:8px;
+
+    padding:12px;
+
+}
+
+.msg-btn{
+
+    width:40px;
+
+    height:40px;
+
+    font-size:14px;
+
+}
+
+.send-btn{
+
+    width:46px;
+
+    height:46px;
+
+}
+
+.input-wrapper{
+
+    padding:8px 14px;
+
+}
+
+#messageInput{
+
+    font-size:14px;
+
+}
+
+}
