@@ -362,9 +362,29 @@ let current = 0;
 
 function updateSlider(){
 
-    cards.forEach(card=>card.classList.remove("active"));
+    cards.forEach((card,index)=>{
 
-    cards[current].classList.add("active");
+        card.classList.remove(
+            "active",
+            "left1",
+            "left2",
+            "right1",
+            "right2"
+        );
+
+        if(index===current){
+            card.classList.add("active");
+        }else if(index===current-1){
+            card.classList.add("left1");
+        }else if(index===current-2){
+            card.classList.add("left2");
+        }else if(index===current+1){
+            card.classList.add("right1");
+        }else if(index===current+2){
+            card.classList.add("right2");
+        }
+
+    });
 
     cards[current].scrollIntoView({
         behavior:"smooth",
@@ -1108,22 +1128,3 @@ onValue(activityRef, (snapshot) => {
         });
 
 });
-const cards = document.querySelectorAll(".group-card");
-
-function updateActiveCard(){
-
-    cards.forEach(card=>card.classList.remove("active"));
-
-    const center =
-    Math.round(sliderTrack.scrollLeft /
-    (cards[0].offsetWidth + 30));
-
-    if(cards[center]){
-        cards[center].classList.add("active");
-    }
-
-}
-
-sliderTrack.addEventListener("scroll", updateActiveCard);
-
-updateActiveCard();
