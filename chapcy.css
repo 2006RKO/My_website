@@ -1086,22 +1086,28 @@ right:0;
 .group-slider{
     width:100%;
     position:relative;
-    margin:50px auto;
     overflow:hidden;
+    perspective:1800px;
+    margin:70px auto;
 }
 
 .slider-track{
+
     display:flex;
     align-items:center;
-    gap:20px;
+    justify-content:center;
+
+    gap:35px;
 
     overflow-x:auto;
     scroll-behavior:smooth;
     scroll-snap-type:x mandatory;
 
-    padding:30px calc(50% - 150px);
+    padding:40px calc(50% - 180px);
 
     scrollbar-width:none;
+
+    transform-style:preserve-3d;
 }
 
 .slider-track::-webkit-scrollbar{
@@ -1109,375 +1115,192 @@ right:0;
 }
 
 .group-card{
-    flex:0 0 300px;
-    width:300px;
-    min-height:620px;
 
-    display:flex;
-    flex-direction:column;
+    position:relative;
 
-    background:rgba(10,15,45,.95);
+    flex:0 0 340px;
+    width:340px;
+    height:650px;
 
     border-radius:30px;
     overflow:hidden;
 
-    border:2px solid rgba(0,200,255,.25);
-
     scroll-snap-align:center;
 
-    transform:scale(.88);
-    opacity:.55;
+    transform-origin:center center;
 
-    transition:.4s;
+    transform:
+        rotateY(28deg)
+        scale(.82);
+
+    opacity:.45;
+
+    transition:
+        transform .55s ease,
+        opacity .45s,
+        box-shadow .45s;
 
     box-shadow:
-        0 0 20px rgba(0,191,255,.18),
-        0 0 35px rgba(138,46,255,.15);
+        0 0 30px rgba(0,0,0,.45);
+
 }
 
+/* LEFT */
+
+.group-card.prev{
+
+    transform:
+        perspective(1800px)
+        rotateY(35deg)
+        translateX(45px)
+        scale(.88);
+
+}
+
+/* RIGHT */
+
+.group-card.next{
+
+    transform:
+        perspective(1800px)
+        rotateY(-35deg)
+        translateX(-45px)
+        scale(.88);
+
+}
+
+/* CENTER */
 
 .group-card.active{
 
-    transform:scale(1);
+    transform:
+        perspective(1800px)
+        rotateY(0deg)
+        scale(1.12)
+        translateY(-25px);
 
     opacity:1;
 
-    border-color:#00cfff;
+    z-index:100;
 
     box-shadow:
-        0 0 25px #00cfff,
-        0 0 55px #8a2eff;
 
-    z-index:20;
+        0 0 35px #00d9ff,
+
+        0 0 80px #8a2eff,
+
+        0 35px 80px rgba(0,0,0,.55);
 
 }
 
+/* IMAGE */
+
 .group-card img{
 
+    position:absolute;
+    inset:0;
+
     width:100%;
-    height:220px;
+    height:100%;
 
     object-fit:cover;
 
 }
 
+/* DARK OVERLAY */
+
+.group-card::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:linear-gradient(
+
+        transparent 25%,
+
+        rgba(0,0,0,.15) 45%,
+
+        rgba(0,0,0,.82) 82%,
+
+        #050816 100%
+
+    );
+
+}
+
+/* CONTENT */
+
+.group-card h3,
+.group-card p,
+.card-buttons{
+
+    position:relative;
+    z-index:20;
+
+}
+
 .group-card h3{
 
-    margin:18px 15px 10px;
+    margin-top:420px;
+
     text-align:center;
-    font-size:26px;
+
+    font-size:34px;
+
+    font-weight:800;
 
 }
 
 .group-card p{
 
-    padding:0 18px;
-    text-align:center;
-    line-height:1.7;
-    color:#d9ddff;
+    padding:12px 22px;
 
-    flex:1;
+    text-align:center;
+
+    color:#dbe3ff;
 
 }
 
 .card-buttons{
 
-    display:flex;
-    flex-direction:column;
-
-    gap:14px;
-
     padding:18px;
 
 }
-/* ==========================
-   ACTIVE CARD EFFECT
-========================== */
 
-.group-card{
-    position:relative;
-    transition:.45s ease;
-    transform-origin:center;
-}
+/* REFLECTION */
 
-.group-card.active{
+.group-card::before{
 
-    transform:
-        scale(1.08)
-        translateY(-18px);
-
-    box-shadow:
-        0 0 25px rgba(0,255,255,.35),
-        0 20px 60px rgba(0,0,0,.45);
-
-    z-index:20;
-
-    animation:floatingCard 3s ease-in-out infinite;
-}
-
-/* Glow Ring */
-
-.group-card.active::before{
-
-content:"";
-
-position:absolute;
-
-inset:-3px;
-
-border-radius:28px;
-
-padding:3px;
-
-background:linear-gradient(
-90deg,
-#00f0ff,
-#7b2fff,
-#ff00d4,
-#00f0ff
-);
-
-background-size:300%;
-
-animation:ringRotate 5s linear infinite;
-
--webkit-mask:
-linear-gradient(#fff 0 0) content-box,
-linear-gradient(#fff 0 0);
-
--webkit-mask-composite:xor;
-
-mask-composite:exclude;
-
-pointer-events:none;
-
-}
-
-/* Floating */
-
-@keyframes floatingCard{
-
-0%,100%{
-
-transform:
-scale(1.08)
-translateY(-18px);
-
-}
-
-50%{
-
-transform:
-scale(1.08)
-translateY(-28px);
-
-}
-
-}
-
-/* Animated Border */
-
-@keyframes ringRotate{
-
-0%{
-background-position:0%;
-}
-
-100%{
-background-position:300%;
-}
-
-}
-
-/*=========================================
-        CHAPCY CSS PART 4B
-      BUTTONS • ARROWS • MOBILE
-=========================================*/
-
-/* RESPONSIVE JOIN BUTTON */
-
-.join-btn{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    width:100%;
-    max-width:520px;
-
-    margin:25px auto 0;
-
-    min-height:58px;
-    padding:16px 24px;
-
-    border-radius:18px;
-
-    color:#fff;
-    font-weight:700;
-    text-decoration:none;
-
-    background:linear-gradient(135deg,#00cfff,#6d4cff,#b400ff);
-
-    transition:.35s;
-}
-
-.join-btn:hover{
-    transform:translateY(-3px);
-}
-
-@media(max-width:768px){
-
-.join-btn{
-
-    width:95%;
-    max-width:100%;
-    min-height:56px;
-
-    font-size:15px;
-
-}
-
-}
-
-@media(max-width:480px){
-
-.join-btn{
-
-    width:100%;
-    padding:15px;
-    font-size:14px;
-
-}
-
-}
-
-/* PAYMENT BUTTON */
-.payment-btn{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    width:100%;
-    height:55px;
-
-    text-decoration:none;
-
-    color:#fff;
-    font-weight:700;
-
-    border-radius:18px;
-
-    border:2px solid #8a2eff;
-
-    background:rgba(255,255,255,.05);
-
-    transition:.35s;
-}
-
-.payment-btn:hover{
-
-    background:linear-gradient(
-        135deg,
-        #8a2eff,
-        #00cfff
-    );
-
-    border-color:#00cfff;
-
-}
-
-/* ARROWS */
-
-.slider-btn{
+    content:"";
 
     position:absolute;
 
-    top:50%;
-    transform:translateY(-50%);
+    left:8%;
+    right:8%;
 
-    width:48px;
-    height:48px;
+    bottom:-90px;
 
-    border:none;
-    border-radius:50%;
+    height:90px;
 
-    cursor:pointer;
+    background:inherit;
 
-    color:#fff;
-    font-size:18px;
+    transform:
 
-    background:rgba(255,255,255,.15);
+        scaleY(-1);
 
-    backdrop-filter:blur(15px);
+    opacity:.18;
 
-    z-index:100;
+    filter:blur(15px);
 
-    transition:.3s;
+    -webkit-mask-image:
+    linear-gradient(to bottom,#000,transparent);
 
 }
 
-.slider-btn:hover{
 
-    background:#fff;
-    color:#111;
-
-}
-
-.prev{
-    left:12px;
-}
-
-.next{
-    right:12px;
-}
-
-/* MOBILE */
-
-@media(max-width:768px){
-
-.slider-track{
-
-    padding:20px calc(50% - 130px);
-
-    gap:16px;
-
-}
-
-.group-card{
-
-    flex:0 0 260px;
-    width:260px;
-    min-height:600px;
-
-}
-
-.group-card img{
-
-    height:220px;
-
-}
-
-.group-card h3{
-
-    font-size:22px;
-
-}
-
-.group-card p{
-
-    font-size:14px;
-
-}
-
-.slider-btn{
-
-    width:42px;
-    height:42px;
-
-    font-size:16px;
-
-}
-
-}
 /*=========================================
         CHAPCY REPUTATION SIDEBAR
 =========================================*/
