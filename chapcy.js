@@ -106,3 +106,39 @@ setInterval(
     autoSlide,
     2500
 );
+const cards = document.querySelectorAll(".group-card");
+
+let current = 0;
+
+
+function moveSlider(){
+
+    cards.forEach(card=>{
+        card.classList.remove("active","left","right");
+    });
+
+
+    cards[current].classList.add("active");
+
+
+    let left = (current - 1 + cards.length) % cards.length;
+    let right = (current + 1) % cards.length;
+
+
+    cards[left].classList.add("left");
+    cards[right].classList.add("right");
+
+
+    current++;
+
+    if(current >= cards.length){
+        current = 0;
+    }
+
+}
+
+
+moveSlider();
+
+
+setInterval(moveSlider,2500);
