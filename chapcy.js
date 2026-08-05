@@ -1,55 +1,60 @@
 /*=========================================
-      CHAPCY AUTO SLIDER FIX
+      CHAPCY V100 AUTO SLIDER
       2.5 SECONDS
 =========================================*/
 
 const track = document.querySelector(".slider-track");
 const cards = document.querySelectorAll(".group-card");
 
-let index = 0;
+let current = 0;
 
 
-function autoMove(){
+function updateSlider(){
 
-    index++;
+    cards.forEach((card,index)=>{
 
-
-    if(index >= cards.length){
-        index = 0;
-    }
-
-
-    const cardWidth = cards[0].offsetWidth + 30;
+        card.classList.remove(
+            "active",
+            "left",
+            "right"
+        );
 
 
-    track.scrollTo({
+        if(index === current){
 
-        left:index * cardWidth,
+            card.classList.add("active");
 
-        behavior:"smooth"
+        }
+
+
+        if(index === (current - 1 + cards.length) % cards.length){
+
+            card.classList.add("left");
+
+        }
+
+
+        if(index === (current + 1) % cards.length){
+
+            card.classList.add("right");
+
+        }
+
 
     });
 
 
-}
+    const active = cards[current];
 
 
+    if(active){
 
-setInterval(autoMove,2500);
-
-
-    const activeCard = cards[current];
-
-
-    if(activeCard){
-
-        slider.scrollTo({
+        track.scrollTo({
 
             left:
-            activeCard.offsetLeft -
-            slider.offsetWidth / 2 +
-            activeCard.offsetWidth / 2,
-
+            active.offsetLeft -
+            track.offsetWidth / 2 +
+            active.offsetWidth / 2,
 
             behavior:"smooth"
 
@@ -57,13 +62,12 @@ setInterval(autoMove,2500);
 
     }
 
+
 }
 
 
 
-
 function autoSlide(){
-
 
     current++;
 
@@ -77,56 +81,11 @@ function autoSlide(){
 
     updateSlider();
 
-
 }
 
 
-
-
-// START
 
 updateSlider();
 
 
-// MOVE EVERY 2.5 SEC
-
-setInterval(
-    autoSlide,
-    2500
-);
-const cards = document.querySelectorAll(".group-card");
-
-let current = 0;
-
-
-function moveSlider(){
-
-    cards.forEach(card=>{
-        card.classList.remove("active","left","right");
-    });
-
-
-    cards[current].classList.add("active");
-
-
-    let left = (current - 1 + cards.length) % cards.length;
-    let right = (current + 1) % cards.length;
-
-
-    cards[left].classList.add("left");
-    cards[right].classList.add("right");
-
-
-    current++;
-
-    if(current >= cards.length){
-        current = 0;
-    }
-
-}
-
-
-moveSlider();
-
-
-setInterval(moveSlider,2500);
+setInterval(autoSlide,2500);
