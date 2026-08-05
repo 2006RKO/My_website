@@ -1,91 +1,75 @@
-/*=========================================
-      CHAPCY V100 AUTO SLIDER
-      2.5 SECONDS
-=========================================*/
+document.addEventListener("DOMContentLoaded", () => {
+  const track = document.getElementById("sliderTrack");
+  const cards = Array.from(document.querySelectorAll(".group-card"));
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
 
-const track = document.querySelector(".slider-track");
-const cards = document.querySelectorAll(".group-card");
+  let current = 0;
+  let timer;
 
-let current = 0;
+  function updateSlider() {
+    cards.forEach((card, index) => {
+      card.classList.remove("active", "left", "right");
 
+      if (index === current) {
+        card.classList.add("active");
+      }
 
-function updateSlider(){
+      const leftIndex = (current - 1 + cards.length) % cards.length;
+      const rightIndex = (current + 1) % cards.length;
 
-    cards.forEach((card,index)=>{
-
-        card.classList.remove(
-            "active",
-            "left",
-            "right"
-        );
-
-
-        if(index === current){
-
-            card.classList.add("active");
-
-        }
-
-
-        if(index === (current - 1 + cards.length) % cards.length){
-
-            card.classList.add("left");
-
-        }
-
-
-        if(index === (current + 1) % cards.length){
-
-            card.classList.add("right");
-
-        }
-
-
+      if (index === leftIndex) card.classList.add("left");
+      if (index === rightIndex) card.classList.add("right");
     });
 
+    const activeCard = cards[current];
+    if (activeCard) {
+      const offset =
+        activeCard.offsetLeft -
+        track.parentElement.offsetWidth / 2 +
+        activeCard.offsetWidth / 2;
 
-    const active = cards[current];
-
-
-    if(active){
-
-        track.scrollTo({
-
-            left:
-            active.offsetLeft -
-            track.offsetWidth / 2 +
-            active.offsetWidth / 2,
-
-            behavior:"smooth"
-
-        });
-
+      track.style.transform = `translateX(${-offset}px)`;
     }
+  }
 
-
-}
-
-
-
-function autoSlide(){
-
-    current++;
-
-
-    if(current >= cards.length){
-
-        current = 0;
-
-    }
-
-
+  function goNext() {
+    current = (current + 1) % cards.length;
     updateSlider();
+  }
 
-}
+  function goPrev() {
+    current = (current - 1 + cards.length) % cards.length;
+    updateSlider();
+  }
 
+  function startAutoSlide() {
+    stopAutoSlide();
+    timer = setInterval(goNext, 2500);
+  }
 
+  function stopAutoSlide() {
+    if (timer) clearInterval(timer);
+  }
 
-updateSlider();
+  nextBtn.addEventListener("click", () => {
+    goNext();
+    startAutoSlide();
+  });
 
+  prevBtn.addEventListener("click", () => {
+    goPrev();
+    startAutoSlide();
+  });
 
-setInterval(autoSlide,2500);
+  cards.forEach((card, index) => {
+    card.addEventListener("click", () => {
+      current = index;
+      updateSlider();
+      startAutoSlide();
+    });
+  });
+
+  updateSlider();
+  startAutoSlide();
+});
