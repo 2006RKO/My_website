@@ -32,10 +32,11 @@ body{
 }
 
 .page{
-  min-height: 100vh;
-  padding: 20px;
+    width:100%;
+    max-width:1600px;
+    margin:auto;
+    padding:30px 40px;
 }
-
 .topbar{
   display: flex;
   align-items: center;
@@ -165,10 +166,9 @@ body{
 }
 
 .hero h2{
-  font-size: clamp(2rem, 4vw, 3.6rem);
-  font-weight: 800;
+    font-size:60px;
+    font-weight:800;
 }
-
 .hero h2 span{
   background: linear-gradient(90deg, #71d7ff, #b44cff, #ff65e1);
   -webkit-background-clip: text;
@@ -307,29 +307,4 @@ opacity .8s ease;
   background: rgba(10, 10, 30, 0.6);
   border: 1px solid rgba(255,255,255,0.12);
   box-shadow: 0 0 20px rgba(154, 54, 255, 0.25);
-}
-
-/* MOBILE */
-@media (max-width: 768px){
-  .topbar{
-    flex-wrap: wrap;
-  }
-
-  .brand{
-    order: 1;
-    width: 100%;
-  }
-
-  .top-actions{
-    margin-left: auto;
-  }
-
-  .group-card{
-    flex-basis: 88vw;
-    min-height: 500px;
-  }
-
-  .groups-section{
-    gap: 10px;
-  }
 }
