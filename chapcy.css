@@ -1,52 +1,75 @@
 /*=========================================
-          CHAPCY V100 CSS PART 1
-          FUTURISTIC FOUNDATION
+          CHAPCY V100
+          CSS PART 1
+          FOUNDATION
 =========================================*/
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
 
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:'Poppins',sans-serif;
+}
+
+
+:root{
+
+    --bg:#050816;
+    --cyan:#00d9ff;
+    --purple:#8a2eff;
+    --white:#ffffff;
+
 }
 
 
 body{
 
-    width:100%;
     min-height:100vh;
-    overflow-x:hidden;
-    background:#050816;
+
+    font-family:"Poppins",sans-serif;
+
+    background:var(--bg);
+
     color:white;
+
+    overflow-x:hidden;
 
 }
 
 
 /*=========================================
-            BACKGROUND
+              BACKGROUND IMAGE
 =========================================*/
 
 .background{
 
     position:fixed;
-    top:0;
-    left:0;
+
+    inset:0;
 
     width:100%;
+
     height:100%;
 
     object-fit:cover;
 
-    z-index:-5;
+    z-index:-10;
 
     filter:
-    brightness(.45)
-    saturate(1.3);
+    brightness(.40)
+    saturate(1.4)
+    contrast(1.1);
+
+    transform:scale(1.05);
 
 }
 
 
-/* DARK GLASS OVERLAY */
+/*=========================================
+              FUTURE GLOW
+=========================================*/
 
 body::before{
 
@@ -56,63 +79,88 @@ body::before{
 
     inset:0;
 
-    background:
-    radial-gradient(circle at top,#8a2eff55,transparent 35%),
-    radial-gradient(circle at bottom,#00d9ff44,transparent 40%);
+    z-index:-9;
 
-    z-index:-4;
+
+    background:
+
+    radial-gradient(
+    circle at 15% 20%,
+    rgba(138,46,255,.35),
+    transparent 35%
+    ),
+
+
+    radial-gradient(
+    circle at 85% 30%,
+    rgba(0,217,255,.30),
+    transparent 35%
+    ),
+
+
+    linear-gradient(
+    180deg,
+    rgba(5,8,22,.35),
+    rgba(5,8,22,.85)
+    );
 
 }
+
 
 
 /*=========================================
-             FLOATING BUBBLE
+              FLOATING ENERGY
 =========================================*/
 
-.bubble{
+body::after{
+
+    content:"";
 
     position:fixed;
 
-    width:350px;
-    height:350px;
+    width:450px;
+
+    height:450px;
+
+    right:-150px;
+
+    bottom:-150px;
 
     border-radius:50%;
 
-    background:
-    radial-gradient(circle,
-    #00d9ff55,
-    transparent 70%);
+
+    background:var(--purple);
 
 
-    filter:blur(20px);
+    filter:blur(160px);
+
+
+    opacity:.25;
+
+
+    z-index:-8;
+
 
     animation:
-    floatBubble 10s infinite alternate;
-
-
-    top:20%;
-    left:10%;
-
-    z-index:-2;
+    energyMove 8s infinite alternate;
 
 }
 
 
-@keyframes floatBubble{
+
+@keyframes energyMove{
 
 
     from{
 
-        transform:translateY(0)
-        scale(1);
+        transform:translateY(0);
 
     }
 
 
     to{
 
-        transform:translateY(-120px)
-        scale(1.3);
+        transform:translateY(-80px);
 
     }
 
@@ -121,344 +169,62 @@ body::before{
 
 
 /*=========================================
-             GROUP SLIDER
+              BUBBLE
 =========================================*/
 
-.slider-track{
-
-    width:100%;
-
-    min-height:100vh;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    gap:35px;
-
-    padding:50px;
-
-    overflow:hidden;
-
-}
-
-
-/*=========================================
-             GROUP CARD
-=========================================*/
-
-.group-card{
-
-    min-width:320px;
-
-    max-width:350px;
-
-
-    background:
-
-    linear-gradient(
-    145deg,
-    rgba(255,255,255,.12),
-    rgba(255,255,255,.04)
-    );
-
-
-    backdrop-filter:blur(18px);
-
-
-    border:
-
-    1px solid rgba(255,255,255,.15);
-
-
-    border-radius:30px;
-
-
-    padding:20px;
-
-
-    text-align:center;
-
-
-    box-shadow:
-
-    0 0 40px rgba(0,217,255,.15);
-
-
-    transition:.5s;
-
-
-}
-
-
-.group-card:hover{
-
-
-    transform:
-
-    translateY(-20px)
-    scale(1.05);
-
-
-    box-shadow:
-
-    0 0 60px #8a2effaa;
-
-
-}
-
-
-
-.group-card img{
-
-
-    width:100%;
-
-    height:220px;
-
-
-    object-fit:cover;
-
-
-    border-radius:22px;
-
-
-    margin-bottom:15px;
-
-
-}
-
-
-
-.group-card h3{
-
-
-    font-size:24px;
-
-    margin-bottom:10px;
-
-
-    background:
-
-    linear-gradient(
-    90deg,
-    #00d9ff,
-    #8a2eff
-    );
-
-
-    -webkit-background-clip:text;
-
-    color:transparent;
-
-
-}
-
-
-
-.group-card p{
-
-
-    font-size:14px;
-
-    opacity:.8;
-
-    line-height:1.6;
-
-}
-
-
-
-/*=========================================
-            BUTTONS
-=========================================*/
-
-.card-buttons{
-
-
-    display:flex;
-
-    gap:10px;
-
-    margin-top:20px;
-
-
-}
-
-
-
-.card-buttons a{
-
-
-    flex:1;
-
-    padding:12px;
-
-
-    border-radius:15px;
-
-
-    text-decoration:none;
-
-
-    font-size:13px;
-
-    font-weight:600;
-
-
-    color:white;
-
-
-    transition:.3s;
-
-
-}
-
-
-
-.join-btn{
-
-
-    background:
-
-    linear-gradient(
-    135deg,
-    #00d9ff,
-    #0066ff
-    );
-
-
-}
-
-
-
-.payment-btn{
-
-
-    background:
-
-    linear-gradient(
-    135deg,
-    #8a2eff,
-    #ff00cc
-    );
-
-
-}
-
-
-
-.card-buttons a:hover{
-
-
-    transform:scale(1.08);
-
-
-}
-
-
-
-/*=========================================
-          XP POPUP
-=========================================*/
-
-
-.xp-reward{
-
+.bubble{
 
     position:fixed;
 
-    top:30px;
+    width:250px;
 
-    left:50%;
+    height:250px;
 
-    transform:translateX(-50%);
-
-
-    z-index:100;
-
-
-}
-
-
-
-.xp-box{
-
-
-    padding:15px 30px;
-
-
-    border-radius:40px;
+    border-radius:50%;
 
 
     background:
 
-    rgba(255,255,255,.12);
+    radial-gradient(
+    circle,
+    rgba(0,217,255,.35),
+    transparent 70%
+    );
 
 
-    backdrop-filter:blur(20px);
+    top:20%;
+
+    left:10%;
 
 
-    border:1px solid #ffffff33;
+    filter:blur(20px);
 
 
-    box-shadow:
+    animation:
 
-    0 0 30px #00d9ff;
-
-
-    display:flex;
-
-    gap:15px;
-
-    align-items:center;
+    bubbleMove 10s infinite alternate;
 
 
-}
-
-
-.xp-box i{
-
-
-    color:#ffd700;
-
-    font-size:25px;
-
-
-}
-
-
-.xp-box span{
-
-
-    font-size:20px;
-
-    font-weight:700;
-
+    z-index:-5;
 
 }
 
 
 
-/* MOBILE */
-
-@media(max-width:600px){
+@keyframes bubbleMove{
 
 
-.slider-track{
+    from{
 
-    padding:20px;
+        transform:translate(0,0);
 
-}
+    }
 
 
-.group-card{
+    to{
 
-    min-width:290px;
+        transform:translate(80px,-100px);
 
-}
-
+    }
 
 }
