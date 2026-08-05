@@ -23,7 +23,7 @@ html{
     scroll-behavior:smooth;
 }
 
-body{
+1{
     font-family:"Poppins",sans-serif;
     background:var(--bg);
     color:var(--white);
@@ -33,12 +33,18 @@ body{
 /* Background */
 
 .background{
-    position:fixed;
-    inset:0;
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    z-index:-3;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: -999;
+    user-select: none;
+    pointer-events: none;
+    filter: brightness(.45) saturate(1.25) contrast(1.15);
+    transform: scale(1.05);
 }
 
 /* Glow */
@@ -46,17 +52,23 @@ body{
 body::before{
     content:"";
     position:fixed;
-    width:420px;
-    height:420px;
-    top:-150px;
-    left:-150px;
-    border-radius:50%;
-    background:#00d9ff;
-    filter:blur(170px);
-    opacity:.18;
-    z-index:-2;
-}
+    inset:0;
+    z-index:-998;
+    background:
+    radial-gradient(circle at top left,
+    rgba(138,43,226,.20), transparent 45%),
 
+    radial-gradient(circle at top right,
+    rgba(0,217,255,.18), transparent 40%),
+
+    linear-gradient(
+    180deg,
+    rgba(3,6,20,.35),
+    rgba(3,6,20,.60),
+    rgba(3,6,20,.85)
+    );
+    backdrop-filter: blur(1px);
+}
 body::after{
     content:"";
     position:fixed;
