@@ -239,22 +239,21 @@ body::after{
 
     width:100%;
 
-    min-height:100vh;
-
     display:flex;
-
-    justify-content:center;
 
     align-items:center;
 
-    gap:35px;
+    justify-content:flex-start;
 
-    padding:40px;
+    gap:30px;
 
-    overflow:visible;
+    padding:60px;
+
+    overflow:hidden;
+
+    perspective:1200px;
 
 }
-
 
 
 /*=========================================
