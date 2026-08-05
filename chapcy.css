@@ -613,3 +613,193 @@ body::after{
 
 
 }
+/*=========================================
+          CHAPCY V100
+          CSS PART 3
+          COVERFLOW SYSTEM
+=========================================*/
+
+
+.slider-track{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:flex-start;
+
+    gap:30px;
+
+    padding:60px 10%;
+
+
+    overflow:hidden;
+
+
+    perspective:1200px;
+
+
+}
+
+
+
+/* DEFAULT CARD */
+
+.group-card{
+
+
+    opacity:.55;
+
+
+    transform:
+
+    scale(.82)
+    rotateY(25deg);
+
+
+    filter:blur(.5px);
+
+
+    transition:
+
+    transform .7s ease,
+    opacity .7s ease,
+    filter .7s ease;
+
+
+}
+
+
+
+/* ACTIVE CENTER CARD */
+
+.group-card.active{
+
+
+    opacity:1;
+
+
+    transform:
+
+    scale(1.15)
+    rotateY(0deg)
+    translateZ(100px);
+
+
+
+    filter:none;
+
+
+    z-index:5;
+
+
+    box-shadow:
+
+    0 0 70px rgba(0,217,255,.45);
+
+
+
+}
+
+
+
+/* LEFT SIDE CARDS */
+
+.group-card.left{
+
+
+    transform:
+
+    scale(.85)
+    rotateY(35deg)
+    translateX(-60px);
+
+
+
+}
+
+
+
+/* RIGHT SIDE CARDS */
+
+.group-card.right{
+
+
+    transform:
+
+    scale(.85)
+    rotateY(-35deg)
+    translateX(60px);
+
+
+
+}
+
+
+
+/*=========================================
+          PREMIUM GLOW BORDER
+=========================================*/
+
+
+.group-card.active::after{
+
+
+    content:"";
+
+
+    position:absolute;
+
+
+    inset:-2px;
+
+
+    border-radius:32px;
+
+
+    background:
+
+    linear-gradient(
+    45deg,
+    var(--cyan),
+    var(--purple),
+    transparent
+    );
+
+
+    z-index:-1;
+
+
+    filter:blur(15px);
+
+
+}
+
+
+
+/*=========================================
+              RESPONSIVE
+=========================================*/
+
+
+@media(max-width:600px){
+
+
+.slider-track{
+
+    padding:40px 5%;
+
+}
+
+
+.group-card.active{
+
+    transform:
+
+    scale(1.05);
+
+}
+
+
+
+}
