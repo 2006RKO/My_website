@@ -1,806 +1,333 @@
-/*=========================================
-          CHAPCY V100
-          CSS PART 1
-          FOUNDATION
-=========================================*/
-
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
-
-
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-
-
-:root{
-
-    --bg:#050816;
-    --cyan:#00d9ff;
-    --purple:#8a2eff;
-    --white:#ffffff;
-
-}
-
 
 body{
-
-    min-height:100vh;
-
-    font-family:"Poppins",sans-serif;
-
-    background:var(--bg);
-
-    color:white;
-
-    overflow-x:hidden;
-
+  font-family: 'Poppins', sans-serif;
+  background: #05010d;
+  color: white;
+  overflow-x: hidden;
 }
-
-
-/*=========================================
-              BACKGROUND IMAGE
-=========================================*/
 
 .background{
-
-    position:fixed;
-
-    inset:0;
-
-    width:100%;
-
-    height:100%;
-
-    object-fit:cover;
-
-    z-index:-10;
-
-    filter:
-    brightness(.40)
-    saturate(1.4)
-    contrast(1.1);
-
-    transform:scale(1.05);
-
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -3;
+  filter: brightness(0.7) saturate(1.2);
 }
-
-
-/*=========================================
-              FUTURE GLOW
-=========================================*/
-
-body::before{
-
-    content:"";
-
-    position:fixed;
-
-    inset:0;
-
-    z-index:-9;
-
-
-    background:
-
-    radial-gradient(
-    circle at 15% 20%,
-    rgba(138,46,255,.35),
-    transparent 35%
-    ),
-
-
-    radial-gradient(
-    circle at 85% 30%,
-    rgba(0,217,255,.30),
-    transparent 35%
-    ),
-
-
-    linear-gradient(
-    180deg,
-    rgba(5,8,22,.35),
-    rgba(5,8,22,.85)
-    );
-
-}
-
-
-
-/*=========================================
-              FLOATING ENERGY
-=========================================*/
-
-body::after{
-
-    content:"";
-
-    position:fixed;
-
-    width:450px;
-
-    height:450px;
-
-    right:-150px;
-
-    bottom:-150px;
-
-    border-radius:50%;
-
-
-    background:var(--purple);
-
-
-    filter:blur(160px);
-
-
-    opacity:.25;
-
-
-    z-index:-8;
-
-
-    animation:
-    energyMove 8s infinite alternate;
-
-}
-
-
-
-@keyframes energyMove{
-
-
-    from{
-
-        transform:translateY(0);
-
-    }
-
-
-    to{
-
-        transform:translateY(-80px);
-
-    }
-
-}
-
-
-
-/*=========================================
-              BUBBLE
-=========================================*/
 
 .bubble{
-
-    position:fixed;
-
-    width:250px;
-
-    height:250px;
-
-    border-radius:50%;
-
-
-    background:
-
-    radial-gradient(
-    circle,
-    rgba(0,217,255,.35),
-    transparent 70%
-    );
-
-
-    top:20%;
-
-    left:10%;
-
-
-    filter:blur(20px);
-
-
-    animation:
-
-    bubbleMove 10s infinite alternate;
-
-
-    z-index:-5;
-
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 20% 20%, rgba(157, 0, 255, 0.18), transparent 25%),
+              radial-gradient(circle at 80% 10%, rgba(0, 191, 255, 0.18), transparent 25%),
+              radial-gradient(circle at 70% 80%, rgba(255, 0, 180, 0.12), transparent 20%);
+  z-index: -2;
+  pointer-events: none;
 }
 
-
-
-@keyframes bubbleMove{
-
-
-    from{
-
-        transform:translate(0,0);
-
-    }
-
-
-    to{
-
-        transform:translate(80px,-100px);
-
-    }
-
+.page{
+  min-height: 100vh;
+  padding: 20px;
 }
-/*=========================================
-          CHAPCY V100
-          CSS PART 2
-          GROUP CARDS
-=========================================*/
 
+.topbar{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 0 30px;
+}
+
+.menu-btn,
+.icon-btn,
+.slider-btn{
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(10, 10, 30, 0.55);
+  color: white;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 20px rgba(120, 0, 255, 0.25);
+}
+
+.menu-btn{
+  width: 58px;
+  height: 58px;
+  border-radius: 18px;
+  font-size: 1.2rem;
+}
+
+.brand{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.logo{
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 18px rgba(0, 170, 255, 0.6);
+}
+
+.brand h1{
+  font-size: 1.6rem;
+  line-height: 1;
+  background: linear-gradient(90deg, #00d4ff, #a855f7, #ff4fd8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.brand p{
+  font-size: 0.9rem;
+  color: #d8d8ff;
+}
+
+.top-actions{
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.profile{
+  position: relative;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 2px solid rgba(0, 220, 255, 0.8);
+  overflow: hidden;
+  box-shadow: 0 0 18px rgba(0, 220, 255, 0.4);
+}
+
+.profile img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.online-dot{
+  position: absolute;
+  right: 2px;
+  bottom: 2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #2cff7b;
+  border: 2px solid #0b0617;
+}
+
+.icon-btn{
+  position: relative;
+  width: 56px;
+  height: 56px;
+  border-radius: 18px;
+  font-size: 1.1rem;
+}
+
+.badge{
+  position: absolute;
+  top: -6px;
+  right: -4px;
+  background: #ff2b7a;
+  color: white;
+  font-size: 0.75rem;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+
+.reputation{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 18px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(10, 10, 30, 0.55);
+  backdrop-filter: blur(12px);
+  color: #fff;
+}
+
+.reputation i{
+  color: #f1c40f;
+}
+
+.hero{
+  text-align: center;
+  margin: 35px 0 25px;
+}
+
+.hero h2{
+  font-size: clamp(2rem, 4vw, 3.6rem);
+  font-weight: 800;
+}
+
+.hero h2 span{
+  background: linear-gradient(90deg, #71d7ff, #b44cff, #ff65e1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero p{
+  margin-top: 10px;
+  font-size: 1rem;
+  color: #d8d8ff;
+}
+
+.groups-section{
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.slider-viewport{
+  width: 100%;
+  overflow: hidden;
+  padding: 10px 0;
+}
 
 .slider-track{
-
-    width:100%;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:flex-start;
-
-    gap:30px;
-
-    padding:60px;
-
-    overflow-x:auto;
-scroll-behavior:smooth;
-scrollbar-width:none;
-
-    perspective:1200px;
-
+  display: flex;
+  gap: 24px;
+  align-items: stretch;
+  will-change: transform;
+  transition: transform 0.45s ease;
 }
-
-
-/*=========================================
-              CARD DESIGN
-=========================================*/
 
 .group-card{
-
-    width:340px;
-
-    flex-shrink:0;
-
-
-    background:
-
-    linear-gradient(
-    145deg,
-    rgba(255,255,255,.15),
-    rgba(255,255,255,.04)
-    );
-
-
-    backdrop-filter:blur(20px);
-
-
-    border-radius:30px;
-
-
-    border:
-
-    1px solid rgba(255,255,255,.18);
-
-
-
-    padding:18px;
-
-
-    text-align:center;
-
-
-    position:relative;
-
-
-    overflow:hidden;
-
-
-    transform-style:preserve-3d;
-
-
-    transition:.5s;
-
-
-    box-shadow:
-
-    0 20px 50px rgba(0,0,0,.5);
-
-
+  flex: 0 0 320px;
+  min-height: 520px;
+  padding: 20px;
+  border-radius: 28px;
+  background: linear-gradient(180deg, rgba(24, 18, 55, 0.78), rgba(10, 10, 30, 0.65));
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 0 35px rgba(0,0,0,0.45);
+  backdrop-filter: blur(16px);
+  opacity: 0.55;
+  transform: scale(0.88);
+  transition: 0.35s ease;
 }
 
-
-
-/* CARD LIGHT EFFECT */
-
-.group-card::before{
-
-
-    content:"";
-
-
-    position:absolute;
-
-
-    width:150%;
-
-    height:80px;
-
-
-    top:-40px;
-
-    left:-80px;
-
-
-    background:
-
-    linear-gradient(
-    90deg,
-    transparent,
-    rgba(255,255,255,.35),
-    transparent
-    );
-
-
-    transform:rotate(25deg);
-
-
-    transition:.6s;
-
-
+.group-card.active{
+  opacity: 1;
+  transform: scale(1);
+  box-shadow: 0 0 35px rgba(123, 83, 255, 0.35);
 }
-
-
-
-.group-card:hover::before{
-
-    left:120%;
-
-}
-
-
-
-/* HOVER 3D */
-
-.group-card:hover{
-
-
-    transform:
-
-    translateY(-25px)
-    rotateX(8deg)
-    rotateY(-8deg)
-    scale(1.05);
-
-
-
-    box-shadow:
-
-    0 0 50px var(--cyan);
-
-
-}
-
-
-
-/*=========================================
-              GROUP IMAGE
-=========================================*/
 
 .group-card img{
-
-
-    width:100%;
-
-
-    height:230px;
-
-
-    object-fit:cover;
-
-
-    border-radius:25px;
-
-
-    transition:.5s;
-
-
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
+  border-radius: 20px;
+  margin-bottom: 18px;
 }
-
-
-
-.group-card:hover img{
-
-
-    transform:
-
-    scale(1.08);
-
-
-}
-
-
-
-/*=========================================
-              TITLE
-=========================================*/
-
 
 .group-card h3{
-
-
-    margin-top:15px;
-
-
-    font-size:23px;
-
-
-    font-weight:800;
-
-
-    background:
-
-    linear-gradient(
-    90deg,
-    var(--cyan),
-    var(--purple)
-    );
-
-
-    -webkit-background-clip:text;
-
-
-    color:transparent;
-
-
+  font-size: 1.4rem;
+  margin-bottom: 12px;
+  text-align: center;
 }
-
-
-
-/* DESCRIPTION */
 
 .group-card p{
-
-
-    margin-top:10px;
-
-
-    font-size:14px;
-
-
-    line-height:1.6;
-
-
-    opacity:.8;
-
-
+  text-align: center;
+  color: #e9e6ff;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  min-height: 90px;
 }
-
-
-
-/*=========================================
-              BUTTONS
-=========================================*/
-
 
 .card-buttons{
-
-
-    display:flex;
-
-
-    gap:12px;
-
-
-    margin-top:20px;
-
-
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
 }
 
-
-
-.card-buttons a{
-
-
-    flex:1;
-
-
-    padding:12px 8px;
-
-
-    border-radius:18px;
-
-
-    text-decoration:none;
-
-
-    color:white;
-
-
-    font-size:13px;
-
-
-    font-weight:700;
-
-
-    transition:.3s;
-
-
+.join-btn,
+.payment-btn{
+  flex: 1;
+  text-decoration: none;
+  text-align: center;
+  padding: 13px 12px;
+  border-radius: 16px;
+  font-weight: 600;
+  transition: 0.25s ease;
 }
-
-
-
-/* JOIN */
 
 .join-btn{
-
-
-    background:
-
-    linear-gradient(
-    135deg,
-    #00d9ff,
-    #0066ff
-    );
-
-
-    box-shadow:
-
-    0 0 20px rgba(0,217,255,.4);
-
-
+  background: linear-gradient(90deg, #12b7ff, #2b6cff);
+  color: white;
 }
-
-
-
-/* PAYMENT */
 
 .payment-btn{
-
-
-    background:
-
-    linear-gradient(
-    135deg,
-    #8a2eff,
-    #ff00cc
-    );
-
-
-    box-shadow:
-
-    0 0 20px rgba(138,46,255,.4);
-
-
+  background: linear-gradient(90deg, #ba2cff, #ff2fb8);
+  color: white;
 }
 
-
-
-.card-buttons a:hover{
-
-
-    transform:
-
-    scale(1.1);
-
-
+.join-btn:hover,
+.payment-btn:hover,
+.slider-btn:hover,
+.menu-btn:hover,
+.icon-btn:hover{
+  transform: translateY(-2px);
 }
 
+.slider-btn{
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  flex: 0 0 52px;
+  font-size: 1rem;
+  cursor: pointer;
+}
 
+.xp-reward{
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.xp-box{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  border-radius: 18px;
+  background: rgba(10, 10, 30, 0.6);
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 0 20px rgba(154, 54, 255, 0.25);
+}
 
 /* MOBILE */
-
-@media(max-width:600px){
-
-
-    .slider-track{
-
-        padding:20px;
-
-    }
-
-
-    .group-card{
-
-        width:290px;
-
-    }
-
-
-}
-/*=========================================
-          CHAPCY V100
-          CSS PART 3
-          COVERFLOW SYSTEM
-=========================================*/
-
-
-.slider-track{
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:flex-start;
-
-    gap:30px;
-
-    padding:60px 10%;
-
-
-    overflow:hidden;
-
-
-    perspective:1200px;
-
-
-}
-
-
-
-/* DEFAULT CARD */
-
-.group-card{
-
-
-    opacity:.55;
-
-
-    transform:
-
-    scale(.82)
-    rotateY(25deg);
-
-
-    filter:blur(.5px);
-
-
-    transition:
-
-    transform .7s ease,
-    opacity .7s ease,
-    filter .7s ease;
-
-
-}
-
-
-
-/* ACTIVE CENTER CARD */
-
-.group-card.active{
-
-
-    opacity:1;
-
-
-    transform:
-
-    scale(1.15)
-    rotateY(0deg)
-    translateZ(100px);
-
-
-
-    filter:none;
-
-
-    z-index:5;
-
-
-    box-shadow:
-
-    0 0 70px rgba(0,217,255,.45);
-
-
-
-}
-
-
-
-/* LEFT SIDE CARDS */
-
-.group-card.left{
-
-
-    transform:
-
-    scale(.85)
-    rotateY(35deg)
-    translateX(-60px);
-
-
-
-}
-
-
-
-/* RIGHT SIDE CARDS */
-
-.group-card.right{
-
-
-    transform:
-
-    scale(.85)
-    rotateY(-35deg)
-    translateX(60px);
-
-
-
-}
-
-
-
-/*=========================================
-          PREMIUM GLOW BORDER
-=========================================*/
-
-
-.group-card.active::after{
-
-
-    content:"";
-
-
-    position:absolute;
-
-
-    inset:-2px;
-
-
-    border-radius:32px;
-
-
-    background:
-
-    linear-gradient(
-    45deg,
-    var(--cyan),
-    var(--purple),
-    transparent
-    );
-
-
-    z-index:-1;
-
-
-    filter:blur(15px);
-
-
-}
-
-
-
-/*=========================================
-              RESPONSIVE
-=========================================*/
-
-
-@media(max-width:600px){
-
-
-.slider-track{
-
-    padding:40px 5%;
-
-}
-
-
-.group-card.active{
-
-    transform:
-
-    scale(1.05);
-
-}
-
-
-
+@media (max-width: 768px){
+  .topbar{
+    flex-wrap: wrap;
+  }
+
+  .brand{
+    order: 1;
+    width: 100%;
+  }
+
+  .top-actions{
+    margin-left: auto;
+  }
+
+  .group-card{
+    flex-basis: 88vw;
+    min-height: 500px;
+  }
+
+  .groups-section{
+    gap: 10px;
+  }
 }
