@@ -1,53 +1,41 @@
 /*=========================================
-        CHAPCY V100 AUTO SLIDER
-        AUTO MOVE 2.5 SECONDS
+      CHAPCY AUTO SLIDER FIX
+      2.5 SECONDS
 =========================================*/
 
-
-const slider = document.querySelector(".slider-track");
+const track = document.querySelector(".slider-track");
 const cards = document.querySelectorAll(".group-card");
 
-
-let current = 0;
-
+let index = 0;
 
 
-function updateSlider(){
+function autoMove(){
 
-    cards.forEach((card,index)=>{
-
-        card.classList.remove(
-            "active",
-            "left",
-            "right"
-        );
+    index++;
 
 
-        if(index === current){
+    if(index >= cards.length){
+        index = 0;
+    }
 
-            card.classList.add("active");
 
-        }
+    const cardWidth = cards[0].offsetWidth + 30;
 
-        else if(
-            index === (current - 1 + cards.length) % cards.length
-        ){
 
-            card.classList.add("left");
+    track.scrollTo({
 
-        }
+        left:index * cardWidth,
 
-        else if(
-            index === (current + 1) % cards.length
-        ){
-
-            card.classList.add("right");
-
-        }
-
+        behavior:"smooth"
 
     });
 
+
+}
+
+
+
+setInterval(autoMove,2500);
 
 
     const activeCard = cards[current];
