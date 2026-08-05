@@ -1,196 +1,192 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CHAPCY V21</title>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>CHAPCY V21</title>
-
-<link rel="stylesheet" href="chapcy.css">
-
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-rel="stylesheet">
-
+  <link rel="stylesheet" href="chapcy.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
-
 <body>
 
-<!-- BACKGROUND -->
+  <!-- BACKGROUND -->
+  <img src="file_00000000b3448243aebfedfba8912525.png" class="background" alt="CHAPCY Background">
 
-<img
-src="file_00000000b3448243aebfedfba8912525.png"
-class="background"
-alt="CHAPCY Background">
+  <div class="bubble"></div>
 
-<!-- BUBBLES -->
+  <!-- PAGE CONTAINER -->
+  <main class="page">
 
-<div class="bubble"></div>
+    <header class="topbar">
+      <button class="menu-btn">
+        <i class="fa-solid fa-bars"></i>
+      </button>
 
-<!--=========================================
-        CHAPCY GROUPS SLIDER
-==========================================-->
-
-<div class="slider-track">
-
-    <!-- SPORTY GROUP -->
-    <div class="group-card active">
-        <img src="file_00000000ee1071f48c465cfc2dd7157c.png" alt="Sporty Group">
-        <h3>⚽ Sporty Group</h3>
-        <p>Football, basketball, tennis, athletics and every sport in one global community.</p>
-        <div class="card-buttons">
-            <a href="#" class="join-btn">Join Group</a>
-            <a href="#" class="payment-btn">Sporty Pro</a>
+      <div class="brand">
+        <img src="file_000000004f547243bb0fa43d66db1edf.png" alt="CHAPCY Logo" class="logo">
+        <div>
+          <h1>CHAPCY</h1>
+          <p>Worldwide Community 🌐</p>
         </div>
-    </div>
+      </div>
 
-    <!-- EFOOTBALL -->
-    <div class="group-card">
-        <img src="file_0000000056bc71f4a363399654e8a3dd.png" alt="eFootball">
-        <h3>🎮 eFootball</h3>
-        <p>Play eFootball, tournaments, clubs, tips and worldwide competitions.</p>
-        <div class="card-buttons">
-            <a href="#" class="join-btn">Join Group</a>
-            <a href="#" class="payment-btn">Pro League</a>
+      <div class="top-actions">
+        <div class="profile">
+          <img src="file_00000000b0d8820a998b33ad9cf233cb.png" alt="User">
+          <span class="online-dot"></span>
         </div>
-    </div>
 
-    <!-- BETTING -->
-    <div class="group-card">
-        <img src="file_00000000ed7871f4925c076a1a655b15.png" alt="Betting">
-        <h3>💰 Betting</h3>
-        <p>Predictions, odds discussion and responsible betting community.</p>
-        <div class="card-buttons">
-            <a href="#" class="join-btn">Join Group</a>
-            <a href="#" class="payment-btn">VIP Tips</a>
+        <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge">3</span></button>
+
+        <div class="reputation">
+          <i class="fa-solid fa-trophy"></i>
+          <span>1250</span>
         </div>
-    </div>
+      </div>
+    </header>
 
-    <!-- MUSIC -->
-    <div class="group-card">
-        <img src="file_00000000e86471f4b386c6acc7d23f5b.png" alt="Music Group">
-        <h3>🎵 Music Group</h3>
-        <p>Discover artists, albums, DJs and music lovers around the world.</p>
-        <div class="card-buttons">
-            <a href="#" class="join-btn">Join Group</a>
-            <a href="#" class="payment-btn">Music Pro</a>
+    <section class="hero">
+      <h2>Explore <span>Top Groups</span></h2>
+      <p>Join amazing communities around the world 🌍</p>
+    </section>
+
+    <section class="groups-section">
+      <button class="slider-btn prev" id="prevBtn" type="button">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+
+      <div class="slider-viewport">
+        <div class="slider-track" id="sliderTrack">
+
+          <article class="group-card">
+            <img src="file_00000000ee1071f48c465cfc2dd7157c.png" alt="Sporty Group">
+            <h3>⚽ Sporty Group</h3>
+            <p>Football, basketball, tennis, athletics and every sport in one global community.</p>
+            <div class="card-buttons">
+              <a href="#" class="join-btn">Join Group</a>
+              <a href="#" class="payment-btn">Sporty Pro</a>
+            </div>
+          </article>
+
+          <article class="group-card">
+            <img src="file_0000000056bc71f4a363399654e8a3dd.png" alt="eFootball">
+            <h3>🎮 eFootball</h3>
+            <p>Play eFootball, tournaments, clubs, tips and worldwide competitions.</p>
+            <div class="card-buttons">
+              <a href="#" class="join-btn">Join Group</a>
+              <a href="#" class="payment-btn">Pro League</a>
+            </div>
+          </article>
+
+          <article class="group-card">
+            <img src="file_00000000ed7871f4925c076a1a655b15.png" alt="Betting">
+            <h3>💰 Betting</h3>
+            <p>Predictions, odds discussion and responsible betting community.</p>
+            <div class="card-buttons">
+              <a href="#" class="join-btn">Join Group</a>
+              <a href="#" class="payment-btn">VIP Tips</a>
+            </div>
+          </article>
+
+          <article class="group-card">
+            <img src="file_00000000e86471f4b386c6acc7d23f5b.png" alt="Music Group">
+            <h3>🎵 Music Group</h3>
+            <p>Discover artists, albums, DJs and music lovers around the world.</p>
+            <div class="card-buttons">
+              <a href="#" class="join-btn">Join Group</a>
+              <a href="#" class="payment-btn">Music Pro</a>
+            </div>
+          </article>
+
+          <article class="group-card">
+            <img src="file_00000000c68871f48c1a80d96ec0e300.png" alt="Food Group">
+            <h3>🍔 Food Group</h3>
+            <p>Recipes, restaurants, cooking tips and delicious food from every country.</p>
+            <div class="card-buttons">
+              <a href="#" class="join-btn">Join Group</a>
+              <a href="#" class="payment-btn">Food Club</a>
+            </div>
+          </article>
+
+          <article class="group-card">
+            <img src="file_00000000c28c71f4b62c08fb5b2d7870.png" alt="COD & PUBG">
+            <h3>🔥 COD & PUBG</h3>
+            <p>Battle Royale community, clans, tournaments and live voice chat.</p>
+            <div class="card-buttons">
+              <a href="#" class="join-btn">Join Group</a>
+              <a href="#" class="payment-btn">Elite Squad</a>
+            </div>
+          </article>
+
+          <article class="group-card">
+            <img src="file_00000000bdb471f488fbf6d8c64b40c3.png" alt="News Group">
+            <h3>📰 News Group</h3>
+            <p>Breaking news, technology, politics and world events in real time.</p>
+            <div class="card-buttons">
+              <a href="#" class="join-btn">Join Group</a>
+              <a href="#" class="payment-btn">News Plus</a>
+            </div>
+          </article>
+
+          <article class="group-card">
+            <img src="file_000000009d0c71f48ea69bd0ea0c0f4f.png" alt="Art Group">
+            <h3>🎨 Art Group</h3>
+            <p>Digital art, drawing, painting, photography and creative inspiration.</p>
+            <div class="card-buttons">
+              <a href="#" class="join-btn">Join Group</a>
+              <a href="#" class="payment-btn">Creative Pro</a>
+            </div>
+          </article>
+
+          <article class="group-card">
+            <img src="file_000000006d2871f49a121851a52fc041.png" alt="Education Group">
+            <h3>📚 Education Group</h3>
+            <p>Study together, share knowledge, courses and learning resources.</p>
+            <div class="card-buttons">
+              <a href="#" class="join-btn">Join Group</a>
+              <a href="#" class="payment-btn">Study Pro</a>
+            </div>
+          </article>
+
+          <article class="group-card">
+            <img src="file_00000000e84081f48c45f111376926ae.png" alt="Business Group">
+            <h3>💼 Business Group</h3>
+            <p>Meet entrepreneurs, startups, investors and grow your business globally.</p>
+            <div class="card-buttons">
+              <a href="#" class="join-btn">Join Group</a>
+              <a href="#" class="payment-btn">Business Pro</a>
+            </div>
+          </article>
+
+          <article class="group-card">
+            <img src="file_00000000f8187246ada067dc5e5a807b.png" alt="CHAPCY TV">
+            <h3>📺 CHAPCY TV</h3>
+            <p>Watch livestreams, exclusive creators, entertainment and community shows.</p>
+            <div class="card-buttons">
+              <a href="#" class="join-btn">Watch Now</a>
+              <a href="#" class="payment-btn">TV Premium</a>
+            </div>
+          </article>
+
         </div>
-    </div>
+      </div>
 
-    <!-- FOOD -->
-    <div class="group-card">
-        <img src="file_00000000c68871f48c1a80d96ec0e300.png" alt="Food Group">
-        <h3>🍔 Food Group</h3>
-        <p>Recipes, restaurants, cooking tips and delicious food from every country.</p>
-        <div class="card-buttons">
-            <a href="#" class="join-btn">Join Group</a>
-            <a href="#" class="payment-btn">Food Club</a>
-        </div>
-    </div>
-
-    <!-- CALL OF DUTY & PUBG -->
-    <div class="group-card">
-        <img src="file_00000000c28c71f4b62c08fb5b2d7870.png" alt="COD & PUBG">
-        <h3>🔥 COD & PUBG</h3>
-        <p>Battle Royale community, clans, tournaments and live voice chat.</p>
-        <div class="card-buttons">
-            <a href="#" class="join-btn">Join Group</a>
-            <a href="#" class="payment-btn">Elite Squad</a>
-        </div>
-    </div>
-
-    <!-- NEWS -->
-    <div class="group-card">
-        <img src="file_00000000bdb471f488fbf6d8c64b40c3.png" alt="News Group">
-        <h3>📰 News Group</h3>
-        <p>Breaking news, technology, politics and world events in real time.</p>
-        <div class="card-buttons">
-            <a href="#" class="join-btn">Join Group</a>
-            <a href="#" class="payment-btn">News Plus</a>
-        </div>
-    </div>
-
-    <!-- ART -->
-    <div class="group-card">
-        <img src="file_000000009d0c71f48ea69bd0ea0c0f4f.png" alt="Art Group">
-        <h3>🎨 Art Group</h3>
-        <p>Digital art, drawing, painting, photography and creative inspiration.</p>
-        <div class="card-buttons">
-            <a href="#" class="join-btn">Join Group</a>
-            <a href="#" class="payment-btn">Creative Pro</a>
-        </div>
-    </div>
-
-    <!-- EDUCATION -->
-    <div class="group-card">
-        <img src="file_000000006d2871f49a121851a52fc041.png" alt="Education Group">
-        <h3>📚 Education Group</h3>
-        <p>Study together, share knowledge, courses and learning resources.</p>
-        <div class="card-buttons">
-            <a href="#" class="join-btn">Join Group</a>
-            <a href="#" class="payment-btn">Study Pro</a>
-        </div>
-    </div>
-
-    <!-- BUSINESS -->
-    <div class="group-card">
-        <img src="file_00000000e84081f48c45f111376926ae.png" alt="Business Group">
-        <h3>💼 Business Group</h3>
-        <p>Meet entrepreneurs, startups, investors and grow your business globally.</p>
-        <div class="card-buttons">
-            <a href="#" class="join-btn">Join Group</a>
-            <a href="#" class="payment-btn">Business Pro</a>
-        </div>
-    </div>
-
-    <!-- CHAPCY TV -->
-    <div class="group-card">
-        <img src="file_00000000f8187246ada067dc5e5a807b.png" alt="CHAPCY TV">
-        <h3>📺 CHAPCY TV</h3>
-        <p>Watch livestreams, exclusive creators, entertainment and community shows.</p>
-        <div class="card-buttons">
-            <a href="#" class="join-btn">Watch Now</a>
-            <a href="#" class="payment-btn">TV Premium</a>
-        </div>
-    </div>
-
-</div>
-
-    <!-- RIGHT BUTTON -->
-    <button class="slider-btn next">
+      <button class="slider-btn next" id="nextBtn" type="button">
         <i class="fa-solid fa-chevron-right"></i>
-    </button>
+      </button>
+    </section>
 
-</section>
-<!--=========================================
-      XP REWARD POPUP
-==========================================-->
-
-<div id="xpReward" class="xp-reward">
-
-    <div class="xp-box">
-
+    <div id="xpReward" class="xp-reward">
+      <div class="xp-box">
         <i class="fa-solid fa-star"></i>
-
-        <span id="xpText">
-            +15 XP
-        </span>
-
+        <span id="xpText">+15 XP</span>
+      </div>
     </div>
 
-</div>
+  </main>
 
-
-<!--=========================================
-        JAVASCRIPT
-==========================================-->
-
-<script type="module" src="firebase.js"></script>
-
-<script src="script.js"></script>
-
+  <script src="script.js"></script>
 </body>
 </html>
