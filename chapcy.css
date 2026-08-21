@@ -1154,3 +1154,24 @@ body{
         height:245px;
     }
   }
+/* =====================================================
+        CHAPCY V21 SLIDER FIX
+===================================================== */
+
+.slider-track{
+    position:relative;
+    display:flex;
+    align-items:center;
+    width:max-content;
+    gap:22px;
+
+    will-change:transform;
+
+    transform:translate3d(0,0,0);
+
+    transition:none;
+}
+
+.group-card{
+    flex-shrink:0;
+}
