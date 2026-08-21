@@ -2104,139 +2104,265 @@ font-size:12px;
 
 }
 /* =========================
-   CHAPCY ACTIVITY PANEL
+   CHAPCY GLASS ACTIVITY
 ========================= */
 
 .activity-panel{
+    width:95%;
+    max-width:1000px;
 
-width:95%;
-max-width:1000px;
+    margin:30px auto;
+    padding:18px 12px;
 
-margin:30px auto;
+    border-radius:30px;
 
-padding:20px;
+    /* GLASS */
+    background:rgba(8,12,45,.18);
 
-border-radius:30px;
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
 
-background:
-rgba(5,10,35,.85);
+    border:1px solid rgba(255,255,255,.12);
 
-backdrop-filter:blur(20px);
+    box-shadow:
+        0 0 25px rgba(0,180,255,.08),
+        inset 0 0 25px rgba(255,255,255,.025);
 
-border:1px solid rgba(180,0,255,.25);
-
-box-shadow:
-0 0 35px rgba(180,0,255,.25);
-
+    position:relative;
+    overflow:hidden;
 }
+
+
+/* LIGHT GLASS GLOW */
+
+.activity-panel::before{
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    background:
+        radial-gradient(
+            circle at 20% 50%,
+            rgba(160,0,255,.12),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 80% 50%,
+            rgba(0,220,255,.10),
+            transparent 35%
+        );
+
+    pointer-events:none;
+}
+
+
+/* TITLE */
 
 .activity-panel h2{
+    position:relative;
+    z-index:2;
 
-text-align:center;
+    text-align:center;
 
-font-size:28px;
+    font-size:28px;
+    font-weight:800;
 
-font-weight:700;
+    margin-bottom:20px;
 
-margin-bottom:20px;
+    letter-spacing:3px;
 
-color:white;
+    color:#fff;
 
-letter-spacing:2px;
-
+    text-shadow:
+        0 0 15px rgba(0,220,255,.35);
 }
+
+
+/* GRID */
 
 .activity-grid{
+    position:relative;
+    z-index:2;
 
-display:grid;
+    display:grid;
 
-grid-template-columns:
-repeat(5,1fr);
+    grid-template-columns:
+        repeat(5,1fr);
 
-gap:15px;
-
+    gap:12px;
 }
+
+
+/* ACTIVITY CARD */
 
 .activity-card{
+    position:relative;
 
-position:relative;
+    height:120px;
 
-height:120px;
+    border-radius:20px;
 
-border-radius:20px;
+    display:flex;
+    flex-direction:column;
 
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
+    justify-content:center;
+    align-items:center;
 
-background:
-rgba(255,255,255,.03);
+    /* VERY TRANSPARENT GLASS */
+    background:
+        rgba(255,255,255,.035);
 
-border:1px solid rgba(255,255,255,.08);
+    border:
+        1px solid rgba(255,255,255,.10);
 
-transition:.4s;
+    backdrop-filter:blur(5px);
+    -webkit-backdrop-filter:blur(5px);
 
-cursor:pointer;
+    transition:
+        transform .35s ease,
+        background .35s ease,
+        border-color .35s ease,
+        box-shadow .35s ease;
 
+    cursor:pointer;
 }
+
+
+/* HOVER */
 
 .activity-card:hover{
+    transform:translateY(-6px);
 
-transform:translateY(-8px);
+    background:
+        rgba(0,210,255,.07);
 
-box-shadow:
-0 0 25px rgba(0,220,255,.4);
+    border-color:
+        rgba(0,220,255,.35);
 
+    box-shadow:
+        0 0 25px rgba(0,220,255,.18);
 }
+
+
+/* ICON */
 
 .activity-card i{
+    font-size:34px;
 
-font-size:35px;
+    color:#d85cff;
 
-color:#d85cff;
+    margin-bottom:9px;
 
-margin-bottom:10px;
-
+    filter:
+        drop-shadow(
+            0 0 10px rgba(216,92,255,.65)
+        );
 }
+
+
+/* TEXT */
 
 .activity-card p{
+    font-size:16px;
 
-font-size:18px;
+    color:#fff;
 
-color:white;
+    font-weight:600;
 
-font-weight:600;
-
+    text-shadow:
+        0 0 8px rgba(255,255,255,.15);
 }
+
+
+/* BADGE */
 
 .activity-badge{
+    position:absolute;
 
-position:absolute;
+    top:9px;
+    right:9px;
 
-top:12px;
-right:12px;
+    width:31px;
+    height:31px;
 
-width:32px;
-height:32px;
+    border-radius:50%;
 
-border-radius:50%;
+    background:
+        linear-gradient(
+            135deg,
+            #ff0874,
+            #ff0050
+        );
 
-background:#ff004d;
+    color:#fff;
 
-color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
-display:flex;
-align-items:center;
-justify-content:center;
+    font-size:12px;
+    font-weight:700;
 
-font-size:13px;
-font-weight:700;
-
-box-shadow:
-0 0 15px rgba(255,0,77,.6);
-
+    box-shadow:
+        0 0 15px rgba(255,0,90,.55);
 }
+
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+    .activity-panel{
+        width:94%;
+
+        margin:25px auto;
+
+        padding:16px 8px;
+
+        border-radius:25px;
+
+        background:
+            rgba(8,12,45,.12);
+
+        backdrop-filter:blur(6px);
+        -webkit-backdrop-filter:blur(6px);
+    }
+
+    .activity-panel h2{
+        font-size:24px;
+        margin-bottom:16px;
+    }
+
+    .activity-grid{
+        gap:8px;
+    }
+
+    .activity-card{
+        height:105px;
+
+        border-radius:17px;
+    }
+
+    .activity-card i{
+        font-size:28px;
+    }
+
+    .activity-card p{
+        font-size:13px;
+    }
+
+    .activity-badge{
+        width:27px;
+        height:27px;
+
+        top:6px;
+        right:6px;
+
+        font-size:10px;
+    }
+}
+
 /* =========================================================
    CHAPCY — NEW PREMIUM CARD STYLE
    KEEP ALL OLD CSS — THIS OVERRIDES THE OLD CARD DESIGN
