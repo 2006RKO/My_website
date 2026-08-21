@@ -47,30 +47,35 @@
       </div>
     </header>
 
-<section class="top-navigation">
+<div class="chat-tabs">
 
-<a href="#" class="nav-item active">
-💬 My Chats
-</a>
+    <button class="chat-tab active"
+    onclick="openChats()">
+        💬 My Chats
+        <span class="live-count" id="chatCount">12</span>
+    </button>
 
-<a href="#" class="nav-item">
-✉️ Messages
-</a>
+    <button class="chat-tab">
+        ✉️ Messages
+        <span class="live-count" id="msgCount">4</span>
+    </button>
 
-<a href="#" class="nav-item">
-📺 Status
-</a>
+    <button class="chat-tab">
+        📺 Status
+        <span class="live-count" id="statusCount">9</span>
+    </button>
 
-<a href="#" class="nav-item">
-📞 Calls
-</a>
+    <button class="chat-tab">
+        📞 Calls
+        <span class="live-count" id="callCount">2</span>
+    </button>
 
-<a href="#" class="nav-item">
-@ Mention You
-</a>
+    <button class="chat-tab">
+        @ Mention You
+        <span class="live-count" id="mentionCount">5</span>
+    </button>
 
-</section>
-    
+</div>
     <section class="group-slider">
       <button class="slider-btn prev" id="prevBtn" type="button">
         <i class="fa-solid fa-chevron-left"></i>
