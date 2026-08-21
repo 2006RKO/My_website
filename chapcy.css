@@ -452,28 +452,29 @@ body{
     touch-action:pan-y;
 
     cursor:grab;
+
+    isolation:isolate;
 }
-
-.slider-wrapper:active{
-    cursor:grabbing;
-}
-
-
 /* =========================================================
                     TRACK
 ========================================================= */
-
 .slider-track{
     display:flex;
     align-items:center;
-
     gap:22px;
 
     width:max-content;
+    min-width:max-content;
 
     will-change:transform;
 
     user-select:none;
+
+    transform:translate3d(0,0,0);
+
+    backface-visibility:hidden;
+
+    -webkit-backface-visibility:hidden;
 }
 
 
