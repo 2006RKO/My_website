@@ -2237,3 +2237,513 @@ box-shadow:
 0 0 15px rgba(255,0,77,.6);
 
 }
+/* =========================================================
+   CHAPCY — NEW PREMIUM CARD STYLE
+   KEEP ALL OLD CSS — THIS OVERRIDES THE OLD CARD DESIGN
+   ========================================================= */
+
+.group-slider{
+    max-width:1500px;
+    padding:25px 0 85px;
+    perspective:1800px;
+}
+
+.slider-wrapper{
+    width:100%;
+    overflow:hidden;
+    padding:35px 0 55px;
+}
+
+.slider-track{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:24px;
+    width:max-content;
+    transform-style:preserve-3d;
+}
+
+
+/* =========================
+   CARD
+========================= */
+
+.group-card{
+    position:relative;
+
+    flex:0 0 430px;
+    height:650px;
+
+    padding:14px;
+
+    border-radius:28px;
+
+    overflow:hidden;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(3,8,28,.98),
+            rgba(5,3,25,.98)
+        );
+
+    border:1px solid rgba(0,210,255,.30);
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.65),
+        0 0 30px rgba(90,0,255,.18),
+        inset 0 0 35px rgba(0,160,255,.06);
+
+    opacity:.32;
+
+    transform:
+        scale(.78)
+        translateZ(-100px);
+
+    filter:
+        brightness(.55)
+        saturate(.65);
+
+    transition:
+        transform .7s cubic-bezier(.22,.61,.36,1),
+        opacity .7s ease,
+        filter .7s ease,
+        box-shadow .7s ease;
+
+    transform-style:preserve-3d;
+}
+
+
+/* =========================
+   SIDE CARDS
+========================= */
+
+.group-card:not(.active){
+    opacity:.35;
+    filter:
+        brightness(.55)
+        saturate(.55);
+
+    transform:
+        scale(.78)
+        translateZ(-100px);
+}
+
+
+/* =========================
+   CENTER CARD
+========================= */
+
+.group-card.active{
+
+    opacity:1;
+
+    transform:
+        scale(1)
+        translateZ(100px);
+
+    filter:
+        brightness(1)
+        saturate(1.15);
+
+    border-color:
+        rgba(0,225,255,.85);
+
+    box-shadow:
+
+        0 30px 80px rgba(0,0,0,.70),
+
+        0 0 25px rgba(0,225,255,.40),
+
+        0 0 70px rgba(130,0,255,.35),
+
+        inset 0 0 45px rgba(0,200,255,.08);
+}
+
+
+/* =========================
+   NEON BORDER
+========================= */
+
+.group-card.active::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:-2px;
+
+    border-radius:30px;
+
+    padding:2px;
+
+    background:
+        linear-gradient(
+            120deg,
+            #00eaff,
+            #7137ff,
+            #ff00dd,
+            #00eaff
+        );
+
+    background-size:300% 300%;
+
+    animation:
+        cardNeonBorder 4s linear infinite;
+
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+
+    -webkit-mask-composite:xor;
+
+    mask-composite:exclude;
+
+    pointer-events:none;
+
+    z-index:20;
+}
+
+@keyframes cardNeonBorder{
+
+    0%{
+        background-position:0% 50%;
+    }
+
+    50%{
+        background-position:100% 50%;
+    }
+
+    100%{
+        background-position:0% 50%;
+    }
+}
+
+
+/* =========================
+   CARD IMAGE
+========================= */
+
+.group-card > img{
+
+    width:100%;
+
+    height:330px;
+
+    object-fit:cover;
+
+    display:block;
+
+    position:relative;
+
+    z-index:3;
+
+    border-radius:21px;
+
+    border:
+        1px solid
+        rgba(0,210,255,.20);
+
+    background:#020617;
+
+    box-shadow:
+        0 12px 35px rgba(0,0,0,.55);
+
+    transition:
+        transform .6s ease,
+        filter .6s ease;
+}
+
+.group-card.active > img{
+
+    transform:scale(1.015);
+
+    filter:
+        brightness(1.08)
+        contrast(1.05)
+        saturate(1.18);
+
+    box-shadow:
+        0 0 30px rgba(0,210,255,.22);
+}
+
+
+/* =========================
+   CARD TITLE
+========================= */
+
+.group-card h3{
+
+    position:relative;
+
+    z-index:5;
+
+    margin:
+        20px 0 8px;
+
+    width:100%;
+
+    text-align:center;
+
+    font-size:24px;
+
+    font-weight:800;
+
+    color:#fff;
+
+    text-shadow:
+        0 0 15px rgba(0,210,255,.35);
+}
+
+
+/* =========================
+   DESCRIPTION
+========================= */
+
+.group-card p{
+
+    position:relative;
+
+    z-index:5;
+
+    width:90%;
+
+    margin:auto;
+
+    text-align:center;
+
+    color:
+        rgba(255,255,255,.72);
+
+    font-size:14px;
+
+    line-height:1.65;
+
+}
+
+
+/* =========================
+   BUTTON AREA
+========================= */
+
+.card-buttons{
+
+    position:relative;
+
+    z-index:10;
+
+    width:100%;
+
+    margin-top:auto;
+
+    padding-top:20px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:12px;
+}
+
+
+/* =========================
+   JOIN BUTTON
+========================= */
+
+.join-btn{
+
+    min-height:58px;
+
+    border-radius:18px;
+
+    font-size:16px;
+
+    font-weight:800;
+
+    background:
+        linear-gradient(
+            100deg,
+            #6b00ff,
+            #a000ff,
+            #008dff
+        );
+
+    border:
+        1px solid
+        rgba(255,255,255,.25);
+
+    box-shadow:
+        0 0 25px rgba(120,0,255,.35);
+
+    transition:.3s ease;
+}
+
+.join-btn:hover{
+
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        0 0 40px rgba(0,210,255,.55);
+}
+
+
+/* =========================
+   SECOND BUTTON
+========================= */
+
+.payment-btn{
+
+    min-height:52px;
+
+    border-radius:18px;
+
+    font-size:14px;
+
+    background:
+        rgba(5,8,30,.80);
+
+    border:
+        1px solid
+        rgba(120,130,255,.35);
+}
+
+
+/* =========================================================
+   MOBILE — LOOK LIKE YOUR SECOND IMAGE
+   ========================================================= */
+
+@media(max-width:768px){
+
+    .group-slider{
+        padding:
+            15px 0 65px;
+
+        perspective:1200px;
+    }
+
+    .slider-wrapper{
+        padding:
+            30px 0 45px;
+    }
+
+    .slider-track{
+        gap:12px;
+    }
+
+    .group-card{
+
+        flex:0 0 430px;
+
+        height:650px;
+
+        padding:14px;
+
+        border-radius:28px;
+
+        transform:
+            scale(.70)
+            translateZ(-80px);
+    }
+
+    .group-card.active{
+
+        transform:
+            scale(1)
+            translateZ(80px);
+    }
+
+    .group-card > img{
+
+        height:330px;
+
+        border-radius:21px;
+    }
+
+    .group-card h3{
+        font-size:22px;
+        margin-top:18px;
+    }
+
+    .group-card p{
+        font-size:13px;
+    }
+
+    .join-btn{
+        min-height:56px;
+        font-size:15px;
+    }
+
+    .payment-btn{
+        min-height:50px;
+    }
+}
+
+
+/* =========================================================
+   SMALL PHONE
+========================================================= */
+
+@media(max-width:500px){
+
+    .group-card{
+
+        flex:0 0 360px;
+
+        height:570px;
+
+        padding:12px;
+
+        border-radius:25px;
+    }
+
+    .group-card > img{
+
+        height:285px;
+
+        border-radius:19px;
+    }
+
+    .group-card h3{
+        font-size:20px;
+    }
+
+    .group-card p{
+        font-size:12px;
+    }
+
+    .join-btn{
+        min-height:50px;
+    }
+
+    .payment-btn{
+        min-height:46px;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL PHONE
+========================================================= */
+
+@media(max-width:390px){
+
+    .group-card{
+
+        flex:0 0 330px;
+
+        height:545px;
+    }
+
+    .group-card > img{
+        height:260px;
+    }
+
+    .group-card h3{
+        font-size:19px;
+    }
+
+    .group-card p{
+        font-size:11.5px;
+    }
+}
