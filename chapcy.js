@@ -1,6 +1,7 @@
 /* =========================================================
-   CHAPCY V9 COMPLETE
-   3D GROUP SLIDESHOW + CARD TRANSITIONS
+   CHAPCY V10
+   3D GROUP SLIDESHOW
+   FIXED CENTER + LAST CARDS
    ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -15,9 +16,16 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
 
+    const wrapper = slider.querySelector(".slider-wrapper");
+
+    if (!wrapper) {
+        console.warn("CHAPCY Slider: .slider-wrapper not found.");
+        return;
+    }
+
 
     /* =====================================================
-       GET ALL CARDS
+       CARDS
        ===================================================== */
 
     const cards = Array.from(
@@ -42,62 +50,70 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const AUTO_PLAY_TIME = 4000;
 
-    const DESKTOP_GAP = 24;
-
-    const MOBILE_GAP = 14;
-
 
     /* =====================================================
-       GET CURRENT GAP
+       GET REAL CARD POSITION
        ===================================================== */
 
-    function getGap() {
+    function getCardCenter(card) {
 
-        return window.innerWidth <= 700
-            ? MOBILE_GAP
-            : DESKTOP_GAP;
+        /*
+         * offsetLeft / offsetWidth are NOT affected
+         * by CSS transform:scale()
+         *
+         * This is the important fix.
+         */
+
+        return (
+            card.offsetLeft +
+            (card.offsetWidth / 2)
+        );
 
     }
 
 
     /* =====================================================
-       CENTER ACTIVE CARD
+       UPDATE SLIDER
        ===================================================== */
 
     function updateSlider(animate = true) {
 
         if (!cards.length) return;
 
-        const wrapper =
-            slider.querySelector(".slider-wrapper");
-
-        if (!wrapper) return;
-
         const wrapperWidth =
-            wrapper.getBoundingClientRect().width;
+            wrapper.clientWidth;
 
-        const cardWidth =
-            cards[0].getBoundingClientRect().width;
+        const activeCard =
+            cards[currentIndex];
 
-        const gap = getGap();
+        if (!activeCard) return;
 
-        const cardStep =
-            cardWidth + gap;
+
+        /* ================================================
+           FIND EXACT CENTER OF ACTIVE CARD
+           ================================================ */
+
+        const cardCenter =
+            getCardCenter(activeCard);
+
+
+        const wrapperCenter =
+            wrapperWidth / 2;
+
 
         /*
-         * Position active card
-         * exactly in the center.
+         * Move track so the selected card
+         * is EXACTLY in the middle.
          */
 
-        const centerPosition =
-            (wrapperWidth - cardWidth) / 2;
-
         const translateX =
-            centerPosition -
-            (currentIndex * cardStep);
+            wrapperCenter -
+            cardCenter;
 
 
-        /* Animation */
+        /* ================================================
+           TRANSITION
+           ================================================ */
 
         if (animate) {
 
@@ -112,13 +128,17 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
+        /* ================================================
+           MOVE TRACK
+           ================================================ */
+
         track.style.transform =
             `translate3d(${translateX}px, 0, 0)`;
 
 
-        /* =================================================
+        /* ================================================
            ACTIVE CARD
-           ================================================= */
+           ================================================ */
 
         cards.forEach((card, index) => {
 
@@ -133,7 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       NEXT SLIDE
+       NEXT
        ===================================================== */
 
     function nextSlide() {
@@ -154,7 +174,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       PREVIOUS SLIDE
+       PREVIOUS
        ===================================================== */
 
     function previousSlide() {
@@ -176,7 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       BUTTON EVENTS
+       BUTTONS
        ===================================================== */
 
     nextBtn.addEventListener(
@@ -215,15 +235,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (!isAnimating) {
 
-                currentIndex++;
-
-                if (currentIndex >= cards.length) {
-
-                    currentIndex = 0;
-
-                }
-
-                updateSlider(true);
+                nextSlide();
 
             }
 
@@ -255,7 +267,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       PAUSE WHEN MOUSE ENTERS
+       MOUSE PAUSE
        ===================================================== */
 
     slider.addEventListener(
@@ -287,11 +299,9 @@ document.addEventListener("DOMContentLoaded", () => {
        ===================================================== */
 
     let touchStartX = 0;
-
-    let touchEndX = 0;
-
     let touchStartY = 0;
 
+    let touchEndX = 0;
     let touchEndY = 0;
 
 
@@ -306,6 +316,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
             touchStartY =
                 event.touches[0].clientY;
+
+            touchEndX = touchStartX;
+            touchEndY = touchStartY;
 
             stopAutoplay();
 
@@ -345,14 +358,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const verticalDistance =
                 touchStartY - touchEndY;
 
+
             const swipeDistance = 50;
 
-
-            /*
-             * Only treat it as a swipe if
-             * horizontal movement is greater
-             * than vertical movement.
-             */
 
             if (
                 Math.abs(horizontalDistance) >
@@ -380,8 +388,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             touchStartX = 0;
-            touchEndX = 0;
             touchStartY = 0;
+
+            touchEndX = 0;
             touchEndY = 0;
 
 
@@ -392,17 +401,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       KEYBOARD CONTROLS
+       KEYBOARD
        ===================================================== */
 
     document.addEventListener(
         "keydown",
         (event) => {
-
-            /*
-             * Don't control slider while
-             * typing in an input.
-             */
 
             const activeElement =
                 document.activeElement;
@@ -414,6 +418,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     activeElement.tagName === "TEXTAREA" ||
                     activeElement.tagName === "SELECT"
                 );
+
 
             if (typing) return;
 
@@ -449,12 +454,6 @@ document.addEventListener("DOMContentLoaded", () => {
             "click",
             (event) => {
 
-                /*
-                 * Don't trigger card animation
-                 * when Join Group or Payment
-                 * button is clicked.
-                 */
-
                 if (
                     event.target.closest(".join-btn") ||
                     event.target.closest(".payment-btn")
@@ -468,30 +467,39 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (isAnimating) return;
 
 
+                /*
+                 * If another card was clicked,
+                 * first bring it to center.
+                 */
+
+                if (currentIndex !== index) {
+
+                    currentIndex = index;
+
+                    updateSlider(true);
+
+                    restartAutoplay();
+
+                    return;
+
+                }
+
+
+                /* =========================================
+                   OPEN GROUP
+                   ========================================= */
+
                 isAnimating = true;
 
                 stopAutoplay();
 
-
-                /* =========================================
-                   MAKE CLICKED CARD CENTER
-                   ========================================= */
 
                 currentIndex = index;
 
                 updateSlider(true);
 
 
-                /*
-                 * Wait for the card to reach
-                 * the center position.
-                 */
-
                 setTimeout(() => {
-
-                    /*
-                     * Save selected group.
-                     */
 
                     sessionStorage.setItem(
                         "chapcySelectedGroup",
@@ -499,20 +507,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     );
 
 
-                    /*
-                     * Save current slide.
-                     */
-
                     sessionStorage.setItem(
                         "chapcySlideIndex",
                         String(index)
                     );
 
-
-                    /*
-                     * Save that we are leaving
-                     * the slideshow.
-                     */
 
                     sessionStorage.setItem(
                         "chapcyLeavingGroup",
@@ -520,22 +519,12 @@ document.addEventListener("DOMContentLoaded", () => {
                     );
 
 
-                    /*
-                     * Add ENTER animation.
-                     */
-
                     card.classList.add(
                         "card-enter"
                     );
 
-
                 }, 700);
 
-
-                /*
-                 * Wait for the 3-rotation animation
-                 * to finish.
-                 */
 
                 setTimeout(() => {
 
@@ -577,33 +566,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 .toLowerCase();
 
 
-        /*
-         * Remove emojis and symbols.
-         */
-
         title =
             title
                 .replace(/[^\w\s-]/gi, "")
                 .trim();
 
 
-        /*
-         * Convert spaces to -
-         */
-
         title =
             title.replace(/\s+/g, "-");
 
-
-        /*
-         * Examples:
-         *
-         * Sporty Group
-         * -> sporty-group.html
-         *
-         * Music Group
-         * -> music-group.html
-         */
 
         return `${title}.html`;
 
@@ -629,10 +600,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        /*
-         * Get previous slide index.
-         */
-
         const savedIndex =
             parseInt(
                 sessionStorage.getItem(
@@ -652,6 +619,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 "chapcyLeavingGroup"
             );
 
+            isAnimating = false;
+
             startAutoplay();
 
             return;
@@ -659,17 +628,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        /*
-         * Restore slide.
-         */
-
         currentIndex =
             savedIndex;
 
 
         /*
-         * Put card in center
-         * without animation first.
+         * Put correct card in center immediately.
          */
 
         updateSlider(false);
@@ -681,6 +645,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!selectedCard) {
 
+            isAnimating = false;
+
             startAutoplay();
 
             return;
@@ -689,12 +655,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         /*
-         * Remove any old classes.
+         * Keep active state.
          */
-
-        selectedCard.classList.remove(
-            "active"
-        );
 
         selectedCard.classList.remove(
             "card-enter"
@@ -705,28 +667,13 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
-        /*
-         * Force browser reflow.
-         * This makes the reverse animation
-         * start correctly.
-         */
-
         void selectedCard.offsetWidth;
 
-
-        /*
-         * Add reverse animation.
-         */
 
         selectedCard.classList.add(
             "card-exit"
         );
 
-
-        /*
-         * After animation finishes,
-         * return to normal slideshow.
-         */
 
         setTimeout(() => {
 
@@ -760,11 +707,6 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener(
         "pageshow",
         () => {
-
-            /*
-             * Small delay gives the browser
-             * time to restore the page.
-             */
 
             setTimeout(() => {
 
@@ -801,7 +743,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       PREVENT IMAGE DRAGGING
+       PREVENT IMAGE DRAG
        ===================================================== */
 
     cards.forEach((card) => {
@@ -831,11 +773,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     updateSlider(false);
 
-
-    /*
-     * Check if we came back
-     * from a group page.
-     */
 
     const returning =
         sessionStorage.getItem(
