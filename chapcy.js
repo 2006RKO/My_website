@@ -181,22 +181,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =========================================
-       PAUSE WHEN TOUCHING
-    ========================================= */
-
-    wrapper.addEventListener(
-        "mouseenter",
-        stopAuto
-    );
-
-
-    wrapper.addEventListener(
-        "mouseleave",
-        startAuto
-    );
-
-
-    /* =========================================
        MOBILE SWIPE
     ========================================= */
 
