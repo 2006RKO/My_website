@@ -9,8 +9,11 @@
 
 "use strict";
 
-document.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("load", function () {
 
+    alert("🔥 CHAPCY SCRIPT INAFANYA KAZI!");
+
+});
     const wrapper = document.querySelector(".slider-wrapper");
     const track = document.getElementById("sliderTrack");
     const nextBtn = document.getElementById("nextBtn");
