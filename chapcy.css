@@ -1,237 +1,582 @@
+/* =========================================================
+              CHAPCY V5 PREMIUM CARDS
+              CENTER ACTIVE CAROUSEL
+========================================================= */
+
 *{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
 }
 
 body{
-  font-family: 'Poppins', sans-serif;
-  background: #05010d;
-  color: white;
-  overflow-x: hidden;
+    min-height:100vh;
+    overflow-x:hidden;
+
+    font-family:'Poppins',sans-serif;
+    color:#fff;
+
+    background:#05051d;
 }
+
+
+/* =========================================================
+                    BACKGROUND
+========================================================= */
 
 .background{
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: -3;
-  filter: brightness(0.7) saturate(1.2);
+    position:fixed;
+
+    inset:0;
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    z-index:-10;
+
+    pointer-events:none;
 }
+
+
+/* =========================================================
+                    BUBBLE
+========================================================= */
 
 .bubble{
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(circle at 20% 20%, rgba(157, 0, 255, 0.18), transparent 25%),
-              radial-gradient(circle at 80% 10%, rgba(0, 191, 255, 0.18), transparent 25%),
-              radial-gradient(circle at 70% 80%, rgba(255, 0, 180, 0.12), transparent 20%);
-  z-index: -2;
-  pointer-events: none;
+    position:fixed;
+
+    inset:0;
+
+    z-index:-5;
+
+    pointer-events:none;
+
+    overflow:hidden;
 }
+
+
+/* =========================================================
+                    PAGE
+========================================================= */
 
 .page{
+    position:relative;
+
     width:100%;
-    max-width:1600px;
-    margin:auto;
-    padding:30px 40px;
-}
-.topbar{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 10px 0 30px;
+    min-height:100vh;
+
+    padding-bottom:80px;
+
+    overflow:hidden;
 }
 
-.menu-btn,
-.icon-btn,
-.slider-btn{
-  border: 1px solid rgba(255,255,255,0.15);
-  background: rgba(10, 10, 30, 0.55);
-  color: white;
-  backdrop-filter: blur(12px);
-  box-shadow: 0 0 20px rgba(120, 0, 255, 0.25);
+
+/* =========================================================
+                    TOP BAR
+========================================================= */
+
+.topbar{
+    width:100%;
+    max-width:1250px;
+
+    margin:auto;
+
+    padding:18px 24px;
+
+    display:flex;
+    align-items:center;
+
+    gap:20px;
+
+    position:relative;
+    z-index:20;
 }
+
+
+/* MENU */
 
 .menu-btn{
-  width: 58px;
-  height: 58px;
-  border-radius: 18px;
-  font-size: 1.2rem;
+    width:58px;
+    height:58px;
+
+    flex:none;
+
+    border:1px solid
+        rgba(255,255,255,.15);
+
+    border-radius:18px;
+
+    color:#fff;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(100,40,220,.85),
+            rgba(35,15,100,.8)
+        );
+
+    font-size:23px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 10px 30px
+        rgba(0,0,0,.35),
+
+        0 0 25px
+        rgba(100,60,255,.25);
+
+    transition:.3s;
 }
 
+.menu-btn:hover{
+    transform:scale(1.06);
+}
+
+
+/* =========================================================
+                    BRAND
+========================================================= */
+
 .brand{
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex: 1;
+    display:flex;
+    align-items:center;
+
+    gap:13px;
+
+    margin-right:auto;
 }
 
 .logo{
     width:80px;
     height:80px;
+
     border-radius:50%;
+
     object-fit:cover;
-    box-shadow:0 0 25px rgba(0,220,255,.6);
+
+    flex:none;
+
+    border:
+        2px solid
+        rgba(255,255,255,.15);
+
+    box-shadow:
+        0 0 25px
+        rgba(0,220,255,.3);
 }
+
 .brand h1{
-  font-size: 1.6rem;
-  line-height: 1;
-  background: linear-gradient(90deg, #00d4ff, #a855f7, #ff4fd8);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+    font-size:29px;
+    font-weight:800;
+
+    line-height:1;
+
+    background:
+        linear-gradient(
+            90deg,
+            #00ddff,
+            #708cff,
+            #dc48ff
+        );
+
+    -webkit-background-clip:text;
+    background-clip:text;
+
+    color:transparent;
 }
 
 .brand p{
-  font-size: 0.9rem;
-  color: #d8d8ff;
+    margin-top:5px;
+
+    font-size:14px;
+
+    color:#fff;
+
+    opacity:.9;
 }
+
+
+/* =========================================================
+                    TOP ACTIONS
+========================================================= */
 
 .top-actions{
-  display: flex;
-  align-items: center;
-  gap: 14px;
+    display:flex;
+    align-items:center;
+
+    gap:11px;
 }
 
+
+/* PROFILE */
+
 .profile{
-  position: relative;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  border: 2px solid rgba(0, 220, 255, 0.8);
-  overflow: hidden;
-  box-shadow: 0 0 18px rgba(0, 220, 255, 0.4);
+    width:61px;
+    height:61px;
+
+    position:relative;
+
+    padding:2px;
+
+    border-radius:50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #00eaff,
+            #874aff
+        );
+
+    box-shadow:
+        0 0 22px
+        rgba(0,220,255,.3);
 }
 
 .profile img{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    display:block;
+
+    border-radius:50%;
+
+    border:
+        3px solid
+        #07102c;
 }
 
 .online-dot{
-  position: absolute;
-  right: 2px;
-  bottom: 2px;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: #2cff7b;
-  border: 2px solid #0b0617;
+    position:absolute;
+
+    right:2px;
+    bottom:3px;
+
+    width:12px;
+    height:12px;
+
+    border-radius:50%;
+
+    background:#26ed7d;
+
+    border:2px solid #07102c;
 }
+
+
+/* NOTIFICATION */
 
 .icon-btn{
-  position: relative;
-  width: 56px;
-  height: 56px;
-  border-radius: 18px;
-  font-size: 1.1rem;
+    width:61px;
+    height:61px;
+
+    position:relative;
+
+    border-radius:19px;
+
+    border:
+        1px solid
+        rgba(90,210,255,.22);
+
+    background:
+        rgba(4,12,42,.72);
+
+    color:#fff;
+
+    font-size:20px;
+
+    cursor:pointer;
+
+    backdrop-filter:blur(12px);
 }
+
+
+/* BADGE */
 
 .badge{
-  position: absolute;
-  top: -6px;
-  right: -4px;
-  background: #ff2b7a;
-  color: white;
-  font-size: 0.75rem;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-}
+    position:absolute;
 
-.reputation{
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 14px 18px;
-  border-radius: 18px;
-  border: 1px solid rgba(255,255,255,0.15);
-  background: rgba(10, 10, 30, 0.55);
-  backdrop-filter: blur(12px);
-  color: #fff;
-}
+    top:-7px;
+    right:-5px;
 
-.reputation i{
-  color: #f1c40f;
-}
+    min-width:25px;
+    height:25px;
 
-.hero{
-  text-align: center;
-  margin: 35px 0 25px;
-}
-
-.hero h2{
-    font-size:60px;
-    font-weight:800;
-}
-.hero h2 span{
-  background: linear-gradient(90deg, #71d7ff, #b44cff, #ff65e1);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.hero p{
-  margin-top: 10px;
-  font-size: 1rem;
-  color: #d8d8ff;
-}
-
-.groups-slider{
-    width:100%;
     display:flex;
     align-items:center;
     justify-content:center;
-    gap:20px;
-    overflow:hidden;
-    position:relative;
-    padding:40px 0;
+
+    border-radius:50%;
+
+    background:#ff347d;
+
+    color:#fff;
+
+    font-size:11px;
+
+    font-weight:700;
+
+    border:
+        2px solid
+        #11143c;
 }
 
-.slider-wrapper{
-    width:100%;
-    overflow:hidden;
-}
 
-.slider-track{
+/* TROPHY */
+
+.reputation{
+    height:61px;
+
+    padding:0 19px;
+
     display:flex;
     align-items:center;
-    gap:30px;
-    transition:transform .8s ease;
+
+    gap:9px;
+
+    border-radius:19px;
+
+    border:
+        1px solid
+        rgba(90,210,255,.22);
+
+    background:
+        rgba(4,12,42,.72);
+
+    backdrop-filter:blur(12px);
+
+    font-size:16px;
+
+    white-space:nowrap;
 }
+
+.reputation i{
+    color:#ffd328;
+
+    font-size:21px;
+}
+
+
+/* =========================================================
+                    HERO
+========================================================= */
+
+.hero{
+    width:100%;
+    max-width:950px;
+
+    margin:70px auto 40px;
+
+    padding:0 20px;
+
+    text-align:center;
+}
+
+.hero h2{
+    font-size:
+        clamp(45px,7vw,78px);
+
+    line-height:1.05;
+
+    font-weight:900;
+
+    letter-spacing:-2px;
+}
+
+.hero h2 span{
+    display:block;
+
+    margin-top:7px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #9258ff,
+            #d743ff,
+            #ff57d5
+        );
+
+    -webkit-background-clip:text;
+    background-clip:text;
+
+    color:transparent;
+}
+
+.hero p{
+    margin-top:20px;
+
+    font-size:17px;
+
+    color:#fff;
+
+    opacity:.9;
+}
+
+
+/* =========================================================
+              PREMIUM GROUP SLIDER
+========================================================= */
+
+.group-slider{
+    width:100%;
+    max-width:1350px;
+
+    margin:0 auto;
+
+    position:relative;
+
+    padding:0 40px;
+
+    z-index:5;
+}
+
+
+/* =========================================================
+                  SLIDER WINDOW
+========================================================= */
+
+.slider-wrapper{
+
+    width:100%;
+
+    overflow:hidden;
+
+    position:relative;
+
+    padding:
+        35px 0
+        45px;
+
+    touch-action:pan-y;
+
+    cursor:grab;
+}
+
+.slider-wrapper:active{
+    cursor:grabbing;
+}
+
+
+/* =========================================================
+                    TRACK
+========================================================= */
+
+.slider-track{
+
+    display:flex;
+    align-items:center;
+
+    gap:20px;
+
+    width:max-content;
+
+    will-change:transform;
+
+    user-select:none;
+}
+
+
+/* =========================================================
+                  GROUP CARD
+========================================================= */
+
 .group-card{
 
     position:relative;
 
-    width:360px;
+    flex:
+        0 0 340px;
 
-    min-height:620px;
+    width:340px;
 
-    padding:22px;
-
-    border-radius:35px;
-
-    background:
-    linear-gradient(180deg,
-    rgba(35,25,70,.85),
-    rgba(10,10,30,.85));
-
-    border:2px solid rgba(120,180,255,.45);
-
-    backdrop-filter:blur(20px);
-
-    box-shadow:
-    0 0 30px rgba(0,180,255,.25),
-    0 0 60px rgba(180,0,255,.18);
+    height:445px;
 
     overflow:hidden;
 
-    transition:.6s;
+    border-radius:30px;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(9,12,48,.88),
+            rgba(5,7,30,.95)
+        );
+
+    border:
+        1px solid
+        rgba(70,210,255,.22);
+
+    box-shadow:
+        0 15px 40px
+        rgba(0,0,0,.5);
+
+    opacity:.48;
+
+    transform:
+        scale(.86);
+
+    filter:
+        brightness(.65)
+        saturate(.8)
+        blur(.2px);
+
+    transition:
+        transform .72s cubic-bezier(.22,.61,.36,1),
+        opacity .72s ease,
+        filter .72s ease,
+        box-shadow .72s ease,
+        border-color .72s ease;
+
+    flex-shrink:0;
 }
+
+
+/* =========================================================
+              ACTIVE CENTER CARD
+========================================================= */
+
+.group-card.active{
+
+    opacity:1;
+
+    transform:
+        scale(1);
+
+    filter:
+        brightness(1)
+        saturate(1.12)
+        blur(0);
+
+    border-color:
+        rgba(70,225,255,.72);
+
+    box-shadow:
+
+        0 25px 65px
+        rgba(0,0,0,.6),
+
+        0 0 35px
+        rgba(0,215,255,.2),
+
+        0 0 80px
+        rgba(120,50,255,.13);
+}
+
+
+/* =========================================================
+                    CARD GLOW
+========================================================= */
 
 .group-card::before{
 
@@ -239,135 +584,669 @@ body{
 
     position:absolute;
 
-    inset:0;
+    top:-80px;
+    right:-80px;
 
-    border-radius:35px;
+    width:190px;
+    height:190px;
 
-    padding:2px;
+    border-radius:50%;
 
     background:
-    linear-gradient(135deg,
-    #4fd7ff,
-    #9d4dff,
-    #ff3dbb);
+        rgba(0,210,255,.13);
 
-    -webkit-mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-
-    -webkit-mask-composite:xor;
+    filter:blur(40px);
 
     pointer-events:none;
-
 }
 
-.group-image{
+.group-card::after{
 
-    width:100%;
-
-    height:260px;
-
-    object-fit:cover;
-
-    border-radius:25px;
-
-    margin-bottom:20px;
-
-}
-
-.live-badge{
+    content:"";
 
     position:absolute;
 
-    top:18px;
+    bottom:-100px;
+    left:-80px;
 
-    left:18px;
+    width:220px;
+    height:220px;
 
-    background:#ff2f7b;
+    border-radius:50%;
+
+    background:
+        rgba(150,40,255,.15);
+
+    filter:blur(45px);
+
+    pointer-events:none;
+}
+
+
+/* =========================================================
+                    IMAGE
+========================================================= */
+
+.group-card > img{
+
+    display:block;
+
+    width:100%;
+    height:220px;
+
+    object-fit:cover;
+
+    pointer-events:none;
+
+    user-select:none;
+
+    filter:
+        brightness(.75)
+        saturate(1.05);
+
+    transition:
+        transform .7s ease,
+        filter .7s ease;
+}
+
+.group-card.active > img{
+
+    filter:
+        brightness(.95)
+        saturate(1.18);
+
+    transform:scale(1.03);
+}
+
+
+/* =========================================================
+                IMAGE BOTTOM FADE
+========================================================= */
+
+.group-card > img{
+
+    -webkit-mask-image:
+        linear-gradient(
+            to bottom,
+            #000 65%,
+            transparent 100%
+        );
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            #000 65%,
+            transparent 100%
+        );
+}
+
+
+/* =========================================================
+                    TITLE
+========================================================= */
+
+.group-card h3{
+
+    position:relative;
+
+    z-index:3;
+
+    margin:
+        -4px 22px 0;
 
     color:#fff;
 
-    padding:8px 16px;
+    font-size:21px;
 
-    border-radius:30px;
+    font-weight:800;
 
-    font-size:13px;
+    line-height:1.3;
 
-    font-weight:700;
-
+    transition:.5s;
 }
 
-.group-card h2{
+.group-card.active h3{
 
-    font-size:30px;
-
-    text-align:center;
-
-    margin:15px 0;
-
+    text-shadow:
+        0 0 15px
+        rgba(100,220,255,.25);
 }
 
-.members{
 
-    display:flex;
-
-    justify-content:center;
-
-    gap:8px;
-
-    color:#79ffae;
-
-    margin-bottom:15px;
-
-}
+/* =========================================================
+                    DESCRIPTION
+========================================================= */
 
 .group-card p{
 
-    text-align:center;
+    position:relative;
 
-    line-height:1.8;
+    z-index:3;
 
-    color:#d9d9ff;
+    margin:
+        9px 22px 0;
 
+    min-height:63px;
+
+    color:
+        rgba(255,255,255,.68);
+
+    font-size:13px;
+
+    line-height:1.6;
 }
+
+
+/* =========================================================
+                    BUTTON AREA
+========================================================= */
 
 .card-buttons{
 
+    position:relative;
+
+    z-index:4;
+
     display:flex;
 
-    gap:15px;
+    gap:9px;
 
-    margin-top:30px;
-
+    padding:
+        18px 22px 22px;
 }
 
+
+/* =========================================================
+                    JOIN BUTTON
+========================================================= */
+
 .join-btn,
-.pro-btn{
+.payment-btn{
 
-    flex:1;
+    min-height:43px;
 
-    text-align:center;
+    display:flex;
 
-    padding:16px;
+    align-items:center;
+    justify-content:center;
 
-    border-radius:18px;
+    padding:0 14px;
+
+    border-radius:14px;
 
     text-decoration:none;
 
+    font-size:12px;
+
     font-weight:700;
 
-    color:white;
+    transition:.3s;
 
+    white-space:nowrap;
 }
 
 .join-btn{
 
-    background:linear-gradient(90deg,#12c2ff,#2b6cff);
+    flex:1;
 
+    color:#fff;
+
+    background:
+        linear-gradient(
+            90deg,
+            #623bff,
+            #c53cff
+        );
+
+    box-shadow:
+        0 8px 25px
+        rgba(105,45,255,.28);
 }
 
-.pro-btn{
+.join-btn:hover{
 
-    background:linear-gradient(90deg,#8b2cff,#ff2fb8);
+    transform:
+        translateY(-3px);
 
+    box-shadow:
+        0 12px 30px
+        rgba(120,45,255,.42);
 }
+
+
+/* =========================================================
+                    PAYMENT
+========================================================= */
+
+.payment-btn{
+
+    color:#70e9ff;
+
+    border:
+        1px solid
+        rgba(70,220,255,.35);
+
+    background:
+        rgba(0,170,230,.08);
+}
+
+.payment-btn:hover{
+
+    color:#fff;
+
+    background:
+        rgba(0,190,255,.18);
+
+    border-color:
+        rgba(70,220,255,.75);
+}
+
+
+/* =========================================================
+                    ARROWS
+========================================================= */
+
+.slider-btn{
+
+    position:absolute;
+
+    top:50%;
+
+    width:50px;
+    height:50px;
+
+    transform:
+        translateY(-50%);
+
+    border-radius:50%;
+
+    border:
+        1px solid
+        rgba(70,220,255,.4);
+
+    background:
+        rgba(4,12,42,.86);
+
+    color:#fff;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-size:17px;
+
+    cursor:pointer;
+
+    z-index:15;
+
+    backdrop-filter:blur(12px);
+
+    box-shadow:
+        0 10px 30px
+        rgba(0,0,0,.4);
+
+    transition:.3s;
+}
+
+.slider-btn:hover{
+
+    transform:
+        translateY(-50%)
+        scale(1.1);
+
+    border-color:
+        rgba(80,225,255,.85);
+
+    box-shadow:
+        0 0 25px
+        rgba(0,210,255,.25);
+}
+
+.slider-btn.prev{
+    left:0;
+}
+
+.slider-btn.next{
+    right:0;
+}
+
+
+/* =========================================================
+                    XP
+========================================================= */
+
+.xp-reward{
+
+    position:fixed;
+
+    left:50%;
+    bottom:30px;
+
+    transform:
+        translate(-50%,30px);
+
+    opacity:0;
+
+    pointer-events:none;
+
+    z-index:100;
+
+    transition:.35s;
+}
+
+.xp-reward.show{
+
+    opacity:1;
+
+    transform:
+        translate(-50%,0);
+}
+
+.xp-box{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:
+        11px 18px;
+
+    border-radius:30px;
+
+    color:#fff;
+
+    background:
+        linear-gradient(
+            90deg,
+            #6035ff,
+            #d13cff
+        );
+
+    box-shadow:
+        0 10px 35px
+        rgba(100,40,255,.35);
+}
+
+.xp-box i{
+    color:#ffd62c;
+}
+
+
+/* =========================================================
+                    TABLET
+========================================================= */
+
+@media(max-width:1000px){
+
+    .group-slider{
+        padding:0 35px;
+    }
+
+    .group-card{
+
+        flex-basis:310px;
+
+        width:310px;
+
+        height:425px;
+    }
+}
+
+
+/* =========================================================
+                    MOBILE
+========================================================= */
+
+@media(max-width:650px){
+
+    .topbar{
+
+        padding:
+            12px 10px;
+
+        gap:7px;
+    }
+
+    .menu-btn{
+
+        width:48px;
+        height:48px;
+
+        border-radius:15px;
+
+        font-size:20px;
+    }
+
+    .brand{
+
+        gap:7px;
+    }
+
+    .logo{
+
+        width:57px;
+        height:57px;
+    }
+
+    .brand h1{
+
+        font-size:20px;
+    }
+
+    .brand p{
+
+        font-size:9px;
+    }
+
+    .top-actions{
+
+        gap:5px;
+    }
+
+    .profile{
+
+        width:47px;
+        height:47px;
+    }
+
+    .icon-btn{
+
+        width:47px;
+        height:47px;
+
+        border-radius:14px;
+
+        font-size:17px;
+    }
+
+    .reputation{
+
+        height:47px;
+
+        padding:
+            0 10px;
+
+        border-radius:14px;
+
+        font-size:12px;
+    }
+
+    .reputation i{
+
+        font-size:16px;
+    }
+
+
+    /* HERO */
+
+    .hero{
+
+        margin:
+            48px auto 20px;
+
+        padding:0 15px;
+    }
+
+    .hero h2{
+
+        font-size:
+            clamp(
+                38px,
+                11vw,
+                55px
+            );
+
+        letter-spacing:-1.5px;
+    }
+
+    .hero p{
+
+        margin-top:15px;
+
+        font-size:13px;
+    }
+
+
+    /* =====================================================
+                  MOBILE CENTER CARD
+    ===================================================== */
+
+    .group-slider{
+
+        padding:
+            0 12px;
+    }
+
+    .slider-wrapper{
+
+        padding:
+            35px 0 40px;
+    }
+
+    .slider-track{
+
+        gap:14px;
+    }
+
+    .group-card{
+
+        flex:
+            0 0 calc(100vw - 55px);
+
+        width:
+            calc(100vw - 55px);
+
+        height:420px;
+
+        border-radius:27px;
+
+        transform:
+            scale(.84);
+
+        opacity:.35;
+    }
+
+    .group-card.active{
+
+        transform:
+            scale(1);
+
+        opacity:1;
+    }
+
+    .group-card > img{
+
+        height:205px;
+    }
+
+    .group-card h3{
+
+        margin-left:19px;
+        margin-right:19px;
+
+        font-size:20px;
+    }
+
+    .group-card p{
+
+        margin-left:19px;
+        margin-right:19px;
+
+        font-size:12.5px;
+    }
+
+    .card-buttons{
+
+        padding:
+            17px 19px 20px;
+    }
+
+
+    /* ARROWS */
+
+    .slider-btn{
+
+        width:39px;
+        height:39px;
+
+        font-size:14px;
+    }
+
+    .slider-btn.prev{
+
+        left:2px;
+    }
+
+    .slider-btn.next{
+
+        right:2px;
+    }
+}
+
+
+/* =========================================================
+                    VERY SMALL PHONES
+========================================================= */
+
+@media(max-width:380px){
+
+    .brand p{
+        display:none;
+    }
+
+    .brand h1{
+        font-size:18px;
+    }
+
+    .logo{
+        width:52px;
+        height:52px;
+    }
+
+    .reputation span{
+        display:none;
+    }
+
+    .hero h2{
+        font-size:36px;
+    }
+
+    .group-card{
+
+        flex-basis:
+            calc(100vw - 45px);
+
+        width:
+            calc(100vw - 45px);
+
+        height:400px;
+    }
+
+    .group-card > img{
+
+        height:190px;
+    }
+  }
