@@ -1,1177 +1,523 @@
 /* =========================================================
-              CHAPCY V5 PREMIUM CARDS
-              CENTER ACTIVE CAROUSEL
-========================================================= */
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-html{
-    scroll-behavior:smooth;
-}
-
-body{
-    min-height:100vh;
-    overflow-x:hidden;
-
-    font-family:'Poppins',sans-serif;
-    color:#fff;
-
-    background:#05051d;
-}
-
-
-/* =========================================================
-                    BACKGROUND
-========================================================= */
-
-.background{
-    position:fixed;
-
-    inset:0;
-
-    width:100%;
-    height:100%;
-
-    object-fit:cover;
-
-    z-index:-10;
-
-    pointer-events:none;
-}
-
-
-/* =========================================================
-                    BUBBLE
-========================================================= */
-
-.bubble{
-    position:fixed;
-
-    inset:0;
-
-    z-index:-5;
-
-    pointer-events:none;
-
-    overflow:hidden;
-}
-
-
-/* =========================================================
-                    PAGE
-========================================================= */
-
-.page{
-    position:relative;
-
-    width:100%;
-    min-height:100vh;
-
-    padding-bottom:80px;
-
-    overflow:hidden;
-}
-
-
-/* =========================================================
-                    TOP BAR
-========================================================= */
-
-.topbar{
-    width:100%;
-    max-width:1250px;
-
-    margin:auto;
-
-    padding:18px 24px;
-
-    display:flex;
-    align-items:center;
-
-    gap:20px;
-
-    position:relative;
-    z-index:20;
-}
-
-
-/* MENU */
-
-.menu-btn{
-    width:58px;
-    height:58px;
-
-    flex:none;
-
-    border:1px solid
-        rgba(255,255,255,.15);
-
-    border-radius:18px;
-
-    color:#fff;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(100,40,220,.85),
-            rgba(35,15,100,.8)
-        );
-
-    font-size:23px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    cursor:pointer;
-
-    box-shadow:
-        0 10px 30px
-        rgba(0,0,0,.35),
-
-        0 0 25px
-        rgba(100,60,255,.25);
-
-    transition:.3s;
-}
-
-.menu-btn:hover{
-    transform:scale(1.06);
-}
-
-
-/* =========================================================
-                    BRAND
-========================================================= */
-
-.brand{
-    display:flex;
-    align-items:center;
-
-    gap:13px;
-
-    margin-right:auto;
-}
-
-.logo{
-    width:80px;
-    height:80px;
-
-    border-radius:50%;
-
-    object-fit:cover;
-
-    flex:none;
-
-    border:
-        2px solid
-        rgba(255,255,255,.15);
-
-    box-shadow:
-        0 0 25px
-        rgba(0,220,255,.3);
-}
-
-.brand h1{
-    font-size:29px;
-    font-weight:800;
-
-    line-height:1;
-
-    background:
-        linear-gradient(
-            90deg,
-            #00ddff,
-            #708cff,
-            #dc48ff
-        );
-
-    -webkit-background-clip:text;
-    background-clip:text;
-
-    color:transparent;
-}
-
-.brand p{
-    margin-top:5px;
-
-    font-size:14px;
-
-    color:#fff;
-
-    opacity:.9;
-}
-
-
-/* =========================================================
-                    TOP ACTIONS
-========================================================= */
-
-.top-actions{
-    display:flex;
-    align-items:center;
-
-    gap:11px;
-}
-
-
-/* PROFILE */
-
-.profile{
-    width:61px;
-    height:61px;
-
-    position:relative;
-
-    padding:2px;
-
-    border-radius:50%;
-
-    background:
-        linear-gradient(
-            135deg,
-            #00eaff,
-            #874aff
-        );
-
-    box-shadow:
-        0 0 22px
-        rgba(0,220,255,.3);
-}
-
-.profile img{
-    width:100%;
-    height:100%;
-
-    object-fit:cover;
-
-    display:block;
-
-    border-radius:50%;
-
-    border:
-        3px solid
-        #07102c;
-}
-
-.online-dot{
-    position:absolute;
-
-    right:2px;
-    bottom:3px;
-
-    width:12px;
-    height:12px;
-
-    border-radius:50%;
-
-    background:#26ed7d;
-
-    border:2px solid #07102c;
-}
-
-
-/* NOTIFICATION */
-
-.icon-btn{
-    width:61px;
-    height:61px;
-
-    position:relative;
-
-    border-radius:19px;
-
-    border:
-        1px solid
-        rgba(90,210,255,.22);
-
-    background:
-        rgba(4,12,42,.72);
-
-    color:#fff;
-
-    font-size:20px;
-
-    cursor:pointer;
-
-    backdrop-filter:blur(12px);
-}
-
-
-/* BADGE */
-
-.badge{
-    position:absolute;
-
-    top:-7px;
-    right:-5px;
-
-    min-width:25px;
-    height:25px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    border-radius:50%;
-
-    background:#ff347d;
-
-    color:#fff;
-
-    font-size:11px;
-
-    font-weight:700;
-
-    border:
-        2px solid
-        #11143c;
-}
-
-
-/* TROPHY */
-
-.reputation{
-    height:61px;
-
-    padding:0 19px;
-
-    display:flex;
-    align-items:center;
-
-    gap:9px;
-
-    border-radius:19px;
-
-    border:
-        1px solid
-        rgba(90,210,255,.22);
-
-    background:
-        rgba(4,12,42,.72);
-
-    backdrop-filter:blur(12px);
-
-    font-size:16px;
-
-    white-space:nowrap;
-}
-
-.reputation i{
-    color:#ffd328;
-
-    font-size:21px;
-}
-
-
-/* =========================================================
-                    HERO
-========================================================= */
-
-.hero{
-    width:100%;
-    max-width:950px;
-
-    margin:70px auto 40px;
-
-    padding:0 20px;
-
-    text-align:center;
-}
-
-.hero h2{
-    font-size:
-        clamp(45px,7vw,78px);
-
-    line-height:1.05;
-
-    font-weight:900;
-
-    letter-spacing:-2px;
-}
-
-.hero h2 span{
-    display:block;
-
-    margin-top:7px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #9258ff,
-            #d743ff,
-            #ff57d5
-        );
-
-    -webkit-background-clip:text;
-    background-clip:text;
-
-    color:transparent;
-}
-
-.hero p{
-    margin-top:20px;
-
-    font-size:17px;
-
-    color:#fff;
-
-    opacity:.9;
-}
-
-
-/* =========================================================
-              CHAPCY V5 NEON GROUP CARDS
-              NO STATISTICS VERSION
-========================================================= */
+   CHAPCY V9 — TOP GROUPS 3D SLIDESHOW
+   ========================================================= */
 
 .group-slider{
-    width:100%;
-    max-width:1450px;
-    margin:0 auto;
-    padding:0 38px;
-    position:relative;
+  width:100%;
+  max-width:1400px;
+  margin:35px auto 0;
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:35px 0 70px;
+  overflow:hidden;
 }
 
-
-/* =========================================================
-                    SLIDER WINDOW
-========================================================= */
-
+/* SLIDER WINDOW */
 .slider-wrapper{
-    width:100%;
-    overflow:hidden;
-    position:relative;
-
-    padding:45px 0 65px;
-
-    touch-action:pan-y;
-
-    cursor:grab;
-
-    isolation:isolate;
+  width:100%;
+  overflow:hidden;
+  position:relative;
+  padding:25px 0 35px;
 }
-/* =========================================================
-                    TRACK
-========================================================= */
+
+/* TRACK */
 .slider-track{
-    display:flex;
-    align-items:center;
-    gap:22px;
-
-    width:max-content;
-    min-width:max-content;
-
-    will-change:transform;
-
-    user-select:none;
-
-    transform:translate3d(0,0,0);
-
-    backface-visibility:hidden;
-
-    -webkit-backface-visibility:hidden;
+  display:flex;
+  align-items:center;
+  gap:24px;
+  width:max-content;
+  transition:transform .75s cubic-bezier(.22,.61,.36,1);
+  will-change:transform;
 }
 
-
 /* =========================================================
-                    MAIN CARD
-========================================================= */
+   CARD
+   ========================================================= */
 
 .group-card{
+  position:relative;
+  flex:0 0 330px;
+  height:510px;
 
-    position:relative;
+  border:1px solid rgba(0,195,255,.25);
+  border-radius:28px;
 
-    flex:0 0 335px;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(12,18,48,.92),
+      rgba(7,5,30,.88)
+    );
 
-    width:335px;
+  box-shadow:
+    0 0 15px rgba(0,195,255,.08),
+    inset 0 0 25px rgba(100,0,255,.05);
 
-    height:525px;
+  overflow:hidden;
 
-    overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
 
-    border-radius:30px;
+  padding:16px;
 
-    background:
-        linear-gradient(
-            180deg,
-            rgba(8,7,38,.96),
-            rgba(4,5,25,.98)
-        );
+  transform:scale(.78);
+  opacity:.38;
 
-    border:
-        1.5px solid
-        rgba(45,170,255,.55);
+  filter:blur(.4px);
 
-    box-shadow:
-        0 15px 45px rgba(0,0,0,.5),
-        0 0 25px rgba(20,100,255,.12);
+  transition:
+    transform .75s cubic-bezier(.22,.61,.36,1),
+    opacity .75s ease,
+    filter .75s ease,
+    border-color .75s ease,
+    box-shadow .75s ease;
 
-    opacity:.45;
-
-    transform:scale(.82);
-
-    filter:
-        brightness(.58)
-        saturate(.8);
-
-    transition:
-        transform .72s cubic-bezier(.22,.61,.36,1),
-        opacity .72s ease,
-        filter .72s ease,
-        box-shadow .72s ease,
-        border-color .72s ease;
-
-    flex-shrink:0;
+  user-select:none;
 }
 
+/* CARD IMAGE */
+.group-card > img{
+  width:100%;
+  height:245px;
+
+  object-fit:cover;
+
+  border-radius:20px;
+
+  display:block;
+
+  background:#08091c;
+
+  border:1px solid rgba(255,255,255,.08);
+
+  transition:
+    transform .7s ease,
+    filter .7s ease;
+}
+
+/* CARD TITLE */
+.group-card h3{
+  width:100%;
+  margin:18px 0 8px;
+
+  text-align:center;
+
+  color:#fff;
+
+  font-size:21px;
+  font-weight:700;
+
+  text-shadow:
+    0 0 10px rgba(0,195,255,.35);
+
+  white-space:nowrap;
+}
+
+/* CARD DESCRIPTION */
+.group-card p{
+  width:92%;
+
+  margin:0 auto;
+
+  text-align:center;
+
+  color:rgba(255,255,255,.68);
+
+  font-size:13px;
+  line-height:1.6;
+
+  display:-webkit-box;
+  -webkit-line-clamp:3;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}
 
 /* =========================================================
-                  ACTIVE CENTER CARD
-========================================================= */
+   ACTIVE / CENTER CARD
+   ========================================================= */
 
 .group-card.active{
+  transform:scale(1);
+  opacity:1;
 
-    opacity:1;
+  filter:blur(0);
 
-    transform:scale(1.08);
+  border-color:rgba(0,220,255,.9);
 
-    filter:
-        brightness(1)
-        saturate(1.2);
-
-    z-index:10;
-
-    border-color:
-        rgba(211,65,255,.95);
-
-    box-shadow:
-
-        0 20px 60px
-        rgba(0,0,0,.65),
-
-        0 0 18px
-        rgba(200,50,255,.8),
-
-        0 0 45px
-        rgba(160,40,255,.55),
-
-        0 0 90px
-        rgba(50,90,255,.25),
-
-        inset 0 0 30px
-        rgba(150,30,255,.12);
+  box-shadow:
+    0 0 15px rgba(0,210,255,.45),
+    0 0 40px rgba(110,0,255,.30),
+    inset 0 0 25px rgba(0,190,255,.08);
 }
 
+/* NEON BORDER ANIMATION */
+.group-card.active::before{
+  content:"";
 
-/* =========================================================
-                    NEON GLOW
-========================================================= */
+  position:absolute;
+  inset:-2px;
 
-.group-card::before{
+  border-radius:30px;
 
-    content:"";
+  padding:2px;
 
-    position:absolute;
+  background:
+    linear-gradient(
+      120deg,
+      #00eaff,
+      #5b2cff,
+      #ff00e6,
+      #00eaff
+    );
 
-    width:180px;
-    height:180px;
+  background-size:300% 300%;
 
-    top:-80px;
-    left:50%;
+  animation:neonBorder 5s linear infinite;
 
-    transform:translateX(-50%);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
 
-    border-radius:50%;
+  -webkit-mask-composite:xor;
 
-    background:
-        rgba(100,50,255,.35);
+  mask-composite:exclude;
 
-    filter:blur(55px);
-
-    pointer-events:none;
-
-    z-index:1;
+  pointer-events:none;
 }
 
+@keyframes neonBorder{
+  0%{
+    background-position:0% 50%;
+  }
 
-.group-card::after{
+  50%{
+    background-position:100% 50%;
+  }
 
-    content:"";
-
-    position:absolute;
-
-    width:180px;
-    height:180px;
-
-    bottom:-100px;
-    right:-70px;
-
-    border-radius:50%;
-
-    background:
-        rgba(0,160,255,.22);
-
-    filter:blur(60px);
-
-    pointer-events:none;
+  100%{
+    background-position:0% 50%;
+  }
 }
 
-
-/* =========================================================
-                    GROUP IMAGE
-========================================================= */
-
-.group-card > img{
-
-    position:relative;
-
-    z-index:2;
-
-    display:block;
-
-    width:100%;
-
-    /*
-       PICHA KUBWA
-    */
-
-    height:250px;
-
-    object-fit:cover;
-
-    object-position:center;
-
-    border-radius:
-        28px 28px 0 0;
-
-    user-select:none;
-
-    pointer-events:none;
-
-    filter:
-        brightness(.72)
-        saturate(1.2);
-
-    transition:
-        height .6s ease,
-        transform .7s ease,
-        filter .7s ease;
-
-    /*
-       Fade chini ya picha
-    */
-
-    -webkit-mask-image:
-        linear-gradient(
-            to bottom,
-            #000 72%,
-            transparent 100%
-        );
-
-    mask-image:
-        linear-gradient(
-            to bottom,
-            #000 72%,
-            transparent 100%
-        );
-}
-
-
-/* Active image */
-
+/* ACTIVE IMAGE */
 .group-card.active > img{
+  transform:scale(1.02);
 
-    height:260px;
+  filter:
+    brightness(1.08)
+    saturate(1.15);
 
-    transform:scale(1.04);
-
-    filter:
-        brightness(1)
-        saturate(1.25);
+  box-shadow:
+    0 0 18px rgba(0,210,255,.15);
 }
-
 
 /* =========================================================
-                    TITLE
-========================================================= */
-
-.group-card h3{
-
-    position:relative;
-
-    z-index:5;
-
-    margin:
-        -2px 22px 0;
-
-    color:#fff;
-
-    text-align:center;
-
-    font-size:21px;
-
-    font-weight:700;
-
-    line-height:1.35;
-
-    text-shadow:
-        0 0 12px
-        rgba(255,255,255,.12);
-
-    transition:.5s;
-}
-
-
-.group-card.active h3{
-
-    font-size:24px;
-
-    text-shadow:
-        0 0 15px
-        rgba(210,70,255,.55);
-}
-
-
-/* =========================================================
-                    DESCRIPTION
-========================================================= */
-
-.group-card p{
-
-    position:relative;
-
-    z-index:5;
-
-    margin:
-        12px 24px 0;
-
-    min-height:70px;
-
-    color:
-        rgba(255,255,255,.76);
-
-    text-align:center;
-
-    font-size:13px;
-
-    line-height:1.65;
-}
-
-
-/* =========================================================
-                    BUTTON AREA
-========================================================= */
+   BUTTONS
+   ========================================================= */
 
 .card-buttons{
+  width:100%;
 
-    position:relative;
+  margin-top:auto;
 
-    z-index:6;
+  display:flex;
+  flex-direction:column;
 
-    display:flex;
-
-    flex-direction:column;
-
-    gap:11px;
-
-    margin:
-        17px 22px 20px;
+  gap:10px;
 }
 
+.join-btn,
+.payment-btn{
+  width:100%;
 
-/* =========================================================
-                    JOIN BUTTON
-========================================================= */
+  min-height:48px;
 
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:15px;
+
+  text-decoration:none;
+
+  font-size:14px;
+  font-weight:600;
+
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease,
+    background .25s ease;
+}
+
+/* JOIN */
 .join-btn{
+  color:#fff;
 
-    width:100%;
+  background:
+    linear-gradient(
+      100deg,
+      #6633ff,
+      #b500ff,
+      #00aaff
+    );
 
-    height:55px;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    border-radius:15px;
-
-    text-decoration:none;
-
-    color:#fff;
-
-    font-size:17px;
-
-    font-weight:700;
-
-    background:
-        linear-gradient(
-            90deg,
-            #0d56ff,
-            #7431ff
-        );
-
-    border:
-        1px solid
-        rgba(100,180,255,.5);
-
-    box-shadow:
-        0 8px 25px
-        rgba(50,70,255,.25);
-
-    transition:.3s;
+  box-shadow:
+    0 0 15px rgba(80,80,255,.25);
 }
-
-
-/* Active JOIN */
-
-.group-card.active .join-btn{
-
-    background:
-        linear-gradient(
-            90deg,
-            #8415ff,
-            #cf28ff
-        );
-
-    border-color:
-        rgba(230,130,255,.75);
-
-    box-shadow:
-        0 0 25px
-        rgba(190,40,255,.45);
-}
-
 
 .join-btn:hover{
+  transform:translateY(-3px);
 
-    transform:
-        translateY(-3px);
-
-    box-shadow:
-        0 0 30px
-        rgba(150,50,255,.55);
+  box-shadow:
+    0 0 25px rgba(0,200,255,.5);
 }
 
-
-/* =========================================================
-                PAYMENT BUTTON
-========================================================= */
-
+/* SECOND BUTTON */
 .payment-btn{
+  color:rgba(255,255,255,.65);
 
-    width:100%;
+  border:1px solid rgba(255,255,255,.12);
 
-    height:49px;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    border-radius:14px;
-
-    text-decoration:none;
-
-    color:#fff;
-
-    font-size:14px;
-
-    font-weight:500;
-
-    background:
-        rgba(5,12,48,.82);
-
-    border:
-        1px solid
-        rgba(70,150,255,.55);
-
-    transition:.3s;
+  background:rgba(255,255,255,.025);
 }
-
-
-/* Card icon */
-
-.payment-btn::before{
-
-    content:"\f09d";
-
-    font-family:
-        "Font Awesome 6 Free";
-
-    font-weight:900;
-
-    margin-right:9px;
-
-    color:#65dfff;
-}
-
 
 .payment-btn:hover{
+  color:#fff;
 
-    border-color:
-        #c44cff;
+  border-color:rgba(0,210,255,.5);
 
-    background:
-        rgba(100,30,170,.2);
-
-    box-shadow:
-        0 0 20px
-        rgba(170,50,255,.3);
+  background:rgba(0,210,255,.08);
 }
 
-
 /* =========================================================
-                    ARROWS
-========================================================= */
+   ARROWS
+   ========================================================= */
 
 .slider-btn{
+  position:absolute;
 
-    position:absolute;
+  top:50%;
 
-    top:50%;
+  transform:translateY(-50%);
 
-    transform:
-        translateY(-50%);
+  width:58px;
+  height:58px;
 
-    width:56px;
-    height:56px;
+  border-radius:50%;
 
-    display:flex;
+  border:1px solid rgba(0,220,255,.55);
 
-    align-items:center;
-    justify-content:center;
+  background:
+    rgba(7,8,35,.88);
 
-    border-radius:50%;
+  color:#fff;
 
-    border:
-        1px solid
-        rgba(170,70,255,.75);
+  display:flex;
+  align-items:center;
+  justify-content:center;
 
-    background:
-        rgba(4,5,30,.9);
+  font-size:21px;
 
-    color:#fff;
+  cursor:pointer;
 
-    font-size:19px;
+  z-index:20;
 
-    cursor:pointer;
+  box-shadow:
+    0 0 15px rgba(0,200,255,.2);
 
-    z-index:50;
-
-    backdrop-filter:blur(12px);
-
-    box-shadow:
-        0 0 25px
-        rgba(100,50,255,.3);
-
-    transition:.3s;
+  transition:
+    transform .25s ease,
+    background .25s ease,
+    box-shadow .25s ease;
 }
-
 
 .slider-btn:hover{
+  transform:translateY(-50%) scale(1.1);
 
-    transform:
-        translateY(-50%)
-        scale(1.1);
+  background:
+    linear-gradient(
+      135deg,
+      #5428ff,
+      #00bfff
+    );
 
-    border-color:
-        #df58ff;
-
-    box-shadow:
-        0 0 30px
-        rgba(210,50,255,.55);
+  box-shadow:
+    0 0 30px rgba(0,200,255,.65);
 }
-
 
 .slider-btn.prev{
-    left:0;
+  left:18px;
 }
-
 
 .slider-btn.next{
-    right:0;
+  right:18px;
 }
 
-
 /* =========================================================
-                    MOBILE
-========================================================= */
+   SLIDE DOTS
+   ========================================================= */
 
-@media(max-width:650px){
+.group-slider::after{
+  content:"";
 
-    .group-slider{
-        padding:0 18px;
-    }
+  position:absolute;
 
+  bottom:18px;
+  left:50%;
 
-    .slider-wrapper{
+  transform:translateX(-50%);
 
-        padding:
-            35px 0 50px;
-    }
+  width:7px;
+  height:7px;
 
+  border-radius:50%;
 
-    .slider-track{
-        gap:12px;
-    }
+  background:#00d9ff;
 
+  box-shadow:
+    16px 0 #ffffff44,
+    32px 0 #ffffff44,
+    -16px 0 #ffffff44,
+    -32px 0 #ffffff44;
 
-    .group-card{
-
-        flex:
-            0 0 calc(100vw - 70px);
-
-        width:
-            calc(100vw - 70px);
-
-        height:500px;
-
-        border-radius:27px;
-
-        transform:scale(.82);
-    }
-
-
-    .group-card.active{
-
-        transform:scale(1);
-    }
-
-
-    .group-card > img{
-
-        height:245px;
-    }
-
-
-    .group-card.active > img{
-
-        height:255px;
-    }
-
-
-    .group-card h3{
-
-        font-size:20px;
-
-        margin-left:18px;
-        margin-right:18px;
-    }
-
-
-    .group-card.active h3{
-
-        font-size:22px;
-    }
-
-
-    .group-card p{
-
-        margin-left:18px;
-        margin-right:18px;
-
-        font-size:12px;
-
-        min-height:70px;
-    }
-
-
-    .card-buttons{
-
-        margin:
-            16px 18px 18px;
-    }
-
-
-    .join-btn{
-
-        height:52px;
-
-        font-size:16px;
-    }
-
-
-    .payment-btn{
-
-        height:46px;
-
-        font-size:13px;
-    }
-
-
-    .slider-btn{
-
-        width:42px;
-        height:42px;
-
-        font-size:14px;
-    }
-
-
-    .slider-btn.prev{
-        left:0;
-    }
-
-
-    .slider-btn.next{
-        right:0;
-    }
+  opacity:.8;
 }
 
+/* =========================================================
+   XP
+   ========================================================= */
+
+.xp-reward{
+  position:fixed;
+
+  left:15px;
+  bottom:18px;
+
+  z-index:50;
+}
+
+.xp-box{
+  display:flex;
+  align-items:center;
+  gap:6px;
+
+  color:#fff;
+
+  font-size:14px;
+
+  text-shadow:
+    0 0 10px #fff;
+}
+
+.xp-box i{
+  color:#fff;
+}
 
 /* =========================================================
-                  VERY SMALL PHONE
-========================================================= */
+   TABLET
+   ========================================================= */
 
-@media(max-width:380px){
+@media(max-width:900px){
 
-    .group-card{
-
-        flex:
-            0 0 calc(100vw - 55px);
-
-        width:
-            calc(100vw - 55px);
-
-        height:485px;
-    }
-
-
-    .group-card > img{
-
-        height:235px;
-    }
-
-
-    .group-card.active > img{
-
-        height:245px;
-    }
+  .group-card{
+    flex-basis:290px;
+    height:485px;
   }
-/* =====================================================
-        CHAPCY V21 SLIDER FIX
-===================================================== */
 
-.slider-track{
-    position:relative;
-    display:flex;
-    align-items:center;
-    width:max-content;
-    gap:22px;
+  .group-card > img{
+    height:220px;
+  }
 
-    will-change:transform;
+  .slider-btn{
+    width:52px;
+    height:52px;
+  }
 
-    transform:translate3d(0,0,0);
+  .slider-btn.prev{
+    left:8px;
+  }
 
-    transition:none;
+  .slider-btn.next{
+    right:8px;
+  }
 }
 
-.group-card{
-    flex-shrink:0;
-}
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media(max-width:600px){
+
+  .group-slider{
+    margin-top:20px;
+
+    padding:
+      25px 0 65px;
+  }
+
+  .slider-wrapper{
+    padding:
+      15px 0 25px;
+  }
+
+  .slider-track{
+    gap:14px;
+  }
+
+  .group-card{
+    flex-basis:285px;
+
+    height:485px;
+
+    padding:14px;
+
+    border-radius:24px;
+
+    transform:scale(.72);
+  }
+
+  .group-card.active{
+    transform:scale(1);
+  }
+
+  .group-card > img{
+    height:215px;
+
+    border-radius:18px;
+  }
+
+  .group-card h3{
+    font-size:19px;
+
+    margin-top:16px;
+  }
+
+  .group-card p{
+    font-size:12px;
+  }
+
+  .join-btn,
+  .payment-btn{
+    min-height:46px;
+
+    border-radius:14px;
+  }
+
+  .slider-btn{
+    width:48px;
+    height:48px;
+
+    font-size:17px;
+  }
+
+  .slider-btn.prev{
+    left:2px;
+  }
+
+  .slider-btn.next{
+    right:2px;
+  }
+    } 
