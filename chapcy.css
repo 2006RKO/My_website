@@ -1979,3 +1979,137 @@ font-size:12px;
 }
 
 }
+/* =========================
+   CHAPCY ACTIVITY PANEL
+========================= */
+
+.activity-panel{
+
+width:95%;
+max-width:1000px;
+
+margin:30px auto;
+
+padding:20px;
+
+border-radius:30px;
+
+background:
+rgba(5,10,35,.85);
+
+backdrop-filter:blur(20px);
+
+border:1px solid rgba(180,0,255,.25);
+
+box-shadow:
+0 0 35px rgba(180,0,255,.25);
+
+}
+
+.activity-panel h2{
+
+text-align:center;
+
+font-size:28px;
+
+font-weight:700;
+
+margin-bottom:20px;
+
+color:white;
+
+letter-spacing:2px;
+
+}
+
+.activity-grid{
+
+display:grid;
+
+grid-template-columns:
+repeat(5,1fr);
+
+gap:15px;
+
+}
+
+.activity-card{
+
+position:relative;
+
+height:120px;
+
+border-radius:20px;
+
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+
+background:
+rgba(255,255,255,.03);
+
+border:1px solid rgba(255,255,255,.08);
+
+transition:.4s;
+
+cursor:pointer;
+
+}
+
+.activity-card:hover{
+
+transform:translateY(-8px);
+
+box-shadow:
+0 0 25px rgba(0,220,255,.4);
+
+}
+
+.activity-card i{
+
+font-size:35px;
+
+color:#d85cff;
+
+margin-bottom:10px;
+
+}
+
+.activity-card p{
+
+font-size:18px;
+
+color:white;
+
+font-weight:600;
+
+}
+
+.activity-badge{
+
+position:absolute;
+
+top:12px;
+right:12px;
+
+width:32px;
+height:32px;
+
+border-radius:50%;
+
+background:#ff004d;
+
+color:white;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:13px;
+font-weight:700;
+
+box-shadow:
+0 0 15px rgba(255,0,77,.6);
+
+}
