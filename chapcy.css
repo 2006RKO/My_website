@@ -1872,66 +1872,88 @@ a:focus-visible{
         PERSONAL TOP SECTION
 =========================================*/
 
-.top-navigation{
-    width:95%;
-    margin:15px auto;
+.top-nav-box{
 
-    display:flex;
-    gap:10px;
+width:92%;
 
-    overflow-x:auto;
+max-width:900px;
 
-    padding:8px;
+margin:15px auto 25px;
 
-    border-radius:20px;
+padding:12px;
 
-    background:rgba(5,10,35,.55);
+border-radius:25px;
 
-    backdrop-filter:blur(15px);
+background:rgba(5,10,35,.65);
 
-    border:1px solid rgba(0,220,255,.15);
+backdrop-filter:blur(20px);
 
-    scrollbar-width:none;
+border:1px solid rgba(0,220,255,.15);
+
+box-shadow:
+0 0 30px rgba(0,220,255,.12);
+
+overflow:hidden;
+
 }
 
-.top-navigation::-webkit-scrollbar{
-    display:none;
+.top-nav-scroll{
+
+display:flex;
+
+gap:10px;
+
+overflow-x:auto;
+
+scrollbar-width:none;
+
 }
 
-.nav-item{
-    flex-shrink:0;
-
-    padding:12px 18px;
-
-    border-radius:15px;
-
-    text-decoration:none;
-
-    color:#fff;
-
-    font-size:14px;
-    font-weight:600;
-
-    background:rgba(255,255,255,.05);
-
-    border:1px solid rgba(255,255,255,.08);
-
-    transition:.3s;
+.top-nav-scroll::-webkit-scrollbar{
+display:none;
 }
 
-.nav-item.active{
-    background:linear-gradient(
-    135deg,
-    #6a11ff,
-    #00cfff
-    );
+.top-nav-item{
 
-    box-shadow:
-    0 0 20px rgba(0,220,255,.4);
+flex-shrink:0;
+
+padding:12px 20px;
+
+border-radius:15px;
+
+background:rgba(255,255,255,.05);
+
+border:1px solid rgba(255,255,255,.08);
+
+color:white;
+
+font-size:14px;
+
+font-weight:600;
+
+cursor:pointer;
+
+transition:.3s;
+
 }
 
-.nav-item:hover{
-    transform:translateY(-2px);
+.top-nav-item.active{
+
+background:linear-gradient(
+135deg,
+#6a11ff,
+#00cfff
+);
+
+box-shadow:
+0 0 20px rgba(0,220,255,.45);
+
+}
+
+.top-nav-item:hover{
+
+transform:translateY(-2px);
+
 }
 /*=========================================
           MOBILE RESPONSIVE
