@@ -679,199 +679,7 @@ body::after{
    GROUP SLIDER
    ========================================================= */
 
-.group-slider{
-    width:100%;
-
-    max-width:1450px;
-
-    margin:5px auto 0;
-
-    padding:
-        25px 0 80px;
-
-    position:relative;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    overflow:hidden;
-
-    perspective:1400px;
-}
-
-
-/* =========================================================
-   SLIDER WRAPPER
-   ========================================================= */
-
-.slider-wrapper{
-    width:100%;
-
-    overflow:hidden;
-
-    position:relative;
-
-    padding:
-        30px 0 40px;
-}
-
-
-/* =========================================================
-   TRACK
-   ========================================================= */
-
-.slider-track{
-    display:flex;
-    align-items:center;
-
-    gap:24px;
-
-    width:max-content;
-
-    transform-style:preserve-3d;
-
-    will-change:transform;
-
-    transition:
-        transform .7s cubic-bezier(.22,.61,.36,1);
-}
-
-
-/* =========================================================
-   GROUP CARD
-   ========================================================= */
-
-.group-card{
-    position:relative;
-
-    flex:0 0 330px;
-
-    height:515px;
-
-    padding:15px;
-
-    border-radius:28px;
-
-    overflow:hidden;
-
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(8,15,44,.95),
-            rgba(7,4,29,.91)
-        );
-
-    border:
-        1px solid rgba(0,210,255,.18);
-
-    box-shadow:
-        0 0 20px rgba(0,170,255,.07),
-        inset 0 0 25px rgba(100,0,255,.04);
-
-    opacity:.30;
-
-    transform:
-        scale(.76)
-        rotateY(0deg);
-
-    filter:
-        brightness(.65)
-        saturate(.65)
-        blur(.3px);
-
-    transition:
-        transform .75s cubic-bezier(.22,.61,.36,1),
-        opacity .75s ease,
-        filter .75s ease,
-        box-shadow .75s ease,
-        border-color .75s ease;
-
-    cursor:pointer;
-
-    user-select:none;
-
-    transform-style:preserve-3d;
-}
-
-
-/* =========================================================
-   CARD SIDE GLOW
-   ========================================================= */
-
-.group-card::after{
-    content:"";
-
-    position:absolute;
-
-    width:180px;
-    height:180px;
-
-    left:50%;
-    top:130px;
-
-    transform:
-        translate(-50%,-50%);
-
-    border-radius:50%;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(0,210,255,.08),
-            transparent 70%
-        );
-
-    pointer-events:none;
-}
-
-
-/* =========================================================
-   ACTIVE CENTER CARD
-   ========================================================= */
-
-.group-card.active{
-    opacity:1;
-
-    transform:
-        scale(1)
-        rotateY(0deg);
-
-    filter:
-        brightness(1)
-        saturate(1.1)
-        blur(0);
-
-    border-color:
-        rgba(0,225,255,.75);
-
-    box-shadow:
-        0 0 18px rgba(0,210,255,.30),
-        0 0 45px rgba(120,0,255,.26),
-        inset 0 0 35px rgba(0,210,255,.06);
-}
-
-
-/* =========================================================
-   ACTIVE CARD NEON BORDER
-   ========================================================= */
-
-.group-card.active::before{
-    content:"";
-
-    position:absolute;
-
-    inset:-2px;
-
-    border-radius:30px;
-
-    padding:2px;
-
-    background:
+        background:
         linear-gradient(
             120deg,
             #00eaff,
@@ -913,70 +721,366 @@ body::after{
         background-position:0% 50%;
     }
 }
+/* =========================================================
+   CHAPCY V21 — PREMIUM 3D GROUP SLIDER
+   ========================================================= */
+
+.group-slider{
+    width:100%;
+    max-width:1500px;
+
+    margin:10px auto 0;
+
+    padding:35px 0 90px;
+
+    position:relative;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    overflow:hidden;
+
+    perspective:1800px;
+}
 
 
 /* =========================================================
-   CARD IMAGE
+   SLIDER WRAPPER
+   ========================================================= */
+
+.slider-wrapper{
+    width:100%;
+
+    overflow:hidden;
+
+    position:relative;
+
+    padding:40px 0 50px;
+}
+
+
+/* =========================================================
+   TRACK
+   ========================================================= */
+
+.slider-track{
+    display:flex;
+    align-items:center;
+
+    gap:28px;
+
+    width:max-content;
+
+    transform-style:preserve-3d;
+
+    will-change:transform;
+
+    transition:
+        transform .75s cubic-bezier(.22,.61,.36,1);
+}
+
+
+/* =========================================================
+   GROUP CARD
+   ========================================================= */
+
+.group-card{
+
+    position:relative;
+
+    flex:0 0 350px;
+
+    height:560px;
+
+    padding:14px;
+
+    border-radius:30px;
+
+    overflow:hidden;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            rgba(7,13,38,.97),
+            rgba(5,5,25,.96)
+        );
+
+    border:
+        1px solid rgba(0,180,255,.20);
+
+    box-shadow:
+
+        0 20px 60px rgba(0,0,0,.45),
+
+        0 0 20px
+        rgba(0,170,255,.08),
+
+        inset 0 0 35px
+        rgba(110,0,255,.08);
+
+    opacity:.28;
+
+    transform:
+        scale(.72)
+        translateZ(-80px)
+        rotateY(0deg);
+
+    filter:
+        brightness(.58)
+        saturate(.65)
+        blur(.2px);
+
+    transition:
+
+        transform .75s cubic-bezier(.22,.61,.36,1),
+
+        opacity .75s ease,
+
+        filter .75s ease,
+
+        box-shadow .75s ease,
+
+        border-color .75s ease;
+
+    cursor:pointer;
+
+    user-select:none;
+
+    transform-style:preserve-3d;
+}
+
+
+/* =========================================================
+   CARD NEON BACKGROUND
+   ========================================================= */
+
+.group-card::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:250px;
+    height:250px;
+
+    left:50%;
+    top:180px;
+
+    transform:
+        translate(-50%,-50%);
+
+    border-radius:50%;
+
+    background:
+
+        radial-gradient(
+            circle,
+            rgba(0,200,255,.13),
+            rgba(120,0,255,.08),
+            transparent 70%
+        );
+
+    filter:blur(12px);
+
+    pointer-events:none;
+
+    z-index:0;
+}
+
+
+/* =========================================================
+   ACTIVE CENTER CARD
+   ========================================================= */
+
+.group-card.active{
+
+    opacity:1;
+
+    transform:
+        scale(1)
+        translateZ(120px)
+        rotateY(0deg);
+
+    filter:
+        brightness(1)
+        saturate(1.15)
+        blur(0);
+
+    border-color:
+        rgba(0,225,255,.75);
+
+    box-shadow:
+
+        0 25px 80px
+        rgba(0,0,0,.55),
+
+        0 0 25px
+        rgba(0,220,255,.35),
+
+        0 0 70px
+        rgba(120,0,255,.28),
+
+        inset 0 0 45px
+        rgba(0,210,255,.08);
+}
+
+
+/* =========================================================
+   ACTIVE NEON BORDER
+   ========================================================= */
+
+.group-card.active::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:-2px;
+
+    border-radius:32px;
+
+    padding:2px;
+
+    background:
+
+        linear-gradient(
+            120deg,
+            #00eaff,
+            #7137ff,
+            #ff00dd,
+            #00eaff
+        );
+
+    background-size:300% 300%;
+
+    animation:
+        groupBorder 4s linear infinite;
+
+    -webkit-mask:
+
+        linear-gradient(#fff 0 0) content-box,
+
+        linear-gradient(#fff 0 0);
+
+    -webkit-mask-composite:xor;
+
+    mask-composite:exclude;
+
+    pointer-events:none;
+
+    z-index:10;
+}
+
+@keyframes groupBorder{
+
+    0%{
+        background-position:0% 50%;
+    }
+
+    50%{
+        background-position:100% 50%;
+    }
+
+    100%{
+        background-position:0% 50%;
+    }
+}
+
+
+/* =========================================================
+   GROUP IMAGE
    ========================================================= */
 
 .group-card > img{
+
+    position:relative;
+
+    z-index:2;
+
     width:100%;
-    height:245px;
+
+    height:265px;
 
     object-fit:cover;
 
-    border-radius:21px;
+    border-radius:23px;
 
     display:block;
 
-    border:
-        1px solid rgba(255,255,255,.08);
+    background:#030617;
 
-    background:#07091d;
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
+    box-shadow:
+
+        0 10px 30px
+        rgba(0,0,0,.35);
 
     transition:
+
         transform .7s ease,
+
         filter .7s ease,
+
         box-shadow .7s ease;
 }
 
 
-/* ACTIVE IMAGE */
-
 .group-card.active > img{
-    transform:scale(1.02);
+
+    transform:
+        scale(1.025);
 
     filter:
+
         brightness(1.08)
-        saturate(1.15);
+        saturate(1.2)
+        contrast(1.04);
 
     box-shadow:
-        0 0 20px rgba(0,210,255,.14);
+
+        0 0 25px
+        rgba(0,210,255,.20);
 }
 
 
 /* =========================================================
-   CARD TITLE
+   TITLE
    ========================================================= */
 
 .group-card h3{
+
+    position:relative;
+
+    z-index:3;
+
     width:100%;
 
     margin:
-        17px 0 8px;
+        18px 0 8px;
 
     text-align:center;
 
     color:#fff;
 
-    font-size:21px;
+    font-size:22px;
 
     font-weight:700;
 
     line-height:1.3;
 
     text-shadow:
-        0 0 12px rgba(0,210,255,.20);
+
+        0 0 15px
+        rgba(0,210,255,.28);
 
     white-space:nowrap;
 
@@ -987,10 +1091,15 @@ body::after{
 
 
 /* =========================================================
-   CARD DESCRIPTION
+   DESCRIPTION
    ========================================================= */
 
 .group-card p{
+
+    position:relative;
+
+    z-index:3;
+
     width:92%;
 
     margin:0 auto;
@@ -998,7 +1107,7 @@ body::after{
     text-align:center;
 
     color:
-        rgba(255,255,255,.66);
+        rgba(255,255,255,.68);
 
     font-size:13px;
 
@@ -1016,18 +1125,26 @@ body::after{
 
 
 /* =========================================================
-   CARD BUTTONS
+   BUTTON AREA
    ========================================================= */
 
 .card-buttons{
+
+    position:relative;
+
+    z-index:5;
+
     width:100%;
 
     margin-top:auto;
 
     display:flex;
+
     flex-direction:column;
 
-    gap:10px;
+    gap:11px;
+
+    padding-top:18px;
 }
 
 
@@ -1036,15 +1153,18 @@ body::after{
    ========================================================= */
 
 .join-btn{
+
     width:100%;
 
-    min-height:48px;
+    min-height:52px;
 
     display:flex;
+
     align-items:center;
+
     justify-content:center;
 
-    border-radius:15px;
+    border-radius:17px;
 
     color:#fff;
 
@@ -1052,54 +1172,65 @@ body::after{
 
     font-size:14px;
 
-    font-weight:600;
+    font-weight:700;
 
     background:
+
         linear-gradient(
             100deg,
-            #5334ff,
-            #a600ff,
-            #00aaff
+            #5425ff,
+            #9b00ff,
+            #008fff
         );
 
-    box-shadow:
-        0 0 18px rgba(92,0,255,.22);
+    border:
+        1px solid
+        rgba(255,255,255,.18);
 
-    transition:
-        transform .25s ease,
-        box-shadow .25s ease;
+    box-shadow:
+
+        0 0 22px
+        rgba(100,0,255,.30),
+
+        inset 0 0 15px
+        rgba(255,255,255,.08);
+
+    transition:.3s ease;
 }
 
+
 .join-btn:hover{
+
     transform:
         translateY(-3px);
 
     box-shadow:
-        0 0 28px rgba(0,210,255,.55);
-}
 
-.join-btn:active{
-    transform:scale(.96);
+        0 0 35px
+        rgba(0,210,255,.55);
 }
 
 
 /* =========================================================
-   PAYMENT BUTTON
+   SECOND BUTTON
    ========================================================= */
 
 .payment-btn{
+
     width:100%;
 
-    min-height:46px;
+    min-height:48px;
 
     display:flex;
+
     align-items:center;
+
     justify-content:center;
 
-    border-radius:15px;
+    border-radius:17px;
 
     color:
-        rgba(255,255,255,.65);
+        rgba(255,255,255,.72);
 
     text-decoration:none;
 
@@ -1108,23 +1239,34 @@ body::after{
     font-weight:500;
 
     border:
-        1px solid rgba(255,255,255,.11);
+        1px solid
+        rgba(120,130,255,.20);
 
     background:
-        rgba(255,255,255,.025);
 
-    transition:
-        .25s ease;
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.04),
+            rgba(40,40,100,.18)
+        );
+
+    transition:.3s ease;
 }
 
+
 .payment-btn:hover{
+
     color:#fff;
 
     border-color:
-        rgba(0,215,255,.55);
+        rgba(0,220,255,.65);
 
     background:
         rgba(0,200,255,.08);
+
+    box-shadow:
+        0 0 20px
+        rgba(0,200,255,.20);
 }
 
 
@@ -1133,6 +1275,7 @@ body::after{
    ========================================================= */
 
 .slider-btn{
+
     position:absolute;
 
     top:50%;
@@ -1140,296 +1283,277 @@ body::after{
     transform:
         translateY(-50%);
 
-    width:60px;
-    height:60px;
+    width:62px;
+    height:62px;
 
     border-radius:50%;
 
     border:
-        1px solid rgba(0,220,255,.55);
+        1px solid
+        rgba(0,220,255,.65);
 
     background:
-        rgba(4,7,29,.90);
+        rgba(3,7,30,.92);
 
     color:#fff;
 
-    font-size:21px;
+    font-size:20px;
 
     cursor:pointer;
 
     display:flex;
+
     align-items:center;
+
     justify-content:center;
 
-    z-index:30;
+    z-index:40;
 
     box-shadow:
-        0 0 18px rgba(0,210,255,.18);
 
-    transition:
-        transform .25s ease,
-        background .25s ease,
-        box-shadow .25s ease,
-        border-color .25s ease;
+        0 0 20px
+        rgba(0,210,255,.20);
+
+    transition:.3s ease;
 }
 
+
 .slider-btn:hover{
+
     transform:
         translateY(-50%)
-        scale(1.10);
+        scale(1.12);
 
     background:
+
         linear-gradient(
             135deg,
-            #5a28ff,
+            #6325ff,
             #00bfff
         );
 
     border-color:#fff;
 
     box-shadow:
-        0 0 32px rgba(0,210,255,.65);
-}
 
-.slider-btn:active{
-    transform:
-        translateY(-50%)
-        scale(.92);
+        0 0 40px
+        rgba(0,210,255,.70);
 }
 
 
 .slider-btn.prev{
-    left:18px;
+    left:20px;
 }
 
 .slider-btn.next{
-    right:18px;
+    right:20px;
 }
 
 
 /* =========================================================
-   SLIDER DOT GLOW
+   SLIDER DOTS
    ========================================================= */
 
 .group-slider::after{
+
     content:"";
 
     position:absolute;
 
-    bottom:23px;
+    bottom:28px;
 
     left:50%;
 
     transform:
         translateX(-50%);
 
-    width:8px;
-    height:8px;
+    width:9px;
+
+    height:9px;
 
     border-radius:50%;
 
-    background:#00d9ff;
+    background:#00eaff;
 
     box-shadow:
-        -28px 0 0 rgba(255,255,255,.25),
-        -14px 0 0 rgba(255,255,255,.35),
-        14px 0 0 rgba(255,255,255,.35),
-        28px 0 0 rgba(255,255,255,.25),
-        0 0 12px #00d9ff;
+
+        -30px 0 0 rgba(255,255,255,.25),
+
+        -15px 0 0 rgba(255,255,255,.45),
+
+        15px 0 0 rgba(255,255,255,.45),
+
+        30px 0 0 rgba(255,255,255,.25),
+
+        0 0 16px #00eaff;
 
     pointer-events:none;
 }
 
 
 /* =========================================================
-   CARD ENTER ANIMATION
-   3D — 3 ROTATIONS
+   ENTER ANIMATION
    ========================================================= */
 
 .group-card.card-enter{
+
     z-index:200;
 
     animation:
+
         cardFlyIn
         1.5s
         cubic-bezier(.22,.61,.36,1)
         forwards;
 }
 
-@keyframes cardFlyIn{
-
-    0%{
-        transform:
-            translate3d(0,0,0)
-            scale(1)
-            rotateY(0deg)
-            rotateZ(0deg);
-
-        opacity:1;
-
-        filter:
-            brightness(1);
-    }
-
-    20%{
-        transform:
-            translate3d(0,-20px,100px)
-            scale(1.12)
-            rotateY(180deg)
-            rotateZ(180deg);
-
-        filter:
-            brightness(1.35)
-            drop-shadow(
-                0 0 25px #00d9ff
-            );
-    }
-
-    40%{
-        transform:
-            translate3d(0,-30px,220px)
-            scale(1.30)
-            rotateY(360deg)
-            rotateZ(360deg);
-
-        filter:
-            brightness(1.6)
-            drop-shadow(
-                0 0 35px #793cff
-            );
-    }
-
-    60%{
-        transform:
-            translate3d(0,-45px,340px)
-            scale(1.48)
-            rotateY(540deg)
-            rotateZ(540deg);
-
-        filter:
-            brightness(1.9)
-            drop-shadow(
-                0 0 50px #00eaff
-            );
-    }
-
-    80%{
-        transform:
-            translate3d(0,-60px,470px)
-            scale(1.70)
-            rotateY(720deg)
-            rotateZ(720deg);
-
-        opacity:.75;
-
-        filter:
-            brightness(2.15)
-            drop-shadow(
-                0 0 70px #c000ff
-            );
-    }
-
-    100%{
-        transform:
-            translate3d(0,-80px,650px)
-            scale(2)
-            rotateY(1080deg)
-            rotateZ(1080deg);
-
-        opacity:0;
-
-        filter:
-            brightness(2.5)
-            drop-shadow(
-                0 0 90px #00eaff
-            );
-    }
-}
-
 
 /* =========================================================
-   CARD EXIT / RETURN ANIMATION
+   RETURN ANIMATION
    ========================================================= */
 
 .group-card.card-exit{
+
     z-index:200;
 
     animation:
+
         cardFlyBack
         1.5s
         cubic-bezier(.22,.61,.36,1)
         forwards;
 }
 
-@keyframes cardFlyBack{
 
-    0%{
-        transform:
-            translate3d(0,-80px,650px)
-            scale(2)
-            rotateY(1080deg)
-            rotateZ(1080deg);
+/* =========================================================
+   MOBILE GROUP DESIGN
+   ========================================================= */
 
-        opacity:0;
+@media(max-width:700px){
 
-        filter:
-            brightness(2.5)
-            drop-shadow(
-                0 0 90px #00eaff
-            );
+    .group-slider{
+
+        padding:
+            18px 0 65px;
+
+        perspective:1200px;
     }
 
-    20%{
-        transform:
-            translate3d(0,-60px,470px)
-            scale(1.70)
-            rotateY(900deg)
-            rotateZ(900deg);
+    .slider-wrapper{
 
-        opacity:.25;
+        padding:
+            30px 0 35px;
     }
 
-    40%{
-        transform:
-            translate3d(0,-45px,340px)
-            scale(1.48)
-            rotateY(720deg)
-            rotateZ(720deg);
+    .slider-track{
 
-        opacity:.45;
+        gap:14px;
     }
 
-    60%{
-        transform:
-            translate3d(0,-30px,220px)
-            scale(1.30)
-            rotateY(540deg)
-            rotateZ(540deg);
+    .group-card{
 
-        opacity:.70;
+        flex-basis:292px;
+
+        height:505px;
+
+        padding:12px;
+
+        border-radius:26px;
+
+        transform:
+            scale(.70)
+            translateZ(-60px);
     }
 
-    80%{
-        transform:
-            translate3d(0,-20px,100px)
-            scale(1.12)
-            rotateY(360deg)
-            rotateZ(360deg);
+    .group-card.active{
 
-        opacity:.90;
-    }
-
-    100%{
         transform:
-            translate3d(0,0,0)
             scale(1)
-            rotateY(0deg)
-            rotateZ(0deg);
+            translateZ(80px);
+    }
 
-        opacity:1;
+    .group-card > img{
 
-        filter:
-            brightness(1);
+        height:220px;
+
+        border-radius:20px;
+    }
+
+    .group-card h3{
+
+        font-size:19px;
+
+        margin-top:16px;
+    }
+
+    .group-card p{
+
+        font-size:11.5px;
+
+        line-height:1.55;
+    }
+
+    .join-btn{
+
+        min-height:48px;
+
+        border-radius:15px;
+    }
+
+    .payment-btn{
+
+        min-height:44px;
+
+        border-radius:15px;
+    }
+
+    .slider-btn{
+
+        width:46px;
+
+        height:46px;
+
+        font-size:15px;
+    }
+
+    .slider-btn.prev{
+        left:4px;
+    }
+
+    .slider-btn.next{
+        right:4px;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+   ========================================================= */
+
+@media(max-width:390px){
+
+    .group-card{
+
+        flex-basis:280px;
+
+        height:495px;
+    }
+
+    .group-card > img{
+
+        height:210px;
+    }
+
+    .group-card h3{
+
+        font-size:18px;
+    }
+
+    .slider-btn{
+
+        width:40px;
+
+        height:40px;
     }
 }
 
