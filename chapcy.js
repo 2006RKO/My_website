@@ -1,7 +1,10 @@
 /* =========================================================
-             CHAPCY V5 ULTRA INFINITE SLIDER
-             2.5 SEC AUTO • CENTER ACTIVE CARD
-             MOBILE + DESKTOP • TOUCH SWIPE
+        CHAPCY V21 ULTRA INFINITE GROUP SLIDER
+        AUTO 2.5 SEC
+        RIGHT → LEFT
+        INFINITE LOOP
+        MOBILE + DESKTOP
+        TOUCH SWIPE
 ========================================================= */
 
 "use strict";
@@ -10,97 +13,82 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const wrapper = document.querySelector(".slider-wrapper");
     const track = document.getElementById("sliderTrack");
+
     const nextBtn = document.getElementById("nextBtn");
     const prevBtn = document.getElementById("prevBtn");
 
     if (!wrapper || !track) {
-        console.error("CHAPCY Slider: Elements not found.");
+        console.error("CHAPCY: Slider elements missing.");
         return;
     }
 
 
     /* =====================================================
-                       ORIGINAL CARDS
+                    GET ORIGINAL CARDS
     ===================================================== */
 
-    const originalCards = Array.from(
-        track.querySelectorAll(".group-card")
-    );
+    let originalCards =
+        Array.from(
+            track.querySelectorAll(".group-card")
+        );
 
-    const totalCards = originalCards.length;
+    const total = originalCards.length;
 
-    if (!totalCards) return;
+    if (total === 0) {
+        console.error("CHAPCY: No group cards found.");
+        return;
+    }
 
 
     /* =====================================================
-                     REMOVE OLD CLONES
+                  CREATE INFINITE CLONES
     ===================================================== */
 
-    track.querySelectorAll(".carousel-clone").forEach(card => {
-        card.remove();
-    });
-
-
-    /* =====================================================
-                  CREATE 3 SETS OF CARDS
-    ===================================================== */
-
-    /*
-       SET 1 = copies before
-       SET 2 = original cards
-       SET 3 = copies after
-
-       This gives us an infinite carousel.
-    */
-
-    const beforeFragment =
-        document.createDocumentFragment();
-
-    const afterFragment =
-        document.createDocumentFragment();
+    const before = document.createDocumentFragment();
+    const after = document.createDocumentFragment();
 
 
     originalCards.forEach(card => {
 
-        const beforeClone =
+        const cloneBefore =
             card.cloneNode(true);
 
-        beforeClone.classList.add(
+        cloneBefore.classList.add(
             "carousel-clone"
         );
 
-        beforeFragment.appendChild(
-            beforeClone
+        before.appendChild(
+            cloneBefore
         );
 
 
-        const afterClone =
+        const cloneAfter =
             card.cloneNode(true);
 
-        afterClone.classList.add(
+        cloneAfter.classList.add(
             "carousel-clone"
         );
 
-        afterFragment.appendChild(
-            afterClone
+        after.appendChild(
+            cloneAfter
         );
 
     });
 
 
     track.insertBefore(
-        beforeFragment,
+        before,
         track.firstChild
     );
 
 
     track.appendChild(
-        afterFragment
+        after
     );
 
 
     /* =====================================================
-                        ALL CARDS
+                     ALL CARDS
     ===================================================== */
 
     let cards =
@@ -110,100 +98,95 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /*
-       Start from the ORIGINAL set.
+       SET:
 
-       Example:
+       BEFORE
+       0 → total-1
 
-       0 - 10     = previous copies
-       11 - 21    = original
-       22 - 32    = next copies
+       ORIGINAL
+       total → total*2-1
 
-       So first active card = 11
+       AFTER
+       total*2 → total*3-1
     */
 
-    let currentIndex = totalCards;
+
+    let currentIndex = total;
 
 
-    let isAnimating = false;
+    let timer = null;
 
-    let autoTimer = null;
-
-
-    /* =====================================================
-                     GET CARD STEP
-    ===================================================== */
-
-    function getStep() {
-
-        const card = cards[0];
-
-        if (!card) return 0;
-
-
-        const cardWidth =
-            card.getBoundingClientRect().width;
-
-
-        const trackStyle =
-            window.getComputedStyle(track);
-
-
-        const gap =
-            parseFloat(trackStyle.gap) || 0;
-
-
-        return cardWidth + gap;
-    }
+    let moving = false;
 
 
     /* =====================================================
-                    CENTER ACTIVE CARD
+                    UPDATE CARDS
     ===================================================== */
 
-    function moveToCard(
-        index,
-        animate = true
-    ) {
+    function refreshCards() {
 
         cards =
             Array.from(
                 track.querySelectorAll(".group-card")
             );
 
+    }
+
+
+    /* =====================================================
+                  GET REAL CARD POSITION
+    ===================================================== */
+
+    function getPosition(index) {
+
+        const card = cards[index];
+
+        if (!card) return 0;
+
+        const wrapperRect =
+            wrapper.getBoundingClientRect();
+
+        const cardRect =
+            card.getBoundingClientRect();
+
+        /*
+           card.offsetLeft gives
+           actual position inside track.
+        */
+
+        const cardLeft =
+            card.offsetLeft;
+
+        const center =
+            wrapperRect.width / 2;
+
+        const cardCenter =
+            cardLeft +
+            (card.offsetWidth / 2);
+
+        return center - cardCenter;
+
+    }
+
+
+    /* =====================================================
+                       MOVE SLIDE
+    ===================================================== */
+
+    function moveSlide(
+        index,
+        animate = true
+    ) {
+
+        refreshCards();
 
         const card = cards[index];
 
         if (!card) return;
 
 
-        const wrapperWidth =
-            wrapper.getBoundingClientRect().width;
-
-
-        const cardWidth =
-            card.getBoundingClientRect().width;
-
-
-        const step =
-            getStep();
-
-
-        /*
-           Position ya card ndani ya track
-        */
-
-        const cardPosition =
-            index * step;
-
-
-        /*
-           Center card ndani ya wrapper
-        */
-
-        const targetX =
-            (wrapperWidth / 2)
-            -
-            (cardPosition + cardWidth / 2);
+        const x =
+            getPosition(index);
 
 
         track.style.transition =
@@ -213,25 +196,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         track.style.transform =
-            `translate3d(${targetX}px, 0, 0)`;
+            `translate3d(${x}px,0,0)`;
 
 
         /*
-           Remove active from all
+           ACTIVE CARD
         */
 
-        cards.forEach(cardItem => {
+        cards.forEach(card => {
 
-            cardItem.classList.remove(
+            card.classList.remove(
                 "active"
             );
 
         });
 
-
-        /*
-           Add active to center card
-        */
 
         card.classList.add(
             "active"
@@ -241,20 +220,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-                        NEXT SLIDE
+                       NEXT SLIDE
     ===================================================== */
 
     function nextSlide() {
 
-        if (isAnimating) return;
+        if (moving) return;
 
-        isAnimating = true;
+        moving = true;
 
 
         currentIndex++;
 
 
-        moveToCard(
+        moveSlide(
             currentIndex,
             true
         );
@@ -263,23 +242,19 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => {
 
             /*
-               Tukifika mwisho wa
-               original set + clone set
-
-               tunarudi katikati
-               bila user kuona jump.
+               Tukiingia AFTER SET
+               tunarudi ORIGINAL SET.
             */
 
             if (
                 currentIndex >=
-                totalCards * 2
+                total * 2
             ) {
 
                 currentIndex =
-                    totalCards;
+                    total;
 
-
-                moveToCard(
+                moveSlide(
                     currentIndex,
                     false
                 );
@@ -287,28 +262,28 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
 
-            isAnimating = false;
+            moving = false;
 
-        }, 720);
+        }, 750);
 
     }
 
 
     /* =====================================================
-                       PREVIOUS SLIDE
+                    PREVIOUS SLIDE
     ===================================================== */
 
     function previousSlide() {
 
-        if (isAnimating) return;
+        if (moving) return;
 
-        isAnimating = true;
+        moving = true;
 
 
         currentIndex--;
 
 
-        moveToCard(
+        moveSlide(
             currentIndex,
             true
         );
@@ -317,23 +292,20 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => {
 
             /*
-               Tukifika mwanzo wa
-               middle set,
-
-               tunarudi kwenye set
-               ya pili bila jump.
+               Tukienda BEFORE SET
+               tunarudi mwisho wa
+               ORIGINAL SET.
             */
 
             if (
                 currentIndex <
-                totalCards
+                total
             ) {
 
                 currentIndex =
-                    totalCards * 2 - 1;
+                    total * 2 - 1;
 
-
-                moveToCard(
+                moveSlide(
                     currentIndex,
                     false
                 );
@@ -341,24 +313,24 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
 
-            isAnimating = false;
+            moving = false;
 
-        }, 720);
+        }, 750);
 
     }
 
 
     /* =====================================================
-                        AUTO SLIDER
-                        EVERY 2.5 SEC
+                     AUTO SLIDER
+                     2.5 SECONDS
     ===================================================== */
 
-    function startAutoSlide() {
+    function startAuto() {
 
-        stopAutoSlide();
+        stopAuto();
 
 
-        autoTimer =
+        timer =
             setInterval(() => {
 
                 nextSlide();
@@ -368,15 +340,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    function stopAutoSlide() {
+    function stopAuto() {
 
-        if (autoTimer !== null) {
+        if (timer) {
 
-            clearInterval(
-                autoTimer
-            );
+            clearInterval(timer);
 
-            autoTimer = null;
+            timer = null;
 
         }
 
@@ -384,7 +354,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-                         NEXT BUTTON
+                        NEXT BUTTON
     ===================================================== */
 
     if (nextBtn) {
@@ -393,11 +363,11 @@ document.addEventListener("DOMContentLoaded", () => {
             "click",
             () => {
 
-                stopAutoSlide();
+                stopAuto();
 
                 nextSlide();
 
-                startAutoSlide();
+                startAuto();
 
             }
         );
@@ -406,7 +376,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-                        PREVIOUS BUTTON
+                       PREVIOUS BUTTON
     ===================================================== */
 
     if (prevBtn) {
@@ -415,11 +385,11 @@ document.addEventListener("DOMContentLoaded", () => {
             "click",
             () => {
 
-                stopAutoSlide();
+                stopAuto();
 
                 previousSlide();
 
-                startAutoSlide();
+                startAuto();
 
             }
         );
@@ -428,91 +398,83 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-                         TOUCH SWIPE
+                        TOUCH SWIPE
     ===================================================== */
 
-    let touchStartX = 0;
-    let touchEndX = 0;
+    let startX = 0;
+    let endX = 0;
 
 
     wrapper.addEventListener(
         "touchstart",
-        event => {
+        e => {
 
-            touchStartX =
-                event.touches[0].clientX;
+            startX =
+                e.touches[0].clientX;
 
-            stopAutoSlide();
+            stopAuto();
 
         },
         {
-            passive: true
+            passive:true
         }
     );
 
 
     wrapper.addEventListener(
         "touchend",
-        event => {
+        e => {
 
-            touchEndX =
-                event.changedTouches[0].clientX;
+            endX =
+                e.changedTouches[0].clientX;
 
 
             const distance =
-                touchStartX -
-                touchEndX;
+                startX - endX;
 
 
-            /*
-               Swipe left
-            */
+            if (Math.abs(distance) > 50) {
 
-            if (distance > 50) {
+                if (distance > 0) {
 
-                nextSlide();
+                    nextSlide();
 
-            }
+                } else {
 
+                    previousSlide();
 
-            /*
-               Swipe right
-            */
-
-            else if (distance < -50) {
-
-                previousSlide();
+                }
 
             }
 
 
-            startAutoSlide();
+            startAuto();
 
         },
         {
-            passive: true
+            passive:true
         }
     );
 
 
     /* =====================================================
-                         MOUSE DRAG
+                        MOUSE DRAG
     ===================================================== */
 
-    let mouseStartX = 0;
-    let mouseDown = false;
+    let mouseStart = 0;
+    let dragging = false;
 
 
     wrapper.addEventListener(
         "mousedown",
-        event => {
+        e => {
 
-            mouseDown = true;
+            dragging = true;
 
-            mouseStartX =
-                event.clientX;
+            mouseStart =
+                e.clientX;
 
-            stopAutoSlide();
+            stopAuto();
 
         }
     );
@@ -520,33 +482,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
     wrapper.addEventListener(
         "mouseup",
-        event => {
+        e => {
 
-            if (!mouseDown) return;
+            if (!dragging) return;
 
-
-            mouseDown = false;
+            dragging = false;
 
 
             const distance =
-                mouseStartX -
-                event.clientX;
+                mouseStart -
+                e.clientX;
 
 
-            if (distance > 50) {
+            if (Math.abs(distance) > 50) {
 
-                nextSlide();
+                if (distance > 0) {
+
+                    nextSlide();
+
+                } else {
+
+                    previousSlide();
+
+                }
 
             }
 
-            else if (distance < -50) {
 
-                previousSlide();
-
-            }
-
-
-            startAutoSlide();
+            startAuto();
 
         }
     );
@@ -556,30 +519,31 @@ document.addEventListener("DOMContentLoaded", () => {
         "mouseleave",
         () => {
 
-            if (!mouseDown) return;
+            if (dragging) {
 
+                dragging = false;
 
-            mouseDown = false;
+                startAuto();
 
-            startAutoSlide();
+            }
 
         }
     );
 
 
     /* =====================================================
-                     PREVENT IMAGE DRAG
+                    STOP IMAGE DRAG
     ===================================================== */
 
     track
         .querySelectorAll("img")
-        .forEach(image => {
+        .forEach(img => {
 
-            image.addEventListener(
+            img.addEventListener(
                 "dragstart",
-                event => {
+                e => {
 
-                    event.preventDefault();
+                    e.preventDefault();
 
                 }
             );
@@ -588,10 +552,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-                       WINDOW RESIZE
+                      WINDOW RESIZE
     ===================================================== */
 
-    let resizeTimeout;
+    let resizeTimer;
 
 
     window.addEventListener(
@@ -599,55 +563,48 @@ document.addEventListener("DOMContentLoaded", () => {
         () => {
 
             clearTimeout(
-                resizeTimeout
+                resizeTimer
             );
 
 
-            resizeTimeout =
+            resizeTimer =
                 setTimeout(() => {
 
-                    moveToCard(
+                    moveSlide(
                         currentIndex,
                         false
                     );
 
-                }, 150);
+                }, 200);
 
         }
     );
 
 
     /* =====================================================
-                     INITIALIZE
+                     INITIAL POSITION
     ===================================================== */
-
-    /*
-       Muhimu sana:
-
-       Card ya kwanza inawekwa
-       katikati mara page inapofunguka.
-    */
 
     requestAnimationFrame(() => {
 
-        moveToCard(
+        moveSlide(
             currentIndex,
             false
         );
 
 
-        startAutoSlide();
+        startAuto();
 
     });
 
 
     /* =====================================================
-                      DEBUG MESSAGE
+                       DEBUG
     ===================================================== */
 
     console.log(
-        "CHAPCY V5 Slider Loaded:",
-        totalCards,
+        "CHAPCY V21 Infinite Slider Ready",
+        total,
         "groups"
     );
 
