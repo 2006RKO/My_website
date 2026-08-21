@@ -1868,4 +1868,152 @@ a:focus-visible{
         scroll-behavior:auto !important;
     }
 }
+/*=========================================
+        PERSONAL TOP SECTION
+=========================================*/
 
+.personal-bar{
+width:95%;
+max-width:1200px;
+margin:20px auto 30px;
+padding:18px;
+background:rgba(5,8,35,.75);
+backdrop-filter:blur(15px);
+border:1px solid rgba(0,217,255,.25);
+border-radius:28px;
+box-shadow:
+0 0 25px rgba(0,217,255,.15),
+0 0 50px rgba(123,44,255,.15);
+}
+
+/* PROFILE */
+
+.profile-box{
+display:flex;
+align-items:center;
+gap:15px;
+margin-bottom:18px;
+}
+
+.profile-box img{
+width:65px;
+height:65px;
+border-radius:50%;
+object-fit:cover;
+border:3px solid #00d9ff;
+box-shadow:0 0 15px #00d9ff;
+}
+
+.profile-info{
+flex:1;
+}
+
+.profile-info h3{
+color:#fff;
+font-size:22px;
+font-weight:700;
+margin-bottom:4px;
+}
+
+.profile-info span{
+color:#00ff88;
+font-size:14px;
+font-weight:500;
+}
+
+.profile-box i{
+color:white;
+font-size:20px;
+cursor:pointer;
+}
+
+/* NAVIGATION */
+
+.personal-nav{
+display:flex;
+gap:12px;
+overflow-x:auto;
+padding-bottom:5px;
+scrollbar-width:none;
+}
+
+.personal-nav::-webkit-scrollbar{
+display:none;
+}
+
+.nav-item{
+min-width:140px;
+height:80px;
+border:none;
+border-radius:20px;
+background:rgba(255,255,255,.05);
+color:white;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+gap:8px;
+cursor:pointer;
+transition:.3s;
+border:1px solid rgba(255,255,255,.08);
+}
+
+.nav-item:hover{
+transform:translateY(-4px);
+background:rgba(255,255,255,.08);
+}
+
+.nav-item i{
+font-size:24px;
+}
+
+.nav-item span{
+font-size:14px;
+font-weight:600;
+white-space:nowrap;
+}
+
+.nav-item.active{
+background:linear-gradient(
+135deg,
+#7b2cff,
+#00d9ff
+);
+box-shadow:
+0 0 20px rgba(123,44,255,.6);
+}
+
+/*=========================================
+          MOBILE RESPONSIVE
+=========================================*/
+
+@media(max-width:768px){
+
+.personal-bar{
+width:92%;
+padding:15px;
+}
+
+.profile-box img{
+width:55px;
+height:55px;
+}
+
+.profile-info h3{
+font-size:18px;
+}
+
+.nav-item{
+min-width:120px;
+height:75px;
+}
+
+.nav-item i{
+font-size:22px;
+}
+
+.nav-item span{
+font-size:12px;
+}
+
+}
