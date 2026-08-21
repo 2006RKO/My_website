@@ -1,63 +1,77 @@
-document.addEventListener("DOMContentLoaded", function () {
+/* =========================================================
+   CHAPCY V9 COMPLETE
+   3D GROUP SLIDESHOW + CARD TRANSITIONS
+   ========================================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
 
     const track = document.getElementById("sliderTrack");
-    const nextBtn = document.getElementById("nextBtn");
     const prevBtn = document.getElementById("prevBtn");
-    const wrapper = document.querySelector(".slider-wrapper");
+    const nextBtn = document.getElementById("nextBtn");
+    const slider = document.querySelector(".group-slider");
 
-    if (!track || !nextBtn || !prevBtn || !wrapper) {
-        console.error("CHAPCY SLIDER: HTML elements hazijapatikana.");
+    if (!track || !prevBtn || !nextBtn || !slider) {
+        console.warn("CHAPCY Slider: Required elements not found.");
         return;
     }
+
+
+    /* =====================================================
+       GET ALL CARDS
+       ===================================================== */
 
     const cards = Array.from(
         track.querySelectorAll(".group-card")
     );
 
-    if (cards.length === 0) {
-        console.error("CHAPCY SLIDER: Hakuna cards.");
+    if (!cards.length) {
+        console.warn("CHAPCY Slider: No group cards found.");
         return;
     }
 
-    let current = 0;
-    let autoSlide;
+
+    /* =====================================================
+       SETTINGS
+       ===================================================== */
+
+    let currentIndex = 0;
+
+    let autoplay = null;
+
+    let isAnimating = false;
+
+    const AUTO_PLAY_TIME = 4000;
+
+    const DESKTOP_GAP = 24;
+
+    const MOBILE_GAP = 14;
 
 
-    /* =========================================
-       GET CARD POSITION
-    ========================================= */
+    /* =====================================================
+       GET CURRENT GAP
+       ===================================================== */
 
-    function getCardStep() {
+    function getGap() {
 
-        const card = cards[0];
+        return window.innerWidth <= 700
+            ? MOBILE_GAP
+            : DESKTOP_GAP;
 
-        const cardWidth = card.getBoundingClientRect().width;
-
-        const trackStyle = window.getComputedStyle(track);
-
-        const gap = parseFloat(trackStyle.gap) || 0;
-
-        return cardWidth + gap;
     }
 
 
-    /* =========================================
-       MOVE SLIDER
-    ========================================= */
+    /* =====================================================
+       CENTER ACTIVE CARD
+       ===================================================== */
 
-    function showSlide(index) {
+    function updateSlider(animate = true) {
 
-        current = index;
+        if (!cards.length) return;
 
-        if (current < 0) {
-            current = cards.length - 1;
-        }
+        const wrapper =
+            slider.querySelector(".slider-wrapper");
 
-        if (current >= cards.length) {
-            current = 0;
-        }
-
-        const step = getCardStep();
+        if (!wrapper) return;
 
         const wrapperWidth =
             wrapper.getBoundingClientRect().width;
@@ -65,196 +79,359 @@ document.addEventListener("DOMContentLoaded", function () {
         const cardWidth =
             cards[0].getBoundingClientRect().width;
 
+        const gap = getGap();
+
+        const cardStep =
+            cardWidth + gap;
 
         /*
-         * CENTER CARD
+         * Position active card
+         * exactly in the center.
          */
 
-        const centerOffset =
+        const centerPosition =
             (wrapperWidth - cardWidth) / 2;
 
+        const translateX =
+            centerPosition -
+            (currentIndex * cardStep);
 
-        const move =
-            centerOffset - (current * step);
 
+        /* Animation */
 
-        /*
-         * MOVE TRACK
-         */
+        if (animate) {
+
+            track.style.transition =
+                "transform .75s cubic-bezier(.22,.61,.36,1)";
+
+        } else {
+
+            track.style.transition =
+                "none";
+
+        }
+
 
         track.style.transform =
-            `translate3d(${move}px, 0, 0)`;
+            `translate3d(${translateX}px, 0, 0)`;
 
 
-        /*
-         * ACTIVE CARD
-         */
+        /* =================================================
+           ACTIVE CARD
+           ================================================= */
 
-        cards.forEach((card, i) => {
+        cards.forEach((card, index) => {
 
-            if (i === current) {
-                card.classList.add("active");
-            } else {
-                card.classList.remove("active");
-            }
+            card.classList.toggle(
+                "active",
+                index === currentIndex
+            );
 
         });
 
     }
 
 
-    /* =========================================
-       NEXT
-    ========================================= */
+    /* =====================================================
+       NEXT SLIDE
+       ===================================================== */
 
     function nextSlide() {
 
-        showSlide(current + 1);
+        if (isAnimating) return;
+
+        currentIndex++;
+
+        if (currentIndex >= cards.length) {
+
+            currentIndex = 0;
+
+        }
+
+        updateSlider(true);
 
     }
 
 
-    /* =========================================
-       PREVIOUS
-    ========================================= */
+    /* =====================================================
+       PREVIOUS SLIDE
+       ===================================================== */
 
     function previousSlide() {
 
-        showSlide(current - 1);
+        if (isAnimating) return;
+
+        currentIndex--;
+
+        if (currentIndex < 0) {
+
+            currentIndex =
+                cards.length - 1;
+
+        }
+
+        updateSlider(true);
 
     }
 
 
-    /* =========================================
-       BUTTONS
-    ========================================= */
+    /* =====================================================
+       BUTTON EVENTS
+       ===================================================== */
 
-    nextBtn.addEventListener("click", function () {
-
-        nextSlide();
-
-        restartAuto();
-
-    });
-
-
-    prevBtn.addEventListener("click", function () {
-
-        previousSlide();
-
-        restartAuto();
-
-    });
-
-
-    /* =========================================
-       AUTO SLIDE
-    ========================================= */
-
-    function startAuto() {
-
-        clearInterval(autoSlide);
-
-        autoSlide = setInterval(function () {
+    nextBtn.addEventListener(
+        "click",
+        () => {
 
             nextSlide();
 
-        }, 3500);
+            restartAutoplay();
 
-    }
-
-
-    function stopAuto() {
-
-        clearInterval(autoSlide);
-
-    }
-
-
-    function restartAuto() {
-
-        stopAuto();
-
-        startAuto();
-
-    }
-
-
-    /* =========================================
-       MOBILE SWIPE
-    ========================================= */
-
-    let touchStart = 0;
-    let touchEnd = 0;
-
-
-    wrapper.addEventListener(
-        "touchstart",
-        function (e) {
-
-            touchStart =
-                e.touches[0].clientX;
-
-            stopAuto();
-
-        },
-        { passive: true }
+        }
     );
 
 
-    wrapper.addEventListener(
+    prevBtn.addEventListener(
+        "click",
+        () => {
+
+            previousSlide();
+
+            restartAutoplay();
+
+        }
+    );
+
+
+    /* =====================================================
+       AUTOPLAY
+       ===================================================== */
+
+    function startAutoplay() {
+
+        stopAutoplay();
+
+        autoplay = setInterval(() => {
+
+            if (!isAnimating) {
+
+                currentIndex++;
+
+                if (currentIndex >= cards.length) {
+
+                    currentIndex = 0;
+
+                }
+
+                updateSlider(true);
+
+            }
+
+        }, AUTO_PLAY_TIME);
+
+    }
+
+
+    function stopAutoplay() {
+
+        if (autoplay !== null) {
+
+            clearInterval(autoplay);
+
+            autoplay = null;
+
+        }
+
+    }
+
+
+    function restartAutoplay() {
+
+        stopAutoplay();
+
+        startAutoplay();
+
+    }
+
+
+    /* =====================================================
+       PAUSE WHEN MOUSE ENTERS
+       ===================================================== */
+
+    slider.addEventListener(
+        "mouseenter",
+        () => {
+
+            stopAutoplay();
+
+        }
+    );
+
+
+    slider.addEventListener(
+        "mouseleave",
+        () => {
+
+            if (!isAnimating) {
+
+                startAutoplay();
+
+            }
+
+        }
+    );
+
+
+    /* =====================================================
+       TOUCH SWIPE
+       ===================================================== */
+
+    let touchStartX = 0;
+
+    let touchEndX = 0;
+
+    let touchStartY = 0;
+
+    let touchEndY = 0;
+
+
+    slider.addEventListener(
+        "touchstart",
+        (event) => {
+
+            if (!event.touches.length) return;
+
+            touchStartX =
+                event.touches[0].clientX;
+
+            touchStartY =
+                event.touches[0].clientY;
+
+            stopAutoplay();
+
+        },
+        {
+            passive: true
+        }
+    );
+
+
+    slider.addEventListener(
+        "touchmove",
+        (event) => {
+
+            if (!event.touches.length) return;
+
+            touchEndX =
+                event.touches[0].clientX;
+
+            touchEndY =
+                event.touches[0].clientY;
+
+        },
+        {
+            passive: true
+        }
+    );
+
+
+    slider.addEventListener(
         "touchend",
-        function (e) {
+        () => {
 
-            touchEnd =
-                e.changedTouches[0].clientX;
+            const horizontalDistance =
+                touchStartX - touchEndX;
 
-            const distance =
-                touchStart - touchEnd;
+            const verticalDistance =
+                touchStartY - touchEndY;
+
+            const swipeDistance = 50;
 
 
-            if (Math.abs(distance) > 50) {
+            /*
+             * Only treat it as a swipe if
+             * horizontal movement is greater
+             * than vertical movement.
+             */
 
-                if (distance > 0) {
+            if (
+                Math.abs(horizontalDistance) >
+                Math.abs(verticalDistance)
+            ) {
 
-                    nextSlide();
+                if (
+                    Math.abs(horizontalDistance) >
+                    swipeDistance
+                ) {
 
-                } else {
+                    if (horizontalDistance > 0) {
 
-                    previousSlide();
+                        nextSlide();
+
+                    } else {
+
+                        previousSlide();
+
+                    }
 
                 }
 
             }
 
-            startAuto();
 
-        },
-        { passive: true }
+            touchStartX = 0;
+            touchEndX = 0;
+            touchStartY = 0;
+            touchEndY = 0;
+
+
+            startAutoplay();
+
+        }
     );
 
 
-    /* =========================================
-       KEYBOARD
-    ========================================= */
+    /* =====================================================
+       KEYBOARD CONTROLS
+       ===================================================== */
 
     document.addEventListener(
         "keydown",
-        function (e) {
+        (event) => {
 
-            if (e.key === "ArrowRight") {
+            /*
+             * Don't control slider while
+             * typing in an input.
+             */
+
+            const activeElement =
+                document.activeElement;
+
+            const typing =
+                activeElement &&
+                (
+                    activeElement.tagName === "INPUT" ||
+                    activeElement.tagName === "TEXTAREA" ||
+                    activeElement.tagName === "SELECT"
+                );
+
+            if (typing) return;
+
+
+            if (event.key === "ArrowRight") {
 
                 nextSlide();
 
-                restartAuto();
+                restartAutoplay();
 
             }
 
-            if (e.key === "ArrowLeft") {
+
+            if (event.key === "ArrowLeft") {
 
                 previousSlide();
 
-                restartAuto();
+                restartAutoplay();
 
             }
 
@@ -262,33 +439,414 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
 
-    /* =========================================
-       RESIZE
-    ========================================= */
+    /* =====================================================
+       CARD CLICK
+       ===================================================== */
+
+    cards.forEach((card, index) => {
+
+        card.addEventListener(
+            "click",
+            (event) => {
+
+                /*
+                 * Don't trigger card animation
+                 * when Join Group or Payment
+                 * button is clicked.
+                 */
+
+                if (
+                    event.target.closest(".join-btn") ||
+                    event.target.closest(".payment-btn")
+                ) {
+
+                    return;
+
+                }
+
+
+                if (isAnimating) return;
+
+
+                isAnimating = true;
+
+                stopAutoplay();
+
+
+                /* =========================================
+                   MAKE CLICKED CARD CENTER
+                   ========================================= */
+
+                currentIndex = index;
+
+                updateSlider(true);
+
+
+                /*
+                 * Wait for the card to reach
+                 * the center position.
+                 */
+
+                setTimeout(() => {
+
+                    /*
+                     * Save selected group.
+                     */
+
+                    sessionStorage.setItem(
+                        "chapcySelectedGroup",
+                        String(index)
+                    );
+
+
+                    /*
+                     * Save current slide.
+                     */
+
+                    sessionStorage.setItem(
+                        "chapcySlideIndex",
+                        String(index)
+                    );
+
+
+                    /*
+                     * Save that we are leaving
+                     * the slideshow.
+                     */
+
+                    sessionStorage.setItem(
+                        "chapcyLeavingGroup",
+                        "true"
+                    );
+
+
+                    /*
+                     * Add ENTER animation.
+                     */
+
+                    card.classList.add(
+                        "card-enter"
+                    );
+
+
+                }, 700);
+
+
+                /*
+                 * Wait for the 3-rotation animation
+                 * to finish.
+                 */
+
+                setTimeout(() => {
+
+                    const destination =
+                        card.dataset.url ||
+                        getGroupURL(card);
+
+
+                    window.location.href =
+                        destination;
+
+                }, 2200);
+
+            }
+        );
+
+    });
+
+
+    /* =====================================================
+       FIND GROUP URL
+       ===================================================== */
+
+    function getGroupURL(card) {
+
+        const titleElement =
+            card.querySelector("h3");
+
+        if (!titleElement) {
+
+            return "group-details.html";
+
+        }
+
+
+        let title =
+            titleElement.textContent
+                .trim()
+                .toLowerCase();
+
+
+        /*
+         * Remove emojis and symbols.
+         */
+
+        title =
+            title
+                .replace(/[^\w\s-]/gi, "")
+                .trim();
+
+
+        /*
+         * Convert spaces to -
+         */
+
+        title =
+            title.replace(/\s+/g, "-");
+
+
+        /*
+         * Examples:
+         *
+         * Sporty Group
+         * -> sporty-group.html
+         *
+         * Music Group
+         * -> music-group.html
+         */
+
+        return `${title}.html`;
+
+    }
+
+
+    /* =====================================================
+       RETURN FROM GROUP
+       ===================================================== */
+
+    function handleReturnAnimation() {
+
+        const returning =
+            sessionStorage.getItem(
+                "chapcyLeavingGroup"
+            );
+
+
+        if (returning !== "true") {
+
+            return;
+
+        }
+
+
+        /*
+         * Get previous slide index.
+         */
+
+        const savedIndex =
+            parseInt(
+                sessionStorage.getItem(
+                    "chapcySlideIndex"
+                ),
+                10
+            );
+
+
+        if (
+            Number.isNaN(savedIndex) ||
+            savedIndex < 0 ||
+            savedIndex >= cards.length
+        ) {
+
+            sessionStorage.removeItem(
+                "chapcyLeavingGroup"
+            );
+
+            startAutoplay();
+
+            return;
+
+        }
+
+
+        /*
+         * Restore slide.
+         */
+
+        currentIndex =
+            savedIndex;
+
+
+        /*
+         * Put card in center
+         * without animation first.
+         */
+
+        updateSlider(false);
+
+
+        const selectedCard =
+            cards[currentIndex];
+
+
+        if (!selectedCard) {
+
+            startAutoplay();
+
+            return;
+
+        }
+
+
+        /*
+         * Remove any old classes.
+         */
+
+        selectedCard.classList.remove(
+            "active"
+        );
+
+        selectedCard.classList.remove(
+            "card-enter"
+        );
+
+        selectedCard.classList.remove(
+            "card-exit"
+        );
+
+
+        /*
+         * Force browser reflow.
+         * This makes the reverse animation
+         * start correctly.
+         */
+
+        void selectedCard.offsetWidth;
+
+
+        /*
+         * Add reverse animation.
+         */
+
+        selectedCard.classList.add(
+            "card-exit"
+        );
+
+
+        /*
+         * After animation finishes,
+         * return to normal slideshow.
+         */
+
+        setTimeout(() => {
+
+            selectedCard.classList.remove(
+                "card-exit"
+            );
+
+
+            updateSlider(true);
+
+
+            isAnimating = false;
+
+
+            sessionStorage.removeItem(
+                "chapcyLeavingGroup"
+            );
+
+
+            startAutoplay();
+
+        }, 1550);
+
+    }
+
+
+    /* =====================================================
+       PAGE SHOW
+       ===================================================== */
 
     window.addEventListener(
-        "resize",
-        function () {
+        "pageshow",
+        () => {
 
-            showSlide(current);
+            /*
+             * Small delay gives the browser
+             * time to restore the page.
+             */
+
+            setTimeout(() => {
+
+                handleReturnAnimation();
+
+            }, 100);
 
         }
     );
 
 
-    /* =========================================
-       INITIALIZE
-    ========================================= */
+    /* =====================================================
+       RESIZE
+       ===================================================== */
 
-    showSlide(0);
-
-    startAuto();
+    let resizeTimer = null;
 
 
-    console.log(
-        "🔥 CHAPCY SLIDESHOW RUNNING:",
-        cards.length,
-        "cards"
+    window.addEventListener(
+        "resize",
+        () => {
+
+            clearTimeout(resizeTimer);
+
+
+            resizeTimer = setTimeout(() => {
+
+                updateSlider(false);
+
+            }, 150);
+
+        }
     );
+
+
+    /* =====================================================
+       PREVENT IMAGE DRAGGING
+       ===================================================== */
+
+    cards.forEach((card) => {
+
+        const image =
+            card.querySelector("img");
+
+        if (image) {
+
+            image.addEventListener(
+                "dragstart",
+                (event) => {
+
+                    event.preventDefault();
+
+                }
+            );
+
+        }
+
+    });
+
+
+    /* =====================================================
+       INITIALIZE
+       ===================================================== */
+
+    updateSlider(false);
+
+
+    /*
+     * Check if we came back
+     * from a group page.
+     */
+
+    const returning =
+        sessionStorage.getItem(
+            "chapcyLeavingGroup"
+        );
+
+
+    if (returning !== "true") {
+
+        startAutoplay();
+
+    }
 
 });
