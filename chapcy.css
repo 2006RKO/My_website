@@ -734,9 +734,7 @@ body::after{
     will-change:transform;
 
     transition:
-        transform
-        .75s
-        cubic-bezier(.22,.61,.36,1);
+        transform .7s cubic-bezier(.22,.61,.36,1);
 }
 
 
