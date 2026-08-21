@@ -1,5 +1,5 @@
 /* =========================================================
-             CHAPCY V5 PREMIUM INFINITE SLIDER
+              CHAPCY V5 INFINITE CARD SLIDER
 ========================================================= */
 
 "use strict";
@@ -18,9 +18,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const prevBtn =
         document.getElementById("prevBtn");
 
-    const xpReward =
-        document.getElementById("xpReward");
-
 
     if(!wrapper || !track) return;
 
@@ -29,25 +26,21 @@ document.addEventListener("DOMContentLoaded", () => {
                     ORIGINAL CARDS
     ===================================================== */
 
-    const originals =
+    const originalCards =
         Array.from(
             track.querySelectorAll(".group-card")
         );
 
+
     const total =
-        originals.length;
+        originalCards.length;
+
 
     if(total === 0) return;
 
 
     /* =====================================================
-              CREATE 3 SETS FOR INFINITE LOOP
-
-       BEFORE + ORIGINAL + AFTER
-
-       1 2 3 4 ... 11
-       1 2 3 4 ... 11
-       1 2 3 4 ... 11
+                  CREATE INFINITE COPIES
     ===================================================== */
 
     const before =
@@ -57,29 +50,29 @@ document.addEventListener("DOMContentLoaded", () => {
         document.createDocumentFragment();
 
 
-    originals.forEach(card => {
+    originalCards.forEach(card => {
 
-        const cloneBefore =
+        const beforeClone =
             card.cloneNode(true);
 
-        cloneBefore.classList.add(
-            "slider-clone"
+        beforeClone.classList.add(
+            "carousel-clone"
         );
 
         before.appendChild(
-            cloneBefore
+            beforeClone
         );
 
 
-        const cloneAfter =
+        const afterClone =
             card.cloneNode(true);
 
-        cloneAfter.classList.add(
-            "slider-clone"
+        afterClone.classList.add(
+            "carousel-clone"
         );
 
         after.appendChild(
-            cloneAfter
+            afterClone
         );
 
     });
@@ -90,38 +83,28 @@ document.addEventListener("DOMContentLoaded", () => {
         track.firstChild
     );
 
-    track.appendChild(
-        after
-    );
+
+    track.appendChild(after);
 
 
     /* =====================================================
-                    VARIABLES
+                    STATE
     ===================================================== */
 
     let currentIndex =
         total;
 
-    let autoTimer =
-        null;
-
-    let animating =
+    let moving =
         false;
 
-    let startX = 0;
-
-    let currentX = 0;
-
-    let dragging = false;
-
-    let startPosition = 0;
+    let autoPlay;
 
 
     /* =====================================================
-                    CARD WIDTH
+                  CARD SIZE
     ===================================================== */
 
-    function cardWidth(){
+    function getCardStep(){
 
         const card =
             track.querySelector(".group-card");
@@ -129,11 +112,16 @@ document.addEventListener("DOMContentLoaded", () => {
         if(!card) return 0;
 
 
-        const style =
-            window.getComputedStyle(track);
+        const trackStyle =
+            window.getComputedStyle(
+                track
+            );
+
 
         const gap =
-            parseFloat(style.gap) || 0;
+            parseFloat(
+                trackStyle.gap
+            ) || 0;
 
 
         return card.offsetWidth + gap;
@@ -141,62 +129,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-              CENTER ACTIVE CARD
+                    CENTER CARD
     ===================================================== */
 
-    function centerCurrent(
-        animated = true
+    function updateSlider(
+        smooth = true
     ){
-
-        const card =
-            track.querySelector(".group-card");
-
-        if(!card) return;
-
-
-        const width =
-            cardWidth();
-
-        const wrapperWidth =
-            wrapper.clientWidth;
-
-
-        /*
-           Center ya active card.
-        */
-
-        const cardCenter =
-            currentIndex * width
-            +
-            card.offsetWidth / 2;
-
-
-        const target =
-            wrapperWidth / 2
-            -
-            cardCenter;
-
-
-        track.style.transition =
-            animated
-                ? "transform .72s cubic-bezier(.22,.61,.36,1)"
-                : "none";
-
-
-        track.style.transform =
-            `translate3d(${target}px,0,0)`;
-
-
-        updateActive();
-
-    }
-
-
-    /* =====================================================
-                  ACTIVE CARD
-    ===================================================== */
-
-    function updateActive(){
 
         const cards =
             track.querySelectorAll(
@@ -204,10 +142,51 @@ document.addEventListener("DOMContentLoaded", () => {
             );
 
 
-        cards.forEach(
-            card => {
+        const card =
+            cards[currentIndex];
 
-                card.classList.remove(
+
+        if(!card) return;
+
+
+        const step =
+            getCardStep();
+
+
+        const wrapperWidth =
+            wrapper.clientWidth;
+
+
+        const cardWidth =
+            card.offsetWidth;
+
+
+        const cardCenter =
+            currentIndex * step
+            +
+            cardWidth / 2;
+
+
+        const translateX =
+            wrapperWidth / 2
+            -
+            cardCenter;
+
+
+        track.style.transition =
+            smooth
+                ? "transform .72s cubic-bezier(.22,.61,.36,1)"
+                : "none";
+
+
+        track.style.transform =
+            `translate3d(${translateX}px,0,0)`;
+
+
+        cards.forEach(
+            item => {
+
+                item.classList.remove(
                     "active"
                 );
 
@@ -215,29 +194,11 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
-        const active =
-            cards[currentIndex];
-
-        if(active){
-
-            active.classList.add(
-                "active"
-            );
-
-        }
+        card.classList.add(
+            "active"
+        );
 
     }
-
-
-    /* =====================================================
-                    INITIALIZE
-    ===================================================== */
-
-    requestAnimationFrame(() => {
-
-        centerCurrent(false);
-
-    });
 
 
     /* =====================================================
@@ -246,36 +207,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function nextSlide(){
 
-        if(animating) return;
+        if(moving) return;
 
-        animating = true;
+        moving = true;
 
 
         currentIndex++;
 
 
-        centerCurrent(true);
+        updateSlider(true);
 
-
-        /*
-          Baada ya ORIGINAL SET,
-          tunarudi kwenye clone position.
-        */
 
         setTimeout(() => {
+
+            /*
+             * Tukiingia set ya mwisho,
+             * rudi kwenye set ya katikati
+             */
 
             if(currentIndex >= total * 2){
 
                 currentIndex =
                     total;
 
-                centerCurrent(false);
+                updateSlider(false);
 
             }
 
-            animating = false;
 
-        }, 760);
+            moving = false;
+
+        },750);
 
     }
 
@@ -286,15 +248,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function previousSlide(){
 
-        if(animating) return;
+        if(moving) return;
 
-        animating = true;
+        moving = true;
 
 
         currentIndex--;
 
 
-        centerCurrent(true);
+        updateSlider(true);
 
 
         setTimeout(() => {
@@ -304,20 +266,21 @@ document.addEventListener("DOMContentLoaded", () => {
                 currentIndex =
                     total * 2 - 1;
 
-                centerCurrent(false);
+                updateSlider(false);
 
             }
 
-            animating = false;
 
-        }, 760);
+            moving = false;
+
+        },750);
 
     }
 
 
     /* =====================================================
                     AUTO PLAY
-                    2.5 SECONDS
+                    EVERY 2.5 SEC
     ===================================================== */
 
     function startAuto(){
@@ -325,7 +288,7 @@ document.addEventListener("DOMContentLoaded", () => {
         stopAuto();
 
 
-        autoTimer =
+        autoPlay =
             setInterval(
                 () => {
 
@@ -340,13 +303,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function stopAuto(){
 
-        if(autoTimer){
+        if(autoPlay){
 
             clearInterval(
-                autoTimer
+                autoPlay
             );
 
-            autoTimer = null;
+            autoPlay = null;
 
         }
 
@@ -398,107 +361,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-                    TOUCH START
+                    TOUCH SWIPE
     ===================================================== */
+
+    let touchStartX = 0;
+    let touchEndX = 0;
+
 
     wrapper.addEventListener(
         "touchstart",
         event => {
 
-            if(animating) return;
-
-
-            dragging = true;
-
-
-            startX =
+            touchStartX =
                 event.touches[0].clientX;
-
-            currentX =
-                startX;
-
-
-            const transform =
-                getComputedStyle(
-                    track
-                ).transform;
-
-
-            if(transform !== "none"){
-
-                const matrix =
-                    new DOMMatrix(
-                        transform
-                    );
-
-                startPosition =
-                    matrix.m41;
-
-            }else{
-
-                startPosition = 0;
-
-            }
-
-
-            track.style.transition =
-                "none";
-
 
             stopAuto();
 
         },
-        {
-            passive:true
-        }
+        {passive:true}
     );
 
-
-    /* =====================================================
-                    TOUCH MOVE
-    ===================================================== */
-
-    wrapper.addEventListener(
-        "touchmove",
-        event => {
-
-            if(!dragging) return;
-
-
-            currentX =
-                event.touches[0].clientX;
-
-
-            const distance =
-                currentX - startX;
-
-
-            track.style.transform =
-                `translate3d(${startPosition + distance}px,0,0)`;
-
-        },
-        {
-            passive:true
-        }
-    );
-
-
-    /* =====================================================
-                    TOUCH END
-    ===================================================== */
 
     wrapper.addEventListener(
         "touchend",
-        () => {
+        event => {
 
-            if(!dragging) return;
-
-
-            dragging = false;
+            touchEndX =
+                event.changedTouches[0].clientX;
 
 
             const distance =
-                startX - currentX;
+                touchStartX - touchEndX;
 
 
             if(distance > 50){
@@ -513,14 +406,15 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             else{
 
-                centerCurrent(true);
+                updateSlider(true);
 
             }
 
 
             startAuto();
 
-        }
+        },
+        {passive:true}
     );
 
 
@@ -528,48 +422,18 @@ document.addEventListener("DOMContentLoaded", () => {
                     MOUSE DRAG
     ===================================================== */
 
+    let mouseStartX = 0;
+    let mouseDown = false;
+
+
     wrapper.addEventListener(
         "mousedown",
         event => {
 
-            if(animating) return;
+            mouseDown = true;
 
-
-            dragging = true;
-
-            startX =
+            mouseStartX =
                 event.clientX;
-
-            currentX =
-                startX;
-
-
-            const transform =
-                getComputedStyle(
-                    track
-                ).transform;
-
-
-            if(transform !== "none"){
-
-                const matrix =
-                    new DOMMatrix(
-                        transform
-                    );
-
-                startPosition =
-                    matrix.m41;
-
-            }else{
-
-                startPosition = 0;
-
-            }
-
-
-            track.style.transition =
-                "none";
-
 
             stopAuto();
 
@@ -578,39 +442,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     wrapper.addEventListener(
-        "mousemove",
+        "mouseup",
         event => {
 
-            if(!dragging) return;
+            if(!mouseDown) return;
 
 
-            currentX =
+            mouseDown = false;
+
+
+            const distance =
+                mouseStartX -
                 event.clientX;
-
-
-            const distance =
-                currentX - startX;
-
-
-            track.style.transform =
-                `translate3d(${startPosition + distance}px,0,0)`;
-
-        }
-    );
-
-
-    wrapper.addEventListener(
-        "mouseup",
-        () => {
-
-            if(!dragging) return;
-
-
-            dragging = false;
-
-
-            const distance =
-                startX - currentX;
 
 
             if(distance > 50){
@@ -625,7 +468,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             else{
 
-                centerCurrent(true);
+                updateSlider(true);
 
             }
 
@@ -640,15 +483,15 @@ document.addEventListener("DOMContentLoaded", () => {
         "mouseleave",
         () => {
 
-            if(!dragging) return;
+            if(mouseDown){
 
+                mouseDown = false;
 
-            dragging = false;
+                updateSlider(true);
 
+                startAuto();
 
-            centerCurrent(true);
-
-            startAuto();
+            }
 
         }
     );
@@ -674,7 +517,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 setTimeout(
                     () => {
 
-                        centerCurrent(false);
+                        updateSlider(false);
 
                     },
                     150
@@ -685,55 +528,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-                    XP REWARD
-    ===================================================== */
-
-    function showXP(){
-
-        if(!xpReward) return;
-
-
-        xpReward.classList.add(
-            "show"
-        );
-
-
-        setTimeout(
-            () => {
-
-                xpReward.classList.remove(
-                    "show"
-                );
-
-            },
-            1300
-        );
-
-    }
-
-
-    /* =====================================================
-                    JOIN BUTTONS
-    ===================================================== */
-
-    document
-        .querySelectorAll(".join-btn")
-        .forEach(button => {
-
-            button.addEventListener(
-                "click",
-                () => {
-
-                    showXP();
-
-                }
-            );
-
-        });
-
-
-    /* =====================================================
-                    PREVENT IMAGE DRAG
+                    DISABLE IMAGE DRAG
     ===================================================== */
 
     track
@@ -753,9 +548,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-                    START
+                    INITIAL POSITION
     ===================================================== */
 
-    startAuto();
+    requestAnimationFrame(() => {
+
+        updateSlider(false);
+
+        startAuto();
+
+    });
 
 });
