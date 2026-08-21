@@ -425,38 +425,29 @@ body{
 
 
 /* =========================================================
-              PREMIUM GROUP SLIDER
+              CHAPCY V5 NEON GROUP CARDS
+              NO STATISTICS VERSION
 ========================================================= */
 
 .group-slider{
     width:100%;
-    max-width:1350px;
-
+    max-width:1450px;
     margin:0 auto;
-
+    padding:0 38px;
     position:relative;
-
-    padding:0 40px;
-
-    z-index:5;
 }
 
 
 /* =========================================================
-                  SLIDER WINDOW
+                    SLIDER WINDOW
 ========================================================= */
 
 .slider-wrapper{
-
     width:100%;
-
     overflow:hidden;
-
     position:relative;
 
-    padding:
-        35px 0
-        45px;
+    padding:45px 0 65px;
 
     touch-action:pan-y;
 
@@ -473,11 +464,10 @@ body{
 ========================================================= */
 
 .slider-track{
-
     display:flex;
     align-items:center;
 
-    gap:20px;
+    gap:22px;
 
     width:max-content;
 
@@ -488,19 +478,18 @@ body{
 
 
 /* =========================================================
-                  GROUP CARD
+                    MAIN CARD
 ========================================================= */
 
 .group-card{
 
     position:relative;
 
-    flex:
-        0 0 340px;
+    flex:0 0 335px;
 
-    width:340px;
+    width:335px;
 
-    height:445px;
+    height:525px;
 
     overflow:hidden;
 
@@ -509,27 +498,25 @@ body{
     background:
         linear-gradient(
             180deg,
-            rgba(9,12,48,.88),
-            rgba(5,7,30,.95)
+            rgba(8,7,38,.96),
+            rgba(4,5,25,.98)
         );
 
     border:
-        1px solid
-        rgba(70,210,255,.22);
+        1.5px solid
+        rgba(45,170,255,.55);
 
     box-shadow:
-        0 15px 40px
-        rgba(0,0,0,.5);
+        0 15px 45px rgba(0,0,0,.5),
+        0 0 25px rgba(20,100,255,.12);
 
-    opacity:.48;
+    opacity:.45;
 
-    transform:
-        scale(.86);
+    transform:scale(.82);
 
     filter:
-        brightness(.65)
-        saturate(.8)
-        blur(.2px);
+        brightness(.58)
+        saturate(.8);
 
     transition:
         transform .72s cubic-bezier(.22,.61,.36,1),
@@ -543,39 +530,45 @@ body{
 
 
 /* =========================================================
-              ACTIVE CENTER CARD
+                  ACTIVE CENTER CARD
 ========================================================= */
 
 .group-card.active{
 
     opacity:1;
 
-    transform:
-        scale(1);
+    transform:scale(1.08);
 
     filter:
         brightness(1)
-        saturate(1.12)
-        blur(0);
+        saturate(1.2);
+
+    z-index:10;
 
     border-color:
-        rgba(70,225,255,.72);
+        rgba(211,65,255,.95);
 
     box-shadow:
 
-        0 25px 65px
-        rgba(0,0,0,.6),
+        0 20px 60px
+        rgba(0,0,0,.65),
 
-        0 0 35px
-        rgba(0,215,255,.2),
+        0 0 18px
+        rgba(200,50,255,.8),
 
-        0 0 80px
-        rgba(120,50,255,.13);
+        0 0 45px
+        rgba(160,40,255,.55),
+
+        0 0 90px
+        rgba(50,90,255,.25),
+
+        inset 0 0 30px
+        rgba(150,30,255,.12);
 }
 
 
 /* =========================================================
-                    CARD GLOW
+                    NEON GLOW
 ========================================================= */
 
 .group-card::before{
@@ -584,21 +577,26 @@ body{
 
     position:absolute;
 
-    top:-80px;
-    right:-80px;
+    width:180px;
+    height:180px;
 
-    width:190px;
-    height:190px;
+    top:-80px;
+    left:50%;
+
+    transform:translateX(-50%);
 
     border-radius:50%;
 
     background:
-        rgba(0,210,255,.13);
+        rgba(100,50,255,.35);
 
-    filter:blur(40px);
+    filter:blur(55px);
 
     pointer-events:none;
+
+    z-index:1;
 }
+
 
 .group-card::after{
 
@@ -606,78 +604,94 @@ body{
 
     position:absolute;
 
-    bottom:-100px;
-    left:-80px;
+    width:180px;
+    height:180px;
 
-    width:220px;
-    height:220px;
+    bottom:-100px;
+    right:-70px;
 
     border-radius:50%;
 
     background:
-        rgba(150,40,255,.15);
+        rgba(0,160,255,.22);
 
-    filter:blur(45px);
+    filter:blur(60px);
 
     pointer-events:none;
 }
 
 
 /* =========================================================
-                    IMAGE
+                    GROUP IMAGE
 ========================================================= */
 
 .group-card > img{
+
+    position:relative;
+
+    z-index:2;
 
     display:block;
 
     width:100%;
-    height:220px;
+
+    /*
+       PICHA KUBWA
+    */
+
+    height:250px;
 
     object-fit:cover;
 
-    pointer-events:none;
+    object-position:center;
+
+    border-radius:
+        28px 28px 0 0;
 
     user-select:none;
 
+    pointer-events:none;
+
     filter:
-        brightness(.75)
-        saturate(1.05);
+        brightness(.72)
+        saturate(1.2);
 
     transition:
+        height .6s ease,
         transform .7s ease,
         filter .7s ease;
-}
 
-.group-card.active > img{
-
-    filter:
-        brightness(.95)
-        saturate(1.18);
-
-    transform:scale(1.03);
-}
-
-
-/* =========================================================
-                IMAGE BOTTOM FADE
-========================================================= */
-
-.group-card > img{
+    /*
+       Fade chini ya picha
+    */
 
     -webkit-mask-image:
         linear-gradient(
             to bottom,
-            #000 65%,
+            #000 72%,
             transparent 100%
         );
 
     mask-image:
         linear-gradient(
             to bottom,
-            #000 65%,
+            #000 72%,
             transparent 100%
         );
+}
+
+
+/* Active image */
+
+.group-card.active > img{
+
+    height:260px;
+
+    transform:scale(1.04);
+
+    filter:
+        brightness(1)
+        saturate(1.25);
 }
 
 
@@ -689,27 +703,36 @@ body{
 
     position:relative;
 
-    z-index:3;
+    z-index:5;
 
     margin:
-        -4px 22px 0;
+        -2px 22px 0;
 
     color:#fff;
 
+    text-align:center;
+
     font-size:21px;
 
-    font-weight:800;
+    font-weight:700;
 
-    line-height:1.3;
+    line-height:1.35;
+
+    text-shadow:
+        0 0 12px
+        rgba(255,255,255,.12);
 
     transition:.5s;
 }
 
+
 .group-card.active h3{
+
+    font-size:24px;
 
     text-shadow:
         0 0 15px
-        rgba(100,220,255,.25);
+        rgba(210,70,255,.55);
 }
 
 
@@ -721,19 +744,21 @@ body{
 
     position:relative;
 
-    z-index:3;
+    z-index:5;
 
     margin:
-        9px 22px 0;
+        12px 24px 0;
 
-    min-height:63px;
+    min-height:70px;
 
     color:
-        rgba(255,255,255,.68);
+        rgba(255,255,255,.76);
+
+    text-align:center;
 
     font-size:13px;
 
-    line-height:1.6;
+    line-height:1.65;
 }
 
 
@@ -745,14 +770,16 @@ body{
 
     position:relative;
 
-    z-index:4;
+    z-index:6;
 
     display:flex;
 
-    gap:9px;
+    flex-direction:column;
 
-    padding:
-        18px 22px 22px;
+    gap:11px;
+
+    margin:
+        17px 22px 20px;
 }
 
 
@@ -760,48 +787,65 @@ body{
                     JOIN BUTTON
 ========================================================= */
 
-.join-btn,
-.payment-btn{
+.join-btn{
 
-    min-height:43px;
+    width:100%;
+
+    height:55px;
 
     display:flex;
 
     align-items:center;
     justify-content:center;
 
-    padding:0 14px;
-
-    border-radius:14px;
+    border-radius:15px;
 
     text-decoration:none;
 
-    font-size:12px;
+    color:#fff;
+
+    font-size:17px;
 
     font-weight:700;
-
-    transition:.3s;
-
-    white-space:nowrap;
-}
-
-.join-btn{
-
-    flex:1;
-
-    color:#fff;
 
     background:
         linear-gradient(
             90deg,
-            #623bff,
-            #c53cff
+            #0d56ff,
+            #7431ff
         );
+
+    border:
+        1px solid
+        rgba(100,180,255,.5);
 
     box-shadow:
         0 8px 25px
-        rgba(105,45,255,.28);
+        rgba(50,70,255,.25);
+
+    transition:.3s;
 }
+
+
+/* Active JOIN */
+
+.group-card.active .join-btn{
+
+    background:
+        linear-gradient(
+            90deg,
+            #8415ff,
+            #cf28ff
+        );
+
+    border-color:
+        rgba(230,130,255,.75);
+
+    box-shadow:
+        0 0 25px
+        rgba(190,40,255,.45);
+}
+
 
 .join-btn:hover{
 
@@ -809,36 +853,75 @@ body{
         translateY(-3px);
 
     box-shadow:
-        0 12px 30px
-        rgba(120,45,255,.42);
+        0 0 30px
+        rgba(150,50,255,.55);
 }
 
 
 /* =========================================================
-                    PAYMENT
+                PAYMENT BUTTON
 ========================================================= */
 
 .payment-btn{
 
-    color:#70e9ff;
+    width:100%;
 
-    border:
-        1px solid
-        rgba(70,220,255,.35);
+    height:49px;
 
-    background:
-        rgba(0,170,230,.08);
-}
+    display:flex;
 
-.payment-btn:hover{
+    align-items:center;
+    justify-content:center;
+
+    border-radius:14px;
+
+    text-decoration:none;
 
     color:#fff;
 
+    font-size:14px;
+
+    font-weight:500;
+
     background:
-        rgba(0,190,255,.18);
+        rgba(5,12,48,.82);
+
+    border:
+        1px solid
+        rgba(70,150,255,.55);
+
+    transition:.3s;
+}
+
+
+/* Card icon */
+
+.payment-btn::before{
+
+    content:"\f09d";
+
+    font-family:
+        "Font Awesome 6 Free";
+
+    font-weight:900;
+
+    margin-right:9px;
+
+    color:#65dfff;
+}
+
+
+.payment-btn:hover{
 
     border-color:
-        rgba(70,220,255,.75);
+        #c44cff;
+
+    background:
+        rgba(100,30,170,.2);
+
+    box-shadow:
+        0 0 20px
+        rgba(170,50,255,.3);
 }
 
 
@@ -852,42 +935,43 @@ body{
 
     top:50%;
 
-    width:50px;
-    height:50px;
-
     transform:
         translateY(-50%);
 
-    border-radius:50%;
-
-    border:
-        1px solid
-        rgba(70,220,255,.4);
-
-    background:
-        rgba(4,12,42,.86);
-
-    color:#fff;
+    width:56px;
+    height:56px;
 
     display:flex;
 
     align-items:center;
     justify-content:center;
 
-    font-size:17px;
+    border-radius:50%;
+
+    border:
+        1px solid
+        rgba(170,70,255,.75);
+
+    background:
+        rgba(4,5,30,.9);
+
+    color:#fff;
+
+    font-size:19px;
 
     cursor:pointer;
 
-    z-index:15;
+    z-index:50;
 
     backdrop-filter:blur(12px);
 
     box-shadow:
-        0 10px 30px
-        rgba(0,0,0,.4);
+        0 0 25px
+        rgba(100,50,255,.3);
 
     transition:.3s;
 }
+
 
 .slider-btn:hover{
 
@@ -896,103 +980,21 @@ body{
         scale(1.1);
 
     border-color:
-        rgba(80,225,255,.85);
+        #df58ff;
 
     box-shadow:
-        0 0 25px
-        rgba(0,210,255,.25);
+        0 0 30px
+        rgba(210,50,255,.55);
 }
+
 
 .slider-btn.prev{
     left:0;
 }
 
+
 .slider-btn.next{
     right:0;
-}
-
-
-/* =========================================================
-                    XP
-========================================================= */
-
-.xp-reward{
-
-    position:fixed;
-
-    left:50%;
-    bottom:30px;
-
-    transform:
-        translate(-50%,30px);
-
-    opacity:0;
-
-    pointer-events:none;
-
-    z-index:100;
-
-    transition:.35s;
-}
-
-.xp-reward.show{
-
-    opacity:1;
-
-    transform:
-        translate(-50%,0);
-}
-
-.xp-box{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:8px;
-
-    padding:
-        11px 18px;
-
-    border-radius:30px;
-
-    color:#fff;
-
-    background:
-        linear-gradient(
-            90deg,
-            #6035ff,
-            #d13cff
-        );
-
-    box-shadow:
-        0 10px 35px
-        rgba(100,40,255,.35);
-}
-
-.xp-box i{
-    color:#ffd62c;
-}
-
-
-/* =========================================================
-                    TABLET
-========================================================= */
-
-@media(max-width:1000px){
-
-    .group-slider{
-        padding:0 35px;
-    }
-
-    .group-card{
-
-        flex-basis:310px;
-
-        width:310px;
-
-        height:425px;
-    }
 }
 
 
@@ -1002,134 +1004,131 @@ body{
 
 @media(max-width:650px){
 
-    .topbar{
+    .group-slider{
+        padding:0 18px;
+    }
+
+
+    .slider-wrapper{
 
         padding:
-            12px 10px;
-
-        gap:7px;
+            35px 0 50px;
     }
 
-    .menu-btn{
 
-        width:48px;
-        height:48px;
+    .slider-track{
+        gap:12px;
+    }
 
-        border-radius:15px;
+
+    .group-card{
+
+        flex:
+            0 0 calc(100vw - 70px);
+
+        width:
+            calc(100vw - 70px);
+
+        height:500px;
+
+        border-radius:27px;
+
+        transform:scale(.82);
+    }
+
+
+    .group-card.active{
+
+        transform:scale(1);
+    }
+
+
+    .group-card > img{
+
+        height:245px;
+    }
+
+
+    .group-card.active > img{
+
+        height:255px;
+    }
+
+
+    .group-card h3{
 
         font-size:20px;
+
+        margin-left:18px;
+        margin-right:18px;
     }
 
-    .brand{
 
-        gap:7px;
+    .group-card.active h3{
+
+        font-size:22px;
     }
 
-    .logo{
 
-        width:57px;
-        height:57px;
-    }
+    .group-card p{
 
-    .brand h1{
-
-        font-size:20px;
-    }
-
-    .brand p{
-
-        font-size:9px;
-    }
-
-    .top-actions{
-
-        gap:5px;
-    }
-
-    .profile{
-
-        width:47px;
-        height:47px;
-    }
-
-    .icon-btn{
-
-        width:47px;
-        height:47px;
-
-        border-radius:14px;
-
-        font-size:17px;
-    }
-
-    .reputation{
-
-        height:47px;
-
-        padding:
-            0 10px;
-
-        border-radius:14px;
+        margin-left:18px;
+        margin-right:18px;
 
         font-size:12px;
+
+        min-height:70px;
     }
 
-    .reputation i{
+
+    .card-buttons{
+
+        margin:
+            16px 18px 18px;
+    }
+
+
+    .join-btn{
+
+        height:52px;
 
         font-size:16px;
     }
 
 
-    /* HERO */
+    .payment-btn{
 
-    .hero{
-
-        margin:
-            48px auto 20px;
-
-        padding:0 15px;
-    }
-
-    .hero h2{
-
-        font-size:
-            clamp(
-                38px,
-                11vw,
-                55px
-            );
-
-        letter-spacing:-1.5px;
-    }
-
-    .hero p{
-
-        margin-top:15px;
+        height:46px;
 
         font-size:13px;
     }
 
 
-    /* =====================================================
-                  MOBILE CENTER CARD
-    ===================================================== */
+    .slider-btn{
 
-    .group-slider{
+        width:42px;
+        height:42px;
 
-        padding:
-            0 12px;
+        font-size:14px;
     }
 
-    .slider-wrapper{
 
-        padding:
-            35px 0 40px;
+    .slider-btn.prev{
+        left:0;
     }
 
-    .slider-track{
 
-        gap:14px;
+    .slider-btn.next{
+        right:0;
     }
+}
+
+
+/* =========================================================
+                  VERY SMALL PHONE
+========================================================= */
+
+@media(max-width:380px){
 
     .group-card{
 
@@ -1139,114 +1138,18 @@ body{
         width:
             calc(100vw - 55px);
 
-        height:420px;
-
-        border-radius:27px;
-
-        transform:
-            scale(.84);
-
-        opacity:.35;
+        height:485px;
     }
 
-    .group-card.active{
-
-        transform:
-            scale(1);
-
-        opacity:1;
-    }
 
     .group-card > img{
 
-        height:205px;
-    }
-
-    .group-card h3{
-
-        margin-left:19px;
-        margin-right:19px;
-
-        font-size:20px;
-    }
-
-    .group-card p{
-
-        margin-left:19px;
-        margin-right:19px;
-
-        font-size:12.5px;
-    }
-
-    .card-buttons{
-
-        padding:
-            17px 19px 20px;
+        height:235px;
     }
 
 
-    /* ARROWS */
+    .group-card.active > img{
 
-    .slider-btn{
-
-        width:39px;
-        height:39px;
-
-        font-size:14px;
-    }
-
-    .slider-btn.prev{
-
-        left:2px;
-    }
-
-    .slider-btn.next{
-
-        right:2px;
-    }
-}
-
-
-/* =========================================================
-                    VERY SMALL PHONES
-========================================================= */
-
-@media(max-width:380px){
-
-    .brand p{
-        display:none;
-    }
-
-    .brand h1{
-        font-size:18px;
-    }
-
-    .logo{
-        width:52px;
-        height:52px;
-    }
-
-    .reputation span{
-        display:none;
-    }
-
-    .hero h2{
-        font-size:36px;
-    }
-
-    .group-card{
-
-        flex-basis:
-            calc(100vw - 45px);
-
-        width:
-            calc(100vw - 45px);
-
-        height:400px;
-    }
-
-    .group-card > img{
-
-        height:190px;
+        height:245px;
     }
   }
