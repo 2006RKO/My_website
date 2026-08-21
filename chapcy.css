@@ -1871,89 +1871,79 @@ a:focus-visible{
 /*=========================================
         PERSONAL TOP SECTION
 =========================================*/
+.chat-tabs{
+    display:flex;
+    gap:12px;
 
-.top-nav-box{
+    overflow-x:auto;
+    padding:15px 20px;
 
-width:92%;
-
-max-width:900px;
-
-margin:15px auto 25px;
-
-padding:12px;
-
-border-radius:25px;
-
-background:rgba(5,10,35,.65);
-
-backdrop-filter:blur(20px);
-
-border:1px solid rgba(0,220,255,.15);
-
-box-shadow:
-0 0 30px rgba(0,220,255,.12);
-
-overflow:hidden;
-
+    scrollbar-width:none;
 }
 
-.top-nav-scroll{
-
-display:flex;
-
-gap:10px;
-
-overflow-x:auto;
-
-scrollbar-width:none;
-
+.chat-tabs::-webkit-scrollbar{
+    display:none;
 }
 
-.top-nav-scroll::-webkit-scrollbar{
-display:none;
+.chat-tab{
+    min-width:140px;
+    height:90px;
+
+    border:none;
+    border-radius:20px;
+
+    background:
+    linear-gradient(
+    135deg,
+    rgba(20,20,60,.95),
+    rgba(10,10,40,.95));
+
+    color:#fff;
+
+    font-size:22px;
+    font-weight:700;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+
+    gap:8px;
+
+    cursor:pointer;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    transition:.4s;
 }
 
-.top-nav-item{
+.chat-tab.active{
+    background:
+    linear-gradient(
+    135deg,
+    #7b2cff,
+    #00cfff);
 
-flex-shrink:0;
-
-padding:12px 20px;
-
-border-radius:15px;
-
-background:rgba(255,255,255,.05);
-
-border:1px solid rgba(255,255,255,.08);
-
-color:white;
-
-font-size:14px;
-
-font-weight:600;
-
-cursor:pointer;
-
-transition:.3s;
-
+    box-shadow:
+    0 0 25px rgba(0,220,255,.5);
 }
 
-.top-nav-item.active{
+.live-count{
+    min-width:28px;
+    height:28px;
 
-background:linear-gradient(
-135deg,
-#6a11ff,
-#00cfff
-);
+    border-radius:50%;
 
-box-shadow:
-0 0 20px rgba(0,220,255,.45);
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
-}
+    background:#ff006a;
 
-.top-nav-item:hover{
+    color:#fff;
 
-transform:translateY(-2px);
-
+    font-size:13px;
+    font-weight:700;
 }
 /*=========================================
           MOBILE RESPONSIVE
