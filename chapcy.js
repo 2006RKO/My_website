@@ -1,52 +1,62 @@
 /* =========================================================
-              CHAPCY V5 INFINITE CARD SLIDER
+             CHAPCY V5 ULTRA INFINITE SLIDER
+             2.5 SEC AUTO • CENTER ACTIVE CARD
+             MOBILE + DESKTOP • TOUCH SWIPE
 ========================================================= */
 
 "use strict";
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    const wrapper =
-        document.querySelector(".slider-wrapper");
+    const wrapper = document.querySelector(".slider-wrapper");
+    const track = document.getElementById("sliderTrack");
+    const nextBtn = document.getElementById("nextBtn");
+    const prevBtn = document.getElementById("prevBtn");
 
-    const track =
-        document.getElementById("sliderTrack");
-
-    const nextBtn =
-        document.getElementById("nextBtn");
-
-    const prevBtn =
-        document.getElementById("prevBtn");
-
-
-    if(!wrapper || !track) return;
+    if (!wrapper || !track) {
+        console.error("CHAPCY Slider: Elements not found.");
+        return;
+    }
 
 
     /* =====================================================
-                    ORIGINAL CARDS
+                       ORIGINAL CARDS
     ===================================================== */
 
-    const originalCards =
-        Array.from(
-            track.querySelectorAll(".group-card")
-        );
+    const originalCards = Array.from(
+        track.querySelectorAll(".group-card")
+    );
 
+    const totalCards = originalCards.length;
 
-    const total =
-        originalCards.length;
-
-
-    if(total === 0) return;
+    if (!totalCards) return;
 
 
     /* =====================================================
-                  CREATE INFINITE COPIES
+                     REMOVE OLD CLONES
     ===================================================== */
 
-    const before =
+    track.querySelectorAll(".carousel-clone").forEach(card => {
+        card.remove();
+    });
+
+
+    /* =====================================================
+                  CREATE 3 SETS OF CARDS
+    ===================================================== */
+
+    /*
+       SET 1 = copies before
+       SET 2 = original cards
+       SET 3 = copies after
+
+       This gives us an infinite carousel.
+    */
+
+    const beforeFragment =
         document.createDocumentFragment();
 
-    const after =
+    const afterFragment =
         document.createDocumentFragment();
 
 
@@ -59,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
             "carousel-clone"
         );
 
-        before.appendChild(
+        beforeFragment.appendChild(
             beforeClone
         );
 
@@ -71,7 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
             "carousel-clone"
         );
 
-        after.appendChild(
+        afterFragment.appendChild(
             afterClone
         );
 
@@ -79,120 +89,149 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     track.insertBefore(
-        before,
+        beforeFragment,
         track.firstChild
     );
 
 
-    track.appendChild(after);
+    track.appendChild(
+        afterFragment
+    );
 
 
     /* =====================================================
-                    STATE
+                        ALL CARDS
     ===================================================== */
 
-    let currentIndex =
-        total;
+    let cards =
+        Array.from(
+            track.querySelectorAll(".group-card")
+        );
 
-    let moving =
-        false;
 
-    let autoPlay;
+    /*
+       Start from the ORIGINAL set.
+
+       Example:
+
+       0 - 10     = previous copies
+       11 - 21    = original
+       22 - 32    = next copies
+
+       So first active card = 11
+    */
+
+    let currentIndex = totalCards;
+
+
+    let isAnimating = false;
+
+    let autoTimer = null;
 
 
     /* =====================================================
-                  CARD SIZE
+                     GET CARD STEP
     ===================================================== */
 
-    function getCardStep(){
+    function getStep() {
 
-        const card =
-            track.querySelector(".group-card");
+        const card = cards[0];
 
-        if(!card) return 0;
+        if (!card) return 0;
+
+
+        const cardWidth =
+            card.getBoundingClientRect().width;
 
 
         const trackStyle =
-            window.getComputedStyle(
-                track
-            );
+            window.getComputedStyle(track);
 
 
         const gap =
-            parseFloat(
-                trackStyle.gap
-            ) || 0;
+            parseFloat(trackStyle.gap) || 0;
 
 
-        return card.offsetWidth + gap;
+        return cardWidth + gap;
     }
 
 
     /* =====================================================
-                    CENTER CARD
+                    CENTER ACTIVE CARD
     ===================================================== */
 
-    function updateSlider(
-        smooth = true
-    ){
+    function moveToCard(
+        index,
+        animate = true
+    ) {
 
-        const cards =
-            track.querySelectorAll(
-                ".group-card"
+        cards =
+            Array.from(
+                track.querySelectorAll(".group-card")
             );
 
 
-        const card =
-            cards[currentIndex];
+        const card = cards[index];
 
-
-        if(!card) return;
-
-
-        const step =
-            getCardStep();
+        if (!card) return;
 
 
         const wrapperWidth =
-            wrapper.clientWidth;
+            wrapper.getBoundingClientRect().width;
 
 
         const cardWidth =
-            card.offsetWidth;
+            card.getBoundingClientRect().width;
 
 
-        const cardCenter =
-            currentIndex * step
-            +
-            cardWidth / 2;
+        const step =
+            getStep();
 
 
-        const translateX =
-            wrapperWidth / 2
+        /*
+           Position ya card ndani ya track
+        */
+
+        const cardPosition =
+            index * step;
+
+
+        /*
+           Center card ndani ya wrapper
+        */
+
+        const targetX =
+            (wrapperWidth / 2)
             -
-            cardCenter;
+            (cardPosition + cardWidth / 2);
 
 
         track.style.transition =
-            smooth
-                ? "transform .72s cubic-bezier(.22,.61,.36,1)"
+            animate
+                ? "transform .7s cubic-bezier(.22,.61,.36,1)"
                 : "none";
 
 
         track.style.transform =
-            `translate3d(${translateX}px,0,0)`;
+            `translate3d(${targetX}px, 0, 0)`;
 
 
-        cards.forEach(
-            item => {
+        /*
+           Remove active from all
+        */
 
-                item.classList.remove(
-                    "active"
-                );
+        cards.forEach(cardItem => {
 
-            }
-        );
+            cardItem.classList.remove(
+                "active"
+            );
 
+        });
+
+
+        /*
+           Add active to center card
+        */
 
         card.classList.add(
             "active"
@@ -202,114 +241,142 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-                    NEXT
+                        NEXT SLIDE
     ===================================================== */
 
-    function nextSlide(){
+    function nextSlide() {
 
-        if(moving) return;
+        if (isAnimating) return;
 
-        moving = true;
+        isAnimating = true;
 
 
         currentIndex++;
 
 
-        updateSlider(true);
+        moveToCard(
+            currentIndex,
+            true
+        );
 
 
         setTimeout(() => {
 
             /*
-             * Tukiingia set ya mwisho,
-             * rudi kwenye set ya katikati
-             */
+               Tukifika mwisho wa
+               original set + clone set
 
-            if(currentIndex >= total * 2){
+               tunarudi katikati
+               bila user kuona jump.
+            */
+
+            if (
+                currentIndex >=
+                totalCards * 2
+            ) {
 
                 currentIndex =
-                    total;
+                    totalCards;
 
-                updateSlider(false);
+
+                moveToCard(
+                    currentIndex,
+                    false
+                );
 
             }
 
 
-            moving = false;
+            isAnimating = false;
 
-        },750);
+        }, 720);
 
     }
 
 
     /* =====================================================
-                    PREVIOUS
+                       PREVIOUS SLIDE
     ===================================================== */
 
-    function previousSlide(){
+    function previousSlide() {
 
-        if(moving) return;
+        if (isAnimating) return;
 
-        moving = true;
+        isAnimating = true;
 
 
         currentIndex--;
 
 
-        updateSlider(true);
+        moveToCard(
+            currentIndex,
+            true
+        );
 
 
         setTimeout(() => {
 
-            if(currentIndex < total){
+            /*
+               Tukifika mwanzo wa
+               middle set,
+
+               tunarudi kwenye set
+               ya pili bila jump.
+            */
+
+            if (
+                currentIndex <
+                totalCards
+            ) {
 
                 currentIndex =
-                    total * 2 - 1;
+                    totalCards * 2 - 1;
 
-                updateSlider(false);
+
+                moveToCard(
+                    currentIndex,
+                    false
+                );
 
             }
 
 
-            moving = false;
+            isAnimating = false;
 
-        },750);
+        }, 720);
 
     }
 
 
     /* =====================================================
-                    AUTO PLAY
-                    EVERY 2.5 SEC
+                        AUTO SLIDER
+                        EVERY 2.5 SEC
     ===================================================== */
 
-    function startAuto(){
+    function startAutoSlide() {
 
-        stopAuto();
+        stopAutoSlide();
 
 
-        autoPlay =
-            setInterval(
-                () => {
+        autoTimer =
+            setInterval(() => {
 
-                    nextSlide();
+                nextSlide();
 
-                },
-                2500
-            );
+            }, 2500);
 
     }
 
 
-    function stopAuto(){
+    function stopAutoSlide() {
 
-        if(autoPlay){
+        if (autoTimer !== null) {
 
             clearInterval(
-                autoPlay
+                autoTimer
             );
 
-            autoPlay = null;
+            autoTimer = null;
 
         }
 
@@ -317,20 +384,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-                    NEXT BUTTON
+                         NEXT BUTTON
     ===================================================== */
 
-    if(nextBtn){
+    if (nextBtn) {
 
         nextBtn.addEventListener(
             "click",
             () => {
 
-                stopAuto();
+                stopAutoSlide();
 
                 nextSlide();
 
-                startAuto();
+                startAutoSlide();
 
             }
         );
@@ -339,20 +406,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-                    PREVIOUS BUTTON
+                        PREVIOUS BUTTON
     ===================================================== */
 
-    if(prevBtn){
+    if (prevBtn) {
 
         prevBtn.addEventListener(
             "click",
             () => {
 
-                stopAuto();
+                stopAutoSlide();
 
                 previousSlide();
 
-                startAuto();
+                startAutoSlide();
 
             }
         );
@@ -361,7 +428,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-                    TOUCH SWIPE
+                         TOUCH SWIPE
     ===================================================== */
 
     let touchStartX = 0;
@@ -375,10 +442,12 @@ document.addEventListener("DOMContentLoaded", () => {
             touchStartX =
                 event.touches[0].clientX;
 
-            stopAuto();
+            stopAutoSlide();
 
         },
-        {passive:true}
+        {
+            passive: true
+        }
     );
 
 
@@ -391,35 +460,43 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             const distance =
-                touchStartX - touchEndX;
+                touchStartX -
+                touchEndX;
 
 
-            if(distance > 50){
+            /*
+               Swipe left
+            */
+
+            if (distance > 50) {
 
                 nextSlide();
 
             }
-            else if(distance < -50){
+
+
+            /*
+               Swipe right
+            */
+
+            else if (distance < -50) {
 
                 previousSlide();
 
             }
-            else{
-
-                updateSlider(true);
-
-            }
 
 
-            startAuto();
+            startAutoSlide();
 
         },
-        {passive:true}
+        {
+            passive: true
+        }
     );
 
 
     /* =====================================================
-                    MOUSE DRAG
+                         MOUSE DRAG
     ===================================================== */
 
     let mouseStartX = 0;
@@ -435,7 +512,7 @@ document.addEventListener("DOMContentLoaded", () => {
             mouseStartX =
                 event.clientX;
 
-            stopAuto();
+            stopAutoSlide();
 
         }
     );
@@ -445,7 +522,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "mouseup",
         event => {
 
-            if(!mouseDown) return;
+            if (!mouseDown) return;
 
 
             mouseDown = false;
@@ -456,24 +533,20 @@ document.addEventListener("DOMContentLoaded", () => {
                 event.clientX;
 
 
-            if(distance > 50){
+            if (distance > 50) {
 
                 nextSlide();
 
             }
-            else if(distance < -50){
+
+            else if (distance < -50) {
 
                 previousSlide();
 
             }
-            else{
-
-                updateSlider(true);
-
-            }
 
 
-            startAuto();
+            startAutoSlide();
 
         }
     );
@@ -483,59 +556,26 @@ document.addEventListener("DOMContentLoaded", () => {
         "mouseleave",
         () => {
 
-            if(mouseDown){
+            if (!mouseDown) return;
 
-                mouseDown = false;
 
-                updateSlider(true);
+            mouseDown = false;
 
-                startAuto();
-
-            }
+            startAutoSlide();
 
         }
     );
 
 
     /* =====================================================
-                    RESIZE
-    ===================================================== */
-
-    let resizeTimer;
-
-
-    window.addEventListener(
-        "resize",
-        () => {
-
-            clearTimeout(
-                resizeTimer
-            );
-
-
-            resizeTimer =
-                setTimeout(
-                    () => {
-
-                        updateSlider(false);
-
-                    },
-                    150
-                );
-
-        }
-    );
-
-
-    /* =====================================================
-                    DISABLE IMAGE DRAG
+                     PREVENT IMAGE DRAG
     ===================================================== */
 
     track
         .querySelectorAll("img")
-        .forEach(img => {
+        .forEach(image => {
 
-            img.addEventListener(
+            image.addEventListener(
                 "dragstart",
                 event => {
 
@@ -548,15 +588,67 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-                    INITIAL POSITION
+                       WINDOW RESIZE
     ===================================================== */
+
+    let resizeTimeout;
+
+
+    window.addEventListener(
+        "resize",
+        () => {
+
+            clearTimeout(
+                resizeTimeout
+            );
+
+
+            resizeTimeout =
+                setTimeout(() => {
+
+                    moveToCard(
+                        currentIndex,
+                        false
+                    );
+
+                }, 150);
+
+        }
+    );
+
+
+    /* =====================================================
+                     INITIALIZE
+    ===================================================== */
+
+    /*
+       Muhimu sana:
+
+       Card ya kwanza inawekwa
+       katikati mara page inapofunguka.
+    */
 
     requestAnimationFrame(() => {
 
-        updateSlider(false);
+        moveToCard(
+            currentIndex,
+            false
+        );
 
-        startAuto();
+
+        startAutoSlide();
 
     });
+
+
+    /* =====================================================
+                      DEBUG MESSAGE
+    ===================================================== */
+
+    console.log(
+        "CHAPCY V5 Slider Loaded:",
+        totalCards,
+        "groups"
+    );
 
 });
