@@ -1,10 +1,10 @@
 /* =========================================================
-        CHAPCY V21 ULTRA INFINITE GROUP SLIDER
-        AUTO 2.5 SEC
+        CHAPCY V21 ULTRA INFINITE SLIDER
+        2.5 SEC AUTO
         RIGHT → LEFT
-        INFINITE LOOP
+        TRUE INFINITE LOOP
         MOBILE + DESKTOP
-        TOUCH SWIPE
+        TOUCH + BUTTONS
 ========================================================= */
 
 "use strict";
@@ -13,208 +13,246 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const wrapper = document.querySelector(".slider-wrapper");
     const track = document.getElementById("sliderTrack");
-
     const nextBtn = document.getElementById("nextBtn");
     const prevBtn = document.getElementById("prevBtn");
 
     if (!wrapper || !track) {
-        console.error("CHAPCY: Slider elements missing.");
+        console.error("CHAPCY: Slider haijapatikana.");
         return;
     }
 
 
     /* =====================================================
-                    GET ORIGINAL CARDS
+                       ORIGINAL CARDS
     ===================================================== */
 
-    let originalCards =
-        Array.from(
-            track.querySelectorAll(".group-card")
-        );
+    const originalCards = [
+        ...track.querySelectorAll(".group-card")
+    ];
 
     const total = originalCards.length;
 
     if (total === 0) {
-        console.error("CHAPCY: No group cards found.");
+        console.error("CHAPCY: Hakuna group-card.");
         return;
     }
 
 
     /* =====================================================
-                  CREATE INFINITE CLONES
+                    CLONE CARDS
     ===================================================== */
 
-    const before = document.createDocumentFragment();
-    const after = document.createDocumentFragment();
+    const beforeFragment =
+        document.createDocumentFragment();
+
+    const afterFragment =
+        document.createDocumentFragment();
 
 
     originalCards.forEach(card => {
 
-        const cloneBefore =
+        const beforeClone =
             card.cloneNode(true);
 
-        cloneBefore.classList.add(
-            "carousel-clone"
+        beforeClone.classList.add("carousel-clone");
+
+        beforeFragment.appendChild(
+            beforeClone
         );
 
-        before.appendChild(
-            cloneBefore
-        );
 
-
-        const cloneAfter =
+        const afterClone =
             card.cloneNode(true);
 
-        cloneAfter.classList.add(
-            "carousel-clone"
-        );
+        afterClone.classList.add("carousel-clone");
 
-        after.appendChild(
-            cloneAfter
+        afterFragment.appendChild(
+            afterClone
         );
 
     });
 
 
+    /* BEFORE */
+
     track.insertBefore(
-        before,
+        beforeFragment,
         track.firstChild
     );
 
 
+    /* AFTER */
+
     track.appendChild(
-        after
+        afterFragment
     );
 
 
     /* =====================================================
-                     ALL CARDS
+                         ALL CARDS
     ===================================================== */
 
-    let cards =
-        Array.from(
-            track.querySelectorAll(".group-card")
-        );
+    let cards = [
+        ...track.querySelectorAll(".group-card")
+    ];
 
 
     /*
-       SET:
+       BEFORE SET
+       0 → total - 1
 
-       BEFORE
-       0 → total-1
+       ORIGINAL SET
+       total → total*2 - 1
 
-       ORIGINAL
-       total → total*2-1
-
-       AFTER
-       total*2 → total*3-1
+       AFTER SET
+       total*2 → total*3 - 1
     */
-
 
     let currentIndex = total;
 
 
-    let timer = null;
+    /* =====================================================
+                         SETTINGS
+    ===================================================== */
 
+    const AUTO_TIME = 2500;
+    const ANIMATION_TIME = 650;
+
+    let autoTimer = null;
     let moving = false;
 
 
     /* =====================================================
-                    UPDATE CARDS
+                    REFRESH CARDS
     ===================================================== */
 
     function refreshCards() {
 
-        cards =
-            Array.from(
-                track.querySelectorAll(".group-card")
-            );
+        cards = [
+            ...track.querySelectorAll(".group-card")
+        ];
 
     }
 
 
     /* =====================================================
-                  GET REAL CARD POSITION
+                     GET CARD STEP
     ===================================================== */
 
-    function getPosition(index) {
+    function getStep() {
+
+        const card = cards[0];
+
+        if (!card) return 0;
+
+        const cardWidth =
+            card.offsetWidth;
+
+        const style =
+            window.getComputedStyle(track);
+
+        const gap =
+            parseFloat(style.columnGap || style.gap) || 0;
+
+        return cardWidth + gap;
+
+    }
+
+
+    /* =====================================================
+                  GET CENTER POSITION
+    ===================================================== */
+
+    function getTranslateX(index) {
 
         const card = cards[index];
 
         if (!card) return 0;
 
-        const wrapperRect =
-            wrapper.getBoundingClientRect();
 
-        const cardRect =
-            card.getBoundingClientRect();
+        const step =
+            getStep();
 
-        /*
-           card.offsetLeft gives
-           actual position inside track.
-        */
 
-        const cardLeft =
-            card.offsetLeft;
+        const wrapperWidth =
+            wrapper.clientWidth;
 
-        const center =
-            wrapperRect.width / 2;
+
+        const cardWidth =
+            card.offsetWidth;
+
+
+        const cardPosition =
+            index * step;
+
 
         const cardCenter =
-            cardLeft +
-            (card.offsetWidth / 2);
+            cardPosition +
+            cardWidth / 2;
 
-        return center - cardCenter;
+
+        const wrapperCenter =
+            wrapperWidth / 2;
+
+
+        return wrapperCenter - cardCenter;
 
     }
 
 
     /* =====================================================
-                       MOVE SLIDE
+                       ACTIVE CARD
     ===================================================== */
 
-    function moveSlide(
+    function updateActive() {
+
+        cards.forEach(card => {
+
+            card.classList.remove("active");
+
+        });
+
+
+        const activeCard =
+            cards[currentIndex];
+
+
+        if (activeCard) {
+
+            activeCard.classList.add("active");
+
+        }
+
+    }
+
+
+    /* =====================================================
+                     MOVE TO CARD
+    ===================================================== */
+
+    function moveTo(
         index,
         animate = true
     ) {
 
         refreshCards();
 
-        const card = cards[index];
-
-        if (!card) return;
-
 
         const x =
-            getPosition(index);
+            getTranslateX(index);
 
 
         track.style.transition =
             animate
-                ? "transform .7s cubic-bezier(.22,.61,.36,1)"
+                ? `transform ${ANIMATION_TIME}ms cubic-bezier(.22,.61,.36,1)`
                 : "none";
 
 
         track.style.transform =
-            `translate3d(${x}px,0,0)`;
+            `translate3d(${x}px, 0, 0)`;
 
 
-        /*
-           ACTIVE CARD
-        */
-
-        cards.forEach(card => {
-
-            card.classList.remove(
-                "active"
-            );
-
-        });
-
-
-        card.classList.add(
-            "active"
-        );
+        updateActive();
 
     }
 
@@ -233,7 +271,7 @@ document.addEventListener("DOMContentLoaded", () => {
         currentIndex++;
 
 
-        moveSlide(
+        moveTo(
             currentIndex,
             true
         );
@@ -242,8 +280,8 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => {
 
             /*
-               Tukiingia AFTER SET
-               tunarudi ORIGINAL SET.
+              Tukiingia AFTER SET,
+              tunarudi ORIGINAL SET.
             */
 
             if (
@@ -254,7 +292,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 currentIndex =
                     total;
 
-                moveSlide(
+
+                moveTo(
                     currentIndex,
                     false
                 );
@@ -264,7 +303,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             moving = false;
 
-        }, 750);
+        }, ANIMATION_TIME + 30);
 
     }
 
@@ -283,7 +322,7 @@ document.addEventListener("DOMContentLoaded", () => {
         currentIndex--;
 
 
-        moveSlide(
+        moveTo(
             currentIndex,
             true
         );
@@ -292,9 +331,8 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => {
 
             /*
-               Tukienda BEFORE SET
-               tunarudi mwisho wa
-               ORIGINAL SET.
+              Tukiingia BEFORE SET,
+              tunarudi mwisho wa ORIGINAL SET.
             */
 
             if (
@@ -305,7 +343,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 currentIndex =
                     total * 2 - 1;
 
-                moveSlide(
+
+                moveTo(
                     currentIndex,
                     false
                 );
@@ -315,14 +354,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
             moving = false;
 
-        }, 750);
+        }, ANIMATION_TIME + 30);
 
     }
 
 
     /* =====================================================
-                     AUTO SLIDER
-                     2.5 SECONDS
+                    AUTO SLIDER
+                    EVERY 2.5 SEC
     ===================================================== */
 
     function startAuto() {
@@ -330,23 +369,25 @@ document.addEventListener("DOMContentLoaded", () => {
         stopAuto();
 
 
-        timer =
+        autoTimer =
             setInterval(() => {
 
                 nextSlide();
 
-            }, 2500);
+            }, AUTO_TIME);
 
     }
 
 
     function stopAuto() {
 
-        if (timer) {
+        if (autoTimer !== null) {
 
-            clearInterval(timer);
+            clearInterval(
+                autoTimer
+            );
 
-            timer = null;
+            autoTimer = null;
 
         }
 
@@ -354,7 +395,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-                        NEXT BUTTON
+                       NEXT BUTTON
     ===================================================== */
 
     if (nextBtn) {
@@ -376,7 +417,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-                       PREVIOUS BUTTON
+                      PREVIOUS BUTTON
     ===================================================== */
 
     if (prevBtn) {
@@ -398,50 +439,73 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-                        TOUCH SWIPE
+                       TOUCH SWIPE
     ===================================================== */
 
-    let startX = 0;
-    let endX = 0;
+    let touchStartX = 0;
+    let touchStartY = 0;
 
 
     wrapper.addEventListener(
         "touchstart",
-        e => {
+        event => {
 
-            startX =
-                e.touches[0].clientX;
+            touchStartX =
+                event.touches[0].clientX;
+
+            touchStartY =
+                event.touches[0].clientY;
 
             stopAuto();
 
         },
         {
-            passive:true
+            passive: true
         }
     );
 
 
     wrapper.addEventListener(
         "touchend",
-        e => {
+        event => {
 
-            endX =
-                e.changedTouches[0].clientX;
+            const endX =
+                event.changedTouches[0].clientX;
+
+            const endY =
+                event.changedTouches[0].clientY;
 
 
-            const distance =
-                startX - endX;
+            const distanceX =
+                touchStartX - endX;
+
+            const distanceY =
+                touchStartY - endY;
 
 
-            if (Math.abs(distance) > 50) {
+            /*
+              Hakikisha ni horizontal swipe
+            */
 
-                if (distance > 0) {
+            if (
+                Math.abs(distanceX) >
+                Math.abs(distanceY)
+            ) {
 
-                    nextSlide();
+                if (
+                    Math.abs(distanceX) >
+                    45
+                ) {
 
-                } else {
+                    if (distanceX > 0) {
 
-                    previousSlide();
+                        nextSlide();
+
+                    } else {
+
+                        previousSlide();
+
+                    }
 
                 }
 
@@ -452,27 +516,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
         },
         {
-            passive:true
+            passive: true
         }
     );
 
 
     /* =====================================================
-                        MOUSE DRAG
+                       MOUSE DRAG
     ===================================================== */
 
-    let mouseStart = 0;
-    let dragging = false;
+    let mouseStartX = 0;
+    let mouseDragging = false;
 
 
     wrapper.addEventListener(
         "mousedown",
-        e => {
+        event => {
 
-            dragging = true;
+            mouseDragging = true;
 
-            mouseStart =
-                e.clientX;
+            mouseStartX =
+                event.clientX;
 
             stopAuto();
 
@@ -482,19 +546,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
     wrapper.addEventListener(
         "mouseup",
-        e => {
+        event => {
 
-            if (!dragging) return;
+            if (!mouseDragging) return;
 
-            dragging = false;
+
+            mouseDragging = false;
 
 
             const distance =
-                mouseStart -
-                e.clientX;
+                mouseStartX -
+                event.clientX;
 
 
-            if (Math.abs(distance) > 50) {
+            if (
+                Math.abs(distance) >
+                45
+            ) {
 
                 if (distance > 0) {
 
@@ -519,13 +587,11 @@ document.addEventListener("DOMContentLoaded", () => {
         "mouseleave",
         () => {
 
-            if (dragging) {
+            if (!mouseDragging) return;
 
-                dragging = false;
+            mouseDragging = false;
 
-                startAuto();
-
-            }
+            startAuto();
 
         }
     );
@@ -539,11 +605,16 @@ document.addEventListener("DOMContentLoaded", () => {
         .querySelectorAll("img")
         .forEach(img => {
 
+            img.setAttribute(
+                "draggable",
+                "false"
+            );
+
             img.addEventListener(
                 "dragstart",
-                e => {
+                event => {
 
-                    e.preventDefault();
+                    event.preventDefault();
 
                 }
             );
@@ -552,48 +623,49 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-                      WINDOW RESIZE
+                       RESIZE
     ===================================================== */
 
-    let resizeTimer;
+    let resizeTimer = null;
 
 
     window.addEventListener(
         "resize",
         () => {
 
-            clearTimeout(
-                resizeTimer
-            );
+            clearTimeout(resizeTimer);
 
 
             resizeTimer =
                 setTimeout(() => {
 
-                    moveSlide(
+                    moveTo(
                         currentIndex,
                         false
                     );
 
-                }, 200);
+                }, 150);
 
         }
     );
 
 
     /* =====================================================
-                     INITIAL POSITION
+                    INITIALIZE
     ===================================================== */
 
     requestAnimationFrame(() => {
 
-        moveSlide(
-            currentIndex,
-            false
-        );
+        requestAnimationFrame(() => {
 
+            moveTo(
+                currentIndex,
+                false
+            );
 
-        startAuto();
+            startAuto();
+
+        });
 
     });
 
@@ -603,9 +675,17 @@ document.addEventListener("DOMContentLoaded", () => {
     ===================================================== */
 
     console.log(
-        "CHAPCY V21 Infinite Slider Ready",
-        total,
-        "groups"
+        "✅ CHAPCY V21 SLIDER READY"
+    );
+
+    console.log(
+        "Groups:",
+        total
+    );
+
+    console.log(
+        "Auto:",
+        AUTO_TIME + "ms"
     );
 
 });
