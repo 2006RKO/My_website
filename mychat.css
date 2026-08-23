@@ -1,5 +1,5 @@
 /* =====================================================
-   CHAPCY MY CHAT — RESPONSIVE HEADER
+   CHAPCY MY CHAT — RESPONSIVE BASE
 ===================================================== */
 
 * {
@@ -7,8 +7,6 @@
     padding: 0;
     box-sizing: border-box;
 }
-
-html,
 body {
     width: 100%;
     min-height: 100%;
@@ -16,62 +14,55 @@ body {
 
 body {
     font-family: "Poppins", sans-serif;
-    background: #030313;
     color: #fff;
+    background: #030311;
     overflow-x: hidden;
 }
 
 
 /* =====================================================
-   BACKGROUND
+   PAGE BACKGROUND
 ===================================================== */
 
-.chat-background {
+body::before {
+    content: "";
     position: fixed;
     inset: 0;
 
-    width: 100%;
-    height: 100dvh;
+    background-image:
+        linear-gradient(
+            to bottom,
+            rgba(3, 3, 18, 0.05),
+            rgba(3, 3, 18, 0.88)
+        ),
+        url("file_00000000e8b881f4b968cb032d3a41e3.png");
 
-    z-index: -10;
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
 
-    overflow: hidden;
+    z-index: -2;
 }
 
-.chat-background img {
-    position: absolute;
-    inset: 0;
-
-    width: 100%;
-    height: 100%;
-
-    object-fit: cover;
-    object-position: center;
-
-    display: block;
-}
-
-
-/* DARK GLASS OVERLAY */
-
-.background-overlay {
+body::after {
+    content: "";
     position: fixed;
     inset: 0;
-
-    width: 100%;
-    height: 100dvh;
-
-    z-index: -9;
-
-    pointer-events: none;
 
     background:
-        linear-gradient(
-            180deg,
-            rgba(2, 2, 16, .20) 0%,
-            rgba(2, 2, 18, .38) 55%,
-            rgba(2, 2, 18, .68) 100%
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(130, 0, 255, 0.18),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 85% 30%,
+            rgba(0, 170, 255, 0.14),
+            transparent 35%
         );
+
+    pointer-events: none;
+    z-index: -1;
 }
 
 
@@ -79,13 +70,9 @@ body {
    MAIN PAGE
 ===================================================== */
 
-.chat-page {
-    position: relative;
-
+.chapcy-page {
     width: 100%;
-    min-height: 100dvh;
-
-    isolation: isolate;
+    min-height: 100vh;
 }
 
 
@@ -93,108 +80,79 @@ body {
    HEADER
 ===================================================== */
 
-.chat-header {
+.chapcy-header {
     position: sticky;
     top: 0;
-
     z-index: 1000;
 
     width: 100%;
-    min-height: 72px;
-
-    padding: 9px 18px;
+    min-height: 76px;
 
     display: flex;
     align-items: center;
-    justify-content: space-between;
 
-    gap: 15px;
+    padding: 10px clamp(14px, 3vw, 32px);
 
-    background:
-        linear-gradient(
-            90deg,
-            rgba(5, 4, 25, .78),
-            rgba(7, 4, 30, .60),
-            rgba(3, 5, 25, .72)
-        );
+    background: rgba(4, 4, 25, 0.72);
 
-    border-bottom:
-        1px solid
-        rgba(255, 255, 255, .10);
+    border-bottom: 1px solid rgba(255,255,255,0.10);
 
-    box-shadow:
-        0 8px 35px
-        rgba(0, 0, 0, .20);
-
-    backdrop-filter: blur(20px) saturate(140%);
-    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
 }
 
 
 /* =====================================================
-   LEFT SIDE
+   HEADER LEFT
 ===================================================== */
 
 .header-left {
     display: flex;
     align-items: center;
-
-    gap: 11px;
+    gap: 12px;
 
     min-width: 0;
 }
 
 
-/* =====================================================
-   MENU / BACK BUTTON
-===================================================== */
+/* MENU / BACK */
 
-.header-menu {
+.header-menu,
+.header-back {
     width: 44px;
     height: 44px;
 
     flex: 0 0 44px;
 
-    border: 1px solid
-        rgba(255,255,255,.12);
+    display: grid;
+    place-items: center;
 
+    border: 1px solid rgba(255,255,255,0.12);
     border-radius: 14px;
 
-    background:
-        rgba(255,255,255,.075);
+    color: white;
+    background: rgba(255,255,255,0.06);
 
-    color: #fff;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 17px;
+    font-size: 18px;
 
     cursor: pointer;
 
-    box-shadow:
-        inset 0 1px 0
-        rgba(255,255,255,.08);
-
-    transition:
-        .25s ease;
+    transition: .25s ease;
 }
 
-.header-menu:hover {
+.header-menu:hover,
+.header-back:hover {
+    transform: translateY(-2px);
+
     background:
-        rgba(115, 45, 255, .28);
-
-    border-color:
-        rgba(0, 220, 255, .45);
+        linear-gradient(
+            135deg,
+            rgba(126, 0, 255, .45),
+            rgba(0, 174, 255, .35)
+        );
 
     box-shadow:
-        0 0 20px
-        rgba(100, 40, 255, .25);
-}
-
-.header-menu:active {
-    transform: scale(.90);
+        0 0 22px rgba(126, 0, 255, .35);
 }
 
 
@@ -202,203 +160,104 @@ body {
    PROFILE
 ===================================================== */
 
-.profile-avatar {
-    position: relative;
+.chapcy-profile {
+    display: flex;
+    align-items: center;
+    gap: 11px;
 
-    width: 47px;
-    height: 47px;
-
-    flex: 0 0 47px;
-
-    padding: 2px;
-
-    border: 0;
-
-    border-radius: 50%;
-
-    background:
-        linear-gradient(
-            135deg,
-            #00eaff,
-            #7040ff,
-            #ff20dc
-        );
-
-    cursor: pointer;
-
-    box-shadow:
-        0 0 16px
-        rgba(100, 50, 255, .30);
+    min-width: 0;
 }
 
-.profile-avatar img {
-    width: 100%;
-    height: 100%;
+.chapcy-profile img {
+    width: 46px;
+    height: 46px;
 
-    display: block;
+    flex: 0 0 46px;
 
     object-fit: cover;
 
     border-radius: 50%;
 
-    border:
-        2px solid
-        #08071b;
-}
-
-
-/* =====================================================
-   ONLINE DOT
-===================================================== */
-
-.online-dot {
-    position: absolute;
-
-    right: 0;
-    bottom: 2px;
-
-    width: 12px;
-    height: 12px;
-
-    border-radius: 50%;
-
-    background: #00ff9d;
-
-    border:
-        2px solid
-        #08071b;
+    border: 2px solid #7b2cff;
 
     box-shadow:
-        0 0 10px
-        rgba(0,255,157,.85);
+        0 0 0 3px rgba(0, 180, 255, .12),
+        0 0 22px rgba(124, 0, 255, .45);
 }
 
-
-/* =====================================================
-   BRAND
-===================================================== */
-
-.brand-info {
+.profile-info {
     min-width: 0;
 }
 
-.brand-info h1 {
-    margin: 0;
-
-    font-size: 22px;
-
-    line-height: 1.05;
-
+.profile-name {
+    font-size: clamp(18px, 2.2vw, 25px);
     font-weight: 800;
-
-    letter-spacing: .4px;
-
-    white-space: nowrap;
+    line-height: 1.1;
 
     background:
         linear-gradient(
             90deg,
             #ffffff,
-            #63ddff,
-            #a56cff
+            #a879ff,
+            #00c8ff
         );
 
     -webkit-background-clip: text;
     background-clip: text;
-
-    -webkit-text-fill-color: transparent;
+    color: transparent;
 }
 
-.brand-info p {
+.profile-status {
     margin-top: 3px;
 
-    font-size: 10px;
-
-    font-weight: 400;
-
-    color:
-        rgba(255,255,255,.62);
+    font-size: 11px;
+    color: rgba(255,255,255,.65);
 
     white-space: nowrap;
 }
 
-.status-dot {
-    display: inline-block;
-
-    width: 6px;
-    height: 6px;
-
-    margin-right: 4px;
-
-    border-radius: 50%;
-
-    background: #00eaff;
-
-    box-shadow:
-        0 0 8px
-        #00eaff;
-}
-
 
 /* =====================================================
-   RIGHT ACTIONS
+   HEADER RIGHT
 ===================================================== */
 
 .header-actions {
+    margin-left: auto;
+
     display: flex;
     align-items: center;
-
-    gap: 7px;
-
-    flex-shrink: 0;
+    gap: 8px;
 }
 
-.header-actions button {
+
+/* ACTION BUTTON */
+
+.header-action {
     width: 42px;
     height: 42px;
 
-    border:
-        1px solid
-        rgba(255,255,255,.10);
+    display: grid;
+    place-items: center;
 
+    border: 1px solid rgba(255,255,255,.10);
     border-radius: 13px;
 
-    background:
-        rgba(255,255,255,.065);
+    background: rgba(255,255,255,.05);
 
-    color:
-        rgba(255,255,255,.92);
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 16px;
+    color: white;
 
     cursor: pointer;
-
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
 
     transition: .25s ease;
 }
 
-.header-actions button:hover {
-    background:
-        rgba(91, 40, 255, .30);
+.header-action:hover {
+    background: rgba(124,0,255,.28);
 
-    border-color:
-        rgba(0,220,255,.40);
+    transform: translateY(-2px);
 
     box-shadow:
-        0 0 18px
-        rgba(80,50,255,.22);
-
-    transform: translateY(-1px);
-}
-
-.header-actions button:active {
-    transform: scale(.90);
+        0 0 20px rgba(124,0,255,.30);
 }
 
 
@@ -406,212 +265,115 @@ body {
    CONTENT
 ===================================================== */
 
-.chat-content {
-    width: 100%;
-    min-height: calc(100dvh - 72px);
+.chapcy-content {
+    width: min(1400px, 100%);
+    margin: 0 auto;
+
+    padding:
+        clamp(18px, 3vw, 35px)
+        clamp(14px, 3vw, 32px)
+        100px;
 }
 
 
 /* =====================================================
-   TABLET
-===================================================== */
-
-@media (max-width: 800px) {
-
-    .chat-header {
-        min-height: 68px;
-
-        padding:
-            8px 13px;
-    }
-
-    .header-left {
-        gap: 9px;
-    }
-
-    .header-menu {
-        width: 42px;
-        height: 42px;
-        flex-basis: 42px;
-    }
-
-    .profile-avatar {
-        width: 43px;
-        height: 43px;
-        flex-basis: 43px;
-    }
-
-    .brand-info h1 {
-        font-size: 20px;
-    }
-
-    .header-actions button {
-        width: 39px;
-        height: 39px;
-    }
-}
-
-
-/* =====================================================
-   PHONE
+   MOBILE
 ===================================================== */
 
 @media (max-width: 600px) {
 
-    .chat-header {
-        min-height: 64px;
+    .chapcy-header {
+        min-height: 66px;
 
         padding:
-            7px 10px;
+            8px
+            10px;
     }
 
-    .header-left {
-        gap: 7px;
-    }
-
-    .header-menu {
-        width: 39px;
-        height: 39px;
-
-        flex-basis: 39px;
+    .header-menu,
+    .header-back {
+        width: 40px;
+        height: 40px;
+        flex-basis: 40px;
 
         border-radius: 12px;
-
-        font-size: 15px;
     }
 
-    .profile-avatar {
+    .chapcy-profile img {
         width: 40px;
         height: 40px;
 
         flex-basis: 40px;
     }
 
-    .online-dot {
-        width: 10px;
-        height: 10px;
-    }
-
-    .brand-info h1 {
-        font-size: 18px;
-    }
-
-    .brand-info p {
-        font-size: 8px;
-    }
-
-    .header-actions {
-        gap: 3px;
-    }
-
-    .header-actions button {
-        width: 35px;
-        height: 35px;
-
-        border-radius: 10px;
-
-        font-size: 13px;
-    }
-}
-
-
-/* =====================================================
-   SMALL PHONE
-===================================================== */
-
-@media (max-width: 420px) {
-
-    .chat-header {
-        padding:
-            7px 8px;
-    }
-
-    .brand-info h1 {
+    .profile-name {
         font-size: 17px;
     }
 
-    .brand-info p {
-        font-size: 7.5px;
+    .profile-status {
+        font-size: 9px;
     }
 
-    .header-actions button {
-        width: 33px;
-        height: 33px;
+    .header-action {
+        width: 38px;
+        height: 38px;
     }
 
-    .header-actions {
-        gap: 2px;
-    }
-}
-
-
-/* =====================================================
-   VERY SMALL PHONE
-===================================================== */
-
-@media (max-width: 360px) {
-
-    .header-menu {
-        width: 36px;
-        height: 36px;
-
-        flex-basis: 36px;
-    }
-
-    .profile-avatar {
-        width: 37px;
-        height: 37px;
-
-        flex-basis: 37px;
-    }
-
-    .brand-info h1 {
-        font-size: 16px;
-    }
-
-    .brand-info p {
-        display: none;
-    }
-
-    .header-actions button {
-        width: 30px;
-        height: 30px;
-
-        font-size: 12px;
-    }
-
-    /* Camera inapotea kwenye screen ndogo */
-    .header-actions button:nth-child(2) {
+    /* Hide less important buttons on small screens */
+    .header-action.optional {
         display: none;
     }
 }
 
 
 /* =====================================================
-   LANDSCAPE PHONE
+   VERY SMALL PHONES
 ===================================================== */
 
-@media
-    (max-height: 500px)
-    and (orientation: landscape) {
+@media (max-width: 380px) {
 
-    .chat-header {
-        min-height: 58px;
-
-        padding:
-            5px 10px;
+    .chapcy-header {
+        padding-left: 7px;
+        padding-right: 7px;
     }
 
-    .header-menu,
-    .profile-avatar {
-        width: 36px;
-        height: 36px;
-
-        flex-basis: 36px;
+    .header-left {
+        gap: 7px;
     }
 
-    .header-actions button {
+    .chapcy-profile {
+        gap: 7px;
+    }
+
+    .profile-name {
+        font-size: 15px;
+    }
+
+    .profile-status {
+        display: none;
+    }
+
+    .header-action {
         width: 34px;
         height: 34px;
+        border-radius: 10px;
     }
+}
+
+
+/* =====================================================
+   TABLET / DESKTOP
+===================================================== */
+
+@media (min-width: 768px) {
+
+    .chapcy-header {
+        padding-left: 24px;
+        padding-right: 24px;
     }
+
+    .chapcy-content {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+}
