@@ -1,437 +1,289 @@
-/* =====================================================
-   CHAPCY MY CHAT JAVASCRIPT
-===================================================== */
+/* =========================================================
+   CHAPCY MY CHAT — JAVASCRIPT
+========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
 
-
-    /* =================================================
+    /* =====================================================
        ELEMENTS
-    ================================================= */
+    ===================================================== */
 
-    const chatItems = document.querySelectorAll(".chat-item");
+    const searchInput = document.querySelector(
+        ".chat-search input"
+    );
 
-    const chatSidebar =
-        document.getElementById("chatSidebar");
+    const chatItems = document.querySelectorAll(
+        ".chat-item"
+    );
 
-    const conversation =
-        document.getElementById("conversation");
+    const navItems = document.querySelectorAll(
+        ".bottom-nav-item"
+    );
 
-    const backChats =
-        document.getElementById("backChats");
+    const newChatBtn = document.querySelector(
+        ".new-chat-btn"
+    );
 
-    const mobileMenu =
-        document.getElementById("mobileMenu");
+    const profile = document.querySelector(
+        ".chat-profile"
+    );
 
-    const messageInput =
-        document.getElementById("messageInput");
-
-    const sendMessage =
-        document.getElementById("sendMessage");
-
-    const messages =
-        document.getElementById("messages");
-
-    const conversationName =
-        document.getElementById("conversationName");
-
-    const conversationAvatar =
-        document.getElementById("conversationAvatar");
-
-    const conversationStatus =
-        document.getElementById("conversationStatus");
-
-    const chatSearch =
-        document.getElementById("chatSearch");
-
-    const clearSearch =
-        document.getElementById("clearSearch");
-
-    const filters =
-        document.querySelectorAll(".filter");
-
-    const newChatBtn =
-        document.getElementById("newChatBtn");
-
-    const newChatModal =
-        document.getElementById("newChatModal");
-
-    const closeNewChat =
-        document.getElementById("closeNewChat");
-
-    const profileButton =
-        document.getElementById("profileButton");
-
-    const settingsPanel =
-        document.getElementById("settingsPanel");
-
-    const closeSettings =
-        document.getElementById("closeSettings");
-
-    const settingsOverlay =
-        document.getElementById("settingsOverlay");
-
-    const themeToggle =
-        document.getElementById("themeToggle");
-
-    const themeText =
-        document.getElementById("themeText");
-
-    const toast =
-        document.getElementById("toast");
+    const headerButtons = document.querySelectorAll(
+        ".header-btn"
+    );
 
 
+    /* =====================================================
+       SEARCH CHATS
+    ===================================================== */
 
-    /* =================================================
-       CHAT DATABASE — TEMPORARY FRONTEND
-    ================================================= */
+    if (searchInput) {
 
-    const chatData = {
+        searchInput.addEventListener("input", () => {
 
-        sarah: {
-            name: "Sarah",
-            avatar: "https://i.pravatar.cc/150?img=47",
-            status: "online"
-        },
+            const search =
+                searchInput.value
+                .trim()
+                .toLowerCase();
 
-        john: {
-            name: "John",
-            avatar: "https://i.pravatar.cc/150?img=12",
-            status: "last seen today"
-        },
+            let visibleChats = 0;
 
-        developers: {
-            name: "CHAPCY Developers",
-            avatar: "",
-            status: "8 members online"
-        },
+            chatItems.forEach(chat => {
 
-        amina: {
-            name: "Amina",
-            avatar: "https://i.pravatar.cc/150?img=32",
-            status: "online"
-        },
+                const name =
+                    chat.querySelector(".chat-name")
+                    ?.textContent
+                    .toLowerCase() || "";
 
-        sports: {
-            name: "Sports Community",
-            avatar: "",
-            status: "124 members online"
-        }
+                const message =
+                    chat.querySelector(".chat-message")
+                    ?.textContent
+                    .toLowerCase() || "";
 
-    };
+                if (
+                    name.includes(search) ||
+                    message.includes(search)
+                ) {
+
+                    chat.style.display = "flex";
+
+                    visibleChats++;
+
+                } else {
+
+                    chat.style.display = "none";
+
+                }
+
+            });
 
 
-    /* =================================================
+            /* EMPTY SEARCH */
+
+            const empty =
+                document.querySelector(".chat-empty");
+
+            if (empty) {
+
+                empty.style.display =
+                    visibleChats === 0
+                    ? "block"
+                    : "none";
+            }
+
+        });
+
+    }
+
+
+    /* =====================================================
        OPEN CHAT
-    ================================================= */
+    ===================================================== */
 
-    chatItems.forEach(item => {
+    chatItems.forEach(chat => {
+
+        chat.addEventListener("click", () => {
+
+            const name =
+                chat.querySelector(".chat-name")
+                ?.textContent
+                .trim();
+
+            if (!name) return;
+
+
+            /*
+             * HAPA BAADAYE TUTAWEKA:
+             * chat.html?user=...
+             */
+
+            console.log(
+                "Opening chat:",
+                name
+            );
+
+
+            /*
+             * TEMPORARY
+             *
+             * Ukiwa tayari na chat.html,
+             * unaweza kutumia:
+             *
+             * window.location.href =
+             * `chat.html?user=${encodeURIComponent(name)}`;
+             */
+
+        });
+
+    });
+
+
+    /* =====================================================
+       BOTTOM NAVIGATION
+    ===================================================== */
+
+    navItems.forEach(item => {
 
         item.addEventListener("click", () => {
 
-            const chatId =
-                item.dataset.chat;
-
-            const data =
-                chatData[chatId];
-
-            if (!data) return;
-
-
-            /* ACTIVE */
-
-            chatItems.forEach(chat => {
-                chat.classList.remove("active");
+            navItems.forEach(nav => {
+                nav.classList.remove("active");
             });
 
             item.classList.add("active");
 
 
-            /* HEADER */
+            const label =
+                item.querySelector("span")
+                ?.textContent
+                .trim()
+                .toLowerCase();
 
-            conversationName.textContent =
-                data.name;
-
-            conversationStatus.textContent =
-                data.status;
-
-
-            if (data.avatar) {
-
-                conversationAvatar.src =
-                    data.avatar;
-
-                conversationAvatar.style.display =
-                    "block";
-
-            } else {
-
-                conversationAvatar.style.display =
-                    "none";
-            }
+            console.log(
+                "Navigation:",
+                label
+            );
 
 
-            /* MOBILE */
-
-            if (window.innerWidth <= 700) {
-
-                chatSidebar.classList.add("hidden");
-
-                conversation.classList.add("open");
-
-            }
-
-
-            /* REMOVE UNREAD */
-
-            const unread =
-                item.querySelector(".unread");
-
-            if (unread) {
-
-                unread.remove();
-
-                item.dataset.unread = "0";
-            }
+            /*
+             * HAPA TUTAUNGANISHA:
+             *
+             * Chats     -> mychat.html
+             * Calls     -> calls.html
+             * Status    -> status.html
+             * Profile   -> profile.html
+             */
 
         });
 
     });
 
 
-    /* =================================================
-       BACK TO CHAT LIST
-    ================================================= */
+    /* =====================================================
+       NEW CHAT
+    ===================================================== */
 
-    backChats.addEventListener("click", () => {
+    if (newChatBtn) {
 
-        conversation.classList.remove("open");
-
-        chatSidebar.classList.remove("hidden");
-
-    });
-
-
-    /* =================================================
-       MOBILE MENU
-    ================================================= */
-
-    mobileMenu.addEventListener("click", () => {
-
-        chatSidebar.classList.toggle("hidden");
-
-    });
-
-
-    /* =================================================
-       SEND MESSAGE
-    ================================================= */
-
-    function sendNewMessage() {
-
-        const text =
-            messageInput.value.trim();
-
-        if (!text) return;
-
-
-        const message =
-            document.createElement("div");
-
-        message.className =
-            "message sent";
-
-        message.innerHTML = `
-
-            <div class="message-bubble">
-
-                <p>
-                    ${escapeHTML(text)}
-                </p>
-
-                <span class="message-time">
-
-                    ${getCurrentTime()}
-
-                    <i class="fa-solid fa-check"></i>
-
-                </span>
-
-            </div>
-
-        `;
-
-
-        messages.appendChild(message);
-
-
-        messageInput.value = "";
-
-
-        scrollMessages();
-
-
-        showToast("Message sent");
-
-
-        /* SIMULATE DELIVERY */
-
-        setTimeout(() => {
-
-            const check =
-                message.querySelector(
-                    ".message-time i"
-                );
-
-            if (check) {
-
-                check.className =
-                    "fa-solid fa-check-double";
-
-                check.style.color =
-                    "#72ddff";
-            }
-
-        }, 700);
-
-    }
-
-
-    sendMessage.addEventListener(
-        "click",
-        sendNewMessage
-    );
-
-
-    messageInput.addEventListener(
-        "keydown",
-        event => {
-
-            if (
-                event.key === "Enter" &&
-                !event.shiftKey
-            ) {
-
-                event.preventDefault();
-
-                sendNewMessage();
-            }
-
-        }
-    );
-
-
-    /* =================================================
-       SEARCH
-    ================================================= */
-
-    chatSearch.addEventListener(
-        "input",
-        () => {
-
-            const query =
-                chatSearch.value
-                    .trim()
-                    .toLowerCase();
-
-
-            clearSearch.style.display =
-                query ? "block" : "none";
-
-
-            chatItems.forEach(item => {
-
-                const name =
-                    item.dataset.name
-                        .toLowerCase();
-
-                item.style.display =
-                    name.includes(query)
-                        ? "flex"
-                        : "none";
-
-            });
-
-        }
-    );
-
-
-    clearSearch.addEventListener(
-        "click",
-        () => {
-
-            chatSearch.value = "";
-
-            clearSearch.style.display =
-                "none";
-
-            chatItems.forEach(item => {
-                item.style.display = "flex";
-            });
-
-            chatSearch.focus();
-
-        }
-    );
-
-
-    /* =================================================
-       FILTERS
-    ================================================= */
-
-    filters.forEach(filter => {
-
-        filter.addEventListener(
+        newChatBtn.addEventListener(
             "click",
             () => {
 
-                filters.forEach(btn => {
-                    btn.classList.remove("active");
-                });
-
-                filter.classList.add("active");
+                console.log(
+                    "New chat clicked"
+                );
 
 
-                const type =
-                    filter.dataset.filter;
+                /*
+                 * BAADAYE:
+                 *
+                 * open contacts
+                 * request contacts permission
+                 * search users
+                 */
+
+                showMessage(
+                    "New Chat",
+                    "Contact selection itaongezwa hapa."
+                );
+
+            }
+        );
+
+    }
 
 
-                chatItems.forEach(item => {
+    /* =====================================================
+       PROFILE
+    ===================================================== */
 
-                    const unread =
-                        Number(
-                            item.dataset.unread || 0
-                        );
+    if (profile) {
 
-                    const group =
-                        item.dataset.type === "group";
+        profile.addEventListener(
+            "click",
+            () => {
+
+                console.log(
+                    "Profile clicked"
+                );
+
+                /*
+                 * BAADAYE:
+                 *
+                 * window.location.href =
+                 * "profile.html";
+                 */
+
+            }
+        );
+
+    }
 
 
-                    if (type === "all") {
+    /* =====================================================
+       HEADER BUTTONS
+    ===================================================== */
 
-                        item.style.display =
-                            "flex";
+    headerButtons.forEach((button, index) => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                /*
+                 * BUTTON 1
+                 * Search / menu
+                 */
+
+                if (index === 0) {
+
+                    if (searchInput) {
+
+                        searchInput.focus();
+
+                        searchInput.scrollIntoView({
+                            behavior: "smooth",
+                            block: "center"
+                        });
 
                     }
 
-                    else if (type === "unread") {
+                }
 
-                        item.style.display =
-                            unread > 0
-                                ? "flex"
-                                : "none";
 
-                    }
+                /*
+                 * BUTTON 2
+                 * Settings / more
+                 */
 
-                    else if (type === "groups") {
+                if (index === 1) {
 
-                        item.style.display =
-                            group
-                                ? "flex"
-                                : "none";
-                    }
+                    showMessage(
+                        "CHAPCY",
+                        "Settings menu itaongezwa hapa."
+                    );
 
-                });
+                }
 
             }
         );
@@ -439,302 +291,215 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-    /* =================================================
-       NEW CHAT
-    ================================================= */
+    /* =====================================================
+       REMOVE UNREAD BADGE WHEN CHAT OPENS
+    ===================================================== */
 
-    newChatBtn.addEventListener(
-        "click",
-        () => {
+    chatItems.forEach(chat => {
 
-            newChatModal.classList.add("open");
+        chat.addEventListener(
+            "click",
+            () => {
 
-        }
-    );
+                const unread =
+                    chat.querySelector(
+                        ".chat-unread"
+                    );
 
+                if (unread) {
 
-    closeNewChat.addEventListener(
-        "click",
-        () => {
+                    unread.remove();
 
-            newChatModal.classList.remove("open");
-
-        }
-    );
-
-
-    newChatModal.addEventListener(
-        "click",
-        event => {
-
-            if (
-                event.target ===
-                newChatModal
-            ) {
-
-                newChatModal.classList.remove(
-                    "open"
-                );
+                }
 
             }
+        );
 
-        }
-    );
+    });
 
 
-    /* =================================================
-       SETTINGS
-    ================================================= */
+    /* =====================================================
+       SIMPLE MESSAGE POPUP
+    ===================================================== */
 
-    profileButton.addEventListener(
-        "click",
-        () => {
+    function showMessage(title, message) {
 
-            settingsPanel.classList.add(
-                "open"
+        const old =
+            document.querySelector(
+                ".chapcy-toast"
             );
 
-            settingsOverlay.classList.add(
-                "open"
-            );
-
+        if (old) {
+            old.remove();
         }
-    );
 
 
-    closeSettings.addEventListener(
-        "click",
-        closeSettingsPanel
-    );
+        const toast =
+            document.createElement("div");
+
+        toast.className =
+            "chapcy-toast";
 
 
-    settingsOverlay.addEventListener(
-        "click",
-        closeSettingsPanel
-    );
+        toast.innerHTML = `
+            <strong>${title}</strong>
+            <span>${message}</span>
+        `;
 
 
-    function closeSettingsPanel() {
+        document.body.appendChild(toast);
 
-        settingsPanel.classList.remove(
-            "open"
-        );
-
-        settingsOverlay.classList.remove(
-            "open"
-        );
-
-    }
-
-
-    /* =================================================
-       THEME
-    ================================================= */
-
-    themeToggle.addEventListener(
-        "click",
-        () => {
-
-            document.body.classList.toggle(
-                "light"
-            );
-
-
-            const light =
-                document.body.classList.contains(
-                    "light"
-                );
-
-
-            themeText.textContent =
-                light
-                    ? "Light"
-                    : "Dark";
-
-
-            localStorage.setItem(
-                "chapcyTheme",
-                light
-                    ? "light"
-                    : "dark"
-            );
-
-        }
-    );
-
-
-    /* LOAD THEME */
-
-    const savedTheme =
-        localStorage.getItem(
-            "chapcyTheme"
-        );
-
-    if (savedTheme === "light") {
-
-        document.body.classList.add(
-            "light"
-        );
-
-        themeText.textContent =
-            "Light";
-    }
-
-
-    /* =================================================
-       NOTIFICATION
-    ================================================= */
-
-    const notificationBtn =
-        document.getElementById(
-            "notificationBtn"
-        );
-
-    notificationBtn.addEventListener(
-        "click",
-        () => {
-
-            showToast(
-                "You have 3 new notifications"
-            );
-
-        }
-    );
-
-
-    /* =================================================
-       EMOJI
-    ================================================= */
-
-    const emojiBtn =
-        document.getElementById(
-            "emojiBtn"
-        );
-
-    emojiBtn.addEventListener(
-        "click",
-        () => {
-
-            messageInput.value += " 😊";
-
-            messageInput.focus();
-
-        }
-    );
-
-
-    /* =================================================
-       ATTACHMENT
-    ================================================= */
-
-    const attachmentBtn =
-        document.getElementById(
-            "attachmentBtn"
-        );
-
-    attachmentBtn.addEventListener(
-        "click",
-        () => {
-
-            showToast(
-                "Attachment picker ready"
-            );
-
-        }
-    );
-
-
-    /* =================================================
-       HELPERS
-    ================================================= */
-
-    function getCurrentTime() {
-
-        const date =
-            new Date();
-
-        return date.toLocaleTimeString(
-            [],
-            {
-                hour: "numeric",
-                minute: "2-digit"
-            }
-        );
-
-    }
-
-
-    function scrollMessages() {
-
-        messages.scrollTo({
-
-            top:
-                messages.scrollHeight,
-
-            behavior:
-                "smooth"
-
-        });
-
-    }
-
-
-    function showToast(text) {
-
-        const toastText =
-            toast.querySelector("span");
-
-        toastText.textContent =
-            text;
-
-        toast.classList.add("show");
 
         setTimeout(() => {
 
-            toast.classList.remove(
-                "show"
-            );
+            toast.classList.add("show");
 
-        }, 2200);
-
-    }
+        }, 10);
 
 
-    function escapeHTML(text) {
+        setTimeout(() => {
 
-        const div =
-            document.createElement("div");
+            toast.classList.remove("show");
 
-        div.textContent =
-            text;
+            setTimeout(() => {
+                toast.remove();
+            }, 300);
 
-        return div.innerHTML;
+        }, 2500);
 
     }
 
 
-    /* =================================================
-       RESPONSIVE RESET
-    ================================================= */
+    /* =====================================================
+       ADD TOAST STYLE
+    ===================================================== */
 
-    window.addEventListener(
-        "resize",
-        () => {
+    const toastStyle =
+        document.createElement("style");
 
-            if (window.innerWidth > 700) {
+    toastStyle.textContent = `
 
-                chatSidebar.classList.remove(
-                    "hidden"
-                );
+        .chapcy-toast{
 
-                conversation.classList.remove(
-                    "open"
-                );
+            position:fixed;
 
-            }
+            left:50%;
+
+            bottom:92px;
+
+            transform:
+                translate(-50%,20px);
+
+            width:
+                min(90%,360px);
+
+            padding:14px 17px;
+
+            display:flex;
+
+            flex-direction:column;
+
+            gap:3px;
+
+            border-radius:16px;
+
+            background:
+                rgba(8,10,35,.92);
+
+            border:
+                1px solid
+                rgba(0,220,255,.25);
+
+            backdrop-filter:
+                blur(18px);
+
+            -webkit-backdrop-filter:
+                blur(18px);
+
+            box-shadow:
+                0 15px 40px
+                rgba(0,0,0,.5),
+
+                0 0 25px
+                rgba(0,200,255,.12);
+
+            opacity:0;
+
+            transition:
+                .3s ease;
+
+            z-index:9999;
+        }
+
+
+        .chapcy-toast.show{
+
+            opacity:1;
+
+            transform:
+                translate(-50%,0);
 
         }
+
+
+        .chapcy-toast strong{
+
+            color:#00d9ff;
+
+            font-size:13px;
+
+        }
+
+
+        .chapcy-toast span{
+
+            color:
+                rgba(255,255,255,.65);
+
+            font-size:11px;
+
+        }
+
+    `;
+
+    document.head.appendChild(
+        toastStyle
     );
 
+
+    /* =====================================================
+       KEYBOARD SUPPORT
+    ===================================================== */
+
+    chatItems.forEach(chat => {
+
+        chat.addEventListener(
+            "keydown",
+            event => {
+
+                if (
+                    event.key === "Enter" ||
+                    event.key === " "
+                ) {
+
+                    event.preventDefault();
+
+                    chat.click();
+
+                }
+
+            }
+        );
+
+    });
+
+
+    /* =====================================================
+       CONSOLE
+    ===================================================== */
+
+    console.log(
+        "CHAPCY MyChat loaded successfully 🚀"
+    );
 
 });
