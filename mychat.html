@@ -10,10 +10,13 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>CHAPCY</title>
+    <title>CHAPCY — My Chats</title>
 
 
-    <!-- GOOGLE FONT -->
+    <!-- ==============================
+         GOOGLE FONT
+    =============================== -->
+
     <link
         rel="preconnect"
         href="https://fonts.googleapis.com"
@@ -26,23 +29,713 @@
     >
 
     <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
         rel="stylesheet"
     >
 
 
-    <!-- FONT AWESOME -->
+    <!-- ==============================
+         FONT AWESOME
+    =============================== -->
+
     <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
     >
 
 
-    <!-- CSS -->
-    <link
-        rel="stylesheet"
-        href="mychat.css"
-    >
+    <style>
+
+        /* =================================================
+           RESET
+        ================================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100%;
+        }
+
+
+        body {
+
+            font-family: "Poppins", sans-serif;
+
+            background: #03030f;
+
+            color: #ffffff;
+
+            overflow-x: hidden;
+        }
+
+
+        /* =================================================
+           FULL BACKGROUND
+        ================================================= */
+
+        .chapcy-background {
+
+            position: fixed;
+
+            inset: 0;
+
+            width: 100%;
+            height: 100%;
+
+            background-image:
+
+                linear-gradient(
+                    180deg,
+                    rgba(3, 3, 20, 0.18) 0%,
+                    rgba(3, 3, 20, 0.38) 45%,
+                    rgba(3, 3, 20, 0.94) 100%
+                ),
+
+                url("file_00000000e8b881f4b968cb032d3a41e3.png");
+
+            background-size: cover;
+
+            background-position: center center;
+
+            background-repeat: no-repeat;
+
+            z-index: -10;
+        }
+
+
+        /* =================================================
+           BACKGROUND GLOW
+        ================================================= */
+
+        .background-glow {
+
+            position: fixed;
+
+            inset: 0;
+
+            pointer-events: none;
+
+            background:
+
+                radial-gradient(
+                    circle at 15% 25%,
+                    rgba(151, 0, 255, 0.20),
+                    transparent 32%
+                ),
+
+                radial-gradient(
+                    circle at 85% 30%,
+                    rgba(0, 180, 255, 0.18),
+                    transparent 32%
+                );
+
+            z-index: -5;
+        }
+
+
+        /* =================================================
+           PAGE
+        ================================================= */
+
+        .chapcy-page {
+
+            position: relative;
+
+            width: 100%;
+
+            min-height: 100vh;
+        }
+
+
+        /* =================================================
+           HEADER
+        ================================================= */
+
+        .chapcy-header {
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 1000;
+
+            width: 100%;
+
+            min-height: 78px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            padding:
+
+                10px
+
+                clamp(12px, 3vw, 32px);
+
+            background:
+
+                rgba(4, 4, 24, 0.68);
+
+            border-bottom:
+
+                1px solid
+
+                rgba(255,255,255,0.10);
+
+            backdrop-filter:
+
+                blur(22px);
+
+            -webkit-backdrop-filter:
+
+                blur(22px);
+
+            box-shadow:
+
+                0 10px 35px
+
+                rgba(0,0,0,0.18);
+        }
+
+
+        /* =================================================
+           HEADER LEFT
+        ================================================= */
+
+        .header-left {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            min-width: 0;
+        }
+
+
+        /* =================================================
+           MENU BUTTON
+        ================================================= */
+
+        .header-menu {
+
+            width: 46px;
+            height: 46px;
+
+            flex-shrink: 0;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border: 1px solid
+                rgba(255,255,255,0.12);
+
+            border-radius: 15px;
+
+            background:
+                rgba(255,255,255,0.07);
+
+            color: white;
+
+            font-size: 18px;
+
+            cursor: pointer;
+
+            transition: 0.25s ease;
+        }
+
+
+        .header-menu:hover {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #741cff,
+                    #008cff
+                );
+
+            box-shadow:
+
+                0 0 25px
+
+                rgba(113, 0, 255, 0.45);
+
+            transform: translateY(-2px);
+        }
+
+
+        /* =================================================
+           PROFILE AREA
+        ================================================= */
+
+        .chapcy-profile {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 11px;
+
+            min-width: 0;
+        }
+
+
+        /* =================================================
+           PROFILE IMAGE
+        ================================================= */
+
+        .profile-image-wrapper {
+
+            position: relative;
+
+            width: 50px;
+            height: 50px;
+
+            flex-shrink: 0;
+
+            padding: 2px;
+
+            border-radius: 50%;
+
+            background:
+
+                linear-gradient(
+                    135deg,
+                    #7b20ff,
+                    #00c8ff
+                );
+
+            box-shadow:
+
+                0 0 20px
+
+                rgba(111, 0, 255, 0.40);
+        }
+
+
+        .profile-image-wrapper img {
+
+            width: 100%;
+            height: 100%;
+
+            display: block;
+
+            object-fit: cover;
+
+            border-radius: 50%;
+
+            border: 2px solid #080817;
+        }
+
+
+        /* =================================================
+           ONLINE DOT
+        ================================================= */
+
+        .online-dot {
+
+            position: absolute;
+
+            right: 1px;
+            bottom: 2px;
+
+            width: 13px;
+            height: 13px;
+
+            border-radius: 50%;
+
+            background: #00f5a0;
+
+            border: 2px solid #080817;
+
+            box-shadow:
+
+                0 0 10px
+
+                rgba(0,255,160,0.8);
+        }
+
+
+        /* =================================================
+           PROFILE TEXT
+        ================================================= */
+
+        .profile-details {
+
+            min-width: 0;
+        }
+
+
+        .profile-name {
+
+            font-size:
+
+                clamp(19px, 2.4vw, 27px);
+
+            font-weight: 800;
+
+            line-height: 1.1;
+
+            letter-spacing: -0.5px;
+
+            white-space: nowrap;
+
+            background:
+
+                linear-gradient(
+                    90deg,
+                    #ffffff,
+                    #a96cff,
+                    #00c8ff
+                );
+
+            -webkit-background-clip: text;
+
+            background-clip: text;
+
+            color: transparent;
+        }
+
+
+        .profile-subtitle {
+
+            margin-top: 3px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 5px;
+
+            font-size: 11px;
+
+            color:
+                rgba(255,255,255,0.68);
+
+            white-space: nowrap;
+        }
+
+
+        .profile-subtitle i {
+
+            color: #00c8ff;
+
+            font-size: 9px;
+        }
+
+
+        /* =================================================
+           HEADER RIGHT
+        ================================================= */
+
+        .header-actions {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            flex-shrink: 0;
+        }
+
+
+        /* =================================================
+           ACTION BUTTON
+        ================================================= */
+
+        .header-action {
+
+            position: relative;
+
+            width: 44px;
+            height: 44px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border:
+
+                1px solid
+
+                rgba(255,255,255,0.11);
+
+            border-radius: 14px;
+
+            background:
+
+                rgba(255,255,255,0.06);
+
+            color: #ffffff;
+
+            font-size: 17px;
+
+            cursor: pointer;
+
+            transition: 0.25s ease;
+        }
+
+
+        .header-action:hover {
+
+            transform: translateY(-2px);
+
+            background:
+
+                rgba(124, 38, 255, 0.30);
+
+            border-color:
+
+                rgba(150,90,255,0.5);
+
+            box-shadow:
+
+                0 0 20px
+
+                rgba(125,0,255,0.30);
+        }
+
+
+        /* =================================================
+           NOTIFICATION BADGE
+        ================================================= */
+
+        .notification-badge {
+
+            position: absolute;
+
+            top: -4px;
+            right: -4px;
+
+            min-width: 18px;
+            height: 18px;
+
+            padding: 0 4px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 20px;
+
+            background: #ff176f;
+
+            border: 2px solid #070718;
+
+            font-size: 9px;
+
+            font-weight: 700;
+
+            box-shadow:
+
+                0 0 10px
+
+                rgba(255,0,100,0.55);
+        }
+
+
+        /* =================================================
+           MAIN AREA
+        ================================================= */
+
+        .chapcy-content {
+
+            width: 100%;
+
+            max-width: 1450px;
+
+            margin: auto;
+
+            padding:
+
+                clamp(20px, 4vw, 45px)
+
+                clamp(12px, 3vw, 35px)
+
+                120px;
+        }
+
+
+        /* =================================================
+           MOBILE
+        ================================================= */
+
+        @media (max-width: 600px) {
+
+            .chapcy-header {
+
+                min-height: 68px;
+
+                padding:
+
+                    8px 10px;
+
+                gap: 8px;
+            }
+
+
+            .header-left {
+
+                gap: 8px;
+            }
+
+
+            .header-menu {
+
+                width: 40px;
+                height: 40px;
+
+                border-radius: 12px;
+
+                font-size: 16px;
+            }
+
+
+            .profile-image-wrapper {
+
+                width: 42px;
+                height: 42px;
+            }
+
+
+            .online-dot {
+
+                width: 11px;
+                height: 11px;
+            }
+
+
+            .chapcy-profile {
+
+                gap: 8px;
+            }
+
+
+            .profile-name {
+
+                font-size: 18px;
+            }
+
+
+            .profile-subtitle {
+
+                font-size: 9px;
+            }
+
+
+            .header-actions {
+
+                gap: 5px;
+            }
+
+
+            .header-action {
+
+                width: 38px;
+                height: 38px;
+
+                border-radius: 11px;
+
+                font-size: 14px;
+            }
+
+
+            .chapcy-content {
+
+                padding:
+
+                    18px 10px 100px;
+            }
+        }
+
+
+        /* =================================================
+           VERY SMALL PHONES
+        ================================================= */
+
+        @media (max-width: 390px) {
+
+            .profile-subtitle {
+
+                display: none;
+            }
+
+
+            .profile-name {
+
+                font-size: 16px;
+            }
+
+
+            .profile-image-wrapper {
+
+                width: 38px;
+                height: 38px;
+            }
+
+
+            .header-menu {
+
+                width: 38px;
+                height: 38px;
+            }
+
+
+            .header-action {
+
+                width: 35px;
+                height: 35px;
+
+                border-radius: 10px;
+            }
+        }
+
+
+        /* =================================================
+           TABLET
+        ================================================= */
+
+        @media (min-width: 601px) and (max-width: 900px) {
+
+            .chapcy-header {
+
+                min-height: 74px;
+            }
+        }
+
+
+        /* =================================================
+           LARGE SCREENS
+        ================================================= */
+
+        @media (min-width: 1200px) {
+
+            .chapcy-header {
+
+                padding-left: 35px;
+                padding-right: 35px;
+            }
+        }
+
+    </style>
 
 </head>
 
@@ -50,178 +743,162 @@
 <body>
 
 
-<!-- =====================================================
-     BACKGROUND
-===================================================== -->
+    <!-- =================================================
+         BACKGROUND
+    ================================================= -->
 
-<div class="chat-background">
+    <div class="chapcy-background"></div>
 
-    <img
-        src="file_00000000e8b881f4b968cb032d3a41e3.png"
-        alt=""
-    >
+    <div class="background-glow"></div>
 
-</div>
-
-
-<!-- DARK GLASS OVERLAY -->
-
-<div class="background-overlay"></div>
-
-
-
-<!-- =====================================================
-     MAIN PAGE
-===================================================== -->
-
-<main class="chat-page">
 
 
     <!-- =================================================
-         CHAPCY HEADER
+         PAGE
     ================================================= -->
 
-    <header class="chat-header">
+    <div class="chapcy-page">
 
 
-        <!-- LEFT SIDE -->
+        <!-- =================================================
+             HEADER
+        ================================================= -->
 
-        <div class="header-left">
-
-
-            <!-- MENU -->
-
-            <button
-                class="header-menu"
-                id="menuBtn"
-                type="button"
-                aria-label="Open menu"
-            >
-
-                <i class="fa-solid fa-bars"></i>
-
-            </button>
+        <header class="chapcy-header">
 
 
+            <!-- ==============================
+                 LEFT
+            =============================== -->
 
-            <!-- PROFILE -->
+            <div class="header-left">
 
-            <button
-                class="profile-avatar"
-                id="profileBtn"
-                type="button"
-                aria-label="Open profile"
-            >
 
-                <img
-                    src="profile.png"
-                    alt="Profile"
+                <!-- MENU -->
+
+                <button
+                    class="header-menu"
+                    type="button"
+                    aria-label="Open menu"
                 >
 
-                <span class="online-dot"></span>
+                    <i class="fa-solid fa-bars"></i>
 
-            </button>
+                </button>
 
 
 
-            <!-- BRAND -->
+                <!-- PROFILE -->
 
-            <div class="brand-info">
+                <div class="chapcy-profile">
 
-                <h1>
-                    CHAPCY
-                </h1>
 
-                <p>
+                    <div class="profile-image-wrapper">
 
-                    <span class="status-dot"></span>
+                        <img
+                            src="file_00000000b0d8820a998b33ad9cf233cb.png"
+                            alt="CHAPCY Profile"
+                        >
 
-                    Worldwide Community
+                        <span class="online-dot"></span>
 
-                </p>
+                    </div>
+
+
+                    <div class="profile-details">
+
+                        <div class="profile-name">
+                            CHAPCY
+                        </div>
+
+                        <div class="profile-subtitle">
+
+                            <i class="fa-solid fa-circle"></i>
+
+                            Worldwide Community
+
+                        </div>
+
+                    </div>
+
+
+                </div>
 
             </div>
 
 
-        </div>
+
+            <!-- ==============================
+                 RIGHT ACTIONS
+            =============================== -->
+
+            <div class="header-actions">
+
+
+                <!-- SEARCH -->
+
+                <button
+                    class="header-action"
+                    type="button"
+                    aria-label="Search"
+                >
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                </button>
+
+
+
+                <!-- NOTIFICATIONS -->
+
+                <button
+                    class="header-action"
+                    type="button"
+                    aria-label="Notifications"
+                >
+
+                    <i class="fa-regular fa-bell"></i>
+
+                    <span class="notification-badge">
+                        3
+                    </span>
+
+                </button>
+
+
+
+                <!-- MORE -->
+
+                <button
+                    class="header-action"
+                    type="button"
+                    aria-label="More options"
+                >
+
+                    <i class="fa-solid fa-ellipsis-vertical"></i>
+
+                </button>
+
+
+            </div>
+
+
+        </header>
 
 
 
         <!-- =================================================
-             RIGHT ACTIONS
+             CONTENT — TUTAONGEZA MY CHATS HAPA
         ================================================= -->
 
-        <div class="header-actions">
+        <main class="chapcy-content">
+
+            <!-- My Chats will come here -->
+
+        </main>
 
 
-            <!-- SEARCH -->
-
-            <button
-                type="button"
-                id="searchBtn"
-                aria-label="Search"
-            >
-
-                <i class="fa-solid fa-magnifying-glass"></i>
-
-            </button>
-
-
-
-            <!-- CAMERA -->
-
-            <button
-                type="button"
-                id="cameraBtn"
-                aria-label="Camera"
-            >
-
-                <i class="fa-solid fa-camera"></i>
-
-            </button>
-
-
-
-            <!-- MORE -->
-
-            <button
-                type="button"
-                id="moreBtn"
-                aria-label="More options"
-            >
-
-                <i class="fa-solid fa-ellipsis-vertical"></i>
-
-            </button>
-
-
-        </div>
-
-
-    </header>
-
-
-
-    <!-- =================================================
-         CONTENT ITAANZA HAPA BAADAYE
-    ================================================= -->
-
-    <section class="chat-content">
-
-        <!-- Tutajaza baada ya header -->
-
-    </section>
-
-
-</main>
-
-
-
-<!-- =====================================================
-     JAVASCRIPT
-===================================================== -->
-
-<script src="mychat.js"></script>
+    </div>
 
 
 </body>
