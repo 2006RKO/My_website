@@ -1,5 +1,12 @@
 /* =========================================================
-   CHAPCY MY CHAT — JAVASCRIPT
+   CHAPCY MYCHAT — TRUE HEADER JS
+   Includes:
+   - Menu
+   - Profile
+   - Add Contact (+)
+   - Search
+   - Notifications
+   - More
 ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -8,207 +15,63 @@ document.addEventListener("DOMContentLoaded", () => {
        ELEMENTS
     ===================================================== */
 
-    const searchInput = document.querySelector(
-        ".chat-search input"
-    );
+    const menuBtn =
+        document.getElementById("menuBtn");
 
-    const chatItems = document.querySelectorAll(
-        ".chat-item"
-    );
+    const profileBtn =
+        document.getElementById("profileBtn");
 
-    const navItems = document.querySelectorAll(
-        ".bottom-nav-item"
-    );
+    const addContactBtn =
+        document.getElementById("addContactBtn");
 
-    const newChatBtn = document.querySelector(
-        ".new-chat-btn"
-    );
+    const searchBtn =
+        document.getElementById("searchBtn");
 
-    const profile = document.querySelector(
-        ".chat-profile"
-    );
+    const notificationBtn =
+        document.getElementById("notificationBtn");
 
-    const headerButtons = document.querySelectorAll(
-        ".header-btn"
-    );
+    const moreBtn =
+        document.getElementById("moreBtn");
 
 
     /* =====================================================
-       SEARCH CHATS
+       SMALL BUTTON ANIMATION
     ===================================================== */
 
-    if (searchInput) {
+    function buttonPress(button) {
 
-        searchInput.addEventListener("input", () => {
+        if (!button) return;
 
-            const search =
-                searchInput.value
-                .trim()
-                .toLowerCase();
+        button.classList.add("pressed");
 
-            let visibleChats = 0;
-
-            chatItems.forEach(chat => {
-
-                const name =
-                    chat.querySelector(".chat-name")
-                    ?.textContent
-                    .toLowerCase() || "";
-
-                const message =
-                    chat.querySelector(".chat-message")
-                    ?.textContent
-                    .toLowerCase() || "";
-
-                if (
-                    name.includes(search) ||
-                    message.includes(search)
-                ) {
-
-                    chat.style.display = "flex";
-
-                    visibleChats++;
-
-                } else {
-
-                    chat.style.display = "none";
-
-                }
-
-            });
-
-
-            /* EMPTY SEARCH */
-
-            const empty =
-                document.querySelector(".chat-empty");
-
-            if (empty) {
-
-                empty.style.display =
-                    visibleChats === 0
-                    ? "block"
-                    : "none";
-            }
-
-        });
-
+        setTimeout(() => {
+            button.classList.remove("pressed");
+        }, 180);
     }
 
 
     /* =====================================================
-       OPEN CHAT
+       MENU
     ===================================================== */
 
-    chatItems.forEach(chat => {
+    if (menuBtn) {
 
-        chat.addEventListener("click", () => {
+        menuBtn.addEventListener("click", () => {
 
-            const name =
-                chat.querySelector(".chat-name")
-                ?.textContent
-                .trim();
+            buttonPress(menuBtn);
 
-            if (!name) return;
-
+            console.log("CHAPCY Menu opened");
 
             /*
-             * HAPA BAADAYE TUTAWEKA:
-             * chat.html?user=...
-             */
-
-            console.log(
-                "Opening chat:",
-                name
-            );
-
-
-            /*
-             * TEMPORARY
-             *
-             * Ukiwa tayari na chat.html,
-             * unaweza kutumia:
-             *
-             * window.location.href =
-             * `chat.html?user=${encodeURIComponent(name)}`;
+             * Tutakuja kuweka:
+             * - Settings
+             * - Account
+             * - Privacy
+             * - Contacts
+             * - Appearance
              */
 
         });
-
-    });
-
-
-    /* =====================================================
-       BOTTOM NAVIGATION
-    ===================================================== */
-
-    navItems.forEach(item => {
-
-        item.addEventListener("click", () => {
-
-            navItems.forEach(nav => {
-                nav.classList.remove("active");
-            });
-
-            item.classList.add("active");
-
-
-            const label =
-                item.querySelector("span")
-                ?.textContent
-                .trim()
-                .toLowerCase();
-
-            console.log(
-                "Navigation:",
-                label
-            );
-
-
-            /*
-             * HAPA TUTAUNGANISHA:
-             *
-             * Chats     -> mychat.html
-             * Calls     -> calls.html
-             * Status    -> status.html
-             * Profile   -> profile.html
-             */
-
-        });
-
-    });
-
-
-    /* =====================================================
-       NEW CHAT
-    ===================================================== */
-
-    if (newChatBtn) {
-
-        newChatBtn.addEventListener(
-            "click",
-            () => {
-
-                console.log(
-                    "New chat clicked"
-                );
-
-
-                /*
-                 * BAADAYE:
-                 *
-                 * open contacts
-                 * request contacts permission
-                 * search users
-                 */
-
-                showMessage(
-                    "New Chat",
-                    "Contact selection itaongezwa hapa."
-                );
-
-            }
-        );
 
     }
 
@@ -217,289 +80,403 @@ document.addEventListener("DOMContentLoaded", () => {
        PROFILE
     ===================================================== */
 
-    if (profile) {
+    if (profileBtn) {
 
-        profile.addEventListener(
-            "click",
-            () => {
+        profileBtn.addEventListener("click", () => {
 
-                console.log(
-                    "Profile clicked"
-                );
+            buttonPress(profileBtn);
 
-                /*
-                 * BAADAYE:
-                 *
-                 * window.location.href =
-                 * "profile.html";
-                 */
+            console.log("Opening CHAPCY profile");
 
-            }
-        );
+            /*
+             * Baadaye:
+             * profile.html
+             */
+
+        });
 
     }
 
 
     /* =====================================================
-       HEADER BUTTONS
+       ADD CONTACT — REAL ANDROID CONTACT BRIDGE
     ===================================================== */
 
-    headerButtons.forEach((button, index) => {
+    if (addContactBtn) {
 
-        button.addEventListener(
-            "click",
-            () => {
+        addContactBtn.addEventListener("click", () => {
 
-                /*
-                 * BUTTON 1
-                 * Search / menu
-                 */
-
-                if (index === 0) {
-
-                    if (searchInput) {
-
-                        searchInput.focus();
-
-                        searchInput.scrollIntoView({
-                            behavior: "smooth",
-                            block: "center"
-                        });
-
-                    }
-
-                }
+            buttonPress(addContactBtn);
 
 
-                /*
-                 * BUTTON 2
-                 * Settings / more
-                 */
+            /*
+             * ---------------------------------------------
+             * ANDROID APP
+             * ---------------------------------------------
+             *
+             * Kama Android WebView bridge ipo,
+             * Android itafungua Contacts halisi.
+             */
 
-                if (index === 1) {
+            if (
+                window.Android &&
+                typeof window.Android.openContacts === "function"
+            ) {
 
-                    showMessage(
-                        "CHAPCY",
-                        "Settings menu itaongezwa hapa."
-                    );
+                window.Android.openContacts();
 
-                }
-
+                return;
             }
-        );
 
-    });
+
+            /*
+             * ---------------------------------------------
+             * ANDROID CONTACT PICKER
+             * ---------------------------------------------
+             *
+             * Hii ni fallback kwa WebView/browser
+             * zinazounga Contact Picker API.
+             */
+
+            if (
+                "contacts" in navigator &&
+                "ContactsManager" in window
+            ) {
+
+                openDeviceContacts();
+
+                return;
+            }
+
+
+            /*
+             * ---------------------------------------------
+             * FALLBACK
+             * ---------------------------------------------
+             */
+
+            showContactMessage();
+
+        });
+
+    }
 
 
     /* =====================================================
-       REMOVE UNREAD BADGE WHEN CHAT OPENS
+       CONTACT PICKER
     ===================================================== */
 
-    chatItems.forEach(chat => {
+    async function openDeviceContacts() {
 
-        chat.addEventListener(
-            "click",
-            () => {
+        try {
 
-                const unread =
-                    chat.querySelector(
-                        ".chat-unread"
-                    );
+            const props = [
+                "name",
+                "tel",
+                "email"
+            ];
 
-                if (unread) {
+            const opts = {
+                multiple: true
+            };
 
-                    unread.remove();
 
-                }
+            const contacts =
+                await navigator.contacts.select(
+                    props,
+                    opts
+                );
 
+
+            if (!contacts || contacts.length === 0) {
+
+                console.log(
+                    "No contact selected."
+                );
+
+                return;
             }
-        );
-
-    });
 
 
-    /* =====================================================
-       SIMPLE MESSAGE POPUP
-    ===================================================== */
-
-    function showMessage(title, message) {
-
-        const old =
-            document.querySelector(
-                ".chapcy-toast"
+            console.log(
+                "Selected contacts:",
+                contacts
             );
 
-        if (old) {
-            old.remove();
+
+            /*
+             * Hapa ndipo contacts zinaweza
+             * kutumwa kwenye backend ya CHAPCY.
+             */
+
+            contacts.forEach(contact => {
+
+                console.log(
+                    "Name:",
+                    contact.name
+                );
+
+                console.log(
+                    "Phone:",
+                    contact.tel
+                );
+
+                console.log(
+                    "Email:",
+                    contact.email
+                );
+
+            });
+
+
+            /*
+             * Baadaye tunaweza kufanya:
+             *
+             * saveContactsToChapcy(contacts)
+             *
+             * na kuonyesha:
+             *
+             * "Found 8 CHAPCY users"
+             */
+
         }
 
+        catch (error) {
 
-        const toast =
+            console.error(
+                "Contact picker error:",
+                error
+            );
+
+        }
+
+    }
+
+
+    /* =====================================================
+       FALLBACK MESSAGE
+    ===================================================== */
+
+    function showContactMessage() {
+
+        const message =
             document.createElement("div");
 
-        toast.className =
-            "chapcy-toast";
+        message.className =
+            "chapcy-contact-message";
 
 
-        toast.innerHTML = `
-            <strong>${title}</strong>
-            <span>${message}</span>
+        message.innerHTML = `
+            <div class="contact-message-icon">
+                <i class="fa-solid fa-address-book"></i>
+            </div>
+
+            <div class="contact-message-text">
+                <strong>Add Contact</strong>
+                <span>
+                    Contacts za simu zitatumika
+                    hapa kwenye CHAPCY.
+                </span>
+            </div>
+
+            <button
+                type="button"
+                class="contact-message-close"
+                aria-label="Close"
+            >
+                <i class="fa-solid fa-xmark"></i>
+            </button>
         `;
 
 
-        document.body.appendChild(toast);
+        document.body.appendChild(message);
+
+
+        requestAnimationFrame(() => {
+
+            message.classList.add("show");
+
+        });
+
+
+        const closeBtn =
+            message.querySelector(
+                ".contact-message-close"
+            );
+
+
+        if (closeBtn) {
+
+            closeBtn.addEventListener(
+                "click",
+                () => {
+
+                    message.classList.remove(
+                        "show"
+                    );
+
+                    setTimeout(() => {
+
+                        message.remove();
+
+                    }, 250);
+
+                }
+            );
+
+        }
 
 
         setTimeout(() => {
 
-            toast.classList.add("show");
+            if (
+                document.body.contains(message)
+            ) {
 
-        }, 10);
+                message.classList.remove(
+                    "show"
+                );
 
+                setTimeout(() => {
 
-        setTimeout(() => {
+                    if (
+                        document.body.contains(
+                            message
+                        )
+                    ) {
+                        message.remove();
+                    }
 
-            toast.classList.remove("show");
+                }, 250);
 
-            setTimeout(() => {
-                toast.remove();
-            }, 300);
+            }
 
-        }, 2500);
+        }, 4000);
 
     }
 
 
     /* =====================================================
-       ADD TOAST STYLE
+       SEARCH
     ===================================================== */
 
-    const toastStyle =
-        document.createElement("style");
+    if (searchBtn) {
 
-    toastStyle.textContent = `
+        searchBtn.addEventListener("click", () => {
 
-        .chapcy-toast{
+            buttonPress(searchBtn);
 
-            position:fixed;
+            openSearch();
 
-            left:50%;
+        });
 
-            bottom:92px;
+    }
 
-            transform:
-                translate(-50%,20px);
 
-            width:
-                min(90%,360px);
+    function openSearch() {
 
-            padding:14px 17px;
+        console.log(
+            "CHAPCY Search opened"
+        );
 
-            display:flex;
+        /*
+         * Baadaye tunaweza kuonyesha
+         * search bar ya:
+         *
+         * Name
+         * CHAPCY ID
+         * Phone number
+         */
 
-            flex-direction:column;
+    }
 
-            gap:3px;
 
-            border-radius:16px;
+    /* =====================================================
+       NOTIFICATIONS
+    ===================================================== */
 
-            background:
-                rgba(8,10,35,.92);
+    if (notificationBtn) {
 
-            border:
-                1px solid
-                rgba(0,220,255,.25);
+        notificationBtn.addEventListener(
+            "click",
+            () => {
 
-            backdrop-filter:
-                blur(18px);
+                buttonPress(
+                    notificationBtn
+                );
 
-            -webkit-backdrop-filter:
-                blur(18px);
+                console.log(
+                    "Notifications opened"
+                );
 
-            box-shadow:
-                0 15px 40px
-                rgba(0,0,0,.5),
+            }
+        );
 
-                0 0 25px
-                rgba(0,200,255,.12);
+    }
 
-            opacity:0;
 
-            transition:
-                .3s ease;
+    /* =====================================================
+       MORE
+    ===================================================== */
 
-            z-index:9999;
+    if (moreBtn) {
+
+        moreBtn.addEventListener("click", () => {
+
+            buttonPress(moreBtn);
+
+            openMoreMenu();
+
+        });
+
+    }
+
+
+    function openMoreMenu() {
+
+        console.log(
+            "More menu opened"
+        );
+
+        /*
+         * Tutakuja kuweka:
+         *
+         * New Group
+         * Settings
+         * Privacy
+         * Linked Devices
+         * Help
+         */
+
+    }
+
+
+    /* =====================================================
+       GLOBAL ESCAPE
+    ===================================================== */
+
+    document.addEventListener(
+        "keydown",
+        (event) => {
+
+            if (event.key === "Escape") {
+
+                console.log(
+                    "CHAPCY header action cancelled"
+                );
+
+            }
+
         }
-
-
-        .chapcy-toast.show{
-
-            opacity:1;
-
-            transform:
-                translate(-50%,0);
-
-        }
-
-
-        .chapcy-toast strong{
-
-            color:#00d9ff;
-
-            font-size:13px;
-
-        }
-
-
-        .chapcy-toast span{
-
-            color:
-                rgba(255,255,255,.65);
-
-            font-size:11px;
-
-        }
-
-    `;
-
-    document.head.appendChild(
-        toastStyle
     );
 
 
     /* =====================================================
-       KEYBOARD SUPPORT
-    ===================================================== */
-
-    chatItems.forEach(chat => {
-
-        chat.addEventListener(
-            "keydown",
-            event => {
-
-                if (
-                    event.key === "Enter" ||
-                    event.key === " "
-                ) {
-
-                    event.preventDefault();
-
-                    chat.click();
-
-                }
-
-            }
-        );
-
-    });
-
-
-    /* =====================================================
-       CONSOLE
+       HEADER READY
     ===================================================== */
 
     console.log(
-        "CHAPCY MyChat loaded successfully 🚀"
+        "CHAPCY TRUE HEADER initialized successfully."
     );
 
 });
