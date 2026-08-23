@@ -3,6 +3,10 @@
 
 <head>
 
+    <!-- =====================================================
+         BASIC
+    ===================================================== -->
+
     <meta charset="UTF-8">
 
     <meta
@@ -10,10 +14,13 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>CHAPCY — My Chats</title>
+    <title>CHAPCY</title>
 
 
-    <!-- GOOGLE FONT -->
+    <!-- =====================================================
+         GOOGLE FONT
+    ===================================================== -->
+
     <link
         rel="preconnect"
         href="https://fonts.googleapis.com"
@@ -31,14 +38,20 @@
     >
 
 
-    <!-- FONT AWESOME -->
+    <!-- =====================================================
+         FONT AWESOME
+    ===================================================== -->
+
     <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
     >
 
 
-    <!-- MY CHAT CSS -->
+    <!-- =====================================================
+         YOUR CSS
+    ===================================================== -->
+
     <link
         rel="stylesheet"
         href="mychat.css"
@@ -50,57 +63,66 @@
 <body>
 
 
-    <!-- =================================================
-         BACKGROUND
-    ================================================= -->
+    <!-- =====================================================
+         CHAPCY BACKGROUND
+    ===================================================== -->
 
     <div class="chapcy-background"></div>
 
-    <div class="background-glow"></div>
+    <div class="chapcy-background-glow"></div>
 
 
-    <!-- =================================================
-         PAGE
-    ================================================= -->
 
-    <div class="chapcy-page">
+    <!-- =====================================================
+         CHAPCY APP
+    ===================================================== -->
+
+    <div class="chapcy-app">
 
 
         <!-- =================================================
-             HEADER
+             TRUE HEADER
         ================================================= -->
 
         <header class="chapcy-header">
 
-
-            <!-- ==============================
-                 HEADER LEFT
-            =============================== -->
-
-            <div class="header-left">
+            <div class="header-inner">
 
 
-                <!-- MENU -->
-                <button
-                    class="header-menu"
-                    id="menuBtn"
-                    type="button"
-                    aria-label="Open menu"
-                >
+                <!-- =========================================
+                     LEFT SIDE
+                ========================================== -->
 
-                    <i class="fa-solid fa-bars"></i>
-
-                </button>
+                <div class="header-left">
 
 
+                    <!-- =====================================
+                         MENU
+                    ====================================== -->
 
-                <!-- PROFILE -->
-                <div class="chapcy-profile">
+                    <button
+                        class="menu-btn"
+                        id="menuBtn"
+                        type="button"
+                        aria-label="Open menu"
+                    >
+
+                        <i class="fa-solid fa-bars"></i>
+
+                    </button>
 
 
-                    <!-- PROFILE IMAGE -->
 
-                    <div class="profile-image-wrapper">
+                    <!-- =====================================
+                         PROFILE
+                    ====================================== -->
+
+                    <button
+                        class="header-profile"
+                        id="profileBtn"
+                        type="button"
+                        aria-label="Open profile"
+                    >
 
                         <img
                             src="file_00000000b0d8820a998b33ad9cf233cb.png"
@@ -109,661 +131,128 @@
 
                         <span class="online-dot"></span>
 
-                    </div>
+                    </button>
 
 
-                    <!-- PROFILE INFO -->
 
-                    <div class="profile-details">
+                    <!-- =====================================
+                         BRAND
+                    ====================================== -->
 
-                        <div class="profile-name">
+                    <div class="brand">
+
+                        <div class="brand-name">
                             CHAPCY
                         </div>
 
-                        <div class="profile-subtitle">
-
-                            <i class="fa-solid fa-circle"></i>
-
-                            <span>
-                                Worldwide Community
-                            </span>
-
+                        <div class="brand-subtitle">
+                            Worldwide Community
                         </div>
 
                     </div>
+
+                </div>
+
+
+
+                <!-- =========================================
+                     RIGHT SIDE
+                ========================================== -->
+
+                <div class="header-actions">
+
+
+                    <!-- =====================================
+                         ADD CONTACT
+                    ====================================== -->
+
+                    <button
+                        class="header-action add-contact-action"
+                        id="addContactBtn"
+                        type="button"
+                        aria-label="Add contact"
+                        title="Add Contact"
+                    >
+
+                        <i class="fa-solid fa-user-plus"></i>
+
+                    </button>
+
+
+
+                    <!-- =====================================
+                         SEARCH
+                    ====================================== -->
+
+                    <button
+                        class="header-action search-action"
+                        id="searchBtn"
+                        type="button"
+                        aria-label="Search"
+                        title="Search"
+                    >
+
+                        <i class="fa-solid fa-magnifying-glass"></i>
+
+                    </button>
+
+
+
+                    <!-- =====================================
+                         NOTIFICATIONS
+                    ====================================== -->
+
+                    <button
+                        class="header-action notification"
+                        id="notificationBtn"
+                        type="button"
+                        aria-label="Notifications"
+                        title="Notifications"
+                    >
+
+                        <i class="fa-regular fa-bell"></i>
+
+                        <span class="notification-badge">
+                            3
+                        </span>
+
+                    </button>
+
+
+
+                    <!-- =====================================
+                         MORE
+                    ====================================== -->
+
+                    <button
+                        class="header-action more-action"
+                        id="moreBtn"
+                        type="button"
+                        aria-label="More options"
+                        title="More options"
+                    >
+
+                        <i class="fa-solid fa-ellipsis-vertical"></i>
+
+                    </button>
 
 
                 </div>
 
-            </div>
-
-
-
-            <!-- ==============================
-                 HEADER RIGHT
-            =============================== -->
-
-            <div class="header-actions">
-
-
-                <!-- ADD CONTACT -->
-
-                <button
-                    class="header-action add-contact-btn"
-                    id="addContactBtn"
-                    type="button"
-                    aria-label="Add contact"
-                    title="Add contact"
-                >
-
-                    <i class="fa-solid fa-plus"></i>
-
-                </button>
-
-
-
-                <!-- SEARCH -->
-
-                <button
-                    class="header-action"
-                    id="searchBtn"
-                    type="button"
-                    aria-label="Search"
-                    title="Search"
-                >
-
-                    <i class="fa-solid fa-magnifying-glass"></i>
-
-                </button>
-
-
-
-                <!-- NOTIFICATIONS -->
-
-                <button
-                    class="header-action notification-btn"
-                    id="notificationBtn"
-                    type="button"
-                    aria-label="Notifications"
-                    title="Notifications"
-                >
-
-                    <i class="fa-regular fa-bell"></i>
-
-                    <span class="notification-badge">
-                        3
-                    </span>
-
-                </button>
-
-
-
-                <!-- MORE -->
-
-                <button
-                    class="header-action"
-                    id="moreBtn"
-                    type="button"
-                    aria-label="More options"
-                    title="More options"
-                >
-
-                    <i class="fa-solid fa-ellipsis-vertical"></i>
-
-                </button>
-
 
             </div>
-
 
         </header>
 
 
 
-        <!-- =================================================
-             SEARCH BAR
-             Hidden until search button is clicked
-        ================================================= -->
-
-        <div
-            class="chat-search-wrapper"
-            id="chatSearchWrapper"
-        >
-
-            <div class="chat-search">
-
-                <i class="fa-solid fa-magnifying-glass"></i>
-
-                <input
-                    type="search"
-                    id="chatSearchInput"
-                    placeholder="Search chats or people..."
-                    autocomplete="off"
-                >
-
-                <button
-                    type="button"
-                    id="closeSearchBtn"
-                    aria-label="Close search"
-                >
-
-                    <i class="fa-solid fa-xmark"></i>
-
-                </button>
-
-            </div>
-
-        </div>
-
-
-
-        <!-- =================================================
-             MAIN CONTENT
-        ================================================= -->
-
-        <main class="chapcy-content">
-
-
-            <!-- =================================================
-                 MY CHATS HEADER
-            ================================================= -->
-
-            <section class="my-chats-heading">
-
-                <div>
-
-                    <span class="section-label">
-                        CHAPCY
-                    </span>
-
-                    <h1>
-                        My Chats
-                    </h1>
-
-                </div>
-
-
-                <!-- NEW CHAT -->
-
-                <button
-                    class="new-chat-btn"
-                    id="newChatBtn"
-                    type="button"
-                    aria-label="New chat"
-                    title="New chat"
-                >
-
-                    <i class="fa-solid fa-plus"></i>
-
-                </button>
-
-            </section>
-
-
-
-            <!-- =================================================
-                 CHAT FILTERS
-            ================================================= -->
-
-            <nav
-                class="chat-filters"
-                aria-label="Chat filters"
-            >
-
-                <button
-                    class="chat-filter active"
-                    data-filter="all"
-                    type="button"
-                >
-                    All
-                </button>
-
-                <button
-                    class="chat-filter"
-                    data-filter="unread"
-                    type="button"
-                >
-                    Unread
-                </button>
-
-                <button
-                    class="chat-filter"
-                    data-filter="groups"
-                    type="button"
-                >
-                    Groups
-                </button>
-
-                <button
-                    class="chat-filter"
-                    data-filter="favorites"
-                    type="button"
-                >
-                    Favorites
-                </button>
-
-            </nav>
-
-
-
-            <!-- =================================================
-                 CHAT LIST
-            ================================================= -->
-
-            <section
-                class="chat-list"
-                id="chatList"
-            >
-
-
-                <!-- CHAT ITEM -->
-
-                <article
-                    class="chat-item"
-                    data-name="Sarah"
-                    data-type="unread"
-                >
-
-                    <div class="chat-avatar">
-
-                        <img
-                            src="file_00000000b0d8820a998b33ad9cf233cb.png"
-                            alt="Sarah"
-                        >
-
-                        <span class="chat-online"></span>
-
-                    </div>
-
-
-                    <div class="chat-info">
-
-                        <div class="chat-top">
-
-                            <h3>
-                                Sarah
-                            </h3>
-
-                            <time>
-                                9:42 PM
-                            </time>
-
-                        </div>
-
-                        <p>
-                            Hey, are you online?
-                        </p>
-
-                    </div>
-
-
-                    <div class="chat-meta">
-
-                        <span class="unread-count">
-                            3
-                        </span>
-
-                    </div>
-
-                </article>
-
-
-
-                <!-- CHAT ITEM -->
-
-                <article
-                    class="chat-item"
-                    data-name="John"
-                >
-
-                    <div class="chat-avatar">
-
-                        <img
-                            src="file_00000000b0d8820a998b33ad9cf233cb.png"
-                            alt="John"
-                        >
-
-                    </div>
-
-
-                    <div class="chat-info">
-
-                        <div class="chat-top">
-
-                            <h3>
-                                John
-                            </h3>
-
-                            <time>
-                                8:31 PM
-                            </time>
-
-                        </div>
-
-                        <p>
-                            See you tomorrow 👍
-                        </p>
-
-                    </div>
-
-                </article>
-
-
-
-                <!-- GROUP -->
-
-                <article
-                    class="chat-item group-chat"
-                    data-name="CHAPCY Developers"
-                    data-type="groups"
-                >
-
-                    <div class="chat-avatar group-avatar">
-
-                        <i class="fa-solid fa-code"></i>
-
-                    </div>
-
-
-                    <div class="chat-info">
-
-                        <div class="chat-top">
-
-                            <h3>
-                                CHAPCY Developers
-                            </h3>
-
-                            <time>
-                                7:20 PM
-                            </time>
-
-                        </div>
-
-                        <p>
-                            Alex: New update is ready 🚀
-                        </p>
-
-                    </div>
-
-                </article>
-
-
-
-                <!-- CHAT ITEM -->
-
-                <article
-                    class="chat-item"
-                    data-name="Amina"
-                >
-
-                    <div class="chat-avatar">
-
-                        <img
-                            src="file_00000000b0d8820a998b33ad9cf233cb.png"
-                            alt="Amina"
-                        >
-
-                    </div>
-
-
-                    <div class="chat-info">
-
-                        <div class="chat-top">
-
-                            <h3>
-                                Amina
-                            </h3>
-
-                            <time>
-                                Yesterday
-                            </time>
-
-                        </div>
-
-                        <p>
-                            📷 Photo
-                        </p>
-
-                    </div>
-
-                </article>
-
-
-
-                <!-- GROUP -->
-
-                <article
-                    class="chat-item group-chat"
-                    data-name="Sports Community"
-                    data-type="groups"
-                >
-
-                    <div class="chat-avatar sports-avatar">
-
-                        <i class="fa-solid fa-futbol"></i>
-
-                    </div>
-
-
-                    <div class="chat-info">
-
-                        <div class="chat-top">
-
-                            <h3>
-                                Sports Community
-                            </h3>
-
-                            <time>
-                                Yesterday
-                            </time>
-
-                        </div>
-
-                        <p>
-                            Match starts at 9 PM
-                        </p>
-
-                    </div>
-
-                </article>
-
-
-            </section>
-
-
-        </main>
-
-
-
-        <!-- =================================================
-             ADD CONTACT FLOATING BUTTON
-        ================================================= -->
-
-        <button
-            class="floating-add-contact"
-            id="floatingAddContact"
-            type="button"
-            aria-label="Add contact"
-            title="Add contact"
-        >
-
-            <i class="fa-solid fa-user-plus"></i>
-
-        </button>
-
-
-
-        <!-- =================================================
-             MOBILE BOTTOM NAV
-        ================================================= -->
-
-        <nav
-            class="mobile-bottom-nav"
-            aria-label="Main navigation"
-        >
-
-            <button
-                class="bottom-nav-item active"
-                type="button"
-                data-page="chats"
-            >
-
-                <i class="fa-solid fa-comment-dots"></i>
-
-                <span>
-                    Chats
-                </span>
-
-            </button>
-
-
-            <button
-                class="bottom-nav-item"
-                type="button"
-                data-page="status"
-            >
-
-                <i class="fa-solid fa-circle-notch"></i>
-
-                <span>
-                    Status
-                </span>
-
-            </button>
-
-
-            <button
-                class="bottom-nav-item"
-                type="button"
-                data-page="calls"
-            >
-
-                <i class="fa-solid fa-phone"></i>
-
-                <span>
-                    Calls
-                </span>
-
-            </button>
-
-
-            <button
-                class="bottom-nav-item"
-                type="button"
-                data-page="communities"
-            >
-
-                <i class="fa-solid fa-users"></i>
-
-                <span>
-                    Communities
-                </span>
-
-            </button>
-
-
-            <button
-                class="bottom-nav-item"
-                type="button"
-                data-page="profile"
-            >
-
-                <i class="fa-solid fa-user"></i>
-
-                <span>
-                    Profile
-                </span>
-
-            </button>
-
-        </nav>
-
-
     </div>
 
 
 
-    <!-- =================================================
-         ADD CONTACT MODAL
-         Tutaiunganisha na contacts permission kupitia JS
-    ================================================= -->
-
-    <div
-        class="contact-modal"
-        id="contactModal"
-        aria-hidden="true"
-    >
-
-        <div class="contact-modal-overlay"></div>
-
-
-        <div class="contact-modal-card">
-
-
-            <button
-                class="modal-close"
-                id="closeContactModal"
-                type="button"
-                aria-label="Close"
-            >
-
-                <i class="fa-solid fa-xmark"></i>
-
-            </button>
-
-
-            <div class="modal-icon">
-
-                <i class="fa-solid fa-user-plus"></i>
-
-            </div>
-
-
-            <h2>
-                Add People
-            </h2>
-
-
-            <p>
-                Find your friends on CHAPCY using your phone contacts.
-            </p>
-
-
-            <button
-                class="allow-contacts-btn"
-                id="allowContactsBtn"
-                type="button"
-            >
-
-                <i class="fa-solid fa-address-book"></i>
-
-                Allow Contacts
-
-            </button>
-
-
-            <button
-                class="invite-btn"
-                id="inviteBtn"
-                type="button"
-            >
-
-                <i class="fa-solid fa-share-nodes"></i>
-
-                Invite Friends
-
-            </button>
-
-
-        </div>
-
-    </div>
-
-
-
-    <!-- =================================================
+    <!-- =====================================================
          JAVASCRIPT
-    ================================================= -->
+    ===================================================== -->
 
     <script src="mychat.js"></script>
 
