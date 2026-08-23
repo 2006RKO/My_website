@@ -1,1 +1,1508 @@
+/* =====================================================
+   CHAPCY REWARDS
+   PREMIUM GLASS / NEON UI
+===================================================== */
 
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    min-height:100vh;
+
+    font-family:'Poppins',sans-serif;
+
+    color:#fff;
+
+    background:#02030d;
+
+    overflow-x:hidden;
+}
+
+
+/* =====================================================
+   BACKGROUND
+===================================================== */
+
+.rewards-background{
+    position:fixed;
+    inset:0;
+
+    z-index:-5;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(1,3,18,.18),
+            rgba(2,3,18,.58)
+        ),
+        url("file_00000000b3448243aebfedfba8912525.png");
+
+    background-size:cover;
+    background-position:center;
+
+    filter:saturate(1.25);
+
+    transform:scale(1.03);
+}
+
+
+/* DARK GLASS */
+
+body::before{
+    content:"";
+
+    position:fixed;
+    inset:0;
+
+    z-index:-4;
+
+    pointer-events:none;
+
+    background:
+        radial-gradient(
+            circle at 15% 15%,
+            rgba(130,0,255,.22),
+            transparent 32%
+        ),
+        radial-gradient(
+            circle at 85% 25%,
+            rgba(0,210,255,.20),
+            transparent 32%
+        ),
+        linear-gradient(
+            180deg,
+            rgba(2,4,20,.25),
+            rgba(2,3,15,.70)
+        );
+}
+
+
+/* =====================================================
+   FLOATING GLOWS
+===================================================== */
+
+.rewards-glow{
+    position:fixed;
+
+    border-radius:50%;
+
+    pointer-events:none;
+
+    z-index:-2;
+
+    filter:blur(60px);
+
+    animation:glowFloat 8s ease-in-out infinite;
+}
+
+.glow-one{
+    width:300px;
+    height:300px;
+
+    top:15%;
+    left:-120px;
+
+    background:rgba(120,0,255,.20);
+}
+
+.glow-two{
+    width:260px;
+    height:260px;
+
+    right:-90px;
+    top:45%;
+
+    background:rgba(0,220,255,.18);
+
+    animation-delay:2s;
+}
+
+.glow-three{
+    width:220px;
+    height:220px;
+
+    bottom:5%;
+    left:40%;
+
+    background:rgba(255,0,190,.13);
+
+    animation-delay:4s;
+}
+
+@keyframes glowFloat{
+
+    0%,100%{
+        transform:translateY(0) scale(1);
+    }
+
+    50%{
+        transform:translateY(-35px) scale(1.12);
+    }
+}
+
+
+/* =====================================================
+   PAGE
+===================================================== */
+
+.rewards-page{
+    width:100%;
+    min-height:100vh;
+
+    padding-bottom:80px;
+}
+
+
+/* =====================================================
+   TOPBAR
+===================================================== */
+
+.rewards-topbar{
+
+    position:sticky;
+
+    top:0;
+
+    z-index:1000;
+
+    width:100%;
+
+    min-height:92px;
+
+    padding:14px 28px;
+
+    display:flex;
+    align-items:center;
+
+    gap:18px;
+
+    background:
+        linear-gradient(
+            110deg,
+            rgba(5,8,35,.72),
+            rgba(5,5,28,.40)
+        );
+
+    border-bottom:
+        1px solid rgba(255,255,255,.10);
+
+    backdrop-filter:blur(24px);
+    -webkit-backdrop-filter:blur(24px);
+
+    box-shadow:
+        0 10px 40px rgba(0,0,0,.22);
+}
+
+
+/* =====================================================
+   BACK
+===================================================== */
+
+.rewards-back{
+
+    width:52px;
+    height:52px;
+
+    flex-shrink:0;
+
+    border-radius:17px;
+
+    border:
+        1px solid rgba(0,220,255,.35);
+
+    background:
+        rgba(255,255,255,.055);
+
+    color:#fff;
+
+    font-size:19px;
+
+    cursor:pointer;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    transition:.3s ease;
+
+    box-shadow:
+        inset 0 0 20px rgba(0,220,255,.04);
+}
+
+.rewards-back:hover{
+
+    transform:translateX(-3px);
+
+    border-color:#00eaff;
+
+    background:
+        rgba(0,220,255,.10);
+
+    box-shadow:
+        0 0 25px rgba(0,220,255,.25);
+}
+
+
+/* =====================================================
+   BRAND
+===================================================== */
+
+.rewards-brand{
+    min-width:0;
+}
+
+.rewards-title{
+    display:flex;
+    align-items:center;
+    gap:9px;
+
+    line-height:1;
+}
+
+.rewards-title span{
+
+    font-size:25px;
+
+    font-weight:800;
+
+    background:
+        linear-gradient(
+            90deg,
+            #00eaff,
+            #6c5cff
+        );
+
+    -webkit-background-clip:text;
+    background-clip:text;
+
+    -webkit-text-fill-color:transparent;
+}
+
+.rewards-title strong{
+
+    font-size:25px;
+
+    font-weight:800;
+
+    background:
+        linear-gradient(
+            90deg,
+            #a934ff,
+            #ff36d9
+        );
+
+    -webkit-background-clip:text;
+    background-clip:text;
+
+    -webkit-text-fill-color:transparent;
+}
+
+.rewards-brand p{
+
+    margin-top:6px;
+
+    color:rgba(255,255,255,.62);
+
+    font-size:11px;
+
+    white-space:nowrap;
+}
+
+.rewards-brand p i{
+    color:#00eaff;
+    margin-right:5px;
+}
+
+
+/* =====================================================
+   ACTIONS
+===================================================== */
+
+.rewards-actions{
+
+    margin-left:auto;
+
+    display:flex;
+    align-items:center;
+
+    gap:10px;
+}
+
+
+/* =====================================================
+   COIN WALLET
+===================================================== */
+
+.coin-wallet{
+
+    height:58px;
+
+    padding:
+        5px 7px 5px 9px;
+
+    display:flex;
+    align-items:center;
+
+    gap:10px;
+
+    border-radius:18px;
+
+    border:
+        1px solid rgba(255,210,70,.22);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.075),
+            rgba(255,255,255,.025)
+        );
+
+    backdrop-filter:blur(15px);
+
+    box-shadow:
+        inset 0 0 20px rgba(255,210,50,.025),
+        0 0 25px rgba(255,180,0,.05);
+}
+
+
+.coin-icon{
+
+    width:40px;
+    height:40px;
+
+    border-radius:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#fff;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffe76b,
+            #ff9d00
+        );
+
+    box-shadow:
+        0 0 18px rgba(255,190,30,.40);
+}
+
+.coin-info{
+    display:flex;
+    flex-direction:column;
+
+    min-width:90px;
+}
+
+.coin-info strong{
+
+    font-size:16px;
+    line-height:1.1;
+
+    color:#fff;
+}
+
+.coin-info span{
+
+    margin-top:3px;
+
+    font-size:8px;
+
+    color:rgba(255,255,255,.50);
+
+    letter-spacing:1px;
+}
+
+.coin-add{
+
+    width:35px;
+    height:35px;
+
+    border-radius:12px;
+
+    border:1px solid rgba(255,255,255,.14);
+
+    background:
+        rgba(255,255,255,.07);
+
+    color:#fff;
+
+    cursor:pointer;
+
+    transition:.3s ease;
+}
+
+.coin-add:hover{
+
+    transform:scale(1.08);
+
+    background:#00bfff;
+
+    box-shadow:
+        0 0 20px rgba(0,210,255,.45);
+}
+
+
+/* =====================================================
+   PROFILE
+===================================================== */
+
+.reward-profile{
+
+    position:relative;
+
+    width:55px;
+    height:55px;
+
+    padding:3px;
+
+    border-radius:50%;
+
+    border:0;
+
+    cursor:pointer;
+
+    background:
+        linear-gradient(
+            135deg,
+            #00eaff,
+            #7137ff,
+            #ff00d9
+        );
+
+    box-shadow:
+        0 0 20px rgba(0,210,255,.30);
+}
+
+.reward-profile img{
+
+    width:100%;
+    height:100%;
+
+    display:block;
+
+    object-fit:cover;
+
+    border-radius:50%;
+
+    border:
+        3px solid #07102c;
+}
+
+.reward-online{
+
+    position:absolute;
+
+    right:0;
+    bottom:3px;
+
+    width:12px;
+    height:12px;
+
+    border-radius:50%;
+
+    background:#00ff7b;
+
+    border:2px solid #08102c;
+
+    box-shadow:
+        0 0 10px #00ff7b;
+}
+
+
+/* =====================================================
+   NOTIFICATION
+===================================================== */
+
+.reward-notification{
+
+    position:relative;
+
+    width:52px;
+    height:52px;
+
+    border-radius:17px;
+
+    border:
+        1px solid rgba(255,255,255,.12);
+
+    background:
+        rgba(255,255,255,.055);
+
+    color:#fff;
+
+    font-size:19px;
+
+    cursor:pointer;
+
+    transition:.3s ease;
+}
+
+.reward-notification:hover{
+
+    border-color:#00d9ff;
+
+    box-shadow:
+        0 0 25px rgba(0,210,255,.25);
+}
+
+.notification-count{
+
+    position:absolute;
+
+    top:-5px;
+    right:-4px;
+
+    min-width:20px;
+    height:20px;
+
+    padding:0 5px;
+
+    border-radius:20px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff287d,
+            #ff0054
+        );
+
+    font-size:9px;
+    font-weight:700;
+
+    border:2px solid #080a24;
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.rewards-hero{
+
+    width:92%;
+    max-width:1300px;
+
+    min-height:430px;
+
+    margin:35px auto 20px;
+
+    padding:55px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    display:flex;
+    align-items:center;
+
+    border-radius:36px;
+
+    background:
+        linear-gradient(
+            120deg,
+            rgba(10,15,55,.40),
+            rgba(5,5,35,.18)
+        );
+
+    border:
+        1px solid rgba(255,255,255,.12);
+
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+
+    box-shadow:
+        0 30px 80px rgba(0,0,0,.35),
+        inset 0 0 50px rgba(0,210,255,.025);
+}
+
+
+/* HERO LIGHT */
+
+.rewards-hero::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:600px;
+    height:400px;
+
+    left:-180px;
+    top:-180px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(112,0,255,.25),
+            transparent 70%
+        );
+
+    filter:blur(20px);
+}
+
+
+/* =====================================================
+   HERO CONTENT
+===================================================== */
+
+.hero-content{
+
+    position:relative;
+
+    z-index:3;
+
+    max-width:650px;
+}
+
+.hero-badge{
+
+    width:max-content;
+
+    padding:8px 15px;
+
+    border-radius:30px;
+
+    border:
+        1px solid rgba(0,220,255,.25);
+
+    background:
+        rgba(0,210,255,.06);
+
+    color:#8fefff;
+
+    font-size:11px;
+
+    letter-spacing:1px;
+}
+
+.hero-badge i{
+    margin-right:6px;
+}
+
+.hero-content h1{
+
+    margin-top:20px;
+
+    font-size:
+        clamp(38px,5vw,68px);
+
+    line-height:1.03;
+
+    font-weight:800;
+
+    letter-spacing:-2px;
+}
+
+.hero-content h1 span{
+
+    display:block;
+
+    background:
+        linear-gradient(
+            90deg,
+            #00eaff,
+            #7d43ff,
+            #ff28d8
+        );
+
+    -webkit-background-clip:text;
+    background-clip:text;
+
+    -webkit-text-fill-color:transparent;
+}
+
+.hero-content > p{
+
+    margin-top:20px;
+
+    max-width:570px;
+
+    color:rgba(255,255,255,.65);
+
+    font-size:14px;
+
+    line-height:1.8;
+}
+
+
+/* =====================================================
+   HERO COINS
+===================================================== */
+
+.hero-coins{
+
+    margin-top:28px;
+
+    width:max-content;
+
+    display:flex;
+    align-items:center;
+
+    gap:13px;
+
+    padding:11px 20px 11px 11px;
+
+    border-radius:20px;
+
+    background:
+        rgba(255,255,255,.055);
+
+    border:
+        1px solid rgba(255,255,255,.10);
+
+    backdrop-filter:blur(12px);
+}
+
+.hero-coin-icon{
+
+    width:52px;
+    height:52px;
+
+    border-radius:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffe85c,
+            #ff9c00
+        );
+
+    font-size:22px;
+
+    box-shadow:
+        0 0 25px rgba(255,190,20,.45);
+}
+
+.hero-coins small,
+.hero-coins span{
+
+    display:block;
+
+    font-size:9px;
+
+    letter-spacing:1.5px;
+
+    color:rgba(255,255,255,.45);
+}
+
+.hero-coins strong{
+
+    display:block;
+
+    margin:3px 0;
+
+    font-size:23px;
+}
+
+
+/* =====================================================
+   REWARD ORB
+===================================================== */
+
+.reward-orb{
+
+    position:absolute;
+
+    right:12%;
+
+    width:280px;
+    height:280px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.orb-ring{
+
+    position:absolute;
+
+    inset:0;
+
+    border-radius:50%;
+
+    border:
+        1px solid rgba(0,220,255,.25);
+
+    animation:orbRotate 10s linear infinite;
+}
+
+.ring-two{
+
+    inset:25px;
+
+    border-color:
+        rgba(190,0,255,.30);
+
+    animation-direction:reverse;
+
+    animation-duration:7s;
+}
+
+@keyframes orbRotate{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+.orb-core{
+
+    width:135px;
+    height:135px;
+
+    border-radius:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:48px;
+
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            #ffffff,
+            #7d4cff 28%,
+            #5b00ff 60%,
+            #190044
+        );
+
+    box-shadow:
+        0 0 30px rgba(0,220,255,.40),
+        0 0 80px rgba(120,0,255,.40);
+
+    animation:
+        orbPulse 3s ease-in-out infinite;
+}
+
+@keyframes orbPulse{
+
+    0%,100%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.08);
+    }
+}
+
+.orb-star{
+
+    position:absolute;
+
+    color:#fff;
+
+    text-shadow:
+        0 0 15px #00eaff;
+
+    animation:
+        starFloat 3s ease-in-out infinite;
+}
+
+.star-one{
+    top:15px;
+    right:25px;
+}
+
+.star-two{
+    bottom:20px;
+    left:15px;
+
+    animation-delay:1s;
+}
+
+.star-three{
+    top:45%;
+    right:-5px;
+
+    animation-delay:2s;
+}
+
+@keyframes starFloat{
+
+    0%,100%{
+        transform:translateY(0) scale(1);
+        opacity:.6;
+    }
+
+    50%{
+        transform:translateY(-12px) scale(1.25);
+        opacity:1;
+    }
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+.reward-navigation{
+
+    width:92%;
+    max-width:1300px;
+
+    margin:20px auto;
+
+    padding:8px;
+
+    display:flex;
+
+    gap:8px;
+
+    border-radius:22px;
+
+    background:
+        rgba(5,8,35,.30);
+
+    border:
+        1px solid rgba(255,255,255,.10);
+
+    backdrop-filter:blur(18px);
+}
+
+.reward-nav{
+
+    flex:1;
+
+    min-height:58px;
+
+    border:0;
+
+    border-radius:17px;
+
+    background:transparent;
+
+    color:rgba(255,255,255,.55);
+
+    font-family:inherit;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    gap:9px;
+
+    transition:.3s ease;
+}
+
+.reward-nav:hover{
+
+    color:#fff;
+
+    background:
+        rgba(255,255,255,.06);
+}
+
+.reward-nav.active{
+
+    color:#fff;
+
+    background:
+        linear-gradient(
+            100deg,
+            rgba(102,0,255,.70),
+            rgba(0,190,255,.55)
+        );
+
+    box-shadow:
+        0 0 25px rgba(0,200,255,.18);
+}
+
+.reward-nav i{
+    font-size:16px;
+}
+
+
+/* =====================================================
+   CONTENT
+===================================================== */
+
+.reward-content{
+
+    width:92%;
+    max-width:1300px;
+
+    margin:40px auto;
+}
+
+.section-heading{
+
+    display:flex;
+    align-items:end;
+    justify-content:space-between;
+
+    margin-bottom:20px;
+}
+
+.section-heading span{
+
+    font-size:10px;
+
+    letter-spacing:2px;
+
+    color:#00dfff;
+}
+
+.section-heading h2{
+
+    margin-top:4px;
+
+    font-size:28px;
+}
+
+.view-all{
+
+    border:0;
+
+    background:transparent;
+
+    color:#00dfff;
+
+    font-family:inherit;
+
+    cursor:pointer;
+
+    font-weight:600;
+}
+
+
+/* =====================================================
+   REWARD GRID
+===================================================== */
+
+.reward-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:20px;
+}
+
+.reward-card{
+
+    overflow:hidden;
+
+    border-radius:27px;
+
+    background:
+        rgba(5,8,30,.38);
+
+    border:
+        1px solid rgba(255,255,255,.10);
+
+    backdrop-filter:blur(15px);
+
+    transition:.4s ease;
+}
+
+.reward-card:hover{
+
+    transform:translateY(-8px);
+
+    border-color:
+        rgba(0,220,255,.35);
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.25),
+        0 0 30px rgba(0,200,255,.10);
+}
+
+.reward-card-image{
+
+    height:180px;
+
+    position:relative;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(120,0,255,.25),
+            transparent 65%
+        );
+}
+
+.reward-icon{
+
+    width:85px;
+    height:85px;
+
+    border-radius:26px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:35px;
+
+    background:
+        rgba(255,255,255,.08);
+
+    border:
+        1px solid rgba(255,255,255,.16);
+
+    box-shadow:
+        0 0 35px rgba(120,0,255,.20);
+}
+
+.cyan{
+    color:#00eaff;
+}
+
+.purple{
+    color:#c85cff;
+}
+
+.pink{
+    color:#ff48cf;
+}
+
+.reward-label{
+
+    position:absolute;
+
+    top:14px;
+    right:14px;
+
+    padding:6px 10px;
+
+    border-radius:20px;
+
+    background:
+        rgba(0,220,255,.10);
+
+    border:
+        1px solid rgba(0,220,255,.20);
+
+    color:#8eefff;
+
+    font-size:8px;
+
+    letter-spacing:1px;
+}
+
+.reward-card-body{
+
+    padding:20px;
+}
+
+.reward-card-body h3{
+    font-size:19px;
+}
+
+.reward-card-body p{
+
+    margin-top:8px;
+
+    color:rgba(255,255,255,.55);
+
+    font-size:12px;
+
+    line-height:1.6;
+}
+
+.reward-price{
+
+    margin-top:18px;
+
+    display:flex;
+    align-items:center;
+
+    gap:7px;
+}
+
+.reward-price i{
+    color:#ffd23f;
+}
+
+.reward-price strong{
+    font-size:20px;
+}
+
+.reward-price span{
+    font-size:8px;
+    color:rgba(255,255,255,.40);
+}
+
+.claim-btn{
+
+    width:100%;
+
+    margin-top:16px;
+
+    min-height:48px;
+
+    border-radius:15px;
+
+    border:0;
+
+    color:#fff;
+
+    font-family:inherit;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    background:
+        linear-gradient(
+            100deg,
+            #6d00ff,
+            #008fff
+        );
+
+    box-shadow:
+        0 0 20px rgba(80,0,255,.20);
+
+    transition:.3s ease;
+}
+
+.claim-btn:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 0 30px rgba(0,210,255,.35);
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:800px){
+
+    .rewards-topbar{
+
+        min-height:76px;
+
+        padding:10px 12px;
+
+        gap:9px;
+    }
+
+    .rewards-back{
+
+        width:43px;
+        height:43px;
+
+        border-radius:14px;
+    }
+
+    .rewards-title span,
+    .rewards-title strong{
+        font-size:17px;
+    }
+
+    .rewards-brand p{
+        font-size:8px;
+    }
+
+    .coin-wallet{
+
+        height:44px;
+
+        padding:4px 5px;
+
+        gap:6px;
+
+        border-radius:14px;
+    }
+
+    .coin-icon{
+
+        width:32px;
+        height:32px;
+
+        font-size:12px;
+    }
+
+    .coin-info{
+        min-width:55px;
+    }
+
+    .coin-info strong{
+        font-size:11px;
+    }
+
+    .coin-info span{
+        font-size:6px;
+    }
+
+    .coin-add{
+
+        width:28px;
+        height:28px;
+
+        border-radius:9px;
+    }
+
+    .reward-profile{
+
+        width:43px;
+        height:43px;
+    }
+
+    .reward-notification{
+
+        width:42px;
+        height:42px;
+
+        border-radius:13px;
+
+        font-size:16px;
+    }
+
+    .rewards-hero{
+
+        width:94%;
+
+        min-height:540px;
+
+        margin-top:18px;
+
+        padding:30px 22px;
+
+        align-items:flex-start;
+    }
+
+    .hero-content h1{
+
+        font-size:
+            clamp(34px,10vw,50px);
+    }
+
+    .hero-content > p{
+        font-size:12px;
+    }
+
+    .reward-orb{
+
+        width:210px;
+        height:210px;
+
+        right:50%;
+
+        bottom:-45px;
+
+        transform:translateX(50%);
+    }
+
+    .orb-core{
+
+        width:100px;
+        height:100px;
+
+        font-size:35px;
+    }
+
+    .reward-navigation{
+
+        width:94%;
+
+        overflow-x:auto;
+
+        scrollbar-width:none;
+    }
+
+    .reward-navigation::-webkit-scrollbar{
+        display:none;
+    }
+
+    .reward-nav{
+
+        min-width:120px;
+
+        font-size:11px;
+    }
+
+    .reward-grid{
+
+        grid-template-columns:1fr;
+    }
+
+    .reward-content{
+
+        width:94%;
+    }
+
+    .section-heading h2{
+        font-size:22px;
+    }
+}
+
+
+/* =====================================================
+   SMALL PHONES
+===================================================== */
+
+@media(max-width:430px){
+
+    .rewards-brand{
+        display:none;
+    }
+
+    .rewards-topbar{
+        justify-content:space-between;
+    }
+
+    .rewards-actions{
+        margin-left:0;
+    }
+
+    .coin-info{
+        display:none;
+    }
+
+    .coin-wallet{
+        padding-left:5px;
+    }
+
+    .hero-coins{
+        width:100%;
+    }
+}
+
+
+/* =====================================================
+   ACCESSIBILITY
+===================================================== */
+
+button{
+    -webkit-tap-highlight-color:transparent;
+}
+
+button:focus-visible{
+
+    outline:
+        2px solid #00eaff;
+
+    outline-offset:3px;
+  }
