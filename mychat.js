@@ -470,7 +470,99 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     );
 
+/* =====================================================
+   CHAPCY INTRO — TYPING EFFECT
+===================================================== */
 
+const introTagline =
+    document.getElementById("introTagline");
+
+if (introTagline) {
+
+    const typingLines = [
+        "Connect.",
+        "Connect. Chat.",
+        "Connect. Chat. Belong."
+    ];
+
+    let lineIndex = 0;
+
+    function typeLine(text, callback) {
+
+        introTagline.textContent = "";
+
+        let charIndex = 0;
+
+        const typing = setInterval(() => {
+
+            introTagline.textContent +=
+                text.charAt(charIndex);
+
+            charIndex++;
+
+            if (charIndex >= text.length) {
+
+                clearInterval(typing);
+
+                setTimeout(() => {
+
+                    if (callback) {
+                        callback();
+                    }
+
+                }, 450);
+            }
+
+        }, 70);
+    }
+
+
+    function startTyping() {
+
+        if (lineIndex >= typingLines.length) {
+            return;
+        }
+
+        typeLine(
+            typingLines[lineIndex],
+            () => {
+
+                lineIndex++;
+
+                startTyping();
+
+            }
+        );
+    }
+
+
+    /* Anza typing baada ya logo kuonekana */
+
+    setTimeout(() => {
+
+        startTyping();
+
+    }, 1700);
+
+}
+
+
+/* =====================================================
+   INTRO CLEANUP
+===================================================== */
+
+const chapcyIntro =
+    document.getElementById("chapcyIntro");
+
+if (chapcyIntro) {
+
+    setTimeout(() => {
+
+        chapcyIntro.style.pointerEvents = "none";
+
+    }, 3900);
+
+}
     /* =====================================================
        HEADER READY
     ===================================================== */
