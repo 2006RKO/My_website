@@ -1,12 +1,14 @@
-/* =====================================================
-   CHAPCY MY CHAT — RESPONSIVE BASE
-===================================================== */
+/* =========================================================
+   CHAPCY MY CHAT — RESPONSIVE HEADER
+========================================================= */
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
+
+html,
 body {
     width: 100%;
     min-height: 100%;
@@ -14,15 +16,15 @@ body {
 
 body {
     font-family: "Poppins", sans-serif;
+    background: #030313;
     color: #fff;
-    background: #030311;
     overflow-x: hidden;
 }
 
 
-/* =====================================================
-   PAGE BACKGROUND
-===================================================== */
+/* =========================================================
+   BACKGROUND
+========================================================= */
 
 body::before {
     content: "";
@@ -31,18 +33,22 @@ body::before {
 
     background-image:
         linear-gradient(
-            to bottom,
-            rgba(3, 3, 18, 0.05),
-            rgba(3, 3, 18, 0.88)
+            180deg,
+            rgba(2, 3, 20, 0.18),
+            rgba(2, 2, 18, 0.82)
         ),
         url("file_00000000e8b881f4b968cb032d3a41e3.png");
 
     background-size: cover;
-    background-position: center top;
+    background-position: center center;
     background-repeat: no-repeat;
 
-    z-index: -2;
+    z-index: -3;
+    pointer-events: none;
 }
+
+
+/* Dark glass overlay */
 
 body::after {
     content: "";
@@ -52,33 +58,39 @@ body::after {
     background:
         radial-gradient(
             circle at 15% 20%,
-            rgba(130, 0, 255, 0.18),
+            rgba(145, 0, 255, 0.18),
             transparent 35%
         ),
         radial-gradient(
-            circle at 85% 30%,
-            rgba(0, 170, 255, 0.14),
+            circle at 85% 25%,
+            rgba(0, 180, 255, 0.12),
             transparent 35%
+        ),
+        linear-gradient(
+            180deg,
+            rgba(3, 3, 20, 0.08),
+            rgba(3, 3, 20, 0.65)
         );
 
+    z-index: -2;
     pointer-events: none;
-    z-index: -1;
 }
 
 
-/* =====================================================
-   MAIN PAGE
-===================================================== */
+/* =========================================================
+   MAIN APP
+========================================================= */
 
-.chapcy-page {
+.chapcy-app {
     width: 100%;
     min-height: 100vh;
+    position: relative;
 }
 
 
-/* =====================================================
+/* =========================================================
    HEADER
-===================================================== */
+========================================================= */
 
 .chapcy-header {
     position: sticky;
@@ -86,25 +98,52 @@ body::after {
     z-index: 1000;
 
     width: 100%;
-    min-height: 76px;
+    min-height: 78px;
 
     display: flex;
     align-items: center;
 
-    padding: 10px clamp(14px, 3vw, 32px);
+    padding: 12px clamp(14px, 3vw, 36px);
 
-    background: rgba(4, 4, 25, 0.72);
+    background:
+        linear-gradient(
+            90deg,
+            rgba(5, 4, 28, 0.94),
+            rgba(9, 5, 38, 0.82),
+            rgba(3, 13, 35, 0.90)
+        );
 
-    border-bottom: 1px solid rgba(255,255,255,0.10);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.10);
 
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+
+    box-shadow:
+        0 8px 35px rgba(0, 0, 0, 0.30),
+        0 0 35px rgba(100, 0, 255, 0.08);
 }
 
 
-/* =====================================================
-   HEADER LEFT
-===================================================== */
+/* =========================================================
+   HEADER INNER
+========================================================= */
+
+.header-inner {
+    width: 100%;
+    max-width: 1500px;
+    margin: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 18px;
+}
+
+
+/* =========================================================
+   LEFT SIDE
+========================================================= */
 
 .header-left {
     display: flex;
@@ -115,265 +154,465 @@ body::after {
 }
 
 
-/* MENU / BACK */
+/* Menu button */
 
-.header-menu,
-.header-back {
+.menu-btn {
     width: 44px;
     height: 44px;
 
     flex: 0 0 44px;
 
-    display: grid;
-    place-items: center;
-
-    border: 1px solid rgba(255,255,255,0.12);
+    border: 1px solid rgba(255, 255, 255, 0.10);
     border-radius: 14px;
 
-    color: white;
-    background: rgba(255,255,255,0.06);
+    background:
+        linear-gradient(
+            135deg,
+            rgba(125, 0, 255, 0.25),
+            rgba(0, 170, 255, 0.12)
+        );
 
-    font-size: 18px;
+    color: #fff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 19px;
 
     cursor: pointer;
 
-    transition: .25s ease;
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
 }
 
-.header-menu:hover,
-.header-back:hover {
+.menu-btn:hover {
     transform: translateY(-2px);
 
     background:
         linear-gradient(
             135deg,
-            rgba(126, 0, 255, .45),
-            rgba(0, 174, 255, .35)
+            rgba(125, 0, 255, 0.50),
+            rgba(0, 170, 255, 0.25)
         );
 
     box-shadow:
-        0 0 22px rgba(126, 0, 255, .35);
+        0 0 20px rgba(120, 0, 255, 0.25);
 }
 
 
-/* =====================================================
+/* =========================================================
    PROFILE
-===================================================== */
+========================================================= */
 
-.chapcy-profile {
-    display: flex;
-    align-items: center;
-    gap: 11px;
+.header-profile {
+    position: relative;
 
-    min-width: 0;
+    width: 48px;
+    height: 48px;
+
+    flex: 0 0 48px;
+
+    border-radius: 50%;
+
+    padding: 2px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #8b2cff,
+            #00c6ff,
+            #ff25d6
+        );
+
+    box-shadow:
+        0 0 18px rgba(130, 0, 255, 0.35);
+
+    overflow: visible;
 }
 
-.chapcy-profile img {
-    width: 46px;
-    height: 46px;
-
-    flex: 0 0 46px;
+.header-profile img {
+    width: 100%;
+    height: 100%;
 
     object-fit: cover;
 
     border-radius: 50%;
 
-    border: 2px solid #7b2cff;
+    display: block;
 
-    box-shadow:
-        0 0 0 3px rgba(0, 180, 255, .12),
-        0 0 22px rgba(124, 0, 255, .45);
+    border: 2px solid #08071c;
 }
 
-.profile-info {
+
+/* online dot */
+
+.online-dot {
+    position: absolute;
+
+    width: 12px;
+    height: 12px;
+
+    right: -1px;
+    bottom: 2px;
+
+    border-radius: 50%;
+
+    background: #00f5a0;
+
+    border: 2px solid #08071c;
+
+    box-shadow:
+        0 0 10px rgba(0, 255, 150, 0.8);
+}
+
+
+/* =========================================================
+   BRAND
+========================================================= */
+
+.brand {
     min-width: 0;
 }
 
-.profile-name {
-    font-size: clamp(18px, 2.2vw, 25px);
+.brand-name {
+    font-size: clamp(20px, 2.2vw, 30px);
+
     font-weight: 800;
-    line-height: 1.1;
+
+    letter-spacing: -0.8px;
+
+    line-height: 1.05;
 
     background:
         linear-gradient(
             90deg,
             #ffffff,
-            #a879ff,
-            #00c8ff
+            #9d72ff,
+            #16c8ff
         );
 
     -webkit-background-clip: text;
     background-clip: text;
-    color: transparent;
+
+    -webkit-text-fill-color: transparent;
+
+    white-space: nowrap;
 }
 
-.profile-status {
-    margin-top: 3px;
+.brand-subtitle {
+    margin-top: 4px;
 
     font-size: 11px;
-    color: rgba(255,255,255,.65);
+
+    color: rgba(255, 255, 255, 0.65);
 
     white-space: nowrap;
 }
 
 
-/* =====================================================
-   HEADER RIGHT
-===================================================== */
+/* =========================================================
+   HEADER ACTIONS
+========================================================= */
 
 .header-actions {
-    margin-left: auto;
-
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 9px;
+
+    flex-shrink: 0;
 }
-
-
-/* ACTION BUTTON */
 
 .header-action {
     width: 42px;
     height: 42px;
 
-    display: grid;
-    place-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.09);
 
-    border: 1px solid rgba(255,255,255,.10);
     border-radius: 13px;
 
-    background: rgba(255,255,255,.05);
+    background: rgba(255, 255, 255, 0.055);
 
-    color: white;
+    color: #fff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     cursor: pointer;
 
-    transition: .25s ease;
+    font-size: 17px;
+
+    transition: 0.25s ease;
 }
 
 .header-action:hover {
-    background: rgba(124,0,255,.28);
+    background: rgba(128, 46, 255, 0.25);
 
-    transform: translateY(-2px);
+    border-color: rgba(150, 70, 255, 0.45);
 
     box-shadow:
-        0 0 20px rgba(124,0,255,.30);
+        0 0 20px rgba(120, 0, 255, 0.20);
+
+    transform: translateY(-2px);
 }
 
 
-/* =====================================================
-   CONTENT
-===================================================== */
+/* notification */
 
-.chapcy-content {
-    width: min(1400px, 100%);
+.notification {
+    position: relative;
+}
+
+.notification-badge {
+    position: absolute;
+
+    top: -4px;
+    right: -4px;
+
+    min-width: 18px;
+    height: 18px;
+
+    padding: 0 5px;
+
+    border-radius: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #ff1685;
+
+    color: #fff;
+
+    border: 2px solid #08071c;
+
+    font-size: 9px;
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   PAGE CONTENT
+========================================================= */
+
+.chat-page {
+    width: 100%;
+    max-width: 1500px;
+
     margin: 0 auto;
 
-    padding:
-        clamp(18px, 3vw, 35px)
-        clamp(14px, 3vw, 32px)
-        100px;
+    padding: clamp(18px, 4vw, 45px);
+
+    position: relative;
 }
 
 
-/* =====================================================
-   MOBILE
-===================================================== */
+/* =========================================================
+   GLASS CONTENT PANEL
+========================================================= */
 
-@media (max-width: 600px) {
+.chat-panel {
+    width: 100%;
+
+    min-height: 600px;
+
+    border-radius: 24px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(10, 7, 35, 0.72),
+            rgba(3, 8, 28, 0.58)
+        );
+
+    border: 1px solid rgba(255, 255, 255, 0.10);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
 
     .chapcy-header {
-        min-height: 66px;
-
-        padding:
-            8px
-            10px;
+        min-height: 68px;
+        padding: 9px 12px;
     }
 
-    .header-menu,
-    .header-back {
+    .header-inner {
+        gap: 8px;
+    }
+
+    .menu-btn {
         width: 40px;
         height: 40px;
         flex-basis: 40px;
-
         border-radius: 12px;
     }
 
-    .chapcy-profile img {
-        width: 40px;
-        height: 40px;
-
-        flex-basis: 40px;
+    .header-profile {
+        width: 42px;
+        height: 42px;
+        flex-basis: 42px;
     }
 
-    .profile-name {
-        font-size: 17px;
+    .brand-name {
+        font-size: 19px;
     }
 
-    .profile-status {
+    .brand-subtitle {
         font-size: 9px;
+    }
+
+    .header-actions {
+        gap: 5px;
     }
 
     .header-action {
         width: 38px;
         height: 38px;
+        border-radius: 11px;
+        font-size: 15px;
     }
 
-    /* Hide less important buttons on small screens */
-    .header-action.optional {
-        display: none;
+    .chat-page {
+        padding: 12px;
+    }
+
+    .chat-panel {
+        border-radius: 18px;
     }
 }
 
 
-/* =====================================================
-   VERY SMALL PHONES
-===================================================== */
+/* =========================================================
+   SMALL PHONES
+========================================================= */
 
-@media (max-width: 380px) {
+@media (max-width: 480px) {
 
     .chapcy-header {
-        padding-left: 7px;
-        padding-right: 7px;
+        padding: 8px 9px;
     }
 
     .header-left {
         gap: 7px;
     }
 
-    .chapcy-profile {
-        gap: 7px;
+    .menu-btn {
+        width: 38px;
+        height: 38px;
+        flex-basis: 38px;
     }
 
-    .profile-name {
-        font-size: 15px;
+    .header-profile {
+        width: 39px;
+        height: 39px;
+        flex-basis: 39px;
     }
 
-    .profile-status {
+    .brand-name {
+        font-size: 17px;
+    }
+
+    .brand-subtitle {
+        font-size: 8px;
+    }
+
+    /* hide less important buttons */
+
+    .header-action.search-action {
         display: none;
+    }
+
+    .header-action {
+        width: 36px;
+        height: 36px;
+    }
+
+    .chat-page {
+        padding: 8px;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
+@media (max-width: 360px) {
+
+    .brand-subtitle {
+        display: none;
+    }
+
+    .brand-name {
+        font-size: 16px;
+    }
+
+    .header-actions {
+        gap: 3px;
     }
 
     .header-action {
         width: 34px;
         height: 34px;
-        border-radius: 10px;
+    }
+
+    .header-profile {
+        width: 36px;
+        height: 36px;
+        flex-basis: 36px;
     }
 }
 
 
-/* =====================================================
-   TABLET / DESKTOP
-===================================================== */
+/* =========================================================
+   TABLET
+========================================================= */
 
-@media (min-width: 768px) {
+@media (min-width: 701px) and (max-width: 1100px) {
 
     .chapcy-header {
-        padding-left: 24px;
-        padding-right: 24px;
+        padding: 12px 20px;
     }
 
-    .chapcy-content {
-        padding-left: 24px;
-        padding-right: 24px;
+    .chat-page {
+        padding: 22px;
     }
 }
+
+
+/* =========================================================
+   LANDSCAPE MOBILE
+========================================================= */
+
+@media (max-height: 500px) and (orientation: landscape) {
+
+    .chapcy-header {
+        min-height: 60px;
+        padding: 7px 12px;
+    }
+
+    .menu-btn,
+    .header-action {
+        width: 36px;
+        height: 36px;
+    }
+
+    .header-profile {
+        width: 38px;
+        height: 38px;
+    }
+                 }
