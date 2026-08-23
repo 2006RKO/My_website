@@ -1,6 +1,5 @@
 /* =====================================================
-   CHAPCY MY CHAT
-   PREMIUM RESPONSIVE BASE
+   CHAPCY MY CHAT — RESPONSIVE HEADER
 ===================================================== */
 
 * {
@@ -9,106 +8,84 @@
     box-sizing: border-box;
 }
 
-
-html {
-    width: 100%;
-    min-height: 100%;
-
-    scroll-behavior: smooth;
-}
-
-
+html,
 body {
     width: 100%;
-    min-height: 100vh;
+    min-height: 100%;
+}
 
-    font-family: 'Poppins', sans-serif;
-
+body {
+    font-family: "Poppins", sans-serif;
+    background: #030313;
     color: #fff;
-
-    background: #03020d;
-
     overflow-x: hidden;
 }
 
 
 /* =====================================================
-   BACKGROUND IMAGE
+   BACKGROUND
 ===================================================== */
 
 .chat-background {
-
     position: fixed;
-
     inset: 0;
 
     width: 100%;
-    height: 100%;
+    height: 100dvh;
 
-    z-index: -5;
+    z-index: -10;
 
     overflow: hidden;
-
 }
 
-
 .chat-background img {
+    position: absolute;
+    inset: 0;
 
     width: 100%;
     height: 100%;
 
-    display: block;
-
     object-fit: cover;
-
     object-position: center;
 
+    display: block;
 }
 
 
-/* =====================================================
-   BACKGROUND OVERLAY
-===================================================== */
+/* DARK GLASS OVERLAY */
 
 .background-overlay {
-
     position: fixed;
-
     inset: 0;
 
-    z-index: -4;
+    width: 100%;
+    height: 100dvh;
+
+    z-index: -9;
 
     pointer-events: none;
 
     background:
-
         linear-gradient(
             180deg,
-            rgba(2, 2, 15, .30),
-            rgba(2, 2, 15, .55)
-        ),
-
-        radial-gradient(
-            circle at 50% 10%,
-            rgba(90, 0, 255, .12),
-            transparent 45%
+            rgba(2, 2, 16, .20) 0%,
+            rgba(2, 2, 18, .38) 55%,
+            rgba(2, 2, 18, .68) 100%
         );
-
 }
 
 
 /* =====================================================
-   PAGE
+   MAIN PAGE
 ===================================================== */
 
 .chat-page {
-
-    width: 100%;
-
-    min-height: 100vh;
-
     position: relative;
 
+    width: 100%;
+    min-height: 100dvh;
+
+    isolation: isolate;
 }
 
 
@@ -117,125 +94,107 @@ body {
 ===================================================== */
 
 .chat-header {
-
-    width: 100%;
-
-    min-height: 72px;
-
-    padding: 10px 18px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    gap: 15px;
-
-
-    background:
-
-        linear-gradient(
-            90deg,
-            rgba(5, 4, 25, .72),
-            rgba(12, 7, 35, .52)
-        );
-
-
-    border-bottom:
-
-        1px solid
-        rgba(255,255,255,.10);
-
-
-    backdrop-filter: blur(18px);
-
-    -webkit-backdrop-filter: blur(18px);
-
-
     position: sticky;
-
     top: 0;
 
     z-index: 1000;
 
+    width: 100%;
+    min-height: 72px;
+
+    padding: 9px 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(5, 4, 25, .78),
+            rgba(7, 4, 30, .60),
+            rgba(3, 5, 25, .72)
+        );
+
+    border-bottom:
+        1px solid
+        rgba(255, 255, 255, .10);
+
+    box-shadow:
+        0 8px 35px
+        rgba(0, 0, 0, .20);
+
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
 }
 
 
 /* =====================================================
-   HEADER LEFT
+   LEFT SIDE
 ===================================================== */
 
 .header-left {
-
     display: flex;
-
     align-items: center;
 
-    gap: 12px;
+    gap: 11px;
 
     min-width: 0;
-
 }
 
 
 /* =====================================================
-   MENU
+   MENU / BACK BUTTON
 ===================================================== */
 
 .header-menu {
-
     width: 44px;
-
     height: 44px;
 
-    flex-shrink: 0;
+    flex: 0 0 44px;
 
-    border-radius: 13px;
+    border: 1px solid
+        rgba(255,255,255,.12);
 
-    border:
-        1px solid
-        rgba(255,255,255,.10);
+    border-radius: 14px;
 
     background:
-        rgba(255,255,255,.07);
+        rgba(255,255,255,.075);
 
     color: #fff;
 
     display: flex;
-
     align-items: center;
-
     justify-content: center;
 
     font-size: 17px;
 
     cursor: pointer;
 
-    transition: .25s ease;
+    box-shadow:
+        inset 0 1px 0
+        rgba(255,255,255,.08);
 
+    transition:
+        .25s ease;
 }
 
-
 .header-menu:hover {
-
     background:
-        rgba(110,50,255,.25);
+        rgba(115, 45, 255, .28);
 
     border-color:
-        rgba(0,220,255,.45);
+        rgba(0, 220, 255, .45);
 
     box-shadow:
         0 0 20px
-        rgba(0,200,255,.15);
-
+        rgba(100, 40, 255, .25);
 }
 
-
 .header-menu:active {
-
-    transform: scale(.92);
-
+    transform: scale(.90);
 }
 
 
@@ -244,39 +203,36 @@ body {
 ===================================================== */
 
 .profile-avatar {
-
     position: relative;
 
-    width: 46px;
+    width: 47px;
+    height: 47px;
 
-    height: 46px;
+    flex: 0 0 47px;
 
     padding: 2px;
 
-    flex-shrink: 0;
-
-    border: none;
+    border: 0;
 
     border-radius: 50%;
 
     background:
-
         linear-gradient(
             135deg,
             #00eaff,
-            #7137ff,
-            #ff00dd
+            #7040ff,
+            #ff20dc
         );
 
     cursor: pointer;
 
+    box-shadow:
+        0 0 16px
+        rgba(100, 50, 255, .30);
 }
 
-
 .profile-avatar img {
-
     width: 100%;
-
     height: 100%;
 
     display: block;
@@ -287,25 +243,21 @@ body {
 
     border:
         2px solid
-        #08071c;
-
+        #08071b;
 }
 
 
 /* =====================================================
-   ONLINE
+   ONLINE DOT
 ===================================================== */
 
 .online-dot {
-
     position: absolute;
 
     right: 0;
-
     bottom: 2px;
 
     width: 12px;
-
     height: 12px;
 
     border-radius: 50%;
@@ -314,12 +266,11 @@ body {
 
     border:
         2px solid
-        #08071c;
+        #08071b;
 
     box-shadow:
         0 0 10px
-        rgba(0,255,157,.8);
-
+        rgba(0,255,157,.85);
 }
 
 
@@ -328,65 +279,53 @@ body {
 ===================================================== */
 
 .brand-info {
-
     min-width: 0;
-
 }
 
-
 .brand-info h1 {
-
     margin: 0;
 
     font-size: 22px;
 
-    line-height: 1;
+    line-height: 1.05;
 
     font-weight: 800;
 
-    letter-spacing: .5px;
+    letter-spacing: .4px;
 
     white-space: nowrap;
 
-
     background:
-
         linear-gradient(
             90deg,
-            #fff,
-            #5cecff,
-            #a96cff
+            #ffffff,
+            #63ddff,
+            #a56cff
         );
 
     -webkit-background-clip: text;
-
     background-clip: text;
 
     -webkit-text-fill-color: transparent;
-
 }
 
-
 .brand-info p {
-
-    margin-top: 4px;
+    margin-top: 3px;
 
     font-size: 10px;
+
+    font-weight: 400;
 
     color:
         rgba(255,255,255,.62);
 
     white-space: nowrap;
-
 }
 
-
 .status-dot {
-
     display: inline-block;
 
     width: 6px;
-
     height: 6px;
 
     margin-right: 4px;
@@ -396,8 +335,8 @@ body {
     background: #00eaff;
 
     box-shadow:
-        0 0 8px #00eaff;
-
+        0 0 8px
+        #00eaff;
 }
 
 
@@ -406,71 +345,60 @@ body {
 ===================================================== */
 
 .header-actions {
-
     display: flex;
-
     align-items: center;
 
     gap: 7px;
 
     flex-shrink: 0;
-
 }
 
-
 .header-actions button {
-
     width: 42px;
-
     height: 42px;
 
-    border: 1px solid
-        rgba(255,255,255,.08);
+    border:
+        1px solid
+        rgba(255,255,255,.10);
 
     border-radius: 13px;
 
     background:
-        rgba(255,255,255,.06);
+        rgba(255,255,255,.065);
 
     color:
-        rgba(255,255,255,.90);
+        rgba(255,255,255,.92);
 
     display: flex;
-
     align-items: center;
-
     justify-content: center;
 
     font-size: 16px;
 
     cursor: pointer;
 
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
     transition: .25s ease;
-
 }
-
 
 .header-actions button:hover {
-
     background:
-        rgba(100,40,255,.25);
+        rgba(91, 40, 255, .30);
 
     border-color:
-        rgba(0,220,255,.45);
-
-    color: #fff;
+        rgba(0,220,255,.40);
 
     box-shadow:
-        0 0 20px
-        rgba(0,200,255,.15);
+        0 0 18px
+        rgba(80,50,255,.22);
 
+    transform: translateY(-1px);
 }
 
-
 .header-actions button:active {
-
-    transform: scale(.91);
-
+    transform: scale(.90);
 }
 
 
@@ -479,11 +407,8 @@ body {
 ===================================================== */
 
 .chat-content {
-
     width: 100%;
-
-    min-height: calc(100vh - 72px);
-
+    min-height: calc(100dvh - 72px);
 }
 
 
@@ -491,152 +416,132 @@ body {
    TABLET
 ===================================================== */
 
-@media (max-width: 700px) {
+@media (max-width: 800px) {
 
     .chat-header {
-
         min-height: 68px;
 
         padding:
-            9px 12px;
-
-        gap: 10px;
-
+            8px 13px;
     }
-
 
     .header-left {
-
         gap: 9px;
-
     }
-
 
     .header-menu {
-
         width: 42px;
-
         height: 42px;
-
+        flex-basis: 42px;
     }
-
 
     .profile-avatar {
-
         width: 43px;
-
         height: 43px;
-
+        flex-basis: 43px;
     }
-
 
     .brand-info h1 {
-
         font-size: 20px;
-
     }
-
 
     .header-actions button {
-
         width: 39px;
-
         height: 39px;
-
-        border-radius: 12px;
-
     }
-
 }
 
 
 /* =====================================================
-   MOBILE
+   PHONE
 ===================================================== */
 
-@media (max-width: 480px) {
+@media (max-width: 600px) {
 
     .chat-header {
-
         min-height: 64px;
 
         padding:
-            8px 9px;
-
+            7px 10px;
     }
-
 
     .header-left {
-
         gap: 7px;
-
     }
-
 
     .header-menu {
-
-        width: 38px;
-
-        height: 38px;
-
-        border-radius: 11px;
-
-        font-size: 15px;
-
-    }
-
-
-    .profile-avatar {
-
         width: 39px;
-
         height: 39px;
 
+        flex-basis: 39px;
+
+        border-radius: 12px;
+
+        font-size: 15px;
     }
 
+    .profile-avatar {
+        width: 40px;
+        height: 40px;
+
+        flex-basis: 40px;
+    }
 
     .online-dot {
-
         width: 10px;
-
         height: 10px;
-
     }
-
 
     .brand-info h1 {
-
         font-size: 18px;
-
     }
-
 
     .brand-info p {
-
         font-size: 8px;
-
     }
-
 
     .header-actions {
-
         gap: 3px;
-
     }
 
-
     .header-actions button {
-
-        width: 34px;
-
-        height: 34px;
+        width: 35px;
+        height: 35px;
 
         border-radius: 10px;
 
         font-size: 13px;
+    }
+}
 
+
+/* =====================================================
+   SMALL PHONE
+===================================================== */
+
+@media (max-width: 420px) {
+
+    .chat-header {
+        padding:
+            7px 8px;
     }
 
+    .brand-info h1 {
+        font-size: 17px;
+    }
+
+    .brand-info p {
+        font-size: 7.5px;
+    }
+
+    .header-actions button {
+        width: 33px;
+        height: 33px;
+    }
+
+    .header-actions {
+        gap: 2px;
+    }
 }
 
 
@@ -644,37 +549,69 @@ body {
    VERY SMALL PHONE
 ===================================================== */
 
-@media (max-width: 350px) {
+@media (max-width: 360px) {
 
-    .brand-info p {
+    .header-menu {
+        width: 36px;
+        height: 36px;
 
-        display: none;
-
+        flex-basis: 36px;
     }
 
+    .profile-avatar {
+        width: 37px;
+        height: 37px;
+
+        flex-basis: 37px;
+    }
 
     .brand-info h1 {
-
-        font-size: 17px;
-
+        font-size: 16px;
     }
 
+    .brand-info p {
+        display: none;
+    }
 
     .header-actions button {
+        width: 30px;
+        height: 30px;
 
-        width: 31px;
-
-        height: 31px;
-
+        font-size: 12px;
     }
 
-
-    /* Camera hidden to create space */
-
+    /* Camera inapotea kwenye screen ndogo */
     .header-actions button:nth-child(2) {
-
         display: none;
+    }
+}
 
+
+/* =====================================================
+   LANDSCAPE PHONE
+===================================================== */
+
+@media
+    (max-height: 500px)
+    and (orientation: landscape) {
+
+    .chat-header {
+        min-height: 58px;
+
+        padding:
+            5px 10px;
     }
 
-       }
+    .header-menu,
+    .profile-avatar {
+        width: 36px;
+        height: 36px;
+
+        flex-basis: 36px;
+    }
+
+    .header-actions button {
+        width: 34px;
+        height: 34px;
+    }
+    }
