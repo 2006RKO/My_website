@@ -787,3 +787,44 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 });
+/* =====================================================
+   MY CHATS
+===================================================== */
+
+function openMyChats(){
+
+    const page =
+        document.getElementById("myChatsPage");
+
+    if(!page) return;
+
+    page.classList.add("open");
+
+    document.body.style.overflow = "hidden";
+}
+
+
+function closeMyChats(){
+
+    const page =
+        document.getElementById("myChatsPage");
+
+    if(!page) return;
+
+    page.classList.remove("open");
+
+    document.body.style.overflow = "";
+}
+
+
+/* ESC TO CLOSE */
+
+document.addEventListener("keydown", function(e){
+
+    if(e.key === "Escape"){
+
+        closeMyChats();
+
+    }
+
+});
