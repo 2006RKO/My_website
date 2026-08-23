@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+    >
+
+    <title>CHAPCY My Chats</title>
+
+    <!-- FONT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- FONT AWESOME -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    >
+
+    <link rel="stylesheet" href="mychat.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- ==============================================
+         BACKGROUND
+    =============================================== -->
+
+    <div class="bg-glow glow-1"></div>
+    <div class="bg-glow glow-2"></div>
+    <div class="bg-glow glow-3"></div>
+
+
+    <!-- ==============================================
+         TOP HEADER
+    =============================================== -->
+
+    <header class="topbar">
+
+        <div class="brand-area">
+
+            <button
+                class="mobile-menu"
+                id="mobileMenu"
+                aria-label="Menu"
+            >
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <div class="brand-logo">
+                C
+            </div>
+
+            <div class="brand-text">
+                <strong>CHAPCY</strong>
+                <span>Worldwide Community</span>
+            </div>
+
+        </div>
+
+
+        <div class="top-actions">
+
+            <button
+                class="top-btn"
+                id="searchToggle"
+                aria-label="Search"
+            >
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+
+            <button
+                class="top-btn notification-btn"
+                id="notificationBtn"
+                aria-label="Notifications"
+            >
+                <i class="fa-regular fa-bell"></i>
+                <span>3</span>
+            </button>
+
+            <button
+                class="profile-button"
+                id="profileButton"
+            >
+                <img
+                    src="file_00000000b0d8820a998b33ad9cf233cb.png"
+                    alt="Profile"
+                >
+
+                <span class="online-dot"></span>
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- ==============================================
+         MAIN APP
+    =============================================== -->
+
+    <main class="chat-app">
+
+
+        <!-- ==========================================
+             CHAT SIDEBAR
+        =========================================== -->
+
+        <aside class="chat-sidebar" id="chatSidebar">
+
+            <div class="sidebar-header">
+
+                <div>
+                    <span class="mini-label">
+                        CHAPCY
+                    </span>
+
+                    <h1>
+                        My Chats
+                    </h1>
+                </div>
+
+
+                <button
+                    class="new-chat-btn"
+                    id="newChatBtn"
+                    aria-label="New chat"
+                >
+                    <i class="fa-solid fa-pen"></i>
+                </button>
+
+            </div>
+
+
+            <!-- SEARCH -->
+
+            <div class="chat-search">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                <input
+                    type="search"
+                    id="chatSearch"
+                    placeholder="Search chats..."
+                >
+
+                <button
+                    id="clearSearch"
+                    class="clear-search"
+                >
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+
+            </div>
+
+
+            <!-- FILTER -->
+
+            <div class="chat-filters">
+
+                <button
+                    class="filter active"
+                    data-filter="all"
+                >
+                    All
+                </button>
+
+                <button
+                    class="filter"
+                    data-filter="unread"
+                >
+                    Unread
+                </button>
+
+                <button
+                    class="filter"
+                    data-filter="groups"
+                >
+                    Groups
+                </button>
+
+            </div>
+
+
+            <!-- CHAT LIST -->
+
+            <div
+                class="chat-list"
+                id="chatList"
+            >
+
+
+                <!-- CHAT 1 -->
+
+                <article
+                    class="chat-item active"
+                    data-name="Sarah"
+                    data-type="private"
+                    data-unread="2"
+                    data-chat="sarah"
+                >
+
+                    <div class="avatar">
+
+                        <img
+                            src="https://i.pravatar.cc/150?img=47"
+                            alt="Sarah"
+                        >
+
+                        <span class="status"></span>
+
+                    </div>
+
+                    <div class="chat-info">
+
+                        <div class="chat-top">
+
+                            <strong>
+                                Sarah
+                            </strong>
+
+                            <time>
+                                9:42 PM
+                            </time>
+
+                        </div>
+
+                        <div class="chat-bottom">
+
+                            <p>
+                                Hey, are you online?
+                            </p>
+
+                            <span class="unread">
+                                2
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <!-- CHAT 2 -->
+
+                <article
+                    class="chat-item"
+                    data-name="John"
+                    data-type="private"
+                    data-unread="0"
+                    data-chat="john"
+                >
+
+                    <div class="avatar">
+
+                        <img
+                            src="https://i.pravatar.cc/150?img=12"
+                            alt="John"
+                        >
+
+                    </div>
+
+                    <div class="chat-info">
+
+                        <div class="chat-top">
+
+                            <strong>
+                                John
+                            </strong>
+
+                            <time>
+                                8:20 PM
+                            </time>
+
+                        </div>
+
+                        <div class="chat-bottom">
+
+                            <p>
+                                See you tomorrow 👍
+                            </p>
+
+                            <i class="fa-solid fa-check-double seen"></i>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <!-- CHAT 3 -->
+
+                <article
+                    class="chat-item"
+                    data-name="CHAPCY Developers"
+                    data-type="group"
+                    data-unread="8"
+                    data-chat="developers"
+                >
+
+                    <div class="avatar group-avatar">
+                        <i class="fa-solid fa-code"></i>
+                    </div>
+
+                    <div class="chat-info">
+
+                        <div class="chat-top">
+
+                            <strong>
+                                CHAPCY Developers
+                            </strong>
+
+                            <time>
+                                7:55 PM
+                            </time>
+
+                        </div>
+
+                        <div class="chat-bottom">
+
+                            <p>
+                                Alex: New update is ready 🚀
+                            </p>
+
+                            <span class="unread">
+                                8
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <!-- CHAT 4 -->
+
+                <article
+                    class="chat-item"
+                    data-name="Amina"
+                    data-type="private"
+                    data-unread="0"
+                    data-chat="amina"
+                >
+
+                    <div class="avatar">
+
+                        <img
+                            src="https://i.pravatar.cc/150?img=32"
+                            alt="Amina"
+                        >
+
+                    </div>
+
+                    <div class="chat-info">
+
+                        <div class="chat-top">
+
+                            <strong>
+                                Amina
+                            </strong>
+
+                            <time>
+                                Yesterday
+                            </time>
+
+                        </div>
+
+                        <div class="chat-bottom">
+
+                            <p>
+                                Photo
+                            </p>
+
+                            <i class="fa-solid fa-image"></i>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <!-- CHAT 5 -->
+
+                <article
+                    class="chat-item"
+                    data-name="Sports Community"
+                    data-type="group"
+                    data-unread="0"
+                    data-chat="sports"
+                >
+
+                    <div class="avatar group-avatar sports">
+                        <i class="fa-solid fa-futbol"></i>
+                    </div>
+
+                    <div class="chat-info">
+
+                        <div class="chat-top">
+
+                            <strong>
+                                Sports Community
+                            </strong>
+
+                            <time>
+                                Yesterday
+                            </time>
+
+                        </div>
+
+                        <div class="chat-bottom">
+
+                            <p>
+                                Match starts at 9 PM
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+            </div>
+
+        </aside>
+
+
+        <!-- ==========================================
+             CHAT AREA
+        =========================================== -->
+
+        <section
+            class="conversation"
+            id="conversation"
+        >
+
+
+            <!-- CHAT HEADER -->
+
+            <header class="conversation-header">
+
+                <button
+                    class="back-chats"
+                    id="backChats"
+                    aria-label="Back"
+                >
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+
+
+                <div class="conversation-user">
+
+                    <div class="avatar small">
+
+                        <img
+                            id="conversationAvatar"
+                            src="https://i.pravatar.cc/150?img=47"
+                            alt="User"
+                        >
+
+                        <span class="status"></span>
+
+                    </div>
+
+                    <div>
+
+                        <strong id="conversationName">
+                            Sarah
+                        </strong>
+
+                        <span
+                            id="conversationStatus"
+                            class="user-status"
+                        >
+                            online
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="conversation-actions">
+
+                    <button
+                        class="conversation-btn"
+                        aria-label="Video call"
+                    >
+                        <i class="fa-solid fa-video"></i>
+                    </button>
+
+                    <button
+                        class="conversation-btn"
+                        aria-label="Voice call"
+                    >
+                        <i class="fa-solid fa-phone"></i>
+                    </button>
+
+                    <button
+                        class="conversation-btn"
+                        id="conversationMenu"
+                        aria-label="More"
+                    >
+                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                    </button>
+
+                </div>
+
+            </header>
+
+
+            <!-- MESSAGES -->
+
+            <div
+                class="messages"
+                id="messages"
+            >
+
+                <div class="date-divider">
+                    <span>
+                        TODAY
+                    </span>
+                </div>
+
+
+                <div class="message received">
+
+                    <div class="message-bubble">
+
+                        <p>
+                            Hey! 👋
+                        </p>
+
+                        <span class="message-time">
+                            9:38 PM
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="message received">
+
+                    <div class="message-bubble">
+
+                        <p>
+                            Are you working on CHAPCY?
+                        </p>
+
+                        <span class="message-time">
+                            9:39 PM
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="message sent">
+
+                    <div class="message-bubble">
+
+                        <p>
+                            Yes 😎 I'm making the chat page now.
+                        </p>
+
+                        <span class="message-time">
+                            9:40 PM
+                            <i class="fa-solid fa-check-double"></i>
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="message received">
+
+                    <div class="message-bubble">
+
+                        <p>
+                            Nice! Make it responsive 🔥
+                        </p>
+
+                        <span class="message-time">
+                            9:42 PM
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- TYPING -->
+
+            <div
+                class="typing-indicator"
+                id="typingIndicator"
+            >
+                Sarah is typing
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+
+            <!-- COMPOSER -->
+
+            <div class="message-composer">
+
+                <button
+                    class="composer-btn"
+                    id="emojiBtn"
+                    aria-label="Emoji"
+                >
+                    <i class="fa-regular fa-face-smile"></i>
+                </button>
+
+
+                <button
+                    class="composer-btn"
+                    id="attachmentBtn"
+                    aria-label="Attach"
+                >
+                    <i class="fa-solid fa-paperclip"></i>
+                </button>
+
+
+                <input
+                    type="text"
+                    id="messageInput"
+                    placeholder="Type a message..."
+                    autocomplete="off"
+                >
+
+
+                <button
+                    class="send-btn"
+                    id="sendMessage"
+                    aria-label="Send"
+                >
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==========================================
+             EMPTY / DESKTOP INTRO
+        =========================================== -->
+
+        <section class="empty-chat" id="emptyChat">
+
+            <div class="empty-icon">
+                <i class="fa-solid fa-comments"></i>
+            </div>
+
+            <h2>
+                CHAPCY Messages
+            </h2>
+
+            <p>
+                Select a conversation and start chatting.
+            </p>
+
+        </section>
+
+    </main>
+
+
+    <!-- ==============================================
+         SETTINGS DRAWER
+    =============================================== -->
+
+    <aside
+        class="settings-panel"
+        id="settingsPanel"
+    >
+
+        <div class="settings-header">
+
+            <button
+                id="closeSettings"
+                class="close-settings"
+            >
+                <i class="fa-solid fa-arrow-left"></i>
+            </button>
+
+            <h2>
+                Settings
+            </h2>
+
+        </div>
+
+
+        <!-- PROFILE -->
+
+        <div class="settings-profile">
+
+            <div class="settings-avatar">
+
+                <img
+                    src="file_00000000b0d8820a998b33ad9cf233cb.png"
+                    alt="Profile"
+                >
+
+                <button>
+                    <i class="fa-solid fa-camera"></i>
+                </button>
+
+            </div>
+
+            <div>
+
+                <h3>
+                    CHAPCY User
+                </h3>
+
+                <p>
+                    Worldwide Community
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="settings-section">
+
+            <span>
+                ACCOUNT
+            </span>
+
+
+            <button class="setting-item">
+
+                <i class="fa-regular fa-user"></i>
+
+                <div>
+                    <strong>Profile</strong>
+                    <small>Edit your profile</small>
+                </div>
+
+                <i class="fa-solid fa-chevron-right"></i>
+
+            </button>
+
+
+            <button class="setting-item">
+
+                <i class="fa-solid fa-lock"></i>
+
+                <div>
+                    <strong>Privacy</strong>
+                    <small>Last seen, blocked users</small>
+                </div>
+
+                <i class="fa-solid fa-chevron-right"></i>
+
+            </button>
+
+
+            <button class="setting-item">
+
+                <i class="fa-regular fa-bell"></i>
+
+                <div>
+                    <strong>Notifications</strong>
+                    <small>Message notifications</small>
+                </div>
+
+                <i class="fa-solid fa-chevron-right"></i>
+
+            </button>
+
+        </div>
+
+
+        <div class="settings-section">
+
+            <span>
+                APPEARANCE
+            </span>
+
+
+            <button
+                class="setting-item"
+                id="themeToggle"
+            >
+
+                <i class="fa-solid fa-moon"></i>
+
+                <div>
+                    <strong>Theme</strong>
+                    <small id="themeText">Dark</small>
+                </div>
+
+                <i class="fa-solid fa-chevron-right"></i>
+
+            </button>
+
+
+            <button class="setting-item">
+
+                <i class="fa-solid fa-language"></i>
+
+                <div>
+                    <strong>Language</strong>
+                    <small>English</small>
+                </div>
+
+                <i class="fa-solid fa-chevron-right"></i>
+
+            </button>
+
+        </div>
+
+
+        <div class="settings-section">
+
+            <span>
+                STORAGE
+            </span>
+
+
+            <button class="setting-item">
+
+                <i class="fa-solid fa-database"></i>
+
+                <div>
+                    <strong>Storage and data</strong>
+                    <small>Manage storage</small>
+                </div>
+
+                <i class="fa-solid fa-chevron-right"></i>
+
+            </button>
+
+        </div>
+
+
+        <div class="settings-footer">
+
+            <i class="fa-solid fa-shield-halved"></i>
+
+            <p>
+                Your privacy matters to CHAPCY.
+            </p>
+
+        </div>
+
+    </aside>
+
+
+    <!-- SETTINGS OVERLAY -->
+
+    <div
+        class="settings-overlay"
+        id="settingsOverlay"
+    ></div>
+
+
+    <!-- ==============================================
+         NEW CHAT MODAL
+    =============================================== -->
+
+    <div
+        class="modal-overlay"
+        id="newChatModal"
+    >
+
+        <div class="new-chat-modal">
+
+            <div class="modal-header">
+
+                <h2>
+                    New Chat
+                </h2>
+
+                <button id="closeNewChat">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+
+            </div>
+
+            <div class="modal-search">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                <input
+                    type="search"
+                    placeholder="Search people..."
+                    id="peopleSearch"
+                >
+
+            </div>
+
+
+            <div class="people-list">
+
+                <button class="person">
+
+                    <img
+                        src="https://i.pravatar.cc/150?img=5"
+                        alt=""
+                    >
+
+                    <div>
+                        <strong>Michael</strong>
+                        <span>Online</span>
+                    </div>
+
+                </button>
+
+
+                <button class="person">
+
+                    <img
+                        src="https://i.pravatar.cc/150?img=9"
+                        alt=""
+                    >
+
+                    <div>
+                        <strong>Jessica</strong>
+                        <span>Last seen today</span>
+                    </div>
+
+                </button>
+
+
+                <button class="person">
+
+                    <img
+                        src="https://i.pravatar.cc/150?img=20"
+                        alt=""
+                    >
+
+                    <div>
+                        <strong>Daniel</strong>
+                        <span>Online</span>
+                    </div>
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==============================================
+         TOAST
+    =============================================== -->
+
+    <div
+        class="toast"
+        id="toast"
+    >
+        <i class="fa-solid fa-circle-check"></i>
+        <span>Message sent</span>
+    </div>
+
+</div>
+
+
+<script src="mychat.js"></script>
+
+</body>
+          </html>
