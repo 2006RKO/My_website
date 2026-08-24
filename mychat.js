@@ -98,263 +98,74 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* =====================================================
-       ADD CONTACT — REAL ANDROID CONTACT BRIDGE
-    ===================================================== */
+   /* =====================================================
+   CHAPCY CONTACT PAGE
+===================================================== */
 
-    if (addContactBtn) {
+const contactPage =
+    document.getElementById("contactPage");
 
-        addContactBtn.addEventListener("click", () => {
+const contactBackBtn =
+    document.getElementById("contactBackBtn");
 
-            buttonPress(addContactBtn);
+const mariaContact =
+    document.getElementById("mariaContact");
 
 
-            /*
-             * ---------------------------------------------
-             * ANDROID APP
-             * ---------------------------------------------
-             *
-             * Kama Android WebView bridge ipo,
-             * Android itafungua Contacts halisi.
-             */
+/* =====================================================
+   OPEN CONTACT PAGE
+===================================================== */
 
-            if (
-                window.Android &&
-                typeof window.Android.openContacts === "function"
-            ) {
+if (addContactBtn && contactPage) {
 
-                window.Android.openContacts();
+    addContactBtn.addEventListener("click", () => {
 
-                return;
-            }
+        buttonPress(addContactBtn);
 
+        contactPage.style.display = "flex";
 
-            /*
-             * ---------------------------------------------
-             * ANDROID CONTACT PICKER
-             * ---------------------------------------------
-             *
-             * Hii ni fallback kwa WebView/browser
-             * zinazounga Contact Picker API.
-             */
+        document.body.style.overflow = "hidden";
 
-            if (
-                "contacts" in navigator &&
-                "ContactsManager" in window
-            ) {
+    });
 
-                openDeviceContacts();
+}
 
-                return;
-            }
 
+/* =====================================================
+   BACK FROM CONTACT PAGE
+===================================================== */
 
-            /*
-             * ---------------------------------------------
-             * FALLBACK
-             * ---------------------------------------------
-             */
+if (contactBackBtn && contactPage) {
 
-            showContactMessage();
+    contactBackBtn.addEventListener("click", () => {
 
-        });
+        contactPage.style.display = "none";
 
-    }
+        document.body.style.overflow = "";
 
+    });
 
-    /* =====================================================
-       CONTACT PICKER
-    ===================================================== */
+}
 
-    async function openDeviceContacts() {
 
-        try {
+/* =====================================================
+   MARIA CONTACT
+===================================================== */
 
-            const props = [
-                "name",
-                "tel",
-                "email"
-            ];
+if (mariaContact) {
 
-            const opts = {
-                multiple: true
-            };
+    mariaContact.addEventListener("click", () => {
 
+        console.log("Maria selected");
 
-            const contacts =
-                await navigator.contacts.select(
-                    props,
-                    opts
-                );
+        /*
+         * Hapa ndipo tutaunganisha
+         * Private Chat Page.
+         */
 
+    });
 
-            if (!contacts || contacts.length === 0) {
-
-                console.log(
-                    "No contact selected."
-                );
-
-                return;
-            }
-
-
-            console.log(
-                "Selected contacts:",
-                contacts
-            );
-
-
-            /*
-             * Hapa ndipo contacts zinaweza
-             * kutumwa kwenye backend ya CHAPCY.
-             */
-
-            contacts.forEach(contact => {
-
-                console.log(
-                    "Name:",
-                    contact.name
-                );
-
-                console.log(
-                    "Phone:",
-                    contact.tel
-                );
-
-                console.log(
-                    "Email:",
-                    contact.email
-                );
-
-            });
-
-
-            /*
-             * Baadaye tunaweza kufanya:
-             *
-             * saveContactsToChapcy(contacts)
-             *
-             * na kuonyesha:
-             *
-             * "Found 8 CHAPCY users"
-             */
-
-        }
-
-        catch (error) {
-
-            console.error(
-                "Contact picker error:",
-                error
-            );
-
-        }
-
-    }
-
-
-    /* =====================================================
-       FALLBACK MESSAGE
-    ===================================================== */
-
-    function showContactMessage() {
-
-        const message =
-            document.createElement("div");
-
-        message.className =
-            "chapcy-contact-message";
-
-
-        message.innerHTML = `
-            <div class="contact-message-icon">
-                <i class="fa-solid fa-address-book"></i>
-            </div>
-
-            <div class="contact-message-text">
-                <strong>Add Contact</strong>
-                <span>
-                    Contacts za simu zitatumika
-                    hapa kwenye CHAPCY.
-                </span>
-            </div>
-
-            <button
-                type="button"
-                class="contact-message-close"
-                aria-label="Close"
-            >
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-        `;
-
-
-        document.body.appendChild(message);
-
-
-        requestAnimationFrame(() => {
-
-            message.classList.add("show");
-
-        });
-
-
-        const closeBtn =
-            message.querySelector(
-                ".contact-message-close"
-            );
-
-
-        if (closeBtn) {
-
-            closeBtn.addEventListener(
-                "click",
-                () => {
-
-                    message.classList.remove(
-                        "show"
-                    );
-
-                    setTimeout(() => {
-
-                        message.remove();
-
-                    }, 250);
-
-                }
-            );
-
-        }
-
-
-        setTimeout(() => {
-
-            if (
-                document.body.contains(message)
-            ) {
-
-                message.classList.remove(
-                    "show"
-                );
-
-                setTimeout(() => {
-
-                    if (
-                        document.body.contains(
-                            message
-                        )
-                    ) {
-                        message.remove();
-                    }
-
-                }, 250);
-
-            }
-
-        }, 4000);
-
-    }
-
+}
 
     /* =====================================================
        SEARCH
