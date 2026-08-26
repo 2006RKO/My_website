@@ -1,7 +1,57 @@
 /* =========================================================
    CHAPCY WORLDWIDE REGISTRATION JS
-   VERSION — PHONE + COUNTRY + VERIFICATION
+   FIREBASE PHONE AUTHENTICATION
 ========================================================= */
+
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+import {
+    getAuth,
+    RecaptchaVerifier,
+    signInWithPhoneNumber
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+
+/* =========================================================
+   FIREBASE CONFIG
+========================================================= */
+
+const firebaseConfig = {
+
+    apiKey: "AIzaSyDIID2LpzjLiqaLeLJKgp-Vd7tNIyN-M1k",
+
+    authDomain:
+        "rko-website-design-2f792.firebaseapp.com",
+
+    databaseURL:
+        "https://rko-website-design-2f792-default-rtdb.firebaseio.com",
+
+    projectId:
+        "rko-website-design-2f792",
+
+    storageBucket:
+        "rko-website-design-2f792.firebasestorage.app",
+
+    messagingSenderId:
+        "782567629866",
+
+    appId:
+        "1:782567629866:web:d6d80d454d0653ea8b4f53",
+
+    measurementId:
+        "G-KQ1EKYE7E7"
+};
+
+
+/* =========================================================
+   INITIALIZE FIREBASE
+========================================================= */
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
 
 
 /* =========================================================
@@ -169,22 +219,44 @@ const countries = [
    ELEMENTS
 ========================================================= */
 
-const registerForm = document.getElementById("registerForm");
-const phoneNumber = document.getElementById("phoneNumber");
-const phoneBox = document.getElementById("phoneBox");
-const errorMessage = document.getElementById("errorMessage");
-const nextButton = document.getElementById("nextButton");
+const registerForm =
+    document.getElementById("registerForm");
 
-const countryButton = document.getElementById("countryButton");
-const countryOverlay = document.getElementById("countryOverlay");
-const closeCountry = document.getElementById("closeCountry");
-const countrySearch = document.getElementById("countrySearch");
-const countryList = document.getElementById("countryList");
+const phoneNumber =
+    document.getElementById("phoneNumber");
 
-const selectedFlag = document.getElementById("selectedFlag");
-const selectedCode = document.getElementById("selectedCode");
+const phoneBox =
+    document.getElementById("phoneBox");
 
-const particles = document.getElementById("particles");
+const errorMessage =
+    document.getElementById("errorMessage");
+
+const nextButton =
+    document.getElementById("nextButton");
+
+const countryButton =
+    document.getElementById("countryButton");
+
+const countryOverlay =
+    document.getElementById("countryOverlay");
+
+const closeCountry =
+    document.getElementById("closeCountry");
+
+const countrySearch =
+    document.getElementById("countrySearch");
+
+const countryList =
+    document.getElementById("countryList");
+
+const selectedFlag =
+    document.getElementById("selectedFlag");
+
+const selectedCode =
+    document.getElementById("selectedCode");
+
+const particles =
+    document.getElementById("particles");
 
 
 /* =========================================================
@@ -192,14 +264,25 @@ const particles = document.getElementById("particles");
 ========================================================= */
 
 let currentCountry = {
+
     flag: "🇹🇿",
     name: "Tanzania",
     code: "+255"
+
 };
 
 
 /* =========================================================
-   CREATE PARTICLES
+   FIREBASE VERIFICATION
+========================================================= */
+
+let confirmationResult = null;
+
+let recaptchaVerifier = null;
+
+
+/* =========================================================
+   PARTICLES
 ========================================================= */
 
 function createParticles(){
@@ -231,8 +314,11 @@ function createParticles(){
         const size =
             1 + Math.random() * 3;
 
-        particle.style.width = size + "px";
-        particle.style.height = size + "px";
+        particle.style.width =
+            size + "px";
+
+        particle.style.height =
+            size + "px";
 
         particles.appendChild(particle);
     }
@@ -242,7 +328,7 @@ createParticles();
 
 
 /* =========================================================
-   OPEN COUNTRY MODAL
+   COUNTRY MODAL
 ========================================================= */
 
 countryButton.addEventListener("click", function(){
@@ -254,14 +340,16 @@ countryButton.addEventListener("click", function(){
     renderCountries(countries);
 
     setTimeout(function(){
+
         countrySearch.focus();
+
     }, 200);
 
 });
 
 
 /* =========================================================
-   CLOSE COUNTRY MODAL
+   CLOSE COUNTRY
 ========================================================= */
 
 function closeCountryModal(){
@@ -277,33 +365,39 @@ closeCountry.addEventListener(
 
 
 /* =========================================================
-   CLICK OUTSIDE
+   OUTSIDE CLICK
 ========================================================= */
 
-countryOverlay.addEventListener("click", function(event){
+countryOverlay.addEventListener(
+    "click",
+    function(event){
 
-    if(event.target === countryOverlay){
+        if(event.target === countryOverlay){
 
-        closeCountryModal();
+            closeCountryModal();
+
+        }
 
     }
-
-});
+);
 
 
 /* =========================================================
    ESCAPE
 ========================================================= */
 
-document.addEventListener("keydown", function(event){
+document.addEventListener(
+    "keydown",
+    function(event){
 
-    if(event.key === "Escape"){
+        if(event.key === "Escape"){
 
-        closeCountryModal();
+            closeCountryModal();
+
+        }
 
     }
-
-});
+);
 
 
 /* =========================================================
@@ -339,7 +433,8 @@ function renderCountries(list){
 
         item.type = "button";
 
-        item.className = "country-item";
+        item.className =
+            "country-item";
 
         item.innerHTML = `
 
@@ -357,11 +452,14 @@ function renderCountries(list){
 
         `;
 
-        item.addEventListener("click", function(){
+        item.addEventListener(
+            "click",
+            function(){
 
-            selectCountry(country);
+                selectCountry(country);
 
-        });
+            }
+        );
 
         countryList.appendChild(item);
 
@@ -384,12 +482,6 @@ function selectCountry(country){
 
     };
 
-    /*
-     * IMPORTANT:
-     * textContent inafanya flag + code
-     * kubadilika bila kuharibu HTML.
-     */
-
     selectedFlag.textContent =
         currentCountry.flag;
 
@@ -411,120 +503,285 @@ function selectCountry(country){
    COUNTRY SEARCH
 ========================================================= */
 
-countrySearch.addEventListener("input", function(){
+countrySearch.addEventListener(
+    "input",
+    function(){
 
-    const query =
-        this.value.toLowerCase().trim();
+        const query =
+            this.value.toLowerCase().trim();
 
-    const filtered =
-        countries.filter(function(country){
+        const filtered =
+            countries.filter(function(country){
 
-            return (
+                return (
 
-                country[1]
-                    .toLowerCase()
-                    .includes(query)
+                    country[1]
+                        .toLowerCase()
+                        .includes(query)
 
-                ||
+                    ||
 
-                country[2]
-                    .includes(query)
+                    country[2]
+                        .includes(query)
 
-            );
+                );
 
-        });
+            });
 
-    renderCountries(filtered);
+        renderCountries(filtered);
 
-});
+    }
+);
 
 
 /* =========================================================
    PHONE INPUT
 ========================================================= */
 
-phoneNumber.addEventListener("input", function(){
+phoneNumber.addEventListener(
+    "input",
+    function(){
 
-    this.value =
-        this.value.replace(/\D/g, "");
+        this.value =
+            this.value.replace(/\D/g, "");
 
-    errorMessage.textContent = "";
+        errorMessage.textContent = "";
 
-    phoneBox.classList.remove("invalid");
+        phoneBox.classList.remove(
+            "invalid"
+        );
 
-});
+    }
+);
+
+
+/* =========================================================
+   CREATE RECAPTCHA
+========================================================= */
+
+function createRecaptcha(){
+
+    if(recaptchaVerifier){
+
+        return recaptchaVerifier;
+
+    }
+
+    const container =
+        document.createElement("div");
+
+    container.id =
+        "recaptcha-container";
+
+    document.body.appendChild(container);
+
+
+    recaptchaVerifier =
+        new RecaptchaVerifier(
+            auth,
+            "recaptcha-container",
+            {
+
+                size: "invisible",
+
+                callback: function(){
+
+                    console.log(
+                        "reCAPTCHA verified"
+                    );
+
+                },
+
+                "expired-callback": function(){
+
+                    console.log(
+                        "reCAPTCHA expired"
+                    );
+
+                }
+
+            }
+        );
+
+    return recaptchaVerifier;
+
+}
 
 
 /* =========================================================
    CONTINUE
 ========================================================= */
 
-registerForm.addEventListener("submit", function(event){
+registerForm.addEventListener(
+    "submit",
+    async function(event){
 
-    event.preventDefault();
+        event.preventDefault();
 
-    const number =
-        phoneNumber.value.trim();
+        let number =
+            phoneNumber.value.trim();
 
-    /* EMPTY */
 
-    if(!number){
+        /* EMPTY */
 
-        showError(
-            "Please enter your phone number."
+        if(!number){
+
+            showError(
+                "Please enter your phone number."
+            );
+
+            return;
+
+        }
+
+
+        /* REMOVE LEADING ZERO */
+
+        if(number.startsWith("0")){
+
+            number =
+                number.substring(1);
+
+        }
+
+
+        /* LENGTH */
+
+        if(
+            number.length < 7 ||
+            number.length > 15
+        ){
+
+            showError(
+                "Please enter a valid phone number."
+            );
+
+            return;
+
+        }
+
+
+        /* E.164 PHONE */
+
+        const fullPhone =
+            currentCountry.code + number;
+
+
+        console.log(
+            "CHAPCY PHONE:",
+            fullPhone
         );
 
-        return;
 
-    }
-
-
-    /* LENGTH */
-
-    if(
-        number.length < 7 ||
-        number.length > 15
-    ){
-
-        showError(
-            "Please enter a valid phone number."
+        nextButton.classList.add(
+            "loading"
         );
 
-        return;
+
+        try{
+
+            const appVerifier =
+                createRecaptcha();
+
+
+            confirmationResult =
+                await signInWithPhoneNumber(
+                    auth,
+                    fullPhone,
+                    appVerifier
+                );
+
+
+            console.log(
+                "OTP SENT:",
+                fullPhone
+            );
+
+
+            nextButton.classList.remove(
+                "loading"
+            );
+
+
+            openVerification(
+                fullPhone
+            );
+
+
+        }catch(error){
+
+            console.error(
+                "Firebase Phone Auth Error:",
+                error
+            );
+
+
+            nextButton.classList.remove(
+                "loading"
+            );
+
+
+            let message =
+                "Unable to send verification code.";
+
+
+            if(
+                error.code ===
+                "auth/invalid-phone-number"
+            ){
+
+                message =
+                    "Invalid phone number.";
+
+            }
+
+            else if(
+                error.code ===
+                "auth/too-many-requests"
+            ){
+
+                message =
+                    "Too many attempts. Please try again later.";
+
+            }
+
+            else if(
+                error.code ===
+                "auth/quota-exceeded"
+            ){
+
+                message =
+                    "SMS limit reached. Please try again later.";
+
+            }
+
+            else if(
+                error.code ===
+                "auth/captcha-check-failed"
+            ){
+
+                message =
+                    "Security verification failed. Please refresh and try again.";
+
+            }
+
+            else if(
+                error.code ===
+                "auth/operation-not-allowed"
+            ){
+
+                message =
+                    "Phone authentication is not enabled in Firebase.";
+
+            }
+
+
+            showError(message);
+
+        }
 
     }
-
-
-    const fullPhone =
-        currentCountry.code + number;
-
-    console.log(
-        "CHAPCY PHONE:",
-        fullPhone
-    );
-
-
-    /* LOADING */
-
-    nextButton.classList.add("loading");
-
-
-    /*
-     * DEMO WAIT
-     *
-     * Later this section will be replaced
-     * with Firebase OTP.
-     */
-
-    setTimeout(function(){
-
-        nextButton.classList.remove("loading");
-
-        openVerification(fullPhone);
-
-    }, 900);
-
-});
+);
 
 
 /* =========================================================
@@ -536,7 +793,9 @@ function showError(message){
     errorMessage.textContent =
         message;
 
-    phoneBox.classList.add("invalid");
+    phoneBox.classList.add(
+        "invalid"
+    );
 
     phoneNumber.focus();
 
@@ -547,11 +806,14 @@ function showError(message){
    PHONE FOCUS
 ========================================================= */
 
-phoneNumber.addEventListener("focus", function(){
+phoneNumber.addEventListener(
+    "focus",
+    function(){
 
-    errorMessage.textContent = "";
+        errorMessage.textContent = "";
 
-});
+    }
+);
 
 
 /* =========================================================
@@ -560,13 +822,10 @@ phoneNumber.addEventListener("focus", function(){
 
 function openVerification(fullPhone){
 
-    /*
-     * Tunatengeneza verification screen
-     * dynamically ili usibadilishe HTML yako.
-     */
-
     const registerCard =
-        document.querySelector(".register-card");
+        document.querySelector(
+            ".register-card"
+        );
 
     if(!registerCard) return;
 
@@ -642,7 +901,9 @@ function openVerification(fullPhone){
             <div
                 id="otpError"
                 class="error-message"
-                style="margin-top:10px;"
+                style="
+                    margin-top:10px;
+                "
             ></div>
 
 
@@ -650,12 +911,16 @@ function openVerification(fullPhone){
                 type="button"
                 id="verifyButton"
                 class="next-button"
-                style="margin-top:18px;"
+                style="
+                    margin-top:18px;
+                "
             >
 
                 <span class="button-text">
                     Verify Number
                 </span>
+
+                <span class="button-loader"></span>
 
                 <i class="fa-solid fa-check"></i>
 
@@ -692,7 +957,9 @@ function openVerification(fullPhone){
                     opacity:.7;
                 "
             >
+
                 Didn't receive the code?
+
                 <button
                     type="button"
                     id="resendCode"
@@ -706,6 +973,7 @@ function openVerification(fullPhone){
                 >
                     Resend
                 </button>
+
             </p>
 
         </div>
@@ -714,120 +982,325 @@ function openVerification(fullPhone){
 
 
     /* =====================================================
-       OTP ELEMENTS
+       ELEMENTS
     ===================================================== */
 
     const otpInput =
-        document.getElementById("otpInput");
+        document.getElementById(
+            "otpInput"
+        );
 
     const verifyButton =
-        document.getElementById("verifyButton");
+        document.getElementById(
+            "verifyButton"
+        );
 
     const backToPhone =
-        document.getElementById("backToPhone");
+        document.getElementById(
+            "backToPhone"
+        );
 
     const resendCode =
-        document.getElementById("resendCode");
+        document.getElementById(
+            "resendCode"
+        );
 
     const otpError =
-        document.getElementById("otpError");
+        document.getElementById(
+            "otpError"
+        );
 
 
     /* =====================================================
        OTP INPUT
     ===================================================== */
 
-    otpInput.addEventListener("input", function(){
+    otpInput.addEventListener(
+        "input",
+        function(){
 
-        this.value =
-            this.value.replace(/\D/g, "");
+            this.value =
+                this.value.replace(
+                    /\D/g,
+                    ""
+                );
 
-        otpError.textContent = "";
-
-    });
-
-
-    /* =====================================================
-       VERIFY
-    ===================================================== */
-
-    verifyButton.addEventListener("click", function(){
-
-        const otp =
-            otpInput.value.trim();
-
-
-        if(otp.length !== 6){
-
-            otpError.textContent =
-                "Please enter the 6-digit verification code.";
-
-            otpInput.focus();
-
-            return;
+            otpError.textContent = "";
 
         }
-
-
-        verifyButton.classList.add("loading");
-
-
-        setTimeout(function(){
-
-            verifyButton.classList.remove("loading");
-
-
-            /*
-             * DEMO ONLY
-             *
-             * Firebase verification itawekwa hapa.
-             */
-
-            localStorage.setItem(
-                "chapcyVerified",
-                "true"
-            );
-
-            localStorage.setItem(
-                "chapcyPhone",
-                fullPhone
-            );
-
-
-            window.location.href =
-                "chapcy.html";
-
-
-        }, 900);
-
-    });
+    );
 
 
     /* =====================================================
-       BACK
+       VERIFY OTP
     ===================================================== */
 
-    backToPhone.addEventListener("click", function(){
+    verifyButton.addEventListener(
+        "click",
+        async function(){
 
-        location.reload();
+            const otp =
+                otpInput.value.trim();
 
-    });
+
+            if(otp.length !== 6){
+
+                otpError.textContent =
+                    "Please enter the 6-digit verification code.";
+
+                otpInput.focus();
+
+                return;
+
+            }
+
+
+            verifyButton.classList.add(
+                "loading"
+            );
+
+
+            try{
+
+                const result =
+                    await confirmationResult.confirm(
+                        otp
+                    );
+
+
+                const user =
+                    result.user;
+
+
+                console.log(
+                    "CHAPCY VERIFIED:",
+                    user.uid
+                );
+
+
+                localStorage.setItem(
+                    "chapcyVerified",
+                    "true"
+                );
+
+
+                localStorage.setItem(
+                    "chapcyPhone",
+                    user.phoneNumber
+                );
+
+
+                verifyButton.classList.remove(
+                    "loading"
+                );
+
+
+                /* =========================================
+                   SUCCESS
+                ========================================= */
+
+                registerCard.innerHTML = `
+
+                    <div class="card-header">
+
+                        <div
+                            class="card-icon"
+                            style="
+                                animation:pulse 1.5s infinite;
+                            "
+                        >
+
+                            <i
+                                class="fa-solid fa-circle-check"
+                            ></i>
+
+                        </div>
+
+                        <h2>
+                            Verified successfully
+                        </h2>
+
+                        <p>
+                            Your phone number has been verified.
+                        </p>
+
+                        <strong
+                            style="
+                                display:block;
+                                margin-top:10px;
+                            "
+                        >
+                            ${user.phoneNumber}
+                        </strong>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        class="next-button"
+                        id="continueVerified"
+                        style="
+                            margin-top:25px;
+                        "
+                    >
+
+                        Continue
+
+                        <i
+                            class="fa-solid fa-arrow-right"
+                        ></i>
+
+                    </button>
+
+                `;
+
+
+                document
+                    .getElementById(
+                        "continueVerified"
+                    )
+                    .addEventListener(
+                        "click",
+                        function(){
+
+                            window.location.href =
+                                "chapcy.html";
+
+                        }
+                    );
+
+
+            }catch(error){
+
+                console.error(
+                    "OTP verification error:",
+                    error
+                );
+
+
+                verifyButton.classList.remove(
+                    "loading"
+                );
+
+
+                if(
+                    error.code ===
+                    "auth/invalid-verification-code"
+                ){
+
+                    otpError.textContent =
+                        "Incorrect verification code.";
+
+                }
+
+                else if(
+                    error.code ===
+                    "auth/code-expired"
+                ){
+
+                    otpError.textContent =
+                        "This verification code has expired. Please request a new one.";
+
+                }
+
+                else{
+
+                    otpError.textContent =
+                        "Verification failed. Please try again.";
+
+                }
+
+            }
+
+        }
+    );
 
 
     /* =====================================================
-       RESEND
+       CHANGE PHONE
     ===================================================== */
 
-    resendCode.addEventListener("click", function(){
+    backToPhone.addEventListener(
+        "click",
+        function(){
 
-        alert(
-            "A new verification code will be sent to:\n\n"
-            + fullPhone
-        );
+            location.reload();
 
-    });
+        }
+    );
+
+
+    /* =====================================================
+       RESEND OTP
+    ===================================================== */
+
+    resendCode.addEventListener(
+        "click",
+        async function(){
+
+            try{
+
+                resendCode.disabled = true;
+
+                resendCode.textContent =
+                    "Sending...";
+
+
+                const appVerifier =
+                    createRecaptcha();
+
+
+                confirmationResult =
+                    await signInWithPhoneNumber(
+                        auth,
+                        fullPhone,
+                        appVerifier
+                    );
+
+
+                resendCode.textContent =
+                    "Code sent ✓";
+
+
+                setTimeout(
+                    function(){
+
+                        resendCode.disabled =
+                            false;
+
+                        resendCode.textContent =
+                            "Resend";
+
+                    },
+                    5000
+                );
+
+
+            }catch(error){
+
+                console.error(
+                    "Resend error:",
+                    error
+                );
+
+
+                resendCode.disabled =
+                    false;
+
+                resendCode.textContent =
+                    "Resend";
+
+
+                otpError.textContent =
+                    "Unable to resend the code.";
+
+            }
+
+        }
+    );
 
 
     otpInput.focus();
 
-     }
+}
