@@ -1,5 +1,6 @@
 /* =========================================================
    CHAPCY WORLDWIDE REGISTRATION JS
+   VERSION — PHONE + COUNTRY + VERIFICATION
 ========================================================= */
 
 
@@ -168,47 +169,22 @@ const countries = [
    ELEMENTS
 ========================================================= */
 
-const registerForm =
-    document.getElementById("registerForm");
+const registerForm = document.getElementById("registerForm");
+const phoneNumber = document.getElementById("phoneNumber");
+const phoneBox = document.getElementById("phoneBox");
+const errorMessage = document.getElementById("errorMessage");
+const nextButton = document.getElementById("nextButton");
 
-const phoneNumber =
-    document.getElementById("phoneNumber");
+const countryButton = document.getElementById("countryButton");
+const countryOverlay = document.getElementById("countryOverlay");
+const closeCountry = document.getElementById("closeCountry");
+const countrySearch = document.getElementById("countrySearch");
+const countryList = document.getElementById("countryList");
 
-const phoneBox =
-    document.getElementById("phoneBox");
+const selectedFlag = document.getElementById("selectedFlag");
+const selectedCode = document.getElementById("selectedCode");
 
-const errorMessage =
-    document.getElementById("errorMessage");
-
-const nextButton =
-    document.getElementById("nextButton");
-
-const countryButton =
-    document.getElementById("countryButton");
-
-const countryOverlay =
-    document.getElementById("countryOverlay");
-
-const countryModal =
-    document.getElementById("countryModal");
-
-const closeCountry =
-    document.getElementById("closeCountry");
-
-const countrySearch =
-    document.getElementById("countrySearch");
-
-const countryList =
-    document.getElementById("countryList");
-
-const selectedFlag =
-    document.getElementById("selectedFlag");
-
-const selectedCode =
-    document.getElementById("selectedCode");
-
-const particles =
-    document.getElementById("particles");
+const particles = document.getElementById("particles");
 
 
 /* =========================================================
@@ -216,13 +192,9 @@ const particles =
 ========================================================= */
 
 let currentCountry = {
-
-    flag:"🇹🇿",
-
-    name:"Tanzania",
-
-    code:"+255"
-
+    flag: "🇹🇿",
+    name: "Tanzania",
+    code: "+255"
 };
 
 
@@ -232,60 +204,39 @@ let currentCountry = {
 
 function createParticles(){
 
+    if(!particles) return;
+
     const amount =
-        window.innerWidth < 600
-        ? 35
-        : 65;
+        window.innerWidth < 600 ? 35 : 65;
 
-
-    for(
-        let i = 0;
-        i < amount;
-        i++
-    ){
+    for(let i = 0; i < amount; i++){
 
         const particle =
             document.createElement("span");
 
-        particle.className =
-            "particle";
-
+        particle.className = "particle";
 
         particle.style.left =
             Math.random() * 100 + "%";
 
-
         particle.style.animationDuration =
             (7 + Math.random() * 12) + "s";
-
 
         particle.style.animationDelay =
             (Math.random() * 10) + "s";
 
-
         particle.style.opacity =
             .3 + Math.random() * .7;
-
 
         const size =
             1 + Math.random() * 3;
 
+        particle.style.width = size + "px";
+        particle.style.height = size + "px";
 
-        particle.style.width =
-            size + "px";
-
-        particle.style.height =
-            size + "px";
-
-
-        particles.appendChild(
-            particle
-        );
-
+        particles.appendChild(particle);
     }
-
 }
-
 
 createParticles();
 
@@ -294,31 +245,19 @@ createParticles();
    OPEN COUNTRY MODAL
 ========================================================= */
 
-countryButton.addEventListener(
-    "click",
-    function(){
+countryButton.addEventListener("click", function(){
 
-        countryOverlay.classList.add(
-            "show"
-        );
+    countryOverlay.classList.add("show");
 
-        countrySearch.value = "";
+    countrySearch.value = "";
 
-        renderCountries(
-            countries
-        );
+    renderCountries(countries);
 
-        setTimeout(
-            function(){
+    setTimeout(function(){
+        countrySearch.focus();
+    }, 200);
 
-                countrySearch.focus();
-
-            },
-            200
-        );
-
-    }
-);
+});
 
 
 /* =========================================================
@@ -327,12 +266,9 @@ countryButton.addEventListener(
 
 function closeCountryModal(){
 
-    countryOverlay.classList.remove(
-        "show"
-    );
+    countryOverlay.classList.remove("show");
 
 }
-
 
 closeCountry.addEventListener(
     "click",
@@ -341,44 +277,33 @@ closeCountry.addEventListener(
 
 
 /* =========================================================
-   CLICK OUTSIDE MODAL
+   CLICK OUTSIDE
 ========================================================= */
 
-countryOverlay.addEventListener(
-    "click",
-    function(event){
+countryOverlay.addEventListener("click", function(event){
 
-        if(
-            event.target ===
-            countryOverlay
-        ){
+    if(event.target === countryOverlay){
 
-            closeCountryModal();
-
-        }
+        closeCountryModal();
 
     }
-);
+
+});
 
 
 /* =========================================================
-   ESCAPE KEY
+   ESCAPE
 ========================================================= */
 
-document.addEventListener(
-    "keydown",
-    function(event){
+document.addEventListener("keydown", function(event){
 
-        if(
-            event.key === "Escape"
-        ){
+    if(event.key === "Escape"){
 
-            closeCountryModal();
-
-        }
+        closeCountryModal();
 
     }
-);
+
+});
 
 
 /* =========================================================
@@ -388,7 +313,6 @@ document.addEventListener(
 function renderCountries(list){
 
     countryList.innerHTML = "";
-
 
     if(list.length === 0){
 
@@ -408,55 +332,40 @@ function renderCountries(list){
 
     }
 
+    list.forEach(function(country){
 
-    list.forEach(
-        function(country){
+        const item =
+            document.createElement("button");
 
-            const item =
-                document.createElement("button");
+        item.type = "button";
 
+        item.className = "country-item";
 
-            item.type = "button";
+        item.innerHTML = `
 
-            item.className =
-                "country-item";
+            <span class="country-flag">
+                ${country[0]}
+            </span>
 
+            <span class="country-name">
+                ${country[1]}
+            </span>
 
-            item.innerHTML = `
+            <span class="country-code">
+                ${country[2]}
+            </span>
 
-                <span class="country-flag">
-                    ${country[0]}
-                </span>
+        `;
 
-                <span class="country-name">
-                    ${country[1]}
-                </span>
+        item.addEventListener("click", function(){
 
-                <span class="country-code">
-                    ${country[2]}
-                </span>
+            selectCountry(country);
 
-            `;
+        });
 
+        countryList.appendChild(item);
 
-            item.addEventListener(
-                "click",
-                function(){
-
-                    selectCountry(
-                        country
-                    );
-
-                }
-            );
-
-
-            countryList.appendChild(
-                item
-            );
-
-        }
-    );
+    });
 
 }
 
@@ -469,25 +378,29 @@ function selectCountry(country){
 
     currentCountry = {
 
-        flag:country[0],
-
-        name:country[1],
-
-        code:country[2]
+        flag: country[0],
+        name: country[1],
+        code: country[2]
 
     };
 
+    /*
+     * IMPORTANT:
+     * textContent inafanya flag + code
+     * kubadilika bila kuharibu HTML.
+     */
 
     selectedFlag.textContent =
-        country[0];
-
+        currentCountry.flag;
 
     selectedCode.textContent =
-        country[2];
-
+        currentCountry.code;
 
     closeCountryModal();
 
+    phoneNumber.value = "";
+
+    errorMessage.textContent = "";
 
     phoneNumber.focus();
 
@@ -498,172 +411,120 @@ function selectCountry(country){
    COUNTRY SEARCH
 ========================================================= */
 
-countrySearch.addEventListener(
-    "input",
-    function(){
+countrySearch.addEventListener("input", function(){
 
-        const query =
-            this.value
-            .toLowerCase()
-            .trim();
+    const query =
+        this.value.toLowerCase().trim();
 
+    const filtered =
+        countries.filter(function(country){
 
-        const filtered =
-            countries.filter(
-                function(country){
+            return (
 
-                    return (
+                country[1]
+                    .toLowerCase()
+                    .includes(query)
 
-                        country[1]
-                        .toLowerCase()
-                        .includes(query)
+                ||
 
-                        ||
+                country[2]
+                    .includes(query)
 
-                        country[2]
-                        .includes(query)
-
-                    );
-
-                }
             );
 
+        });
 
-        renderCountries(
-            filtered
-        );
+    renderCountries(filtered);
 
-    }
-);
+});
 
 
 /* =========================================================
    PHONE INPUT
 ========================================================= */
 
-phoneNumber.addEventListener(
-    "input",
-    function(){
+phoneNumber.addEventListener("input", function(){
 
-        this.value =
-            this.value.replace(
-                /\D/g,
-                ""
-            );
+    this.value =
+        this.value.replace(/\D/g, "");
 
+    errorMessage.textContent = "";
 
-        errorMessage.textContent =
-            "";
+    phoneBox.classList.remove("invalid");
 
-
-        phoneBox.classList.remove(
-            "invalid"
-        );
-
-    }
-);
+});
 
 
 /* =========================================================
-   FORM SUBMIT
+   CONTINUE
 ========================================================= */
 
-registerForm.addEventListener(
-    "submit",
-    function(event){
+registerForm.addEventListener("submit", function(event){
 
-        event.preventDefault();
+    event.preventDefault();
 
+    const number =
+        phoneNumber.value.trim();
 
-        const number =
-            phoneNumber.value.trim();
+    /* EMPTY */
 
+    if(!number){
 
-        /* EMPTY */
-
-        if(!number){
-
-            showError(
-                "Please enter your phone number."
-            );
-
-            return;
-
-        }
-
-
-        /* LENGTH */
-
-        if(
-            number.length < 7 ||
-            number.length > 15
-        ){
-
-            showError(
-                "Please enter a valid phone number."
-            );
-
-            return;
-
-        }
-
-
-        /* FULL PHONE */
-
-        const fullPhone =
-            currentCountry.code +
-            number;
-
-
-        console.log(
-            "CHAPCY PHONE:",
-            fullPhone
+        showError(
+            "Please enter your phone number."
         );
 
-
-        /* LOADING */
-
-        nextButton.classList.add(
-            "loading"
-        );
-
-
-        /*
-        ==============================================
-        NEXT STEP:
-
-        Firebase Phone Authentication
-
-        Here we will connect:
-
-        signInWithPhoneNumber()
-
-        and send OTP.
-
-        ==============================================
-        */
-
-
-        setTimeout(
-            function(){
-
-                nextButton.classList.remove(
-                    "loading"
-                );
-
-
-                alert(
-                    "CHAPCY will send OTP to:\n\n"
-                    + fullPhone
-                );
-
-
-            },
-            900
-        );
+        return;
 
     }
-);
+
+
+    /* LENGTH */
+
+    if(
+        number.length < 7 ||
+        number.length > 15
+    ){
+
+        showError(
+            "Please enter a valid phone number."
+        );
+
+        return;
+
+    }
+
+
+    const fullPhone =
+        currentCountry.code + number;
+
+    console.log(
+        "CHAPCY PHONE:",
+        fullPhone
+    );
+
+
+    /* LOADING */
+
+    nextButton.classList.add("loading");
+
+
+    /*
+     * DEMO WAIT
+     *
+     * Later this section will be replaced
+     * with Firebase OTP.
+     */
+
+    setTimeout(function(){
+
+        nextButton.classList.remove("loading");
+
+        openVerification(fullPhone);
+
+    }, 900);
+
+});
 
 
 /* =========================================================
@@ -675,11 +536,7 @@ function showError(message){
     errorMessage.textContent =
         message;
 
-
-    phoneBox.classList.add(
-        "invalid"
-    );
-
+    phoneBox.classList.add("invalid");
 
     phoneNumber.focus();
 
@@ -690,11 +547,287 @@ function showError(message){
    PHONE FOCUS
 ========================================================= */
 
-phoneNumber.addEventListener(
-    "focus",
-    function(){
+phoneNumber.addEventListener("focus", function(){
 
-        errorMessage.textContent = "";
+    errorMessage.textContent = "";
 
-    }
-);
+});
+
+
+/* =========================================================
+   VERIFICATION SCREEN
+========================================================= */
+
+function openVerification(fullPhone){
+
+    /*
+     * Tunatengeneza verification screen
+     * dynamically ili usibadilishe HTML yako.
+     */
+
+    const registerCard =
+        document.querySelector(".register-card");
+
+    if(!registerCard) return;
+
+
+    registerCard.innerHTML = `
+
+        <div class="card-header">
+
+            <div class="card-icon">
+
+                <i class="fa-solid fa-shield-halved"></i>
+
+            </div>
+
+            <h2>
+                Verify your number
+            </h2>
+
+            <p>
+                Enter the 6-digit code sent to
+            </p>
+
+            <strong
+                id="verificationPhone"
+                style="
+                    display:block;
+                    margin-top:8px;
+                "
+            >
+                ${fullPhone}
+            </strong>
+
+        </div>
+
+
+        <div
+            class="verification-area"
+            style="
+                margin-top:25px;
+            "
+        >
+
+            <label
+                class="input-label"
+                for="otpInput"
+            >
+                Verification Code
+            </label>
+
+
+            <input
+                id="otpInput"
+                type="tel"
+                inputmode="numeric"
+                autocomplete="one-time-code"
+                maxlength="6"
+                placeholder="••••••"
+                style="
+                    width:100%;
+                    text-align:center;
+                    font-size:26px;
+                    letter-spacing:10px;
+                    padding:16px;
+                    border-radius:15px;
+                    border:1px solid rgba(255,255,255,.15);
+                    background:rgba(255,255,255,.07);
+                    color:white;
+                    outline:none;
+                "
+            >
+
+
+            <div
+                id="otpError"
+                class="error-message"
+                style="margin-top:10px;"
+            ></div>
+
+
+            <button
+                type="button"
+                id="verifyButton"
+                class="next-button"
+                style="margin-top:18px;"
+            >
+
+                <span class="button-text">
+                    Verify Number
+                </span>
+
+                <i class="fa-solid fa-check"></i>
+
+            </button>
+
+
+            <button
+                type="button"
+                id="backToPhone"
+                style="
+                    width:100%;
+                    margin-top:12px;
+                    padding:13px;
+                    border:none;
+                    background:transparent;
+                    color:white;
+                    cursor:pointer;
+                    font-family:inherit;
+                "
+            >
+
+                <i class="fa-solid fa-arrow-left"></i>
+
+                Change phone number
+
+            </button>
+
+
+            <p
+                style="
+                    text-align:center;
+                    margin-top:15px;
+                    font-size:13px;
+                    opacity:.7;
+                "
+            >
+                Didn't receive the code?
+                <button
+                    type="button"
+                    id="resendCode"
+                    style="
+                        background:none;
+                        border:none;
+                        color:#00eaff;
+                        cursor:pointer;
+                        font-family:inherit;
+                    "
+                >
+                    Resend
+                </button>
+            </p>
+
+        </div>
+
+    `;
+
+
+    /* =====================================================
+       OTP ELEMENTS
+    ===================================================== */
+
+    const otpInput =
+        document.getElementById("otpInput");
+
+    const verifyButton =
+        document.getElementById("verifyButton");
+
+    const backToPhone =
+        document.getElementById("backToPhone");
+
+    const resendCode =
+        document.getElementById("resendCode");
+
+    const otpError =
+        document.getElementById("otpError");
+
+
+    /* =====================================================
+       OTP INPUT
+    ===================================================== */
+
+    otpInput.addEventListener("input", function(){
+
+        this.value =
+            this.value.replace(/\D/g, "");
+
+        otpError.textContent = "";
+
+    });
+
+
+    /* =====================================================
+       VERIFY
+    ===================================================== */
+
+    verifyButton.addEventListener("click", function(){
+
+        const otp =
+            otpInput.value.trim();
+
+
+        if(otp.length !== 6){
+
+            otpError.textContent =
+                "Please enter the 6-digit verification code.";
+
+            otpInput.focus();
+
+            return;
+
+        }
+
+
+        verifyButton.classList.add("loading");
+
+
+        setTimeout(function(){
+
+            verifyButton.classList.remove("loading");
+
+
+            /*
+             * DEMO ONLY
+             *
+             * Firebase verification itawekwa hapa.
+             */
+
+            localStorage.setItem(
+                "chapcyVerified",
+                "true"
+            );
+
+            localStorage.setItem(
+                "chapcyPhone",
+                fullPhone
+            );
+
+
+            window.location.href =
+                "chapcy.html";
+
+
+        }, 900);
+
+    });
+
+
+    /* =====================================================
+       BACK
+    ===================================================== */
+
+    backToPhone.addEventListener("click", function(){
+
+        location.reload();
+
+    });
+
+
+    /* =====================================================
+       RESEND
+    ===================================================== */
+
+    resendCode.addEventListener("click", function(){
+
+        alert(
+            "A new verification code will be sent to:\n\n"
+            + fullPhone
+        );
+
+    });
+
+
+    otpInput.focus();
+
+     }
