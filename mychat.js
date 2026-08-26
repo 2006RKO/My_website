@@ -123,11 +123,9 @@ if (addContactBtn) {
         buttonPress(addContactBtn);
 
         const registered =
-            localStorage.getItem("Mychatregister.html");
+            localStorage.getItem("chapcyRegistered");
 
         if (registered === "true") {
-
-            /* USER ALREADY REGISTERED */
 
             if (contactPage) {
 
@@ -139,16 +137,13 @@ if (addContactBtn) {
 
         } else {
 
-            /* FIRST TIME USER */
-
-            window.location.href = "Mychatregister.html";
+            window.location.href = "./Mychatregister.html";
 
         }
 
     });
 
 }
-
 
 /* =====================================================
    BACK FROM CONTACT PAGE
