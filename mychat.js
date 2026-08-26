@@ -113,18 +113,37 @@ const mariaContact =
 
 
 /* =====================================================
-   OPEN CONTACT PAGE
+   OPEN CONTACT PAGE / REGISTER
 ===================================================== */
 
-if (addContactBtn && contactPage) {
+if (addContactBtn) {
 
     addContactBtn.addEventListener("click", () => {
 
         buttonPress(addContactBtn);
 
-        contactPage.style.display = "flex";
+        const registered =
+            localStorage.getItem("chapcyRegistered");
 
-        document.body.style.overflow = "hidden";
+        if (registered === "true") {
+
+            /* USER ALREADY REGISTERED */
+
+            if (contactPage) {
+
+                contactPage.style.display = "flex";
+
+                document.body.style.overflow = "hidden";
+
+            }
+
+        } else {
+
+            /* FIRST TIME USER */
+
+            window.location.href = "register.html";
+
+        }
 
     });
 
