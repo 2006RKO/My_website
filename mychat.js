@@ -141,7 +141,7 @@ if (addContactBtn) {
 
             /* FIRST TIME USER */
 
-            window.location.href = "register.html";
+            window.location.href = "Mychatregister.html";
 
         }
 
