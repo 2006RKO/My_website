@@ -123,7 +123,7 @@ if (addContactBtn) {
         buttonPress(addContactBtn);
 
         const registered =
-            localStorage.getItem("chapcyRegistered");
+            localStorage.getItem("Mychatregister.html");
 
         if (registered === "true") {
 
