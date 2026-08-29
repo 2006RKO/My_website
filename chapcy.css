@@ -2913,3 +2913,580 @@ font-size:12px;
         flex:0 0 285px;
     }
 }
+/* =========================================================
+   CHAPCY V21 — PREMIUM PERSONAL NAVIGATION
+========================================================= */
+
+.personal-navigation{
+    width:94%;
+    max-width:1250px;
+
+    margin:18px auto 5px;
+
+    padding:20px;
+
+    position:relative;
+
+    border-radius:28px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(8,12,40,.72),
+            rgba(8,5,30,.55)
+        );
+
+    border:1px solid rgba(255,255,255,.10);
+
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.35),
+        inset 0 0 35px rgba(0,180,255,.025);
+
+    overflow:hidden;
+}
+
+
+/* TOP LIGHT */
+
+.personal-navigation::before{
+    content:"";
+
+    position:absolute;
+
+    width:400px;
+    height:120px;
+
+    top:-80px;
+    left:50%;
+
+    transform:translateX(-50%);
+
+    background:
+        radial-gradient(
+            ellipse,
+            rgba(0,220,255,.20),
+            transparent 70%
+        );
+
+    filter:blur(20px);
+
+    pointer-events:none;
+}
+
+
+/* HEADER */
+
+.personal-nav-header{
+    position:relative;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    margin-bottom:15px;
+
+    z-index:2;
+}
+
+
+.personal-label{
+    display:block;
+
+    font-size:9px;
+
+    letter-spacing:3px;
+
+    font-weight:700;
+
+    color:#00d9ff;
+
+    margin-bottom:3px;
+}
+
+
+.personal-nav-header h2{
+    font-size:20px;
+
+    font-weight:700;
+
+    color:#fff;
+
+    margin:0;
+}
+
+
+/* LIVE */
+
+.nav-live{
+    display:flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    padding:7px 12px;
+
+    border-radius:20px;
+
+    font-size:9px;
+
+    font-weight:800;
+
+    color:#00ff91;
+
+    background:
+        rgba(0,255,140,.06);
+
+    border:
+        1px solid rgba(0,255,140,.20);
+}
+
+
+.nav-live span{
+    width:7px;
+    height:7px;
+
+    border-radius:50%;
+
+    background:#00ff91;
+
+    box-shadow:
+        0 0 10px #00ff91;
+
+    animation:
+        navLivePulse 1.5s ease-in-out infinite;
+}
+
+
+@keyframes navLivePulse{
+
+    0%,100%{
+        opacity:.5;
+        transform:scale(.8);
+    }
+
+    50%{
+        opacity:1;
+        transform:scale(1.2);
+    }
+}
+
+
+/* =========================================================
+   NAV TRACK
+========================================================= */
+
+.personal-nav-track{
+
+    display:flex;
+
+    gap:12px;
+
+    overflow-x:auto;
+
+    padding:3px 2px 8px;
+
+    scrollbar-width:none;
+
+    scroll-snap-type:x mandatory;
+}
+
+
+.personal-nav-track::-webkit-scrollbar{
+    display:none;
+}
+
+
+/* =========================================================
+   NAV CARD
+========================================================= */
+
+.personal-nav-card{
+
+    position:relative;
+
+    flex:0 0 225px;
+
+    min-height:92px;
+
+    padding:15px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    text-align:left;
+
+    border-radius:21px;
+
+    color:#fff;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.055),
+            rgba(255,255,255,.018)
+        );
+
+    border:
+        1px solid rgba(255,255,255,.09);
+
+    cursor:pointer;
+
+    scroll-snap-align:start;
+
+    transition:
+        transform .35s ease,
+        border-color .35s ease,
+        background .35s ease,
+        box-shadow .35s ease;
+
+    overflow:hidden;
+}
+
+
+/* HOVER */
+
+.personal-nav-card:hover{
+
+    transform:
+        translateY(-4px);
+
+    border-color:
+        rgba(0,220,255,.45);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(0,210,255,.10),
+            rgba(120,0,255,.08)
+        );
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,.25),
+        0 0 25px rgba(0,210,255,.12);
+}
+
+
+/* ACTIVE */
+
+.personal-nav-card.active{
+
+    border-color:
+        rgba(0,220,255,.55);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(90,0,255,.22),
+            rgba(0,210,255,.12)
+        );
+
+    box-shadow:
+        0 0 25px rgba(0,210,255,.14),
+        inset 0 0 25px rgba(110,0,255,.06);
+}
+
+
+/* =========================================================
+   ICON
+========================================================= */
+
+.nav-icon{
+
+    position:relative;
+
+    width:48px;
+    height:48px;
+
+    flex-shrink:0;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:16px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(112,0,255,.35),
+            rgba(0,210,255,.20)
+        );
+
+    border:
+        1px solid rgba(0,220,255,.22);
+
+    box-shadow:
+        0 0 18px rgba(0,200,255,.10);
+}
+
+
+.nav-icon i{
+
+    font-size:19px;
+
+    color:#fff;
+
+    filter:
+        drop-shadow(
+            0 0 7px rgba(0,220,255,.55)
+        );
+}
+
+
+/* NOTIFICATION */
+
+.nav-notification{
+
+    position:absolute;
+
+    top:-7px;
+    right:-7px;
+
+    min-width:21px;
+    height:21px;
+
+    padding:0 5px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff1680,
+            #ff004d
+        );
+
+    border:
+        2px solid #080b25;
+
+    color:#fff;
+
+    font-size:9px;
+
+    font-weight:800;
+
+    box-shadow:
+        0 0 12px rgba(255,0,100,.45);
+}
+
+
+/* =========================================================
+   TEXT
+========================================================= */
+
+.nav-text{
+
+    min-width:0;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:3px;
+}
+
+
+.nav-text strong{
+
+    font-size:14px;
+
+    font-weight:700;
+
+    color:#fff;
+
+    white-space:nowrap;
+}
+
+
+.nav-text small{
+
+    font-size:9px;
+
+    color:
+        rgba(255,255,255,.50);
+
+    white-space:nowrap;
+}
+
+
+/* =========================================================
+   ARROW
+========================================================= */
+
+.nav-arrow{
+
+    margin-left:auto;
+
+    font-size:12px;
+
+    color:
+        rgba(255,255,255,.30);
+
+    transition:.3s ease;
+}
+
+
+.personal-nav-card:hover .nav-arrow{
+
+    color:#00eaff;
+
+    transform:
+        translateX(4px);
+}
+
+
+.personal-nav-card.active .nav-arrow{
+
+    color:#00eaff;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:700px){
+
+    .personal-navigation{
+
+        width:94%;
+
+        margin:12px auto 0;
+
+        padding:14px;
+
+        border-radius:23px;
+    }
+
+
+    .personal-nav-header{
+
+        margin-bottom:12px;
+    }
+
+
+    .personal-label{
+
+        font-size:8px;
+
+        letter-spacing:2px;
+    }
+
+
+    .personal-nav-header h2{
+
+        font-size:17px;
+    }
+
+
+    .nav-live{
+
+        padding:6px 9px;
+
+        font-size:8px;
+    }
+
+
+    .personal-nav-track{
+
+        gap:9px;
+
+        margin-right:-2px;
+    }
+
+
+    .personal-nav-card{
+
+        flex:0 0 205px;
+
+        min-height:78px;
+
+        padding:11px;
+
+        border-radius:18px;
+
+        gap:9px;
+    }
+
+
+    .nav-icon{
+
+        width:42px;
+        height:42px;
+
+        border-radius:13px;
+    }
+
+
+    .nav-icon i{
+
+        font-size:17px;
+    }
+
+
+    .nav-text strong{
+
+        font-size:12px;
+    }
+
+
+    .nav-text small{
+
+        font-size:8px;
+    }
+
+
+    .nav-arrow{
+
+        font-size:10px;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL PHONE
+========================================================= */
+
+@media(max-width:390px){
+
+    .personal-navigation{
+
+        padding:11px;
+
+        border-radius:20px;
+    }
+
+
+    .personal-nav-card{
+
+        flex-basis:190px;
+
+        min-height:74px;
+    }
+
+
+    .nav-icon{
+
+        width:39px;
+        height:39px;
+    }
+
+
+    .nav-text strong{
+
+        font-size:11px;
+    }
+}
