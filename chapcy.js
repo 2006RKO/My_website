@@ -828,3 +828,22 @@ document.addEventListener("keydown", function(e){
     }
 
 });
+/* =====================================================
+   MESSAGES → OPEN REGISTER
+===================================================== */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const messagesBtn =
+        document.getElementById("messagesBtn");
+
+    if (!messagesBtn) return;
+
+    messagesBtn.addEventListener("click", () => {
+
+        window.location.href =
+            "Mychatregister.html";
+
+    });
+
+});
