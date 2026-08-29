@@ -48,120 +48,103 @@
     </header>
 
     <!-- =====================================================
-     CHAPCY — PREMIUM PERSONAL NAVIGATION
+     CHAPCY MY CHATS NAVIGATION
 ===================================================== -->
 
-<section class="personal-navigation">
+<section class="mychat-navigation">
 
-    <div class="personal-nav-header">
-        <div>
-            <span class="personal-label">YOUR SPACE</span>
-            <h2>Stay Connected</h2>
+    <div class="mychat-nav-card active" onclick="openMyChatregister.html()">
+
+        <div class="mychat-nav-icon">
+            <i class="fa-solid fa-comments"></i>
+            <span class="nav-badge">3</span>
         </div>
 
-        <div class="nav-live">
-            <span></span>
-            LIVE
+        <div class="mychat-nav-text">
+            <h3>My Chats</h3>
+            <p>Private conversations</p>
         </div>
+
+        <div class="mychat-nav-arrow">
+            <i class="fa-solid fa-arrow-right"></i>
+        </div>
+
     </div>
 
-    <div class="personal-nav-track">
 
-        <!-- MY CHATS -->
-        <button
-            class="personal-nav-card active"
-            type="button"
-            onclick="window.location.href='Mychatregister.html'"
-        >
-            <div class="nav-icon">
-                <i class="fa-solid fa-comments"></i>
-                <span class="nav-notification">3</span>
-            </div>
+    <div class="mychat-nav-card" onclick="openMessages()">
 
-            <div class="nav-text">
-                <strong>My Chats</strong>
-                <small>Private conversations</small>
-            </div>
+        <div class="mychat-nav-icon">
+            <i class="fa-solid fa-envelope"></i>
+            <span class="nav-badge">2</span>
+        </div>
 
-            <i class="fa-solid fa-arrow-right nav-arrow"></i>
-        </button>
+        <div class="mychat-nav-text">
+            <h3>Messages</h3>
+            <p>New messages</p>
+        </div>
+
+        <div class="mychat-nav-arrow">
+            <i class="fa-solid fa-arrow-right"></i>
+        </div>
+
+    </div>
 
 
-        <!-- MESSAGES -->
-        <button
-            class="personal-nav-card"
-            type="button"
-            onclick="window.location.href='messages.html'"
-        >
-            <div class="nav-icon">
-                <i class="fa-solid fa-envelope"></i>
-                <span class="nav-notification">2</span>
-            </div>
+    <div class="mychat-nav-card" onclick="openStatus()">
 
-            <div class="nav-text">
-                <strong>Messages</strong>
-                <small>New messages</small>
-            </div>
+        <div class="mychat-nav-icon status-icon">
+            <i class="fa-solid fa-circle-play"></i>
+        </div>
 
-            <i class="fa-solid fa-arrow-right nav-arrow"></i>
-        </button>
+        <div class="mychat-nav-text">
+            <h3>Status</h3>
+            <p>
+                <span class="online-dot"></span>
+                Latest updates
+            </p>
+        </div>
 
+        <div class="mychat-nav-arrow">
+            <i class="fa-solid fa-arrow-right"></i>
+        </div>
 
-        <!-- STATUS -->
-        <button
-            class="personal-nav-card"
-            type="button"
-            onclick="window.location.href='status.html'"
-        >
-            <div class="nav-icon">
-                <i class="fa-solid fa-circle-play"></i>
-            </div>
-
-            <div class="nav-text">
-                <strong>Status</strong>
-                <small>Latest updates</small>
-            </div>
-
-            <i class="fa-solid fa-arrow-right nav-arrow"></i>
-        </button>
+    </div>
 
 
-        <!-- CALLS -->
-        <button
-            class="personal-nav-card"
-            type="button"
-            onclick="window.location.href='calls.html'"
-        >
-            <div class="nav-icon">
-                <i class="fa-solid fa-phone"></i>
-            </div>
+    <div class="mychat-nav-card" onclick="openCalls()">
 
-            <div class="nav-text">
-                <strong>Calls</strong>
-                <small>Voice & video calls</small>
-            </div>
+        <div class="mychat-nav-icon call-icon">
+            <i class="fa-solid fa-phone"></i>
+        </div>
 
-            <i class="fa-solid fa-arrow-right nav-arrow"></i>
-        </button>
+        <div class="mychat-nav-text">
+            <h3>Calls</h3>
+            <p>Voice & video calls</p>
+        </div>
+
+        <div class="mychat-nav-arrow">
+            <i class="fa-solid fa-arrow-right"></i>
+        </div>
+
+    </div>
 
 
-        <!-- MENTION -->
-        <button
-            class="personal-nav-card"
-            type="button"
-            onclick="window.location.href='mentions.html'"
-        >
-            <div class="nav-icon">
-                <i class="fa-solid fa-at"></i>
-            </div>
+    <div class="mychat-nav-card" onclick="openMentions()">
 
-            <div class="nav-text">
-                <strong>Mention You</strong>
-                <small>People mentioned you</small>
-            </div>
+        <div class="mychat-nav-icon mention-icon">
+            <i class="fa-solid fa-at"></i>
+            <span class="nav-badge">1</span>
+        </div>
 
-            <i class="fa-solid fa-arrow-right nav-arrow"></i>
-        </button>
+        <div class="mychat-nav-text">
+            <h3>Mentions</h3>
+            <p>People mentioned you</p>
+        </div>
+
+        <div class="mychat-nav-arrow">
+            <i class="fa-solid fa-arrow-right"></i>
+        </div>
 
     </div>
 
