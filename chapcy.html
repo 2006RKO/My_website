@@ -47,46 +47,100 @@
       </div>
     </header>
 
-    <div class="chat-tabs">
+    <!-- =====================================================
+     MODERN CHAPCY NAVIGATION
+====================================================== -->
 
+<nav class="modern-chat-nav">
+
+    <!-- MY CHATS -->
     <button
-    class="chat-tab active"
-    id="myChatsBtn"
-    type="button"
-    onclick="window.location.href='mychat.html'"
->
-    💬
-    <span>My Chats</span>
-    <span class="live-count">3</span>
+        class="modern-nav-item active"
+        id="myChatsBtn"
+        type="button"
+    >
+        <span class="nav-icon">
+            <i class="fa-solid fa-comments"></i>
+        </span>
+
+        <span class="nav-label">
+            My Chats
+        </span>
+
+        <span class="nav-badge">
+            3
+        </span>
     </button>
-      
+
+
+    <!-- MESSAGES -->
     <button
-    class="chat-tab"
-    id="messagesBtn"
-    type="button"
->
-    ✉️
-    <span>Messages</span>
-    <span class="live-count"></span>
-    </button>
-    <button class="chat-tab" type="button">
-        📺
-        <span>Status</span>
-        <span class="live-count"></span>
+        class="modern-nav-item"
+        id="messagesBtn"
+        type="button"
+    >
+        <span class="nav-icon">
+            <i class="fa-solid fa-message"></i>
+        </span>
+
+        <span class="nav-label">
+            Messages
+        </span>
+
+        <span class="nav-badge hidden">
+            0
+        </span>
     </button>
 
-    <button class="chat-tab" type="button">
-        📞
-        <span>Calls</span>
-        <span class="live-count"></span>
+
+    <!-- STATUS -->
+    <button
+        class="modern-nav-item"
+        id="statusBtn"
+        type="button"
+    >
+        <span class="nav-icon">
+            <i class="fa-solid fa-circle-play"></i>
+        </span>
+
+        <span class="nav-label">
+            Status
+        </span>
     </button>
 
-    <button class="chat-tab" type="button">
-        @
-        <span>Mention You</span>
-        <span class="live-count"></span>
+
+    <!-- CALLS -->
+    <button
+        class="modern-nav-item"
+        id="callsBtn"
+        type="button"
+    >
+        <span class="nav-icon">
+            <i class="fa-solid fa-phone"></i>
+        </span>
+
+        <span class="nav-label">
+            Calls
+        </span>
     </button>
 
+
+    <!-- MENTION -->
+    <button
+        class="modern-nav-item"
+        id="mentionBtn"
+        type="button"
+    >
+        <span class="nav-icon">
+            @
+        </span>
+
+        <span class="nav-label">
+            Mention
+        </span>
+    </button>
+
+</nav>
     </div>
 </div>
     <section class="group-slider">
