@@ -1,6 +1,7 @@
 /* =========================================================
-   CHAPCY WORLDWIDE REGISTER JS
-   PHONE + COUNTRY + OTP + ANIMATIONS
+   CHAPCY REGISTER.JS
+   WORLDWIDE PHONE REGISTRATION
+   PREMIUM ANIMATION + COUNTRY SYSTEM
 ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -9,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
        ELEMENTS
     ===================================================== */
 
-    const registerForm =
+    const form =
         document.getElementById("registerForm");
 
     const countrySelector =
@@ -18,11 +19,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const countryDropdown =
         document.getElementById("countryDropdown");
 
-    const countrySearch =
-        document.getElementById("countrySearch");
+    const countryOverlay =
+        document.getElementById("countryOverlay");
 
     const countryList =
         document.getElementById("countryList");
+
+    const countrySearch =
+        document.getElementById("countrySearch");
 
     const countryFlag =
         document.getElementById("countryFlag");
@@ -30,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const countryCode =
         document.getElementById("countryCode");
 
-    const phoneNumber =
+    const phoneInput =
         document.getElementById("phoneNumber");
 
     const phoneError =
@@ -38,6 +42,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const continueBtn =
         document.getElementById("continueBtn");
+
+    const continueText =
+        document.querySelector(".continue-text");
+
+    const continueArrow =
+        document.querySelector(".continue-arrow");
 
     const continueLoader =
         document.getElementById("continueLoader");
@@ -60,12 +70,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const enterChapcyBtn =
         document.getElementById("enterChapcyBtn");
 
-    const countryOverlay =
-        document.getElementById("countryOverlay");
-
-    const otpInputs =
-        document.querySelectorAll(".otp-input");
-
 
     /* =====================================================
        WORLD COUNTRIES
@@ -73,223 +77,224 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const countries = [
 
-        ["🇦🇫", "Afghanistan", "+93"],
-        ["🇦🇱", "Albania", "+355"],
-        ["🇩🇿", "Algeria", "+213"],
-        ["🇦🇩", "Andorra", "+376"],
-        ["🇦🇴", "Angola", "+244"],
-        ["🇦🇬", "Antigua and Barbuda", "+1"],
-        ["🇦🇷", "Argentina", "+54"],
-        ["🇦🇲", "Armenia", "+374"],
-        ["🇦🇺", "Australia", "+61"],
-        ["🇦🇹", "Austria", "+43"],
-        ["🇦🇿", "Azerbaijan", "+994"],
+        ["🇦🇫","Afghanistan","+93"],
+        ["🇦🇱","Albania","+355"],
+        ["🇩🇿","Algeria","+213"],
+        ["🇦🇩","Andorra","+376"],
+        ["🇦🇴","Angola","+244"],
+        ["🇦🇬","Antigua and Barbuda","+1268"],
+        ["🇦🇷","Argentina","+54"],
+        ["🇦🇲","Armenia","+374"],
+        ["🇦🇺","Australia","+61"],
+        ["🇦🇹","Austria","+43"],
+        ["🇦🇿","Azerbaijan","+994"],
 
-        ["🇧🇸", "Bahamas", "+1"],
-        ["🇧🇭", "Bahrain", "+973"],
-        ["🇧🇩", "Bangladesh", "+880"],
-        ["🇧🇧", "Barbados", "+1"],
-        ["🇧🇾", "Belarus", "+375"],
-        ["🇧🇪", "Belgium", "+32"],
-        ["🇧🇿", "Belize", "+501"],
-        ["🇧🇯", "Benin", "+229"],
-        ["🇧🇹", "Bhutan", "+975"],
-        ["🇧🇴", "Bolivia", "+591"],
-        ["🇧🇦", "Bosnia and Herzegovina", "+387"],
-        ["🇧🇼", "Botswana", "+267"],
-        ["🇧🇷", "Brazil", "+55"],
-        ["🇧🇳", "Brunei", "+673"],
-        ["🇧🇬", "Bulgaria", "+359"],
-        ["🇧🇫", "Burkina Faso", "+226"],
-        ["🇧🇮", "Burundi", "+257"],
+        ["🇧🇸","Bahamas","+1242"],
+        ["🇧🇭","Bahrain","+973"],
+        ["🇧🇩","Bangladesh","+880"],
+        ["🇧🇧","Barbados","+1246"],
+        ["🇧🇾","Belarus","+375"],
+        ["🇧🇪","Belgium","+32"],
+        ["🇧🇿","Belize","+501"],
+        ["🇧🇯","Benin","+229"],
+        ["🇧🇹","Bhutan","+975"],
+        ["🇧🇴","Bolivia","+591"],
+        ["🇧🇦","Bosnia and Herzegovina","+387"],
+        ["🇧🇼","Botswana","+267"],
+        ["🇧🇷","Brazil","+55"],
+        ["🇧🇳","Brunei","+673"],
+        ["🇧🇬","Bulgaria","+359"],
+        ["🇧🇫","Burkina Faso","+226"],
+        ["🇧🇮","Burundi","+257"],
 
-        ["🇨🇻", "Cabo Verde", "+238"],
-        ["🇰🇭", "Cambodia", "+855"],
-        ["🇨🇲", "Cameroon", "+237"],
-        ["🇨🇦", "Canada", "+1"],
-        ["🇨🇫", "Central African Republic", "+236"],
-        ["🇹🇩", "Chad", "+235"],
-        ["🇨🇱", "Chile", "+56"],
-        ["🇨🇳", "China", "+86"],
-        ["🇨🇴", "Colombia", "+57"],
-        ["🇰🇲", "Comoros", "+269"],
-        ["🇨🇬", "Congo", "+242"],
-        ["🇨🇩", "DR Congo", "+243"],
-        ["🇨🇷", "Costa Rica", "+506"],
-        ["🇭🇷", "Croatia", "+385"],
-        ["🇨🇺", "Cuba", "+53"],
-        ["🇨🇾", "Cyprus", "+357"],
-        ["🇨🇿", "Czech Republic", "+420"],
+        ["🇨🇻","Cabo Verde","+238"],
+        ["🇰🇭","Cambodia","+855"],
+        ["🇨🇲","Cameroon","+237"],
+        ["🇨🇦","Canada","+1"],
+        ["🇨🇫","Central African Republic","+236"],
+        ["🇹🇩","Chad","+235"],
+        ["🇨🇱","Chile","+56"],
+        ["🇨🇳","China","+86"],
+        ["🇨🇴","Colombia","+57"],
+        ["🇰🇲","Comoros","+269"],
+        ["🇨🇬","Congo","+242"],
+        ["🇨🇩","DR Congo","+243"],
+        ["🇨🇷","Costa Rica","+506"],
+        ["🇨🇮","Côte d'Ivoire","+225"],
+        ["🇭🇷","Croatia","+385"],
+        ["🇨🇺","Cuba","+53"],
+        ["🇨🇾","Cyprus","+357"],
+        ["🇨🇿","Czech Republic","+420"],
 
-        ["🇩🇰", "Denmark", "+45"],
-        ["🇩🇯", "Djibouti", "+253"],
-        ["🇩🇲", "Dominica", "+1"],
-        ["🇩🇴", "Dominican Republic", "+1"],
+        ["🇩🇰","Denmark","+45"],
+        ["🇩🇯","Djibouti","+253"],
+        ["🇩🇲","Dominica","+1767"],
+        ["🇩🇴","Dominican Republic","+1809"],
+        ["🇪🇨","Ecuador","+593"],
+        ["🇪🇬","Egypt","+20"],
+        ["🇸🇻","El Salvador","+503"],
+        ["🇬🇶","Equatorial Guinea","+240"],
+        ["🇪🇷","Eritrea","+291"],
+        ["🇪🇪","Estonia","+372"],
+        ["🇸🇿","Eswatini","+268"],
+        ["🇪🇹","Ethiopia","+251"],
 
-        ["🇪🇨", "Ecuador", "+593"],
-        ["🇪🇬", "Egypt", "+20"],
-        ["🇸🇻", "El Salvador", "+503"],
-        ["🇬🇶", "Equatorial Guinea", "+240"],
-        ["🇪🇷", "Eritrea", "+291"],
-        ["🇪🇪", "Estonia", "+372"],
-        ["🇸🇿", "Eswatini", "+268"],
-        ["🇪🇹", "Ethiopia", "+251"],
+        ["🇫🇯","Fiji","+679"],
+        ["🇫🇮","Finland","+358"],
+        ["🇫🇷","France","+33"],
 
-        ["🇫🇯", "Fiji", "+679"],
-        ["🇫🇮", "Finland", "+358"],
-        ["🇫🇷", "France", "+33"],
+        ["🇬🇦","Gabon","+241"],
+        ["🇬🇲","Gambia","+220"],
+        ["🇬🇪","Georgia","+995"],
+        ["🇩🇪","Germany","+49"],
+        ["🇬🇭","Ghana","+233"],
+        ["🇬🇷","Greece","+30"],
+        ["🇬🇩","Grenada","+1473"],
+        ["🇬🇹","Guatemala","+502"],
+        ["🇬🇳","Guinea","+224"],
+        ["🇬🇼","Guinea-Bissau","+245"],
+        ["🇬🇾","Guyana","+592"],
 
-        ["🇬🇦", "Gabon", "+241"],
-        ["🇬🇲", "Gambia", "+220"],
-        ["🇬🇪", "Georgia", "+995"],
-        ["🇩🇪", "Germany", "+49"],
-        ["🇬🇭", "Ghana", "+233"],
-        ["🇬🇷", "Greece", "+30"],
-        ["🇬🇩", "Grenada", "+1"],
-        ["🇬🇹", "Guatemala", "+502"],
-        ["🇬🇳", "Guinea", "+224"],
-        ["🇬🇼", "Guinea-Bissau", "+245"],
-        ["🇬🇾", "Guyana", "+592"],
+        ["🇭🇹","Haiti","+509"],
+        ["🇭🇳","Honduras","+504"],
+        ["🇭🇺","Hungary","+36"],
 
-        ["🇭🇹", "Haiti", "+509"],
-        ["🇭🇳", "Honduras", "+504"],
-        ["🇭🇺", "Hungary", "+36"],
+        ["🇮🇸","Iceland","+354"],
+        ["🇮🇳","India","+91"],
+        ["🇮🇩","Indonesia","+62"],
+        ["🇮🇷","Iran","+98"],
+        ["🇮🇶","Iraq","+964"],
+        ["🇮🇪","Ireland","+353"],
+        ["🇮🇱","Israel","+972"],
+        ["🇮🇹","Italy","+39"],
 
-        ["🇮🇸", "Iceland", "+354"],
-        ["🇮🇳", "India", "+91"],
-        ["🇮🇩", "Indonesia", "+62"],
-        ["🇮🇷", "Iran", "+98"],
-        ["🇮🇶", "Iraq", "+964"],
-        ["🇮🇪", "Ireland", "+353"],
-        ["🇮🇱", "Israel", "+972"],
-        ["🇮🇹", "Italy", "+39"],
+        ["🇯🇲","Jamaica","+1876"],
+        ["🇯🇵","Japan","+81"],
+        ["🇯🇴","Jordan","+962"],
 
-        ["🇯🇲", "Jamaica", "+1"],
-        ["🇯🇵", "Japan", "+81"],
-        ["🇯🇴", "Jordan", "+962"],
+        ["🇰🇿","Kazakhstan","+7"],
+        ["🇰🇪","Kenya","+254"],
+        ["🇰🇮","Kiribati","+686"],
+        ["🇰🇼","Kuwait","+965"],
+        ["🇰🇬","Kyrgyzstan","+996"],
 
-        ["🇰🇿", "Kazakhstan", "+7"],
-        ["🇰🇪", "Kenya", "+254"],
-        ["🇰🇮", "Kiribati", "+686"],
-        ["🇰🇵", "North Korea", "+850"],
-        ["🇰🇷", "South Korea", "+82"],
-        ["🇰🇼", "Kuwait", "+965"],
-        ["🇰🇬", "Kyrgyzstan", "+996"],
+        ["🇱🇦","Laos","+856"],
+        ["🇱🇻","Latvia","+371"],
+        ["🇱🇧","Lebanon","+961"],
+        ["🇱🇸","Lesotho","+266"],
+        ["🇱🇷","Liberia","+231"],
+        ["🇱🇾","Libya","+218"],
+        ["🇱🇮","Liechtenstein","+423"],
+        ["🇱🇹","Lithuania","+370"],
+        ["🇱🇺","Luxembourg","+352"],
 
-        ["🇱🇦", "Laos", "+856"],
-        ["🇱🇻", "Latvia", "+371"],
-        ["🇱🇧", "Lebanon", "+961"],
-        ["🇱🇸", "Lesotho", "+266"],
-        ["🇱🇷", "Liberia", "+231"],
-        ["🇱🇾", "Libya", "+218"],
-        ["🇱🇮", "Liechtenstein", "+423"],
-        ["🇱🇹", "Lithuania", "+370"],
-        ["🇱🇺", "Luxembourg", "+352"],
+        ["🇲🇬","Madagascar","+261"],
+        ["🇲🇼","Malawi","+265"],
+        ["🇲🇾","Malaysia","+60"],
+        ["🇲🇻","Maldives","+960"],
+        ["🇲🇱","Mali","+223"],
+        ["🇲🇹","Malta","+356"],
+        ["🇲🇭","Marshall Islands","+692"],
+        ["🇲🇷","Mauritania","+222"],
+        ["🇲🇺","Mauritius","+230"],
+        ["🇲🇽","Mexico","+52"],
+        ["🇫🇲","Micronesia","+691"],
+        ["🇲🇩","Moldova","+373"],
+        ["🇲🇨","Monaco","+377"],
+        ["🇲🇳","Mongolia","+976"],
+        ["🇲🇪","Montenegro","+382"],
+        ["🇲🇦","Morocco","+212"],
+        ["🇲🇿","Mozambique","+258"],
+        ["🇲🇲","Myanmar","+95"],
 
-        ["🇲🇬", "Madagascar", "+261"],
-        ["🇲🇼", "Malawi", "+265"],
-        ["🇲🇾", "Malaysia", "+60"],
-        ["🇲🇻", "Maldives", "+960"],
-        ["🇲🇱", "Mali", "+223"],
-        ["🇲🇹", "Malta", "+356"],
-        ["🇲🇭", "Marshall Islands", "+692"],
-        ["🇲🇷", "Mauritania", "+222"],
-        ["🇲🇺", "Mauritius", "+230"],
-        ["🇲🇽", "Mexico", "+52"],
-        ["🇫🇲", "Micronesia", "+691"],
-        ["🇲🇩", "Moldova", "+373"],
-        ["🇲🇨", "Monaco", "+377"],
-        ["🇲🇳", "Mongolia", "+976"],
-        ["🇲🇪", "Montenegro", "+382"],
-        ["🇲🇦", "Morocco", "+212"],
-        ["🇲🇿", "Mozambique", "+258"],
-        ["🇲🇲", "Myanmar", "+95"],
+        ["🇳🇦","Namibia","+264"],
+        ["🇳🇷","Nauru","+674"],
+        ["🇳🇵","Nepal","+977"],
+        ["🇳🇱","Netherlands","+31"],
+        ["🇳🇿","New Zealand","+64"],
+        ["🇳🇮","Nicaragua","+505"],
+        ["🇳🇪","Niger","+227"],
+        ["🇳🇬","Nigeria","+234"],
+        ["🇰🇵","North Korea","+850"],
+        ["🇲🇰","North Macedonia","+389"],
+        ["🇳🇴","Norway","+47"],
 
-        ["🇳🇦", "Namibia", "+264"],
-        ["🇳🇷", "Nauru", "+674"],
-        ["🇳🇵", "Nepal", "+977"],
-        ["🇳🇱", "Netherlands", "+31"],
-        ["🇳🇿", "New Zealand", "+64"],
-        ["🇳🇮", "Nicaragua", "+505"],
-        ["🇳🇪", "Niger", "+227"],
-        ["🇳🇬", "Nigeria", "+234"],
-        ["🇲🇰", "North Macedonia", "+389"],
-        ["🇳🇴", "Norway", "+47"],
+        ["🇴🇲","Oman","+968"],
 
-        ["🇴🇲", "Oman", "+968"],
+        ["🇵🇰","Pakistan","+92"],
+        ["🇵🇼","Palau","+680"],
+        ["🇵🇸","Palestine","+970"],
+        ["🇵🇦","Panama","+507"],
+        ["🇵🇬","Papua New Guinea","+675"],
+        ["🇵🇾","Paraguay","+595"],
+        ["🇵🇪","Peru","+51"],
+        ["🇵🇭","Philippines","+63"],
+        ["🇵🇱","Poland","+48"],
+        ["🇵🇹","Portugal","+351"],
 
-        ["🇵🇰", "Pakistan", "+92"],
-        ["🇵🇼", "Palau", "+680"],
-        ["🇵🇦", "Panama", "+507"],
-        ["🇵🇬", "Papua New Guinea", "+675"],
-        ["🇵🇾", "Paraguay", "+595"],
-        ["🇵🇪", "Peru", "+51"],
-        ["🇵🇭", "Philippines", "+63"],
-        ["🇵🇱", "Poland", "+48"],
-        ["🇵🇹", "Portugal", "+351"],
+        ["🇶🇦","Qatar","+974"],
 
-        ["🇶🇦", "Qatar", "+974"],
+        ["🇷🇴","Romania","+40"],
+        ["🇷🇺","Russia","+7"],
+        ["🇷🇼","Rwanda","+250"],
 
-        ["🇷🇴", "Romania", "+40"],
-        ["🇷🇺", "Russia", "+7"],
-        ["🇷🇼", "Rwanda", "+250"],
+        ["🇰🇳","Saint Kitts and Nevis","+1869"],
+        ["🇱🇨","Saint Lucia","+1758"],
+        ["🇻🇨","Saint Vincent and the Grenadines","+1784"],
+        ["🇼🇸","Samoa","+685"],
+        ["🇸🇲","San Marino","+378"],
+        ["🇸🇹","São Tomé and Príncipe","+239"],
+        ["🇸🇦","Saudi Arabia","+966"],
+        ["🇸🇳","Senegal","+221"],
+        ["🇷🇸","Serbia","+381"],
+        ["🇸🇨","Seychelles","+248"],
+        ["🇸🇱","Sierra Leone","+232"],
+        ["🇸🇬","Singapore","+65"],
+        ["🇸🇰","Slovakia","+421"],
+        ["🇸🇮","Slovenia","+386"],
+        ["🇸🇧","Solomon Islands","+677"],
+        ["🇸🇴","Somalia","+252"],
+        ["🇿🇦","South Africa","+27"],
+        ["🇰🇷","South Korea","+82"],
+        ["🇸🇸","South Sudan","+211"],
+        ["🇪🇸","Spain","+34"],
+        ["🇱🇰","Sri Lanka","+94"],
+        ["🇸🇩","Sudan","+249"],
+        ["🇸🇷","Suriname","+597"],
+        ["🇸🇪","Sweden","+46"],
+        ["🇨🇭","Switzerland","+41"],
+        ["🇸🇾","Syria","+963"],
 
-        ["🇰🇳", "Saint Kitts and Nevis", "+1"],
-        ["🇱🇨", "Saint Lucia", "+1"],
-        ["🇻🇨", "Saint Vincent and the Grenadines", "+1"],
-        ["🇼🇸", "Samoa", "+685"],
-        ["🇸🇲", "San Marino", "+378"],
-        ["🇸🇹", "Sao Tome and Principe", "+239"],
-        ["🇸🇦", "Saudi Arabia", "+966"],
-        ["🇸🇳", "Senegal", "+221"],
-        ["🇷🇸", "Serbia", "+381"],
-        ["🇸🇨", "Seychelles", "+248"],
-        ["🇸🇱", "Sierra Leone", "+232"],
-        ["🇸🇬", "Singapore", "+65"],
-        ["🇸🇰", "Slovakia", "+421"],
-        ["🇸🇮", "Slovenia", "+386"],
-        ["🇸🇧", "Solomon Islands", "+677"],
-        ["🇸🇴", "Somalia", "+252"],
-        ["🇿🇦", "South Africa", "+27"],
-        ["🇸🇸", "South Sudan", "+211"],
-        ["🇪🇸", "Spain", "+34"],
-        ["🇱🇰", "Sri Lanka", "+94"],
-        ["🇸🇩", "Sudan", "+249"],
-        ["🇸🇷", "Suriname", "+597"],
-        ["🇸🇪", "Sweden", "+46"],
-        ["🇨🇭", "Switzerland", "+41"],
-        ["🇸🇾", "Syria", "+963"],
+        ["🇹🇼","Taiwan","+886"],
+        ["🇹🇯","Tajikistan","+992"],
+        ["🇹🇿","Tanzania","+255"],
+        ["🇹🇭","Thailand","+66"],
+        ["🇹🇱","Timor-Leste","+670"],
+        ["🇹🇬","Togo","+228"],
+        ["🇹🇴","Tonga","+676"],
+        ["🇹🇹","Trinidad and Tobago","+1868"],
+        ["🇹🇳","Tunisia","+216"],
+        ["🇹🇷","Turkey","+90"],
+        ["🇹🇲","Turkmenistan","+993"],
+        ["🇹🇻","Tuvalu","+688"],
 
-        ["🇹🇼", "Taiwan", "+886"],
-        ["🇹🇯", "Tajikistan", "+992"],
-        ["🇹🇿", "Tanzania", "+255"],
-        ["🇹🇭", "Thailand", "+66"],
-        ["🇹🇱", "Timor-Leste", "+670"],
-        ["🇹🇬", "Togo", "+228"],
-        ["🇹🇴", "Tonga", "+676"],
-        ["🇹🇹", "Trinidad and Tobago", "+1"],
-        ["🇹🇳", "Tunisia", "+216"],
-        ["🇹🇷", "Turkey", "+90"],
-        ["🇹🇲", "Turkmenistan", "+993"],
-        ["🇹🇻", "Tuvalu", "+688"],
+        ["🇺🇬","Uganda","+256"],
+        ["🇺🇦","Ukraine","+380"],
+        ["🇦🇪","United Arab Emirates","+971"],
+        ["🇬🇧","United Kingdom","+44"],
+        ["🇺🇸","United States","+1"],
+        ["🇺🇾","Uruguay","+598"],
+        ["🇺🇿","Uzbekistan","+998"],
 
-        ["🇺🇬", "Uganda", "+256"],
-        ["🇺🇦", "Ukraine", "+380"],
-        ["🇦🇪", "United Arab Emirates", "+971"],
-        ["🇬🇧", "United Kingdom", "+44"],
-        ["🇺🇸", "United States", "+1"],
-        ["🇺🇾", "Uruguay", "+598"],
-        ["🇺🇿", "Uzbekistan", "+998"],
+        ["🇻🇺","Vanuatu","+678"],
+        ["🇻🇦","Vatican City","+39"],
+        ["🇻🇪","Venezuela","+58"],
+        ["🇻🇳","Vietnam","+84"],
 
-        ["🇻🇺", "Vanuatu", "+678"],
-        ["🇻🇦", "Vatican City", "+39"],
-        ["🇻🇪", "Venezuela", "+58"],
-        ["🇻🇳", "Vietnam", "+84"],
+        ["🇾🇪","Yemen","+967"],
 
-        ["🇾🇪", "Yemen", "+967"],
-
-        ["🇿🇲", "Zambia", "+260"],
-        ["🇿🇼", "Zimbabwe", "+263"]
+        ["🇿🇲","Zambia","+260"],
+        ["🇿🇼","Zimbabwe","+263"]
 
     ];
 
@@ -306,27 +311,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       OTP
+       BUILD COUNTRY LIST
     ===================================================== */
 
-    let generatedOTP = "";
-
-
-
-    /* =====================================================
-       RENDER COUNTRIES
-    ===================================================== */
-
-    function renderCountries(list = countries) {
+    function renderCountries(search = "") {
 
         countryList.innerHTML = "";
 
-        if (!list.length) {
+        const keyword =
+            search.toLowerCase().trim();
+
+        const filtered =
+            countries.filter(country => {
+
+                return (
+                    country[1]
+                        .toLowerCase()
+                        .includes(keyword)
+                    ||
+                    country[2]
+                        .includes(keyword)
+                );
+
+            });
+
+
+        if (!filtered.length) {
 
             countryList.innerHTML = `
                 <div class="no-country">
                     <i class="fa-solid fa-earth-africa"></i>
-                    <p>No country found</p>
+                    <span>Country not found</span>
                 </div>
             `;
 
@@ -334,9 +349,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        list.forEach(country => {
-
-            const [flag, name, code] = country;
+        filtered.forEach(country => {
 
             const item =
                 document.createElement("button");
@@ -349,15 +362,15 @@ document.addEventListener("DOMContentLoaded", () => {
             item.innerHTML = `
 
                 <span class="country-item-flag">
-                    ${flag}
+                    ${country[0]}
                 </span>
 
                 <span class="country-item-name">
-                    ${name}
+                    ${country[1]}
                 </span>
 
                 <span class="country-item-code">
-                    ${code}
+                    ${country[2]}
                 </span>
 
             `;
@@ -365,11 +378,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             item.addEventListener("click", () => {
 
-                selectCountry(
-                    flag,
-                    name,
-                    code
-                );
+                selectCountry(country);
 
             });
 
@@ -381,473 +390,390 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-
     /* =====================================================
        SELECT COUNTRY
     ===================================================== */
 
-    function selectCountry(flag, name, code) {
+    function selectCountry(country) {
 
         selectedCountry = {
-            flag,
-            name,
-            code
+
+            flag: country[0],
+            name: country[1],
+            code: country[2]
+
         };
 
 
         countryFlag.textContent =
-            flag;
+            country[0];
 
         countryCode.textContent =
-            code;
+            country[2];
 
 
-        phoneNumber.value = "";
+        countryDropdown.classList.remove("show");
+
+        countryOverlay.classList.remove("show");
 
 
-        closeCountryDropdown();
+        countrySearch.value = "";
 
 
-        phoneNumber.focus();
+        renderCountries();
 
 
-        showPhoneSuccess();
+        phoneInput.focus();
+
+
+        /* animation */
+
+        countrySelector.classList.add("country-selected");
+
+        setTimeout(() => {
+
+            countrySelector.classList.remove(
+                "country-selected"
+            );
+
+        }, 600);
 
     }
-
 
 
     /* =====================================================
        OPEN COUNTRY DROPDOWN
     ===================================================== */
 
-    function openCountryDropdown() {
+    countrySelector.addEventListener("click", () => {
 
-        countryDropdown.classList.add("open");
+        countryDropdown.classList.toggle("show");
 
-        countryOverlay.classList.add("open");
-
-        document.body.classList.add(
-            "country-open"
+        countryOverlay.classList.toggle(
+            "show",
+            countryDropdown.classList.contains("show")
         );
 
 
-        countrySearch.value = "";
-
-        renderCountries();
-
-        setTimeout(() => {
+        if (
+            countryDropdown.classList.contains("show")
+        ) {
 
             countrySearch.focus();
 
-        }, 150);
+        }
 
-    }
-
+    });
 
 
     /* =====================================================
-       CLOSE COUNTRY DROPDOWN
+       CLOSE DROPDOWN
     ===================================================== */
 
-    function closeCountryDropdown() {
+    countryOverlay.addEventListener("click", () => {
 
-        countryDropdown.classList.remove("open");
+        countryDropdown.classList.remove("show");
 
-        countryOverlay.classList.remove("open");
+        countryOverlay.classList.remove("show");
 
-        document.body.classList.remove(
-            "country-open"
+    });
+
+
+    /* =====================================================
+       SEARCH COUNTRY
+    ===================================================== */
+
+    countrySearch.addEventListener("input", () => {
+
+        renderCountries(
+            countrySearch.value
         );
 
-    }
-
+    });
 
 
     /* =====================================================
-       COUNTRY BUTTON
+       ESC CLOSE
     ===================================================== */
 
-    countrySelector.addEventListener(
-        "click",
-        (event) => {
+    document.addEventListener("keydown", event => {
 
-            event.stopPropagation();
+        if (event.key === "Escape") {
 
-            if (
-                countryDropdown.classList.contains("open")
-            ) {
+            countryDropdown.classList.remove("show");
 
-                closeCountryDropdown();
-
-            } else {
-
-                openCountryDropdown();
-
-            }
+            countryOverlay.classList.remove("show");
 
         }
-    );
 
-
-
-    /* =====================================================
-       OVERLAY CLOSE
-    ===================================================== */
-
-    countryOverlay.addEventListener(
-        "click",
-        closeCountryDropdown
-    );
-
+    });
 
 
     /* =====================================================
-       SEARCH COUNTRIES
+       PHONE FORMATTING
     ===================================================== */
 
-    countrySearch.addEventListener(
-        "input",
-        () => {
+    phoneInput.addEventListener("input", () => {
 
-            const query =
-                countrySearch.value
-                    .trim()
-                    .toLowerCase();
+        let value =
+            phoneInput.value.replace(/\D/g, "");
 
 
-            const filtered =
-                countries.filter(country => {
+        /*
+         * Limit local number.
+         */
 
-                    const name =
-                        country[1].toLowerCase();
-
-                    const code =
-                        country[2];
-
-                    return (
-                        name.includes(query) ||
-                        code.includes(query)
-                    );
-
-                });
+        value =
+            value.substring(0, 15);
 
 
-            renderCountries(filtered);
+        /*
+         * Pretty spacing
+         */
 
-        }
-    );
-
-
-
-    /* =====================================================
-       CLOSE WHEN CLICK OUTSIDE
-    ===================================================== */
-
-    document.addEventListener(
-        "click",
-        event => {
-
-            if (
-                countryDropdown.classList.contains("open") &&
-                !countryDropdown.contains(event.target) &&
-                !countrySelector.contains(event.target)
-            ) {
-
-                closeCountryDropdown();
-
-            }
-
-        }
-    );
+        let formatted =
+            value.match(/.{1,3}/g);
 
 
-
-    /* =====================================================
-       PHONE INPUT
-    ===================================================== */
-
-    phoneNumber.addEventListener(
-        "input",
-        () => {
-
-            /* Numbers only */
-
-            let value =
-                phoneNumber.value.replace(/\D/g, "");
+        phoneInput.value =
+            formatted
+                ? formatted.join(" ")
+                : "";
 
 
-            /*
-             * Limit to 15 digits
-             */
+        hidePhoneError();
 
-            value =
-                value.substring(0, 15);
-
-
-            phoneNumber.value =
-                value;
-
-
-            if (value.length > 0) {
-
-                validatePhone(false);
-
-            } else {
-
-                hidePhoneError();
-
-            }
-
-        }
-    );
-
+    });
 
 
     /* =====================================================
        PHONE VALIDATION
     ===================================================== */
 
-    function validatePhone(showError = true) {
+    function getCleanPhone() {
 
-        const number =
-            phoneNumber.value.replace(/\D/g, "");
-
-
-        /*
-         * Basic international validation.
-         * Country code is handled separately.
-         */
-
-        if (
-            number.length >= 6 &&
-            number.length <= 15
-        ) {
-
-            showPhoneSuccess();
-
-            return true;
-
-        }
-
-
-        if (showError) {
-
-            showPhoneError();
-
-        }
-
-
-        return false;
+        return phoneInput.value
+            .replace(/\D/g, "");
 
     }
 
 
-
-    /* =====================================================
-       PHONE ERROR
-    ===================================================== */
-
-    function showPhoneError() {
-
-        phoneError.classList.add("show");
-
-        phoneNumber.classList.add("invalid");
-
-        phoneNumber.classList.remove("valid");
-
-    }
-
-
-
-    /* =====================================================
-       PHONE SUCCESS
-    ===================================================== */
-
-    function showPhoneSuccess() {
-
-        phoneError.classList.remove("show");
-
-        phoneNumber.classList.remove("invalid");
-
-        if (
-            phoneNumber.value.length >= 6
-        ) {
-
-            phoneNumber.classList.add(
-                "valid"
-            );
-
-        }
-
-    }
-
-
-
-    /* =====================================================
-       HIDE ERROR
-    ===================================================== */
-
-    function hidePhoneError() {
-
-        phoneError.classList.remove("show");
-
-        phoneNumber.classList.remove(
-            "invalid",
-            "valid"
-        );
-
-    }
-
-
-
-    /* =====================================================
-       GENERATE OTP
-    ===================================================== */
-
-    function generateOTP() {
-
-        generatedOTP =
-            Math.floor(
-                100000 +
-                Math.random() * 900000
-            ).toString();
-
-
-        console.log(
-            "CHAPCY TEST OTP:",
-            generatedOTP
-        );
-
-
-        return generatedOTP;
-
-    }
-
-
-
-    /* =====================================================
-       FORMAT PHONE
-    ===================================================== */
-
-    function getFullPhoneNumber() {
-
-        const number =
-            phoneNumber.value.replace(
-                /\D/g,
-                ""
-            );
-
+    function getFullPhone() {
 
         return (
             selectedCountry.code +
-            number
+            getCleanPhone()
         );
 
     }
 
 
+    function validatePhone() {
 
-    /* =====================================================
-       REGISTER SUBMIT
-    ===================================================== */
+        const phone =
+            getCleanPhone();
 
-    registerForm.addEventListener(
-        "submit",
-        event => {
-
-            event.preventDefault();
-
-
-            if (
-                !validatePhone(true)
-            ) {
-
-                phoneNumber.focus();
-
-                return;
-
-            }
-
-
-            const fullNumber =
-                getFullPhoneNumber();
-
-
-            /*
-             * Loading animation
-             */
-
-            continueBtn.classList.add(
-                "loading"
-            );
-
-            continueLoader.classList.add(
-                "show"
-            );
-
-
-            continueBtn.disabled = true;
-
-
-            /*
-             * Generate OTP
-             */
-
-            generateOTP();
-
-
-            /*
-             * Save temporary registration
-             */
-
-            localStorage.setItem(
-                "chapcyRegistrationPhone",
-                fullNumber
-            );
-
-            localStorage.setItem(
-                "chapcyRegistrationCountry",
-                selectedCountry.name
-            );
-
-
-            /*
-             * Simulate verification request
-             */
-
-            setTimeout(() => {
-
-                continueBtn.classList.remove(
-                    "loading"
-                );
-
-                continueLoader.classList.remove(
-                    "show"
-                );
-
-                continueBtn.disabled = false;
-
-
-                showVerification(
-                    fullNumber
-                );
-
-            }, 1400);
-
-        }
-    );
-
-
-
-    /* =====================================================
-       SHOW VERIFICATION
-    ===================================================== */
-
-    function showVerification(number) {
 
         /*
-         * Hide register card
+         * Basic worldwide validation.
+         * Country-specific validation can later
+         * be upgraded using libphonenumber.
+         */
+
+        if (!phone.length) {
+
+            showPhoneError(
+                "Please enter your phone number."
+            );
+
+            return false;
+
+        }
+
+
+        if (phone.length < 6) {
+
+            showPhoneError(
+                "Phone number is too short."
+            );
+
+            return false;
+
+        }
+
+
+        if (phone.length > 15) {
+
+            showPhoneError(
+                "Phone number is too long."
+            );
+
+            return false;
+
+        }
+
+
+        return true;
+
+    }
+
+
+    function showPhoneError(message) {
+
+        if (!phoneError) return;
+
+        const text =
+            phoneError.querySelector("span");
+
+        if (text) {
+
+            text.textContent = message;
+
+        }
+
+        phoneError.classList.add("show");
+
+        phoneInput.classList.add("input-error");
+
+    }
+
+
+    function hidePhoneError() {
+
+        if (!phoneError) return;
+
+        phoneError.classList.remove("show");
+
+        phoneInput.classList.remove(
+            "input-error"
+        );
+
+    }
+
+
+    /* =====================================================
+       REGISTER STORAGE
+    ===================================================== */
+
+    function getRegisteredUsers() {
+
+        try {
+
+            return JSON.parse(
+                localStorage.getItem(
+                    "chapcyRegisteredUsers"
+                )
+            ) || [];
+
+        } catch {
+
+            return [];
+
+        }
+
+    }
+
+
+    function saveRegistration(phone) {
+
+        const users =
+            getRegisteredUsers();
+
+
+        /*
+         * Prevent duplicate registration.
+         */
+
+        const exists =
+            users.some(
+                user =>
+                    user.phone === phone
+            );
+
+
+        if (!exists) {
+
+            users.push({
+
+                phone: phone,
+
+                country:
+                    selectedCountry.name,
+
+                countryCode:
+                    selectedCountry.code,
+
+                flag:
+                    selectedCountry.flag,
+
+                registeredAt:
+                    new Date().toISOString()
+
+            });
+
+
+            localStorage.setItem(
+                "chapcyRegisteredUsers",
+                JSON.stringify(users)
+            );
+
+        }
+
+    }
+
+
+    /* =====================================================
+       CONTINUE BUTTON ANIMATION
+    ===================================================== */
+
+    function startLoading() {
+
+        continueBtn.disabled = true;
+
+        continueText.style.display = "none";
+
+        continueArrow.style.display = "none";
+
+        continueLoader.classList.add("show");
+
+        continueBtn.classList.add(
+            "loading"
+        );
+
+    }
+
+
+    function stopLoading() {
+
+        continueBtn.disabled = false;
+
+        continueText.style.display = "";
+
+        continueArrow.style.display = "";
+
+        continueLoader.classList.remove("show");
+
+        continueBtn.classList.remove(
+            "loading"
+        );
+
+    }
+
+
+    /* =====================================================
+       OPEN VERIFICATION
+    ===================================================== */
+
+    function openVerification(fullPhone) {
+
+        verificationNumber.textContent =
+            formatInternationalNumber(
+                fullPhone
+            );
+
+
+        /*
+         * Hide registration card
          */
 
         const registerCard =
@@ -855,35 +781,42 @@ document.addEventListener("DOMContentLoaded", () => {
                 ".register-card"
             );
 
-        const securityNote =
+        const brand =
+            document.querySelector(
+                ".brand-section"
+            );
+
+        const security =
             document.querySelector(
                 ".security-note"
             );
 
+
         if (registerCard) {
 
             registerCard.classList.add(
-                "hide-register"
+                "register-hidden"
             );
 
         }
 
 
-        if (securityNote) {
+        if (brand) {
 
-            securityNote.classList.add(
-                "hide-register"
+            brand.classList.add(
+                "brand-hidden"
             );
 
         }
 
 
-        /*
-         * Number
-         */
+        if (security) {
 
-        verificationNumber.textContent =
-            number;
+            security.classList.add(
+                "security-hidden"
+            );
+
+        }
 
 
         /*
@@ -896,245 +829,237 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         /*
-         * Reset OTP
+         * Scroll to verification
          */
-
-        otpInputs.forEach(input => {
-
-            input.value = "";
-
-        });
-
 
         setTimeout(() => {
 
-            if (otpInputs[0]) {
+            verificationSection.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
 
-                otpInputs[0].focus();
+        }, 200);
+
+    }
+
+
+    /* =====================================================
+       FORMAT INTERNATIONAL NUMBER
+    ===================================================== */
+
+    function formatInternationalNumber(number) {
+
+        const code =
+            selectedCountry.code;
+
+        const local =
+            getCleanPhone();
+
+
+        return `${code} ${local}`;
+
+    }
+
+
+    /* =====================================================
+       REGISTER SUBMIT
+    ===================================================== */
+
+    form.addEventListener("submit", event => {
+
+        event.preventDefault();
+
+
+        if (!validatePhone()) {
+
+            phoneInput.focus();
+
+            return;
+
+        }
+
+
+        const fullPhone =
+            getFullPhone();
+
+
+        /*
+         * Save locally.
+         */
+
+        saveRegistration(fullPhone);
+
+
+        /*
+         * Button animation.
+         */
+
+        startLoading();
+
+
+        /*
+         * Simulated secure processing.
+         */
+
+        setTimeout(() => {
+
+            stopLoading();
+
+            openVerification(
+                fullPhone
+            );
+
+        }, 1800);
+
+    });
+
+
+    /* =====================================================
+       OTP SYSTEM
+    ===================================================== */
+
+    const otpInputs =
+        Array.from(
+            document.querySelectorAll(
+                ".otp-input"
+            )
+        );
+
+
+    otpInputs.forEach((input, index) => {
+
+
+        input.addEventListener(
+            "input",
+            event => {
+
+                let value =
+                    event.target.value
+                        .replace(/\D/g, "")
+                        .slice(0, 1);
+
+
+                event.target.value =
+                    value;
+
+
+                if (
+                    value &&
+                    index <
+                    otpInputs.length - 1
+                ) {
+
+                    otpInputs[index + 1]
+                        .focus();
+
+                }
 
             }
+        );
 
-        }, 500);
+
+        input.addEventListener(
+            "keydown",
+            event => {
+
+                if (
+                    event.key === "Backspace" &&
+                    !input.value &&
+                    index > 0
+                ) {
+
+                    otpInputs[index - 1]
+                        .focus();
+
+                }
+
+            }
+        );
+
+
+        input.addEventListener(
+            "paste",
+            event => {
+
+                event.preventDefault();
+
+
+                const pasted =
+                    (
+                        event.clipboardData ||
+                        window.clipboardData
+                    )
+                    .getData("text")
+                    .replace(/\D/g, "")
+                    .slice(
+                        0,
+                        otpInputs.length
+                    );
+
+
+                pasted.split("").forEach(
+                    (digit, i) => {
+
+                        if (
+                            otpInputs[i]
+                        ) {
+
+                            otpInputs[i]
+                                .value = digit;
+
+                        }
+
+                    }
+                );
+
+
+                const last =
+                    Math.min(
+                        pasted.length,
+                        otpInputs.length
+                    ) - 1;
+
+
+                if (last >= 0) {
+
+                    otpInputs[last]
+                        .focus();
+
+                }
+
+            }
+        );
+
+    });
+
+
+    /* =====================================================
+       GET OTP
+    ===================================================== */
+
+    function getOTP() {
+
+        return otpInputs
+            .map(input => input.value)
+            .join("");
 
     }
 
 
-
     /* =====================================================
-       OTP INPUT
-    ===================================================== */
-
-    otpInputs.forEach(
-        (input, index) => {
-
-            input.addEventListener(
-                "input",
-                event => {
-
-                    let value =
-                        event.target.value
-                            .replace(/\D/g, "");
-
-                    event.target.value =
-                        value.slice(0, 1);
-
-
-                    if (
-                        value &&
-                        index <
-                        otpInputs.length - 1
-                    ) {
-
-                        otpInputs[index + 1].focus();
-
-                    }
-
-
-                    updateOTPState();
-
-                }
-            );
-
-
-            /*
-             * Backspace
-             */
-
-            input.addEventListener(
-                "keydown",
-                event => {
-
-                    if (
-                        event.key === "Backspace" &&
-                        !input.value &&
-                        index > 0
-                    ) {
-
-                        otpInputs[
-                            index - 1
-                        ].focus();
-
-                    }
-
-                }
-            );
-
-
-            /*
-             * Paste OTP
-             */
-
-            input.addEventListener(
-                "paste",
-                event => {
-
-                    event.preventDefault();
-
-
-                    const pasted =
-                        event.clipboardData
-                            .getData("text")
-                            .replace(/\D/g, "")
-                            .slice(0, 6);
-
-
-                    pasted
-                        .split("")
-                        .forEach(
-                            (digit, i) => {
-
-                                if (
-                                    otpInputs[i]
-                                ) {
-
-                                    otpInputs[i].value =
-                                        digit;
-
-                                }
-
-                            }
-                        );
-
-
-                    const nextEmpty =
-                        Array.from(
-                            otpInputs
-                        ).find(
-                            item =>
-                                !item.value
-                        );
-
-
-                    if (nextEmpty) {
-
-                        nextEmpty.focus();
-
-                    } else {
-
-                        otpInputs[
-                            otpInputs.length - 1
-                        ].focus();
-
-                    }
-
-
-                    updateOTPState();
-
-                }
-            );
-
-        }
-    );
-
-
-
-    /* =====================================================
-       GET ENTERED OTP
-    ===================================================== */
-
-    function getEnteredOTP() {
-
-        return Array.from(
-            otpInputs
-        )
-        .map(input => input.value)
-        .join("");
-
-    }
-
-
-
-    /* =====================================================
-       OTP STATE
-    ===================================================== */
-
-    function updateOTPState() {
-
-        const otp =
-            getEnteredOTP();
-
-
-        if (
-            otp.length === 6
-        ) {
-
-            verifyBtn.classList.add(
-                "ready"
-            );
-
-        } else {
-
-            verifyBtn.classList.remove(
-                "ready"
-            );
-
-        }
-
-    }
-
-
-
-    /* =====================================================
-       VERIFY OTP
+       VERIFY BUTTON
     ===================================================== */
 
     verifyBtn.addEventListener(
         "click",
         () => {
 
-            const enteredOTP =
-                getEnteredOTP();
+            const otp =
+                getOTP();
 
 
-            if (
-                enteredOTP.length !== 6
-            ) {
-
-                showOTPMessage(
-                    "Please enter all 6 digits."
-                );
-
-                return;
-
-            }
-
-
-            /*
-             * TEST MODE
-             *
-             * In real Firebase setup,
-             * this section will use
-             * Firebase Phone Auth.
-             */
-
-            if (
-                enteredOTP !== generatedOTP
-            ) {
-
-                showOTPMessage(
-                    "Incorrect verification code."
-                );
-
+            if (otp.length !== 6) {
 
                 otpInputs.forEach(input => {
 
@@ -1164,165 +1089,201 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             /*
-             * Correct OTP
+             * Loading animation
              */
-
-            verifyBtn.classList.add(
-                "loading"
-            );
 
             verifyBtn.disabled = true;
 
+            verifyBtn.classList.add(
+                "verifying"
+            );
+
+            verifyBtn.innerHTML = `
+                <i class="fa-solid fa-circle-notch fa-spin"></i>
+                Verifying...
+            `;
+
+
+            /*
+             * Demo verification.
+             *
+             * Later this part will connect
+             * to Firebase Phone Authentication.
+             */
 
             setTimeout(() => {
 
-                completeVerification();
+                showSuccess();
 
-            }, 1000);
+            }, 1800);
 
         }
     );
 
 
-
     /* =====================================================
-       OTP MESSAGE
+       SUCCESS
     ===================================================== */
 
-    function showOTPMessage(message) {
-
-        let messageBox =
-            document.getElementById(
-                "otpMessage"
-            );
-
-
-        if (!messageBox) {
-
-            messageBox =
-                document.createElement("div");
-
-            messageBox.id =
-                "otpMessage";
-
-            messageBox.className =
-                "otp-message";
-
-
-            verificationSection.appendChild(
-                messageBox
-            );
-
-        }
-
-
-        messageBox.textContent =
-            message;
-
-
-        messageBox.classList.add(
-            "show"
-        );
-
-
-        setTimeout(() => {
-
-            messageBox.classList.remove(
-                "show"
-            );
-
-        }, 2500);
-
-    }
-
-
-
-    /* =====================================================
-       COMPLETE VERIFICATION
-    ===================================================== */
-
-    function completeVerification() {
-
-        localStorage.setItem(
-            "chapcyVerified",
-            "true"
-        );
-
-
-        localStorage.setItem(
-            "chapcyPhone",
-            getFullPhoneNumber()
-        );
-
+    function showSuccess() {
 
         verificationSection.classList.remove(
             "show"
         );
 
 
+        successSection.classList.add(
+            "show"
+        );
+
+
+        /*
+         * Mark user as verified.
+         */
+
+        localStorage.setItem(
+            "chapcyPhoneVerified",
+            "true"
+        );
+
+
+        localStorage.setItem(
+            "chapcyCurrentPhone",
+            getFullPhone()
+        );
+
+
+        /*
+         * Celebration particles
+         */
+
+        createCelebration();
+
+
         setTimeout(() => {
 
-            successSection.classList.add(
-                "show"
-            );
+            successSection.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
 
-        }, 300);
+        }, 150);
 
     }
 
 
-
     /* =====================================================
-       RESEND OTP
+       CELEBRATION
     ===================================================== */
 
-    let resendCooldown = 0;
+    function createCelebration() {
+
+        const container =
+            document.createElement("div");
+
+        container.className =
+            "celebration-container";
+
+
+        for (
+            let i = 0;
+            i < 40;
+            i++
+        ) {
+
+            const particle =
+                document.createElement("span");
+
+
+            particle.className =
+                "celebration-particle";
+
+
+            particle.style.setProperty(
+                "--x",
+                `${(Math.random() - 0.5) * 500}px`
+            );
+
+
+            particle.style.setProperty(
+                "--y",
+                `${(Math.random() - 0.5) * 500}px`
+            );
+
+
+            particle.style.setProperty(
+                "--delay",
+                `${Math.random() * 0.5}s`
+            );
+
+
+            container.appendChild(
+                particle
+            );
+
+        }
+
+
+        document.body.appendChild(
+            container
+        );
+
+
+        setTimeout(() => {
+
+            container.remove();
+
+        }, 2500);
+
+    }
+
+
+    /* =====================================================
+       RESEND
+    ===================================================== */
+
+    let resendCooldown = false;
+
 
     resendBtn.addEventListener(
         "click",
         () => {
 
-            if (
-                resendCooldown > 0
-            ) {
-
-                return;
-
-            }
+            if (resendCooldown) return;
 
 
-            generateOTP();
+            resendCooldown = true;
+
+            let seconds = 30;
 
 
-            showOTPMessage(
-                "A new verification code has been generated."
-            );
+            resendBtn.disabled = true;
 
-
-            resendCooldown = 30;
-
-
-            const originalText =
-                "Resend";
+            resendBtn.textContent =
+                `Resend (${seconds})`;
 
 
             const timer =
                 setInterval(() => {
 
+                    seconds--;
+
+
                     resendBtn.textContent =
-                        `Resend (${resendCooldown})`;
-
-                    resendCooldown--;
+                        `Resend (${seconds})`;
 
 
-                    if (
-                        resendCooldown < 0
-                    ) {
+                    if (seconds <= 0) {
 
                         clearInterval(timer);
 
+                        resendCooldown = false;
+
+                        resendBtn.disabled =
+                            false;
+
                         resendBtn.textContent =
-                            originalText;
+                            "Resend";
 
                     }
 
@@ -1330,7 +1291,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         }
     );
-
 
 
     /* =====================================================
@@ -1341,32 +1301,81 @@ document.addEventListener("DOMContentLoaded", () => {
         "click",
         () => {
 
+            enterChapcyBtn.classList.add(
+                "entering"
+            );
+
+
             /*
-             * Change this to your real
-             * CHAPCY chat/home page.
+             * Change this filename if your
+             * main CHAPCY page has another name.
              */
 
-            window.location.href =
-                "index.html";
+            setTimeout(() => {
+
+                window.location.href =
+                    "index.html";
+
+            }, 900);
 
         }
     );
 
 
-
     /* =====================================================
-       KEYBOARD COUNTRY SEARCH
+       LOGO INTERACTION
     ===================================================== */
 
-    countrySearch.addEventListener(
-        "keydown",
-        event => {
+    const logo =
+        document.querySelector(
+            ".chapcy-logo"
+        );
 
-            if (
-                event.key === "Escape"
-            ) {
 
-                closeCountryDropdown();
+    if (logo) {
+
+        logo.addEventListener(
+            "click",
+            () => {
+
+                logo.classList.add(
+                    "logo-burst"
+                );
+
+
+                setTimeout(() => {
+
+                    logo.classList.remove(
+                        "logo-burst"
+                    );
+
+                }, 800);
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       PHONE FOCUS EFFECT
+    ===================================================== */
+
+    phoneInput.addEventListener(
+        "focus",
+        () => {
+
+            const wrapper =
+                document.querySelector(
+                    ".phone-input-wrapper"
+                );
+
+
+            if (wrapper) {
+
+                wrapper.classList.add(
+                    "phone-focused"
+                );
 
             }
 
@@ -1374,30 +1383,67 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 
+    phoneInput.addEventListener(
+        "blur",
+        () => {
+
+            const wrapper =
+                document.querySelector(
+                    ".phone-input-wrapper"
+                );
+
+
+            if (wrapper) {
+
+                wrapper.classList.remove(
+                    "phone-focused"
+                );
+
+            }
+
+        }
+    );
+
 
     /* =====================================================
-       INITIALIZE
+       INITIALIZE COUNTRIES
     ===================================================== */
 
     renderCountries();
 
 
-    /*
-     * Tanzania default
-     */
+    /* =====================================================
+       INITIAL PHONE STATE
+    ===================================================== */
 
-    selectCountry(
-        "🇹🇿",
-        "Tanzania",
-        "+255"
+    countryFlag.textContent =
+        selectedCountry.flag;
+
+    countryCode.textContent =
+        selectedCountry.code;
+
+
+    /* =====================================================
+       PAGE READY ANIMATION
+    ===================================================== */
+
+    document.body.classList.add(
+        "chapcy-page-ready"
     );
 
 
-    /*
-     * Don't keep dropdown open
-     */
+    /* =====================================================
+       PREVENT DOUBLE SUBMIT
+    ===================================================== */
 
-    closeCountryDropdown();
+    window.addEventListener(
+        "beforeunload",
+        () => {
+
+            continueBtn.disabled = false;
+
+        }
+    );
 
 
     console.log(
