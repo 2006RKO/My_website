@@ -1,443 +1,486 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#030712">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <title>CHAPCY — Create Account</title>
 
-    <title>CHAPCY • Register</title>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
-    <!-- Google Font -->
-    <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com"
-    >
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
 
-    <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com"
-        crossorigin
-    >
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet"
-    >
-
-    <!-- Font Awesome -->
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-    >
-
-    <!-- CHAPCY Register CSS -->
-    <link
-        rel="stylesheet"
-        href="Mychatregister.css"
-    >
-
+    <link rel="stylesheet" href="Mychatregister.css">
 </head>
-
 
 <body>
 
+<!-- =====================================================
+     REALISTIC CHAPCY WORLD BACKGROUND
+===================================================== -->
 
-    <!-- =====================================================
-         BACKGROUND
-    ====================================================== -->
+<div class="space-background">
 
-    <div class="space-background"></div>
+    <div class="stars stars-one"></div>
+    <div class="stars stars-two"></div>
+    <div class="stars stars-three"></div>
 
-    <div class="aurora aurora-one"></div>
-    <div class="aurora aurora-two"></div>
-    <div class="aurora aurora-three"></div>
+    <div class="nebula nebula-blue"></div>
+    <div class="nebula nebula-purple"></div>
 
+    <div class="earth-glow"></div>
 
-    <!-- =====================================================
-         PARTICLES
-    ====================================================== -->
+    <div class="planet planet-left"></div>
+    <div class="planet planet-right"></div>
 
-    <div class="particles" id="particles"></div>
-
-
-    <!-- =====================================================
-         FLOATING CHAT BUBBLES
-    ====================================================== -->
-
-    <div class="floating-bubble bubble-one">
-        Hi 👋
+    <div class="particles">
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
     </div>
 
-    <div class="floating-bubble bubble-two">
-        Welcome 🌍
+    <div class="shooting-light light-one"></div>
+    <div class="shooting-light light-two"></div>
+    <div class="shooting-light light-three"></div>
+
+</div>
+
+
+<!-- =====================================================
+     FLOATING CHAPCY CHAT
+===================================================== -->
+
+<div class="floating-bubbles">
+
+    <div class="chat-bubble bubble-left">
+        <span>●</span> Hello 👋
     </div>
 
-    <div class="floating-bubble bubble-three">
+    <div class="chat-bubble bubble-right">
+        Welcome to CHAPCY 🌍
+    </div>
+
+    <div class="chat-bubble bubble-bottom">
         Let's Connect 🚀
     </div>
 
-
-    <!-- =====================================================
-         MAIN REGISTER
-    ====================================================== -->
-
-    <main class="register-wrapper">
+</div>
 
 
-        <!-- =================================================
-             LOGO
-        ================================================== -->
+<!-- =====================================================
+     MAIN
+===================================================== -->
 
-        <div class="logo-area">
-
-            <div class="logo-orbit orbit-one"></div>
-            <div class="logo-orbit orbit-two"></div>
-
-            <div class="logo-glow"></div>
-
-            <img
-                src="file_00000000b0d8820a998b33ad9cf233cb.png"
-                alt="CHAPCY Logo"
-                class="chapcy-logo"
-            >
-
-        </div>
+<main class="register-page">
 
 
-        <!-- =================================================
-             BRAND
-        ================================================== -->
+    <!-- =================================================
+         BRAND
+    ================================================= -->
 
-        <h1 class="brand-title">
-            CHAPCY
-        </h1>
+    <section class="brand-section">
 
-        <p class="brand-subtitle">
-            Worldwide Community
-        </p>
+        <div class="logo-energy">
 
+            <div class="energy-ring ring-one"></div>
+            <div class="energy-ring ring-two"></div>
+            <div class="energy-ring ring-three"></div>
 
-        <!-- =================================================
-             REGISTER CARD
-        ================================================== -->
+            <div class="logo-container">
 
-        <section class="register-card">
-
-
-            <div class="card-header">
-
-                <div class="card-icon">
-
-                    <i class="fa-solid fa-mobile-screen-button"></i>
-
-                </div>
-
-                <h2>
-                    Create your account
-                </h2>
-
-                <p>
-                    Enter your phone number to join CHAPCY
-                </p>
+                <img
+                    src="file_000000004f547243bb0fa43d66db1edf.png"
+                    alt="CHAPCY"
+                    class="chapcy-logo"
+                >
 
             </div>
 
+        </div>
 
-            <!-- =================================================
-                 PHONE FORM
-            ================================================== -->
+        <div class="brand-text">
 
-            <form
-                id="registerForm"
-                novalidate
-            >
+            <h1>CHAPCY</h1>
 
-
-                <label
-                    class="input-label"
-                    for="phoneNumber"
-                >
-                    Phone Number
-                </label>
-
-
-                <!-- PHONE INPUT -->
-
-                <div
-                    class="phone-box"
-                    id="phoneBox"
-                >
-
-
-                    <!-- COUNTRY -->
-
-                    <button
-                        type="button"
-                        class="country-button"
-                        id="countryButton"
-                    >
-
-                        <span
-                            class="selected-flag"
-                            id="selectedFlag"
-                        >
-                            🇹🇿
-                        </span>
-
-                        <span
-                            class="selected-code"
-                            id="selectedCode"
-                        >
-                            +255
-                        </span>
-
-                        <i class="fa-solid fa-chevron-down"></i>
-
-                    </button>
-
-
-                    <!-- NUMBER -->
-
-                    <input
-                        type="tel"
-                        id="phoneNumber"
-                        placeholder="712 345 678"
-                        inputmode="numeric"
-                        autocomplete="tel"
-                        maxlength="15"
-                    >
-
-                </div>
-
-
-                <!-- ERROR -->
-
-                <div
-                    class="error-message"
-                    id="errorMessage"
-                ></div>
-
-
-                <!-- =================================================
-                     NEXT BUTTON
-                ================================================== -->
-
-                <button
-                    type="submit"
-                    class="next-button"
-                    id="nextButton"
-                >
-
-                    <span class="button-text">
-                        Continue
-                    </span>
-
-                    <span class="button-loader"></span>
-
-                    <i class="fa-solid fa-arrow-right"></i>
-
-                </button>
-
-
-            </form>
-
-
-            <!-- =================================================
-                 TERMS
-            ================================================== -->
-
-            <p class="terms">
-
-                By continuing, you agree to
-
-                <a href="#">
-                    CHAPCY Terms
-                </a>
-
-                and
-
-                <a href="#">
-                    Privacy Policy
-                </a>
-
+            <p>
+                Worldwide Community
+                <span>🌐</span>
             </p>
 
+            <div class="global-status">
+                <span></span>
+                Connecting people worldwide
+            </div>
 
-        </section>
+        </div>
+
+    </section>
 
 
-        <!-- =================================================
-             SECURITY
-        ================================================== -->
 
-        <div class="security">
+    <!-- =================================================
+         REGISTER CARD
+    ================================================= -->
 
-            <span class="security-icon">
-                <i class="fa-solid fa-shield-halved"></i>
-            </span>
+    <section class="register-card">
 
-            <span>
-                Your number is securely protected
-            </span>
+        <div class="card-glow"></div>
+
+        <div class="card-line"></div>
+
+
+        <!-- ICON -->
+
+        <div class="register-icon">
+
+            <div class="icon-pulse"></div>
+
+            <i class="fa-solid fa-mobile-screen-button"></i>
 
         </div>
 
 
-    </main>
+        <!-- TITLE -->
+
+        <div class="register-heading">
+
+            <h2>Create your account</h2>
+
+            <p>
+                Enter your phone number to join CHAPCY
+            </p>
+
+        </div>
 
 
-    <!-- =====================================================
-         COUNTRY MODAL
-    ====================================================== -->
 
-    <div
-        class="country-overlay"
-        id="countryOverlay"
-    >
+        <!-- =================================================
+             FORM
+        ================================================= -->
 
-
-        <div
-            class="country-modal"
-            id="countryModal"
-        >
+        <form id="registerForm"
+              class="register-form"
+              autocomplete="off">
 
 
-            <!-- MODAL HEADER -->
+            <label for="phoneNumber">
+                Phone Number
+            </label>
 
-            <div class="country-header">
 
-                <div>
+            <!-- PHONE -->
 
-                    <h3>
-                        Select your country
-                    </h3>
-
-                    <p>
-                        Choose your country code
-                    </p>
-
-                </div>
+            <div class="phone-input-wrapper">
 
 
                 <button
                     type="button"
-                    class="close-country"
-                    id="closeCountry"
-                >
+                    id="countrySelector"
+                    class="country-selector">
 
-                    <i class="fa-solid fa-xmark"></i>
+                    <span id="countryFlag">
+                        🇹🇿
+                    </span>
+
+                    <span id="countryCode">
+                        +255
+                    </span>
+
+                    <i class="fa-solid fa-chevron-down"></i>
 
                 </button>
 
-            </div>
-
-
-            <!-- SEARCH -->
-
-            <div class="country-search">
-
-                <i class="fa-solid fa-magnifying-glass"></i>
 
                 <input
-                    type="search"
-                    id="countrySearch"
-                    placeholder="Search country or code..."
-                    autocomplete="off"
+                    type="tel"
+                    id="phoneNumber"
+                    name="phone"
+                    placeholder="712 345 678"
+                    inputmode="tel"
+                    autocomplete="tel"
+                    required
                 >
 
             </div>
 
 
-            <!-- COUNTRIES -->
 
-            <div
-                class="country-list"
-                id="countryList"
-            ></div>
+            <!-- DETECTED COUNTRY -->
+
+            <div id="detectedCountry"
+                 class="detected-country">
+
+                <i class="fa-solid fa-earth-africa"></i>
+
+                <span>
+                    Country: Tanzania
+                </span>
+
+            </div>
 
 
+
+            <!-- ERROR -->
+
+            <div id="phoneError"
+                 class="phone-error">
+
+                <i class="fa-solid fa-circle-exclamation"></i>
+
+                <span>
+                    Please enter a valid phone number.
+                </span>
+
+            </div>
+
+
+
+            <!-- CONTINUE -->
+
+            <button
+                type="submit"
+                id="continueBtn"
+                class="continue-btn">
+
+                <span class="continue-text">
+                    Continue
+                </span>
+
+                <span class="continue-arrow">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </span>
+
+                <span id="continueLoader"
+                      class="continue-loader">
+
+                    <i class="fa-solid fa-circle-notch"></i>
+
+                </span>
+
+            </button>
+
+        </form>
+
+
+
+        <!-- TERMS -->
+
+        <p class="terms-text">
+
+            By continuing, you agree to
+
+            <a href="#">CHAPCY Terms</a>
+
+            and
+
+            <a href="#">Privacy Policy</a>
+
+        </p>
+
+    </section>
+
+
+
+    <!-- =================================================
+         SECURITY
+    ================================================= -->
+
+    <div class="security-note">
+
+        <div class="security-icon">
+            <i class="fa-solid fa-shield-halved"></i>
+        </div>
+
+        <div>
+            <strong>Secure Registration</strong>
+            <span>Your number is securely protected</span>
         </div>
 
     </div>
 
 
-    <!-- =====================================================
-         JAVASCRIPT
-    ====================================================== -->
 
-    <script src="Mychatregister.js"></script>
+    <!-- =================================================
+         VERIFICATION
+    ================================================= -->
+
+    <section id="verificationSection"
+             class="verification-section">
+
+        <div class="verification-icon">
+
+            <i class="fa-solid fa-shield-halved"></i>
+
+        </div>
+
+        <h2>Verify your number</h2>
+
+        <p>
+            We sent a verification code to
+        </p>
+
+        <strong id="verificationNumber">
+            +255 000 000 000
+        </strong>
+
+
+        <div class="otp-container">
+
+            <input class="otp-input"
+                   maxlength="1"
+                   inputmode="numeric">
+
+            <input class="otp-input"
+                   maxlength="1"
+                   inputmode="numeric">
+
+            <input class="otp-input"
+                   maxlength="1"
+                   inputmode="numeric">
+
+            <input class="otp-input"
+                   maxlength="1"
+                   inputmode="numeric">
+
+            <input class="otp-input"
+                   maxlength="1"
+                   inputmode="numeric">
+
+            <input class="otp-input"
+                   maxlength="1"
+                   inputmode="numeric">
+
+        </div>
+
+
+        <p class="resend-text">
+
+            Didn't receive the code?
+
+            <button id="resendBtn"
+                    type="button">
+                Resend
+            </button>
+
+        </p>
+
+
+        <button id="verifyBtn"
+                class="verify-btn"
+                type="button">
+
+            Verify
+
+            <i class="fa-solid fa-check"></i>
+
+        </button>
+
+    </section>
+
+
+
+    <!-- =================================================
+         SUCCESS
+    ================================================= -->
+
+    <section id="successSection"
+             class="success-section">
+
+        <div class="success-ring">
+
+            <div class="success-pulse"></div>
+
+            <i class="fa-solid fa-check"></i>
+
+        </div>
+
+        <h2>
+            Verified Successfully!
+        </h2>
+
+        <p>
+            Welcome to CHAPCY Worldwide Community 🌍
+        </p>
+
+        <button id="enterChapcyBtn"
+                class="enter-chapcy-btn"
+                type="button">
+
+            Enter CHAPCY
+
+            <i class="fa-solid fa-arrow-right"></i>
+
+        </button>
+
+    </section>
+
+</main>
+
+
+
 <!-- =====================================================
-     FIREBASE
-====================================================== -->
+     COUNTRY OVERLAY
+===================================================== -->
 
-<script type="module">
+<div id="countryOverlay"
+     class="country-overlay"></div>
 
-    import {
-        initializeApp
-    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-
-    import {
-        getAuth
-    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-
-
-    const firebaseConfig = {
-
-        apiKey: "AIzaSyDIID2LpzjLiqaLeLJKgp-Vd7tNIyN-M1k",
-
-        authDomain:
-            "rko-website-design-2f792.firebaseapp.com",
-
-        databaseURL:
-            "https://rko-website-design-2f792-default-rtdb.firebaseio.com",
-
-        projectId:
-            "rko-website-design-2f792",
-
-        storageBucket:
-            "rko-website-design-2f792.firebasestorage.app",
-
-        messagingSenderId:
-            "782567629866",
-
-        appId:
-            "1:782567629866:web:d6d80d454d0653ea8b4f53",
-
-        measurementId:
-            "G-KQ1EKYE7E7"
-    };
-
-
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-
-    // Initialize Authentication
-    const auth = getAuth(app);
-
-
-    // Make Firebase available to Mychatregister.js
-    window.chapcyFirebase = {
-        app: app,
-        auth: auth
-    };
-
-</script>
 
 
 <!-- =====================================================
-     CHAPCY REGISTER JAVASCRIPT
-====================================================== -->
+     COUNTRY MODAL
+===================================================== -->
+
+<div id="countryModal"
+     class="country-modal">
+
+    <div class="country-modal-header">
+
+        <div>
+            <span class="modal-globe">🌍</span>
+
+            <div>
+                <h3>Select your country</h3>
+                <p>Choose your country code</p>
+            </div>
+        </div>
+
+        <button id="closeCountry"
+                type="button">
+
+            <i class="fa-solid fa-xmark"></i>
+
+        </button>
+
+    </div>
+
+
+    <div class="country-search">
+
+        <i class="fa-solid fa-magnifying-glass"></i>
+
+        <input
+            id="countrySearch"
+            type="text"
+            placeholder="Search country..."
+            autocomplete="off"
+        >
+
+    </div>
+
+
+    <div id="countryList"
+         class="country-list">
+    </div>
+
+</div>
+
+
 
 <script src="Mychatregister.js"></script>
 
 </body>
-
-</html>
-</body>
-
 </html>
