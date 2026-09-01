@@ -10,17 +10,20 @@ document.addEventListener("DOMContentLoaded", () => {
        ELEMENTS
     ===================================================== */
 
-    const form =
-        document.getElementById("registerForm");
+    const form = document.getElementById("registerForm");
 
     const countrySelector =
         document.getElementById("countrySelector");
 
+    /* HTML yako inatumia countryModal */
     const countryDropdown =
-        document.getElementById("countryDropdown");
+        document.getElementById("countryModal");
 
     const countryOverlay =
         document.getElementById("countryOverlay");
+
+    const closeCountry =
+        document.getElementById("closeCountry");
 
     const countryList =
         document.getElementById("countryList");
@@ -69,6 +72,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const enterChapcyBtn =
         document.getElementById("enterChapcyBtn");
+
+
+    /* =====================================================
+       SAFETY CHECK
+    ===================================================== */
+
+    if (!form) {
+        console.error("CHAPCY: registerForm not found.");
+        return;
+    }
 
 
     /* =====================================================
@@ -130,6 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ["🇩🇯","Djibouti","+253"],
         ["🇩🇲","Dominica","+1767"],
         ["🇩🇴","Dominican Republic","+1809"],
+
         ["🇪🇨","Ecuador","+593"],
         ["🇪🇬","Egypt","+20"],
         ["🇸🇻","El Salvador","+503"],
@@ -311,15 +325,60 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
+       COUNTRY MODAL HELPERS
+    ===================================================== */
+
+    function openCountryModal() {
+
+        if (!countryDropdown) return;
+
+        countryDropdown.classList.add("show");
+
+        if (countryOverlay) {
+            countryOverlay.classList.add("show");
+        }
+
+        document.body.classList.add("country-open");
+
+        setTimeout(() => {
+
+            if (countrySearch) {
+                countrySearch.focus();
+            }
+
+        }, 100);
+
+    }
+
+
+    function closeCountryModal() {
+
+        if (!countryDropdown) return;
+
+        countryDropdown.classList.remove("show");
+
+        if (countryOverlay) {
+            countryOverlay.classList.remove("show");
+        }
+
+        document.body.classList.remove("country-open");
+
+    }
+
+
+    /* =====================================================
        BUILD COUNTRY LIST
     ===================================================== */
 
     function renderCountries(search = "") {
 
+        if (!countryList) return;
+
         countryList.innerHTML = "";
 
         const keyword =
             search.toLowerCase().trim();
+
 
         const filtered =
             countries.filter(country => {
@@ -346,6 +405,7 @@ document.addEventListener("DOMContentLoaded", () => {
             `;
 
             return;
+
         }
 
 
@@ -356,7 +416,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             item.type = "button";
 
-            item.className = "country-item";
+            item.className =
+                "country-item";
 
 
             item.innerHTML = `
@@ -405,152 +466,162 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
 
-        countryFlag.textContent =
-            country[0];
-
-        countryCode.textContent =
-            country[2];
-
-
-        countryDropdown.classList.remove("show");
-
-        countryOverlay.classList.remove("show");
+        if (countryFlag) {
+            countryFlag.textContent =
+                country[0];
+        }
 
 
-        countrySearch.value = "";
+        if (countryCode) {
+            countryCode.textContent =
+                country[2];
+        }
+
+
+        closeCountryModal();
+
+
+        if (countrySearch) {
+            countrySearch.value = "";
+        }
 
 
         renderCountries();
 
 
-        phoneInput.focus();
+        if (phoneInput) {
+            phoneInput.focus();
+        }
 
 
-        /* animation */
+        if (countrySelector) {
 
-        countrySelector.classList.add("country-selected");
-
-        setTimeout(() => {
-
-            countrySelector.classList.remove(
+            countrySelector.classList.add(
                 "country-selected"
             );
 
-        }, 600);
+
+            setTimeout(() => {
+
+                countrySelector.classList.remove(
+                    "country-selected"
+                );
+
+            }, 600);
+
+        }
 
     }
 
 
     /* =====================================================
-       OPEN COUNTRY DROPDOWN
+       COUNTRY EVENTS
     ===================================================== */
 
-    countrySelector.addEventListener("click", () => {
+    if (countrySelector) {
 
-        countryDropdown.classList.toggle("show");
-
-        countryOverlay.classList.toggle(
-            "show",
-            countryDropdown.classList.contains("show")
+        countrySelector.addEventListener(
+            "click",
+            openCountryModal
         );
 
-
-        if (
-            countryDropdown.classList.contains("show")
-        ) {
-
-            countrySearch.focus();
-
-        }
-
-    });
+    }
 
 
-    /* =====================================================
-       CLOSE DROPDOWN
-    ===================================================== */
+    if (closeCountry) {
 
-    countryOverlay.addEventListener("click", () => {
-
-        countryDropdown.classList.remove("show");
-
-        countryOverlay.classList.remove("show");
-
-    });
-
-
-    /* =====================================================
-       SEARCH COUNTRY
-    ===================================================== */
-
-    countrySearch.addEventListener("input", () => {
-
-        renderCountries(
-            countrySearch.value
+        closeCountry.addEventListener(
+            "click",
+            closeCountryModal
         );
 
-    });
+    }
 
 
-    /* =====================================================
-       ESC CLOSE
-    ===================================================== */
+    if (countryOverlay) {
 
-    document.addEventListener("keydown", event => {
+        countryOverlay.addEventListener(
+            "click",
+            closeCountryModal
+        );
 
-        if (event.key === "Escape") {
+    }
 
-            countryDropdown.classList.remove("show");
 
-            countryOverlay.classList.remove("show");
+    if (countrySearch) {
+
+        countrySearch.addEventListener(
+            "input",
+            () => {
+
+                renderCountries(
+                    countrySearch.value
+                );
+
+            }
+        );
+
+    }
+
+
+    document.addEventListener(
+        "keydown",
+        event => {
+
+            if (event.key === "Escape") {
+
+                closeCountryModal();
+
+            }
 
         }
-
-    });
+    );
 
 
     /* =====================================================
        PHONE FORMATTING
     ===================================================== */
 
-    phoneInput.addEventListener("input", () => {
+    if (phoneInput) {
 
-        let value =
-            phoneInput.value.replace(/\D/g, "");
+        phoneInput.addEventListener(
+            "input",
+            () => {
 
-
-        /*
-         * Limit local number.
-         */
-
-        value =
-            value.substring(0, 15);
+                let value =
+                    phoneInput.value
+                        .replace(/\D/g, "");
 
 
-        /*
-         * Pretty spacing
-         */
-
-        let formatted =
-            value.match(/.{1,3}/g);
+                value =
+                    value.substring(0, 15);
 
 
-        phoneInput.value =
-            formatted
-                ? formatted.join(" ")
-                : "";
+                const formatted =
+                    value.match(/.{1,3}/g);
 
 
-        hidePhoneError();
+                phoneInput.value =
+                    formatted
+                        ? formatted.join(" ")
+                        : "";
 
-    });
+
+                hidePhoneError();
+
+            }
+        );
+
+    }
 
 
     /* =====================================================
-       PHONE VALIDATION
+       PHONE FUNCTIONS
     ===================================================== */
 
     function getCleanPhone() {
+
+        if (!phoneInput) return "";
 
         return phoneInput.value
             .replace(/\D/g, "");
@@ -573,12 +644,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const phone =
             getCleanPhone();
 
-
-        /*
-         * Basic worldwide validation.
-         * Country-specific validation can later
-         * be upgraded using libphonenumber.
-         */
 
         if (!phone.length) {
 
@@ -625,15 +690,22 @@ document.addEventListener("DOMContentLoaded", () => {
         const text =
             phoneError.querySelector("span");
 
+
         if (text) {
-
             text.textContent = message;
-
         }
+
 
         phoneError.classList.add("show");
 
-        phoneInput.classList.add("input-error");
+
+        if (phoneInput) {
+
+            phoneInput.classList.add(
+                "input-error"
+            );
+
+        }
 
     }
 
@@ -644,15 +716,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
         phoneError.classList.remove("show");
 
-        phoneInput.classList.remove(
-            "input-error"
-        );
+
+        if (phoneInput) {
+
+            phoneInput.classList.remove(
+                "input-error"
+            );
+
+        }
 
     }
 
 
     /* =====================================================
-       REGISTER STORAGE
+       LOCAL REGISTRATION STORAGE
     ===================================================== */
 
     function getRegisteredUsers() {
@@ -665,7 +742,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 )
             ) || [];
 
-        } catch {
+        } catch (error) {
+
+            console.warn(
+                "CHAPCY: Could not read registered users.",
+                error
+            );
 
             return [];
 
@@ -679,10 +761,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const users =
             getRegisteredUsers();
 
-
-        /*
-         * Prevent duplicate registration.
-         */
 
         const exists =
             users.some(
@@ -707,7 +785,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     selectedCountry.flag,
 
                 registeredAt:
-                    new Date().toISOString()
+                    new Date().toISOString(),
+
+                verified: false
 
             });
 
@@ -723,39 +803,110 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       CONTINUE BUTTON ANIMATION
+       MARK USER VERIFIED
+    ===================================================== */
+
+    function markCurrentUserVerified(phone) {
+
+        const users =
+            getRegisteredUsers();
+
+
+        const updatedUsers =
+            users.map(user => {
+
+                if (user.phone === phone) {
+
+                    return {
+                        ...user,
+                        verified: true,
+                        verifiedAt:
+                            new Date().toISOString()
+                    };
+
+                }
+
+                return user;
+
+            });
+
+
+        localStorage.setItem(
+            "chapcyRegisteredUsers",
+            JSON.stringify(updatedUsers)
+        );
+
+    }
+
+
+    /* =====================================================
+       CONTINUE LOADING
     ===================================================== */
 
     function startLoading() {
 
-        continueBtn.disabled = true;
+        if (continueBtn) {
+            continueBtn.disabled = true;
 
-        continueText.style.display = "none";
+            continueBtn.classList.add(
+                "loading"
+            );
+        }
 
-        continueArrow.style.display = "none";
 
-        continueLoader.classList.add("show");
+        if (continueText) {
+            continueText.style.display =
+                "none";
+        }
 
-        continueBtn.classList.add(
-            "loading"
-        );
+
+        if (continueArrow) {
+            continueArrow.style.display =
+                "none";
+        }
+
+
+        if (continueLoader) {
+
+            continueLoader.classList.add(
+                "show"
+            );
+
+        }
 
     }
 
 
     function stopLoading() {
 
-        continueBtn.disabled = false;
+        if (continueBtn) {
 
-        continueText.style.display = "";
+            continueBtn.disabled = false;
 
-        continueArrow.style.display = "";
+            continueBtn.classList.remove(
+                "loading"
+            );
 
-        continueLoader.classList.remove("show");
+        }
 
-        continueBtn.classList.remove(
-            "loading"
-        );
+
+        if (continueText) {
+            continueText.style.display = "";
+        }
+
+
+        if (continueArrow) {
+            continueArrow.style.display = "";
+        }
+
+
+        if (continueLoader) {
+
+            continueLoader.classList.remove(
+                "show"
+            );
+
+        }
 
     }
 
@@ -766,15 +917,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function openVerification(fullPhone) {
 
-        verificationNumber.textContent =
-            formatInternationalNumber(
-                fullPhone
-            );
+        if (verificationNumber) {
 
+            verificationNumber.textContent =
+                formatInternationalNumber(
+                    fullPhone
+                );
 
-        /*
-         * Hide registration card
-         */
+        }
+
 
         const registerCard =
             document.querySelector(
@@ -819,25 +970,28 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        /*
-         * Show verification
-         */
+        if (verificationSection) {
 
-        verificationSection.classList.add(
-            "show"
-        );
+            verificationSection.classList.add(
+                "show"
+            );
+
+        }
 
 
-        /*
-         * Scroll to verification
-         */
+        clearOTP();
+
 
         setTimeout(() => {
 
-            verificationSection.scrollIntoView({
-                behavior: "smooth",
-                block: "center"
-            });
+            if (verificationSection) {
+
+                verificationSection.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+
+            }
 
         }, 200);
 
@@ -845,74 +999,76 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       FORMAT INTERNATIONAL NUMBER
+       FORMAT PHONE
     ===================================================== */
 
     function formatInternationalNumber(number) {
 
-        const code =
-            selectedCountry.code;
-
-        const local =
-            getCleanPhone();
+        const clean =
+            String(number)
+                .replace(/\D/g, "");
 
 
-        return `${code} ${local}`;
+        return (
+            selectedCountry.code +
+            " " +
+            getCleanPhone()
+        );
 
     }
 
 
     /* =====================================================
-       REGISTER SUBMIT
+       FORM SUBMIT
     ===================================================== */
 
-    form.addEventListener("submit", event => {
+    form.addEventListener(
+        "submit",
+        event => {
 
-        event.preventDefault();
+            event.preventDefault();
 
 
-        if (!validatePhone()) {
+            if (!validatePhone()) {
 
-            phoneInput.focus();
+                if (phoneInput) {
+                    phoneInput.focus();
+                }
 
-            return;
+                return;
+
+            }
+
+
+            const fullPhone =
+                getFullPhone();
+
+
+            saveRegistration(fullPhone);
+
+
+            startLoading();
+
+
+            /*
+             * DEMO PROCESSING
+             *
+             * Firebase Phone Authentication
+             * will replace this later.
+             */
+
+            setTimeout(() => {
+
+                stopLoading();
+
+                openVerification(
+                    fullPhone
+                );
+
+            }, 1800);
 
         }
-
-
-        const fullPhone =
-            getFullPhone();
-
-
-        /*
-         * Save locally.
-         */
-
-        saveRegistration(fullPhone);
-
-
-        /*
-         * Button animation.
-         */
-
-        startLoading();
-
-
-        /*
-         * Simulated secure processing.
-         */
-
-        setTimeout(() => {
-
-            stopLoading();
-
-            openVerification(
-                fullPhone
-            );
-
-        }, 1800);
-
-    });
+    );
 
 
     /* =====================================================
@@ -927,111 +1083,137 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
-    otpInputs.forEach((input, index) => {
+    function clearOTP() {
 
-
-        input.addEventListener(
-            "input",
-            event => {
-
-                let value =
-                    event.target.value
-                        .replace(/\D/g, "")
-                        .slice(0, 1);
-
-
-                event.target.value =
-                    value;
-
-
-                if (
-                    value &&
-                    index <
-                    otpInputs.length - 1
-                ) {
-
-                    otpInputs[index + 1]
-                        .focus();
-
-                }
-
+        otpInputs.forEach(
+            input => {
+                input.value = "";
+                input.classList.remove(
+                    "otp-error"
+                );
             }
         );
 
 
-        input.addEventListener(
-            "keydown",
-            event => {
+        if (otpInputs[0]) {
+            otpInputs[0].focus();
+        }
 
-                if (
-                    event.key === "Backspace" &&
-                    !input.value &&
-                    index > 0
-                ) {
-
-                    otpInputs[index - 1]
-                        .focus();
-
-                }
-
-            }
-        );
+    }
 
 
-        input.addEventListener(
-            "paste",
-            event => {
-
-                event.preventDefault();
+    otpInputs.forEach(
+        (input, index) => {
 
 
-                const pasted =
-                    (
-                        event.clipboardData ||
-                        window.clipboardData
-                    )
-                    .getData("text")
-                    .replace(/\D/g, "")
-                    .slice(
-                        0,
-                        otpInputs.length
-                    );
+            input.addEventListener(
+                "input",
+                event => {
+
+                    let value =
+                        event.target.value
+                            .replace(/\D/g, "")
+                            .slice(0, 1);
 
 
-                pasted.split("").forEach(
-                    (digit, i) => {
+                    event.target.value =
+                        value;
 
-                        if (
-                            otpInputs[i]
-                        ) {
 
-                            otpInputs[i]
-                                .value = digit;
+                    if (
+                        value &&
+                        index <
+                        otpInputs.length - 1
+                    ) {
 
-                        }
+                        otpInputs[
+                            index + 1
+                        ].focus();
 
                     }
-                );
-
-
-                const last =
-                    Math.min(
-                        pasted.length,
-                        otpInputs.length
-                    ) - 1;
-
-
-                if (last >= 0) {
-
-                    otpInputs[last]
-                        .focus();
 
                 }
+            );
 
-            }
-        );
 
-    });
+            input.addEventListener(
+                "keydown",
+                event => {
+
+                    if (
+                        event.key === "Backspace" &&
+                        !input.value &&
+                        index > 0
+                    ) {
+
+                        otpInputs[
+                            index - 1
+                        ].focus();
+
+                    }
+
+                }
+            );
+
+
+            input.addEventListener(
+                "paste",
+                event => {
+
+                    event.preventDefault();
+
+
+                    const pasted =
+                        (
+                            event.clipboardData ||
+                            window.clipboardData
+                        )
+                        .getData("text")
+                        .replace(/\D/g, "")
+                        .slice(
+                            0,
+                            otpInputs.length
+                        );
+
+
+                    pasted
+                        .split("")
+                        .forEach(
+                            (digit, i) => {
+
+                                if (
+                                    otpInputs[i]
+                                ) {
+
+                                    otpInputs[i]
+                                        .value =
+                                        digit;
+
+                                }
+
+                            }
+                        );
+
+
+                    const last =
+                        Math.min(
+                            pasted.length,
+                            otpInputs.length
+                        ) - 1;
+
+
+                    if (last >= 0) {
+
+                        otpInputs[last]
+                            .focus();
+
+                    }
+
+                }
+            );
+
+        }
+    );
 
 
     /* =====================================================
@@ -1041,8 +1223,45 @@ document.addEventListener("DOMContentLoaded", () => {
     function getOTP() {
 
         return otpInputs
-            .map(input => input.value)
+            .map(
+                input =>
+                    input.value
+            )
             .join("");
+
+    }
+
+
+    /* =====================================================
+       OTP ERROR
+    ===================================================== */
+
+    function showOTPError() {
+
+        otpInputs.forEach(
+            input => {
+
+                input.classList.add(
+                    "otp-error"
+                );
+
+            }
+        );
+
+
+        setTimeout(() => {
+
+            otpInputs.forEach(
+                input => {
+
+                    input.classList.remove(
+                        "otp-error"
+                    );
+
+                }
+            );
+
+        }, 700);
 
     }
 
@@ -1051,74 +1270,56 @@ document.addEventListener("DOMContentLoaded", () => {
        VERIFY BUTTON
     ===================================================== */
 
-    verifyBtn.addEventListener(
-        "click",
-        () => {
+    if (verifyBtn) {
 
-            const otp =
-                getOTP();
+        verifyBtn.addEventListener(
+            "click",
+            () => {
+
+                const otp =
+                    getOTP();
 
 
-            if (otp.length !== 6) {
+                if (otp.length !== 6) {
 
-                otpInputs.forEach(input => {
+                    showOTPError();
 
-                    input.classList.add(
-                        "otp-error"
-                    );
+                    return;
 
-                });
+                }
 
+
+                verifyBtn.disabled = true;
+
+                verifyBtn.classList.add(
+                    "verifying"
+                );
+
+
+                verifyBtn.innerHTML = `
+                    <i class="fa-solid fa-circle-notch fa-spin"></i>
+                    Verifying...
+                `;
+
+
+                /*
+                 * DEMO VERIFICATION
+                 *
+                 * Any 6 digits currently pass.
+                 * This will later be replaced by
+                 * Firebase Phone Authentication.
+                 */
 
                 setTimeout(() => {
 
-                    otpInputs.forEach(input => {
+                    showSuccess();
 
-                        input.classList.remove(
-                            "otp-error"
-                        );
-
-                    });
-
-                }, 700);
-
-
-                return;
+                }, 1800);
 
             }
+        );
 
-
-            /*
-             * Loading animation
-             */
-
-            verifyBtn.disabled = true;
-
-            verifyBtn.classList.add(
-                "verifying"
-            );
-
-            verifyBtn.innerHTML = `
-                <i class="fa-solid fa-circle-notch fa-spin"></i>
-                Verifying...
-            `;
-
-
-            /*
-             * Demo verification.
-             *
-             * Later this part will connect
-             * to Firebase Phone Authentication.
-             */
-
-            setTimeout(() => {
-
-                showSuccess();
-
-            }, 1800);
-
-        }
-    );
+    }
 
 
     /* =====================================================
@@ -1127,19 +1328,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function showSuccess() {
 
-        verificationSection.classList.remove(
-            "show"
+        if (verificationSection) {
+
+            verificationSection.classList.remove(
+                "show"
+            );
+
+        }
+
+
+        if (successSection) {
+
+            successSection.classList.add(
+                "show"
+            );
+
+        }
+
+
+        const currentPhone =
+            getFullPhone();
+
+
+        markCurrentUserVerified(
+            currentPhone
         );
 
-
-        successSection.classList.add(
-            "show"
-        );
-
-
-        /*
-         * Mark user as verified.
-         */
 
         localStorage.setItem(
             "chapcyPhoneVerified",
@@ -1149,23 +1363,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
         localStorage.setItem(
             "chapcyCurrentPhone",
-            getFullPhone()
+            currentPhone
         );
 
-
-        /*
-         * Celebration particles
-         */
 
         createCelebration();
 
 
         setTimeout(() => {
 
-            successSection.scrollIntoView({
-                behavior: "smooth",
-                block: "center"
-            });
+            if (successSection) {
+
+                successSection.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+
+            }
 
         }, 150);
 
@@ -1180,6 +1394,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const container =
             document.createElement("div");
+
 
         container.className =
             "celebration-container";
@@ -1245,81 +1460,97 @@ document.addEventListener("DOMContentLoaded", () => {
     let resendCooldown = false;
 
 
-    resendBtn.addEventListener(
-        "click",
-        () => {
+    if (resendBtn) {
 
-            if (resendCooldown) return;
+        resendBtn.addEventListener(
+            "click",
+            () => {
 
-
-            resendCooldown = true;
-
-            let seconds = 30;
+                if (resendCooldown) return;
 
 
-            resendBtn.disabled = true;
-
-            resendBtn.textContent =
-                `Resend (${seconds})`;
+                resendCooldown = true;
 
 
-            const timer =
-                setInterval(() => {
-
-                    seconds--;
+                let seconds = 30;
 
 
-                    resendBtn.textContent =
-                        `Resend (${seconds})`;
+                resendBtn.disabled =
+                    true;
 
 
-                    if (seconds <= 0) {
+                resendBtn.textContent =
+                    `Resend (${seconds})`;
 
-                        clearInterval(timer);
 
-                        resendCooldown = false;
+                const timer =
+                    setInterval(() => {
 
-                        resendBtn.disabled =
-                            false;
+                        seconds--;
+
 
                         resendBtn.textContent =
-                            "Resend";
+                            `Resend (${seconds})`;
 
-                    }
 
-                }, 1000);
+                        if (seconds <= 0) {
 
-        }
-    );
+                            clearInterval(
+                                timer
+                            );
+
+
+                            resendCooldown =
+                                false;
+
+
+                            resendBtn.disabled =
+                                false;
+
+
+                            resendBtn.textContent =
+                                "Resend";
+
+                        }
+
+                    }, 1000);
+
+            }
+        );
+
+    }
 
 
     /* =====================================================
        ENTER CHAPCY
     ===================================================== */
 
-    enterChapcyBtn.addEventListener(
-        "click",
-        () => {
+    if (enterChapcyBtn) {
 
-            enterChapcyBtn.classList.add(
-                "entering"
-            );
+        enterChapcyBtn.addEventListener(
+            "click",
+            () => {
+
+                enterChapcyBtn.classList.add(
+                    "entering"
+                );
 
 
-            /*
-             * Change this filename if your
-             * main CHAPCY page has another name.
-             */
+                setTimeout(() => {
 
-            setTimeout(() => {
+                    /*
+                     * YOUR MAIN PAGE
+                     */
 
-                window.location.href =
-                    "index.html";
+                    window.location.href =
+                        "My Chat.html";
 
-            }, 900);
+                }, 900);
 
-        }
-    );
+            }
+        );
+
+    }
 
 
     /* =====================================================
@@ -1361,71 +1592,76 @@ document.addEventListener("DOMContentLoaded", () => {
        PHONE FOCUS EFFECT
     ===================================================== */
 
-    phoneInput.addEventListener(
-        "focus",
-        () => {
+    if (phoneInput) {
 
-            const wrapper =
-                document.querySelector(
-                    ".phone-input-wrapper"
-                );
+        phoneInput.addEventListener(
+            "focus",
+            () => {
 
-
-            if (wrapper) {
-
-                wrapper.classList.add(
-                    "phone-focused"
-                );
-
-            }
-
-        }
-    );
+                const wrapper =
+                    document.querySelector(
+                        ".phone-input-wrapper"
+                    );
 
 
-    phoneInput.addEventListener(
-        "blur",
-        () => {
+                if (wrapper) {
 
-            const wrapper =
-                document.querySelector(
-                    ".phone-input-wrapper"
-                );
+                    wrapper.classList.add(
+                        "phone-focused"
+                    );
 
-
-            if (wrapper) {
-
-                wrapper.classList.remove(
-                    "phone-focused"
-                );
+                }
 
             }
+        );
 
-        }
-    );
+
+        phoneInput.addEventListener(
+            "blur",
+            () => {
+
+                const wrapper =
+                    document.querySelector(
+                        ".phone-input-wrapper"
+                    );
+
+
+                if (wrapper) {
+
+                    wrapper.classList.remove(
+                        "phone-focused"
+                    );
+
+                }
+
+            }
+        );
+
+    }
 
 
     /* =====================================================
-       INITIALIZE COUNTRIES
+       INITIALIZE
     ===================================================== */
 
     renderCountries();
 
 
-    /* =====================================================
-       INITIAL PHONE STATE
-    ===================================================== */
+    if (countryFlag) {
 
-    countryFlag.textContent =
-        selectedCountry.flag;
+        countryFlag.textContent =
+            selectedCountry.flag;
 
-    countryCode.textContent =
-        selectedCountry.code;
+    }
 
 
-    /* =====================================================
-       PAGE READY ANIMATION
-    ===================================================== */
+    if (countryCode) {
+
+        countryCode.textContent =
+            selectedCountry.code;
+
+    }
+
 
     document.body.classList.add(
         "chapcy-page-ready"
@@ -1440,11 +1676,20 @@ document.addEventListener("DOMContentLoaded", () => {
         "beforeunload",
         () => {
 
-            continueBtn.disabled = false;
+            if (continueBtn) {
+
+                continueBtn.disabled =
+                    false;
+
+            }
 
         }
     );
 
+
+    /* =====================================================
+       READY
+    ===================================================== */
 
     console.log(
         "🌍 CHAPCY Registration System Ready"
