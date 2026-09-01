@@ -1,16 +1,63 @@
 /* =========================================================
-   CHAPCY — MYCHATREGISTER.JS
-   WORLDWIDE PHONE REGISTRATION
-   CONTINUE → OTP VERIFICATION → SUCCESS
+   CHAPCY — FIREBASE PHONE REGISTRATION
+   REAL SMS OTP + WORLDWIDE COUNTRY SYSTEM
+========================================================= */
+
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+import {
+    getAuth,
+    RecaptchaVerifier,
+    signInWithPhoneNumber
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+
+/* =========================================================
+   FIREBASE CONFIG
+========================================================= */
+
+/*
+   IMPORTANT:
+   Copy the firebaseConfig from:
+   Firebase Console
+   → Project Settings
+   → Your apps
+   → CHAPCY
+   → Config
+
+   Do NOT invent the apiKey/appId.
+*/
+
+const firebaseConfig = {
+    apiKey: "AIzaSyDIID2LpzjLiqaLeLJKgp-Vd7tNIyN-M1k",
+    authDomain: "rko-website-design-2f792.firebaseapp.com",
+    projectId: "rko-website-design-2f792",
+    storageBucket: "rko-website-design-2f792.firebasestorage.app",
+    messagingSenderId: "782567629866",
+    appId: "1:782567629866:web:d6d80d454d0653ea8b4f53"
+};
+
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+
+/* =========================================================
+   DOM READY
 ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
+
 
     /* =====================================================
        ELEMENTS
     ===================================================== */
 
-    const form = document.getElementById("registerForm");
+    const form =
+        document.getElementById("registerForm");
 
     const countrySelector =
         document.getElementById("countrySelector");
@@ -21,14 +68,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const countryModal =
         document.getElementById("countryModal");
 
-    const closeCountry =
-        document.getElementById("closeCountry");
-
     const countryList =
         document.getElementById("countryList");
 
     const countrySearch =
         document.getElementById("countrySearch");
+
+    const closeCountry =
+        document.getElementById("closeCountry");
 
     const countryFlag =
         document.getElementById("countryFlag");
@@ -72,201 +119,244 @@ document.addEventListener("DOMContentLoaded", () => {
     const enterChapcyBtn =
         document.getElementById("enterChapcyBtn");
 
-    const otpInputs =
-        Array.from(
-            document.querySelectorAll(".otp-input")
+
+    /* =====================================================
+       SAFETY CHECK
+    ===================================================== */
+
+    if (!form) {
+        console.error(
+            "CHAPCY ERROR: registerForm not found."
         );
+        return;
+    }
 
 
     /* =====================================================
-       COUNTRY DATA
+       COUNTRIES
     ===================================================== */
 
     const countries = [
 
-        ["🇹🇿", "Tanzania", "+255"],
-        ["🇰🇪", "Kenya", "+254"],
-        ["🇺🇬", "Uganda", "+256"],
-        ["🇷🇼", "Rwanda", "+250"],
-        ["🇧🇮", "Burundi", "+257"],
-        ["🇿🇦", "South Africa", "+27"],
-        ["🇳🇬", "Nigeria", "+234"],
-        ["🇬🇭", "Ghana", "+233"],
-        ["🇪🇹", "Ethiopia", "+251"],
-        ["🇪🇬", "Egypt", "+20"],
-        ["🇲🇿", "Mozambique", "+258"],
-        ["🇿🇲", "Zambia", "+260"],
-        ["🇿🇼", "Zimbabwe", "+263"],
+        ["🇦🇫","Afghanistan","+93"],
+        ["🇦🇱","Albania","+355"],
+        ["🇩🇿","Algeria","+213"],
+        ["🇦🇩","Andorra","+376"],
+        ["🇦🇴","Angola","+244"],
+        ["🇦🇬","Antigua and Barbuda","+1268"],
+        ["🇦🇷","Argentina","+54"],
+        ["🇦🇲","Armenia","+374"],
+        ["🇦🇺","Australia","+61"],
+        ["🇦🇹","Austria","+43"],
+        ["🇦🇿","Azerbaijan","+994"],
 
-        ["🇺🇸", "United States", "+1"],
-        ["🇨🇦", "Canada", "+1"],
-        ["🇬🇧", "United Kingdom", "+44"],
-        ["🇫🇷", "France", "+33"],
-        ["🇩🇪", "Germany", "+49"],
-        ["🇮🇹", "Italy", "+39"],
-        ["🇪🇸", "Spain", "+34"],
-        ["🇳🇱", "Netherlands", "+31"],
-        ["🇧🇪", "Belgium", "+32"],
-        ["🇨🇭", "Switzerland", "+41"],
+        ["🇧🇸","Bahamas","+1242"],
+        ["🇧🇭","Bahrain","+973"],
+        ["🇧🇩","Bangladesh","+880"],
+        ["🇧🇧","Barbados","+1246"],
+        ["🇧🇾","Belarus","+375"],
+        ["🇧🇪","Belgium","+32"],
+        ["🇧🇿","Belize","+501"],
+        ["🇧🇯","Benin","+229"],
+        ["🇧🇹","Bhutan","+975"],
+        ["🇧🇴","Bolivia","+591"],
+        ["🇧🇦","Bosnia and Herzegovina","+387"],
+        ["🇧🇼","Botswana","+267"],
+        ["🇧🇷","Brazil","+55"],
+        ["🇧🇳","Brunei","+673"],
+        ["🇧🇬","Bulgaria","+359"],
+        ["🇧🇫","Burkina Faso","+226"],
+        ["🇧🇮","Burundi","+257"],
 
-        ["🇮🇳", "India", "+91"],
-        ["🇨🇳", "China", "+86"],
-        ["🇯🇵", "Japan", "+81"],
-        ["🇰🇷", "South Korea", "+82"],
-        ["🇮🇩", "Indonesia", "+62"],
-        ["🇲🇾", "Malaysia", "+60"],
-        ["🇵🇭", "Philippines", "+63"],
-        ["🇸🇬", "Singapore", "+65"],
-        ["🇹🇭", "Thailand", "+66"],
+        ["🇨🇻","Cabo Verde","+238"],
+        ["🇰🇭","Cambodia","+855"],
+        ["🇨🇲","Cameroon","+237"],
+        ["🇨🇦","Canada","+1"],
+        ["🇨🇫","Central African Republic","+236"],
+        ["🇹🇩","Chad","+235"],
+        ["🇨🇱","Chile","+56"],
+        ["🇨🇳","China","+86"],
+        ["🇨🇴","Colombia","+57"],
+        ["🇰🇲","Comoros","+269"],
+        ["🇨🇬","Congo","+242"],
+        ["🇨🇩","DR Congo","+243"],
+        ["🇨🇷","Costa Rica","+506"],
+        ["🇨🇮","Côte d'Ivoire","+225"],
+        ["🇭🇷","Croatia","+385"],
+        ["🇨🇺","Cuba","+53"],
+        ["🇨🇾","Cyprus","+357"],
+        ["🇨🇿","Czech Republic","+420"],
 
-        ["🇦🇪", "United Arab Emirates", "+971"],
-        ["🇸🇦", "Saudi Arabia", "+966"],
-        ["🇶🇦", "Qatar", "+974"],
-        ["🇰🇼", "Kuwait", "+965"],
-        ["🇴🇲", "Oman", "+968"],
-        ["🇹🇷", "Turkey", "+90"],
+        ["🇩🇰","Denmark","+45"],
+        ["🇩🇯","Djibouti","+253"],
+        ["🇩🇲","Dominica","+1767"],
+        ["🇩🇴","Dominican Republic","+1809"],
 
-        ["🇦🇺", "Australia", "+61"],
-        ["🇳🇿", "New Zealand", "+64"],
+        ["🇪🇨","Ecuador","+593"],
+        ["🇪🇬","Egypt","+20"],
+        ["🇸🇻","El Salvador","+503"],
+        ["🇬🇶","Equatorial Guinea","+240"],
+        ["🇪🇷","Eritrea","+291"],
+        ["🇪🇪","Estonia","+372"],
+        ["🇸🇿","Eswatini","+268"],
+        ["🇪🇹","Ethiopia","+251"],
 
-        ["🇧🇷", "Brazil", "+55"],
-        ["🇦🇷", "Argentina", "+54"],
-        ["🇨🇱", "Chile", "+56"],
-        ["🇨🇴", "Colombia", "+57"],
-        ["🇲🇽", "Mexico", "+52"],
+        ["🇫🇯","Fiji","+679"],
+        ["🇫🇮","Finland","+358"],
+        ["🇫🇷","France","+33"],
 
-        ["🇷🇺", "Russia", "+7"],
-        ["🇺🇦", "Ukraine", "+380"],
-        ["🇵🇱", "Poland", "+48"],
-        ["🇸🇪", "Sweden", "+46"],
-        ["🇳🇴", "Norway", "+47"],
-        ["🇩🇰", "Denmark", "+45"],
-        ["🇫🇮", "Finland", "+358"],
+        ["🇬🇦","Gabon","+241"],
+        ["🇬🇲","Gambia","+220"],
+        ["🇬🇪","Georgia","+995"],
+        ["🇩🇪","Germany","+49"],
+        ["🇬🇭","Ghana","+233"],
+        ["🇬🇷","Greece","+30"],
+        ["🇬🇩","Grenada","+1473"],
+        ["🇬🇹","Guatemala","+502"],
+        ["🇬🇳","Guinea","+224"],
+        ["🇬🇼","Guinea-Bissau","+245"],
+        ["🇬🇾","Guyana","+592"],
 
-        ["🇵🇰", "Pakistan", "+92"],
-        ["🇧🇩", "Bangladesh", "+880"],
-        ["🇳🇵", "Nepal", "+977"],
-        ["🇱🇰", "Sri Lanka", "+94"],
+        ["🇭🇹","Haiti","+509"],
+        ["🇭🇳","Honduras","+504"],
+        ["🇭🇺","Hungary","+36"],
 
-        ["🇸🇴", "Somalia", "+252"],
-        ["🇸🇩", "Sudan", "+249"],
-        ["🇸🇸", "South Sudan", "+211"],
-        ["🇪🇷", "Eritrea", "+291"],
-        ["🇩🇯", "Djibouti", "+253"],
+        ["🇮🇸","Iceland","+354"],
+        ["🇮🇳","India","+91"],
+        ["🇮🇩","Indonesia","+62"],
+        ["🇮🇷","Iran","+98"],
+        ["🇮🇶","Iraq","+964"],
+        ["🇮🇪","Ireland","+353"],
+        ["🇮🇱","Israel","+972"],
+        ["🇮🇹","Italy","+39"],
 
-        ["🇨🇩", "DR Congo", "+243"],
-        ["🇨🇬", "Congo", "+242"],
-        ["🇨🇲", "Cameroon", "+237"],
-        ["🇸🇳", "Senegal", "+221"],
-        ["🇨🇮", "Côte d'Ivoire", "+225"],
-        ["🇲🇬", "Madagascar", "+261"],
-        ["🇲🇼", "Malawi", "+265"],
-        ["🇳🇦", "Namibia", "+264"],
-        ["🇧🇼", "Botswana", "+267"],
-        ["🇱🇸", "Lesotho", "+266"],
-        ["🇸🇿", "Eswatini", "+268"],
+        ["🇯🇲","Jamaica","+1876"],
+        ["🇯🇵","Japan","+81"],
+        ["🇯🇴","Jordan","+962"],
 
-        ["🇦🇫", "Afghanistan", "+93"],
-        ["🇦🇱", "Albania", "+355"],
-        ["🇩🇿", "Algeria", "+213"],
-        ["🇦🇩", "Andorra", "+376"],
-        ["🇦🇴", "Angola", "+244"],
-        ["🇦🇲", "Armenia", "+374"],
-        ["🇦🇹", "Austria", "+43"],
-        ["🇦🇿", "Azerbaijan", "+994"],
+        ["🇰🇿","Kazakhstan","+7"],
+        ["🇰🇪","Kenya","+254"],
+        ["🇰🇮","Kiribati","+686"],
+        ["🇰🇼","Kuwait","+965"],
+        ["🇰🇬","Kyrgyzstan","+996"],
 
-        ["🇧🇭", "Bahrain", "+973"],
-        ["🇧🇧", "Barbados", "+1246"],
-        ["🇧🇾", "Belarus", "+375"],
-        ["🇧🇿", "Belize", "+501"],
-        ["🇧🇯", "Benin", "+229"],
-        ["🇧🇹", "Bhutan", "+975"],
-        ["🇧🇴", "Bolivia", "+591"],
-        ["🇧🇦", "Bosnia and Herzegovina", "+387"],
-        ["🇧🇷", "Brazil", "+55"],
-        ["🇧🇳", "Brunei", "+673"],
-        ["🇧🇬", "Bulgaria", "+359"],
-        ["🇧🇫", "Burkina Faso", "+226"],
+        ["🇱🇦","Laos","+856"],
+        ["🇱🇻","Latvia","+371"],
+        ["🇱🇧","Lebanon","+961"],
+        ["🇱🇸","Lesotho","+266"],
+        ["🇱🇷","Liberia","+231"],
+        ["🇱🇾","Libya","+218"],
+        ["🇱🇮","Liechtenstein","+423"],
+        ["🇱🇹","Lithuania","+370"],
+        ["🇱🇺","Luxembourg","+352"],
 
-        ["🇨🇻", "Cabo Verde", "+238"],
-        ["🇰🇭", "Cambodia", "+855"],
-        ["🇨🇫", "Central African Republic", "+236"],
-        ["🇹🇩", "Chad", "+235"],
-        ["🇨🇷", "Costa Rica", "+506"],
-        ["🇭🇷", "Croatia", "+385"],
-        ["🇨🇾", "Cyprus", "+357"],
-        ["🇨🇿", "Czech Republic", "+420"],
+        ["🇲🇬","Madagascar","+261"],
+        ["🇲🇼","Malawi","+265"],
+        ["🇲🇾","Malaysia","+60"],
+        ["🇲🇻","Maldives","+960"],
+        ["🇲🇱","Mali","+223"],
+        ["🇲🇹","Malta","+356"],
+        ["🇲🇭","Marshall Islands","+692"],
+        ["🇲🇷","Mauritania","+222"],
+        ["🇲🇺","Mauritius","+230"],
+        ["🇲🇽","Mexico","+52"],
+        ["🇫🇲","Micronesia","+691"],
+        ["🇲🇩","Moldova","+373"],
+        ["🇲🇨","Monaco","+377"],
+        ["🇲🇳","Mongolia","+976"],
+        ["🇲🇪","Montenegro","+382"],
+        ["🇲🇦","Morocco","+212"],
+        ["🇲🇿","Mozambique","+258"],
+        ["🇲🇲","Myanmar","+95"],
 
-        ["🇬🇷", "Greece", "+30"],
-        ["🇬🇪", "Georgia", "+995"],
-        ["🇬🇹", "Guatemala", "+502"],
-        ["🇬🇳", "Guinea", "+224"],
-        ["🇬🇾", "Guyana", "+592"],
+        ["🇳🇦","Namibia","+264"],
+        ["🇳🇷","Nauru","+674"],
+        ["🇳🇵","Nepal","+977"],
+        ["🇳🇱","Netherlands","+31"],
+        ["🇳🇿","New Zealand","+64"],
+        ["🇳🇮","Nicaragua","+505"],
+        ["🇳🇪","Niger","+227"],
+        ["🇳🇬","Nigeria","+234"],
+        ["🇰🇵","North Korea","+850"],
+        ["🇲🇰","North Macedonia","+389"],
+        ["🇳🇴","Norway","+47"],
 
-        ["🇭🇹", "Haiti", "+509"],
-        ["🇭🇳", "Honduras", "+504"],
-        ["🇭🇺", "Hungary", "+36"],
+        ["🇴🇲","Oman","+968"],
 
-        ["🇮🇪", "Ireland", "+353"],
-        ["🇮🇱", "Israel", "+972"],
-        ["🇮🇸", "Iceland", "+354"],
-        ["🇮🇷", "Iran", "+98"],
-        ["🇮🇶", "Iraq", "+964"],
+        ["🇵🇰","Pakistan","+92"],
+        ["🇵🇼","Palau","+680"],
+        ["🇵🇸","Palestine","+970"],
+        ["🇵🇦","Panama","+507"],
+        ["🇵🇬","Papua New Guinea","+675"],
+        ["🇵🇾","Paraguay","+595"],
+        ["🇵🇪","Peru","+51"],
+        ["🇵🇭","Philippines","+63"],
+        ["🇵🇱","Poland","+48"],
+        ["🇵🇹","Portugal","+351"],
 
-        ["🇯🇲", "Jamaica", "+1876"],
-        ["🇯🇴", "Jordan", "+962"],
+        ["🇶🇦","Qatar","+974"],
 
-        ["🇰🇿", "Kazakhstan", "+7"],
-        ["🇰🇬", "Kyrgyzstan", "+996"],
-        ["🇰🇼", "Kuwait", "+965"],
+        ["🇷🇴","Romania","+40"],
+        ["🇷🇺","Russia","+7"],
+        ["🇷🇼","Rwanda","+250"],
 
-        ["🇱🇧", "Lebanon", "+961"],
-        ["🇱🇷", "Liberia", "+231"],
-        ["🇱🇾", "Libya", "+218"],
-        ["🇱🇹", "Lithuania", "+370"],
-        ["🇱🇺", "Luxembourg", "+352"],
+        ["🇰🇳","Saint Kitts and Nevis","+1869"],
+        ["🇱🇨","Saint Lucia","+1758"],
+        ["🇻🇨","Saint Vincent and the Grenadines","+1784"],
+        ["🇼🇸","Samoa","+685"],
+        ["🇸🇲","San Marino","+378"],
+        ["🇸🇹","São Tomé and Príncipe","+239"],
+        ["🇸🇦","Saudi Arabia","+966"],
+        ["🇸🇳","Senegal","+221"],
+        ["🇷🇸","Serbia","+381"],
+        ["🇸🇨","Seychelles","+248"],
+        ["🇸🇱","Sierra Leone","+232"],
+        ["🇸🇬","Singapore","+65"],
+        ["🇸🇰","Slovakia","+421"],
+        ["🇸🇮","Slovenia","+386"],
+        ["🇸🇧","Solomon Islands","+677"],
+        ["🇸🇴","Somalia","+252"],
+        ["🇿🇦","South Africa","+27"],
+        ["🇰🇷","South Korea","+82"],
+        ["🇸🇸","South Sudan","+211"],
+        ["🇪🇸","Spain","+34"],
+        ["🇱🇰","Sri Lanka","+94"],
+        ["🇸🇩","Sudan","+249"],
+        ["🇸🇷","Suriname","+597"],
+        ["🇸🇪","Sweden","+46"],
+        ["🇨🇭","Switzerland","+41"],
+        ["🇸🇾","Syria","+963"],
 
-        ["🇲🇱", "Mali", "+223"],
-        ["🇲🇹", "Malta", "+356"],
-        ["🇲🇷", "Mauritania", "+222"],
-        ["🇲🇺", "Mauritius", "+230"],
-        ["🇲🇦", "Morocco", "+212"],
-        ["🇲🇲", "Myanmar", "+95"],
+        ["🇹🇼","Taiwan","+886"],
+        ["🇹🇯","Tajikistan","+992"],
+        ["🇹🇿","Tanzania","+255"],
+        ["🇹🇭","Thailand","+66"],
+        ["🇹🇱","Timor-Leste","+670"],
+        ["🇹🇬","Togo","+228"],
+        ["🇹🇴","Tonga","+676"],
+        ["🇹🇹","Trinidad and Tobago","+1868"],
+        ["🇹🇳","Tunisia","+216"],
+        ["🇹🇷","Turkey","+90"],
+        ["🇹🇲","Turkmenistan","+993"],
+        ["🇹🇻","Tuvalu","+688"],
 
-        ["🇳🇦", "Namibia", "+264"],
-        ["🇳🇪", "Niger", "+227"],
-        ["🇳🇮", "Nicaragua", "+505"],
-        ["🇳🇴", "Norway", "+47"],
+        ["🇺🇬","Uganda","+256"],
+        ["🇺🇦","Ukraine","+380"],
+        ["🇦🇪","United Arab Emirates","+971"],
+        ["🇬🇧","United Kingdom","+44"],
+        ["🇺🇸","United States","+1"],
+        ["🇺🇾","Uruguay","+598"],
+        ["🇺🇿","Uzbekistan","+998"],
 
-        ["🇵🇦", "Panama", "+507"],
-        ["🇵🇾", "Paraguay", "+595"],
-        ["🇵🇪", "Peru", "+51"],
-        ["🇵🇹", "Portugal", "+351"],
+        ["🇻🇺","Vanuatu","+678"],
+        ["🇻🇦","Vatican City","+39"],
+        ["🇻🇪","Venezuela","+58"],
+        ["🇻🇳","Vietnam","+84"],
 
-        ["🇷🇴", "Romania", "+40"],
-        ["🇷🇸", "Serbia", "+381"],
+        ["🇾🇪","Yemen","+967"],
 
-        ["🇸🇬", "Singapore", "+65"],
-        ["🇸🇰", "Slovakia", "+421"],
-        ["🇸🇮", "Slovenia", "+386"],
-        ["🇪🇸", "Spain", "+34"],
-        ["🇱🇰", "Sri Lanka", "+94"],
-        ["🇸🇷", "Suriname", "+597"],
-        ["🇸🇾", "Syria", "+963"],
-
-        ["🇹🇼", "Taiwan", "+886"],
-        ["🇹🇯", "Tajikistan", "+992"],
-        ["🇹🇱", "Timor-Leste", "+670"],
-        ["🇹🇳", "Tunisia", "+216"],
-        ["🇹🇲", "Turkmenistan", "+993"],
-
-        ["🇺🇾", "Uruguay", "+598"],
-        ["🇺🇿", "Uzbekistan", "+998"],
-
-        ["🇻🇪", "Venezuela", "+58"],
-        ["🇻🇳", "Vietnam", "+84"],
-
-        ["🇾🇪", "Yemen", "+967"]
+        ["🇿🇲","Zambia","+260"],
+        ["🇿🇼","Zimbabwe","+263"]
 
     ];
 
@@ -280,6 +370,114 @@ document.addEventListener("DOMContentLoaded", () => {
         name: "Tanzania",
         code: "+255"
     };
+
+
+    /* =====================================================
+       FIREBASE OTP STATE
+    ===================================================== */
+
+    let confirmationResult = null;
+
+    let recaptchaVerifier = null;
+
+    let recaptchaWidgetId = null;
+
+    let currentFullPhone = "";
+
+
+    /* =====================================================
+       CREATE RECAPTCHA CONTAINER
+    ===================================================== */
+
+    function createRecaptchaContainer() {
+
+        if (
+            document.getElementById(
+                "recaptcha-container"
+            )
+        ) {
+            return;
+        }
+
+        const container =
+            document.createElement("div");
+
+        container.id =
+            "recaptcha-container";
+
+        container.style.position =
+            "fixed";
+
+        container.style.left =
+            "-9999px";
+
+        container.style.top =
+            "-9999px";
+
+        document.body.appendChild(
+            container
+        );
+    }
+
+
+    createRecaptchaContainer();
+
+
+    /* =====================================================
+       INITIALIZE RECAPTCHA
+    ===================================================== */
+
+    function initializeRecaptcha() {
+
+        try {
+
+            if (recaptchaVerifier) {
+
+                recaptchaVerifier.clear();
+
+                recaptchaVerifier = null;
+
+            }
+
+            recaptchaVerifier =
+                new RecaptchaVerifier(
+                    auth,
+                    "recaptcha-container",
+                    {
+                        size: "invisible",
+
+                        callback: () => {
+
+                            console.log(
+                                "CHAPCY reCAPTCHA verified."
+                            );
+
+                        },
+
+                        "expired-callback": () => {
+
+                            console.log(
+                                "CHAPCY reCAPTCHA expired."
+                            );
+
+                        }
+                    }
+                );
+
+            return true;
+
+        } catch (error) {
+
+            console.error(
+                "reCAPTCHA ERROR:",
+                error
+            );
+
+            return false;
+
+        }
+
+    }
 
 
     /* =====================================================
@@ -299,12 +497,16 @@ document.addEventListener("DOMContentLoaded", () => {
             countries.filter(country => {
 
                 return (
+
                     country[1]
                         .toLowerCase()
                         .includes(keyword)
+
                     ||
+
                     country[2]
                         .includes(keyword)
+
                 );
 
             });
@@ -313,13 +515,21 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!filtered.length) {
 
             countryList.innerHTML = `
+
                 <div class="no-country">
+
                     <i class="fa-solid fa-earth-africa"></i>
-                    <span>Country not found</span>
+
+                    <span>
+                        Country not found
+                    </span>
+
                 </div>
+
             `;
 
             return;
+
         }
 
 
@@ -355,13 +565,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 "click",
                 () => {
 
-                    selectCountry(country);
+                    selectCountry(
+                        country
+                    );
 
                 }
             );
 
 
-            countryList.appendChild(item);
+            countryList.appendChild(
+                item
+            );
 
         });
 
@@ -377,17 +591,19 @@ document.addEventListener("DOMContentLoaded", () => {
         selectedCountry = {
 
             flag: country[0],
+
             name: country[1],
+
             code: country[2]
 
         };
 
 
         countryFlag.textContent =
-            country[0];
+            selectedCountry.flag;
 
         countryCode.textContent =
-            country[2];
+            selectedCountry.code;
 
 
         closeCountryModal();
@@ -418,21 +634,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function openCountryModal() {
 
-        if (countryModal) {
+        if (!countryModal) return;
 
-            countryModal.classList.add("show");
+        countryModal.classList.add(
+            "show"
+        );
 
-        }
-
-        if (countryOverlay) {
-
-            countryOverlay.classList.add("show");
-
-        }
+        countryOverlay.classList.add(
+            "show"
+        );
 
         if (countrySearch) {
 
             countrySearch.value = "";
+
+            renderCountries();
 
             setTimeout(() => {
 
@@ -453,27 +669,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (countryModal) {
 
-            countryModal.classList.remove("show");
+            countryModal.classList.remove(
+                "show"
+            );
 
         }
 
         if (countryOverlay) {
 
-            countryOverlay.classList.remove("show");
+            countryOverlay.classList.remove(
+                "show"
+            );
 
         }
 
     }
 
 
-    if (countrySelector) {
+    /* =====================================================
+       COUNTRY EVENTS
+    ===================================================== */
 
-        countrySelector.addEventListener(
-            "click",
-            openCountryModal
-        );
-
-    }
+    countrySelector.addEventListener(
+        "click",
+        openCountryModal
+    );
 
 
     if (closeCountry) {
@@ -516,7 +736,9 @@ document.addEventListener("DOMContentLoaded", () => {
         "keydown",
         event => {
 
-            if (event.key === "Escape") {
+            if (
+                event.key === "Escape"
+            ) {
 
                 closeCountryModal();
 
@@ -530,62 +752,82 @@ document.addEventListener("DOMContentLoaded", () => {
        PHONE INPUT
     ===================================================== */
 
-    if (phoneInput) {
+    phoneInput.addEventListener(
+        "input",
+        () => {
 
-        phoneInput.addEventListener(
-            "input",
-            () => {
-
-                let value =
-                    phoneInput.value
-                        .replace(/\D/g, "")
-                        .substring(0, 15);
+            let value =
+                phoneInput.value
+                    .replace(/\D/g, "");
 
 
-                const groups =
-                    value.match(/.{1,3}/g);
+            value =
+                value.substring(
+                    0,
+                    15
+                );
 
 
-                phoneInput.value =
-                    groups
-                        ? groups.join(" ")
-                        : "";
+            const formatted =
+                value.match(
+                    /.{1,3}/g
+                );
 
 
-                hidePhoneError();
+            phoneInput.value =
+                formatted
+                    ? formatted.join(" ")
+                    : "";
 
-            }
-        );
 
-    }
+            hidePhoneError();
+
+        }
+    );
 
 
     /* =====================================================
-       PHONE HELPERS
+       GET CLEAN PHONE
     ===================================================== */
 
     function getCleanPhone() {
 
-        return phoneInput
-            ? phoneInput.value
-                .replace(/\D/g, "")
-            : "";
+        return phoneInput.value
+            .replace(/\D/g, "");
 
     }
 
 
+    /* =====================================================
+       GET FULL PHONE
+    ===================================================== */
+
     function getFullPhone() {
+
+        let local =
+            getCleanPhone();
+
+        /*
+         * Remove national leading zero.
+         */
+
+        local =
+            local.replace(
+                /^0+/,
+                ""
+            );
+
 
         return (
             selectedCountry.code +
-            getCleanPhone()
+            local
         );
 
     }
 
 
     /* =====================================================
-       PHONE VALIDATION
+       VALIDATE PHONE
     ===================================================== */
 
     function validatePhone() {
@@ -632,12 +874,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
+    /* =====================================================
+       PHONE ERROR
+    ===================================================== */
+
     function showPhoneError(message) {
 
         if (!phoneError) return;
 
         const text =
-            phoneError.querySelector("span");
+            phoneError.querySelector(
+                "span"
+            );
 
 
         if (text) {
@@ -648,7 +896,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        phoneError.classList.add("show");
+        phoneError.classList.add(
+            "show"
+        );
+
 
         phoneInput.classList.add(
             "input-error"
@@ -661,7 +912,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!phoneError) return;
 
-        phoneError.classList.remove("show");
+        phoneError.classList.remove(
+            "show"
+        );
 
         phoneInput.classList.remove(
             "input-error"
@@ -676,68 +929,85 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function startLoading() {
 
-        continueBtn.disabled = true;
+        continueBtn.disabled =
+            true;
 
-        if (continueText)
-            continueText.style.display = "none";
 
-        if (continueArrow)
-            continueArrow.style.display = "none";
+        if (continueText) {
 
-        if (continueLoader)
-            continueLoader.classList.add("show");
+            continueText.style.display =
+                "none";
 
-        continueBtn.classList.add("loading");
+        }
+
+
+        if (continueArrow) {
+
+            continueArrow.style.display =
+                "none";
+
+        }
+
+
+        if (continueLoader) {
+
+            continueLoader.classList.add(
+                "show"
+            );
+
+        }
+
+
+        continueBtn.classList.add(
+            "loading"
+        );
 
     }
 
 
     function stopLoading() {
 
-        continueBtn.disabled = false;
-
-        if (continueText)
-            continueText.style.display = "";
-
-        if (continueArrow)
-            continueArrow.style.display = "";
-
-        if (continueLoader)
-            continueLoader.classList.remove("show");
-
-        continueBtn.classList.remove("loading");
-
-    }
+        continueBtn.disabled =
+            false;
 
 
-    /* =====================================================
-       FORMAT PHONE
-    ===================================================== */
+        if (continueText) {
 
-    function formatInternationalNumber() {
+            continueText.style.display =
+                "";
 
-        return (
-            selectedCountry.code +
-            " " +
-            getCleanPhone()
+        }
+
+
+        if (continueArrow) {
+
+            continueArrow.style.display =
+                "";
+
+        }
+
+
+        if (continueLoader) {
+
+            continueLoader.classList.remove(
+                "show"
+            );
+
+        }
+
+
+        continueBtn.classList.remove(
+            "loading"
         );
 
     }
 
 
     /* =====================================================
-       OPEN OTP SECTION
+       HIDE REGISTER UI
     ===================================================== */
 
-    function openVerification() {
-
-        if (verificationNumber) {
-
-            verificationNumber.textContent =
-                formatInternationalNumber();
-
-        }
-
+    function hideRegistration() {
 
         const registerCard =
             document.querySelector(
@@ -781,6 +1051,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
         }
 
+    }
+
+
+    /* =====================================================
+       SHOW VERIFICATION
+    ===================================================== */
+
+    function openVerification(
+        fullPhone
+    ) {
+
+        currentFullPhone =
+            fullPhone;
+
+
+        if (verificationNumber) {
+
+            verificationNumber.textContent =
+                fullPhone;
+
+        }
+
+
+        hideRegistration();
+
 
         if (verificationSection) {
 
@@ -791,24 +1086,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        /* Clear OTP */
-
-        otpInputs.forEach(input => {
-
-            input.value = "";
-
-        });
-
-
-        /* Focus first OTP */
-
         setTimeout(() => {
-
-            if (otpInputs[0]) {
-
-                otpInputs[0].focus();
-
-            }
 
             if (verificationSection) {
 
@@ -819,48 +1097,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
             }
 
-        }, 250);
+        }, 200);
 
     }
 
 
     /* =====================================================
-       CONTINUE
-       PHONE → OTP
+       RESET OTP
     ===================================================== */
 
-    if (form) {
+    function clearOTP() {
 
-        form.addEventListener(
-            "submit",
-            event => {
+        otpInputs.forEach(
+            input => {
 
-                event.preventDefault();
+                input.value = "";
 
-
-                if (!validatePhone()) {
-
-                    phoneInput.focus();
-
-                    return;
-
-                }
-
-
-                startLoading();
-
-
-                /*
-                 * Demo processing
-                 */
-
-                setTimeout(() => {
-
-                    stopLoading();
-
-                    openVerification();
-
-                }, 1200);
+                input.classList.remove(
+                    "otp-error"
+                );
 
             }
         );
@@ -869,8 +1124,220 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       OTP INPUT SYSTEM
+       SEND REAL FIREBASE OTP
     ===================================================== */
+
+    async function sendFirebaseOTP() {
+
+        if (!validatePhone()) {
+
+            phoneInput.focus();
+
+            return;
+
+        }
+
+
+        const fullPhone =
+            getFullPhone();
+
+
+        startLoading();
+
+
+        try {
+
+            /*
+             * Create fresh reCAPTCHA.
+             */
+
+            const ready =
+                initializeRecaptcha();
+
+
+            if (!ready) {
+
+                throw new Error(
+                    "Unable to initialize security verification."
+                );
+
+            }
+
+
+            console.log(
+                "Sending Firebase OTP to:",
+                fullPhone
+            );
+
+
+            /*
+             * REAL FIREBASE SMS
+             */
+
+            confirmationResult =
+                await signInWithPhoneNumber(
+                    auth,
+                    fullPhone,
+                    recaptchaVerifier
+                );
+
+
+            console.log(
+                "Firebase OTP sent successfully."
+            );
+
+
+            stopLoading();
+
+
+            openVerification(
+                fullPhone
+            );
+
+
+            clearOTP();
+
+
+        } catch (error) {
+
+            console.error(
+                "Firebase Phone Auth Error:",
+                error
+            );
+
+
+            stopLoading();
+
+
+            /*
+             * Reset reCAPTCHA.
+             */
+
+            try {
+
+                if (recaptchaVerifier) {
+
+                    recaptchaVerifier.clear();
+
+                    recaptchaVerifier =
+                        null;
+
+                }
+
+            } catch (e) {
+
+                console.log(e);
+
+            }
+
+
+            let message =
+                "Unable to send verification code.";
+
+
+            switch (
+                error.code
+            ) {
+
+                case
+                    "auth/invalid-phone-number":
+
+                    message =
+                        "Invalid phone number.";
+
+                    break;
+
+
+                case
+                    "auth/too-many-requests":
+
+                    message =
+                        "Too many attempts. Please try again later.";
+
+                    break;
+
+
+                case
+                    "auth/quota-exceeded":
+
+                    message =
+                        "SMS limit reached. Please try again later.";
+
+                    break;
+
+
+                case
+                    "auth/operation-not-allowed":
+
+                    message =
+                        "Phone authentication is not enabled in Firebase.";
+
+                    break;
+
+
+                case
+                    "auth/captcha-check-failed":
+
+                    message =
+                        "Security verification failed. Please try again.";
+
+                    break;
+
+
+                case
+                    "auth/network-request-failed":
+
+                    message =
+                        "Network error. Check your internet connection.";
+
+                    break;
+
+
+                default:
+
+                    message =
+                        error.message ||
+                        message;
+
+            }
+
+
+            showPhoneError(
+                message
+            );
+
+        }
+
+    }
+
+
+    /* =====================================================
+       CONTINUE
+    ===================================================== */
+
+    form.addEventListener(
+        "submit",
+        async event => {
+
+            event.preventDefault();
+
+            await sendFirebaseOTP();
+
+        }
+    );
+
+
+    /* =====================================================
+       OTP INPUTS
+    ===================================================== */
+
+    const otpInputs =
+        Array.from(
+            document.querySelectorAll(
+                ".otp-input"
+            )
+        );
+
 
     otpInputs.forEach(
         (input, index) => {
@@ -888,11 +1355,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     event.target.value =
                         value;
-
-
-                    input.classList.remove(
-                        "otp-error"
-                    );
 
 
                     if (
@@ -916,8 +1378,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 event => {
 
                     if (
-                        event.key ===
-                            "Backspace" &&
+                        event.key === "Backspace" &&
                         !input.value &&
                         index > 0
                     ) {
@@ -971,20 +1432,17 @@ document.addEventListener("DOMContentLoaded", () => {
                         );
 
 
-                    const nextIndex =
+                    const last =
                         Math.min(
                             pasted.length,
-                            otpInputs.length - 1
-                        );
+                            otpInputs.length
+                        ) - 1;
 
 
-                    if (
-                        otpInputs[nextIndex]
-                    ) {
+                    if (last >= 0) {
 
-                        otpInputs[
-                            nextIndex
-                        ].focus();
+                        otpInputs[last]
+                            .focus();
 
                     }
 
@@ -1002,94 +1460,211 @@ document.addEventListener("DOMContentLoaded", () => {
     function getOTP() {
 
         return otpInputs
-            .map(input => input.value)
+            .map(
+                input =>
+                    input.value
+            )
             .join("");
 
     }
 
 
     /* =====================================================
-       VERIFY OTP
+       OTP ERROR
     ===================================================== */
 
-    if (verifyBtn) {
+    function showOTPError() {
 
-        verifyBtn.addEventListener(
-            "click",
-            () => {
+        otpInputs.forEach(
+            input => {
 
-                const otp =
-                    getOTP();
+                input.classList.add(
+                    "otp-error"
+                );
+
+            }
+        );
 
 
-                if (otp.length !== 6) {
+        setTimeout(() => {
 
-                    otpInputs.forEach(
-                        input => {
+            otpInputs.forEach(
+                input => {
 
-                            input.classList.add(
-                                "otp-error"
-                            );
+                    input.classList.remove(
+                        "otp-error"
+                    );
 
-                        }
+                }
+            );
+
+        }, 700);
+
+    }
+
+
+    /* =====================================================
+       VERIFY REAL FIREBASE OTP
+    ===================================================== */
+
+    verifyBtn.addEventListener(
+        "click",
+        async () => {
+
+            const otp =
+                getOTP();
+
+
+            if (
+                !confirmationResult
+            ) {
+
+                showOTPError();
+
+                return;
+
+            }
+
+
+            if (
+                otp.length !== 6
+            ) {
+
+                showOTPError();
+
+                return;
+
+            }
+
+
+            verifyBtn.disabled =
+                true;
+
+
+            verifyBtn.classList.add(
+                "verifying"
+            );
+
+
+            verifyBtn.innerHTML = `
+
+                <i class="fa-solid fa-circle-notch fa-spin"></i>
+
+                Verifying...
+
+            `;
+
+
+            try {
+
+                /*
+                 * REAL FIREBASE VERIFICATION
+                 */
+
+                const result =
+                    await confirmationResult.confirm(
+                        otp
                     );
 
 
-                    setTimeout(() => {
-
-                        otpInputs.forEach(
-                            input => {
-
-                                input.classList.remove(
-                                    "otp-error"
-                                );
-
-                            }
-                        );
-
-                    }, 700);
+                const user =
+                    result.user;
 
 
-                    return;
+                console.log(
+                    "CHAPCY USER VERIFIED:",
+                    user.uid
+                );
 
-                }
+
+                /*
+                 * Save useful local session info.
+                 */
+
+                localStorage.setItem(
+                    "chapcyPhoneVerified",
+                    "true"
+                );
+
+
+                localStorage.setItem(
+                    "chapcyCurrentPhone",
+                    currentFullPhone
+                );
+
+
+                localStorage.setItem(
+                    "chapcyFirebaseUID",
+                    user.uid
+                );
+
+
+                showSuccess();
+
+
+            } catch (error) {
+
+                console.error(
+                    "OTP Verification Error:",
+                    error
+                );
 
 
                 verifyBtn.disabled =
-                    true;
+                    false;
 
 
-                verifyBtn.classList.add(
+                verifyBtn.classList.remove(
                     "verifying"
                 );
 
 
                 verifyBtn.innerHTML = `
-                    <i class="fa-solid fa-circle-notch fa-spin"></i>
-                    Verifying...
+
+                    Verify
+
+                    <i class="fa-solid fa-check"></i>
+
                 `;
 
 
-                /*
-                 * DEMO OTP
-                 *
-                 * For now any 6 digits
-                 * will pass.
-                 *
-                 * Firebase OTP will replace
-                 * this later.
-                 */
+                let message =
+                    "Invalid verification code.";
 
-                setTimeout(() => {
 
-                    showSuccess();
+                if (
+                    error.code ===
+                    "auth/invalid-verification-code"
+                ) {
 
-                }, 1500);
+                    message =
+                        "Incorrect OTP. Please try again.";
+
+                }
+
+
+                if (
+                    error.code ===
+                    "auth/code-expired"
+                ) {
+
+                    message =
+                        "This OTP has expired. Please request a new one.";
+
+                }
+
+
+                showOTPError();
+
+
+                console.error(
+                    message
+                );
 
             }
-        );
 
-    }
+        }
+    );
 
 
     /* =====================================================
@@ -1114,26 +1689,6 @@ document.addEventListener("DOMContentLoaded", () => {
             );
 
         }
-
-
-        localStorage.setItem(
-            "chapcyPhoneVerified",
-            "true"
-        );
-
-
-        localStorage.setItem(
-            "chapcyCurrentPhone",
-            getFullPhone()
-        );
-
-
-        localStorage.setItem(
-            "chapcyCountry",
-            JSON.stringify(
-                selectedCountry
-            )
-        );
 
 
         createCelebration();
@@ -1184,13 +1739,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
             particle.style.setProperty(
                 "--x",
-                `${(Math.random() - 0.5) * 500}px`
+                `${(
+                    Math.random() - 0.5
+                ) * 500}px`
             );
 
 
             particle.style.setProperty(
                 "--y",
-                `${(Math.random() - 0.5) * 500}px`
+                `${(
+                    Math.random() - 0.5
+                ) * 500}px`
             );
 
 
@@ -1222,30 +1781,67 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       RESEND
+       RESEND REAL OTP
     ===================================================== */
 
-    let resendCooldown = false;
+    let resendCooldown =
+        false;
 
 
-    if (resendBtn) {
+    resendBtn.addEventListener(
+        "click",
+        async () => {
 
-        resendBtn.addEventListener(
-            "click",
-            () => {
+            if (
+                resendCooldown
+            ) {
 
-                if (resendCooldown)
-                    return;
+                return;
 
-
-                resendCooldown = true;
-
-
-                let seconds = 30;
+            }
 
 
-                resendBtn.disabled =
-                    true;
+            if (
+                !currentFullPhone
+            ) {
+
+                return;
+
+            }
+
+
+            resendCooldown =
+                true;
+
+
+            resendBtn.disabled =
+                true;
+
+
+            resendBtn.textContent =
+                "Sending...";
+
+
+            try {
+
+                initializeRecaptcha();
+
+
+                confirmationResult =
+                    await signInWithPhoneNumber(
+                        auth,
+                        currentFullPhone,
+                        recaptchaVerifier
+                    );
+
+
+                console.log(
+                    "New Firebase OTP sent."
+                );
+
+
+                let seconds =
+                    30;
 
 
                 resendBtn.textContent =
@@ -1253,69 +1849,94 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
                 const timer =
-                    setInterval(() => {
+                    setInterval(
+                        () => {
 
-                        seconds--;
+                            seconds--;
 
-
-                        resendBtn.textContent =
-                            `Resend (${seconds})`;
-
-
-                        if (seconds <= 0) {
-
-                            clearInterval(timer);
-
-                            resendCooldown =
-                                false;
-
-                            resendBtn.disabled =
-                                false;
 
                             resendBtn.textContent =
-                                "Resend";
+                                `Resend (${seconds})`;
 
-                        }
 
-                    }, 1000);
+                            if (
+                                seconds <= 0
+                            ) {
+
+                                clearInterval(
+                                    timer
+                                );
+
+
+                                resendCooldown =
+                                    false;
+
+
+                                resendBtn.disabled =
+                                    false;
+
+
+                                resendBtn.textContent =
+                                    "Resend";
+
+                            }
+
+                        },
+                        1000
+                    );
+
+
+            } catch (error) {
+
+                console.error(
+                    "Resend OTP Error:",
+                    error
+                );
+
+
+                resendCooldown =
+                    false;
+
+
+                resendBtn.disabled =
+                    false;
+
+
+                resendBtn.textContent =
+                    "Resend";
 
             }
-        );
 
-    }
+        }
+    );
 
 
     /* =====================================================
        ENTER CHAPCY
-       SUCCESS → MY CHAT.HTML
     ===================================================== */
 
-    if (enterChapcyBtn) {
+    enterChapcyBtn.addEventListener(
+        "click",
+        () => {
 
-        enterChapcyBtn.addEventListener(
-            "click",
-            () => {
-
-                enterChapcyBtn.classList.add(
-                    "entering"
-                );
+            enterChapcyBtn.classList.add(
+                "entering"
+            );
 
 
-                setTimeout(() => {
+            setTimeout(() => {
 
-                    window.location.href =
-                        "My Chat.html";
+                window.location.href =
+                    "My chat.html";
 
-                }, 900);
+            }, 900);
 
-            }
-        );
-
-    }
+        }
+    );
 
 
     /* =====================================================
-       LOGO INTERACTION
+       LOGO
     ===================================================== */
 
     const logo =
@@ -1353,52 +1974,48 @@ document.addEventListener("DOMContentLoaded", () => {
        PHONE FOCUS
     ===================================================== */
 
-    if (phoneInput) {
+    phoneInput.addEventListener(
+        "focus",
+        () => {
 
-        phoneInput.addEventListener(
-            "focus",
-            () => {
-
-                const wrapper =
-                    document.querySelector(
-                        ".phone-input-wrapper"
-                    );
+            const wrapper =
+                document.querySelector(
+                    ".phone-input-wrapper"
+                );
 
 
-                if (wrapper) {
+            if (wrapper) {
 
-                    wrapper.classList.add(
-                        "phone-focused"
-                    );
-
-                }
+                wrapper.classList.add(
+                    "phone-focused"
+                );
 
             }
-        );
+
+        }
+    );
 
 
-        phoneInput.addEventListener(
-            "blur",
-            () => {
+    phoneInput.addEventListener(
+        "blur",
+        () => {
 
-                const wrapper =
-                    document.querySelector(
-                        ".phone-input-wrapper"
-                    );
+            const wrapper =
+                document.querySelector(
+                    ".phone-input-wrapper"
+                );
 
 
-                if (wrapper) {
+            if (wrapper) {
 
-                    wrapper.classList.remove(
-                        "phone-focused"
-                    );
-
-                }
+                wrapper.classList.remove(
+                    "phone-focused"
+                );
 
             }
-        );
 
-    }
+        }
+    );
 
 
     /* =====================================================
@@ -1408,20 +2025,12 @@ document.addEventListener("DOMContentLoaded", () => {
     renderCountries();
 
 
-    if (countryFlag) {
-
-        countryFlag.textContent =
-            selectedCountry.flag;
-
-    }
+    countryFlag.textContent =
+        selectedCountry.flag;
 
 
-    if (countryCode) {
-
-        countryCode.textContent =
-            selectedCountry.code;
-
-    }
+    countryCode.textContent =
+        selectedCountry.code;
 
 
     document.body.classList.add(
@@ -1430,7 +2039,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     console.log(
-        "🌍 CHAPCY Registration System Ready"
+        "🌍 CHAPCY Firebase Phone Authentication Ready"
     );
 
 });
