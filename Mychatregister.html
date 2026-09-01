@@ -478,7 +478,34 @@
 
 </div>
 
+<script type="module">
+    import { initializeApp } 
+    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
+    import {
+        getAuth,
+        RecaptchaVerifier,
+        signInWithPhoneNumber
+    }
+    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+    const firebaseConfig = {
+        apiKey: "WEKA_API_KEY_YAKO",
+        authDomain: "rko-website-design-2f792.firebaseapp.com",
+        projectId: "rko-website-design-2f792",
+        storageBucket: "rko-website-design-2f792.firebasestorage.app",
+        messagingSenderId: "782567629866",
+        appId: "WEKA_APP_ID_YAKO"
+    };
+
+    const app = initializeApp(firebaseConfig);
+
+    const auth = getAuth(app);
+
+    window.chapcyAuth = auth;
+    window.ChapcyRecaptchaVerifier = RecaptchaVerifier;
+    window.signInWithPhoneNumber = signInWithPhoneNumber;
+</script>
 
 <script src="Mychatregister.js"></script>
 
