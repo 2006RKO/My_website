@@ -478,8 +478,16 @@
 
 </div>
 
+<!-- =====================================================
+     FIREBASE PHONE AUTH + RECAPTCHA
+===================================================== -->
+
+<!-- Invisible reCAPTCHA container -->
+<div id="recaptcha-container"></div>
+
 <script type="module">
-    import { initializeApp } 
+
+    import { initializeApp }
     from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
     import {
@@ -489,25 +497,84 @@
     }
     from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
+
+    /* =====================================================
+       CHAPCY FIREBASE CONFIG
+    ===================================================== */
+
     const firebaseConfig = {
-        apiKey: "AIzaSyDIID2LpzjLiqaLeLJKgp-Vd7tNIyN-M1k",
-        authDomain: "rko-website-design-2f792.firebaseapp.com",
-        projectId: "rko-website-design-2f792",
-        storageBucket: "rko-website-design-2f792.firebasestorage.app",
-        messagingSenderId: "782567629866",
-        appId: "1:782567629866:web:d6d80d454d0653ea8b4f53"
+
+        apiKey:
+            "AIzaSyDIID2LpzjLiqaLeLJKgp-Vd7tNIyN-M1k",
+
+        authDomain:
+            "rko-website-design-2f792.firebaseapp.com",
+
+        projectId:
+            "rko-website-design-2f792",
+
+        storageBucket:
+            "rko-website-design-2f792.firebasestorage.app",
+
+        messagingSenderId:
+            "782567629866",
+
+        appId:
+            "1:782567629866:web:d6d80d454d0653ea8b4f53",
+
+        measurementId:
+            "G-KQ1EKYE7E7"
+
     };
 
-    const app = initializeApp(firebaseConfig);
 
-    const auth = getAuth(app);
+    /* =====================================================
+       INITIALIZE FIREBASE
+    ===================================================== */
 
-    window.chapcyAuth = auth;
-    window.ChapcyRecaptchaVerifier = RecaptchaVerifier;
-    window.signInWithPhoneNumber = signInWithPhoneNumber;
+    const app =
+        initializeApp(firebaseConfig);
+
+
+    /* =====================================================
+       INITIALIZE AUTH
+    ===================================================== */
+
+    const auth =
+        getAuth(app);
+
+
+    /* =====================================================
+       MAKE FIREBASE AVAILABLE TO
+       Mychatregister.js
+    ===================================================== */
+
+    window.chapcyAuth =
+        auth;
+
+    window.ChapcyRecaptchaVerifier =
+        RecaptchaVerifier;
+
+    window.signInWithPhoneNumber =
+        signInWithPhoneNumber;
+
+
+    console.log(
+        "🔥 CHAPCY Firebase Authentication Ready"
+    );
+
 </script>
 
+
+<!-- =====================================================
+     CHAPCY REGISTRATION JAVASCRIPT
+===================================================== -->
+
 <script src="Mychatregister.js"></script>
+
+
+</body>
+</html>
 
 </body>
 </html>
