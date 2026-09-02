@@ -1,636 +1,1364 @@
 /* =========================================================
-   CHAPCY REGISTER.JS
-   WORLDWIDE PHONE REGISTRATION
-   FIREBASE PHONE AUTH + SMS OTP
-   PREMIUM UI + COUNTRY SYSTEM
-========================================================= */
+   CHAPCY WORLDWIDE REGISTRATION JS
+   Firebase Phone OTP — Modular SDK
+   ========================================================= */
 
-document.addEventListener("DOMContentLoaded", () => {
+"use strict";
 
-    /* =====================================================
-       FIREBASE CHECK
-    ===================================================== */
+/* =========================================================
+   GLOBAL VARIABLES
+   ========================================================= */
 
-    if (typeof firebase === "undefined") {
-        console.error("Firebase SDK haijapakiwa.");
-        alert("Firebase haijapakiwa. Hakikisha Firebase scripts zipo kwenye HTML.");
+let selectedCountry = {
+    name: "Tanzania",
+    flag: "🇹🇿",
+    code: "+255"
+};
+
+let confirmationResult = null;
+let recaptchaVerifier = null;
+let currentPhone = "";
+let resendTimer = null;
+let resendSeconds = 30;
+
+
+/* =========================================================
+   DOM ELEMENTS
+   ========================================================= */
+
+const registerForm = document.getElementById("registerForm");
+
+const countrySelector = document.getElementById("countrySelector");
+const countryFlag = document.getElementById("countryFlag");
+const countryCode = document.getElementById("countryCode");
+
+const phoneNumber = document.getElementById("phoneNumber");
+const detectedCountry = document.getElementById("detectedCountry");
+const phoneError = document.getElementById("phoneError");
+
+const continueBtn = document.getElementById("continueBtn");
+const continueText = document.getElementById("continueText");
+const continueArrow = document.getElementById("continueArrow");
+const continueLoader = document.getElementById("continueLoader");
+
+const verificationSection =
+    document.getElementById("verificationSection");
+
+const verificationNumber =
+    document.getElementById("verificationNumber");
+
+const verifyBtn =
+    document.getElementById("verifyBtn");
+
+const resendBtn =
+    document.getElementById("resendBtn");
+
+const successSection =
+    document.getElementById("successSection");
+
+const enterChapcyBtn =
+    document.getElementById("enterChapcyBtn");
+
+const countryOverlay =
+    document.getElementById("countryOverlay");
+
+const countryModal =
+    document.getElementById("countryModal");
+
+const closeCountry =
+    document.getElementById("closeCountry");
+
+const countrySearch =
+    document.getElementById("countrySearch");
+
+const countryList =
+    document.getElementById("countryList");
+
+
+/* =========================================================
+   COUNTRY DATA
+   ========================================================= */
+
+const countries = [
+
+    ["🇹🇿", "Tanzania", "+255"],
+    ["🇰🇪", "Kenya", "+254"],
+    ["🇺🇬", "Uganda", "+256"],
+    ["🇷🇼", "Rwanda", "+250"],
+    ["🇧🇮", "Burundi", "+257"],
+    ["🇿🇦", "South Africa", "+27"],
+    ["🇳🇬", "Nigeria", "+234"],
+    ["🇬🇭", "Ghana", "+233"],
+    ["🇪🇹", "Ethiopia", "+251"],
+    ["🇸🇸", "South Sudan", "+211"],
+    ["🇸🇩", "Sudan", "+249"],
+    ["🇪🇬", "Egypt", "+20"],
+
+    ["🇬🇧", "United Kingdom", "+44"],
+    ["🇺🇸", "United States", "+1"],
+    ["🇨🇦", "Canada", "+1"],
+    ["🇦🇺", "Australia", "+61"],
+    ["🇳🇿", "New Zealand", "+64"],
+
+    ["🇮🇳", "India", "+91"],
+    ["🇵🇰", "Pakistan", "+92"],
+    ["🇧🇩", "Bangladesh", "+880"],
+    ["🇦🇪", "United Arab Emirates", "+971"],
+    ["🇸🇦", "Saudi Arabia", "+966"],
+    ["🇶🇦", "Qatar", "+974"],
+    ["🇰🇼", "Kuwait", "+965"],
+    ["🇴🇲", "Oman", "+968"],
+    ["🇧🇭", "Bahrain", "+973"],
+
+    ["🇨🇳", "China", "+86"],
+    ["🇯🇵", "Japan", "+81"],
+    ["🇰🇷", "South Korea", "+82"],
+    ["🇸🇬", "Singapore", "+65"],
+    ["🇲🇾", "Malaysia", "+60"],
+    ["🇮🇩", "Indonesia", "+62"],
+    ["🇹🇭", "Thailand", "+66"],
+    ["🇵🇭", "Philippines", "+63"],
+    ["🇻🇳", "Vietnam", "+84"],
+
+    ["🇩🇪", "Germany", "+49"],
+    ["🇫🇷", "France", "+33"],
+    ["🇮🇹", "Italy", "+39"],
+    ["🇪🇸", "Spain", "+34"],
+    ["🇵🇹", "Portugal", "+351"],
+    ["🇳🇱", "Netherlands", "+31"],
+    ["🇧🇪", "Belgium", "+32"],
+    ["🇨🇭", "Switzerland", "+41"],
+    ["🇸🇪", "Sweden", "+46"],
+    ["🇳🇴", "Norway", "+47"],
+    ["🇩🇰", "Denmark", "+45"],
+    ["🇫🇮", "Finland", "+358"],
+    ["🇮🇪", "Ireland", "+353"],
+    ["🇵🇱", "Poland", "+48"],
+    ["🇬🇷", "Greece", "+30"],
+
+    ["🇧🇷", "Brazil", "+55"],
+    ["🇲🇽", "Mexico", "+52"],
+    ["🇦🇷", "Argentina", "+54"],
+    ["🇨🇱", "Chile", "+56"],
+    ["🇨🇴", "Colombia", "+57"],
+    ["🇵🇪", "Peru", "+51"],
+
+    ["🇿🇼", "Zimbabwe", "+263"],
+    ["🇿🇲", "Zambia", "+260"],
+    ["🇲🇼", "Malawi", "+265"],
+    ["🇲🇿", "Mozambique", "+258"],
+    ["🇧🇼", "Botswana", "+267"],
+    ["🇳🇦", "Namibia", "+264"],
+    ["🇱🇸", "Lesotho", "+266"],
+    ["🇸🇿", "Eswatini", "+268"],
+    ["🇸🇨", "Seychelles", "+248"],
+    ["🇲🇺", "Mauritius", "+230"],
+    ["🇲🇬", "Madagascar", "+261"]
+];
+
+
+/* =========================================================
+   FIREBASE READY CHECK
+   ========================================================= */
+
+function waitForFirebase(callback) {
+
+    if (
+        window.chapcyAuth &&
+        window.ChapcyRecaptchaVerifier &&
+        window.signInWithPhoneNumber
+    ) {
+        callback();
         return;
     }
 
-
-    /* =====================================================
-       FIREBASE CONFIG
-    ===================================================== */
-
-    const firebaseConfig = {
-        apiKey: "AIzaSyDIID2LpzjLiqaLeLJKgp-Vd7tNIyN-M1k",
-        authDomain: "rko-website-design-2f792.firebaseapp.com",
-        databaseURL: "https://rko-website-design-2f792-default-rtdb.firebaseio.com",
-        projectId: "rko-website-design-2f792",
-        storageBucket: "rko-website-design-2f792.firebasestorage.app",
-        messagingSenderId: "782567629866",
-        appId: "1:782567629866:web:d6d80d454d0653ea8b4f53",
-        measurementId: "G-KQ1EKYE7E7"
-    };
+    setTimeout(() => {
+        waitForFirebase(callback);
+    }, 100);
+}
 
 
-    /* =====================================================
-       INITIALIZE FIREBASE
-    ===================================================== */
+/* =========================================================
+   CREATE RECAPTCHA CONTAINER IF MISSING
+   ========================================================= */
 
-    if (!firebase.apps.length) {
-        firebase.initializeApp(firebaseConfig);
+function ensureRecaptchaContainer() {
+
+    let container =
+        document.getElementById("recaptcha-container");
+
+    if (!container) {
+
+        container = document.createElement("div");
+
+        container.id = "recaptcha-container";
+
+        container.style.position = "absolute";
+        container.style.left = "-9999px";
+        container.style.width = "1px";
+        container.style.height = "1px";
+        container.style.overflow = "hidden";
+
+        document.body.appendChild(container);
     }
 
-    const auth = firebase.auth();
+    return container;
+}
 
 
-    /* =====================================================
-       ELEMENTS
-    ===================================================== */
+/* =========================================================
+   SETUP RECAPTCHA
+   ========================================================= */
 
-    const form =
-        document.getElementById("registerForm");
+async function setupRecaptcha() {
 
-    const countrySelector =
-        document.getElementById("countrySelector");
+    waitForFirebase(() => {});
 
-    const countryOverlay =
-        document.getElementById("countryOverlay");
+    const container = ensureRecaptchaContainer();
 
-    const countryModal =
-        document.getElementById("countryModal");
+    try {
 
-    const closeCountry =
-        document.getElementById("closeCountry");
+        if (recaptchaVerifier) {
 
-    const countryList =
-        document.getElementById("countryList");
+            try {
+                recaptchaVerifier.clear();
+            } catch (e) {}
 
-    const countrySearch =
-        document.getElementById("countrySearch");
-
-    const countryFlag =
-        document.getElementById("countryFlag");
-
-    const countryCode =
-        document.getElementById("countryCode");
-
-    const phoneInput =
-        document.getElementById("phoneNumber");
-
-    const phoneError =
-        document.getElementById("phoneError");
-
-    const detectedCountry =
-        document.getElementById("detectedCountry");
-
-    const continueBtn =
-        document.getElementById("continueBtn");
-
-    const continueText =
-        document.querySelector(".continue-text");
-
-    const continueArrow =
-        document.querySelector(".continue-arrow");
-
-    const continueLoader =
-        document.getElementById("continueLoader");
-
-    const verificationSection =
-        document.getElementById("verificationSection");
-
-    const verificationNumber =
-        document.getElementById("verificationNumber");
-
-    const verifyBtn =
-        document.getElementById("verifyBtn");
-
-    const resendBtn =
-        document.getElementById("resendBtn");
-
-    const successSection =
-        document.getElementById("successSection");
-
-    const enterChapcyBtn =
-        document.getElementById("enterChapcyBtn");
-
-    const otpInputs =
-        Array.from(
-            document.querySelectorAll(".otp-input")
-        );
-
-
-    /* =====================================================
-       CHECK IMPORTANT ELEMENTS
-    ===================================================== */
-
-    if (!form ||
-        !countrySelector ||
-        !countryList ||
-        !countrySearch ||
-        !phoneInput ||
-        !continueBtn ||
-        !verificationSection ||
-        !verifyBtn ||
-        !resendBtn ||
-        !successSection ||
-        !enterChapcyBtn) {
-
-        console.error(
-            "CHAPCY: Baadhi ya HTML elements hazipatikani."
-        );
-
-        return;
-    }
-
-
-    /* =====================================================
-       WORLD COUNTRIES
-    ===================================================== */
-
-    const countries = [
-
-        ["🇦🇫","Afghanistan","+93"],
-        ["🇦🇱","Albania","+355"],
-        ["🇩🇿","Algeria","+213"],
-        ["🇦🇩","Andorra","+376"],
-        ["🇦🇴","Angola","+244"],
-        ["🇦🇬","Antigua and Barbuda","+1268"],
-        ["🇦🇷","Argentina","+54"],
-        ["🇦🇲","Armenia","+374"],
-        ["🇦🇺","Australia","+61"],
-        ["🇦🇹","Austria","+43"],
-        ["🇦🇿","Azerbaijan","+994"],
-
-        ["🇧🇸","Bahamas","+1242"],
-        ["🇧🇭","Bahrain","+973"],
-        ["🇧🇩","Bangladesh","+880"],
-        ["🇧🇧","Barbados","+1246"],
-        ["🇧🇾","Belarus","+375"],
-        ["🇧🇪","Belgium","+32"],
-        ["🇧🇿","Belize","+501"],
-        ["🇧🇯","Benin","+229"],
-        ["🇧🇹","Bhutan","+975"],
-        ["🇧🇴","Bolivia","+591"],
-        ["🇧🇦","Bosnia and Herzegovina","+387"],
-        ["🇧🇼","Botswana","+267"],
-        ["🇧🇷","Brazil","+55"],
-        ["🇧🇳","Brunei","+673"],
-        ["🇧🇬","Bulgaria","+359"],
-        ["🇧🇫","Burkina Faso","+226"],
-        ["🇧🇮","Burundi","+257"],
-
-        ["🇨🇻","Cabo Verde","+238"],
-        ["🇰🇭","Cambodia","+855"],
-        ["🇨🇲","Cameroon","+237"],
-        ["🇨🇦","Canada","+1"],
-        ["🇨🇫","Central African Republic","+236"],
-        ["🇹🇩","Chad","+235"],
-        ["🇨🇱","Chile","+56"],
-        ["🇨🇳","China","+86"],
-        ["🇨🇴","Colombia","+57"],
-        ["🇰🇲","Comoros","+269"],
-        ["🇨🇬","Congo","+242"],
-        ["🇨🇩","DR Congo","+243"],
-        ["🇨🇷","Costa Rica","+506"],
-        ["🇨🇮","Côte d'Ivoire","+225"],
-        ["🇭🇷","Croatia","+385"],
-        ["🇨🇺","Cuba","+53"],
-        ["🇨🇾","Cyprus","+357"],
-        ["🇨🇿","Czech Republic","+420"],
-
-        ["🇩🇰","Denmark","+45"],
-        ["🇩🇯","Djibouti","+253"],
-        ["🇩🇲","Dominica","+1767"],
-        ["🇩🇴","Dominican Republic","+1809"],
-
-        ["🇪🇨","Ecuador","+593"],
-        ["🇪🇬","Egypt","+20"],
-        ["🇸🇻","El Salvador","+503"],
-        ["🇬🇶","Equatorial Guinea","+240"],
-        ["🇪🇷","Eritrea","+291"],
-        ["🇪🇪","Estonia","+372"],
-        ["🇸🇿","Eswatini","+268"],
-        ["🇪🇹","Ethiopia","+251"],
-
-        ["🇫🇯","Fiji","+679"],
-        ["🇫🇮","Finland","+358"],
-        ["🇫🇷","France","+33"],
-
-        ["🇬🇦","Gabon","+241"],
-        ["🇬🇲","Gambia","+220"],
-        ["🇬🇪","Georgia","+995"],
-        ["🇩🇪","Germany","+49"],
-        ["🇬🇭","Ghana","+233"],
-        ["🇬🇷","Greece","+30"],
-        ["🇬🇩","Grenada","+1473"],
-        ["🇬🇹","Guatemala","+502"],
-        ["🇬🇳","Guinea","+224"],
-        ["🇬🇼","Guinea-Bissau","+245"],
-        ["🇬🇾","Guyana","+592"],
-
-        ["🇭🇹","Haiti","+509"],
-        ["🇭🇳","Honduras","+504"],
-        ["🇭🇺","Hungary","+36"],
-
-        ["🇮🇸","Iceland","+354"],
-        ["🇮🇳","India","+91"],
-        ["🇮🇩","Indonesia","+62"],
-        ["🇮🇷","Iran","+98"],
-        ["🇮🇶","Iraq","+964"],
-        ["🇮🇪","Ireland","+353"],
-        ["🇮🇱","Israel","+972"],
-        ["🇮🇹","Italy","+39"],
-
-        ["🇯🇲","Jamaica","+1876"],
-        ["🇯🇵","Japan","+81"],
-        ["🇯🇴","Jordan","+962"],
-
-        ["🇰🇿","Kazakhstan","+7"],
-        ["🇰🇪","Kenya","+254"],
-        ["🇰🇮","Kiribati","+686"],
-        ["🇰🇼","Kuwait","+965"],
-        ["🇰🇬","Kyrgyzstan","+996"],
-
-        ["🇱🇦","Laos","+856"],
-        ["🇱🇻","Latvia","+371"],
-        ["🇱🇧","Lebanon","+961"],
-        ["🇱🇸","Lesotho","+266"],
-        ["🇱🇷","Liberia","+231"],
-        ["🇱🇾","Libya","+218"],
-        ["🇱🇮","Liechtenstein","+423"],
-        ["🇱🇹","Lithuania","+370"],
-        ["🇱🇺","Luxembourg","+352"],
-
-        ["🇲🇬","Madagascar","+261"],
-        ["🇲🇼","Malawi","+265"],
-        ["🇲🇾","Malaysia","+60"],
-        ["🇲🇻","Maldives","+960"],
-        ["🇲🇱","Mali","+223"],
-        ["🇲🇹","Malta","+356"],
-        ["🇲🇭","Marshall Islands","+692"],
-        ["🇲🇷","Mauritania","+222"],
-        ["🇲🇺","Mauritius","+230"],
-        ["🇲🇽","Mexico","+52"],
-        ["🇫🇲","Micronesia","+691"],
-        ["🇲🇩","Moldova","+373"],
-        ["🇲🇨","Monaco","+377"],
-        ["🇲🇳","Mongolia","+976"],
-        ["🇲🇪","Montenegro","+382"],
-        ["🇲🇦","Morocco","+212"],
-        ["🇲🇿","Mozambique","+258"],
-        ["🇲🇲","Myanmar","+95"],
-
-        ["🇳🇦","Namibia","+264"],
-        ["🇳🇷","Nauru","+674"],
-        ["🇳🇵","Nepal","+977"],
-        ["🇳🇱","Netherlands","+31"],
-        ["🇳🇿","New Zealand","+64"],
-        ["🇳🇮","Nicaragua","+505"],
-        ["🇳🇪","Niger","+227"],
-        ["🇳🇬","Nigeria","+234"],
-        ["🇰🇵","North Korea","+850"],
-        ["🇲🇰","North Macedonia","+389"],
-        ["🇳🇴","Norway","+47"],
-
-        ["🇴🇲","Oman","+968"],
-
-        ["🇵🇰","Pakistan","+92"],
-        ["🇵🇼","Palau","+680"],
-        ["🇵🇸","Palestine","+970"],
-        ["🇵🇦","Panama","+507"],
-        ["🇵🇬","Papua New Guinea","+675"],
-        ["🇵🇾","Paraguay","+595"],
-        ["🇵🇪","Peru","+51"],
-        ["🇵🇭","Philippines","+63"],
-        ["🇵🇱","Poland","+48"],
-        ["🇵🇹","Portugal","+351"],
-
-        ["🇶🇦","Qatar","+974"],
-
-        ["🇷🇴","Romania","+40"],
-        ["🇷🇺","Russia","+7"],
-        ["🇷🇼","Rwanda","+250"],
-
-        ["🇰🇳","Saint Kitts and Nevis","+1869"],
-        ["🇱🇨","Saint Lucia","+1758"],
-        ["🇻🇨","Saint Vincent and the Grenadines","+1784"],
-        ["🇼🇸","Samoa","+685"],
-        ["🇸🇲","San Marino","+378"],
-        ["🇸🇹","São Tomé and Príncipe","+239"],
-        ["🇸🇦","Saudi Arabia","+966"],
-        ["🇸🇳","Senegal","+221"],
-        ["🇷🇸","Serbia","+381"],
-        ["🇸🇨","Seychelles","+248"],
-        ["🇸🇱","Sierra Leone","+232"],
-        ["🇸🇬","Singapore","+65"],
-        ["🇸🇰","Slovakia","+421"],
-        ["🇸🇮","Slovenia","+386"],
-        ["🇸🇧","Solomon Islands","+677"],
-        ["🇸🇴","Somalia","+252"],
-        ["🇿🇦","South Africa","+27"],
-        ["🇰🇷","South Korea","+82"],
-        ["🇸🇸","South Sudan","+211"],
-        ["🇪🇸","Spain","+34"],
-        ["🇱🇰","Sri Lanka","+94"],
-        ["🇸🇩","Sudan","+249"],
-        ["🇸🇷","Suriname","+597"],
-        ["🇸🇪","Sweden","+46"],
-        ["🇨🇭","Switzerland","+41"],
-        ["🇸🇾","Syria","+963"],
-
-        ["🇹🇼","Taiwan","+886"],
-        ["🇹🇯","Tajikistan","+992"],
-        ["🇹🇿","Tanzania","+255"],
-        ["🇹🇭","Thailand","+66"],
-        ["🇹🇱","Timor-Leste","+670"],
-        ["🇹🇬","Togo","+228"],
-        ["🇹🇴","Tonga","+676"],
-        ["🇹🇹","Trinidad and Tobago","+1868"],
-        ["🇹🇳","Tunisia","+216"],
-        ["🇹🇷","Turkey","+90"],
-        ["🇹🇲","Turkmenistan","+993"],
-        ["🇹🇻","Tuvalu","+688"],
-
-        ["🇺🇬","Uganda","+256"],
-        ["🇺🇦","Ukraine","+380"],
-        ["🇦🇪","United Arab Emirates","+971"],
-        ["🇬🇧","United Kingdom","+44"],
-        ["🇺🇸","United States","+1"],
-        ["🇺🇾","Uruguay","+598"],
-        ["🇺🇿","Uzbekistan","+998"],
-
-        ["🇻🇺","Vanuatu","+678"],
-        ["🇻🇦","Vatican City","+39"],
-        ["🇻🇪","Venezuela","+58"],
-        ["🇻🇳","Vietnam","+84"],
-
-        ["🇾🇪","Yemen","+967"],
-
-        ["🇿🇲","Zambia","+260"],
-        ["🇿🇼","Zimbabwe","+263"]
-
-    ];
-
-
-    /* =====================================================
-       CURRENT COUNTRY
-    ===================================================== */
-
-    let selectedCountry = {
-        flag: "🇹🇿",
-        name: "Tanzania",
-        code: "+255"
-    };
-
-
-    /* =====================================================
-       FIREBASE OTP STATE
-    ===================================================== */
-
-    let confirmationResult = null;
-    let recaptchaVerifier = null;
-    let resendCooldown = false;
-
-
-    /* =====================================================
-       UPDATE COUNTRY UI
-    ===================================================== */
-
-    function updateCountryUI() {
-
-        countryFlag.textContent =
-            selectedCountry.flag;
-
-        countryCode.textContent =
-            selectedCountry.code;
-
-        if (detectedCountry) {
-
-            detectedCountry.innerHTML = `
-                <i class="fa-solid fa-earth-africa"></i>
-                <span>
-                    Country: ${selectedCountry.name}
-                </span>
-            `;
-
+            recaptchaVerifier = null;
         }
 
-    }
+        recaptchaVerifier =
+            new window.ChapcyRecaptchaVerifier(
+                window.chapcyAuth,
+                container,
+                {
+                    size: "invisible",
 
+                    callback: () => {
+                        console.log("✅ reCAPTCHA verified");
+                    },
 
-    /* =====================================================
-       COUNTRY LIST
-    ===================================================== */
-
-    function renderCountries(search = "") {
-
-        countryList.innerHTML = "";
-
-        const keyword =
-            search.toLowerCase().trim();
-
-        const filtered =
-            countries.filter(country => {
-
-                return (
-                    country[1]
-                        .toLowerCase()
-                        .includes(keyword)
-                    ||
-                    country[2]
-                        .includes(keyword)
-                );
-
-            });
-
-
-        if (!filtered.length) {
-
-            countryList.innerHTML = `
-                <div class="no-country">
-                    <i class="fa-solid fa-earth-africa"></i>
-                    <span>Country not found</span>
-                </div>
-            `;
-
-            return;
-
-        }
-
-
-        filtered.forEach(country => {
-
-            const item =
-                document.createElement("button");
-
-            item.type = "button";
-
-            item.className =
-                "country-item";
-
-
-            item.innerHTML = `
-
-                <span class="country-item-flag">
-                    ${country[0]}
-                </span>
-
-                <span class="country-item-name">
-                    ${country[1]}
-                </span>
-
-                <span class="country-item-code">
-                    ${country[2]}
-                </span>
-
-            `;
-
-
-            item.addEventListener(
-                "click",
-                () => {
-
-                    selectCountry(country);
-
+                    "expired-callback": () => {
+                        console.log("⚠️ reCAPTCHA expired");
+                    }
                 }
             );
 
+        await recaptchaVerifier.render();
 
-            countryList.appendChild(item);
+        return recaptchaVerifier;
 
+    } catch (error) {
+
+        console.error(
+            "reCAPTCHA error:",
+            error
+        );
+
+        throw error;
+    }
+}
+
+
+/* =========================================================
+   COUNTRY LIST
+   ========================================================= */
+
+function renderCountries(search = "") {
+
+    if (!countryList) return;
+
+    countryList.innerHTML = "";
+
+    const keyword =
+        search.toLowerCase().trim();
+
+    const filtered =
+        countries.filter(country => {
+
+            const flag = country[0];
+            const name = country[1];
+            const code = country[2];
+
+            return (
+                name.toLowerCase().includes(keyword) ||
+                code.includes(keyword) ||
+                flag.includes(keyword)
+            );
         });
 
+    filtered.forEach(country => {
+
+        const [flag, name, code] = country;
+
+        const item =
+            document.createElement("button");
+
+        item.type = "button";
+
+        item.className = "country-item";
+
+        item.innerHTML = `
+            <span class="country-item-flag">
+                ${flag}
+            </span>
+
+            <span class="country-item-name">
+                ${name}
+            </span>
+
+            <span class="country-item-code">
+                ${code}
+            </span>
+        `;
+
+        item.addEventListener("click", () => {
+
+            selectedCountry = {
+                flag,
+                name,
+                code
+            };
+
+            updateCountryUI();
+
+            closeCountryModal();
+
+            validatePhone();
+        });
+
+        countryList.appendChild(item);
+    });
+}
+
+
+/* =========================================================
+   COUNTRY UI
+   ========================================================= */
+
+function updateCountryUI() {
+
+    if (countryFlag)
+        countryFlag.textContent =
+            selectedCountry.flag;
+
+    if (countryCode)
+        countryCode.textContent =
+            selectedCountry.code;
+
+    if (detectedCountry)
+        detectedCountry.textContent =
+            `${selectedCountry.flag} ${selectedCountry.name}`;
+}
+
+
+/* =========================================================
+   COUNTRY MODAL
+   ========================================================= */
+
+function openCountryModal() {
+
+    if (!countryOverlay) return;
+
+    countryOverlay.classList.add("active");
+
+    renderCountries();
+
+    setTimeout(() => {
+
+        if (countrySearch) {
+            countrySearch.focus();
+        }
+
+    }, 150);
+}
+
+
+function closeCountryModal() {
+
+    if (!countryOverlay) return;
+
+    countryOverlay.classList.remove("active");
+}
+
+
+/* =========================================================
+   PHONE CLEANING
+   ========================================================= */
+
+function getCleanPhone() {
+
+    if (!phoneNumber) return "";
+
+    return phoneNumber.value
+        .replace(/\D/g, "");
+}
+
+
+/* =========================================================
+   FORMAT PHONE NUMBER
+   ========================================================= */
+
+function formatPhoneNumber() {
+
+    if (!phoneNumber) return;
+
+    let digits =
+        phoneNumber.value
+            .replace(/\D/g, "");
+
+    /*
+       Remove leading zero.
+
+       Example:
+       0712345678
+       becomes
+       712345678
+    */
+
+    if (digits.startsWith("0")) {
+        digits = digits.substring(1);
     }
 
+    /*
+       Limit local phone digits.
+    */
 
-    /* =====================================================
-       SELECT COUNTRY
-    ===================================================== */
+    digits =
+        digits.substring(0, 15);
 
-    function selectCountry(country) {
+    /*
+       Display in groups.
+       Example:
+       712 345 678
+    */
 
-        selectedCountry = {
+    const groups =
+        digits.match(/.{1,3}/g);
 
-            flag: country[0],
-            name: country[1],
-            code: country[2]
+    phoneNumber.value =
+        groups ? groups.join(" ") : "";
 
-        };
-
-
-        updateCountryUI();
-
-
-        closeCountryModal();
-
-
-        countrySearch.value = "";
-
-        renderCountries();
+    validatePhone();
+}
 
 
-        phoneInput.focus();
+/* =========================================================
+   BUILD FULL E.164 PHONE
+   ========================================================= */
+
+function getFullPhoneNumber() {
+
+    let local =
+        getCleanPhone();
+
+    local =
+        local.replace(/^0+/, "");
+
+    if (!local) {
+        return "";
+    }
+
+    return `${selectedCountry.code}${local}`;
+}
 
 
-        countrySelector.classList.add(
-            "country-selected"
+/* =========================================================
+   PHONE VALIDATION
+   ========================================================= */
+
+function validatePhone() {
+
+    const digits =
+        getCleanPhone();
+
+    if (!digits) {
+
+        hidePhoneError();
+
+        if (continueBtn)
+            continueBtn.disabled = true;
+
+        return false;
+    }
+
+    /*
+       Basic worldwide validation.
+    */
+
+    if (digits.length < 8) {
+
+        showPhoneError(
+            "Please enter a valid phone number."
+        );
+
+        if (continueBtn)
+            continueBtn.disabled = true;
+
+        return false;
+    }
+
+    if (digits.length > 15) {
+
+        showPhoneError(
+            "Phone number is too long."
+        );
+
+        if (continueBtn)
+            continueBtn.disabled = true;
+
+        return false;
+    }
+
+    hidePhoneError();
+
+    if (continueBtn)
+        continueBtn.disabled = false;
+
+    return true;
+}
+
+
+/* =========================================================
+   PHONE ERROR
+   ========================================================= */
+
+function showPhoneError(message) {
+
+    if (!phoneError) return;
+
+    phoneError.textContent = message;
+
+    phoneError.style.display = "block";
+}
+
+
+function hidePhoneError() {
+
+    if (!phoneError) return;
+
+    phoneError.textContent = "";
+
+    phoneError.style.display = "none";
+}
+
+
+/* =========================================================
+   LOADER
+   ========================================================= */
+
+function setContinueLoading(loading) {
+
+    if (!continueBtn) return;
+
+    continueBtn.disabled = loading;
+
+    if (continueLoader) {
+
+        continueLoader.style.display =
+            loading ? "inline-flex" : "none";
+    }
+
+    if (continueText) {
+
+        continueText.textContent =
+            loading
+                ? "Sending code..."
+                : "Continue";
+    }
+
+    if (continueArrow) {
+
+        continueArrow.style.display =
+            loading ? "none" : "inline";
+    }
+}
+
+
+/* =========================================================
+   VERIFICATION SECTION
+   ========================================================= */
+
+function openVerification(fullPhone) {
+
+    currentPhone = fullPhone;
+
+    if (verificationNumber) {
+
+        verificationNumber.textContent =
+            fullPhone;
+    }
+
+    const registerCard =
+        document.querySelector(".register-card");
+
+    const brandSection =
+        document.querySelector(".brand-section");
+
+    const securityNote =
+        document.querySelector(".security-note");
+
+    if (registerCard)
+        registerCard.style.display = "none";
+
+    if (brandSection)
+        brandSection.style.display = "none";
+
+    if (securityNote)
+        securityNote.style.display = "none";
+
+    if (verificationSection) {
+
+        verificationSection.style.display =
+            "block";
+
+        verificationSection.classList.add("active");
+    }
+
+    focusFirstOTP();
+
+    startResendTimer();
+}
+
+
+/* =========================================================
+   OTP INPUTS
+   ========================================================= */
+
+function getOTPInputs() {
+
+    return Array.from(
+        document.querySelectorAll(".otp-input")
+    );
+}
+
+
+function focusFirstOTP() {
+
+    const inputs =
+        getOTPInputs();
+
+    if (inputs.length > 0) {
+
+        setTimeout(() => {
+            inputs[0].focus();
+        }, 200);
+    }
+}
+
+
+function setupOTPInputs() {
+
+    const inputs =
+        getOTPInputs();
+
+    inputs.forEach((input, index) => {
+
+        input.setAttribute(
+            "inputmode",
+            "numeric"
+        );
+
+        input.setAttribute(
+            "maxlength",
+            "1"
+        );
+
+        input.addEventListener(
+            "input",
+            event => {
+
+                const value =
+                    event.target.value
+                        .replace(/\D/g, "");
+
+                event.target.value =
+                    value;
+
+                if (
+                    value &&
+                    index < inputs.length - 1
+                ) {
+
+                    inputs[index + 1].focus();
+                }
+
+                updateVerifyButton();
+            }
         );
 
 
-        setTimeout(() => {
+        input.addEventListener(
+            "keydown",
+            event => {
 
-            countrySelector.classList.remove(
-                "country-selected"
+                if (
+                    event.key === "Backspace" &&
+                    !input.value &&
+                    index > 0
+                ) {
+
+                    inputs[index - 1].focus();
+                }
+            }
+        );
+
+
+        input.addEventListener(
+            "paste",
+            event => {
+
+                event.preventDefault();
+
+                const pasted =
+                    (
+                        event.clipboardData ||
+                        window.clipboardData
+                    )
+                    .getData("text")
+                    .replace(/\D/g, "")
+                    .substring(0, 6);
+
+                pasted
+                    .split("")
+                    .forEach((digit, i) => {
+
+                        if (inputs[i]) {
+                            inputs[i].value =
+                                digit;
+                        }
+                    });
+
+                if (inputs[pasted.length - 1]) {
+
+                    inputs[
+                        pasted.length - 1
+                    ].focus();
+
+                } else if (inputs[0]) {
+
+                    inputs[0].focus();
+                }
+
+                updateVerifyButton();
+            }
+        );
+    });
+}
+
+
+/* =========================================================
+   GET OTP
+   ========================================================= */
+
+function getOTP() {
+
+    return getOTPInputs()
+        .map(input => input.value)
+        .join("");
+}
+
+
+/* =========================================================
+   VERIFY BUTTON
+   ========================================================= */
+
+function updateVerifyButton() {
+
+    const otp =
+        getOTP();
+
+    if (!verifyBtn) return;
+
+    verifyBtn.disabled =
+        otp.length !== 6;
+}
+
+
+/* =========================================================
+   CLEAR OTP
+   ========================================================= */
+
+function clearOTP() {
+
+    getOTPInputs()
+        .forEach(input => {
+
+            input.value = "";
+        });
+
+    updateVerifyButton();
+
+    focusFirstOTP();
+}
+
+
+/* =========================================================
+   VERIFY OTP
+   ========================================================= */
+
+async function verifyOTP() {
+
+    const otp =
+        getOTP();
+
+    if (otp.length !== 6) {
+
+        alert(
+            "Please enter the 6-digit verification code."
+        );
+
+        return;
+    }
+
+    if (!confirmationResult) {
+
+        alert(
+            "Verification session expired. Please request a new code."
+        );
+
+        return;
+    }
+
+    if (verifyBtn) {
+
+        verifyBtn.disabled = true;
+
+        verifyBtn.dataset.originalText =
+            verifyBtn.textContent;
+
+        verifyBtn.textContent =
+            "Verifying...";
+    }
+
+    try {
+
+        const result =
+            await confirmationResult.confirm(
+                otp
             );
 
-        }, 600);
+        const user =
+            result.user;
 
+        /*
+           Save registration information.
+        */
+
+        localStorage.setItem(
+            "chapcyPhoneVerified",
+            "true"
+        );
+
+        localStorage.setItem(
+            "chapcyCurrentPhone",
+            currentPhone
+        );
+
+        localStorage.setItem(
+            "chapcyUID",
+            user.uid
+        );
+
+        localStorage.setItem(
+            "chapcyUserCountry",
+            selectedCountry.name
+        );
+
+        localStorage.setItem(
+            "chapcyRegistrationComplete",
+            "true"
+        );
+
+        saveRegisteredUser(
+            currentPhone,
+            user.uid
+        );
+
+        showSuccess();
+
+    } catch (error) {
+
+        console.error(
+            "OTP verification failed:",
+            error
+        );
+
+        let message =
+            "Invalid verification code.";
+
+        if (
+            error.code ===
+            "auth/invalid-verification-code"
+        ) {
+
+            message =
+                "The verification code is incorrect.";
+
+        } else if (
+            error.code ===
+            "auth/code-expired"
+        ) {
+
+            message =
+                "This verification code has expired. Please request a new one.";
+        }
+
+        alert(message);
+
+        if (verifyBtn) {
+
+            verifyBtn.disabled = false;
+
+            verifyBtn.textContent =
+                verifyBtn.dataset.originalText ||
+                "Verify";
+        }
+    }
+}
+
+
+/* =========================================================
+   SEND OTP
+   ========================================================= */
+
+async function sendOTP(fullPhone) {
+
+    waitForFirebase(() => {});
+
+    if (
+        !window.chapcyAuth ||
+        !window.ChapcyRecaptchaVerifier ||
+        !window.signInWithPhoneNumber
+    ) {
+
+        throw new Error(
+            "Firebase Authentication is not ready."
+        );
     }
 
+    const verifier =
+        await setupRecaptcha();
 
-    /* =====================================================
-       OPEN COUNTRY MODAL
-    ===================================================== */
+    try {
 
-    function openCountryModal() {
+        confirmationResult =
+            await window.signInWithPhoneNumber(
+                window.chapcyAuth,
+                fullPhone,
+                verifier
+            );
 
-        if (countryModal) {
+        console.log(
+            "✅ SMS verification code sent."
+        );
 
-            countryModal.classList.add("show");
+        return true;
 
-        }
+    } catch (error) {
 
-        if (countryOverlay) {
+        console.error(
+            "SMS sending failed:",
+            error
+        );
 
-            countryOverlay.classList.add("show");
+        try {
 
-        }
+            if (recaptchaVerifier) {
+                recaptchaVerifier.clear();
+            }
 
-        countrySearch.value = "";
+        } catch (e) {}
 
-        renderCountries();
+        recaptchaVerifier = null;
 
-        setTimeout(() => {
+        throw error;
+    }
+}
 
-            countrySearch.focus();
 
-        }, 150);
+/* =========================================================
+   CONTINUE REGISTRATION
+   ========================================================= */
 
+async function handleContinue(event) {
+
+    if (event) {
+        event.preventDefault();
     }
 
-
-    /* =====================================================
-       CLOSE COUNTRY MODAL
-    ===================================================== */
-
-    function closeCountryModal() {
-
-        if (countryModal) {
-
-            countryModal.classList.remove("show");
-
-        }
-
-        if (countryOverlay) {
-
-            countryOverlay.classList.remove("show");
-
-        }
-
+    if (!validatePhone()) {
+        return;
     }
 
+    const fullPhone =
+        getFullPhoneNumber();
 
-    /* =====================================================
-       COUNTRY EVENTS
-    ===================================================== */
+    if (!fullPhone) {
+
+        showPhoneError(
+            "Please enter your phone number."
+        );
+
+        return;
+    }
+
+    setContinueLoading(true);
+
+    try {
+
+        console.log(
+            "📱 Sending OTP to:",
+            fullPhone
+        );
+
+        await sendOTP(fullPhone);
+
+        /*
+           Save pending registration.
+        */
+
+        localStorage.setItem(
+            "chapcyPendingPhone",
+            fullPhone
+        );
+
+        localStorage.setItem(
+            "chapcyPendingCountry",
+            JSON.stringify(selectedCountry)
+        );
+
+        openVerification(
+            fullPhone
+        );
+
+    } catch (error) {
+
+        console.error(
+            error
+        );
+
+        let message =
+            "Unable to send verification code.";
+
+        switch (error.code) {
+
+            case "auth/invalid-phone-number":
+
+                message =
+                    "The phone number is invalid.";
+
+                break;
+
+            case "auth/too-many-requests":
+
+                message =
+                    "Too many attempts. Please try again later.";
+
+                break;
+
+            case "auth/quota-exceeded":
+
+                message =
+                    "SMS quota has been exceeded. Please try again later.";
+
+                break;
+
+            case "auth/captcha-check-failed":
+
+                message =
+                    "reCAPTCHA verification failed. Please try again.";
+
+                break;
+
+            case "auth/operation-not-allowed":
+
+                message =
+                    "Phone Authentication is not enabled in Firebase.";
+
+                break;
+
+            case "auth/app-not-authorized":
+
+                message =
+                    "This website is not authorized in Firebase Authentication.";
+
+                break;
+
+            default:
+
+                if (error.message) {
+                    message =
+                        error.message;
+                }
+        }
+
+        alert(message);
+
+    } finally {
+
+        setContinueLoading(false);
+    }
+}
+
+
+/* =========================================================
+   RESEND TIMER
+   ========================================================= */
+
+function startResendTimer() {
+
+    if (!resendBtn) return;
+
+    clearInterval(resendTimer);
+
+    resendSeconds = 30;
+
+    resendBtn.disabled = true;
+
+    updateResendText();
+
+    resendTimer =
+        setInterval(() => {
+
+            resendSeconds--;
+
+            updateResendText();
+
+            if (resendSeconds <= 0) {
+
+                clearInterval(resendTimer);
+
+                resendBtn.disabled =
+                    false;
+
+                resendBtn.textContent =
+                    "Resend Code";
+            }
+
+        }, 1000);
+}
+
+
+function updateResendText() {
+
+    if (!resendBtn) return;
+
+    resendBtn.textContent =
+        `Resend Code (${resendSeconds}s)`;
+}
+
+
+/* =========================================================
+   RESEND OTP
+   ========================================================= */
+
+async function resendOTP() {
+
+    if (!currentPhone) {
+
+        alert(
+            "Phone number not found."
+        );
+
+        return;
+    }
+
+    if (resendBtn) {
+
+        resendBtn.disabled = true;
+
+        resendBtn.textContent =
+            "Sending...";
+    }
+
+    try {
+
+        await sendOTP(
+            currentPhone
+        );
+
+        clearOTP();
+
+        startResendTimer();
+
+        console.log(
+            "✅ New OTP sent."
+        );
+
+    } catch (error) {
+
+        console.error(
+            error
+        );
+
+        alert(
+            "Unable to resend the code. Please try again."
+        );
+
+        if (resendBtn) {
+
+            resendBtn.disabled =
+                false;
+
+            resendBtn.textContent =
+                "Resend Code";
+        }
+    }
+}
+
+
+/* =========================================================
+   SAVE REGISTERED USER
+   ========================================================= */
+
+function saveRegisteredUser(
+    phone,
+    uid
+) {
+
+    let users = [];
+
+    try {
+
+        users =
+            JSON.parse(
+                localStorage.getItem(
+                    "chapcyRegisteredUsers"
+                )
+            ) || [];
+
+    } catch (error) {
+
+        users = [];
+    }
+
+    const exists =
+        users.some(
+            user =>
+                user.phone === phone
+        );
+
+    if (!exists) {
+
+        users.push({
+
+            phone: phone,
+
+            uid: uid,
+
+            country:
+                selectedCountry.name,
+
+            flag:
+                selectedCountry.flag,
+
+            registeredAt:
+                new Date().toISOString()
+        });
+
+        localStorage.setItem(
+            "chapcyRegisteredUsers",
+            JSON.stringify(users)
+        );
+    }
+}
+
+
+/* =========================================================
+   SUCCESS SCREEN
+   ========================================================= */
+
+function showSuccess() {
+
+    if (verificationSection) {
+
+        verificationSection.style.display =
+            "none";
+    }
+
+    if (successSection) {
+
+        successSection.style.display =
+            "block";
+
+        successSection.classList.add(
+            "active"
+        );
+    }
+
+    /*
+       Small success vibration if supported.
+    */
+
+    if (
+        navigator.vibrate
+    ) {
+
+        navigator.vibrate(
+            [100, 50, 100]
+        );
+    }
+}
+
+
+/* =========================================================
+   ENTER CHAPCY
+   ========================================================= */
+
+function enterChapcy() {
+
+    /*
+       IMPORTANT:
+       Your actual file is Mychat.html
+    */
+
+    window.location.href =
+        "Mychat.html";
+}
+
+
+/* =========================================================
+   COUNTRY EVENTS
+   ========================================================= */
+
+if (countrySelector) {
 
     countrySelector.addEventListener(
         "click",
         openCountryModal
     );
+}
 
 
-    if (closeCountry) {
+if (closeCountry) {
 
-        closeCountry.addEventListener(
-            "click",
-            closeCountryModal
-        );
+    closeCountry.addEventListener(
+        "click",
+        closeCountryModal
+    );
+}
 
-    }
+
+if (countryOverlay) {
+
+    countryOverlay.addEventListener(
+        "click",
+        event => {
+
+            if (
+                event.target ===
+                countryOverlay
+            ) {
+
+                closeCountryModal();
+            }
+        }
+    );
+}
 
 
-    if (countryOverlay) {
-
-        countryOverlay.addEventListener(
-            "click",
-            closeCountryModal
-        );
-
-    }
-
+if (countrySearch) {
 
     countrySearch.addEventListener(
         "input",
@@ -639,1448 +1367,154 @@ document.addEventListener("DOMContentLoaded", () => {
             renderCountries(
                 countrySearch.value
             );
-
         }
     );
+}
 
 
-    document.addEventListener(
-        "keydown",
-        event => {
+/* =========================================================
+   PHONE EVENTS
+   ========================================================= */
 
-            if (event.key === "Escape") {
+if (phoneNumber) {
 
-                closeCountryModal();
-
-            }
-
-        }
-    );
-
-
-    /* =====================================================
-       PHONE FORMATTING
-    ===================================================== */
-
-    phoneInput.addEventListener(
+    phoneNumber.addEventListener(
         "input",
-        () => {
-
-            let value =
-                phoneInput.value
-                    .replace(/\D/g, "");
-
-
-            value =
-                value.substring(0, 15);
-
-
-            const groups =
-                value.match(/.{1,3}/g);
-
-
-            phoneInput.value =
-                groups
-                    ? groups.join(" ")
-                    : "";
-
-
-            hidePhoneError();
-
-        }
+        formatPhoneNumber
     );
 
+    phoneNumber.addEventListener(
+        "blur",
+        validatePhone
+    );
+}
 
-    /* =====================================================
-       CLEAN PHONE
-    ===================================================== */
 
-    function getCleanPhone() {
+/* =========================================================
+   REGISTER FORM
+   ========================================================= */
 
-        return phoneInput.value
-            .replace(/\D/g, "");
+if (registerForm) {
 
-    }
-
-
-    /* =====================================================
-       FULL PHONE E.164
-    ===================================================== */
-
-    function getFullPhone() {
-
-        return (
-            selectedCountry.code +
-            getCleanPhone()
-        );
-
-    }
-
-
-    /* =====================================================
-       VALIDATE PHONE
-    ===================================================== */
-
-    function validatePhone() {
-
-        const phone =
-            getCleanPhone();
-
-
-        if (!phone.length) {
-
-            showPhoneError(
-                "Please enter your phone number."
-            );
-
-            return false;
-
-        }
-
-
-        if (phone.length < 6) {
-
-            showPhoneError(
-                "Phone number is too short."
-            );
-
-            return false;
-
-        }
-
-
-        if (phone.length > 15) {
-
-            showPhoneError(
-                "Phone number is too long."
-            );
-
-            return false;
-
-        }
-
-
-        return true;
-
-    }
-
-
-    /* =====================================================
-       PHONE ERROR
-    ===================================================== */
-
-    function showPhoneError(message) {
-
-        if (!phoneError) return;
-
-
-        const text =
-            phoneError.querySelector("span");
-
-
-        if (text) {
-
-            text.textContent = message;
-
-        }
-
-
-        phoneError.classList.add("show");
-
-
-        phoneInput.classList.add(
-            "input-error"
-        );
-
-    }
-
-
-    function hidePhoneError() {
-
-        if (!phoneError) return;
-
-
-        phoneError.classList.remove(
-            "show"
-        );
-
-
-        phoneInput.classList.remove(
-            "input-error"
-        );
-
-    }
-
-
-    /* =====================================================
-       LOCAL STORAGE
-    ===================================================== */
-
-    function getRegisteredUsers() {
-
-        try {
-
-            return JSON.parse(
-                localStorage.getItem(
-                    "chapcyRegisteredUsers"
-                )
-            ) || [];
-
-        } catch {
-
-            return [];
-
-        }
-
-    }
-
-
-    /* =====================================================
-       SAVE REGISTRATION
-    ===================================================== */
-
-    function saveRegistration(phone, user = null) {
-
-        const users =
-            getRegisteredUsers();
-
-
-        const index =
-            users.findIndex(
-                item =>
-                    item.phone === phone
-            );
-
-
-        const data = {
-
-            phone: phone,
-
-            country:
-                selectedCountry.name,
-
-            countryCode:
-                selectedCountry.code,
-
-            flag:
-                selectedCountry.flag,
-
-            uid:
-                user
-                    ? user.uid
-                    : null,
-
-            registeredAt:
-                new Date().toISOString()
-
-        };
-
-
-        if (index >= 0) {
-
-            users[index] = {
-                ...users[index],
-                ...data
-            };
-
-        } else {
-
-            users.push(data);
-
-        }
-
-
-        localStorage.setItem(
-            "chapcyRegisteredUsers",
-            JSON.stringify(users)
-        );
-
-    }
-
-
-    /* =====================================================
-       CONTINUE LOADING
-    ===================================================== */
-
-    function startLoading() {
-
-        continueBtn.disabled = true;
-
-
-        if (continueText) {
-
-            continueText.style.display =
-                "none";
-
-        }
-
-
-        if (continueArrow) {
-
-            continueArrow.style.display =
-                "none";
-
-        }
-
-
-        if (continueLoader) {
-
-            continueLoader.classList.add(
-                "show"
-            );
-
-        }
-
-
-        continueBtn.classList.add(
-            "loading"
-        );
-
-    }
-
-
-    function stopLoading() {
-
-        continueBtn.disabled = false;
-
-
-        if (continueText) {
-
-            continueText.style.display =
-                "";
-
-        }
-
-
-        if (continueArrow) {
-
-            continueArrow.style.display =
-                "";
-
-        }
-
-
-        if (continueLoader) {
-
-            continueLoader.classList.remove(
-                "show"
-            );
-
-        }
-
-
-        continueBtn.classList.remove(
-            "loading"
-        );
-
-    }
-
-
-    /* =====================================================
-       RECAPTCHA
-    ===================================================== */
-
-    async function setupRecaptcha() {
-
-        if (recaptchaVerifier) {
-
-            return recaptchaVerifier;
-
-        }
-
-
-        const container =
-            document.getElementById(
-                "recaptcha-container"
-            );
-
-
-        if (!container) {
-
-            throw new Error(
-                "recaptcha-container haipo kwenye HTML."
-            );
-
-        }
-
-
-        recaptchaVerifier =
-            new firebase.auth.RecaptchaVerifier(
-                "recaptcha-container",
-                {
-                    size: "invisible",
-
-                    callback: () => {
-
-                        console.log(
-                            "CHAPCY reCAPTCHA verified"
-                        );
-
-                    },
-
-                    "expired-callback": () => {
-
-                        console.log(
-                            "CHAPCY reCAPTCHA expired"
-                        );
-
-                    }
-                }
-            );
-
-
-        await recaptchaVerifier.render();
-
-
-        return recaptchaVerifier;
-
-    }
-
-
-    /* =====================================================
-       RESET RECAPTCHA
-    ===================================================== */
-
-    function resetRecaptcha() {
-
-        try {
-
-            if (recaptchaVerifier) {
-
-                recaptchaVerifier.clear();
-
-                recaptchaVerifier = null;
-
-            }
-
-        } catch (error) {
-
-            console.log(
-                "reCAPTCHA reset:",
-                error
-            );
-
-        }
-
-    }
-
-
-    /* =====================================================
-       OPEN VERIFICATION
-    ===================================================== */
-
-    function openVerification(fullPhone) {
-
-        if (verificationNumber) {
-
-            verificationNumber.textContent =
-                fullPhone;
-
-        }
-
-
-        const registerCard =
-            document.querySelector(
-                ".register-card"
-            );
-
-        const brand =
-            document.querySelector(
-                ".brand-section"
-            );
-
-        const security =
-            document.querySelector(
-                ".security-note"
-            );
-
-
-        if (registerCard) {
-
-            registerCard.classList.add(
-                "register-hidden"
-            );
-
-        }
-
-
-        if (brand) {
-
-            brand.classList.add(
-                "brand-hidden"
-            );
-
-        }
-
-
-        if (security) {
-
-            security.classList.add(
-                "security-hidden"
-            );
-
-        }
-
-
-        verificationSection.classList.add(
-            "show"
-        );
-
-
-        setTimeout(() => {
-
-            verificationSection.scrollIntoView({
-                behavior: "smooth",
-                block: "center"
-            });
-
-        }, 200);
-
-    }
-
-
-    /* =====================================================
-       CONTINUE → FIREBASE SEND OTP
-    ===================================================== */
-
-    form.addEventListener(
+    registerForm.addEventListener(
         "submit",
-        async event => {
-
-            event.preventDefault();
-
-
-            if (!validatePhone()) {
-
-                phoneInput.focus();
-
-                return;
-
-            }
-
-
-            const fullPhone =
-                getFullPhone();
-
-
-            startLoading();
-
-
-            try {
-
-                console.log(
-                    "CHAPCY: Sending OTP to",
-                    fullPhone
-                );
-
-
-                const verifier =
-                    await setupRecaptcha();
-
-
-                confirmationResult =
-                    await auth.signInWithPhoneNumber(
-                        fullPhone,
-                        verifier
-                    );
-
-
-                console.log(
-                    "CHAPCY: OTP sent successfully"
-                );
-
-
-                localStorage.setItem(
-                    "chapcyPendingPhone",
-                    fullPhone
-                );
-
-
-                localStorage.setItem(
-                    "chapcyPendingCountry",
-                    selectedCountry.name
-                );
-
-
-                stopLoading();
-
-
-                openVerification(
-                    fullPhone
-                );
-
-
-                if (otpInputs.length > 0) {
-
-                    setTimeout(() => {
-
-                        otpInputs[0].focus();
-
-                    }, 500);
-
-                }
-
-            } catch (error) {
-
-                console.error(
-                    "CHAPCY Firebase error:",
-                    error
-                );
-
-
-                stopLoading();
-
-
-                let message =
-                    "Unable to send verification code.";
-
-
-                switch (error.code) {
-
-                    case "auth/invalid-phone-number":
-
-                        message =
-                            "Invalid phone number. Check your country code and number.";
-
-                        break;
-
-
-                    case "auth/too-many-requests":
-
-                        message =
-                            "Too many attempts. Please try again later.";
-
-                        break;
-
-
-                    case "auth/quota-exceeded":
-
-                        message =
-                            "SMS quota has been exceeded. Please try again later.";
-
-                        break;
-
-
-                    case "auth/captcha-check-failed":
-
-                        message =
-                            "Security verification failed. Please try again.";
-
-                        break;
-
-
-                    case "auth/operation-not-allowed":
-
-                        message =
-                            "Phone Authentication is not enabled in Firebase.";
-
-                        break;
-
-
-                    case "auth/app-not-authorized":
-
-                        message =
-                            "This website is not authorized in Firebase.";
-
-                        break;
-
-
-                    case "auth/invalid-app-credential":
-
-                        message =
-                            "Firebase security verification failed. Check your authorized domain.";
-
-                        break;
-
-
-                    default:
-
-                        if (error.message) {
-
-                            message =
-                                error.message;
-
-                        }
-
-                }
-
-
-                showPhoneError(message);
-
-
-                resetRecaptcha();
-
-            }
-
-        }
+        handleContinue
     );
+}
 
 
-    /* =====================================================
-       OTP INPUT SYSTEM
-    ===================================================== */
+if (continueBtn) {
 
-    otpInputs.forEach(
-        (input, index) => {
-
-            input.addEventListener(
-                "input",
-                event => {
-
-                    let value =
-                        event.target.value
-                            .replace(/\D/g, "")
-                            .slice(0, 1);
-
-
-                    event.target.value =
-                        value;
-
-
-                    input.classList.remove(
-                        "otp-error"
-                    );
-
-
-                    if (
-                        value &&
-                        index <
-                        otpInputs.length - 1
-                    ) {
-
-                        otpInputs[index + 1]
-                            .focus();
-
-                    }
-
-                }
-            );
-
-
-            input.addEventListener(
-                "keydown",
-                event => {
-
-                    if (
-                        event.key ===
-                        "Backspace" &&
-                        !input.value &&
-                        index > 0
-                    ) {
-
-                        otpInputs[index - 1]
-                            .focus();
-
-                    }
-
-                }
-            );
-
-
-            input.addEventListener(
-                "paste",
-                event => {
-
-                    event.preventDefault();
-
-
-                    const pasted =
-                        (
-                            event.clipboardData ||
-                            window.clipboardData
-                        )
-                        .getData("text")
-                        .replace(/\D/g, "")
-                        .slice(
-                            0,
-                            otpInputs.length
-                        );
-
-
-                    pasted
-                        .split("")
-                        .forEach(
-                            (digit, i) => {
-
-                                if (
-                                    otpInputs[i]
-                                ) {
-
-                                    otpInputs[i]
-                                        .value =
-                                        digit;
-
-                                }
-
-                            }
-                        );
-
-
-                    const last =
-                        Math.min(
-                            pasted.length,
-                            otpInputs.length
-                        ) - 1;
-
-
-                    if (last >= 0) {
-
-                        otpInputs[last]
-                            .focus();
-
-                    }
-
-                }
-            );
-
-        }
+    continueBtn.addEventListener(
+        "click",
+        handleContinue
     );
+}
 
 
-    /* =====================================================
-       GET OTP
-    ===================================================== */
+/* =========================================================
+   VERIFY EVENTS
+   ========================================================= */
 
-    function getOTP() {
-
-        return otpInputs
-            .map(
-                input =>
-                    input.value
-            )
-            .join("");
-
-    }
-
-
-    /* =====================================================
-       OTP ERROR
-    ===================================================== */
-
-    function showOTPError() {
-
-        otpInputs.forEach(
-            input => {
-
-                input.classList.add(
-                    "otp-error"
-                );
-
-            }
-        );
-
-
-        setTimeout(() => {
-
-            otpInputs.forEach(
-                input => {
-
-                    input.classList.remove(
-                        "otp-error"
-                    );
-
-                }
-            );
-
-        }, 800);
-
-    }
-
-
-    /* =====================================================
-       VERIFY OTP WITH FIREBASE
-    ===================================================== */
+if (verifyBtn) {
 
     verifyBtn.addEventListener(
         "click",
-        async () => {
-
-            const otp =
-                getOTP();
-
-
-            if (otp.length !== 6) {
-
-                showOTPError();
-
-                return;
-
-            }
-
-
-            if (!confirmationResult) {
-
-                alert(
-                    "Verification session expired. Please request a new code."
-                );
-
-                return;
-
-            }
-
-
-            verifyBtn.disabled = true;
-
-
-            verifyBtn.classList.add(
-                "verifying"
-            );
-
-
-            verifyBtn.innerHTML = `
-                <i class="fa-solid fa-circle-notch fa-spin"></i>
-                Verifying...
-            `;
-
-
-            try {
-
-                console.log(
-                    "CHAPCY: Verifying OTP"
-                );
-
-
-                const result =
-                    await confirmationResult.confirm(
-                        otp
-                    );
-
-
-                const user =
-                    result.user;
-
-
-                console.log(
-                    "CHAPCY Firebase User:",
-                    user
-                );
-
-
-                const phone =
-                    user.phoneNumber;
-
-
-                const uid =
-                    user.uid;
-
-
-                /* ---------------------------------
-                   SAVE USER SESSION
-                --------------------------------- */
-
-                localStorage.setItem(
-                    "chapcyPhoneVerified",
-                    "true"
-                );
-
-
-                localStorage.setItem(
-                    "chapcyCurrentPhone",
-                    phone
-                );
-
-
-                localStorage.setItem(
-                    "chapcyUID",
-                    uid
-                );
-
-
-                localStorage.setItem(
-                    "chapcyUserCountry",
-                    selectedCountry.name
-                );
-
-
-                /* ---------------------------------
-                   SAVE REGISTRATION
-                --------------------------------- */
-
-                saveRegistration(
-                    phone,
-                    user
-                );
-
-
-                /* ---------------------------------
-                   SUCCESS
-                --------------------------------- */
-
-                showSuccess();
-
-            } catch (error) {
-
-                console.error(
-                    "CHAPCY OTP Error:",
-                    error
-                );
-
-
-                verifyBtn.disabled = false;
-
-
-                verifyBtn.classList.remove(
-                    "verifying"
-                );
-
-
-                verifyBtn.innerHTML = `
-                    Verify
-                    <i class="fa-solid fa-check"></i>
-                `;
-
-
-                let message =
-                    "Incorrect verification code.";
-
-
-                if (
-                    error.code ===
-                    "auth/invalid-verification-code"
-                ) {
-
-                    message =
-                        "Incorrect OTP. Please check the code and try again.";
-
-                }
-
-
-                if (
-                    error.code ===
-                    "auth/code-expired"
-                ) {
-
-                    message =
-                        "This OTP has expired. Please request a new code.";
-
-                }
-
-
-                if (
-                    error.code ===
-                    "auth/session-expired"
-                ) {
-
-                    message =
-                        "Verification session expired. Please request a new code.";
-
-                }
-
-
-                alert(message);
-
-
-                showOTPError();
-
-            }
-
-        }
+        verifyOTP
     );
+}
 
 
-    /* =====================================================
-       SUCCESS
-    ===================================================== */
-
-    function showSuccess() {
-
-        verificationSection.classList.remove(
-            "show"
-        );
-
-
-        successSection.classList.add(
-            "show"
-        );
-
-
-        createCelebration();
-
-
-        setTimeout(() => {
-
-            successSection.scrollIntoView({
-                behavior: "smooth",
-                block: "center"
-            });
-
-        }, 150);
-
-    }
-
-
-    /* =====================================================
-       CELEBRATION
-    ===================================================== */
-
-    function createCelebration() {
-
-        const container =
-            document.createElement("div");
-
-
-        container.className =
-            "celebration-container";
-
-
-        for (
-            let i = 0;
-            i < 50;
-            i++
-        ) {
-
-            const particle =
-                document.createElement("span");
-
-
-            particle.className =
-                "celebration-particle";
-
-
-            particle.style.setProperty(
-                "--x",
-                `${(Math.random() - 0.5) * 600}px`
-            );
-
-
-            particle.style.setProperty(
-                "--y",
-                `${(Math.random() - 0.5) * 600}px`
-            );
-
-
-            particle.style.setProperty(
-                "--delay",
-                `${Math.random() * 0.5}s`
-            );
-
-
-            container.appendChild(
-                particle
-            );
-
-        }
-
-
-        document.body.appendChild(
-            container
-        );
-
-
-        setTimeout(() => {
-
-            container.remove();
-
-        }, 3000);
-
-    }
-
-
-    /* =====================================================
-       RESEND OTP
-    ===================================================== */
+if (resendBtn) {
 
     resendBtn.addEventListener(
         "click",
-        async () => {
-
-            if (resendCooldown) {
-
-                return;
-
-            }
-
-
-            const fullPhone =
-                localStorage.getItem(
-                    "chapcyPendingPhone"
-                );
-
-
-            if (!fullPhone) {
-
-                alert(
-                    "Phone number not found. Please start again."
-                );
-
-                return;
-
-            }
-
-
-            resendCooldown = true;
-
-            resendBtn.disabled = true;
-
-
-            try {
-
-                resetRecaptcha();
-
-
-                const verifier =
-                    await setupRecaptcha();
-
-
-                confirmationResult =
-                    await auth.signInWithPhoneNumber(
-                        fullPhone,
-                        verifier
-                    );
-
-
-                console.log(
-                    "CHAPCY: New OTP sent"
-                );
-
-
-                let seconds = 30;
-
-
-                resendBtn.textContent =
-                    `Resend (${seconds})`;
-
-
-                const timer =
-                    setInterval(() => {
-
-                        seconds--;
-
-
-                        resendBtn.textContent =
-                            `Resend (${seconds})`;
-
-
-                        if (
-                            seconds <= 0
-                        ) {
-
-                            clearInterval(timer);
-
-
-                            resendCooldown =
-                                false;
-
-
-                            resendBtn.disabled =
-                                false;
-
-
-                            resendBtn.textContent =
-                                "Resend";
-
-                        }
-
-                    }, 1000);
-
-            } catch (error) {
-
-                console.error(
-                    "Resend OTP error:",
-                    error
-                );
-
-
-                resendCooldown =
-                    false;
-
-
-                resendBtn.disabled =
-                    false;
-
-
-                resendBtn.textContent =
-                    "Resend";
-
-
-                alert(
-                    "Unable to resend OTP. Please try again."
-                );
-
-
-                resetRecaptcha();
-
-            }
-
-        }
+        resendOTP
     );
+}
 
 
-    /* =====================================================
-       ENTER CHAPCY
-    ===================================================== */
+if (enterChapcyBtn) {
 
     enterChapcyBtn.addEventListener(
         "click",
-        () => {
-
-            enterChapcyBtn.classList.add(
-                "entering"
-            );
-
-
-            setTimeout(() => {
-
-                /*
-                 * MAIN CHAT PAGE
-                 */
-
-                window.location.href =
-                    "My chat.html";
-
-            }, 900);
-
-        }
+        enterChapcy
     );
+}
 
 
-    /* =====================================================
-       LOGO INTERACTION
-    ===================================================== */
+/* =========================================================
+   INITIALIZE OTP
+   ========================================================= */
 
-    const logo =
-        document.querySelector(
-            ".chapcy-logo"
-        );
+setupOTPInputs();
 
 
-    if (logo) {
+/* =========================================================
+   INITIAL COUNTRY
+   ========================================================= */
 
-        logo.addEventListener(
-            "click",
-            () => {
+updateCountryUI();
 
-                logo.classList.add(
-                    "logo-burst"
-                );
+renderCountries();
 
 
-                setTimeout(() => {
+/* =========================================================
+   FIREBASE STATUS
+   ========================================================= */
 
-                    logo.classList.remove(
-                        "logo-burst"
-                    );
-
-                }, 800);
-
-            }
-        );
-
-    }
-
-
-    /* =====================================================
-       PHONE FOCUS EFFECT
-    ===================================================== */
-
-    const phoneWrapper =
-        document.querySelector(
-            ".phone-input-wrapper"
-        );
-
-
-    phoneInput.addEventListener(
-        "focus",
-        () => {
-
-            if (phoneWrapper) {
-
-                phoneWrapper.classList.add(
-                    "phone-focused"
-                );
-
-            }
-
-        }
-    );
-
-
-    phoneInput.addEventListener(
-        "blur",
-        () => {
-
-            if (phoneWrapper) {
-
-                phoneWrapper.classList.remove(
-                    "phone-focused"
-                );
-
-            }
-
-        }
-    );
-
-
-    /* =====================================================
-       AUTO DETECT +255
-    ===================================================== */
-
-    updateCountryUI();
-
-
-    /* =====================================================
-       INITIAL COUNTRY LIST
-    ===================================================== */
-
-    renderCountries();
-
-
-    /* =====================================================
-       PAGE READY
-    ===================================================== */
-
-    document.body.classList.add(
-        "chapcy-page-ready"
-    );
-
-
-    /* =====================================================
-       BEFORE UNLOAD
-    ===================================================== */
-
-    window.addEventListener(
-        "beforeunload",
-        () => {
-
-            continueBtn.disabled =
-                false;
-
-        }
-    );
-
-
-    /* =====================================================
-       FIREBASE AUTH STATE
-    ===================================================== */
-
-    auth.onAuthStateChanged(
-        user => {
-
-            if (user) {
-
-                console.log(
-                    "CHAPCY Firebase Auth:",
-                    user.phoneNumber
-                );
-
-            } else {
-
-                console.log(
-                    "CHAPCY Firebase Auth: No user"
-                );
-
-            }
-
-        }
-    );
-
-
-    /* =====================================================
-       READY
-    ===================================================== */
+waitForFirebase(() => {
 
     console.log(
-        "🌍 CHAPCY Registration + Firebase OTP Ready"
+        "🔥 CHAPCY Firebase Authentication Ready"
     );
 
 });
+
+
+/* =========================================================
+   RESTORE PENDING COUNTRY
+   ========================================================= */
+
+try {
+
+    const savedCountry =
+        localStorage.getItem(
+            "chapcyPendingCountry"
+        );
+
+    if (savedCountry) {
+
+        const parsed =
+            JSON.parse(savedCountry);
+
+        if (
+            parsed &&
+            parsed.name &&
+            parsed.code &&
+            parsed.flag
+        ) {
+
+            selectedCountry =
+                parsed;
+
+            updateCountryUI();
+        }
+    }
+
+} catch (error) {
+
+    console.warn(
+        "Could not restore country.",
+        error
+    );
+}
+
+
+/* =========================================================
+   FINAL START
+   ========================================================= */
+
+console.log(
+    "🚀 CHAPCY Registration JS Loaded"
+);
