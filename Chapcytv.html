@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <meta name="theme-color" content="#000000">
+
+    <title>CHAPCY TV</title>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <link rel="stylesheet" href="chapcytv.css">
+</head>
+
+<body>
+
+    <!-- =========================
+         TOP BAR
+    ========================== -->
+
+    <header class="tv-header">
+
+        <button class="header-btn" id="backBtn">
+            <i class="fa-solid fa-arrow-left"></i>
+        </button>
+
+        <div class="tv-logo">
+            <span>CHAPCY</span> TV
+        </div>
+
+        <button class="header-btn" id="searchBtn">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+
+    </header>
+
+
+    <!-- =========================
+         VIDEO FEED
+    ========================== -->
+
+    <main id="videoFeed" class="video-feed">
+
+        <!-- Videos will be loaded from Firebase -->
+
+        <div id="loadingScreen" class="loading-screen">
+
+            <div class="loader"></div>
+
+            <h3>CHAPCY TV</h3>
+
+            <p>Loading videos...</p>
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================
+         SEARCH PANEL
+    ========================== -->
+
+    <section id="searchPanel" class="search-panel">
+
+        <div class="search-box">
+
+            <button id="closeSearch">
+                <i class="fa-solid fa-arrow-left"></i>
+            </button>
+
+            <input
+                type="search"
+                id="searchInput"
+                placeholder="Search CHAPCY TV..."
+                autocomplete="off"
+            >
+
+            <button id="clearSearch">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+        </div>
+
+        <div id="searchResults" class="search-results"></div>
+
+    </section>
+
+
+    <!-- =========================
+         COMMENTS MODAL
+    ========================== -->
+
+    <div id="commentsModal" class="comments-modal">
+
+        <div class="comments-container">
+
+            <div class="comments-header">
+
+                <strong>
+                    Comments
+                </strong>
+
+                <button id="closeComments">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+
+            </div>
+
+
+            <div id="commentsList" class="comments-list">
+
+                <div class="empty-comments">
+                    No comments yet
+                </div>
+
+            </div>
+
+
+            <div class="comment-input-area">
+
+                <input
+                    type="text"
+                    id="commentInput"
+                    placeholder="Add a comment..."
+                    maxlength="500"
+                >
+
+                <button id="sendComment">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         UPLOAD BUTTON
+    ========================== -->
+
+    <button id="uploadBtn" class="upload-floating-btn">
+
+        <i class="fa-solid fa-plus"></i>
+
+        <span>Upload</span>
+
+    </button>
+
+
+    <!-- =========================
+         FIREBASE + APP
+    ========================== -->
+
+    <script type="module" src="chapcy-tv-firebase.js"></script>
+
+    <script type="module" src="chapcytv.js"></script>
+
+</body>
+</html>
