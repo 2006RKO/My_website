@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta name="theme-color" content="#030712">
+
+    <title>CHAPCY — Edit Profile</title>
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="Profile.css">
+
+</head>
+
+<body>
+
+    <!-- BACKGROUND -->
+
+    <div class="profile-background"></div>
+
+
+    <!-- HEADER -->
+
+    <header class="profile-header">
+
+        <button
+            class="back-btn"
+            id="backBtn"
+            type="button"
+        >
+            <i class="fa-solid fa-arrow-left"></i>
+        </button>
+
+
+        <div class="header-title">
+
+            <span>CHAPCY</span>
+
+            <h1>Edit Profile</h1>
+
+        </div>
+
+
+        <div class="header-icon">
+
+            <i class="fa-solid fa-user-pen"></i>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- MAIN -->
+
+    <main class="profile-page">
+
+
+        <!-- PROFILE CARD -->
+
+        <section class="profile-card">
+
+
+            <!-- AVATAR -->
+
+            <div class="avatar-section">
+
+                <div class="avatar-wrapper">
+
+                    <img
+                        id="profileImage"
+                        src="file_00000000b0d8820a998b33ad9cf233cb.png"
+                        alt="Profile Picture"
+                    >
+
+                    <button
+                        class="camera-btn"
+                        id="changePhotoBtn"
+                        type="button"
+                    >
+                        <i class="fa-solid fa-camera"></i>
+                    </button>
+
+                </div>
+
+
+                <h2 id="profileDisplayName">
+                    CHAPCY User
+                </h2>
+
+                <p id="profileUsername">
+                    @username
+                </p>
+
+
+                <input
+                    type="file"
+                    id="profilePhotoInput"
+                    accept="image/*"
+                    hidden
+                >
+
+            </div>
+
+
+
+            <!-- FORM -->
+
+            <form id="profileForm">
+
+
+                <!-- FULL NAME -->
+
+                <div class="input-group">
+
+                    <label for="fullName">
+                        <i class="fa-solid fa-user"></i>
+                        Full Name
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <input
+                            type="text"
+                            id="fullName"
+                            placeholder="Enter your full name"
+                            maxlength="50"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- USERNAME -->
+
+                <div class="input-group">
+
+                    <label for="username">
+                        <i class="fa-solid fa-at"></i>
+                        Username
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="username-symbol">@</span>
+
+                        <input
+                            type="text"
+                            id="username"
+                            placeholder="username"
+                            maxlength="30"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- BIO -->
+
+                <div class="input-group">
+
+                    <label for="bio">
+
+                        <i class="fa-solid fa-pen"></i>
+
+                        Bio
+
+                    </label>
+
+                    <div class="textarea-wrapper">
+
+                        <textarea
+                            id="bio"
+                            maxlength="150"
+                            placeholder="Tell the world about yourself..."
+                        ></textarea>
+
+                        <span id="bioCounter">
+                            0/150
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- PHONE -->
+
+                <div class="input-group">
+
+                    <label for="phone">
+
+                        <i class="fa-solid fa-phone"></i>
+
+                        Phone Number
+
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <input
+                            type="tel"
+                            id="phone"
+                            placeholder="+255..."
+                            maxlength="20"
+                        >
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- EMAIL -->
+
+                <div class="input-group">
+
+                    <label for="email">
+
+                        <i class="fa-solid fa-envelope"></i>
+
+                        Email
+
+                    </label>
+
+                    <div class="input-wrapper readonly">
+
+                        <input
+                            type="email"
+                            id="email"
+                            readonly
+                        >
+
+                        <i class="fa-solid fa-lock"></i>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- SAVE -->
+
+                <button
+                    type="submit"
+                    class="save-btn"
+                    id="saveProfileBtn"
+                >
+
+                    <span id="saveText">
+                        <i class="fa-solid fa-floppy-disk"></i>
+                        Save Profile
+                    </span>
+
+                    <span
+                        id="saveLoader"
+                        class="save-loader"
+                        hidden
+                    ></span>
+
+                </button>
+
+
+            </form>
+
+
+            <!-- STATUS -->
+
+            <div
+                id="profileMessage"
+                class="profile-message"
+            ></div>
+
+
+        </section>
+
+
+        <!-- ACCOUNT INFO -->
+
+        <section class="account-info">
+
+            <div class="info-item">
+
+                <i class="fa-solid fa-shield-halved"></i>
+
+                <div>
+
+                    <strong>Privacy</strong>
+
+                    <span>Your profile information is protected.</span>
+
+                </div>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <i class="fa-solid fa-cloud"></i>
+
+                <div>
+
+                    <strong>Firebase Sync</strong>
+
+                    <span>Your changes are saved automatically to CHAPCY.</span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- Firebase + Profile JS -->
+
+    <script type="module" src="Profile.js"></script>
+
+</body>
+
+                  </html>
