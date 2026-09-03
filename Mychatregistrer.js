@@ -1,82 +1,14 @@
 /* =========================================================
-   CHAPCY WORLDWIDE REGISTRATION JS
-   Firebase Phone OTP — Modular SDK
+   CHAPCY — MYCHATREGISTER.JS
+   WORLDWIDE PHONE REGISTRATION
+   Firebase Phone Authentication
    ========================================================= */
 
 "use strict";
 
-/* =========================================================
-   GLOBAL VARIABLES
-   ========================================================= */
-
-let selectedCountry = {
-    name: "Tanzania",
-    flag: "🇹🇿",
-    code: "+255"
-};
-
-let confirmationResult = null;
-let recaptchaVerifier = null;
-let currentPhone = "";
-let resendTimer = null;
-let resendSeconds = 30;
-
 
 /* =========================================================
-   DOM ELEMENTS
-   ========================================================= */
-
-const registerForm = document.getElementById("registerForm");
-
-const countrySelector = document.getElementById("countrySelector");
-const countryFlag = document.getElementById("countryFlag");
-const countryCode = document.getElementById("countryCode");
-
-const phoneNumber = document.getElementById("phoneNumber");
-const detectedCountry = document.getElementById("detectedCountry");
-const phoneError = document.getElementById("phoneError");
-
-const continueBtn = document.getElementById("continueBtn");
-const continueText = document.getElementById("continueText");
-const continueArrow = document.getElementById("continueArrow");
-const continueLoader = document.getElementById("continueLoader");
-
-const verificationSection =
-    document.getElementById("verificationSection");
-
-const verificationNumber =
-    document.getElementById("verificationNumber");
-
-const verifyBtn =
-    document.getElementById("verifyBtn");
-
-const resendBtn =
-    document.getElementById("resendBtn");
-
-const successSection =
-    document.getElementById("successSection");
-
-const enterChapcyBtn =
-    document.getElementById("enterChapcyBtn");
-
-const countryOverlay =
-    document.getElementById("countryOverlay");
-
-const countryModal =
-    document.getElementById("countryModal");
-
-const closeCountry =
-    document.getElementById("closeCountry");
-
-const countrySearch =
-    document.getElementById("countrySearch");
-
-const countryList =
-    document.getElementById("countryList");
-
-
-/* =========================================================
-   COUNTRY DATA
+   1. WORLDWIDE COUNTRIES
    ========================================================= */
 
 const countries = [
@@ -93,187 +25,357 @@ const countries = [
     ["🇸🇸", "South Sudan", "+211"],
     ["🇸🇩", "Sudan", "+249"],
     ["🇪🇬", "Egypt", "+20"],
+    ["🇲🇦", "Morocco", "+212"],
+    ["🇩🇿", "Algeria", "+213"],
+    ["🇹🇳", "Tunisia", "+216"],
+    ["🇱🇾", "Libya", "+218"],
 
-    ["🇬🇧", "United Kingdom", "+44"],
     ["🇺🇸", "United States", "+1"],
     ["🇨🇦", "Canada", "+1"],
-    ["🇦🇺", "Australia", "+61"],
-    ["🇳🇿", "New Zealand", "+64"],
+    ["🇲🇽", "Mexico", "+52"],
+    ["🇧🇷", "Brazil", "+55"],
+    ["🇦🇷", "Argentina", "+54"],
+    ["🇨🇱", "Chile", "+56"],
+    ["🇨🇴", "Colombia", "+57"],
+    ["🇵🇪", "Peru", "+51"],
 
-    ["🇮🇳", "India", "+91"],
-    ["🇵🇰", "Pakistan", "+92"],
-    ["🇧🇩", "Bangladesh", "+880"],
-    ["🇦🇪", "United Arab Emirates", "+971"],
-    ["🇸🇦", "Saudi Arabia", "+966"],
-    ["🇶🇦", "Qatar", "+974"],
-    ["🇰🇼", "Kuwait", "+965"],
-    ["🇴🇲", "Oman", "+968"],
-    ["🇧🇭", "Bahrain", "+973"],
-
-    ["🇨🇳", "China", "+86"],
-    ["🇯🇵", "Japan", "+81"],
-    ["🇰🇷", "South Korea", "+82"],
-    ["🇸🇬", "Singapore", "+65"],
-    ["🇲🇾", "Malaysia", "+60"],
-    ["🇮🇩", "Indonesia", "+62"],
-    ["🇹🇭", "Thailand", "+66"],
-    ["🇵🇭", "Philippines", "+63"],
-    ["🇻🇳", "Vietnam", "+84"],
-
-    ["🇩🇪", "Germany", "+49"],
+    ["🇬🇧", "United Kingdom", "+44"],
+    ["🇮🇪", "Ireland", "+353"],
     ["🇫🇷", "France", "+33"],
+    ["🇩🇪", "Germany", "+49"],
     ["🇮🇹", "Italy", "+39"],
     ["🇪🇸", "Spain", "+34"],
     ["🇵🇹", "Portugal", "+351"],
     ["🇳🇱", "Netherlands", "+31"],
     ["🇧🇪", "Belgium", "+32"],
     ["🇨🇭", "Switzerland", "+41"],
+    ["🇦🇹", "Austria", "+43"],
     ["🇸🇪", "Sweden", "+46"],
     ["🇳🇴", "Norway", "+47"],
     ["🇩🇰", "Denmark", "+45"],
     ["🇫🇮", "Finland", "+358"],
-    ["🇮🇪", "Ireland", "+353"],
     ["🇵🇱", "Poland", "+48"],
+    ["🇺🇦", "Ukraine", "+380"],
+    ["🇷🇺", "Russia", "+7"],
     ["🇬🇷", "Greece", "+30"],
+    ["🇹🇷", "Turkey", "+90"],
 
-    ["🇧🇷", "Brazil", "+55"],
-    ["🇲🇽", "Mexico", "+52"],
-    ["🇦🇷", "Argentina", "+54"],
-    ["🇨🇱", "Chile", "+56"],
-    ["🇨🇴", "Colombia", "+57"],
-    ["🇵🇪", "Peru", "+51"],
+    ["🇦🇪", "United Arab Emirates", "+971"],
+    ["🇸🇦", "Saudi Arabia", "+966"],
+    ["🇶🇦", "Qatar", "+974"],
+    ["🇰🇼", "Kuwait", "+965"],
+    ["🇧🇭", "Bahrain", "+973"],
+    ["🇴🇲", "Oman", "+968"],
+    ["🇯🇴", "Jordan", "+962"],
+    ["🇮🇱", "Israel", "+972"],
+    ["🇮🇶", "Iraq", "+964"],
+    ["🇮🇷", "Iran", "+98"],
 
-    ["🇿🇼", "Zimbabwe", "+263"],
+    ["🇮🇳", "India", "+91"],
+    ["🇵🇰", "Pakistan", "+92"],
+    ["🇧🇩", "Bangladesh", "+880"],
+    ["🇳🇵", "Nepal", "+977"],
+    ["🇱🇰", "Sri Lanka", "+94"],
+    ["🇦🇫", "Afghanistan", "+93"],
+
+    ["🇨🇳", "China", "+86"],
+    ["🇯🇵", "Japan", "+81"],
+    ["🇰🇷", "South Korea", "+82"],
+    ["🇮🇩", "Indonesia", "+62"],
+    ["🇲🇾", "Malaysia", "+60"],
+    ["🇸🇬", "Singapore", "+65"],
+    ["🇹🇭", "Thailand", "+66"],
+    ["🇻🇳", "Vietnam", "+84"],
+    ["🇵🇭", "Philippines", "+63"],
+    ["🇵🇬", "Papua New Guinea", "+675"],
+    ["🇦🇺", "Australia", "+61"],
+    ["🇳🇿", "New Zealand", "+64"],
+
+    ["🇫🇯", "Fiji", "+679"],
+    ["🇸🇧", "Solomon Islands", "+677"],
+    ["🇻🇺", "Vanuatu", "+678"],
+    ["🇼🇸", "Samoa", "+685"],
+
     ["🇿🇲", "Zambia", "+260"],
+    ["🇿🇼", "Zimbabwe", "+263"],
     ["🇲🇼", "Malawi", "+265"],
     ["🇲🇿", "Mozambique", "+258"],
-    ["🇧🇼", "Botswana", "+267"],
     ["🇳🇦", "Namibia", "+264"],
+    ["🇧🇼", "Botswana", "+267"],
     ["🇱🇸", "Lesotho", "+266"],
     ["🇸🇿", "Eswatini", "+268"],
+    ["🇦🇴", "Angola", "+244"],
+    ["🇨🇩", "DR Congo", "+243"],
+    ["🇨🇬", "Congo", "+242"],
+    ["🇨🇲", "Cameroon", "+237"],
+    ["🇨🇮", "Ivory Coast", "+225"],
+    ["🇸🇳", "Senegal", "+221"],
+    ["🇲🇱", "Mali", "+223"],
+    ["🇧🇫", "Burkina Faso", "+226"],
+    ["🇳🇪", "Niger", "+227"],
+    ["🇹🇩", "Chad", "+235"],
+    ["🇨🇫", "Central African Republic", "+236"],
+    ["🇬🇦", "Gabon", "+241"],
+    ["🇬🇶", "Equatorial Guinea", "+240"],
+    ["🇬🇳", "Guinea", "+224"],
+    ["🇸🇱", "Sierra Leone", "+232"],
+    ["🇱🇷", "Liberia", "+231"],
+    ["🇬🇲", "Gambia", "+220"],
+    ["🇬🇼", "Guinea-Bissau", "+245"],
+    ["🇨🇻", "Cape Verde", "+238"],
+    ["🇲🇷", "Mauritania", "+222"],
+    ["🇹🇬", "Togo", "+228"],
+    ["🇧🇯", "Benin", "+229"],
+    ["🇬🇭", "Ghana", "+233"],
     ["🇸🇨", "Seychelles", "+248"],
     ["🇲🇺", "Mauritius", "+230"],
-    ["🇲🇬", "Madagascar", "+261"]
+    ["🇲🇬", "Madagascar", "+261"],
+    ["🇰🇲", "Comoros", "+269"],
+    ["🇩🇯", "Djibouti", "+253"],
+    ["🇸🇴", "Somalia", "+252"],
+    ["🇪🇷", "Eritrea", "+291"],
+    ["🇨🇫", "Central African Republic", "+236"],
+
+    ["🇯🇲", "Jamaica", "+1"],
+    ["🇹🇹", "Trinidad and Tobago", "+1"],
+    ["🇧🇸", "Bahamas", "+1"],
+    ["🇧🇧", "Barbados", "+1"],
+    ["🇭🇹", "Haiti", "+509"],
+    ["🇩🇴", "Dominican Republic", "+1"],
+    ["🇨🇺", "Cuba", "+53"],
+    ["🇵🇦", "Panama", "+507"],
+    ["🇨🇷", "Costa Rica", "+506"],
+    ["🇳🇮", "Nicaragua", "+505"],
+    ["🇭🇳", "Honduras", "+504"],
+    ["🇬🇹", "Guatemala", "+502"],
+
 ];
 
 
 /* =========================================================
-   FIREBASE READY CHECK
+   2. SELECTED COUNTRY
    ========================================================= */
 
-function waitForFirebase(callback) {
+let selectedCountry = {
+    flag: "🇹🇿",
+    name: "Tanzania",
+    code: "+255"
+};
 
-    if (
-        window.chapcyAuth &&
-        window.ChapcyRecaptchaVerifier &&
-        window.signInWithPhoneNumber
-    ) {
-        callback();
-        return;
-    }
 
-    setTimeout(() => {
-        waitForFirebase(callback);
-    }, 100);
+/* =========================================================
+   3. DOM ELEMENTS
+   ========================================================= */
+
+let registerForm;
+let countrySelector;
+let countryFlag;
+let countryCode;
+let countryOverlay;
+let countryModal;
+let closeCountry;
+let countrySearch;
+let countryList;
+
+let phoneNumber;
+let detectedCountry;
+let phoneError;
+
+let continueBtn;
+let continueText;
+let continueArrow;
+let continueLoader;
+
+let verificationSection;
+let successSection;
+
+let otpInput;
+let verifyBtn;
+let resendBtn;
+let enterChapcyBtn;
+
+
+/* =========================================================
+   4. FIREBASE VARIABLES
+   ========================================================= */
+
+let chapcyAuth = null;
+let RecaptchaVerifier = null;
+let signInWithPhoneNumber = null;
+
+let confirmationResult = null;
+let recaptchaVerifier = null;
+
+let resendTimer = null;
+let resendSeconds = 60;
+
+
+/* =========================================================
+   5. HELPERS
+   ========================================================= */
+
+function $(id) {
+    return document.getElementById(id);
+}
+
+
+function normalizePhone(phone) {
+
+    return String(phone || "")
+        .replace(/[^\d+]/g, "")
+        .trim();
+
+}
+
+
+function escapeHTML(value) {
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
 }
 
 
 /* =========================================================
-   CREATE RECAPTCHA CONTAINER IF MISSING
+   6. INITIALIZE DOM
    ========================================================= */
 
-function ensureRecaptchaContainer() {
+function initializeDOM() {
 
-    let container =
-        document.getElementById("recaptcha-container");
+    registerForm = $("registerForm");
 
-    if (!container) {
+    countrySelector = $("countrySelector");
+    countryFlag = $("countryFlag");
+    countryCode = $("countryCode");
 
-        container = document.createElement("div");
+    countryOverlay = $("countryOverlay");
+    countryModal = $("countryModal");
+    closeCountry = $("closeCountry");
+    countrySearch = $("countrySearch");
+    countryList = $("countryList");
 
-        container.id = "recaptcha-container";
+    phoneNumber = $("phoneNumber");
+    detectedCountry = $("detectedCountry");
+    phoneError = $("phoneError");
 
-        container.style.position = "absolute";
-        container.style.left = "-9999px";
-        container.style.width = "1px";
-        container.style.height = "1px";
-        container.style.overflow = "hidden";
+    continueBtn = $("continueBtn");
 
-        document.body.appendChild(container);
-    }
+    /*
+       HTML yako ina classes badala ya IDs,
+       hivyo tunazitafuta kwa class pia.
+    */
 
-    return container;
+    continueText =
+        $("continueText") ||
+        document.querySelector(".continue-text");
+
+    continueArrow =
+        $("continueArrow") ||
+        document.querySelector(".continue-arrow");
+
+    continueLoader =
+        $("continueLoader") ||
+        document.querySelector(".continue-loader");
+
+
+    verificationSection =
+        $("verificationSection") ||
+        $("verifySection") ||
+        document.querySelector(".verification-section");
+
+
+    successSection =
+        $("successSection") ||
+        document.querySelector(".success-section");
+
+
+    otpInput =
+        $("otpInput") ||
+        $("otpCode") ||
+        document.querySelector("#otpInput");
+
+
+    verifyBtn =
+        $("verifyBtn") ||
+        $("verifyOTPBtn") ||
+        document.querySelector(".verify-btn");
+
+
+    resendBtn =
+        $("resendBtn") ||
+        $("resendOTPBtn") ||
+        document.querySelector(".resend-btn");
+
+
+    enterChapcyBtn =
+        $("enterChapcy") ||
+        $("enterChapcyBtn") ||
+        $("goToChapcy") ||
+        document.querySelector(".enter-chapcy-btn");
+
 }
 
 
 /* =========================================================
-   SETUP RECAPTCHA
+   7. COUNTRY UI
    ========================================================= */
 
-async function setupRecaptcha() {
+function updateCountryUI() {
 
-    waitForFirebase(() => {});
+    if (countryFlag) {
+        countryFlag.textContent = selectedCountry.flag;
+    }
 
-    const container = ensureRecaptchaContainer();
+    if (countryCode) {
+        countryCode.textContent = selectedCountry.code;
+    }
 
-    try {
+    if (detectedCountry) {
 
-        if (recaptchaVerifier) {
+        const text =
+            detectedCountry.querySelector("span");
 
-            try {
-                recaptchaVerifier.clear();
-            } catch (e) {}
+        if (text) {
 
-            recaptchaVerifier = null;
+            text.textContent =
+                `Country: ${selectedCountry.name}`;
+
+        } else {
+
+            detectedCountry.innerHTML = `
+                <i class="fa-solid fa-earth-africa"></i>
+                <span>Country: ${escapeHTML(selectedCountry.name)}</span>
+            `;
+
         }
 
-        recaptchaVerifier =
-            new window.ChapcyRecaptchaVerifier(
-                window.chapcyAuth,
-                container,
-                {
-                    size: "invisible",
-
-                    callback: () => {
-                        console.log("✅ reCAPTCHA verified");
-                    },
-
-                    "expired-callback": () => {
-                        console.log("⚠️ reCAPTCHA expired");
-                    }
-                }
-            );
-
-        await recaptchaVerifier.render();
-
-        return recaptchaVerifier;
-
-    } catch (error) {
-
-        console.error(
-            "reCAPTCHA error:",
-            error
-        );
-
-        throw error;
     }
+
 }
 
 
 /* =========================================================
-   COUNTRY LIST
+   8. RENDER COUNTRIES
    ========================================================= */
 
 function renderCountries(search = "") {
 
     if (!countryList) return;
 
+    const query =
+        String(search)
+            .toLowerCase()
+            .trim();
+
+
     countryList.innerHTML = "";
 
-    const keyword =
-        search.toLowerCase().trim();
 
-    const filtered =
+    const filteredCountries =
         countries.filter(country => {
 
             const flag = country[0];
@@ -281,13 +383,29 @@ function renderCountries(search = "") {
             const code = country[2];
 
             return (
-                name.toLowerCase().includes(keyword) ||
-                code.includes(keyword) ||
-                flag.includes(keyword)
+                name.toLowerCase().includes(query) ||
+                code.includes(query) ||
+                flag.includes(query)
             );
+
         });
 
-    filtered.forEach(country => {
+
+    if (!filteredCountries.length) {
+
+        countryList.innerHTML = `
+            <div class="country-empty">
+                <i class="fa-solid fa-earth-americas"></i>
+                <strong>No country found</strong>
+                <span>Try another country name or code.</span>
+            </div>
+        `;
+
+        return;
+    }
+
+
+    filteredCountries.forEach(country => {
 
         const [flag, name, code] = country;
 
@@ -295,241 +413,308 @@ function renderCountries(search = "") {
             document.createElement("button");
 
         item.type = "button";
-
         item.className = "country-item";
 
+
+        if (
+            selectedCountry.name === name &&
+            selectedCountry.code === code
+        ) {
+
+            item.classList.add("selected");
+
+        }
+
+
+        /*
+           Markup hii inaendana na CSS tuliyorekebisha.
+        */
+
         item.innerHTML = `
-            <span class="country-item-flag">
-                ${flag}
+            <span class="flag">${escapeHTML(flag)}</span>
+
+            <span class="country-info">
+                <strong>${escapeHTML(name)}</strong>
+                <small>${escapeHTML(code)}</small>
             </span>
 
-            <span class="country-item-name">
-                ${name}
+            <span class="dial-code">
+                ${escapeHTML(code)}
             </span>
 
-            <span class="country-item-code">
-                ${code}
-            </span>
+            <i class="fa-solid fa-check country-check"></i>
         `;
+
 
         item.addEventListener("click", () => {
 
             selectedCountry = {
-                flag,
-                name,
-                code
+                flag: flag,
+                name: name,
+                code: code
             };
 
-            updateCountryUI();
 
+            updateCountryUI();
             closeCountryModal();
 
-            validatePhone();
+
+            if (phoneNumber) {
+
+                phoneNumber.value = "";
+
+                phoneNumber.focus();
+
+            }
+
         });
 
+
         countryList.appendChild(item);
+
     });
+
 }
 
 
 /* =========================================================
-   COUNTRY UI
-   ========================================================= */
-
-function updateCountryUI() {
-
-    if (countryFlag)
-        countryFlag.textContent =
-            selectedCountry.flag;
-
-    if (countryCode)
-        countryCode.textContent =
-            selectedCountry.code;
-
-    if (detectedCountry)
-        detectedCountry.textContent =
-            `${selectedCountry.flag} ${selectedCountry.name}`;
-}
-
-
-/* =========================================================
-   COUNTRY MODAL
+   9. OPEN COUNTRY MODAL
    ========================================================= */
 
 function openCountryModal() {
 
-    if (!countryOverlay) return;
+    if (!countryOverlay || !countryModal) return;
 
-    countryOverlay.classList.add("active");
 
     renderCountries();
 
-    setTimeout(() => {
 
-        if (countrySearch) {
+    countryOverlay.classList.add("active");
+    countryModal.classList.add("active");
+
+
+    document.body.classList.add("country-modal-open");
+
+
+    if (countrySearch) {
+
+        countrySearch.value = "";
+
+        setTimeout(() => {
+
             countrySearch.focus();
-        }
 
-    }, 150);
+        }, 150);
+
+    }
+
 }
 
+
+/* =========================================================
+   10. CLOSE COUNTRY MODAL
+   ========================================================= */
 
 function closeCountryModal() {
 
-    if (!countryOverlay) return;
+    if (countryOverlay) {
 
-    countryOverlay.classList.remove("active");
-}
+        countryOverlay.classList.remove("active");
 
-
-/* =========================================================
-   PHONE CLEANING
-   ========================================================= */
-
-function getCleanPhone() {
-
-    if (!phoneNumber) return "";
-
-    return phoneNumber.value
-        .replace(/\D/g, "");
-}
-
-
-/* =========================================================
-   FORMAT PHONE NUMBER
-   ========================================================= */
-
-function formatPhoneNumber() {
-
-    if (!phoneNumber) return;
-
-    let digits =
-        phoneNumber.value
-            .replace(/\D/g, "");
-
-    /*
-       Remove leading zero.
-
-       Example:
-       0712345678
-       becomes
-       712345678
-    */
-
-    if (digits.startsWith("0")) {
-        digits = digits.substring(1);
     }
 
-    /*
-       Limit local phone digits.
-    */
 
-    digits =
-        digits.substring(0, 15);
+    if (countryModal) {
+
+        countryModal.classList.remove("active");
+
+    }
+
+
+    document.body.classList.remove("country-modal-open");
+
+}
+
+
+/* =========================================================
+   11. PHONE NUMBER FORMATTING
+   ========================================================= */
+
+function formatPhoneNumber(value) {
+
+    let digits =
+        String(value || "")
+            .replace(/\D/g, "");
+
 
     /*
-       Display in groups.
-       Example:
+       Tanzania example:
+
+       712345678
+       ↓
        712 345 678
     */
 
-    const groups =
-        digits.match(/.{1,3}/g);
+    if (digits.length > 9) {
 
-    phoneNumber.value =
-        groups ? groups.join(" ") : "";
+        digits = digits.substring(0, 9);
 
-    validatePhone();
+    }
+
+
+    const parts = [];
+
+
+    if (digits.length > 0) {
+
+        parts.push(
+            digits.substring(0, 3)
+        );
+
+    }
+
+
+    if (digits.length > 3) {
+
+        parts.push(
+            digits.substring(3, 6)
+        );
+
+    }
+
+
+    if (digits.length > 6) {
+
+        parts.push(
+            digits.substring(6, 9)
+        );
+
+    }
+
+
+    return parts.join(" ");
+
 }
 
 
 /* =========================================================
-   BUILD FULL E.164 PHONE
+   12. GET INTERNATIONAL PHONE
    ========================================================= */
 
-function getFullPhoneNumber() {
+function getInternationalPhone() {
 
-    let local =
-        getCleanPhone();
-
-    local =
-        local.replace(/^0+/, "");
-
-    if (!local) {
-        return "";
-    }
-
-    return `${selectedCountry.code}${local}`;
-}
+    if (!phoneNumber) return "";
 
 
-/* =========================================================
-   PHONE VALIDATION
-   ========================================================= */
+    let localNumber =
+        phoneNumber.value
+            .replace(/\D/g, "");
 
-function validatePhone() {
-
-    const digits =
-        getCleanPhone();
-
-    if (!digits) {
-
-        hidePhoneError();
-
-        if (continueBtn)
-            continueBtn.disabled = true;
-
-        return false;
-    }
 
     /*
-       Basic worldwide validation.
+       Kama user ameandika 255712345678
+       tunaondoa country code.
     */
 
-    if (digits.length < 8) {
+    const codeDigits =
+        selectedCountry.code.replace(/\D/g, "");
 
-        showPhoneError(
-            "Please enter a valid phone number."
-        );
 
-        if (continueBtn)
-            continueBtn.disabled = true;
+    if (
+        localNumber.startsWith(codeDigits)
+    ) {
 
-        return false;
+        localNumber =
+            localNumber.substring(
+                codeDigits.length
+            );
+
     }
 
-    if (digits.length > 15) {
 
-        showPhoneError(
-            "Phone number is too long."
-        );
+    /*
+       Ondoa zero ya mwanzo.
 
-        if (continueBtn)
-            continueBtn.disabled = true;
+       0712345678
+       ↓
+       712345678
+    */
 
-        return false;
+    if (localNumber.startsWith("0")) {
+
+        localNumber =
+            localNumber.substring(1);
+
     }
 
-    hidePhoneError();
 
-    if (continueBtn)
-        continueBtn.disabled = false;
+    if (!localNumber) return "";
 
-    return true;
+
+    return (
+        selectedCountry.code +
+        localNumber
+    );
+
 }
 
 
 /* =========================================================
-   PHONE ERROR
+   13. PHONE VALIDATION
+   ========================================================= */
+
+function isValidPhoneNumber() {
+
+    const phone =
+        getInternationalPhone();
+
+
+    /*
+       Basic international validation.
+       8–15 digits after country code.
+    */
+
+    const digits =
+        phone.replace(/\D/g, "");
+
+
+    return (
+        digits.length >= 10 &&
+        digits.length <= 15
+    );
+
+}
+
+
+/* =========================================================
+   14. PHONE ERROR
    ========================================================= */
 
 function showPhoneError(message) {
 
     if (!phoneError) return;
 
-    phoneError.textContent = message;
 
-    phoneError.style.display = "block";
+    const text =
+        phoneError.querySelector("span");
+
+
+    if (text) {
+
+        text.textContent = message;
+
+    } else {
+
+        phoneError.innerHTML = `
+            <i class="fa-solid fa-circle-exclamation"></i>
+            <span>${escapeHTML(message)}</span>
+        `;
+
+    }
+
+
+    phoneError.classList.add("show");
+
 }
 
 
@@ -537,122 +722,563 @@ function hidePhoneError() {
 
     if (!phoneError) return;
 
-    phoneError.textContent = "";
+    phoneError.classList.remove("show");
 
-    phoneError.style.display = "none";
 }
 
 
 /* =========================================================
-   LOADER
+   15. BUTTON LOADING
    ========================================================= */
 
 function setContinueLoading(loading) {
 
     if (!continueBtn) return;
 
+
     continueBtn.disabled = loading;
+
+
+    if (continueText) {
+
+        continueText.style.display =
+            loading ? "none" : "";
+
+    }
+
+
+    if (continueArrow) {
+
+        continueArrow.style.display =
+            loading ? "none" : "";
+
+    }
+
 
     if (continueLoader) {
 
         continueLoader.style.display =
             loading ? "inline-flex" : "none";
+
     }
 
-    if (continueText) {
 
-        continueText.textContent =
-            loading
-                ? "Sending code..."
-                : "Continue";
+    if (loading) {
+
+        continueBtn.classList.add("loading");
+
+    } else {
+
+        continueBtn.classList.remove("loading");
+
     }
 
-    if (continueArrow) {
-
-        continueArrow.style.display =
-            loading ? "none" : "inline";
-    }
 }
 
 
 /* =========================================================
-   VERIFICATION SECTION
+   16. WAIT FOR FIREBASE
    ========================================================= */
 
-function openVerification(fullPhone) {
+function waitForFirebase(callback, attempts = 0) {
 
-    currentPhone = fullPhone;
+    if (
+        window.chapcyAuth &&
+        window.ChapcyRecaptchaVerifier &&
+        window.signInWithPhoneNumber
+    ) {
 
-    if (verificationNumber) {
+        callback();
 
-        verificationNumber.textContent =
-            fullPhone;
+        return;
+
     }
+
+
+    if (attempts >= 100) {
+
+        console.error(
+            "CHAPCY: Firebase failed to initialize."
+        );
+
+        return;
+
+    }
+
+
+    setTimeout(() => {
+
+        waitForFirebase(
+            callback,
+            attempts + 1
+        );
+
+    }, 100);
+
+}
+
+
+/* =========================================================
+   17. SETUP FIREBASE
+   ========================================================= */
+
+function setupFirebase() {
+
+    waitForFirebase(() => {
+
+        chapcyAuth =
+            window.chapcyAuth;
+
+        RecaptchaVerifier =
+            window.ChapcyRecaptchaVerifier;
+
+        signInWithPhoneNumber =
+            window.signInWithPhoneNumber;
+
+
+        console.log(
+            "CHAPCY Firebase initialized."
+        );
+
+    });
+
+}
+
+
+/* =========================================================
+   18. SETUP RECAPTCHA
+   ========================================================= */
+
+function setupRecaptcha() {
+
+    if (!chapcyAuth || !RecaptchaVerifier) {
+
+        console.warn(
+            "CHAPCY: Firebase is not ready for reCAPTCHA."
+        );
+
+        return false;
+
+    }
+
+
+    /*
+       Kama verifier ya zamani ipo,
+       tunaifuta kwanza.
+    */
+
+    if (recaptchaVerifier) {
+
+        try {
+
+            recaptchaVerifier.clear();
+
+        } catch (error) {
+
+            console.warn(
+                "Could not clear old reCAPTCHA.",
+                error
+            );
+
+        }
+
+        recaptchaVerifier = null;
+
+    }
+
+
+    const container =
+        $("recaptcha-container");
+
+
+    if (!container) {
+
+        console.error(
+            "CHAPCY: #recaptcha-container not found."
+        );
+
+        return false;
+
+    }
+
+
+    try {
+
+        recaptchaVerifier =
+            new RecaptchaVerifier(
+                chapcyAuth,
+                "recaptcha-container",
+                {
+                    size: "invisible",
+
+                    callback: () => {
+
+                        console.log(
+                            "CHAPCY reCAPTCHA verified."
+                        );
+
+                    },
+
+                    "expired-callback": () => {
+
+                        console.log(
+                            "CHAPCY reCAPTCHA expired."
+                        );
+
+                    }
+
+                }
+            );
+
+
+        return true;
+
+    } catch (error) {
+
+        console.error(
+            "CHAPCY reCAPTCHA error:",
+            error
+        );
+
+        return false;
+
+    }
+
+}
+
+
+/* =========================================================
+   19. SEND OTP
+   ========================================================= */
+
+async function sendOTP() {
+
+    hidePhoneError();
+
+
+    if (!phoneNumber) return;
+
+
+    if (!isValidPhoneNumber()) {
+
+        showPhoneError(
+            "Please enter a valid phone number."
+        );
+
+        phoneNumber.focus();
+
+        return;
+
+    }
+
+
+    if (
+        !chapcyAuth ||
+        !signInWithPhoneNumber
+    ) {
+
+        showPhoneError(
+            "Connection is not ready. Please try again."
+        );
+
+        console.error(
+            "Firebase Phone Auth is not ready."
+        );
+
+        return;
+
+    }
+
+
+    const internationalPhone =
+        getInternationalPhone();
+
+
+    if (!internationalPhone) {
+
+        showPhoneError(
+            "Please enter your phone number."
+        );
+
+        return;
+
+    }
+
+
+    setContinueLoading(true);
+
+
+    try {
+
+        /*
+           Create a new reCAPTCHA.
+        */
+
+        const captchaReady =
+            setupRecaptcha();
+
+
+        if (!captchaReady) {
+
+            throw new Error(
+                "reCAPTCHA could not be initialized."
+            );
+
+        }
+
+
+        console.log(
+            "Sending OTP to:",
+            internationalPhone
+        );
+
+
+        confirmationResult =
+            await signInWithPhoneNumber(
+                chapcyAuth,
+                internationalPhone,
+                recaptchaVerifier
+            );
+
+
+        /*
+           Save temporary phone info.
+        */
+
+        localStorage.setItem(
+            "chapcyPendingPhone",
+            internationalPhone
+        );
+
+
+        localStorage.setItem(
+            "chapcyPendingCountry",
+            JSON.stringify(selectedCountry)
+        );
+
+
+        /*
+           Show verification screen.
+        */
+
+        showVerificationSection();
+
+
+    } catch (error) {
+
+        console.error(
+            "CHAPCY OTP ERROR:",
+            error
+        );
+
+
+        let message =
+            "Unable to send verification code.";
+
+
+        if (error && error.code) {
+
+            switch (error.code) {
+
+                case "auth/invalid-phone-number":
+
+                    message =
+                        "The phone number is invalid.";
+
+                    break;
+
+
+                case "auth/too-many-requests":
+
+                    message =
+                        "Too many attempts. Please try again later.";
+
+                    break;
+
+
+                case "auth/quota-exceeded":
+
+                    message =
+                        "SMS limit reached. Please try again later.";
+
+                    break;
+
+
+                case "auth/captcha-check-failed":
+
+                    message =
+                        "Security verification failed. Please try again.";
+
+                    break;
+
+
+                case "auth/network-request-failed":
+
+                    message =
+                        "Network error. Check your internet connection.";
+
+                    break;
+
+
+                case "auth/app-not-authorized":
+
+                    message =
+                        "This domain is not authorized in Firebase.";
+
+                    break;
+
+
+                default:
+
+                    message =
+                        error.message ||
+                        message;
+
+            }
+
+        }
+
+
+        showPhoneError(message);
+
+
+        /*
+           Reset captcha after failure.
+        */
+
+        if (recaptchaVerifier) {
+
+            try {
+
+                recaptchaVerifier.clear();
+
+            } catch (_) {}
+
+            recaptchaVerifier = null;
+
+        }
+
+    } finally {
+
+        setContinueLoading(false);
+
+    }
+
+}
+
+
+/* =========================================================
+   20. SHOW VERIFICATION SECTION
+   ========================================================= */
+
+function showVerificationSection() {
+
+    if (!verificationSection) {
+
+        console.warn(
+            "Verification section not found."
+        );
+
+        return;
+
+    }
+
+
+    /*
+       Hide register card.
+    */
 
     const registerCard =
         document.querySelector(".register-card");
 
-    const brandSection =
-        document.querySelector(".brand-section");
 
-    const securityNote =
-        document.querySelector(".security-note");
+    if (registerCard) {
 
-    if (registerCard)
         registerCard.style.display = "none";
 
-    if (brandSection)
-        brandSection.style.display = "none";
-
-    if (securityNote)
-        securityNote.style.display = "none";
-
-    if (verificationSection) {
-
-        verificationSection.style.display =
-            "block";
-
-        verificationSection.classList.add("active");
     }
 
-    focusFirstOTP();
 
-    startResendTimer();
+    verificationSection.style.display =
+        "block";
+
+
+    verificationSection.classList.add(
+        "active"
+    );
+
+
+    verificationSection.classList.add(
+        "show"
+    );
+
+
+    /*
+       Update phone text if element exists.
+    */
+
+    const verificationPhone =
+        $("verificationPhone") ||
+        $("verifyPhone") ||
+        document.querySelector(".verification-phone");
+
+
+    if (verificationPhone) {
+
+        verificationPhone.textContent =
+            getInternationalPhone();
+
+    }
+
+
+    /*
+       Focus OTP.
+    */
+
+    if (otpInput) {
+
+        setTimeout(() => {
+
+            otpInput.focus();
+
+        }, 300);
+
+    }
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
 }
 
 
 /* =========================================================
-   OTP INPUTS
+   21. OTP INPUT FORMAT
    ========================================================= */
-
-function getOTPInputs() {
-
-    return Array.from(
-        document.querySelectorAll(".otp-input")
-    );
-}
-
-
-function focusFirstOTP() {
-
-    const inputs =
-        getOTPInputs();
-
-    if (inputs.length > 0) {
-
-        setTimeout(() => {
-            inputs[0].focus();
-        }, 200);
-    }
-}
-
 
 function setupOTPInputs() {
 
-    const inputs =
-        getOTPInputs();
+    /*
+       Support both:
+       #otpInput
+       OR
+       .otp-input
+       OR
+       six separate inputs.
+    */
 
-    inputs.forEach((input, index) => {
+    const otpInputs =
+        document.querySelectorAll(
+            ".otp-input, [data-otp]"
+        );
+
+
+    if (!otpInputs.length) return;
+
+
+    otpInputs.forEach((input, index) => {
 
         input.setAttribute(
             "inputmode",
@@ -664,26 +1290,24 @@ function setupOTPInputs() {
             "1"
         );
 
+
         input.addEventListener(
             "input",
-            event => {
+            () => {
 
-                const value =
-                    event.target.value
-                        .replace(/\D/g, "");
+                input.value =
+                    input.value.replace(/\D/g, "");
 
-                event.target.value =
-                    value;
 
                 if (
-                    value &&
-                    index < inputs.length - 1
+                    input.value &&
+                    otpInputs[index + 1]
                 ) {
 
-                    inputs[index + 1].focus();
+                    otpInputs[index + 1].focus();
+
                 }
 
-                updateVerifyButton();
             }
         );
 
@@ -695,11 +1319,13 @@ function setupOTPInputs() {
                 if (
                     event.key === "Backspace" &&
                     !input.value &&
-                    index > 0
+                    otpInputs[index - 1]
                 ) {
 
-                    inputs[index - 1].focus();
+                    otpInputs[index - 1].focus();
+
                 }
+
             }
         );
 
@@ -710,572 +1336,416 @@ function setupOTPInputs() {
 
                 event.preventDefault();
 
+
                 const pasted =
                     (
                         event.clipboardData ||
                         window.clipboardData
                     )
-                    .getData("text")
-                    .replace(/\D/g, "")
-                    .substring(0, 6);
+                        .getData("text")
+                        .replace(/\D/g, "")
+                        .substring(0, otpInputs.length);
 
-                pasted
-                    .split("")
-                    .forEach((digit, i) => {
 
-                        if (inputs[i]) {
-                            inputs[i].value =
+                pasted.split("").forEach(
+                    (digit, i) => {
+
+                        if (otpInputs[i]) {
+
+                            otpInputs[i].value =
                                 digit;
+
                         }
-                    });
 
-                if (inputs[pasted.length - 1]) {
+                    }
+                );
 
-                    inputs[
-                        pasted.length - 1
-                    ].focus();
 
-                } else if (inputs[0]) {
+                const last =
+                    Math.min(
+                        pasted.length,
+                        otpInputs.length
+                    ) - 1;
 
-                    inputs[0].focus();
+
+                if (
+                    last >= 0 &&
+                    otpInputs[last]
+                ) {
+
+                    otpInputs[last].focus();
+
                 }
 
-                updateVerifyButton();
             }
         );
+
     });
+
 }
 
 
 /* =========================================================
-   GET OTP
+   22. GET OTP CODE
    ========================================================= */
 
-function getOTP() {
+function getOTPCode() {
 
-    return getOTPInputs()
-        .map(input => input.value)
-        .join("");
+    /*
+       First check single OTP input.
+    */
+
+    if (otpInput) {
+
+        const value =
+            otpInput.value
+                .replace(/\D/g, "");
+
+        if (value.length === 6) {
+
+            return value;
+
+        }
+
+    }
+
+
+    /*
+       Then check six separate inputs.
+    */
+
+    const otpInputs =
+        document.querySelectorAll(
+            ".otp-input, [data-otp]"
+        );
+
+
+    if (otpInputs.length) {
+
+        return Array.from(otpInputs)
+            .map(input =>
+                input.value.replace(/\D/g, "")
+            )
+            .join("");
+
+    }
+
+
+    /*
+       Search common IDs.
+    */
+
+    const possibleInputs = [
+
+        $("otp1"),
+        $("otp2"),
+        $("otp3"),
+        $("otp4"),
+        $("otp5"),
+        $("otp6")
+
+    ].filter(Boolean);
+
+
+    if (possibleInputs.length) {
+
+        return possibleInputs
+            .map(input =>
+                input.value.replace(/\D/g, "")
+            )
+            .join("");
+
+    }
+
+
+    return "";
+
 }
 
 
 /* =========================================================
-   VERIFY BUTTON
-   ========================================================= */
-
-function updateVerifyButton() {
-
-    const otp =
-        getOTP();
-
-    if (!verifyBtn) return;
-
-    verifyBtn.disabled =
-        otp.length !== 6;
-}
-
-
-/* =========================================================
-   CLEAR OTP
-   ========================================================= */
-
-function clearOTP() {
-
-    getOTPInputs()
-        .forEach(input => {
-
-            input.value = "";
-        });
-
-    updateVerifyButton();
-
-    focusFirstOTP();
-}
-
-
-/* =========================================================
-   VERIFY OTP
+   23. VERIFY OTP
    ========================================================= */
 
 async function verifyOTP() {
 
-    const otp =
-        getOTP();
+    if (!confirmationResult) {
 
-    if (otp.length !== 6) {
+        showVerificationError(
+            "Please request a new verification code."
+        );
 
-        alert(
+        return;
+
+    }
+
+
+    const code =
+        getOTPCode();
+
+
+    if (code.length !== 6) {
+
+        showVerificationError(
             "Please enter the 6-digit verification code."
         );
 
         return;
+
     }
 
-    if (!confirmationResult) {
-
-        alert(
-            "Verification session expired. Please request a new code."
-        );
-
-        return;
-    }
 
     if (verifyBtn) {
 
         verifyBtn.disabled = true;
 
-        verifyBtn.dataset.originalText =
-            verifyBtn.textContent;
-
-        verifyBtn.textContent =
-            "Verifying...";
     }
+
 
     try {
 
         const result =
-            await confirmationResult.confirm(
-                otp
-            );
+            await confirmationResult.confirm(code);
+
 
         const user =
             result.user;
+
 
         /*
            Save registration information.
         */
 
+        const phone =
+            getInternationalPhone() ||
+            user.phoneNumber ||
+            "";
+
+
+        const userData = {
+
+            uid:
+                user.uid,
+
+            phone:
+                phone,
+
+            country:
+                selectedCountry.name,
+
+            countryCode:
+                selectedCountry.code,
+
+            countryFlag:
+                selectedCountry.flag,
+
+            registered:
+                true,
+
+            registeredAt:
+                new Date().toISOString()
+
+        };
+
+
         localStorage.setItem(
-            "chapcyPhoneVerified",
+            "chapcyUser",
+            JSON.stringify(userData)
+        );
+
+
+        localStorage.setItem(
+            "chapcyRegistered",
             "true"
         );
 
+
         localStorage.setItem(
-            "chapcyCurrentPhone",
-            currentPhone
+            "chapcyPhone",
+            phone
         );
+
 
         localStorage.setItem(
             "chapcyUID",
             user.uid
         );
 
-        localStorage.setItem(
-            "chapcyUserCountry",
-            selectedCountry.name
-        );
 
-        localStorage.setItem(
-            "chapcyRegistrationComplete",
-            "true"
-        );
+        /*
+           Show success.
+        */
 
-        saveRegisteredUser(
-            currentPhone,
-            user.uid
-        );
+        showSuccessSection();
 
-        showSuccess();
 
     } catch (error) {
 
         console.error(
-            "OTP verification failed:",
+            "CHAPCY VERIFY ERROR:",
             error
         );
 
+
         let message =
-            "Invalid verification code.";
+            "Verification failed. Please check your code.";
 
-        if (
-            error.code ===
-            "auth/invalid-verification-code"
-        ) {
 
-            message =
-                "The verification code is incorrect.";
+        if (error && error.code) {
 
-        } else if (
-            error.code ===
-            "auth/code-expired"
-        ) {
+            switch (error.code) {
 
-            message =
-                "This verification code has expired. Please request a new one.";
+                case "auth/invalid-verification-code":
+
+                    message =
+                        "Incorrect verification code.";
+
+                    break;
+
+
+                case "auth/code-expired":
+
+                    message =
+                        "This verification code has expired. Request a new one.";
+
+                    break;
+
+
+                case "auth/session-expired":
+
+                    message =
+                        "Verification session expired. Please request a new code.";
+
+                    break;
+
+
+                default:
+
+                    message =
+                        error.message ||
+                        message;
+
+            }
+
         }
 
-        alert(message);
+
+        showVerificationError(message);
+
+
+    } finally {
 
         if (verifyBtn) {
 
             verifyBtn.disabled = false;
 
-            verifyBtn.textContent =
-                verifyBtn.dataset.originalText ||
-                "Verify";
         }
+
     }
+
 }
 
 
 /* =========================================================
-   SEND OTP
+   24. VERIFICATION ERROR
    ========================================================= */
 
-async function sendOTP(fullPhone) {
+function showVerificationError(message) {
 
-    waitForFirebase(() => {});
-
-    if (
-        !window.chapcyAuth ||
-        !window.ChapcyRecaptchaVerifier ||
-        !window.signInWithPhoneNumber
-    ) {
-
-        throw new Error(
-            "Firebase Authentication is not ready."
-        );
-    }
-
-    const verifier =
-        await setupRecaptcha();
-
-    try {
-
-        confirmationResult =
-            await window.signInWithPhoneNumber(
-                window.chapcyAuth,
-                fullPhone,
-                verifier
-            );
-
-        console.log(
-            "✅ SMS verification code sent."
-        );
-
-        return true;
-
-    } catch (error) {
-
-        console.error(
-            "SMS sending failed:",
-            error
-        );
-
-        try {
-
-            if (recaptchaVerifier) {
-                recaptchaVerifier.clear();
-            }
-
-        } catch (e) {}
-
-        recaptchaVerifier = null;
-
-        throw error;
-    }
-}
+    const errorElement =
+        $("verificationError") ||
+        $("otpError") ||
+        document.querySelector(".verification-error") ||
+        document.querySelector(".otp-error");
 
 
-/* =========================================================
-   CONTINUE REGISTRATION
-   ========================================================= */
+    if (!errorElement) {
 
-async function handleContinue(event) {
-
-    if (event) {
-        event.preventDefault();
-    }
-
-    if (!validatePhone()) {
-        return;
-    }
-
-    const fullPhone =
-        getFullPhoneNumber();
-
-    if (!fullPhone) {
-
-        showPhoneError(
-            "Please enter your phone number."
+        console.warn(
+            message
         );
 
         return;
+
     }
 
-    setContinueLoading(true);
 
-    try {
+    const text =
+        errorElement.querySelector("span");
 
-        console.log(
-            "📱 Sending OTP to:",
-            fullPhone
-        );
 
-        await sendOTP(fullPhone);
+    if (text) {
 
-        /*
-           Save pending registration.
-        */
+        text.textContent =
+            message;
 
-        localStorage.setItem(
-            "chapcyPendingPhone",
-            fullPhone
-        );
+    } else {
 
-        localStorage.setItem(
-            "chapcyPendingCountry",
-            JSON.stringify(selectedCountry)
-        );
+        errorElement.textContent =
+            message;
 
-        openVerification(
-            fullPhone
-        );
-
-    } catch (error) {
-
-        console.error(
-            error
-        );
-
-        let message =
-            "Unable to send verification code.";
-
-        switch (error.code) {
-
-            case "auth/invalid-phone-number":
-
-                message =
-                    "The phone number is invalid.";
-
-                break;
-
-            case "auth/too-many-requests":
-
-                message =
-                    "Too many attempts. Please try again later.";
-
-                break;
-
-            case "auth/quota-exceeded":
-
-                message =
-                    "SMS quota has been exceeded. Please try again later.";
-
-                break;
-
-            case "auth/captcha-check-failed":
-
-                message =
-                    "reCAPTCHA verification failed. Please try again.";
-
-                break;
-
-            case "auth/operation-not-allowed":
-
-                message =
-                    "Phone Authentication is not enabled in Firebase.";
-
-                break;
-
-            case "auth/app-not-authorized":
-
-                message =
-                    "This website is not authorized in Firebase Authentication.";
-
-                break;
-
-            default:
-
-                if (error.message) {
-                    message =
-                        error.message;
-                }
-        }
-
-        alert(message);
-
-    } finally {
-
-        setContinueLoading(false);
     }
+
+
+    errorElement.classList.add(
+        "show"
+    );
+
+    errorElement.classList.add(
+        "active"
+    );
+
 }
 
 
 /* =========================================================
-   RESEND TIMER
+   25. HIDE VERIFICATION ERROR
    ========================================================= */
 
-function startResendTimer() {
+function hideVerificationError() {
 
-    if (!resendBtn) return;
-
-    clearInterval(resendTimer);
-
-    resendSeconds = 30;
-
-    resendBtn.disabled = true;
-
-    updateResendText();
-
-    resendTimer =
-        setInterval(() => {
-
-            resendSeconds--;
-
-            updateResendText();
-
-            if (resendSeconds <= 0) {
-
-                clearInterval(resendTimer);
-
-                resendBtn.disabled =
-                    false;
-
-                resendBtn.textContent =
-                    "Resend Code";
-            }
-
-        }, 1000);
-}
+    const errorElement =
+        $("verificationError") ||
+        $("otpError") ||
+        document.querySelector(".verification-error") ||
+        document.querySelector(".otp-error");
 
 
-function updateResendText() {
+    if (!errorElement) return;
 
-    if (!resendBtn) return;
 
-    resendBtn.textContent =
-        `Resend Code (${resendSeconds}s)`;
+    errorElement.classList.remove(
+        "show"
+    );
+
+    errorElement.classList.remove(
+        "active"
+    );
+
 }
 
 
 /* =========================================================
-   RESEND OTP
+   26. SUCCESS SECTION
    ========================================================= */
 
-async function resendOTP() {
-
-    if (!currentPhone) {
-
-        alert(
-            "Phone number not found."
-        );
-
-        return;
-    }
-
-    if (resendBtn) {
-
-        resendBtn.disabled = true;
-
-        resendBtn.textContent =
-            "Sending...";
-    }
-
-    try {
-
-        await sendOTP(
-            currentPhone
-        );
-
-        clearOTP();
-
-        startResendTimer();
-
-        console.log(
-            "✅ New OTP sent."
-        );
-
-    } catch (error) {
-
-        console.error(
-            error
-        );
-
-        alert(
-            "Unable to resend the code. Please try again."
-        );
-
-        if (resendBtn) {
-
-            resendBtn.disabled =
-                false;
-
-            resendBtn.textContent =
-                "Resend Code";
-        }
-    }
-}
-
-
-/* =========================================================
-   SAVE REGISTERED USER
-   ========================================================= */
-
-function saveRegisteredUser(
-    phone,
-    uid
-) {
-
-    let users = [];
-
-    try {
-
-        users =
-            JSON.parse(
-                localStorage.getItem(
-                    "chapcyRegisteredUsers"
-                )
-            ) || [];
-
-    } catch (error) {
-
-        users = [];
-    }
-
-    const exists =
-        users.some(
-            user =>
-                user.phone === phone
-        );
-
-    if (!exists) {
-
-        users.push({
-
-            phone: phone,
-
-            uid: uid,
-
-            country:
-                selectedCountry.name,
-
-            flag:
-                selectedCountry.flag,
-
-            registeredAt:
-                new Date().toISOString()
-        });
-
-        localStorage.setItem(
-            "chapcyRegisteredUsers",
-            JSON.stringify(users)
-        );
-    }
-}
-
-
-/* =========================================================
-   SUCCESS SCREEN
-   ========================================================= */
-
-function showSuccess() {
+function showSuccessSection() {
 
     if (verificationSection) {
 
         verificationSection.style.display =
             "none";
+
+        verificationSection.classList.remove(
+            "active"
+        );
+
+        verificationSection.classList.remove(
+            "show"
+        );
+
     }
+
 
     if (successSection) {
 
@@ -1285,80 +1755,363 @@ function showSuccess() {
         successSection.classList.add(
             "active"
         );
+
+        successSection.classList.add(
+            "show"
+        );
+
     }
+
 
     /*
-       Small success vibration if supported.
+       Update success phone.
     */
 
-    if (
-        navigator.vibrate
-    ) {
+    const successPhone =
+        $("successPhone") ||
+        document.querySelector(".success-phone");
 
-        navigator.vibrate(
-            [100, 50, 100]
-        );
+
+    if (successPhone) {
+
+        successPhone.textContent =
+            getInternationalPhone();
+
     }
+
+
+    /*
+       Update success country.
+    */
+
+    const successCountry =
+        $("successCountry") ||
+        document.querySelector(".success-country");
+
+
+    if (successCountry) {
+
+        successCountry.textContent =
+            `${selectedCountry.flag} ${selectedCountry.name}`;
+
+    }
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+
+    /*
+       Small celebration.
+    */
+
+    createSuccessParticles();
+
 }
 
 
 /* =========================================================
-   ENTER CHAPCY
+   27. SUCCESS PARTICLES
+   ========================================================= */
+
+function createSuccessParticles() {
+
+    const container =
+        successSection ||
+        document.body;
+
+
+    for (let i = 0; i < 18; i++) {
+
+        const particle =
+            document.createElement("span");
+
+
+        particle.className =
+            "chapcy-success-particle";
+
+
+        particle.textContent =
+            ["✦", "✧", "•", "◆"][
+
+                Math.floor(
+                    Math.random() * 4
+                )
+
+            ];
+
+
+        particle.style.left =
+            `${Math.random() * 100}%`;
+
+
+        particle.style.top =
+            `${Math.random() * 100}%`;
+
+
+        particle.style.animationDelay =
+            `${Math.random() * 1.5}s`;
+
+
+        container.appendChild(
+            particle
+        );
+
+
+        setTimeout(() => {
+
+            particle.remove();
+
+        }, 4000);
+
+    }
+
+}
+
+
+/* =========================================================
+   28. RESEND OTP
+   ========================================================= */
+
+async function resendOTP() {
+
+    if (resendSeconds > 0) return;
+
+
+    if (!chapcyAuth || !signInWithPhoneNumber) {
+
+        showVerificationError(
+            "Firebase is not ready. Please try again."
+        );
+
+        return;
+
+    }
+
+
+    const phone =
+        getInternationalPhone();
+
+
+    if (!phone) {
+
+        showVerificationError(
+            "Phone number is missing."
+        );
+
+        return;
+
+    }
+
+
+    if (resendBtn) {
+
+        resendBtn.disabled = true;
+
+    }
+
+
+    hideVerificationError();
+
+
+    try {
+
+        const captchaReady =
+            setupRecaptcha();
+
+
+        if (!captchaReady) {
+
+            throw new Error(
+                "Could not initialize security verification."
+            );
+
+        }
+
+
+        confirmationResult =
+            await signInWithPhoneNumber(
+                chapcyAuth,
+                phone,
+                recaptchaVerifier
+            );
+
+
+        startResendTimer();
+
+
+    } catch (error) {
+
+        console.error(
+            "CHAPCY RESEND ERROR:",
+            error
+        );
+
+
+        showVerificationError(
+            error.message ||
+            "Could not resend the code."
+        );
+
+
+        if (resendBtn) {
+
+            resendBtn.disabled = false;
+
+        }
+
+    }
+
+}
+
+
+/* =========================================================
+   29. RESEND TIMER
+   ========================================================= */
+
+function startResendTimer() {
+
+    clearInterval(resendTimer);
+
+
+    resendSeconds = 60;
+
+
+    updateResendButton();
+
+
+    resendTimer =
+        setInterval(() => {
+
+            resendSeconds--;
+
+
+            updateResendButton();
+
+
+            if (resendSeconds <= 0) {
+
+                clearInterval(
+                    resendTimer
+                );
+
+
+                resendTimer = null;
+
+            }
+
+        }, 1000);
+
+}
+
+
+/* =========================================================
+   30. UPDATE RESEND BUTTON
+   ========================================================= */
+
+function updateResendButton() {
+
+    if (!resendBtn) return;
+
+
+    if (resendSeconds > 0) {
+
+        resendBtn.disabled = true;
+
+
+        const originalText =
+            resendBtn.dataset.originalText ||
+            "Resend Code";
+
+
+        resendBtn.dataset.originalText =
+            originalText;
+
+
+        resendBtn.innerHTML = `
+            <i class="fa-solid fa-rotate-right"></i>
+            Resend Code (${resendSeconds}s)
+        `;
+
+    } else {
+
+        resendBtn.disabled = false;
+
+
+        resendBtn.innerHTML = `
+            <i class="fa-solid fa-rotate-right"></i>
+            Resend Code
+        `;
+
+    }
+
+}
+
+
+/* =========================================================
+   31. ENTER CHAPCY
    ========================================================= */
 
 function enterChapcy() {
 
     /*
-       IMPORTANT:
-       Your actual file is Mychat.html
+       Try common CHAPCY pages.
+    */
+
+    const destinations = [
+
+        "Mychat.html",
+        "mychat.html",
+        "chat.html",
+        "index.html"
+
+    ];
+
+
+    /*
+       Kama HTML yako ina data-page,
+       itumie hiyo.
+    */
+
+    if (enterChapcyBtn) {
+
+        const customPage =
+            enterChapcyBtn.dataset.page;
+
+
+        if (customPage) {
+
+            window.location.href =
+                customPage;
+
+            return;
+
+        }
+
+    }
+
+
+    /*
+       Default:
+       Mychat.html
     */
 
     window.location.href =
         "Mychat.html";
+
 }
 
 
 /* =========================================================
-   COUNTRY EVENTS
+   32. COUNTRY SEARCH
    ========================================================= */
 
-if (countrySelector) {
+function setupCountrySearch() {
 
-    countrySelector.addEventListener(
-        "click",
-        openCountryModal
-    );
-}
+    if (!countrySearch) return;
 
-
-if (closeCountry) {
-
-    closeCountry.addEventListener(
-        "click",
-        closeCountryModal
-    );
-}
-
-
-if (countryOverlay) {
-
-    countryOverlay.addEventListener(
-        "click",
-        event => {
-
-            if (
-                event.target ===
-                countryOverlay
-            ) {
-
-                closeCountryModal();
-            }
-        }
-    );
-}
-
-
-if (countrySearch) {
 
     countrySearch.addEventListener(
         "input",
@@ -1367,154 +2120,606 @@ if (countrySearch) {
             renderCountries(
                 countrySearch.value
             );
+
         }
     );
+
 }
 
 
 /* =========================================================
-   PHONE EVENTS
+   33. COUNTRY EVENTS
    ========================================================= */
 
-if (phoneNumber) {
+function setupCountryEvents() {
+
+    if (countrySelector) {
+
+        countrySelector.addEventListener(
+            "click",
+            event => {
+
+                event.preventDefault();
+
+                openCountryModal();
+
+            }
+        );
+
+    }
+
+
+    if (closeCountry) {
+
+        closeCountry.addEventListener(
+            "click",
+            event => {
+
+                event.preventDefault();
+
+                closeCountryModal();
+
+            }
+        );
+
+    }
+
+
+    if (countryOverlay) {
+
+        countryOverlay.addEventListener(
+            "click",
+            event => {
+
+                /*
+                   Only close when clicking overlay itself.
+                */
+
+                if (
+                    event.target ===
+                    countryOverlay
+                ) {
+
+                    closeCountryModal();
+
+                }
+
+            }
+        );
+
+    }
+
+
+    document.addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                event.key === "Escape"
+            ) {
+
+                closeCountryModal();
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   34. PHONE EVENTS
+   ========================================================= */
+
+function setupPhoneEvents() {
+
+    if (!phoneNumber) return;
+
 
     phoneNumber.addEventListener(
         "input",
-        formatPhoneNumber
+        () => {
+
+            const cursor =
+                phoneNumber.selectionStart;
+
+
+            const oldValue =
+                phoneNumber.value;
+
+
+            phoneNumber.value =
+                formatPhoneNumber(
+                    phoneNumber.value
+                );
+
+
+            /*
+               Hide error when user starts correcting.
+            */
+
+            if (
+                phoneNumber.value !== oldValue
+            ) {
+
+                hidePhoneError();
+
+            }
+
+
+            /*
+               Keep cursor reasonably positioned.
+            */
+
+            if (
+                document.activeElement ===
+                phoneNumber
+            ) {
+
+                try {
+
+                    phoneNumber.setSelectionRange(
+                        phoneNumber.value.length,
+                        phoneNumber.value.length
+                    );
+
+                } catch (_) {}
+
+            }
+
+        }
     );
+
+
+    phoneNumber.addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                event.key === "Enter"
+            ) {
+
+                event.preventDefault();
+
+                if (registerForm) {
+
+                    registerForm.requestSubmit();
+
+                }
+
+            }
+
+        }
+    );
+
 
     phoneNumber.addEventListener(
         "blur",
-        validatePhone
+        () => {
+
+            if (
+                phoneNumber.value &&
+                !isValidPhoneNumber()
+            ) {
+
+                showPhoneError(
+                    "Please enter a valid phone number."
+                );
+
+            }
+
+        }
     );
+
 }
 
 
 /* =========================================================
-   REGISTER FORM
+   35. FORM SUBMIT
    ========================================================= */
 
-if (registerForm) {
+function setupForm() {
+
+    if (!registerForm) return;
+
 
     registerForm.addEventListener(
         "submit",
-        handleContinue
+        event => {
+
+            event.preventDefault();
+
+
+            sendOTP();
+
+        }
     );
-}
 
-
-if (continueBtn) {
-
-    continueBtn.addEventListener(
-        "click",
-        handleContinue
-    );
 }
 
 
 /* =========================================================
-   VERIFY EVENTS
+   36. VERIFY EVENTS
    ========================================================= */
 
-if (verifyBtn) {
+function setupVerificationEvents() {
 
-    verifyBtn.addEventListener(
-        "click",
-        verifyOTP
-    );
+    if (verifyBtn) {
+
+        verifyBtn.addEventListener(
+            "click",
+            event => {
+
+                event.preventDefault();
+
+                hideVerificationError();
+
+                verifyOTP();
+
+            }
+        );
+
+    }
+
+
+    if (resendBtn) {
+
+        resendBtn.addEventListener(
+            "click",
+            event => {
+
+                event.preventDefault();
+
+                resendOTP();
+
+            }
+        );
+
+    }
+
+
+    if (otpInput) {
+
+        otpInput.addEventListener(
+            "input",
+            () => {
+
+                otpInput.value =
+                    otpInput.value
+                        .replace(/\D/g, "")
+                        .substring(0, 6);
+
+
+                hideVerificationError();
+
+            }
+        );
+
+
+        otpInput.addEventListener(
+            "keydown",
+            event => {
+
+                if (
+                    event.key === "Enter"
+                ) {
+
+                    event.preventDefault();
+
+                    verifyOTP();
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /*
+       Support six OTP boxes.
+    */
+
+    const otpInputs =
+        document.querySelectorAll(
+            ".otp-input, [data-otp]"
+        );
+
+
+    otpInputs.forEach(input => {
+
+        input.addEventListener(
+            "input",
+            () => {
+
+                hideVerificationError();
+
+            }
+        );
+
+    });
+
 }
 
 
-if (resendBtn) {
+/* =========================================================
+   37. SUCCESS EVENTS
+   ========================================================= */
 
-    resendBtn.addEventListener(
-        "click",
-        resendOTP
-    );
-}
+function setupSuccessEvents() {
 
+    if (!enterChapcyBtn) return;
 
-if (enterChapcyBtn) {
 
     enterChapcyBtn.addEventListener(
         "click",
-        enterChapcy
+        event => {
+
+            event.preventDefault();
+
+            enterChapcy();
+
+        }
     );
+
 }
 
 
 /* =========================================================
-   INITIALIZE OTP
+   38. PREVENT MODAL SCROLL
    ========================================================= */
 
-setupOTPInputs();
+function setupModalBehavior() {
+
+    /*
+       This is handled by CSS too,
+       but this makes it more reliable.
+    */
+
+    const style =
+        document.createElement("style");
 
 
-/* =========================================================
-   INITIAL COUNTRY
-   ========================================================= */
+    style.textContent = `
 
-updateCountryUI();
+        body.country-modal-open {
+            overflow: hidden !important;
+        }
 
-renderCountries();
+        .country-overlay.active {
+            display: block !important;
+        }
+
+        .country-modal.active {
+            display: block !important;
+        }
+
+        .country-modal {
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        .country-modal.active {
+            pointer-events: auto;
+            opacity: 1;
+        }
+
+        .continue-loader {
+            display: none;
+        }
+
+        .continue-btn.loading {
+            pointer-events: none;
+        }
+
+        .country-item {
+            cursor: pointer;
+        }
+
+        .country-item.selected {
+            transform: translateX(3px);
+        }
+
+        .country-empty {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            padding: 35px 20px;
+            text-align: center;
+        }
+
+        .country-empty i {
+            font-size: 30px;
+            margin-bottom: 5px;
+        }
+
+        .chapcy-success-particle {
+            position: absolute;
+            pointer-events: none;
+            animation: chapcySuccessParticle 3s ease-out forwards;
+            z-index: 20;
+        }
+
+        @keyframes chapcySuccessParticle {
+
+            0% {
+                opacity: 0;
+                transform:
+                    translateY(20px)
+                    scale(.5)
+                    rotate(0deg);
+            }
+
+            20% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+                transform:
+                    translateY(-120px)
+                    scale(1.4)
+                    rotate(180deg);
+            }
+
+        }
+
+    `;
 
 
-/* =========================================================
-   FIREBASE STATUS
-   ========================================================= */
-
-waitForFirebase(() => {
-
-    console.log(
-        "🔥 CHAPCY Firebase Authentication Ready"
+    document.head.appendChild(
+        style
     );
 
-});
+}
 
 
 /* =========================================================
-   RESTORE PENDING COUNTRY
+   39. AUTO RESTORE REGISTERED USER
    ========================================================= */
 
-try {
+function restoreRegisteredState() {
 
-    const savedCountry =
+    const registered =
         localStorage.getItem(
-            "chapcyPendingCountry"
+            "chapcyRegistered"
         );
 
-    if (savedCountry) {
 
-        const parsed =
-            JSON.parse(savedCountry);
+    if (
+        registered !== "true"
+    ) {
 
-        if (
-            parsed &&
-            parsed.name &&
-            parsed.code &&
-            parsed.flag
-        ) {
+        return;
 
-            selectedCountry =
-                parsed;
-
-            updateCountryUI();
-        }
     }
 
-} catch (error) {
 
-    console.warn(
-        "Could not restore country.",
-        error
-    );
+    const savedUser =
+        localStorage.getItem(
+            "chapcyUser"
+        );
+
+
+    if (!savedUser) return;
+
+
+    try {
+
+        const user =
+            JSON.parse(savedUser);
+
+
+        if (
+            user.country &&
+            user.countryCode
+        ) {
+
+            selectedCountry = {
+
+                flag:
+                    user.countryFlag ||
+                    "🌍",
+
+                name:
+                    user.country,
+
+                code:
+                    user.countryCode
+
+            };
+
+
+            updateCountryUI();
+
+        }
+
+    } catch (error) {
+
+        console.warn(
+            "Could not restore CHAPCY user.",
+            error
+        );
+
+    }
+
 }
 
 
 /* =========================================================
-   FINAL START
+   40. INITIALIZATION
    ========================================================= */
 
-console.log(
-    "🚀 CHAPCY Registration JS Loaded"
-);
+function initializeChapcyRegistration() {
+
+    initializeDOM();
+
+
+    updateCountryUI();
+
+
+    setupCountryEvents();
+
+    setupCountrySearch();
+
+    setupPhoneEvents();
+
+    setupForm();
+
+    setupVerificationEvents();
+
+    setupSuccessEvents();
+
+    setupOTPInputs();
+
+    setupModalBehavior();
+
+
+    setupFirebase();
+
+
+    restoreRegisteredState();
+
+
+    /*
+       Initial resend state.
+    */
+
+    if (resendBtn) {
+
+        resendBtn.disabled = true;
+
+        resendBtn.dataset.originalText =
+            "Resend Code";
+
+    }
+
+
+    console.log(
+        "🚀 CHAPCY Registration initialized successfully."
+    );
+
+}
+
+
+/* =========================================================
+   41. START
+   ========================================================= */
+
+if (
+    document.readyState === "loading"
+) {
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        initializeChapcyRegistration
+    );
+
+} else {
+
+    initializeChapcyRegistration();
+
+}
