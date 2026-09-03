@@ -4,7 +4,7 @@
 <head>
 
     <!-- =====================================================
-         CHAPCY OTP VERIFICATION V21
+         BASIC
     ====================================================== -->
 
     <meta charset="UTF-8">
@@ -21,10 +21,31 @@
 
     <meta
         name="description"
-        content="CHAPCY phone number verification"
+        content="CHAPCY Worldwide Live Chat - Verify your phone number"
     >
 
-    <title>CHAPCY — Verify Your Number</title>
+    <title>CHAPCY — Verify Phone</title>
+
+
+    <!-- =====================================================
+         GOOGLE FONT
+    ====================================================== -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
 
 
     <!-- =====================================================
@@ -34,16 +55,6 @@
     <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-    >
-
-
-    <!-- =====================================================
-         GOOGLE FONT
-    ====================================================== -->
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet"
     >
 
 
@@ -63,7 +74,7 @@
 
 
     <!-- =====================================================
-         SPACE BACKGROUND
+         BACKGROUND EFFECTS
     ====================================================== -->
 
     <div class="background-effects">
@@ -76,20 +87,20 @@
 
         <div class="glow glow-three"></div>
 
+        <div class="particles">
 
-        <span class="particle p1"></span>
-        <span class="particle p2"></span>
-        <span class="particle p3"></span>
-        <span class="particle p4"></span>
-        <span class="particle p5"></span>
-        <span class="particle p6"></span>
-        <span class="particle p7"></span>
-        <span class="particle p8"></span>
-        <span class="particle p9"></span>
-        <span class="particle p10"></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
 
-
-        <!-- PLANETS -->
+        </div>
 
         <div class="planet planet-one"></div>
 
@@ -98,9 +109,8 @@
     </div>
 
 
-
     <!-- =====================================================
-         MAIN
+         OTP PAGE
     ====================================================== -->
 
     <main class="otp-page">
@@ -110,21 +120,21 @@
              OTP CARD
         ================================================== -->
 
-        <div
+        <section
             class="otp-card"
             id="otpCard"
         >
 
 
-            <!-- =================================================
+            <!-- =============================================
                  BACK BUTTON
-            ================================================== -->
+            ============================================== -->
 
             <button
-                type="button"
-                id="backBtn"
                 class="back-btn"
-                aria-label="Back"
+                id="backBtn"
+                type="button"
+                aria-label="Go back"
             >
 
                 <i class="fa-solid fa-arrow-left"></i>
@@ -132,10 +142,9 @@
             </button>
 
 
-
-            <!-- =================================================
-                 CHAPCY BRAND
-            ================================================== -->
+            <!-- =============================================
+                 BRAND
+            ============================================== -->
 
             <div class="brand">
 
@@ -145,90 +154,61 @@
 
                 </div>
 
-
                 <div class="brand-name">
-                    CHAPCY
-                </div>
 
+                    <span>CHAPCY</span>
 
-                <div class="brand-subtitle">
-                    WORLDWIDE LIVE CHAT
                 </div>
 
             </div>
 
 
-
-            <!-- =================================================
+            <!-- =============================================
                  PHONE VERIFICATION ICON
-            ================================================== -->
+            ============================================== -->
 
             <div class="verification-icon">
 
-                <div class="icon-ring ring-one"></div>
-
-                <div class="icon-ring ring-two"></div>
-
-                <div class="icon-circle">
+                <div class="verification-circle">
 
                     <i class="fa-solid fa-mobile-screen-button"></i>
+
+                    <span class="verification-check">
+
+                        <i class="fa-solid fa-check"></i>
+
+                    </span>
 
                 </div>
 
             </div>
 
 
-
-            <!-- =================================================
+            <!-- =============================================
                  HEADER
-            ================================================== -->
+            ============================================== -->
 
             <div class="otp-header">
 
-                <div class="small-label">
-                    PHONE VERIFICATION
-                </div>
-
-
                 <h1>
-                    Verify your number
+                    Verify Your Number
                 </h1>
 
-
                 <p>
-                    We sent a 6-digit verification code to
+                    We sent a verification code to
                 </p>
 
-
-
-                <!-- PHONE -->
-
                 <div
-                    class="phone-display"
-                    id="phoneDisplay"
+                    class="phone-number"
+                    id="otpPhoneNumber"
                 >
-
-                    <span class="phone-icon">
-
-                        <i class="fa-solid fa-phone"></i>
-
-                    </span>
-
-
-                    <span id="otpPhoneNumber">
-                        Loading...
-                    </span>
-
+                    +255 ••••••••••
                 </div>
 
-
-
-                <!-- CHANGE NUMBER -->
-
                 <button
-                    type="button"
+                    class="change-number-btn"
                     id="changeNumberBtn"
-                    class="change-number"
+                    type="button"
                 >
 
                     <i class="fa-solid fa-pen"></i>
@@ -240,122 +220,93 @@
             </div>
 
 
-
-            <!-- =================================================
+            <!-- =============================================
                  OTP FORM
-            ================================================== -->
+            ============================================== -->
 
             <form
                 id="otpForm"
-                class="otp-form"
-                autocomplete="off"
+                autocomplete="one-time-code"
             >
 
 
-                <label
-                    for="otp1"
-                    class="otp-label"
-                >
-
-                    Enter 6-digit code
-
-                </label>
-
-
-
-                <!-- =================================================
-                     OTP BOXES
-                ================================================== -->
+                <!-- =========================================
+                     OTP INPUTS
+                ========================================== -->
 
                 <div
-                    class="otp-inputs"
-                    id="otpInputs"
+                    class="otp-input-container"
+                    id="otpInputContainer"
                 >
 
                     <input
+                        type="text"
                         id="otp1"
                         class="otp-input"
-                        type="tel"
-                        maxlength="1"
                         inputmode="numeric"
                         autocomplete="one-time-code"
-                        data-index="0"
+                        maxlength="1"
                         aria-label="OTP digit 1"
                     >
 
-
                     <input
+                        type="text"
                         id="otp2"
                         class="otp-input"
-                        type="tel"
-                        maxlength="1"
                         inputmode="numeric"
-                        data-index="1"
+                        maxlength="1"
                         aria-label="OTP digit 2"
                     >
 
-
                     <input
+                        type="text"
                         id="otp3"
                         class="otp-input"
-                        type="tel"
-                        maxlength="1"
                         inputmode="numeric"
-                        data-index="2"
+                        maxlength="1"
                         aria-label="OTP digit 3"
                     >
 
-
-                    <span class="otp-divider">
-                        —
-                    </span>
-
-
                     <input
+                        type="text"
                         id="otp4"
                         class="otp-input"
-                        type="tel"
-                        maxlength="1"
                         inputmode="numeric"
-                        data-index="3"
+                        maxlength="1"
                         aria-label="OTP digit 4"
                     >
 
-
                     <input
+                        type="text"
                         id="otp5"
                         class="otp-input"
-                        type="tel"
-                        maxlength="1"
                         inputmode="numeric"
-                        data-index="4"
+                        maxlength="1"
                         aria-label="OTP digit 5"
                     >
 
-
                     <input
+                        type="text"
                         id="otp6"
                         class="otp-input"
-                        type="tel"
-                        maxlength="1"
                         inputmode="numeric"
-                        data-index="5"
+                        maxlength="1"
                         aria-label="OTP digit 6"
                     >
 
                 </div>
 
 
-
-                <!-- =================================================
-                     ERROR MESSAGE
-                ================================================== -->
+                <!-- =========================================
+                     ERROR
+                ========================================== -->
 
                 <div
-                    id="otpError"
                     class="otp-error"
+                    id="otpError"
                     role="alert"
                     aria-live="polite"
+                    hidden
                 >
 
                     <i class="fa-solid fa-circle-exclamation"></i>
@@ -367,83 +318,62 @@
                 </div>
 
 
-
-                <!-- =================================================
+                <!-- =========================================
                      VERIFY BUTTON
-                ================================================== -->
+                ========================================== -->
 
                 <button
-                    type="submit"
-                    id="verifyBtn"
                     class="verify-btn"
+                    id="verifyBtn"
+                    type="submit"
                 >
 
-                    <span
-                        id="verifyText"
-                        class="verify-text"
-                    >
-                        Verify
+                    <span id="verifyText">
+                        Verify & Continue
                     </span>
 
-
-                    <span
+                    <i
+                        class="fa-solid fa-arrow-right"
                         id="verifyArrow"
-                        class="verify-arrow"
-                    >
-
-                        <i class="fa-solid fa-arrow-right"></i>
-
-                    </span>
-
+                    ></i>
 
                     <span
-                        id="verifyLoader"
                         class="verify-loader"
-                    >
-
-                        <i class="fa-solid fa-circle-notch"></i>
-
-                    </span>
+                        id="verifyLoader"
+                        hidden
+                    ></span>
 
                 </button>
+
 
             </form>
 
 
-
-            <!-- =================================================
-                 RESEND SECTION
-            ================================================== -->
+            <!-- =============================================
+                 RESEND
+            ============================================== -->
 
             <div
                 class="resend-area"
                 id="resendArea"
             >
 
-                <div class="resend-text">
-
-                    <span>
-                        Didn't receive the code?
-                    </span>
-
-                </div>
-
+                <p>
+                    Didn't receive the code?
+                </p>
 
                 <button
-                    type="button"
-                    id="resendBtn"
                     class="resend-btn"
+                    id="resendBtn"
+                    type="button"
                     disabled
                 >
 
-                    <i class="fa-solid fa-rotate"></i>
+                    <i class="fa-solid fa-rotate-right"></i>
 
-                    <span>
-                        Resend code
-                    </span>
+                    Resend code
 
                 </button>
-
 
                 <div
                     class="resend-timer"
@@ -452,121 +382,78 @@
 
                     Resend available in
 
-                    <strong id="timer">
+                    <span id="timer">
                         60
-                    </strong>s
+                    </span>s
 
                 </div>
 
             </div>
 
 
-
-            <!-- =================================================
-                 SECURITY
-            ================================================== -->
+            <!-- =============================================
+                 SECURITY NOTE
+            ============================================== -->
 
             <div class="security-note">
 
-                <div class="security-icon">
-
-                    <i class="fa-solid fa-shield-halved"></i>
-
-                </div>
-
+                <i class="fa-solid fa-shield-halved"></i>
 
                 <div>
 
                     <strong>
-                        Secure verification
+                        Your number is secure
                     </strong>
 
-                    <span>
-                        Your phone number is protected
-                        by CHAPCY security.
-                    </span>
+                    <p>
+                        Your verification code is private
+                        and should not be shared with anyone.
+                    </p>
 
                 </div>
 
             </div>
 
 
-
-            <!-- =================================================
-                 SUCCESS SCREEN
-            ================================================== -->
+            <!-- =============================================
+                 SUCCESS SECTION
+            ============================================== -->
 
             <section
-                id="otpSuccess"
                 class="otp-success"
-                aria-hidden="true"
+                id="otpSuccess"
+                hidden
             >
-
-
-                <!-- SUCCESS PARTICLES -->
-
-                <div class="success-particles">
-
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-
-                </div>
-
-
-
-                <!-- SUCCESS ICON -->
 
                 <div class="success-icon">
 
-                    <div class="success-ring"></div>
-
-                    <i class="fa-solid fa-check"></i>
+                    <i class="fa-solid fa-circle-check"></i>
 
                 </div>
-
-
-
-                <div class="success-label">
-                    VERIFIED
-                </div>
-
 
                 <h2>
-                    Number verified!
+                    Number Verified!
                 </h2>
 
-
                 <p>
-                    Your phone number has been
-                    successfully verified.
+                    Your phone number has been successfully
+                    verified.
                 </p>
-
 
                 <div
                     class="verified-phone"
                     id="verifiedPhone"
                 >
-                    +255
+                    +255 ••••••••••
                 </div>
 
-
-
-                <!-- ENTER CHAPCY -->
-
                 <button
-                    type="button"
-                    id="enterChapcyBtn"
                     class="enter-chapcy-btn"
+                    id="enterChapcyBtn"
+                    type="button"
                 >
 
-                    <span>
-                        Enter CHAPCY
-                    </span>
-
+                    Enter CHAPCY
 
                     <i class="fa-solid fa-arrow-right"></i>
 
@@ -575,36 +462,36 @@
             </section>
 
 
-        </div>
+            <!-- =============================================
+                 FOOTER
+            ============================================== -->
+
+            <footer class="otp-footer">
+
+                <p>
+
+                    <i class="fa-solid fa-lock"></i>
+
+                    Protected by CHAPCY Security
+
+                </p>
+
+                <span>
+                    © 2026 CHAPCY Worldwide Live Chat
+                </span>
+
+            </footer>
 
 
-
-        <!-- =================================================
-             FOOTER
-        ================================================== -->
-
-        <footer class="otp-footer">
-
-            <span>
-                © 2026 CHAPCY
-            </span>
-
-            <span class="footer-dot">
-                •
-            </span>
-
-            <span>
-                Worldwide Live Chat
-            </span>
-
-        </footer>
+        </section>
 
     </main>
 
 
-
     <!-- =====================================================
-         FIREBASE RECAPTCHA
+         FIREBASE RECAPTCHA CONTAINER
+         
+         JavaScript will control this automatically.
     ====================================================== -->
 
     <div
@@ -613,1237 +500,20 @@
     ></div>
 
 
-
     <!-- =====================================================
-         FIREBASE OTP SYSTEM
+         CHAPCY OTP JAVASCRIPT
+         
+         IMPORTANT:
+         Do NOT put Firebase JS inside this HTML.
+         Everything is inside Mychatotp.js
     ====================================================== -->
 
-    <script type="module">
-
-        /* =====================================================
-           FIREBASE APP
-        ====================================================== */
-
-        import {
-            initializeApp
-        }
-        from
-        "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
-
-
-        import {
-            getAuth,
-            PhoneAuthProvider,
-            signInWithCredential,
-            signInWithPhoneNumber,
-            RecaptchaVerifier
-        }
-        from
-        "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
-
-
-
-        /* =====================================================
-           FIREBASE CONFIG
-
-           ⚠️ WEKA CONFIG ILE ILE YA REGISTER PAGE YAKO
-        ====================================================== */
-
-        const firebaseConfig = {
-
-            apiKey:
-                "WEKA_API_KEY_YAKO",
-
-            authDomain:
-                "WEKA_AUTH_DOMAIN_YAKO",
-
-            projectId:
-                "WEKA_PROJECT_ID_YAKO",
-
-            storageBucket:
-                "WEKA_STORAGE_BUCKET_YAKO",
-
-            messagingSenderId:
-                "WEKA_MESSAGING_SENDER_ID_YAKO",
-
-            appId:
-                "WEKA_APP_ID_YAKO"
-
-        };
-
-
-
-        /* =====================================================
-           INITIALIZE FIREBASE
-        ====================================================== */
-
-        const app =
-            initializeApp(firebaseConfig);
-
-
-        const auth =
-            getAuth(app);
-
-
-
-        /* =====================================================
-           DOM REFERENCES
-        ====================================================== */
-
-        const otpForm =
-            document.getElementById("otpForm");
-
-
-        const otpInputs =
-            Array.from(
-                document.querySelectorAll(".otp-input")
-            );
-
-
-        const otpError =
-            document.getElementById("otpError");
-
-
-        const otpErrorText =
-            document.getElementById("otpErrorText");
-
-
-        const verifyBtn =
-            document.getElementById("verifyBtn");
-
-
-        const verifyText =
-            document.getElementById("verifyText");
-
-
-        const verifyArrow =
-            document.getElementById("verifyArrow");
-
-
-        const verifyLoader =
-            document.getElementById("verifyLoader");
-
-
-        const resendBtn =
-            document.getElementById("resendBtn");
-
-
-        const timerElement =
-            document.getElementById("timer");
-
-
-        const resendTimer =
-            document.getElementById("resendTimer");
-
-
-        const phoneElement =
-            document.getElementById("otpPhoneNumber");
-
-
-        const verifiedPhone =
-            document.getElementById("verifiedPhone");
-
-
-        const otpSuccess =
-            document.getElementById("otpSuccess");
-
-
-        const otpCard =
-            document.getElementById("otpCard");
-
-
-        const resendArea =
-            document.getElementById("resendArea");
-
-
-        const securityNote =
-            document.querySelector(".security-note");
-
-
-        const changeNumberBtn =
-            document.getElementById("changeNumberBtn");
-
-
-        const backBtn =
-            document.getElementById("backBtn");
-
-
-        const enterChapcyBtn =
-            document.getElementById("enterChapcyBtn");
-
-
-
-        /* =====================================================
-           SESSION DATA
-
-           REGISTER PAGE MUST SAVE THESE:
-           
-           chapcyPendingPhone
-           chapcyVerificationId
-           chapcyCountryName
-        ====================================================== */
-
-        let phoneNumber =
-            sessionStorage.getItem(
-                "chapcyPendingPhone"
-            );
-
-
-        let verificationId =
-            sessionStorage.getItem(
-                "chapcyVerificationId"
-            );
-
-
-        let countryName =
-            sessionStorage.getItem(
-                "chapcyCountryName"
-            ) || "Tanzania";
-
-
-
-        /* =====================================================
-           CHECK VERIFICATION SESSION
-        ====================================================== */
-
-        if (
-            !phoneNumber ||
-            !verificationId
-        ) {
-
-            console.warn(
-                "CHAPCY: Verification session not found."
-            );
-
-
-            window.location.href =
-                "Mychatregister.html";
-
-        }
-
-
-
-        /* =====================================================
-           DISPLAY PHONE NUMBER
-        ====================================================== */
-
-        if (phoneNumber) {
-
-            phoneElement.textContent =
-                phoneNumber;
-
-            verifiedPhone.textContent =
-                phoneNumber;
-
-        }
-
-
-
-        /* =====================================================
-           ERROR FUNCTIONS
-        ====================================================== */
-
-        function showError(message) {
-
-            otpErrorText.textContent =
-                message;
-
-            otpError.classList.add("show");
-
-
-            otpInputs.forEach(
-                input => {
-
-                    input.classList.add(
-                        "error"
-                    );
-
-                }
-            );
-
-        }
-
-
-        function hideError() {
-
-            otpError.classList.remove(
-                "show"
-            );
-
-
-            otpInputs.forEach(
-                input => {
-
-                    input.classList.remove(
-                        "error"
-                    );
-
-                }
-            );
-
-        }
-
-
-
-        /* =====================================================
-           GET OTP
-        ====================================================== */
-
-        function getOTP() {
-
-            return otpInputs
-                .map(
-                    input => input.value
-                )
-                .join("");
-
-        }
-
-
-
-        /* =====================================================
-           OTP INPUT
-        ====================================================== */
-
-        otpInputs.forEach(
-            (input, index) => {
-
-
-                input.addEventListener(
-                    "input",
-                    event => {
-
-                        hideError();
-
-
-                        let value =
-                            event.target.value
-                            .replace(/\D/g, "");
-
-
-                        event.target.value =
-                            value.slice(0, 1);
-
-
-                        if (
-                            value &&
-                            index <
-                            otpInputs.length - 1
-                        ) {
-
-                            otpInputs[
-                                index + 1
-                            ].focus();
-
-                        }
-
-                    }
-                );
-
-
-
-                /* =============================================
-                   BACKSPACE
-                ============================================== */
-
-                input.addEventListener(
-                    "keydown",
-                    event => {
-
-
-                        if (
-                            event.key ===
-                            "Backspace" &&
-                            !input.value &&
-                            index > 0
-                        ) {
-
-                            otpInputs[
-                                index - 1
-                            ].focus();
-
-                        }
-
-
-                        if (
-                            event.key ===
-                            "ArrowLeft" &&
-                            index > 0
-                        ) {
-
-                            otpInputs[
-                                index - 1
-                            ].focus();
-
-                        }
-
-
-                        if (
-                            event.key ===
-                            "ArrowRight" &&
-                            index <
-                            otpInputs.length - 1
-                        ) {
-
-                            otpInputs[
-                                index + 1
-                            ].focus();
-
-                        }
-
-                    }
-                );
-
-
-
-                /* =============================================
-                   PASTE OTP
-                ============================================== */
-
-                input.addEventListener(
-                    "paste",
-                    event => {
-
-                        event.preventDefault();
-
-
-                        const pasted =
-                            (
-                                event.clipboardData
-                                .getData("text") ||
-                                ""
-                            )
-                            .replace(/\D/g, "")
-                            .slice(0, 6);
-
-
-                        if (!pasted) {
-                            return;
-                        }
-
-
-                        pasted
-                            .split("")
-                            .forEach(
-                                (digit, i) => {
-
-                                    if (
-                                        otpInputs[i]
-                                    ) {
-
-                                        otpInputs[i]
-                                            .value =
-                                            digit;
-
-                                    }
-
-                                }
-                            );
-
-
-                        const last =
-                            Math.min(
-                                pasted.length,
-                                otpInputs.length
-                            ) - 1;
-
-
-                        if (last >= 0) {
-
-                            otpInputs[last]
-                                .focus();
-
-                        }
-
-                    }
-                );
-
-            }
-        );
-
-
-
-        /* =====================================================
-           VERIFY OTP
-        ====================================================== */
-
-        otpForm.addEventListener(
-            "submit",
-            async event => {
-
-                event.preventDefault();
-
-
-                hideError();
-
-
-                const code =
-                    getOTP();
-
-
-                /* =============================================
-                   CHECK LENGTH
-                ============================================== */
-
-                if (
-                    code.length !== 6
-                ) {
-
-                    showError(
-                        "Please enter the complete 6-digit code."
-                    );
-
-                    return;
-
-                }
-
-
-
-                /* =============================================
-                   LOADING
-                ============================================== */
-
-                verifyBtn.disabled =
-                    true;
-
-
-                verifyText.style.display =
-                    "none";
-
-
-                verifyArrow.style.display =
-                    "none";
-
-
-                verifyLoader.style.display =
-                    "inline-flex";
-
-
-                verifyBtn.classList.add(
-                    "loading"
-                );
-
-
-
-                try {
-
-
-                    /* =========================================
-                       CREATE FIREBASE CREDENTIAL
-                    ========================================== */
-
-                    const credential =
-                        PhoneAuthProvider
-                        .credential(
-                            verificationId,
-                            code
-                        );
-
-
-
-                    /* =========================================
-                       SIGN USER IN
-                    ========================================== */
-
-                    const result =
-                        await signInWithCredential(
-                            auth,
-                            credential
-                        );
-
-
-                    const user =
-                        result.user;
-
-
-                    console.log(
-                        "CHAPCY VERIFIED:",
-                        user.uid
-                    );
-
-
-
-                    /* =========================================
-                       SAVE USER DATA
-                    ========================================== */
-
-                    localStorage.setItem(
-                        "chapcyRegistered",
-                        "true"
-                    );
-
-
-                    localStorage.setItem(
-                        "chapcyPhone",
-                        phoneNumber
-                    );
-
-
-                    localStorage.setItem(
-                        "chapcyUID",
-                        user.uid
-                    );
-
-
-                    localStorage.setItem(
-                        "chapcyCountry",
-                        countryName
-                    );
-
-
-
-                    sessionStorage.setItem(
-                        "chapcyVerified",
-                        "true"
-                    );
-
-
-
-                    /* =========================================
-                       SUCCESS
-                    ========================================== */
-
-                    otpForm.style.display =
-                        "none";
-
-
-                    resendArea.style.display =
-                        "none";
-
-
-                    securityNote.style.display =
-                        "none";
-
-
-                    changeNumberBtn.style.display =
-                        "none";
-
-
-                    backBtn.style.display =
-                        "none";
-
-
-                    otpSuccess.classList.add(
-                        "show"
-                    );
-
-
-                    otpSuccess.setAttribute(
-                        "aria-hidden",
-                        "false"
-                    );
-
-
-                    otpInputs.forEach(
-                        input => {
-
-                            input.disabled =
-                                true;
-
-                        }
-                    );
-
-
-
-                }
-
-                catch (error) {
-
-                    console.error(
-                        "CHAPCY OTP ERROR:",
-                        error
-                    );
-
-
-                    let message =
-                        "Verification failed. Please try again.";
-
-
-                    switch (
-                        error.code
-                    ) {
-
-
-                        case
-                        "auth/invalid-verification-code":
-
-                            message =
-                                "The verification code is incorrect.";
-
-                            break;
-
-
-                        case
-                        "auth/code-expired":
-
-                            message =
-                                "This verification code has expired. Please request a new code.";
-
-                            break;
-
-
-                        case
-                        "auth/invalid-credential":
-
-                            message =
-                                "Invalid verification code. Please check and try again.";
-
-                            break;
-
-
-                        case
-                        "auth/too-many-requests":
-
-                            message =
-                                "Too many attempts. Please wait and try again later.";
-
-                            break;
-
-
-                        case
-                        "auth/quota-exceeded":
-
-                            message =
-                                "SMS verification limit reached. Please try again later.";
-
-                            break;
-
-
-                        default:
-
-                            console.error(
-                                error.message
-                            );
-
-                    }
-
-
-                    showError(
-                        message
-                    );
-
-
-                    verifyBtn.disabled =
-                        false;
-
-                }
-
-
-                /* =============================================
-                   STOP LOADING
-                ============================================== */
-
-                verifyText.style.display =
-                    "inline";
-
-
-                verifyArrow.style.display =
-                    "inline-flex";
-
-
-                verifyLoader.style.display =
-                    "none";
-
-
-                verifyBtn.classList.remove(
-                    "loading"
-                );
-
-            }
-        );
-
-
-
-        /* =====================================================
-           COUNTDOWN
-        ====================================================== */
-
-        let countdown = 60;
-
-        let countdownInterval = null;
-
-
-
-        function startCountdown() {
-
-            countdown = 60;
-
-
-            resendBtn.disabled =
-                true;
-
-
-            resendTimer.style.display =
-                "block";
-
-
-            timerElement.textContent =
-                countdown;
-
-
-            clearInterval(
-                countdownInterval
-            );
-
-
-            countdownInterval =
-                setInterval(
-                    () => {
-
-                        countdown--;
-
-
-                        timerElement.textContent =
-                            countdown;
-
-
-                        if (
-                            countdown <= 0
-                        ) {
-
-                            clearInterval(
-                                countdownInterval
-                            );
-
-
-                            resendBtn.disabled =
-                                false;
-
-
-                            resendTimer.style.display =
-                                "none";
-
-                        }
-
-                    },
-                    1000
-                );
-
-        }
-
-
-
-        startCountdown();
-
-
-
-        /* =====================================================
-           CREATE RECAPTCHA
-        ====================================================== */
-
-        let recaptchaVerifier =
-            null;
-
-
-        function createRecaptcha() {
-
-            try {
-
-                if (
-                    recaptchaVerifier
-                ) {
-
-                    recaptchaVerifier.clear();
-
-                }
-
-
-                recaptchaVerifier =
-                    new RecaptchaVerifier(
-                        auth,
-                        "recaptcha-container",
-                        {
-
-                            size: "invisible",
-
-                            callback:
-                                () => {
-
-                                    console.log(
-                                        "CHAPCY reCAPTCHA verified"
-                                    );
-
-                                },
-
-                            "expired-callback":
-                                () => {
-
-                                    console.log(
-                                        "CHAPCY reCAPTCHA expired"
-                                    );
-
-                                }
-
-                        }
-                    );
-
-
-                return recaptchaVerifier;
-
-            }
-
-            catch (error) {
-
-                console.error(
-                    "reCAPTCHA ERROR:",
-                    error
-                );
-
-                return null;
-
-            }
-
-        }
-
-
-
-        /* =====================================================
-           RESEND OTP
-        ====================================================== */
-
-        resendBtn.addEventListener(
-            "click",
-            async () => {
-
-
-                if (
-                    !phoneNumber
-                ) {
-
-                    return;
-
-                }
-
-
-                hideError();
-
-
-                resendBtn.disabled =
-                    true;
-
-
-                resendBtn.classList.add(
-                    "sending"
-                );
-
-
-                const oldText =
-                    resendBtn.innerHTML;
-
-
-                resendBtn.innerHTML =
-                    `
-                    <i class="fa-solid fa-circle-notch fa-spin"></i>
-                    Sending...
-                    `;
-
-
-                try {
-
-
-                    const verifier =
-                        createRecaptcha();
-
-
-                    if (!verifier) {
-
-                        throw new Error(
-                            "reCAPTCHA could not be initialized."
-                        );
-
-                    }
-
-
-
-                    /* =========================================
-                       SEND NEW OTP
-                    ========================================== */
-
-                    const confirmationResult =
-                        await signInWithPhoneNumber(
-                            auth,
-                            phoneNumber,
-                            verifier
-                        );
-
-
-
-                    /* =========================================
-                       UPDATE VERIFICATION ID
-                    ========================================== */
-
-                    verificationId =
-                        confirmationResult
-                        .verificationId;
-
-
-                    sessionStorage.setItem(
-                        "chapcyVerificationId",
-                        verificationId
-                    );
-
-
-                    /* =========================================
-                       CLEAR OLD OTP
-                    ========================================== */
-
-                    otpInputs.forEach(
-                        input => {
-
-                            input.value =
-                                "";
-
-                            input.classList.remove(
-                                "error"
-                            );
-
-                        }
-                    );
-
-
-                    otpInputs[0].focus();
-
-
-                    /* =========================================
-                       TIMER
-                    ========================================== */
-
-                    startCountdown();
-
-
-                    resendBtn.innerHTML =
-                        oldText;
-
-
-                    resendBtn.classList.remove(
-                        "sending"
-                    );
-
-
-                    console.log(
-                        "CHAPCY: New OTP sent."
-                    );
-
-                }
-
-                catch (error) {
-
-                    console.error(
-                        "CHAPCY RESEND ERROR:",
-                        error
-                    );
-
-
-                    resendBtn.disabled =
-                        false;
-
-
-                    resendBtn.innerHTML =
-                        oldText;
-
-
-                    resendBtn.classList.remove(
-                        "sending"
-                    );
-
-
-                    let message =
-                        "Unable to resend the code.";
-
-
-                    switch (
-                        error.code
-                    ) {
-
-
-                        case
-                        "auth/too-many-requests":
-
-                            message =
-                                "Too many requests. Please wait before trying again.";
-
-                            break;
-
-
-                        case
-                        "auth/quota-exceeded":
-
-                            message =
-                                "SMS limit reached. Please try again later.";
-
-                            break;
-
-
-                        case
-                        "auth/invalid-phone-number":
-
-                            message =
-                                "The phone number is invalid.";
-
-                            break;
-
-                    }
-
-
-                    showError(
-                        message
-                    );
-
-                }
-
-            }
-        );
-
-
-
-        /* =====================================================
-           CHANGE NUMBER
-        ====================================================== */
-
-        changeNumberBtn.addEventListener(
-            "click",
-            () => {
-
-                clearInterval(
-                    countdownInterval
-                );
-
-
-                if (
-                    recaptchaVerifier
-                ) {
-
-                    try {
-
-                        recaptchaVerifier.clear();
-
-                    }
-
-                    catch (error) {
-
-                        console.log(error);
-
-                    }
-
-                }
-
-
-                sessionStorage.removeItem(
-                    "chapcyVerificationId"
-                );
-
-
-                sessionStorage.removeItem(
-                    "chapcyPendingPhone"
-                );
-
-
-                sessionStorage.removeItem(
-                    "chapcyCountryName"
-                );
-
-
-                window.location.href =
-                    "Mychatregister.html";
-
-            }
-        );
-
-
-
-        /* =====================================================
-           BACK BUTTON
-        ====================================================== */
-
-        backBtn.addEventListener(
-            "click",
-            () => {
-
-                window.location.href =
-                    "Mychatregister.html";
-
-            }
-        );
-
-
-
-        /* =====================================================
-           ENTER CHAPCY
-        ====================================================== */
-
-        enterChapcyBtn.addEventListener(
-            "click",
-            () => {
-
-                /*
-                 * MAIN CHAPCY PAGE
-                 */
-
-                window.location.href =
-                    "Mychat.html";
-
-            }
-        );
-
-
-
-        /* =====================================================
-           AUTO FOCUS
-        ====================================================== */
-
-        setTimeout(
-            () => {
-
-                if (
-                    otpInputs[0]
-                ) {
-
-                    otpInputs[0].focus();
-
-                }
-
-            },
-            600
-        );
-
-
-
-        /* =====================================================
-           DEBUG
-        ====================================================== */
-
-        console.log(
-            "================================"
-        );
-
-        console.log(
-            "CHAPCY OTP PAGE READY"
-        );
-
-        console.log(
-            "Phone:",
-            phoneNumber
-        );
-
-        console.log(
-            "Country:",
-            countryName
-        );
-
-        console.log(
-            "Verification ID:",
-            verificationId
-                ? "FOUND"
-                : "NOT FOUND"
-        );
-
-        console.log(
-            "================================"
-        );
-
-    </script>
+    <script
+        type="module"
+        src="Mychatotp.js"
+    ></script>
 
 
 </body>
 
-  </html>
+</html>
