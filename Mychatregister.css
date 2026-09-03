@@ -1782,3 +1782,507 @@ body{
         scroll-behavior:auto !important;
     }
    }
+/* =========================================================
+   CHAPCY COUNTRY MODAL — FIXED PREMIUM VERSION
+========================================================= */
+
+.country-modal{
+    position:fixed;
+
+    top:50%;
+    left:50%;
+
+    width:min(460px, calc(100% - 28px));
+
+    max-height:min(680px, calc(100vh - 40px));
+
+    transform:translate(-50%, -50%) scale(.92);
+
+    z-index:100;
+
+    padding:20px;
+
+    border-radius:26px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(8,24,43,.97),
+            rgba(5,8,25,.98)
+        );
+
+    border:1px solid rgba(0,220,255,.28);
+
+    box-shadow:
+        0 30px 100px rgba(0,0,0,.75),
+        0 0 45px rgba(0,220,255,.12),
+        inset 0 1px 0 rgba(255,255,255,.06);
+
+    backdrop-filter:blur(30px);
+    -webkit-backdrop-filter:blur(30px);
+
+    display:none;
+
+    overflow:hidden;
+
+    opacity:0;
+
+    transition:
+        opacity .25s ease,
+        transform .25s ease;
+}
+
+
+/* OPEN */
+
+.country-modal.show{
+    display:block;
+
+    opacity:1;
+
+    transform:
+        translate(-50%, -50%)
+        scale(1);
+
+    animation:
+        countryModalOpen
+        .3s
+        cubic-bezier(.22,.61,.36,1);
+}
+
+
+@keyframes countryModalOpen{
+
+    from{
+        opacity:0;
+
+        transform:
+            translate(-50%, -46%)
+            scale(.90);
+    }
+
+    to{
+        opacity:1;
+
+        transform:
+            translate(-50%, -50%)
+            scale(1);
+    }
+
+}
+
+
+/* =========================================================
+   MODAL HEADER
+========================================================= */
+
+.country-modal-header{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:15px;
+
+    margin-bottom:16px;
+}
+
+
+.country-modal-header > div:first-child{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    min-width:0;
+}
+
+
+.modal-globe{
+
+    width:48px;
+    height:48px;
+
+    flex-shrink:0;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(0,220,255,.12),
+            rgba(125,0,255,.16)
+        );
+
+    border:1px solid rgba(0,220,255,.22);
+
+    font-size:25px;
+
+    box-shadow:
+        0 0 20px rgba(0,220,255,.10);
+}
+
+
+.country-modal-header h3{
+
+    margin:0;
+
+    color:#fff;
+
+    font-size:17px;
+
+    font-weight:700;
+
+    line-height:1.3;
+}
+
+
+.country-modal-header p{
+
+    margin-top:3px;
+
+    color:#718198;
+
+    font-size:11px;
+}
+
+
+/* =========================================================
+   CLOSE BUTTON
+========================================================= */
+
+#closeCountry{
+
+    width:38px;
+    height:38px;
+
+    flex-shrink:0;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border:1px solid rgba(255,255,255,.10);
+
+    border-radius:12px;
+
+    background:rgba(255,255,255,.05);
+
+    color:#9ba9ba;
+
+    cursor:pointer;
+
+    transition:.25s ease;
+}
+
+
+#closeCountry:hover{
+
+    color:#fff;
+
+    background:rgba(255,60,110,.12);
+
+    border-color:rgba(255,60,110,.35);
+
+    transform:rotate(90deg);
+}
+
+
+/* =========================================================
+   MODAL SEARCH
+========================================================= */
+
+.country-modal .country-search{
+
+    width:100%;
+
+    height:52px;
+
+    margin-bottom:10px;
+
+    border-radius:15px;
+
+    background:
+        rgba(255,255,255,.045);
+
+    border:
+        1px solid
+        rgba(255,255,255,.09);
+
+    transition:.25s ease;
+}
+
+
+.country-modal .country-search:focus-within{
+
+    border-color:#00dcff;
+
+    background:
+        rgba(0,220,255,.045);
+
+    box-shadow:
+        0 0 0 3px rgba(0,220,255,.06),
+        0 0 25px rgba(0,220,255,.07);
+}
+
+
+.country-modal .country-search i{
+
+    color:#00dcff;
+
+    font-size:15px;
+}
+
+
+.country-modal .country-search input{
+
+    width:100%;
+
+    font-size:13px;
+}
+
+
+/* =========================================================
+   COUNTRY LIST
+========================================================= */
+
+.country-modal .country-list{
+
+    max-height:430px;
+
+    margin-top:4px;
+
+    padding-right:3px;
+
+    overflow-y:auto;
+}
+
+
+.country-modal .country-item{
+
+    min-height:58px;
+
+    margin-bottom:3px;
+
+    padding:10px 12px;
+
+    border:
+        1px solid
+        transparent;
+
+    border-radius:14px;
+
+    transition:
+        background .2s ease,
+        border .2s ease,
+        transform .2s ease;
+}
+
+
+.country-modal .country-item:hover{
+
+    transform:translateX(3px);
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(0,220,255,.10),
+            rgba(120,0,255,.08)
+        );
+
+    border-color:
+        rgba(0,220,255,.12);
+}
+
+
+.country-modal .country-item .flag{
+
+    width:35px;
+
+    text-align:center;
+
+    font-size:23px;
+}
+
+
+.country-modal .country-item strong{
+
+    color:#fff;
+
+    font-size:13px;
+}
+
+
+.country-modal .country-item small{
+
+    color:#6e7e93;
+
+    font-size:10px;
+}
+
+
+.country-modal .country-item .dial-code{
+
+    font-size:12px;
+
+    font-weight:600;
+
+    color:#00dcff;
+}
+
+
+/* =========================================================
+   MODAL SCROLLBAR
+========================================================= */
+
+.country-modal .country-list::-webkit-scrollbar{
+
+    width:5px;
+}
+
+
+.country-modal .country-list::-webkit-scrollbar-track{
+
+    background:transparent;
+}
+
+
+.country-modal .country-list::-webkit-scrollbar-thumb{
+
+    background:
+        linear-gradient(
+            #00dcff,
+            #7b3cff
+        );
+
+    border-radius:20px;
+}
+
+
+/* =========================================================
+   MOBILE COUNTRY MODAL
+========================================================= */
+
+@media(max-width:600px){
+
+    .country-modal{
+
+        width:
+            calc(100% - 24px);
+
+        max-height:
+            calc(100vh - 30px);
+
+        padding:17px;
+
+        border-radius:23px;
+    }
+
+
+    .country-modal-header{
+
+        margin-bottom:13px;
+    }
+
+
+    .modal-globe{
+
+        width:44px;
+        height:44px;
+
+        border-radius:13px;
+
+        font-size:22px;
+    }
+
+
+    .country-modal-header h3{
+
+        font-size:15px;
+    }
+
+
+    .country-modal-header p{
+
+        font-size:10px;
+    }
+
+
+    #closeCountry{
+
+        width:35px;
+        height:35px;
+    }
+
+
+    .country-modal .country-search{
+
+        height:49px;
+    }
+
+
+    .country-modal .country-list{
+
+        max-height:
+            calc(100vh - 180px);
+    }
+
+
+    .country-modal .country-item{
+
+        min-height:56px;
+
+        padding:9px 10px;
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
+@media(max-width:380px){
+
+    .country-modal{
+
+        width:
+            calc(100% - 18px);
+
+        padding:14px;
+
+        border-radius:20px;
+    }
+
+
+    .modal-globe{
+
+        width:40px;
+        height:40px;
+
+        font-size:20px;
+    }
+
+
+    .country-modal-header h3{
+
+        font-size:14px;
+    }
+
+
+    .country-modal .country-item{
+
+        padding:8px;
+    }
+
+}
