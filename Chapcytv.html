@@ -1,149 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <meta name="theme-color" content="#000000">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="theme-color"
+        content="#000000"
+    >
 
     <title>CHAPCY TV</title>
 
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    >
 
-    <link rel="stylesheet" href="Chapcytv.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="chapcy tv.css"
+    >
+
 </head>
+
 
 <body>
 
-    <!-- =========================
-         TOP BAR
-    ========================== -->
 
-    <header class="tv-header">
-
-        <button class="header-btn" id="backBtn">
-            <i class="fa-solid fa-arrow-left"></i>
-        </button>
-
-        <div class="tv-logo">
-            <span>CHAPCY</span> TV
-        </div>
-
-        <button class="header-btn" id="searchBtn">
-            <i class="fa-solid fa-magnifying-glass"></i>
-        </button>
-
-    </header>
-
-
-    <!-- =========================
+    <!-- =================================================
          VIDEO FEED
-    ========================== -->
+    ================================================== -->
 
-    <main id="videoFeed" class="video-feed">
+    <main
+        id="videoFeed"
+        class="video-feed"
+    >
 
-        <!-- Videos will be loaded from Firebase -->
+        <!-- PREMIUM LOADING -->
 
-        <div id="loadingScreen" class="loading-screen">
+        <div
+            class="tv-loading-screen"
+            id="tvLoading"
+        >
 
-            <div class="loader"></div>
+            <div class="loader-orbit">
 
-            <h3>CHAPCY TV</h3>
+                <div class="orbit orbit-1"></div>
+                <div class="orbit orbit-2"></div>
+                <div class="orbit orbit-3"></div>
 
-            <p>Loading videos...</p>
+                <div class="loader-core">
+
+                    <i class="fa-solid fa-play"></i>
+
+                </div>
+
+            </div>
+
+
+            <div class="loading-brand">
+                CHAPCY <span>TV</span>
+            </div>
+
+
+            <p id="loadingText">
+                Connecting to CHAPCY TV...
+            </p>
+
+
+            <div class="loading-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
 
         </div>
 
     </main>
 
 
-    <!-- =========================
-         SEARCH PANEL
-    ========================== -->
-
-    <section id="searchPanel" class="search-panel">
-
-        <div class="search-box">
-
-            <button id="closeSearch">
-                <i class="fa-solid fa-arrow-left"></i>
-            </button>
-
-            <input
-                type="search"
-                id="searchInput"
-                placeholder="Search CHAPCY TV..."
-                autocomplete="off"
-            >
-
-            <button id="clearSearch">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-
-        </div>
-
-        <div id="searchResults" class="search-results"></div>
-
-    </section>
-
-
-    <!-- =========================
-         COMMENTS MODAL
-    ========================== -->
-
-    <div id="commentsModal" class="comments-modal">
-
-        <div class="comments-container">
-
-            <div class="comments-header">
-
-                <strong>
-                    Comments
-                </strong>
-
-                <button id="closeComments">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-
-            </div>
-
-
-            <div id="commentsList" class="comments-list">
-
-                <div class="empty-comments">
-                    No comments yet
-                </div>
-
-            </div>
-
-
-            <div class="comment-input-area">
-
-                <input
-                    type="text"
-                    id="commentInput"
-                    placeholder="Add a comment..."
-                    maxlength="500"
-                >
-
-                <button id="sendComment">
-                    <i class="fa-solid fa-paper-plane"></i>
-                </button>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- =========================
+    <!-- =================================================
          UPLOAD BUTTON
-    ========================== -->
+    ================================================== -->
 
-    <button id="uploadBtn" class="upload-floating-btn">
+    <button
+        id="uploadBtn"
+        class="upload-floating-btn"
+        type="button"
+    >
 
         <i class="fa-solid fa-plus"></i>
 
@@ -152,13 +107,155 @@
     </button>
 
 
-    <!-- =========================
+    <!-- =================================================
+         UPLOAD MODAL
+    ================================================== -->
+
+    <div
+        id="uploadModal"
+        class="upload-modal"
+    >
+
+        <div class="upload-backdrop"></div>
+
+
+        <div class="upload-box">
+
+            <button
+                id="closeUpload"
+                class="close-upload"
+                type="button"
+            >
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+
+            <div class="upload-title">
+
+                <div class="upload-icon">
+
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+
+                </div>
+
+                <h2>Upload to CHAPCY TV</h2>
+
+                <p>
+                    Share your video with the world.
+                </p>
+
+            </div>
+
+
+            <label
+                for="videoFile"
+                class="video-picker"
+                id="videoPicker"
+            >
+
+                <i class="fa-solid fa-video"></i>
+
+                <strong>
+                    Select your video
+                </strong>
+
+                <span>
+                    MP4, MOV, WEBM • Max 100MB
+                </span>
+
+            </label>
+
+
+            <input
+                type="file"
+                id="videoFile"
+                accept="video/mp4,video/webm,video/quicktime,video/*"
+                hidden
+            >
+
+
+            <div
+                id="selectedVideo"
+                class="selected-video"
+            ></div>
+
+
+            <textarea
+                id="videoCaption"
+                maxlength="500"
+                placeholder="Write a caption..."
+            ></textarea>
+
+
+            <div class="caption-counter">
+                <span id="captionCount">0</span>/500
+            </div>
+
+
+            <div
+                id="uploadProgressBox"
+                class="upload-progress-box"
+            >
+
+                <div class="progress-top">
+
+                    <span>
+                        Uploading...
+                    </span>
+
+                    <strong id="uploadPercent">
+                        0%
+                    </strong>
+
+                </div>
+
+
+                <div class="progress-track">
+
+                    <div
+                        id="uploadProgress"
+                        class="progress-value"
+                    ></div>
+
+                </div>
+
+            </div>
+
+
+            <button
+                id="startUpload"
+                class="start-upload"
+                type="button"
+            >
+
+                <i class="fa-solid fa-cloud-arrow-up"></i>
+
+                Upload Video
+
+            </button>
+
+
+            <div
+                id="uploadStatus"
+                class="upload-status"
+            ></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
          FIREBASE + APP
-    ========================== -->
+    ================================================== -->
 
-    <script type="module" src="chapcy-tv-firebase.js"></script>
-
-    <script type="module" src="Chapcytv.js"></script>
+    <script
+        type="module"
+        src="chapcy tv.js"
+    ></script>
 
 </body>
+
 </html>
