@@ -1,0 +1,1784 @@
+/* =========================================================
+   CHAPCY — MYCHATOTP.CSS
+   Premium Neon OTP Verification Interface
+========================================================= */
+
+
+/* =========================================================
+   GOOGLE FONT
+========================================================= */
+
+@import url(
+    'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap'
+);
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+    min-height: 100vh;
+
+    font-family: "Poppins", sans-serif;
+
+    color: #ffffff;
+
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(0, 229, 255, 0.12),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 80% 30%,
+            rgba(124, 58, 237, 0.16),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 50% 90%,
+            rgba(0, 255, 200, 0.08),
+            transparent 28%
+        ),
+        #020617;
+
+    overflow-x: hidden;
+}
+
+
+/* =========================================================
+   BODY LIGHT EFFECT
+========================================================= */
+
+body::before {
+    content: "";
+
+    position: fixed;
+
+    width: 500px;
+    height: 500px;
+
+    left: -220px;
+    top: -180px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(0, 229, 255, 0.15),
+            transparent 70%
+        );
+
+    filter: blur(20px);
+
+    pointer-events: none;
+
+    animation:
+        floatingGlow 8s ease-in-out infinite alternate;
+
+    z-index: 0;
+}
+
+
+body::after {
+    content: "";
+
+    position: fixed;
+
+    width: 550px;
+    height: 550px;
+
+    right: -260px;
+    bottom: -220px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(124, 58, 237, 0.18),
+            transparent 70%
+        );
+
+    filter: blur(25px);
+
+    pointer-events: none;
+
+    animation:
+        floatingGlow2 10s ease-in-out infinite alternate;
+
+    z-index: 0;
+}
+
+
+@keyframes floatingGlow {
+
+    from {
+        transform: translate(
+            0,
+            0
+        );
+    }
+
+    to {
+        transform: translate(
+            80px,
+            60px
+        );
+    }
+
+}
+
+
+@keyframes floatingGlow2 {
+
+    from {
+        transform: translate(
+            0,
+            0
+        );
+    }
+
+    to {
+        transform: translate(
+            -70px,
+            -50px
+        );
+    }
+
+}
+
+
+/* =========================================================
+   MAIN PAGE
+========================================================= */
+
+.otp-page {
+
+    position: relative;
+
+    min-height: 100vh;
+
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 35px 18px;
+
+    overflow: hidden;
+
+    z-index: 1;
+}
+
+
+/* =========================================================
+   BACK BUTTON
+========================================================= */
+
+.back-button {
+
+    position: fixed;
+
+    top: 25px;
+    left: 25px;
+
+    width: 45px;
+    height: 45px;
+
+    border-radius: 50%;
+
+    border: 1px solid
+        rgba(255,255,255,0.12);
+
+    background:
+        rgba(255,255,255,0.05);
+
+    backdrop-filter: blur(15px);
+
+    color: #ffffff;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    cursor: pointer;
+
+    z-index: 20;
+
+    transition:
+        0.3s ease;
+
+}
+
+
+.back-button:hover {
+
+    transform:
+        translateX(-4px)
+        scale(1.05);
+
+    border-color:
+        rgba(0,229,255,0.6);
+
+    box-shadow:
+        0 0 25px
+        rgba(0,229,255,0.25);
+
+}
+
+
+/* =========================================================
+   OTP CONTAINER
+========================================================= */
+
+.otp-container {
+
+    width: 100%;
+
+    max-width: 470px;
+
+    position: relative;
+
+    z-index: 5;
+
+    animation:
+        cardEnter 0.8s
+        cubic-bezier(.17,.67,.38,1.2)
+        both;
+
+}
+
+
+@keyframes cardEnter {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(40px)
+            scale(.94);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+
+}
+
+
+/* =========================================================
+   OTP CARD
+========================================================= */
+
+.otp-card {
+
+    position: relative;
+
+    width: 100%;
+
+    padding: 42px 34px 34px;
+
+    border-radius: 30px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(15,23,42,0.94),
+            rgba(5,10,25,0.90)
+        );
+
+    border:
+        1px solid
+        rgba(0,229,255,0.20);
+
+    box-shadow:
+
+        0 25px 80px
+        rgba(0,0,0,0.55),
+
+        0 0 45px
+        rgba(0,229,255,0.07),
+
+        inset 0 1px 0
+        rgba(255,255,255,0.06);
+
+    backdrop-filter:
+        blur(25px);
+
+    overflow: hidden;
+
+}
+
+
+/* =========================================================
+   CARD TOP GLOW
+========================================================= */
+
+.otp-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 10%;
+
+    top: -80px;
+
+    width: 80%;
+
+    height: 150px;
+
+    background:
+        radial-gradient(
+            ellipse,
+            rgba(0,229,255,0.16),
+            transparent 70%
+        );
+
+    filter: blur(20px);
+
+    pointer-events: none;
+
+}
+
+
+/* =========================================================
+   CARD BORDER LIGHT
+========================================================= */
+
+.otp-card::after {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    border-radius: 30px;
+
+    padding: 1px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(0,229,255,.35),
+            transparent 35%,
+            transparent 65%,
+            rgba(124,58,237,.35)
+        );
+
+    -webkit-mask:
+        linear-gradient(#fff 0 0)
+        content-box,
+        linear-gradient(#fff 0 0);
+
+    -webkit-mask-composite:
+        xor;
+
+    mask-composite:
+        exclude;
+
+    pointer-events: none;
+
+}
+
+
+/* =========================================================
+   BRAND
+========================================================= */
+
+.brand {
+
+    text-align: center;
+
+    margin-bottom: 25px;
+
+}
+
+
+.brand-logo {
+
+    font-size: 38px;
+
+    font-weight: 800;
+
+    letter-spacing: 3px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #00e5ff,
+            #38bdf8,
+            #8b5cf6,
+            #c084fc
+        );
+
+    -webkit-background-clip: text;
+
+    background-clip: text;
+
+    color: transparent;
+
+    filter:
+        drop-shadow(
+            0 0 15px
+            rgba(0,229,255,.25)
+        );
+
+}
+
+
+.brand-subtitle {
+
+    margin-top: 4px;
+
+    color:
+        rgba(255,255,255,.58);
+
+    font-size: 12px;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+}
+
+
+/* =========================================================
+   OTP ICON
+========================================================= */
+
+.otp-icon {
+
+    width: 82px;
+    height: 82px;
+
+    margin: 0 auto 20px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    position: relative;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(0,229,255,.14),
+            rgba(124,58,237,.18)
+        );
+
+    border:
+        1px solid
+        rgba(0,229,255,.30);
+
+    box-shadow:
+
+        0 0 30px
+        rgba(0,229,255,.18),
+
+        inset 0 0 20px
+        rgba(124,58,237,.10);
+
+}
+
+
+.otp-icon i {
+
+    font-size: 32px;
+
+    color: #00e5ff;
+
+    filter:
+        drop-shadow(
+            0 0 10px
+            rgba(0,229,255,.7)
+        );
+
+}
+
+
+.otp-icon::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: -8px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid
+        rgba(0,229,255,.15);
+
+    animation:
+        iconPulse 2.2s
+        ease-in-out infinite;
+
+}
+
+
+@keyframes iconPulse {
+
+    0%,
+    100% {
+
+        transform: scale(.96);
+
+        opacity: .5;
+
+    }
+
+    50% {
+
+        transform: scale(1.08);
+
+        opacity: 1;
+
+    }
+
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.otp-title {
+
+    text-align: center;
+
+    font-size: 27px;
+
+    font-weight: 700;
+
+    margin-bottom: 8px;
+
+    color: #ffffff;
+
+}
+
+
+.otp-description {
+
+    text-align: center;
+
+    color:
+        rgba(255,255,255,.60);
+
+    font-size: 14px;
+
+    line-height: 1.7;
+
+    margin-bottom: 8px;
+
+}
+
+
+/* =========================================================
+   PHONE NUMBER DISPLAY
+========================================================= */
+
+.phone-display {
+
+    text-align: center;
+
+    margin: 18px 0 28px;
+
+}
+
+
+.phone-number {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 10px 16px;
+
+    border-radius: 14px;
+
+    background:
+        rgba(0,229,255,.06);
+
+    border:
+        1px solid
+        rgba(0,229,255,.16);
+
+    color: #00e5ff;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    letter-spacing: .5px;
+
+}
+
+
+.phone-number i {
+
+    font-size: 13px;
+
+}
+
+
+/* =========================================================
+   CHANGE NUMBER
+========================================================= */
+
+.change-number {
+
+    display: block;
+
+    width: max-content;
+
+    margin: 10px auto 0;
+
+    background: none;
+
+    border: none;
+
+    color: #a78bfa;
+
+    font-family: inherit;
+
+    font-size: 12px;
+
+    cursor: pointer;
+
+    transition: .25s ease;
+
+}
+
+
+.change-number:hover {
+
+    color: #00e5ff;
+
+    text-shadow:
+        0 0 10px
+        rgba(0,229,255,.5);
+
+}
+
+
+/* =========================================================
+   OTP LABEL
+========================================================= */
+
+.otp-label {
+
+    display: block;
+
+    text-align: center;
+
+    margin-bottom: 14px;
+
+    color:
+        rgba(255,255,255,.70);
+
+    font-size: 13px;
+
+    font-weight: 500;
+
+}
+
+
+/* =========================================================
+   OTP INPUTS
+========================================================= */
+
+.otp-inputs {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    margin-bottom: 18px;
+
+}
+
+
+.otp-input {
+
+    width: 54px;
+
+    height: 62px;
+
+    border-radius: 15px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.12);
+
+    outline: none;
+
+    background:
+        rgba(255,255,255,.045);
+
+    color: #ffffff;
+
+    text-align: center;
+
+    font-family: inherit;
+
+    font-size: 25px;
+
+    font-weight: 700;
+
+    caret-color: #00e5ff;
+
+    transition:
+        .25s ease;
+
+}
+
+
+.otp-input:hover {
+
+    border-color:
+        rgba(0,229,255,.30);
+
+}
+
+
+.otp-input:focus {
+
+    border-color:
+        #00e5ff;
+
+    background:
+        rgba(0,229,255,.06);
+
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+
+        0 0 0 3px
+        rgba(0,229,255,.08),
+
+        0 0 22px
+        rgba(0,229,255,.18);
+
+}
+
+
+/* =========================================================
+   OTP FILLED
+========================================================= */
+
+.otp-input.filled {
+
+    border-color:
+        rgba(0,229,255,.50);
+
+    color: #00e5ff;
+
+    background:
+        rgba(0,229,255,.07);
+
+}
+
+
+/* =========================================================
+   ERROR
+========================================================= */
+
+.otp-error {
+
+    min-height: 22px;
+
+    margin: 8px 0 12px;
+
+    text-align: center;
+
+    color: #fb7185;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+
+}
+
+
+.otp-error.show {
+
+    animation:
+        errorShake .35s ease;
+
+}
+
+
+@keyframes errorShake {
+
+    0% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-6px);
+    }
+
+    50% {
+        transform: translateX(6px);
+    }
+
+    75% {
+        transform: translateX(-4px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+
+}
+
+
+/* =========================================================
+   VERIFY BUTTON
+========================================================= */
+
+.verify-button {
+
+    width: 100%;
+
+    height: 56px;
+
+    border: none;
+
+    border-radius: 17px;
+
+    position: relative;
+
+    overflow: hidden;
+
+    cursor: pointer;
+
+    font-family: inherit;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    color: #ffffff;
+
+    background:
+        linear-gradient(
+            100deg,
+            #00bcd4,
+            #06b6d4,
+            #6366f1,
+            #8b5cf6
+        );
+
+    box-shadow:
+
+        0 12px 30px
+        rgba(0,229,255,.16),
+
+        0 0 25px
+        rgba(124,58,237,.12);
+
+    transition:
+        .3s ease;
+
+}
+
+
+.verify-button::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+
+    left: -120%;
+
+    width: 80%;
+
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.35),
+            transparent
+        );
+
+    transform: skewX(-20deg);
+
+    transition: .6s ease;
+
+}
+
+
+.verify-button:hover::before {
+
+    left: 140%;
+
+}
+
+
+.verify-button:hover {
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+
+        0 15px 35px
+        rgba(0,229,255,.24),
+
+        0 0 30px
+        rgba(124,58,237,.20);
+
+}
+
+
+.verify-button:active {
+
+    transform:
+        translateY(1px)
+        scale(.99);
+
+}
+
+
+.verify-button:disabled {
+
+    opacity: .65;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+}
+
+
+.verify-button-content {
+
+    position: relative;
+
+    z-index: 2;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+}
+
+
+/* =========================================================
+   BUTTON LOADER
+========================================================= */
+
+.button-loader {
+
+    width: 20px;
+
+    height: 20px;
+
+    border-radius: 50%;
+
+    border:
+        2px solid
+        rgba(255,255,255,.30);
+
+    border-top-color:
+        #ffffff;
+
+    animation:
+        spin .7s linear infinite;
+
+}
+
+
+@keyframes spin {
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
+
+
+/* =========================================================
+   RESEND AREA
+========================================================= */
+
+.resend-area {
+
+    text-align: center;
+
+    margin-top: 23px;
+
+}
+
+
+.resend-text {
+
+    font-size: 12px;
+
+    color:
+        rgba(255,255,255,.50);
+
+    margin-bottom: 7px;
+
+}
+
+
+.resend-button {
+
+    border: none;
+
+    background: none;
+
+    color: #00e5ff;
+
+    font-family: inherit;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: .25s ease;
+
+}
+
+
+.resend-button:hover {
+
+    color: #a78bfa;
+
+    text-shadow:
+        0 0 12px
+        rgba(167,139,250,.5);
+
+}
+
+
+.resend-button:disabled {
+
+    color:
+        rgba(255,255,255,.30);
+
+    cursor: not-allowed;
+
+}
+
+
+/* =========================================================
+   TIMER
+========================================================= */
+
+.resend-timer {
+
+    display: inline-block;
+
+    margin-left: 5px;
+
+    color:
+        rgba(255,255,255,.45);
+
+    font-size: 12px;
+
+}
+
+
+/* =========================================================
+   SECURITY NOTE
+========================================================= */
+
+.security-note {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 9px;
+
+    margin-top: 28px;
+
+    padding-top: 20px;
+
+    border-top:
+        1px solid
+        rgba(255,255,255,.07);
+
+    color:
+        rgba(255,255,255,.45);
+
+    font-size: 11px;
+
+    line-height: 1.5;
+
+    text-align: center;
+
+}
+
+
+.security-note i {
+
+    color: #22c55e;
+
+    font-size: 14px;
+
+    filter:
+        drop-shadow(
+            0 0 8px
+            rgba(34,197,94,.5)
+        );
+
+}
+
+
+/* =========================================================
+   RECAPTCHA
+========================================================= */
+
+#recaptcha-container {
+
+    position: absolute;
+
+    width: 1px;
+
+    height: 1px;
+
+    overflow: hidden;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+}
+
+
+/* =========================================================
+   SUCCESS SECTION
+========================================================= */
+
+.success-section {
+
+    display: none;
+
+    text-align: center;
+
+    animation:
+        successEnter .6s
+        ease both;
+
+}
+
+
+.success-section.show {
+
+    display: block;
+
+}
+
+
+@keyframes successEnter {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            scale(.90)
+            translateY(20px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            scale(1)
+            translateY(0);
+
+    }
+
+}
+
+
+/* =========================================================
+   SUCCESS ICON
+========================================================= */
+
+.success-icon {
+
+    width: 92px;
+    height: 92px;
+
+    margin: 0 auto 22px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        rgba(34,197,94,.10);
+
+    border:
+        1px solid
+        rgba(34,197,94,.35);
+
+    box-shadow:
+
+        0 0 35px
+        rgba(34,197,94,.18);
+
+}
+
+
+.success-icon i {
+
+    font-size: 42px;
+
+    color: #22c55e;
+
+    filter:
+        drop-shadow(
+            0 0 12px
+            rgba(34,197,94,.6)
+        );
+
+}
+
+
+.success-title {
+
+    font-size: 26px;
+
+    font-weight: 700;
+
+    margin-bottom: 8px;
+
+}
+
+
+.success-description {
+
+    color:
+        rgba(255,255,255,.58);
+
+    font-size: 13px;
+
+    line-height: 1.7;
+
+    margin-bottom: 25px;
+
+}
+
+
+/* =========================================================
+   ENTER CHAPCY BUTTON
+========================================================= */
+
+.enter-chapcy {
+
+    width: 100%;
+
+    height: 55px;
+
+    border: none;
+
+    border-radius: 17px;
+
+    cursor: pointer;
+
+    color: #ffffff;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    background:
+        linear-gradient(
+            100deg,
+            #06b6d4,
+            #2563eb,
+            #7c3aed
+        );
+
+    box-shadow:
+        0 12px 30px
+        rgba(37,99,235,.20);
+
+    transition:
+        .3s ease;
+
+}
+
+
+.enter-chapcy:hover {
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+
+        0 15px 35px
+        rgba(0,229,255,.20),
+
+        0 0 25px
+        rgba(124,58,237,.20);
+
+}
+
+
+/* =========================================================
+   FLOATING PARTICLES
+========================================================= */
+
+.otp-page .particle {
+
+    position: fixed;
+
+    width: 4px;
+
+    height: 4px;
+
+    border-radius: 50%;
+
+    background: #00e5ff;
+
+    opacity: .35;
+
+    box-shadow:
+        0 0 10px
+        rgba(0,229,255,.7);
+
+    pointer-events: none;
+
+    z-index: 0;
+
+}
+
+
+.particle:nth-child(1) {
+
+    top: 15%;
+    left: 12%;
+
+    animation:
+        particleFloat 6s
+        ease-in-out infinite;
+
+}
+
+
+.particle:nth-child(2) {
+
+    top: 35%;
+    right: 12%;
+
+    animation:
+        particleFloat 8s
+        ease-in-out infinite reverse;
+
+}
+
+
+.particle:nth-child(3) {
+
+    bottom: 20%;
+    left: 18%;
+
+    animation:
+        particleFloat 7s
+        ease-in-out infinite;
+
+}
+
+
+.particle:nth-child(4) {
+
+    bottom: 12%;
+    right: 20%;
+
+    animation:
+        particleFloat 9s
+        ease-in-out infinite reverse;
+
+}
+
+
+@keyframes particleFloat {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0)
+            scale(1);
+
+        opacity: .25;
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-25px)
+            scale(1.5);
+
+        opacity: .8;
+
+    }
+
+}
+
+
+/* =========================================================
+   DESKTOP LARGE
+========================================================= */
+
+@media (min-width: 768px) {
+
+    .otp-card {
+
+        padding:
+            46px 40px 38px;
+
+    }
+
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .otp-page {
+
+        padding:
+            70px 15px 25px;
+
+    }
+
+
+    .otp-container {
+
+        max-width: 450px;
+
+    }
+
+
+    .otp-card {
+
+        border-radius: 26px;
+
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 500px) {
+
+    .otp-page {
+
+        align-items: flex-start;
+
+        padding:
+            80px 12px 25px;
+
+    }
+
+
+    .back-button {
+
+        top: 18px;
+
+        left: 16px;
+
+        width: 42px;
+
+        height: 42px;
+
+    }
+
+
+    .otp-card {
+
+        padding:
+            32px 18px 25px;
+
+        border-radius: 24px;
+
+    }
+
+
+    .brand {
+
+        margin-bottom: 20px;
+
+    }
+
+
+    .brand-logo {
+
+        font-size: 31px;
+
+    }
+
+
+    .otp-icon {
+
+        width: 72px;
+
+        height: 72px;
+
+        margin-bottom: 17px;
+
+    }
+
+
+    .otp-icon i {
+
+        font-size: 27px;
+
+    }
+
+
+    .otp-title {
+
+        font-size: 23px;
+
+    }
+
+
+    .otp-description {
+
+        font-size: 12px;
+
+        padding:
+            0 8px;
+
+    }
+
+
+    .phone-number {
+
+        font-size: 13px;
+
+        padding:
+            9px 13px;
+
+    }
+
+
+    .otp-inputs {
+
+        gap: 7px;
+
+    }
+
+
+    .otp-input {
+
+        width: 46px;
+
+        height: 56px;
+
+        border-radius: 13px;
+
+        font-size: 22px;
+
+    }
+
+
+    .verify-button {
+
+        height: 53px;
+
+    }
+
+}
+
+
+/* =========================================================
+   SMALL PHONES
+========================================================= */
+
+@media (max-width: 370px) {
+
+    .otp-page {
+
+        padding-left: 8px;
+
+        padding-right: 8px;
+
+    }
+
+
+    .otp-card {
+
+        padding:
+            28px 14px 22px;
+
+    }
+
+
+    .otp-inputs {
+
+        gap: 5px;
+
+    }
+
+
+    .otp-input {
+
+        width: 41px;
+
+        height: 52px;
+
+        font-size: 20px;
+
+    }
+
+
+    .otp-title {
+
+        font-size: 21px;
+
+    }
+
+
+    .brand-logo {
+
+        font-size: 28px;
+
+    }
+
+}
+
+
+/* =========================================================
+   LANDSCAPE MOBILE
+========================================================= */
+
+@media (
+    max-height: 600px
+) and (
+    orientation: landscape
+) {
+
+    .otp-page {
+
+        align-items: flex-start;
+
+        padding-top: 30px;
+
+    }
+
+
+    .otp-card {
+
+        padding:
+            25px;
+
+    }
+
+
+    .otp-icon {
+
+        width: 60px;
+
+        height: 60px;
+
+        margin-bottom: 10px;
+
+    }
+
+
+    .otp-title {
+
+        font-size: 21px;
+
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (
+    prefers-reduced-motion: reduce
+) {
+
+    *,
+    *::before,
+    *::after {
+
+        animation-duration:
+            0.01ms !important;
+
+        animation-iteration-count:
+            1 !important;
+
+        scroll-behavior:
+            auto !important;
+
+    }
+
+}
