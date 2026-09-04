@@ -1,69 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width,
-                 initial-scale=1.0,
-                 maximum-scale=1.0,
-                 user-scalable=no"
-    >
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0,
+                   maximum-scale=1.0,
+                   user-scalable=no">
 
-    <meta name="theme-color" content="#050b1d">
+    <meta name="theme-color" content="#020714">
 
     <title>CHAPCY • eFootball Live</title>
 
-    <!-- ==============================
-         GOOGLE FONT
-    =============================== -->
+    <!-- GOOGLE FONT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet"
-    >
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
 
-    <!-- ==============================
-         FONT AWESOME
-    =============================== -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
 
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-    >
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
-    <!-- ==============================
-         CHAPCY EFOOTBALL CSS
-    =============================== -->
-
-    <link rel="stylesheet" href="Efootball.css">
+    <!-- CHAPCY CSS -->
+    <link rel="stylesheet" href="efootball.css">
 
 </head>
 
 
 <body>
 
+
 <!-- =====================================================
-                    APP LOADING
+                    LOADING SCREEN
 ===================================================== -->
 
-<div
-    id="appLoader"
-    class="app-loader"
->
+<div id="loading-screen">
 
-    <div class="loader-logo">
-        C
-    </div>
+    <div class="loading-content">
 
-    <h2>CHAPCY</h2>
+        <div class="loading-logo">
+            C
+        </div>
 
-    <p>Loading eFootball Live...</p>
+        <h2>CHAPCY</h2>
 
-    <div class="loader-line">
-        <span></span>
+        <p>Connecting to eFootball Live...</p>
+
+        <div class="loading-spinner"></div>
+
     </div>
 
 </div>
@@ -71,13 +62,18 @@
 
 
 <!-- =====================================================
+                    MOBILE OVERLAY
+===================================================== -->
+
+<div class="mobile-overlay" id="mobileOverlay"></div>
+
+
+
+<!-- =====================================================
                     APP
 ===================================================== -->
 
-<div
-    id="app"
-    class="app"
->
+<div class="app" id="app">
 
 
 <!-- =====================================================
@@ -86,14 +82,11 @@
 
 <header class="topbar">
 
-    <!-- MOBILE MENU -->
-
-    <button
-        id="menuButton"
-        class="top-icon mobile-menu"
-        type="button"
-        aria-label="Open menu"
-    >
+    <!-- MENU -->
+    <button class="icon-btn menu-btn"
+            id="menuBtn"
+            type="button"
+            aria-label="Open menu">
 
         <i class="fa-solid fa-bars"></i>
 
@@ -101,145 +94,92 @@
 
 
     <!-- BRAND -->
+    <div class="brand">
 
-    <a
-        href="index.html"
-        class="brand"
-    >
-
-        <!-- Tumia logo yako hapa -->
-
-        <img
-            src="file_000000004f547243bb0fa43d66db1edf.png"
-            alt="CHAPCY"
-            class="brand-logo"
-        >
+        <div class="brand-logo">
+            C
+        </div>
 
         <div class="brand-text">
 
-            <h1>CHAPCY</h1>
+            <strong>CHAPCY</strong>
 
-            <span>
-                eFootball Live
-            </span>
-
-        </div>
-
-    </a>
-
-
-    <!-- ROOM INFO -->
-
-    <div class="room-info">
-
-        <div class="room-title">
-
-            🎮
-
-            <strong>
-                eFootball Global
-            </strong>
-
-        </div>
-
-        <div class="room-online">
-
-            <span class="online-dot"></span>
-
-            <span id="onlineCount">
-                0
-            </span>
-
-            players online
+            <span>Worldwide Community 🌐</span>
 
         </div>
 
     </div>
 
 
-    <!-- TOP SEARCH -->
+    <!-- ROOM INFO -->
+    <div class="room-info">
 
+        <span class="room-icon">🎮</span>
+
+        <div>
+
+            <strong>eFootball</strong>
+
+            <small>
+                <span class="live-dot"></span>
+                Live Room
+            </small>
+
+        </div>
+
+    </div>
+
+
+    <!-- SEARCH -->
     <div class="top-search">
 
         <i class="fa-solid fa-magnifying-glass"></i>
 
         <input
-            id="globalSearch"
             type="search"
-            placeholder="Search players..."
-            autocomplete="off"
-        >
+            id="userSearch"
+            placeholder="Search players...">
 
     </div>
 
 
     <!-- TOP ACTIONS -->
-
     <div class="top-actions">
 
-        <button
-            id="notificationButton"
-            class="top-icon"
-            type="button"
-            aria-label="Notifications"
-        >
+        <button class="icon-btn"
+                id="notificationBtn"
+                type="button">
 
             <i class="fa-regular fa-bell"></i>
 
-            <span
-                id="notificationBadge"
-                class="notification-badge"
-            >
-                3
+            <span class="notification-badge"
+                  id="notificationBadge">
+                0
             </span>
 
         </button>
 
 
-        <button
-            id="settingsButton"
-            class="top-icon"
-            type="button"
-            aria-label="Settings"
-        >
+        <button class="icon-btn"
+                id="settingsBtn"
+                type="button">
 
             <i class="fa-solid fa-gear"></i>
 
         </button>
 
 
-        <!-- PROFILE -->
+        <div class="profile-mini">
 
-        <a
-            href="Profile.html"
-            class="profile-button"
-        >
+            <div class="profile-avatar">
+                P
+            </div>
 
-            <img
-                id="headerProfileImage"
-                src="file_00000000b0d8820a998b33ad9cf233cb.png"
-                alt="Profile"
-            >
-
-            <span class="profile-online"></span>
-
-        </a>
+        </div>
 
     </div>
 
 </header>
-
-
-
-<!-- =====================================================
-                MOBILE OVERLAY
-===================================================== -->
-
-<div
-    id="mobileOverlay"
-    class="mobile-overlay"
->
-</div>
 
 
 
@@ -253,37 +193,29 @@
 
 <!-- =====================================================
                     LEFT SIDEBAR
-              PLAYERS / ROOMS
 ===================================================== -->
 
-<aside
-    id="leftSidebar"
-    class="left-sidebar"
->
+<aside class="left-sidebar" id="leftSidebar">
 
-
-    <!-- SIDEBAR HEADER -->
 
     <div class="sidebar-header">
 
         <div>
 
-            <h2>
-                eFootball
-            </h2>
-
-            <span>
-                Live Community
+            <span class="sidebar-label">
+                CHAPCY
             </span>
+
+            <h3>
+                eFootball
+            </h3>
 
         </div>
 
 
-        <button
-            id="closeSidebar"
-            class="close-sidebar"
-            type="button"
-        >
+        <button class="sidebar-close"
+                id="sidebarClose"
+                type="button">
 
             <i class="fa-solid fa-xmark"></i>
 
@@ -293,289 +225,136 @@
 
 
 
-    <!-- NEW ROOM -->
+    <!-- ROOM MENU -->
 
-    <button
-        id="createRoomButton"
-        class="create-room"
-        type="button"
-    >
+    <nav class="room-menu">
 
-        <i class="fa-solid fa-plus"></i>
+        <button class="room-menu-item active">
 
-        Create Room
+            <i class="fa-solid fa-comments"></i>
 
-    </button>
+            <span>Live Chat</span>
+
+            <b id="messageCount">
+                0
+            </b>
+
+        </button>
+
+
+        <button class="room-menu-item">
+
+            <i class="fa-solid fa-trophy"></i>
+
+            <span>Tournaments</span>
+
+        </button>
+
+
+        <button class="room-menu-item">
+
+            <i class="fa-solid fa-gamepad"></i>
+
+            <span>Matches</span>
+
+        </button>
+
+
+        <button class="room-menu-item">
+
+            <i class="fa-solid fa-users"></i>
+
+            <span>Players</span>
+
+        </button>
+
+
+        <button class="room-menu-item">
+
+            <i class="fa-solid fa-ranking-star"></i>
+
+            <span>Leaderboard</span>
+
+        </button>
+
+    </nav>
 
 
 
-    <!-- SIDEBAR SEARCH -->
+    <!-- ONLINE -->
 
-    <div class="sidebar-search">
+    <div class="sidebar-section">
 
-        <i class="fa-solid fa-magnifying-glass"></i>
+        <div class="section-title">
 
-        <input
-            id="playerSearch"
-            type="search"
-            placeholder="Search players..."
-        >
+            <span>ONLINE PLAYERS</span>
+
+            <b id="onlineCount">
+                0
+            </b>
+
+        </div>
+
+
+        <div class="online-users"
+             id="onlineUsers">
+
+            <!-- JS WILL INSERT USERS -->
+
+        </div>
 
     </div>
 
 
 
-    <!-- ==========================================
-                    LIVE PLAYERS
-    =========================================== -->
+    <!-- MY ACCOUNT -->
 
-    <section class="sidebar-section">
+    <div class="sidebar-account">
 
-        <div class="section-heading">
+        <div class="account-avatar">
+            P
+        </div>
 
-            <h3>
-                ONLINE PLAYERS
-            </h3>
+        <div class="account-info">
 
-            <span id="sidebarOnlineCount">
-                0
+            <strong id="currentUserName">
+                Player
+            </strong>
+
+            <span>
+                <i class="online-status"></i>
+                Online
             </span>
 
         </div>
 
 
+        <button class="icon-btn"
+                type="button">
 
-        <div
-            id="onlinePlayers"
-            class="player-list"
-        >
-
-            <!-- Firebase players will appear here -->
-
-            <div class="player-skeleton"></div>
-            <div class="player-skeleton"></div>
-            <div class="player-skeleton"></div>
-
-        </div>
-
-
-        <button
-            id="viewAllPlayers"
-            class="view-all"
-            type="button"
-        >
-
-            View all players
-
-            <i class="fa-solid fa-arrow-right"></i>
+            <i class="fa-solid fa-ellipsis"></i>
 
         </button>
 
-    </section>
-
-
-
-    <!-- ==========================================
-                    LIVE ROOMS
-    =========================================== -->
-
-    <section class="sidebar-section">
-
-        <div class="section-heading">
-
-            <h3>
-                LIVE ROOMS
-            </h3>
-
-            <span>
-                LIVE
-            </span>
-
-        </div>
-
-
-
-        <div
-            id="liveRooms"
-            class="room-list"
-        >
-
-            <button
-                class="room-item active"
-                data-room-id="efootball-global"
-                type="button"
-            >
-
-                <span class="room-icon">
-                    🌍
-                </span>
-
-                <span class="room-details">
-
-                    <strong>
-                        eFootball Global
-                    </strong>
-
-                    <small>
-                        <span class="live-dot"></span>
-                        <span data-room-count>
-                            0
-                        </span>
-                        online
-                    </small>
-
-                </span>
-
-            </button>
-
-
-
-            <button
-                class="room-item"
-                data-room-id="ranked-match"
-                type="button"
-            >
-
-                <span class="room-icon">
-                    🏆
-                </span>
-
-                <span class="room-details">
-
-                    <strong>
-                        Ranked Match
-                    </strong>
-
-                    <small>
-                        <span class="live-dot"></span>
-                        Live
-                    </small>
-
-                </span>
-
-            </button>
-
-
-
-            <button
-                class="room-item"
-                data-room-id="tournaments"
-                type="button"
-            >
-
-                <span class="room-icon">
-                    🏅
-                </span>
-
-                <span class="room-details">
-
-                    <strong>
-                        Tournaments
-                    </strong>
-
-                    <small>
-                        Live matches
-                    </small>
-
-                </span>
-
-            </button>
-
-
-
-            <button
-                class="room-item"
-                data-room-id="tips"
-                type="button"
-            >
-
-                <span class="room-icon">
-                    🔥
-                </span>
-
-                <span class="room-details">
-
-                    <strong>
-                        Tips & Tricks
-                    </strong>
-
-                    <small>
-                        Players discussion
-                    </small>
-
-                </span>
-
-            </button>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- ==========================================
-                    MY ROOM
-    =========================================== -->
-
-    <section class="sidebar-section">
-
-        <div class="section-heading">
-
-            <h3>
-                MY ROOM
-            </h3>
-
-        </div>
-
-
-        <button
-            id="myRoomButton"
-            class="my-room"
-            type="button"
-        >
-
-            <span class="my-room-icon">
-                👤
-            </span>
-
-            <span>
-
-                <strong>
-                    My eFootball Room
-                </strong>
-
-                <small>
-                    Manage your room
-                </small>
-
-            </span>
-
-            <i class="fa-solid fa-chevron-right"></i>
-
-        </button>
-
-    </section>
-
+    </div>
 
 </aside>
 
 
 
 <!-- =====================================================
-                    CENTER
-              LIVE CHAT AREA
+                    CENTER CHAT
 ===================================================== -->
 
 <section class="center-panel">
 
 
-    <!-- ==========================================
-                    ROOM HEADER
-    =========================================== -->
+    <!-- CHAT HEADER -->
 
     <div class="chat-header">
 
-        <div class="chat-room-info">
+
+        <div class="chat-room-title">
 
             <div class="chat-room-icon">
                 🎮
@@ -589,9 +368,9 @@
 
                 <p>
 
-                    <span class="online-dot"></span>
+                    <span class="live-dot"></span>
 
-                    <span id="chatOnlineCount">
+                    <span id="headerOnlineCount">
                         0
                     </span>
 
@@ -607,23 +386,9 @@
         <div class="chat-header-actions">
 
             <button
-                id="inviteButton"
-                class="header-action"
-                type="button"
-                title="Invite"
-            >
-
-                <i class="fa-solid fa-user-plus"></i>
-
-            </button>
-
-
-            <button
-                id="searchChatButton"
-                class="header-action"
-                type="button"
-                title="Search"
-            >
+                class="icon-btn"
+                id="searchChatBtn"
+                type="button">
 
                 <i class="fa-solid fa-magnifying-glass"></i>
 
@@ -631,11 +396,29 @@
 
 
             <button
-                id="moreChatButton"
-                class="header-action"
-                type="button"
-                title="More"
-            >
+                class="icon-btn"
+                id="callBtn"
+                type="button">
+
+                <i class="fa-solid fa-phone"></i>
+
+            </button>
+
+
+            <button
+                class="icon-btn"
+                id="videoCallBtn"
+                type="button">
+
+                <i class="fa-solid fa-video"></i>
+
+            </button>
+
+
+            <button
+                class="icon-btn"
+                id="chatMoreBtn"
+                type="button">
 
                 <i class="fa-solid fa-ellipsis-vertical"></i>
 
@@ -647,138 +430,82 @@
 
 
 
-    <!-- ==========================================
-                    PINNED MESSAGE
-    =========================================== -->
+    <!-- =================================================
+                        LIVE MATCH
+    ================================================== -->
 
-    <div
-        id="pinnedMessage"
-        class="pinned-message"
-    >
+    <div class="live-match-banner">
 
-        <div class="pin-icon">
-            <i class="fa-solid fa-thumbtack"></i>
+        <div class="live-match-left">
+
+            <span class="live-badge">
+                LIVE
+            </span>
+
+            <div>
+
+                <strong>
+                    eFootball World Cup
+                </strong>
+
+                <small>
+                    Global Community Match
+                </small>
+
+            </div>
+
         </div>
+
+
+        <div class="match-score">
+
+            <span>
+                CHAPCY
+            </span>
+
+            <strong>
+                2 - 1
+            </strong>
+
+            <span>
+                RKO FC
+            </span>
+
+        </div>
+
+
+        <button
+            class="watch-btn"
+            id="watchMatchBtn"
+            type="button">
+
+            Watch
+
+            <i class="fa-solid fa-play"></i>
+
+        </button>
+
+    </div>
+
+
+
+    <!-- =================================================
+                    PINNED MESSAGE
+    ================================================== -->
+
+    <div class="pinned-message">
+
+        <i class="fa-solid fa-thumbtack"></i>
 
         <div>
 
             <strong>
-                Welcome to CHAPCY eFootball! 🎮
+                Pinned message
             </strong>
 
-            <p>
-                Respect other players and enjoy the game.
-            </p>
-
-        </div>
-
-
-        <button
-            id="closePinned"
-            type="button"
-        >
-
-            <i class="fa-solid fa-xmark"></i>
-
-        </button>
-
-    </div>
-
-
-
-    <!-- ==========================================
-                    LIVE MATCH BANNER
-    =========================================== -->
-
-    <div
-        id="liveMatchBanner"
-        class="live-match-banner"
-    >
-
-        <div class="live-match-top">
-
-            <span class="live-label">
-                <span></span>
-                LIVE MATCH
+            <span>
+                Welcome to CHAPCY eFootball Live Room 🎮
             </span>
-
-            <span class="match-league">
-                CHAPCY eFootball League
-            </span>
-
-            <button
-                id="watchMatchButton"
-                type="button"
-            >
-
-                Watch
-
-                <i class="fa-solid fa-arrow-right"></i>
-
-            </button>
-
-        </div>
-
-
-        <div class="live-match-body">
-
-            <div class="match-team">
-
-                <div class="match-team-logo">
-                    🎮
-                </div>
-
-                <strong>
-                    CHAPCY FC
-                </strong>
-
-                <small>
-                    Home
-                </small>
-
-            </div>
-
-
-            <div class="match-score">
-
-                <small id="matchMinute">
-                    72:34
-                </small>
-
-                <strong>
-                    <span id="homeScore">
-                        2
-                    </span>
-
-                    <em>:</em>
-
-                    <span id="awayScore">
-                        1
-                    </span>
-                </strong>
-
-                <small>
-                    2nd Half
-                </small>
-
-            </div>
-
-
-            <div class="match-team">
-
-                <div class="match-team-logo">
-                    ⚽
-                </div>
-
-                <strong>
-                    RKO United
-                </strong>
-
-                <small>
-                    Away
-                </small>
-
-            </div>
 
         </div>
 
@@ -786,174 +513,30 @@
 
 
 
-    <!-- ==========================================
+    <!-- =================================================
                     MESSAGES
-    =========================================== -->
+    ================================================== -->
 
-    <div
-        id="messagesContainer"
-        class="messages-container"
-    >
+    <div class="messages-container"
+         id="messagesContainer">
 
-        <!-- Firebase messages will be inserted here -->
+        <!-- Firebase messages will appear here -->
 
-        <div class="system-message">
 
-            <span>
-                🔥
-            </span>
+        <div class="welcome-message">
+
+            <div class="welcome-icon">
+                🎮
+            </div>
+
+            <h2>
+                Welcome to eFootball Live!
+            </h2>
 
             <p>
-                Welcome to the eFootball Live Room
+                Talk with eFootball players
+                around the world.
             </p>
-
-        </div>
-
-
-        <!-- EXAMPLE MESSAGE -->
-
-        <article class="message">
-
-            <div class="message-avatar">
-
-                <span>
-                    A
-                </span>
-
-                <i class="avatar-online"></i>
-
-            </div>
-
-
-            <div class="message-content">
-
-                <div class="message-meta">
-
-                    <strong>
-                        Alex Martin
-                    </strong>
-
-                    <span class="player-level">
-                        LV 28
-                    </span>
-
-                    <time>
-                        10:30 PM
-                    </time>
-
-                </div>
-
-
-                <div class="message-bubble">
-
-                    <p>
-                        🔥 Who is ready for a match?
-                    </p>
-
-                </div>
-
-
-                <div class="message-reactions">
-
-                    <button
-                        type="button"
-                        data-reaction="🔥"
-                    >
-                        🔥 4
-                    </button>
-
-                    <button
-                        type="button"
-                        data-reaction="😂"
-                    >
-                        😂 2
-                    </button>
-
-                    <button
-                        type="button"
-                        data-reaction="❤️"
-                    >
-                        ❤️
-                    </button>
-
-                </div>
-
-            </div>
-
-        </article>
-
-
-
-        <!-- EXAMPLE MESSAGE -->
-
-        <article class="message">
-
-            <div class="message-avatar">
-
-                <span>
-                    S
-                </span>
-
-                <i class="avatar-online"></i>
-
-            </div>
-
-
-            <div class="message-content">
-
-                <div class="message-meta">
-
-                    <strong>
-                        Sophia Lee
-                    </strong>
-
-                    <span class="player-level">
-                        LV 35
-                    </span>
-
-                    <time>
-                        10:31 PM
-                    </time>
-
-                </div>
-
-
-                <div class="message-bubble">
-
-                    <p>
-                        Let's play ranked! 🎮🔥
-                    </p>
-
-                </div>
-
-            </div>
-
-        </article>
-
-
-
-        <!-- TYPING INDICATOR -->
-
-        <div
-            id="typingIndicator"
-            class="typing-indicator"
-        >
-
-            <div class="typing-avatar">
-                C
-            </div>
-
-            <span>
-                Someone is typing
-            </span>
-
-            <div class="typing-dots">
-
-                <i></i>
-                <i></i>
-                <i></i>
-
-            </div>
 
         </div>
 
@@ -961,150 +544,152 @@
 
 
 
-    <!-- ==========================================
+    <!-- =================================================
+                    TYPING
+    ================================================== -->
+
+    <div class="typing-indicator"
+         id="typingIndicator">
+
+        <span class="typing-user"
+              id="typingUser">
+        </span>
+
+        <span class="typing-dots">
+
+            <i></i>
+            <i></i>
+            <i></i>
+
+        </span>
+
+    </div>
+
+
+
+    <!-- =================================================
                     CHAT INPUT
-    =========================================== -->
+    ================================================== -->
 
     <div class="chat-input-area">
 
 
-        <!-- EMOJI -->
-
         <button
-            id="emojiButton"
             class="input-action"
-            type="button"
-            title="Emoji"
-        >
+            id="attachBtn"
+            type="button">
 
-            <i class="fa-regular fa-face-smile"></i>
+            <i class="fa-solid fa-plus"></i>
 
         </button>
 
 
-        <!-- ATTACHMENT -->
+        <div class="chat-input-wrapper">
 
-        <button
-            id="attachmentButton"
-            class="input-action"
-            type="button"
-            title="Attach"
-        >
-
-            <i class="fa-solid fa-paperclip"></i>
-
-        </button>
-
-
-        <!-- MESSAGE FORM -->
-
-        <form
-            id="messageForm"
-            class="message-form"
-        >
 
             <input
-                id="messageInput"
                 type="text"
-                placeholder="Message eFootball group..."
+                id="messageInput"
                 autocomplete="off"
-                maxlength="1000"
-            >
+                placeholder="Message eFootball players...">
 
 
             <button
-                id="sendMessageButton"
-                class="send-button"
-                type="submit"
-                aria-label="Send message"
-            >
+                class="emoji-btn"
+                id="emojiBtn"
+                type="button">
 
-                <i class="fa-solid fa-paper-plane"></i>
+                <i class="fa-regular fa-face-smile"></i>
 
             </button>
 
-        </form>
+        </div>
 
-
-        <!-- VOICE -->
 
         <button
-            id="voiceMessageButton"
-            class="input-action voice-button"
-            type="button"
-            title="Voice message"
-        >
+            class="voice-btn"
+            id="voiceBtn"
+            type="button">
 
             <i class="fa-solid fa-microphone"></i>
 
         </button>
 
-    </div>
 
+        <button
+            class="send-btn"
+            id="sendBtn"
+            type="button">
 
+            <i class="fa-solid fa-paper-plane"></i>
 
-    <!-- EMOJI PANEL -->
-
-    <div
-        id="emojiPanel"
-        class="emoji-panel"
-    >
-
-        <button type="button">😂</button>
-        <button type="button">😍</button>
-        <button type="button">🔥</button>
-        <button type="button">⚽</button>
-        <button type="button">🎮</button>
-        <button type="button">🏆</button>
-        <button type="button">💯</button>
-        <button type="button">👏</button>
-        <button type="button">❤️</button>
-        <button type="button">😎</button>
-        <button type="button">🤝</button>
-        <button type="button">💪</button>
+        </button>
 
     </div>
+
+
+
+    <!-- =================================================
+                    EMOJI PANEL
+    ================================================== -->
+
+    <div class="emoji-panel"
+         id="emojiPanel">
+
+        <button>😀</button>
+        <button>😂</button>
+        <button>😍</button>
+        <button>🔥</button>
+        <button>❤️</button>
+        <button>🤣</button>
+        <button>👏</button>
+        <button>🎮</button>
+        <button>⚽</button>
+        <button>🏆</button>
+        <button>💯</button>
+        <button>😎</button>
+
+    </div>
+
 
 </section>
 
 
 
 <!-- =====================================================
-                RIGHT PANEL
-            VIDEO / USERS / ROOM
+                    RIGHT PANEL
 ===================================================== -->
 
 <aside class="right-panel">
 
 
-    <!-- ==========================================
-                    LIVE VIDEO
-    =========================================== -->
+    <!-- =================================================
+                    VIDEO AREA
+    ================================================== -->
 
-    <section class="video-section">
+    <div class="video-section">
 
 
-        <div class="panel-title">
+        <div class="panel-heading">
 
             <div>
 
-                <h2>
-                    Live Video Chat
-                </h2>
+                <h3>
+                    Live Video
+                </h3>
 
-                <p>
-                    <span class="live-dot"></span>
-                    Live room
-                </p>
+                <span>
+                    <i class="live-dot"></i>
+                    Room camera
+                </span>
 
             </div>
 
 
             <button
-                id="expandVideo"
-                class="panel-icon"
-                type="button"
-            >
+                class="icon-btn"
+                id="expandVideoBtn"
+                type="button">
 
                 <i class="fa-solid fa-expand"></i>
 
@@ -1116,46 +701,43 @@
 
         <!-- VIDEO GRID -->
 
-        <div
-            id="videoGrid"
-            class="video-grid"
-        >
+        <div class="video-grid"
+             id="videoGrid">
 
 
             <!-- LOCAL VIDEO -->
 
-            <div
-                id="localVideoContainer"
-                class="video-card local-video"
-            >
+            <div class="video-card local-video-card">
 
                 <video
                     id="localVideo"
                     autoplay
                     muted
-                    playsinline
-                ></video>
+                    playsinline>
+                </video>
 
 
-                <div class="video-placeholder">
+                <div class="video-placeholder"
+                     id="localVideoPlaceholder">
 
-                    <i class="fa-solid fa-user"></i>
+                    <div>
+                        <i class="fa-solid fa-video"></i>
+                    </div>
 
                     <span>
-                        You
+                        Your camera
                     </span>
 
                 </div>
 
 
-                <div class="video-user-info">
+                <div class="video-name">
+                    You
+                </div>
 
-                    <span>
-                        You
-                    </span>
 
+                <div class="video-status">
                     <i class="fa-solid fa-microphone"></i>
-
                 </div>
 
             </div>
@@ -1164,33 +746,30 @@
 
             <!-- REMOTE VIDEO -->
 
-            <div
-                id="remoteVideos"
-                class="remote-videos"
-            >
+            <div class="video-card">
 
-                <!-- WebRTC remote videos inserted here -->
+                <video
+                    id="remoteVideo"
+                    autoplay
+                    playsinline>
+                </video>
 
-                <div class="video-card">
 
-                    <div class="video-placeholder">
+                <div class="video-placeholder">
 
-                        <i class="fa-solid fa-user"></i>
-
-                        <span>
-                            Waiting...
-                        </span>
-
+                    <div>
+                        🎮
                     </div>
 
-                    <div class="video-user-info">
+                    <span>
+                        Waiting for player...
+                    </span>
 
-                        <span>
-                            Waiting for player
-                        </span>
+                </div>
 
-                    </div>
 
+                <div class="video-name">
+                    Player
                 </div>
 
             </div>
@@ -1203,12 +782,11 @@
 
         <div class="video-controls">
 
+
             <button
-                id="toggleMic"
                 class="video-control"
-                type="button"
-                title="Microphone"
-            >
+                id="micToggle"
+                type="button">
 
                 <i class="fa-solid fa-microphone"></i>
 
@@ -1216,11 +794,9 @@
 
 
             <button
-                id="toggleCamera"
                 class="video-control"
-                type="button"
-                title="Camera"
-            >
+                id="cameraToggle"
+                type="button">
 
                 <i class="fa-solid fa-video"></i>
 
@@ -1228,67 +804,45 @@
 
 
             <button
-                id="shareScreen"
-                class="video-control"
-                type="button"
-                title="Share screen"
-            >
+                class="video-control end-call"
+                id="endCallBtn"
+                type="button">
 
-                <i class="fa-solid fa-display"></i>
-
-            </button>
-
-
-            <button
-                id="leaveVideo"
-                class="video-control leave"
-                type="button"
-                title="Leave"
-            >
-
-                <i class="fa-solid fa-phone"></i>
+                <i class="fa-solid fa-phone-slash"></i>
 
             </button>
 
         </div>
 
-    </section>
+    </div>
 
 
 
-    <!-- ==========================================
-                    ONLINE PLAYERS
-    =========================================== -->
+    <!-- =================================================
+                    ROOM USERS
+    ================================================== -->
 
-    <section class="room-users-section">
+    <div class="room-users-section">
 
 
-        <div class="panel-title">
+        <div class="panel-heading">
 
             <div>
 
-                <h2>
+                <h3>
                     Players in Room
-                </h2>
+                </h3>
 
-                <p>
-                    <span class="online-dot"></span>
-
-                    <span id="roomPlayersCount">
-                        0
-                    </span>
-
-                    online
-                </p>
+                <span id="roomUsersCount">
+                    0 players
+                </span>
 
             </div>
 
 
             <button
-                id="playersMoreButton"
-                class="panel-icon"
-                type="button"
-            >
+                class="icon-btn"
+                type="button">
 
                 <i class="fa-solid fa-ellipsis"></i>
 
@@ -1297,153 +851,53 @@
         </div>
 
 
+        <div class="room-users"
+             id="roomUsers">
 
-        <div
-            id="roomPlayers"
-            class="room-players"
-        >
-
-            <!-- Firebase users appear here -->
+            <!-- JS USERS -->
 
         </div>
 
-
-        <button
-            id="invitePlayers"
-            class="invite-players"
-            type="button"
-        >
-
-            <i class="fa-solid fa-user-plus"></i>
-
-            Invite Players
-
-        </button>
-
-    </section>
+    </div>
 
 
 
-    <!-- ==========================================
+    <!-- =================================================
                     ROOM INFO
-    =========================================== -->
+    ================================================== -->
 
-    <section class="room-info-card">
+    <div class="room-info-card">
 
-        <div class="room-info-header">
 
-            <div class="room-small-icon">
-                🎮
-            </div>
-
-            <div>
-
-                <h3>
-                    eFootball Global
-                </h3>
-
-                <p>
-                    Public Live Room
-                </p>
-
-            </div>
-
+        <div class="info-icon">
+            🎮
         </div>
 
 
-        <div class="room-stats">
+        <div>
 
-            <div>
+            <h3>
+                eFootball Community
+            </h3>
 
-                <strong id="roomMessagesCount">
-                    0
-                </strong>
-
-                <span>
-                    Messages
-                </span>
-
-            </div>
-
-
-            <div>
-
-                <strong id="roomMembersCount">
-                    0
-                </strong>
-
-                <span>
-                    Members
-                </span>
-
-            </div>
-
-
-            <div>
-
-                <strong>
-                    🌍
-                </strong>
-
-                <span>
-                    Global
-                </span>
-
-            </div>
+            <p>
+                Play • Chat • Compete • Win
+            </p>
 
         </div>
-
-
-        <div class="room-tags">
-
-            <span>
-                🎮 eFootball
-            </span>
-
-            <span>
-                🔥 Live
-            </span>
-
-            <span>
-                🌍 Worldwide
-            </span>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- ==========================================
-                    ROOM ACTIONS
-    =========================================== -->
-
-    <div class="quick-actions">
-
-        <button
-            id="startMatchButton"
-            type="button"
-        >
-
-            <i class="fa-solid fa-gamepad"></i>
-
-            Start Match
-
-        </button>
 
 
         <button
-            id="tournamentButton"
-            type="button"
-        >
+            class="join-tournament-btn"
+            id="joinTournamentBtn"
+            type="button">
 
-            <i class="fa-solid fa-trophy"></i>
-
-            Tournament
+            Join Tournament
 
         </button>
 
     </div>
+
 
 </aside>
 
@@ -1458,77 +912,51 @@
 <nav class="mobile-bottom-nav">
 
 
-    <button
-        class="mobile-nav-item active"
-        data-mobile-panel="chat"
-        type="button"
-    >
+    <button class="mobile-nav-item active">
 
         <i class="fa-solid fa-comments"></i>
 
-        <span>
-            Chat
-        </span>
+        <span>Chat</span>
 
     </button>
 
 
     <button
         class="mobile-nav-item"
-        data-mobile-panel="players"
-        type="button"
-    >
+        id="mobilePlayersBtn">
 
         <i class="fa-solid fa-users"></i>
 
-        <span>
-            Players
-        </span>
+        <span>Players</span>
 
     </button>
 
 
     <button
         class="mobile-nav-item"
-        data-mobile-panel="video"
-        type="button"
-    >
+        id="mobileVideoBtn">
 
         <i class="fa-solid fa-video"></i>
 
-        <span>
-            Video
-        </span>
+        <span>Video</span>
 
     </button>
 
 
-    <button
-        class="mobile-nav-item"
-        data-mobile-panel="rooms"
-        type="button"
-    >
+    <button class="mobile-nav-item">
 
-        <i class="fa-solid fa-gamepad"></i>
+        <i class="fa-solid fa-trophy"></i>
 
-        <span>
-            Rooms
-        </span>
+        <span>League</span>
 
     </button>
 
 
-    <button
-        class="mobile-nav-item"
-        data-mobile-panel="profile"
-        type="button"
-    >
+    <button class="mobile-nav-item">
 
         <i class="fa-solid fa-user"></i>
 
-        <span>
-            Profile
-        </span>
+        <span>Profile</span>
 
     </button>
 
@@ -1540,15 +968,13 @@
                     TOAST
 ===================================================== -->
 
-<div
-    id="toast"
-    class="toast"
->
+<div class="toast"
+     id="toast">
 
     <i class="fa-solid fa-circle-check"></i>
 
     <span id="toastMessage">
-        Done
+        Connected
     </span>
 
 </div>
@@ -1556,33 +982,59 @@
 
 
 <!-- =====================================================
-                    CONFIRM / MODAL
+                    CAMERA PERMISSION MODAL
 ===================================================== -->
 
-<div
-    id="modalOverlay"
-    class="modal-overlay"
->
+<div class="modal"
+     id="cameraModal">
 
-    <div
-        id="modal"
-        class="modal"
-    >
+    <div class="modal-content">
 
         <button
-            id="closeModal"
             class="modal-close"
-            type="button"
-        >
+            id="cameraModalClose"
+            type="button">
 
             <i class="fa-solid fa-xmark"></i>
 
         </button>
 
 
-        <div id="modalContent">
+        <div class="modal-icon">
+            📹
+        </div>
 
-            <!-- Dynamic modal content -->
+
+        <h2>
+            Join Live Video
+        </h2>
+
+
+        <p>
+            Allow CHAPCY to use your camera
+            and microphone.
+        </p>
+
+
+        <div class="modal-buttons">
+
+            <button
+                class="modal-cancel"
+                type="button">
+
+                Cancel
+
+            </button>
+
+
+            <button
+                class="modal-confirm"
+                id="startCameraBtn"
+                type="button">
+
+                Allow Camera
+
+            </button>
 
         </div>
 
@@ -1592,36 +1044,63 @@
 
 
 
-<!-- =====================================================
-                    FIREBASE SDK
-===================================================== -->
+</div>
+<!-- END APP -->
 
-<!-- Firebase App -->
+
+
+<!-- =====================================================
+                    FIREBASE
+===================================================== -->
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 
-<!-- Firebase Authentication -->
-
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 
-<!-- Firebase Realtime Database -->
-
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
-
-<!-- Firebase Storage -->
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
 
 
 
 <!-- =====================================================
-                    CHAPCY JS
+                    EFOOTBALL JS
 ===================================================== -->
 
-<script src="Efootball.js"></script>
+<script src="efootball.js"></script>
 
 
-</div>
+
+<!-- =====================================================
+                LOADING SAFETY SCRIPT
+===================================================== -->
+
+<script>
+
+window.addEventListener("load", function () {
+
+    const loading =
+        document.getElementById("loading-screen");
+
+    if (!loading) return;
+
+    setTimeout(function () {
+
+        loading.classList.add("hide");
+
+        setTimeout(function () {
+
+            loading.style.display = "none";
+
+        }, 500);
+
+    }, 700);
+
+});
+
+</script>
+
 
 </body>
-  </html>
+
+                </html>
