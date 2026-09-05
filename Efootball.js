@@ -249,53 +249,6 @@ function setupPresence(){
 }
 
 
-// ==========================================
-// LOAD REALTIME MESSAGES
-// ==========================================
-
-function startMessages(){
-
-    if(messagesListenerStarted){
-
-        return;
-
-    }
-
-
-    messagesListenerStarted = true;
-
-
-    const messagesRef =
-        ref(
-            db,
-            "rooms/general/messages"
-        );
-
-
-    onChildAdded(
-        messagesRef,
-        snapshot => {
-
-            const message =
-                snapshot.val();
-
-
-            if(!message){
-
-                return;
-
-            }
-
-
-            renderMessage(
-                message
-            );
-
-        }
-    );
-
-}
-
 
 // ==========================================
 // SEND MESSAGE
