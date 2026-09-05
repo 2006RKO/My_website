@@ -440,5 +440,249 @@ onValue(
 
 
 
-                            
+                            // ======================================================
+// REALTIME MESSAGES
+// ======================================================
+
+function startMessages(){
+
+    if(
+        messagesListenerStarted ||
+        !messagesBox
+    ){
+        return;
+    }
+
+    messagesListenerStarted = true;
+
+    const messagesRef =
+        ref(db, "messages");
+
+    onValue(
+        messagesRef,
+        snapshot => {
+
+            messagesBox.innerHTML = "";
+
+            if(!snapshot.exists()){
+                return;
+            }
+
+            snapshot.forEach(
+                childSnapshot => {
+
+                    const message =
+                        childSnapshot.val();
+
+                    if(!message){
+                        return;
+                    }
+
+                    renderMessage(
+                        message,
+                        childSnapshot.key
+                    );
+
+                }
+            );
+
+            requestAnimationFrame(() => {
+
+                messagesBox.scrollTop =
+                    messagesBox.scrollHeight;
+
+            });
+
+        },
+        error => {
+
+            console.error(
+                "CHAPCY MESSAGE ERROR:",
+                error
+            );
+
+        }
+    );
+}
+
+
+// ======================================================
+// SEND MESSAGE
+// ======================================================
+
+composer?.addEventListener(
+    "submit",
+    async event => {
+
+        event.preventDefault();
+
+        if(!currentUser){
+            return;
+        }
+
+        const text =
+            messageInput?.value?.trim();
+
+        if(!text){
+            return;
+        }
+
+        const username =
+            getCurrentUsername();
+
+        try{
+
+            const messagesRef =
+                ref(db, "messages");
+
+            const newMessage =
+                push(messagesRef);
+
+            await set(
+                newMessage,
+                {
+                    uid: currentUser.uid,
+                    name: username,
+                    text: text,
+                    time: serverTimestamp()
+                }
+            );
+
+            messageInput.value = "";
+
+            messageInput.focus();
+
+        }
+        catch(error){
+
+            console.error(
+                "CHAPCY MESSAGE ERROR:",
+                error
+            );
+
+            alert(
+                "Message haijatumwa:\n\n" +
+                error.message
+            );
+
+        }
+
+    }
+);
+
+
+// ======================================================
+// RENDER MESSAGE
+// ======================================================
+
+function renderMessage(
+    message,
+    messageId
+){
+
+    if(!messagesBox){
+        return;
+    }
+
+    const wrapper =
+        document.createElement("article");
+
+    wrapper.className =
+        "chat-message";
+
+    if(
+        currentUser &&
+        message.uid === currentUser.uid
+    ){
+        wrapper.classList.add("mine");
+    }
+
+    wrapper.dataset.messageId =
+        messageId || "";
+
+    const content =
+        document.createElement("div");
+
+    content.className =
+        "message-content";
+
+    const head =
+        document.createElement("div");
+
+    head.className =
+        "message-head";
+
+    const name =
+        document.createElement("span");
+
+    name.className =
+        "message-name";
+
+    name.textContent =
+        message.name || "User";
+
+    const time =
+        document.createElement("time");
+
+    time.className =
+        "message-time";
+
+    time.textContent =
+        formatTime(message.time);
+
+    const text =
+        document.createElement("p");
+
+    text.className =
+        "message-text";
+
+    text.textContent =
+        message.text || "";
+
+    head.appendChild(name);
+    head.appendChild(time);
+
+    content.appendChild(head);
+    content.appendChild(text);
+
+    wrapper.appendChild(content);
+
+    messagesBox.appendChild(wrapper);
+
+    requestAnimationFrame(() => {
+        wrapper.classList.add("show");
+    });
+
+}
+
+
+// ======================================================
+// FORMAT TIME
+// ======================================================
+
+function formatTime(value){
+
+    if(
+        value === null ||
+        value === undefined
+    ){
+        return "...";
+    }
+
+    if(typeof value === "string"){
+        return value;
+    }
+
+    if(typeof value === "number"){
+
+        return new Date(value)
+            .toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit"
+            });
+
+    }
+
+    return "...";
+}
                     
