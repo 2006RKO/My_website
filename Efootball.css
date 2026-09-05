@@ -1355,3 +1355,86 @@ body{
     }
 
 }
+/* ==========================================
+        CHAPCY MESSAGE ANIMATION
+========================================== */
+
+.chat-message{
+    opacity:0;
+    transform:
+        translateY(18px)
+        scale(.95);
+    transition:
+        opacity .3s ease,
+        transform .35s cubic-bezier(.2,.8,.2,1);
+}
+
+.chat-message.show{
+    opacity:1;
+    transform:
+        translateY(0)
+        scale(1);
+}
+
+
+/* MY BUBBLE */
+
+.chat-message.mine{
+    justify-content:flex-end;
+    margin-left:auto;
+}
+
+
+.chat-message.mine
+.message-content{
+
+    border-radius:
+        18px 18px 5px 18px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #7025ff,
+            #38109a
+        );
+
+}
+
+
+/* OTHER BUBBLE */
+
+.chat-message:not(.mine)
+.message-content{
+
+    border-radius:
+        18px 18px 18px 5px;
+
+}
+
+
+/* MESSAGE TEXT */
+
+.message-text{
+    overflow-wrap:anywhere;
+    word-break:break-word;
+}
+
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+    .chat-message{
+        max-width:92%;
+    }
+
+    .message-content{
+        max-width:100%;
+        padding:9px 12px;
+    }
+
+    .message-text{
+        font-size:14px;
+    }
+
+}
