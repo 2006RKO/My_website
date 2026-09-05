@@ -25,3 +25,78 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 export { auth, db };
+// ==========================================
+// CHAPCY FIREBASE CONFIG
+// ==========================================
+
+import { initializeApp } from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+import { getAuth } from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+import { getDatabase } from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-database.js";
+
+
+// ==========================================
+// FIREBASE CONFIG
+// ==========================================
+
+const firebaseConfig = {
+
+    apiKey: "WEKA_API_KEY_YAKO_HAPA",
+
+    authDomain:
+        "rko-website-design-2f792.firebaseapp.com",
+
+    databaseURL:
+        "https://rko-website-design-2f792-default-rtdb.firebaseio.com",
+
+    projectId:
+        "rko-website-design-2f792",
+
+    storageBucket:
+        "rko-website-design-2f792.firebasestorage.app",
+
+    messagingSenderId:
+        "WEKA_MESSAGING_SENDER_ID",
+
+    appId:
+        "WEKA_APP_ID_YAKO_HAPA"
+
+};
+
+
+// ==========================================
+// INITIALIZE FIREBASE
+// ==========================================
+
+const app =
+    initializeApp(firebaseConfig);
+
+
+// ==========================================
+// AUTH
+// ==========================================
+
+const auth =
+    getAuth(app);
+
+
+// ==========================================
+// REALTIME DATABASE
+// ==========================================
+
+const db =
+    getDatabase(app);
+
+
+// ==========================================
+// EXPORT
+// ==========================================
+
+export {
+    auth,
+    db
+};
