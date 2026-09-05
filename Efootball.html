@@ -17,18 +17,9 @@
 
     <title>CHAPCY • Live Chat</title>
 
-
-    <!-- FONT AWESOME -->
     <link
         rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-    >
-
-
-    <!-- CHAPCY CHAT CSS -->
-    <link
-        rel="stylesheet"
-        href="Efootball.css"
+        href="chat.css"
     >
 
 </head>
@@ -37,17 +28,20 @@
 <body>
 
 
+<!-- =====================================
+             CHAPCY APP
+====================================== -->
+
 <div class="chapcy-app">
 
 
-    <!-- ================================
-              LEFT NAVIGATION
-    ================================= -->
+    <!-- =================================
+             LEFT NAVIGATION
+    ================================== -->
 
     <aside
         class="side-nav"
-        id="sideNav"
-    >
+        id="sideNav">
 
 
         <!-- LOGO -->
@@ -78,10 +72,7 @@
         <nav class="main-nav">
 
 
-            <button
-                class="nav-link active"
-                type="button"
-            >
+            <button class="nav-link active">
 
                 <span>◈</span>
 
@@ -92,10 +83,7 @@
             </button>
 
 
-            <button
-                class="nav-link"
-                type="button"
-            >
+            <button class="nav-link">
 
                 <span>✦</span>
 
@@ -106,10 +94,7 @@
             </button>
 
 
-            <button
-                class="nav-link"
-                type="button"
-            >
+            <button class="nav-link">
 
                 <span>▦</span>
 
@@ -120,10 +105,7 @@
             </button>
 
 
-            <button
-                class="nav-link"
-                type="button"
-            >
+            <button class="nav-link">
 
                 <span>♙</span>
 
@@ -134,10 +116,7 @@
             </button>
 
 
-            <button
-                class="nav-link"
-                type="button"
-            >
+            <button class="nav-link">
 
                 <span>@</span>
 
@@ -148,10 +127,7 @@
             </button>
 
 
-            <button
-                class="nav-link"
-                type="button"
-            >
+            <button class="nav-link">
 
                 <span>✉</span>
 
@@ -162,10 +138,7 @@
             </button>
 
 
-            <button
-                class="nav-link"
-                type="button"
-            >
+            <button class="nav-link">
 
                 <span>⚙</span>
 
@@ -183,8 +156,8 @@
 
         <div
             class="profile-mini"
-            id="profileMini"
-        >
+            id="profileMini">
+
 
             <div class="profile-avatar">
 
@@ -210,14 +183,10 @@
             </div>
 
 
-            <button
-                id="logoutBtn"
-                type="button"
-            >
-
-                <i class="fas fa-right-from-bracket"></i>
-
+            <button id="logoutBtn">
+                ↪
             </button>
+
 
         </div>
 
@@ -226,20 +195,20 @@
 
 
 
-    <!-- ================================
+    <!-- =================================
               MOBILE OVERLAY
-    ================================= -->
+    ================================== -->
 
     <div
         class="mobile-overlay"
-        id="mobileOverlay"
-    ></div>
+        id="mobileOverlay">
+    </div>
 
 
 
-    <!-- ================================
-                  CHAT
-    ================================= -->
+    <!-- =================================
+                CHAT
+    ================================== -->
 
     <main class="chat-container">
 
@@ -254,11 +223,8 @@
                 <button
                     class="menu-btn"
                     id="menuBtn"
-                    type="button"
                 >
-
-                    <i class="fas fa-bars"></i>
-
+                    ☰
                 </button>
 
 
@@ -267,7 +233,6 @@
                 </div>
 
             </div>
-
 
 
             <div class="room-title">
@@ -294,29 +259,15 @@
             </div>
 
 
-
             <div class="header-tools">
 
-
-                <button
-                    type="button"
-                    id="chatSearchBtn"
-                >
-
-                    <i class="fas fa-magnifying-glass"></i>
-
+                <button>
+                    ⌕
                 </button>
 
-
-                <button
-                    type="button"
-                    id="chatMoreBtn"
-                >
-
-                    <i class="fas fa-ellipsis-vertical"></i>
-
+                <button>
+                    ⋮
                 </button>
-
 
             </div>
 
@@ -325,25 +276,9 @@
 
 
 
-        <!-- SEARCH -->
-
-        <div class="chat-search-wrap">
-
-            <input
-                type="search"
-                id="chatSearch"
-                placeholder="Search messages..."
-                autocomplete="off"
-            >
-
-        </div>
-
-
-
-        <!-- PINNED MESSAGE -->
+        <!-- PINNED -->
 
         <section class="pinned-bar">
-
 
             <span class="pinned-icon">
                 ✦
@@ -356,7 +291,6 @@
                     Pinned Message
                 </strong>
 
-
                 <p>
                     Welcome to CHAPCY Live Chat! 👋
                 </p>
@@ -368,39 +302,37 @@
 
 
 
-        <!-- ================================
-              FIREBASE MESSAGES
-        ================================= -->
+        <!-- =================================
+                 REAL FIREBASE CHAT
+        ================================== -->
 
         <section
             class="messages"
             id="messages"
         >
 
-            <!-- Firebase messages will appear here -->
+            <!--
+                Firebase messages
+                zitaingia hapa.
+            -->
 
         </section>
 
 
 
-        <!-- ================================
-              TYPING INDICATOR
-        ================================= -->
+        <!-- TYPING -->
 
         <div
             class="typing"
-            id="typingIndicator"
+            id="typing"
         >
-
-            <span id="typingText"></span>
-
         </div>
 
 
 
-        <!-- ================================
-              MESSAGE COMPOSER
-        ================================= -->
+        <!-- =================================
+                MESSAGE COMPOSER
+        ================================== -->
 
         <form
             class="composer"
@@ -411,13 +343,9 @@
             <button
                 type="button"
                 class="composer-add"
-                id="attachBtn"
             >
-
-                <i class="fas fa-plus"></i>
-
+                +
             </button>
-
 
 
             <input
@@ -429,17 +357,11 @@
             >
 
 
-            <!-- JS CAN ALSO CREATE THIS AUTOMATICALLY -->
-
             <button
                 type="button"
                 class="emoji-btn"
-                id="emojiBtn"
-                aria-label="Emoji"
             >
-
-                😊
-
+                ☺
             </button>
 
 
@@ -447,11 +369,8 @@
                 type="submit"
                 class="send-btn"
                 id="sendBtn"
-                aria-label="Send message"
             >
-
-                <i class="fas fa-paper-plane"></i>
-
+                ➤
             </button>
 
 
@@ -462,9 +381,9 @@
 
 
 
-    <!-- ================================
-             ADVERTISEMENT AREA
-    ================================= -->
+    <!-- =================================
+               ADVERTISEMENT AREA
+    ================================== -->
 
     <aside class="ads-area">
 
@@ -482,6 +401,22 @@
         </div>
 
 
+        <!-- EMPTY AD 1 -->
+
+        <div class="ad-slot">
+
+            <!--
+              WEKA TANGAZO LAKO HAPA BAADAYE
+            -->
+
+            <div class="ad-plus">
+                +
+            </div>
+
+        </div>
+
+
+        <!-- EMPTY AD 2 -->
 
         <div class="ad-slot">
 
@@ -492,16 +427,7 @@
         </div>
 
 
-
-        <div class="ad-slot">
-
-            <div class="ad-plus">
-                +
-            </div>
-
-        </div>
-
-
+        <!-- EMPTY AD 3 -->
 
         <div class="ad-slot">
 
@@ -519,13 +445,9 @@
 
 
 
-<!-- =====================================
-          FIREBASE / CHAPCY CHAT JS
-====================================== -->
-
 <script
     type="module"
-    src="./Efootball.js"
+    src="chat.js"
 ></script>
 
 
