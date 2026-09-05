@@ -1243,3 +1243,613 @@ body{
             rgba(2,4,14,.34);
     }
                 }
+/* ==========================================
+        CHAPCY V50 — PREMIUM ANIMATIONS
+========================================== */
+
+
+/* ------------------------------------------
+   SMOOTH GLOBAL
+------------------------------------------ */
+
+*{
+    -webkit-tap-highlight-color:transparent;
+}
+
+button,
+input{
+    transition:
+        transform .2s ease,
+        box-shadow .25s ease,
+        border-color .25s ease,
+        background .25s ease;
+}
+
+
+/* ------------------------------------------
+   BACKGROUND PURPLE BREATHING
+------------------------------------------ */
+
+.chapcy-app::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:500px;
+    height:500px;
+
+    right:-220px;
+    bottom:-180px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(111,48,255,.22),
+            rgba(38,87,255,.08),
+            transparent 68%
+        );
+
+    filter:blur(25px);
+
+    pointer-events:none;
+
+    z-index:-1;
+
+    animation:
+        backgroundGlow 8s ease-in-out infinite alternate;
+}
+
+@keyframes backgroundGlow{
+
+    0%{
+        transform:
+            translate3d(0,0,0)
+            scale(.9);
+
+        opacity:.45;
+    }
+
+    50%{
+        transform:
+            translate3d(-50px,-35px,0)
+            scale(1.08);
+
+        opacity:.75;
+    }
+
+    100%{
+        transform:
+            translate3d(25px,-65px,0)
+            scale(1);
+
+        opacity:.5;
+    }
+}
+
+
+/* ------------------------------------------
+   HEADER LIGHT
+------------------------------------------ */
+
+.chat-header{
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+.chat-header::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:-120%;
+
+    top:0;
+
+    width:80%;
+
+    height:1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(171,103,255,.9),
+            transparent
+        );
+
+    animation:
+        headerLight 5s linear infinite;
+}
+
+@keyframes headerLight{
+
+    0%{
+        left:-120%;
+    }
+
+    100%{
+        left:130%;
+    }
+}
+
+
+/* ------------------------------------------
+   MENU BUTTON
+------------------------------------------ */
+
+.menu-btn:hover{
+
+    background:
+        rgba(116,55,255,.18);
+
+    box-shadow:
+        0 0 20px
+        rgba(116,55,255,.25);
+
+    transform:
+        translateY(-1px);
+}
+
+.menu-btn:active{
+
+    transform:
+        scale(.88);
+}
+
+
+/* ------------------------------------------
+   MOBILE LOGO
+------------------------------------------ */
+
+.mobile-logo{
+
+    animation:
+        logoPulse 4s ease-in-out infinite;
+}
+
+@keyframes logoPulse{
+
+    0%,
+    100%{
+        box-shadow:
+            0 0 0
+            rgba(116,55,255,0);
+    }
+
+    50%{
+        box-shadow:
+            0 0 22px
+            rgba(116,55,255,.48);
+    }
+}
+
+
+/* ------------------------------------------
+   PINNED MESSAGE
+------------------------------------------ */
+
+.pinned-bar{
+
+    position:relative;
+
+    overflow:hidden;
+
+    animation:
+        pinnedAppear .7s ease both;
+}
+
+.pinned-bar::after{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+
+    left:-100%;
+
+    width:55%;
+
+    height:100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(180,105,255,.09),
+            transparent
+        );
+
+    transform:skewX(-20deg);
+
+    animation:
+        pinnedShine 6s ease-in-out infinite;
+}
+
+@keyframes pinnedAppear{
+
+    from{
+        opacity:0;
+
+        transform:
+            translateY(-12px);
+    }
+
+    to{
+        opacity:1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+@keyframes pinnedShine{
+
+    0%{
+        left:-100%;
+    }
+
+    35%{
+        left:150%;
+    }
+
+    100%{
+        left:150%;
+    }
+}
+
+.pinned-icon{
+
+    animation:
+        pinFloat 2.5s ease-in-out infinite;
+}
+
+@keyframes pinFloat{
+
+    0%,
+    100%{
+        transform:
+            translateY(0)
+            rotate(0deg);
+    }
+
+    50%{
+        transform:
+            translateY(-3px)
+            rotate(-5deg);
+    }
+}
+
+
+/* ------------------------------------------
+   MESSAGE ENTER ANIMATION
+------------------------------------------ */
+
+.chat-message{
+
+    animation:
+        messageEnter .45s cubic-bezier(.2,.8,.2,1) both;
+}
+
+@keyframes messageEnter{
+
+    from{
+        opacity:0;
+
+        transform:
+            translateY(15px)
+            scale(.98);
+    }
+
+    to{
+        opacity:1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+/* ------------------------------------------
+   AVATAR GLOW
+------------------------------------------ */
+
+.message-avatar{
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+.message-avatar:hover{
+
+    transform:
+        translateY(-2px)
+        scale(1.04);
+
+    box-shadow:
+        0 0 18px
+        rgba(116,55,255,.35);
+}
+
+
+/* ------------------------------------------
+   MESSAGE BUBBLE
+------------------------------------------ */
+
+.message-text{
+
+    transition:
+        transform .25s ease,
+        border-color .25s ease,
+        box-shadow .25s ease;
+}
+
+.chat-message:not(.mine)
+.message-text:hover{
+
+    transform:
+        translateY(-1px);
+
+    border-color:
+        rgba(145,91,255,.38);
+
+    box-shadow:
+        0 10px 30px
+        rgba(72,29,160,.18);
+}
+
+.chat-message.mine
+.message-text:hover{
+
+    transform:
+        translateY(-1px);
+
+    box-shadow:
+        0 10px 30px
+        rgba(105,43,255,.38);
+}
+
+
+/* ------------------------------------------
+   MY MESSAGE GLOW
+------------------------------------------ */
+
+.chat-message.mine
+.message-text{
+
+    animation:
+        mineGlow 4s ease-in-out infinite alternate;
+}
+
+@keyframes mineGlow{
+
+    from{
+        box-shadow:
+            0 8px 25px
+            rgba(96,39,223,.20);
+    }
+
+    to{
+        box-shadow:
+            0 8px 32px
+            rgba(130,55,255,.38);
+    }
+}
+
+
+/* ------------------------------------------
+   SEND BUTTON
+------------------------------------------ */
+
+.send-btn{
+
+    animation:
+        sendPulse 3s ease-in-out infinite;
+}
+
+@keyframes sendPulse{
+
+    0%,
+    100%{
+        box-shadow:
+            0 0 15px
+            rgba(111,45,255,.25);
+    }
+
+    50%{
+        box-shadow:
+            0 0 28px
+            rgba(151,73,255,.58);
+    }
+}
+
+.send-btn:hover{
+
+    transform:
+        translateY(-2px)
+        scale(1.04);
+
+    box-shadow:
+        0 0 30px
+        rgba(151,73,255,.65);
+}
+
+.send-btn:active{
+
+    transform:
+        scale(.88);
+}
+
+
+/* ------------------------------------------
+   ADD BUTTON
+------------------------------------------ */
+
+.composer-add:hover{
+
+    transform:
+        rotate(90deg)
+        scale(1.06);
+
+    box-shadow:
+        0 0 20px
+        rgba(105,40,255,.45);
+}
+
+
+/* ------------------------------------------
+   EMOJI BUTTON
+------------------------------------------ */
+
+.emoji-btn:hover{
+
+    color:#b875ff;
+
+    transform:
+        scale(1.15)
+        rotate(-8deg);
+}
+
+
+/* ------------------------------------------
+   INPUT FOCUS
+------------------------------------------ */
+
+.composer input{
+
+    transition:
+        border-color .3s ease,
+        box-shadow .3s ease,
+        background .3s ease;
+}
+
+.composer input:focus{
+
+    background:
+        rgba(10,15,38,.95);
+
+    box-shadow:
+        0 0 0 2px
+        rgba(116,55,255,.06),
+        0 0 25px
+        rgba(105,40,255,.15);
+}
+
+
+/* ------------------------------------------
+   TYPING ANIMATION
+------------------------------------------ */
+
+.typing{
+
+    animation:
+        typingFade 1.4s ease-in-out infinite;
+}
+
+@keyframes typingFade{
+
+    0%,
+    100%{
+        opacity:.35;
+    }
+
+    50%{
+        opacity:1;
+    }
+}
+
+
+/* ------------------------------------------
+   ONLINE DOT
+------------------------------------------ */
+
+.profile-avatar i{
+
+    animation:
+        onlinePulse 1.8s ease-in-out infinite;
+}
+
+@keyframes onlinePulse{
+
+    0%,
+    100%{
+        box-shadow:
+            0 0 0
+            rgba(25,233,104,0);
+    }
+
+    50%{
+        box-shadow:
+            0 0 10px
+            rgba(25,233,104,.75);
+    }
+}
+
+
+/* ------------------------------------------
+   HEADER TOOLS
+------------------------------------------ */
+
+.header-tools button:hover{
+
+    color:#c18aff;
+
+    transform:
+        scale(1.12);
+
+    text-shadow:
+        0 0 12px
+        rgba(170,90,255,.65);
+}
+
+
+/* ------------------------------------------
+   SCROLLBAR GLOW
+------------------------------------------ */
+
+.messages::-webkit-scrollbar-thumb{
+
+    animation:
+        scrollbarGlow 3s ease-in-out infinite;
+}
+
+@keyframes scrollbarGlow{
+
+    0%,
+    100%{
+        background:#4520a1;
+    }
+
+    50%{
+        background:#7940ed;
+    }
+}
+
+
+/* ------------------------------------------
+   REDUCED MOTION
+------------------------------------------ */
+
+@media(prefers-reduced-motion:reduce){
+
+    *,
+    *::before,
+    *::after{
+
+        animation-duration:.01ms !important;
+
+        animation-iteration-count:1 !important;
+
+        scroll-behavior:auto !important;
+
+        transition-duration:.01ms !important;
+    }
+}
