@@ -32,7 +32,11 @@
         </div>
       </div>
 
-      <a href="Profile.html" class="profile profile-link" aria-label="Edit Profile">
+      <button class="profile profile-link"
+        id="profileOpenBtn"
+        type="button"
+        aria-label="Edit Profile">
+
     <img
         src="file_00000000b0d8820a998b33ad9cf233cb.png"
         alt="Profile"
@@ -40,7 +44,8 @@
     >
 
     <span class="online-dot"></span>
-      </a>
+
+      </button>
         <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge">3</span></button>
 
         <div class="reputation">
@@ -404,6 +409,134 @@
 </section>
 
   </main>
+  <!-- =====================================================
+     CHAPCY PROFILE EDITOR
+===================================================== -->
+
+<div class="profile-modal" id="profileModal">
+
+    <div class="profile-backdrop" id="profileBackdrop"></div>
+
+    <div class="profile-editor">
+
+        <button
+            class="profile-close"
+            id="profileCloseBtn"
+            type="button"
+            aria-label="Close Profile"
+        >
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+
+        <div class="profile-editor-header">
+
+            <span class="profile-editor-icon">
+                <i class="fa-solid fa-user-pen"></i>
+            </span>
+
+            <div>
+                <h2>Edit Profile</h2>
+                <p>Update your CHAPCY profile</p>
+            </div>
+
+        </div>
+
+
+        <!-- PROFILE IMAGE -->
+
+        <div class="profile-photo-editor">
+
+            <div class="profile-photo-wrap">
+
+                <img
+                    src="file_00000000b0d8820a998b33ad9cf233cb.png"
+                    id="editProfileImage"
+                    alt="Profile Preview"
+                >
+
+                <label
+                    for="profileGalleryInput"
+                    class="change-photo-btn"
+                >
+                    <i class="fa-solid fa-camera"></i>
+                </label>
+
+            </div>
+
+            <h3 id="profilePreviewName">
+                CHAPCY User
+            </h3>
+
+            <p>
+                Tap camera to change your profile photo
+            </p>
+
+            <!-- PHONE GALLERY -->
+
+            <input
+                type="file"
+                id="profileGalleryInput"
+                accept="image/*"
+                hidden
+            >
+
+        </div>
+
+
+        <!-- PROFILE FORM -->
+
+        <div class="profile-form">
+
+            <label>
+                Display Name
+            </label>
+
+            <div class="profile-input">
+
+                <i class="fa-solid fa-user"></i>
+
+                <input
+                    type="text"
+                    id="profileNameInput"
+                    placeholder="Enter your name"
+                    maxlength="30"
+                >
+
+            </div>
+
+
+            <label>
+                Bio
+            </label>
+
+            <div class="profile-input profile-textarea">
+
+                <i class="fa-solid fa-align-left"></i>
+
+                <textarea
+                    id="profileBioInput"
+                    placeholder="Tell people something about you..."
+                    maxlength="120"
+                ></textarea>
+
+            </div>
+
+
+            <button
+                class="save-profile-btn"
+                id="saveProfileBtn"
+                type="button"
+            >
+                <i class="fa-solid fa-check"></i>
+                Save Profile
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
 
   <script src="chapcy.js"></script>
 </body>
