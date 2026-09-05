@@ -882,8 +882,6 @@ body{
 }
 
 
-/* glowing line */
-
 #composer::before,
 .composer::before{
 
@@ -1788,4 +1786,4 @@ body{
 
         transition-duration:.01ms !important;
     }
-            }
+   }
