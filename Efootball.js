@@ -1,569 +1,180 @@
-// ======================================================
-//                 CHAPCY REALTIME CHAT
-//                     APP.JS
-// ======================================================
+// ==========================================
+// CHAPCY V21 — FIREBASE LIVE CHAT
+// ==========================================
 
 "use strict";
 
-
-// ======================================================
-// FIREBASE
-// ======================================================
+import { auth, db } from "./firebase-config.js";
 
 import {
-    auth,
-    db
-} from "./firebase.js";
-
-
-import {
-    onAuthStateChanged,
-    signOut
+    onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
-
 
 import {
     ref,
     push,
-    set,
-    onValue,
-    onDisconnect,
+    onChildAdded,
     serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-database.js";
 
 
-// ======================================================
-// DOM ELEMENTS
-// ======================================================
+// ==========================================
+// ELEMENTS
+// ==========================================
 
-const messagesBox =
+const messages =
     document.getElementById("messages");
-
-const messageInput =
-    document.getElementById("messageInput");
 
 const composer =
     document.getElementById("composer");
 
-const profileName =
-    document.getElementById("profileName");
+const messageInput =
+    document.getElementById("messageInput");
 
-const profileLetter =
-    document.getElementById("profileLetter");
-
-const logoutBtn =
-    document.getElementById("logoutBtn");
-
-const sideNav =
-    document.getElementById("sideNav");
-
-const mobileOverlay =
-    document.getElementById("mobileOverlay");
-
-const menuBtn =
-    document.getElementById("menuBtn");
+const sendBtn =
+    document.getElementById("sendBtn");
 
 
-// Optional online counter
-const onlineCount =
-    document.getElementById("onlineCount");
+// ==========================================
+// DATABASE ROOM
+// ==========================================
+
+const messagesRef =
+    ref(db, "chapcy/general/messages");
 
 
-// ======================================================
-// STATE
-// ======================================================
+// ==========================================
+// CURRENT USER
+// ==========================================
 
 let currentUser = null;
 
-let currentProfile = null;
 
-let messagesListenerStarted = false;
+// ==========================================
+// AUTH
+// ==========================================
 
-let presenceListenerStarted = false;
+onAuthStateChanged(auth, (user) => {
 
+    currentUser = user;
 
-// ======================================================
-// MOBILE MENU
-// ======================================================
+    const profileName =
+        document.getElementById("profileName");
 
-menuBtn?.addEventListener(
-    "click",
-    openMenu
-);
-
-
-mobileOverlay?.addEventListener(
-    "click",
-    closeMenu
-);
+    const profileLetter =
+        document.getElementById("profileLetter");
 
 
-function openMenu(){
+    if (user) {
 
-    sideNav?.classList.add("open");
-
-    mobileOverlay?.classList.add("show");
-
-}
-
-
-function closeMenu(){
-
-    sideNav?.classList.remove("open");
-
-    mobileOverlay?.classList.remove("show");
-
-}
+        const name =
+            user.displayName ||
+            user.email?.split("@")[0] ||
+            "CHAPCY User";
 
 
-// ======================================================
-// AUTH STATE
-// ======================================================
+        if (profileName) {
+            profileName.textContent = name;
+        }
 
-onAuthStateChanged(
-    auth,
-    user => {
 
-        // ------------------------------------------
-        // USER NOT LOGGED IN
-        // ------------------------------------------
+        if (profileLetter) {
+            profileLetter.textContent =
+                name.charAt(0).toUpperCase();
+        }
 
-        if(!user){
 
-            currentUser = null;
+        console.log(
+            "CHAPCY logged in:",
+            user.uid
+        );
 
-            window.location.href =
-                "login.html";
+    } else {
+
+        console.log(
+            "CHAPCY: No user logged in"
+        );
+
+    }
+
+});
+
+
+// ==========================================
+// SEND
+// ==========================================
+
+composer.addEventListener(
+    "submit",
+    async (event) => {
+
+        event.preventDefault();
+
+
+        const text =
+            messageInput.value.trim();
+
+
+        if (!text) return;
+
+
+        if (!currentUser) {
+
+            alert(
+                "Please login first."
+            );
 
             return;
 
         }
 
 
-        // ------------------------------------------
-        // USER LOGGED IN
-        // ------------------------------------------
+        try {
 
-        currentUser =
-            user;
+            sendBtn.disabled = true;
 
 
-        loadUserProfile();
-
-        setupPresence();
-
-        startMessages();
-
-    }
-);
-
-
-// ======================================================
-// LOAD USER PROFILE
-// ======================================================
-
-function loadUserProfile(){
-
-    if(!currentUser){
-
-        return;
-
-    }
-
-
-    const userRef =
-        ref(
-            db,
-            "users/" +
-            currentUser.uid
-        );
-
-
-    onValue(
-        userRef,
-        snapshot => {
-
-            currentProfile =
-                snapshot.val() || {};
-
-
-            const username =
-                getCurrentUsername();
-
-
-            // --------------------------------------
-            // PROFILE NAME
-            // --------------------------------------
-
-            if(profileName){
-
-                profileName.textContent =
-                    username;
-
-            }
-
-
-            // --------------------------------------
-            // PROFILE LETTER
-            // --------------------------------------
-
-            if(profileLetter){
-
-                profileLetter.textContent =
-                    username
-                    .charAt(0)
-                    .toUpperCase();
-
-            }
-
-        },
-        error => {
-
-            console.error(
-                "Profile error:",
-                error
-            );
-
-        }
-    );
-
-}
-
-
-// ======================================================
-// GET CURRENT USERNAME
-// ======================================================
-
-function getCurrentUsername(){
-
-    if(
-        currentProfile?.username &&
-        currentProfile.username.trim()
-    ){
-
-        return currentProfile.username.trim();
-
-    }
-
-
-    if(
-        currentProfile?.name &&
-        currentProfile.name.trim()
-    ){
-
-        return currentProfile.name.trim();
-
-    }
-
-
-    if(
-        currentUser?.displayName &&
-        currentUser.displayName.trim()
-    ){
-
-        return currentUser.displayName.trim();
-
-    }
-
-
-    if(currentUser?.email){
-
-        return currentUser.email
-            .split("@")[0];
-
-    }
-
-
-    return "User";
-
-}
-
-
-// ======================================================
-// ONLINE PRESENCE
-// ======================================================
-
-function setupPresence(){
-
-    if(
-        !currentUser ||
-        presenceListenerStarted
-    ){
-
-        return;
-
-    }
-
-
-    presenceListenerStarted =
-        true;
-
-
-    const uid =
-        currentUser.uid;
-
-
-    const presenceRef =
-        ref(
-            db,
-            "presence/" + uid
-        );
-
-
-    const connectedRef =
-        ref(
-            db,
-            ".info/connected"
-        );
-
-
-    onValue(
-        connectedRef,
-        snapshot => {
-
-            const connected =
-                snapshot.val();
-
-
-            if(connected !== true){
-
-                return;
-
-            }
-
-
-            // --------------------------------------
-            // REMOVE PRESENCE WHEN USER LEAVES
-            // --------------------------------------
-
-            onDisconnect(
-                presenceRef
-            ).remove();
-
-
-            // --------------------------------------
-            // SET USER ONLINE
-            // --------------------------------------
-
-            set(
-                presenceRef,
+            await push(
+                messagesRef,
                 {
 
                     uid:
-                        uid,
+                        currentUser.uid,
 
-                    username:
-                        getCurrentUsername(),
+                    name:
+                        currentUser.displayName ||
+                        currentUser.email?.split("@")[0] ||
+                        "CHAPCY User",
 
-                    online:
-                        true,
+                    text:
+                        text,
 
-                    lastSeen:
+                    timestamp:
                         serverTimestamp()
 
                 }
             );
 
-        },
-        error => {
-
-            console.error(
-                "Presence error:",
-                error
-            );
-
-        }
-    );
-
-}
-
-
-// ======================================================
-// REALTIME ONLINE USERS
-// ======================================================
-
-const presenceRoot =
-    ref(
-        db,
-        "presence"
-    );
-
-
-onValue(
-    presenceRoot,
-    snapshot => {
-
-        if(!onlineCount){
-
-            return;
-
-        }
-
-
-        const users =
-            snapshot.val() || {};
-
-
-        let count =
-            0;
-
-
-        Object.values(users)
-            .forEach(user => {
-
-                if(
-                    user &&
-                    user.online === true
-                ){
-
-                    count++;
-
-                }
-
-            });
-
-
-        onlineCount.textContent =
-            count;
-
-    },
-    error => {
-
-        console.error(
-            "Online count error:",
-            error
-        );
-
-    }
-);
-
-
-
-
-                            // ======================================================
-// REALTIME MESSAGES
-// ======================================================
-
-function startMessages(){
-
-    if(
-        messagesListenerStarted ||
-        !messagesBox
-    ){
-        return;
-    }
-
-    messagesListenerStarted = true;
-
-    const messagesRef =
-        ref(db, "messages");
-
-    onValue(
-        messagesRef,
-        snapshot => {
-
-            messagesBox.innerHTML = "";
-
-            if(!snapshot.exists()){
-                return;
-            }
-
-            snapshot.forEach(
-                childSnapshot => {
-
-                    const message =
-                        childSnapshot.val();
-
-                    if(!message){
-                        return;
-                    }
-
-                    renderMessage(
-                        message,
-                        childSnapshot.key
-                    );
-
-                }
-            );
-
-            requestAnimationFrame(() => {
-
-                messagesBox.scrollTop =
-                    messagesBox.scrollHeight;
-
-            });
-
-        },
-        error => {
-
-            console.error(
-                "CHAPCY MESSAGE ERROR:",
-                error
-            );
-
-        }
-    );
-}
-
-
-// ======================================================
-// SEND MESSAGE
-// ======================================================
-
-composer?.addEventListener(
-    "submit",
-    async event => {
-
-        event.preventDefault();
-
-        if(!currentUser){
-            return;
-        }
-
-        const text =
-            messageInput?.value?.trim();
-
-        if(!text){
-            return;
-        }
-
-        const username =
-            getCurrentUsername();
-
-        try{
-
-            const messagesRef =
-                ref(db, "messages");
-
-            const newMessage =
-                push(messagesRef);
-
-            await set(
-                newMessage,
-                {
-                    uid: currentUser.uid,
-                    name: username,
-                    text: text,
-                    time: serverTimestamp()
-                }
-            );
 
             messageInput.value = "";
 
             messageInput.focus();
 
-        }
-        catch(error){
+
+        } catch (error) {
 
             console.error(
-                "CHAPCY MESSAGE ERROR:",
+                "Firebase error:",
                 error
             );
 
             alert(
-                "Message haijatumwa:\n\n" +
-                error.message
+                "Failed to send message."
             );
+
+        } finally {
+
+            sendBtn.disabled = false;
 
         }
 
@@ -571,34 +182,52 @@ composer?.addEventListener(
 );
 
 
-// ======================================================
-// RENDER MESSAGE
-// ======================================================
+// ==========================================
+// REAL-TIME LISTENER
+// ==========================================
 
-function renderMessage(
-    message,
-    messageId
-){
+onChildAdded(
+    messagesRef,
+    (snapshot) => {
 
-    if(!messagesBox){
-        return;
+        const data =
+            snapshot.val();
+
+
+        if (!data) return;
+
+
+        createMessage(data);
+
     }
+);
 
-    const wrapper =
-        document.createElement("article");
 
-    wrapper.className =
+// ==========================================
+// MESSAGE UI
+// ==========================================
+
+function createMessage(data) {
+
+    const message =
+        document.createElement("div");
+
+    message.className =
         "chat-message";
 
-    if(
-        currentUser &&
-        message.uid === currentUser.uid
-    ){
-        wrapper.classList.add("mine");
-    }
 
-    wrapper.dataset.messageId =
-        messageId || "";
+    const avatar =
+        document.createElement("div");
+
+    avatar.className =
+        "message-avatar";
+
+
+    avatar.textContent =
+        (data.name || "U")
+        .charAt(0)
+        .toUpperCase();
+
 
     const content =
         document.createElement("div");
@@ -606,29 +235,18 @@ function renderMessage(
     content.className =
         "message-content";
 
-    const head =
-        document.createElement("div");
-
-    head.className =
-        "message-head";
 
     const name =
-        document.createElement("span");
+        document.createElement("strong");
 
     name.className =
         "message-name";
 
+
     name.textContent =
-        message.name || "User";
+        data.name ||
+        "CHAPCY User";
 
-    const time =
-        document.createElement("time");
-
-    time.className =
-        "message-time";
-
-    time.textContent =
-        formatTime(message.time);
 
     const text =
         document.createElement("p");
@@ -636,53 +254,25 @@ function renderMessage(
     text.className =
         "message-text";
 
+
     text.textContent =
-        message.text || "";
+        data.text || "";
 
-    head.appendChild(name);
-    head.appendChild(time);
 
-    content.appendChild(head);
+    content.appendChild(name);
+
     content.appendChild(text);
 
-    wrapper.appendChild(content);
 
-    messagesBox.appendChild(wrapper);
+    message.appendChild(avatar);
 
-    requestAnimationFrame(() => {
-        wrapper.classList.add("show");
-    });
+    message.appendChild(content);
+
+
+    messages.appendChild(message);
+
+
+    messages.scrollTop =
+        messages.scrollHeight;
 
 }
-
-
-// ======================================================
-// FORMAT TIME
-// ======================================================
-
-function formatTime(value){
-
-    if(
-        value === null ||
-        value === undefined
-    ){
-        return "...";
-    }
-
-    if(typeof value === "string"){
-        return value;
-    }
-
-    if(typeof value === "number"){
-
-        return new Date(value)
-            .toLocaleTimeString([], {
-                hour: "2-digit",
-                minute: "2-digit"
-            });
-
-    }
-
-    return "...";
-}
-                    
