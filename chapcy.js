@@ -847,3 +847,333 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 });
+/* =====================================================
+   CHAPCY PROFILE EDITOR
+   ADD-ON — DO NOT TOUCH SLIDER
+===================================================== */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const profileBtn =
+        document.getElementById("profileOpenBtn");
+
+    const modal =
+        document.getElementById("profileModal");
+
+    const closeBtn =
+        document.getElementById("profileCloseBtn");
+
+    const backdrop =
+        document.getElementById("profileBackdrop");
+
+    const gallery =
+        document.getElementById("profileGalleryInput");
+
+    const editImage =
+        document.getElementById("editProfileImage");
+
+    const headerImage =
+        document.getElementById("headerProfileImage");
+
+    const nameInput =
+        document.getElementById("profileNameInput");
+
+    const bioInput =
+        document.getElementById("profileBioInput");
+
+    const previewName =
+        document.getElementById("profilePreviewName");
+
+    const saveBtn =
+        document.getElementById("saveProfileBtn");
+
+
+    /* =================================================
+       CHECK
+    ================================================= */
+
+    if (!profileBtn || !modal) {
+
+        console.warn(
+            "CHAPCY Profile: HTML elements not found."
+        );
+
+        return;
+    }
+
+
+    /* =================================================
+       OPEN PROFILE
+    ================================================= */
+
+    profileBtn.addEventListener("click", () => {
+
+        modal.classList.add("show");
+
+        document.body.style.overflow = "hidden";
+
+    });
+
+
+    /* =================================================
+       CLOSE PROFILE
+    ================================================= */
+
+    function closeProfile() {
+
+        modal.classList.remove("show");
+
+        document.body.style.overflow = "";
+
+    }
+
+
+    closeBtn?.addEventListener(
+        "click",
+        closeProfile
+    );
+
+
+    backdrop?.addEventListener(
+        "click",
+        closeProfile
+    );
+
+
+    /* =================================================
+       ESC
+    ================================================= */
+
+    document.addEventListener(
+        "keydown",
+        (event) => {
+
+            if (
+                event.key === "Escape" &&
+                modal.classList.contains("show")
+            ) {
+
+                closeProfile();
+
+            }
+
+        }
+    );
+
+
+    /* =================================================
+       CHANGE PROFILE PHOTO
+    ================================================= */
+
+    gallery?.addEventListener(
+        "change",
+        (event) => {
+
+            const file =
+                event.target.files?.[0];
+
+            if (!file) return;
+
+
+            if (
+                !file.type.startsWith("image/")
+            ) {
+
+                alert(
+                    "Please select an image."
+                );
+
+                return;
+
+            }
+
+
+            const reader =
+                new FileReader();
+
+
+            reader.onload = (e) => {
+
+                const image =
+                    e.target.result;
+
+
+                /* Preview */
+
+                if (editImage) {
+
+                    editImage.src = image;
+
+                }
+
+
+                /* Header */
+
+                if (headerImage) {
+
+                    headerImage.src = image;
+
+                }
+
+
+                /* Save image locally */
+
+                localStorage.setItem(
+                    "chapcyProfileImage",
+                    image
+                );
+
+            };
+
+
+            reader.readAsDataURL(file);
+
+        }
+    );
+
+
+    /* =================================================
+       NAME PREVIEW
+    ================================================= */
+
+    nameInput?.addEventListener(
+        "input",
+        () => {
+
+            const name =
+                nameInput.value.trim();
+
+
+            if (previewName) {
+
+                previewName.textContent =
+                    name || "CHAPCY User";
+
+            }
+
+        }
+    );
+
+
+    /* =================================================
+       SAVE PROFILE
+    ================================================= */
+
+    saveBtn?.addEventListener(
+        "click",
+        () => {
+
+            const name =
+                nameInput?.value.trim() || "";
+
+            const bio =
+                bioInput?.value.trim() || "";
+
+
+            localStorage.setItem(
+                "chapcyProfileName",
+                name
+            );
+
+
+            localStorage.setItem(
+                "chapcyProfileBio",
+                bio
+            );
+
+
+            if (editImage?.src) {
+
+                localStorage.setItem(
+                    "chapcyProfileImage",
+                    editImage.src
+                );
+
+            }
+
+
+            alert(
+                "Profile saved successfully! ✅"
+            );
+
+
+            closeProfile();
+
+        }
+    );
+
+
+    /* =================================================
+       LOAD SAVED PROFILE
+    ================================================= */
+
+    const savedName =
+        localStorage.getItem(
+            "chapcyProfileName"
+        );
+
+
+    const savedBio =
+        localStorage.getItem(
+            "chapcyProfileBio"
+        );
+
+
+    const savedImage =
+        localStorage.getItem(
+            "chapcyProfileImage"
+        );
+
+
+    if (savedName) {
+
+        if (nameInput) {
+
+            nameInput.value =
+                savedName;
+
+        }
+
+
+        if (previewName) {
+
+            previewName.textContent =
+                savedName;
+
+        }
+
+    }
+
+
+    if (savedBio) {
+
+        if (bioInput) {
+
+            bioInput.value =
+                savedBio;
+
+        }
+
+    }
+
+
+    if (savedImage) {
+
+        if (editImage) {
+
+            editImage.src =
+                savedImage;
+
+        }
+
+
+        if (headerImage) {
+
+            headerImage.src =
+                savedImage;
+
+        }
+
+    }
+
+});
