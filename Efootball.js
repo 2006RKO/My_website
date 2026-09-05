@@ -1,95 +1,155 @@
-// ==========================================
-// CHAPCY REALTIME CHAT
-// ==========================================
+// ============================================================
+//                 CHAPCY V50 PREMIUM CHAT
+//              REALTIME FIREBASE CHAT ENGINE
+// ============================================================
 
 import {
     auth,
     db
-}
-from "./firebase.js";
-
+} from "./firebase.js";
 
 import {
     onAuthStateChanged,
     signOut
-}
-from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
-
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
 import {
     ref,
     push,
     set,
+    update,
+    remove,
     onChildAdded,
-    serverTimestamp,
     onValue,
+    serverTimestamp,
     onDisconnect
-}
-from "https://www.gstatic.com/firebasejs/12.18.0/firebase-database.js";
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-database.js";
 
 
-// ==========================================
+// ============================================================
 // ELEMENTS
-// ==========================================
+// ============================================================
 
 const messagesBox =
     document.getElementById("messages");
 
-
 const messageInput =
     document.getElementById("messageInput");
-
 
 const composer =
     document.getElementById("composer");
 
-
 const profileName =
     document.getElementById("profileName");
-
 
 const profileLetter =
     document.getElementById("profileLetter");
 
-
 const logoutBtn =
     document.getElementById("logoutBtn");
-
 
 const sideNav =
     document.getElementById("sideNav");
 
-
 const mobileOverlay =
     document.getElementById("mobileOverlay");
-
 
 const menuBtn =
     document.getElementById("menuBtn");
 
 
-// ==========================================
+// Optional premium elements
+const onlineUsers =
+    document.getElementById("onlineUsers");
+
+const typingIndicator =
+    document.getElementById("typingIndicator");
+
+const typingText =
+    document.getElementById("typingText");
+
+const sendBtn =
+    document.getElementById("sendBtn");
+
+const emojiBtn =
+    document.getElementById("emojiBtn");
+
+const emojiPicker =
+    document.getElementById("emojiPicker");
+
+const searchInput =
+    document.getElementById("chatSearch");
+
+
+// ============================================================
 // STATE
-// ==========================================
+// ============================================================
 
 let currentUser = null;
-
-let currentProfile = null;
-
+let currentProfile = {};
 let messagesListenerStarted = false;
+let typingTimeout = null;
+let typingActive = false;
+
+const renderedMessages = new Set();
 
 
-// ==========================================
+// ============================================================
+// CONFIG
+// ============================================================
+
+const ROOM_ID = "general";
+
+const MESSAGE_LIMIT = 200;
+
+const EMOJIS = [
+    "😀","😂","😍","🥰","😎","🔥","❤️","💯",
+    "🤣","😊","😉","😇","😘","🤩","😱","😭",
+    "😡","🤔","🙌","👏","👍","👎","🙏","💪",
+    "🎉","✨","🚀","🌍","💜","💙","💚","⭐"
+];
+
+
+// ============================================================
+// HELPER
+// ============================================================
+
+function getUsername(){
+
+    return (
+        currentProfile?.username ||
+        currentUser?.displayName ||
+        currentUser?.email?.split("@")[0] ||
+        "User"
+    );
+
+}
+
+
+function getInitial(name){
+
+    return (
+        name ||
+        "U"
+    )
+    .trim()
+    .charAt(0)
+    .toUpperCase();
+
+}
+
+
+// ============================================================
 // MOBILE MENU
-// ==========================================
+// ============================================================
 
 menuBtn?.addEventListener(
     "click",
     () => {
 
-        sideNav.classList.add("open");
+        sideNav?.classList.add("open");
 
-        mobileOverlay.classList.add("show");
+        mobileOverlay?.classList.add("show");
 
     }
 );
@@ -103,16 +163,16 @@ mobileOverlay?.addEventListener(
 
 function closeMenu(){
 
-    sideNav.classList.remove("open");
+    sideNav?.classList.remove("open");
 
-    mobileOverlay.classList.remove("show");
+    mobileOverlay?.classList.remove("show");
 
 }
 
 
-// ==========================================
-// AUTH STATE
-// ==========================================
+// ============================================================
+// AUTHENTICATION
+// ============================================================
 
 onAuthStateChanged(
     auth,
@@ -131,9 +191,9 @@ onAuthStateChanged(
         currentUser = user;
 
 
-        // ----------------------------------
-        // GET USER PROFILE
-        // ----------------------------------
+        // --------------------------------------------
+        // USER PROFILE
+        // --------------------------------------------
 
         const userRef =
             ref(
@@ -149,28 +209,40 @@ onAuthStateChanged(
                 currentProfile =
                     snapshot.val() || {};
 
-
                 const username =
-                    currentProfile.username ||
-                    user.displayName ||
-                    user.email?.split("@")[0] ||
-                    "User";
+                    getUsername();
 
 
-                profileName.textContent =
-                    username;
+                if(profileName){
+
+                    profileName.textContent =
+                        username;
+
+                }
 
 
-                profileLetter.textContent =
-                    username
-                    .charAt(0)
-                    .toUpperCase();
+                if(profileLetter){
+
+                    profileLetter.textContent =
+                        getInitial(username);
+
+                }
 
             }
         );
 
 
+        // --------------------------------------------
+        // START PREMIUM SYSTEMS
+        // --------------------------------------------
+
         setupPresence();
+
+        setupTyping();
+
+        setupEmojiPicker();
+
+        setupSearch();
 
         startMessages();
 
@@ -178,11 +250,18 @@ onAuthStateChanged(
 );
 
 
-// ==========================================
+// ============================================================
 // ONLINE PRESENCE
-// ==========================================
+// ============================================================
 
 function setupPresence(){
+
+    if(!currentUser){
+
+        return;
+
+    }
+
 
     const presenceRef =
         ref(
@@ -213,11 +292,11 @@ function setupPresence(){
 
 
             const username =
-                currentProfile?.username ||
-                currentUser.displayName ||
-                currentUser.email?.split("@")[0] ||
-                "User";
+                getUsername();
 
+
+            // Remove presence automatically
+            // when connection disappears.
 
             onDisconnect(
                 presenceRef
@@ -246,12 +325,60 @@ function setupPresence(){
         }
     );
 
+
+    // --------------------------------------------
+    // LIVE ONLINE COUNT
+    // --------------------------------------------
+
+    const presenceRoot =
+        ref(
+            db,
+            "presence"
+        );
+
+
+    onValue(
+        presenceRoot,
+        snapshot => {
+
+            let count = 0;
+
+
+            snapshot.forEach(
+                child => {
+
+                    const user =
+                        child.val();
+
+
+                    if(
+                        user?.online === true
+                    ){
+
+                        count++;
+
+                    }
+
+                }
+            );
+
+
+            if(onlineUsers){
+
+                onlineUsers.textContent =
+                    count;
+
+            }
+
+        }
+    );
+
 }
 
 
-// ==========================================
-// LOAD REALTIME MESSAGES
-// ==========================================
+// ============================================================
+// REALTIME MESSAGES
+// ============================================================
 
 function startMessages(){
 
@@ -262,13 +389,14 @@ function startMessages(){
     }
 
 
-    messagesListenerStarted = true;
+    messagesListenerStarted =
+        true;
 
 
     const messagesRef =
         ref(
             db,
-            "rooms/general/messages"
+            `rooms/${ROOM_ID}/messages`
         );
 
 
@@ -287,8 +415,27 @@ function startMessages(){
             }
 
 
+            // Prevent duplicate rendering
+
+            if(
+                renderedMessages.has(
+                    snapshot.key
+                )
+            ){
+
+                return;
+
+            }
+
+
+            renderedMessages.add(
+                snapshot.key
+            );
+
+
             renderMessage(
-                message
+                message,
+                snapshot.key
             );
 
         }
@@ -297,11 +444,11 @@ function startMessages(){
 }
 
 
-// ==========================================
+// ============================================================
 // SEND MESSAGE
-// ==========================================
+// ============================================================
 
-composer.addEventListener(
+composer?.addEventListener(
     "submit",
     async event => {
 
@@ -316,7 +463,7 @@ composer.addEventListener(
 
 
         const text =
-            messageInput.value.trim();
+            messageInput?.value.trim();
 
 
         if(!text){
@@ -326,11 +473,19 @@ composer.addEventListener(
         }
 
 
+        if(text.length > 2000){
+
+            alert(
+                "Message is too long."
+            );
+
+            return;
+
+        }
+
+
         const username =
-            currentProfile?.username ||
-            currentUser.displayName ||
-            currentUser.email?.split("@")[0] ||
-            "User";
+            getUsername();
 
 
         try{
@@ -338,7 +493,7 @@ composer.addEventListener(
             const messagesRef =
                 ref(
                     db,
-                    "rooms/general/messages"
+                    `rooms/${ROOM_ID}/messages`
                 );
 
 
@@ -366,7 +521,12 @@ composer.addEventListener(
             );
 
 
-            messageInput.value = "";
+            messageInput.value =
+                "";
+
+
+            stopTyping();
+
 
             messageInput.focus();
 
@@ -375,9 +535,10 @@ composer.addEventListener(
         catch(error){
 
             console.error(
-                "Message error:",
+                "CHAPCY message error:",
                 error
             );
+
 
             alert(
                 "Message failed to send."
@@ -389,11 +550,273 @@ composer.addEventListener(
 );
 
 
-// ==========================================
-// RENDER MESSAGE
-// ==========================================
+// ============================================================
+// ENTER TO SEND
+// SHIFT + ENTER = NEW LINE
+// ============================================================
 
-function renderMessage(message){
+messageInput?.addEventListener(
+    "keydown",
+    event => {
+
+        if(
+            event.key === "Enter" &&
+            !event.shiftKey
+        ){
+
+            event.preventDefault();
+
+            composer?.requestSubmit();
+
+        }
+
+    }
+);
+
+
+// ============================================================
+// TYPING SYSTEM
+// ============================================================
+
+function setupTyping(){
+
+    if(!messageInput || !currentUser){
+
+        return;
+
+    }
+
+
+    messageInput.addEventListener(
+        "input",
+        () => {
+
+            if(
+                messageInput.value.trim()
+            ){
+
+                startTyping();
+
+            }
+            else{
+
+                stopTyping();
+
+            }
+
+        }
+    );
+
+}
+
+
+function startTyping(){
+
+    if(!currentUser){
+
+        return;
+
+    }
+
+
+    typingActive =
+        true;
+
+
+    const typingRef =
+        ref(
+            db,
+            `rooms/${ROOM_ID}/typing/${currentUser.uid}`
+        );
+
+
+    set(
+        typingRef,
+        {
+
+            uid:
+                currentUser.uid,
+
+            username:
+                getUsername(),
+
+            typing:
+                true,
+
+            updatedAt:
+                serverTimestamp()
+
+        }
+    );
+
+
+    clearTimeout(
+        typingTimeout
+    );
+
+
+    typingTimeout =
+        setTimeout(
+            stopTyping,
+            2500
+        );
+
+}
+
+
+function stopTyping(){
+
+    if(
+        !currentUser ||
+        !typingActive
+    ){
+
+        return;
+
+    }
+
+
+    typingActive =
+        false;
+
+
+    const typingRef =
+        ref(
+            db,
+            `rooms/${ROOM_ID}/typing/${currentUser.uid}`
+        );
+
+
+    remove(
+        typingRef
+    );
+
+}
+
+
+function watchTyping(){
+
+    const typingRoot =
+        ref(
+            db,
+            `rooms/${ROOM_ID}/typing`
+        );
+
+
+    onValue(
+        typingRoot,
+        snapshot => {
+
+            const people = [];
+
+
+            snapshot.forEach(
+                child => {
+
+                    const person =
+                        child.val();
+
+
+                    if(
+                        person &&
+                        person.uid !== currentUser?.uid &&
+                        person.typing === true
+                    ){
+
+                        people.push(
+                            person.username
+                        );
+
+                    }
+
+                }
+            );
+
+
+            if(!typingIndicator){
+
+                return;
+
+            }
+
+
+            if(!people.length){
+
+                typingIndicator
+                    .classList.remove("show");
+
+                return;
+
+            }
+
+
+            typingIndicator
+                .classList.add("show");
+
+
+            if(typingText){
+
+                if(people.length === 1){
+
+                    typingText.textContent =
+                        `${people[0]} is typing...`;
+
+                }
+                else if(people.length === 2){
+
+                    typingText.textContent =
+                        `${people[0]} and ${people[1]} are typing...`;
+
+                }
+                else{
+
+                    typingText.textContent =
+                        `${people.length} people are typing...`;
+
+                }
+
+            }
+
+        }
+    );
+
+}
+
+
+// Start typing watcher after auth
+
+onAuthStateChanged(
+    auth,
+    user => {
+
+        if(user){
+
+            setTimeout(
+                watchTyping,
+                500
+            );
+
+        }
+
+    }
+);
+
+
+// ============================================================
+// RENDER MESSAGE
+// ============================================================
+
+function renderMessage(
+    message,
+    messageId
+){
+
+    if(!messagesBox){
+
+        return;
+
+    }
+
 
     const wrapper =
         document.createElement("article");
@@ -413,9 +836,13 @@ function renderMessage(message){
         );
 
 
-    // ======================================
+    wrapper.dataset.messageId =
+        messageId || "";
+
+
+    // ========================================================
     // AVATAR
-    // ======================================
+    // ========================================================
 
     if(!mine){
 
@@ -428,12 +855,9 @@ function renderMessage(message){
 
 
         avatar.textContent =
-            (
-                message.username ||
-                "U"
-            )
-            .charAt(0)
-            .toUpperCase();
+            getInitial(
+                message.username
+            );
 
 
         wrapper.appendChild(
@@ -443,9 +867,9 @@ function renderMessage(message){
     }
 
 
-    // ======================================
+    // ========================================================
     // CONTENT
-    // ======================================
+    // ========================================================
 
     const content =
         document.createElement("div");
@@ -455,7 +879,9 @@ function renderMessage(message){
         "message-content";
 
 
+    // ========================================================
     // HEADER
+    // ========================================================
 
     const head =
         document.createElement("div");
@@ -502,7 +928,9 @@ function renderMessage(message){
     );
 
 
-    // TEXT
+    // ========================================================
+    // MESSAGE TEXT
+    // ========================================================
 
     const text =
         document.createElement("p");
@@ -512,14 +940,213 @@ function renderMessage(message){
         "message-text";
 
 
-    /*
-      textContent badala ya innerHTML
-      inalinda chat dhidi ya HTML injection.
-    */
+    // SECURITY:
+    // textContent prevents HTML injection.
 
     text.textContent =
-        message.text || "";
+        message.text ||
+        "";
 
+
+    // ========================================================
+    // MESSAGE FOOTER
+    // ========================================================
+
+    const footer =
+        document.createElement("div");
+
+
+    footer.className =
+        "message-footer";
+
+
+    // React button
+
+    const reactBtn =
+        document.createElement("button");
+
+
+    reactBtn.type =
+        "button";
+
+
+    reactBtn.className =
+        "message-action";
+
+
+    reactBtn.innerHTML =
+        "❤️";
+
+
+    reactBtn.title =
+        "React";
+
+
+    reactBtn.addEventListener(
+        "click",
+        () => {
+
+            reactBtn.classList.toggle(
+                "active"
+            );
+
+        }
+    );
+
+
+    // Copy button
+
+    const copyBtn =
+        document.createElement("button");
+
+
+    copyBtn.type =
+        "button";
+
+
+    copyBtn.className =
+        "message-action";
+
+
+    copyBtn.innerHTML =
+        "⧉";
+
+
+    copyBtn.title =
+        "Copy";
+
+
+    copyBtn.addEventListener(
+        "click",
+        async () => {
+
+            try{
+
+                await navigator.clipboard.writeText(
+                    message.text || ""
+                );
+
+
+                copyBtn.innerHTML =
+                    "✓";
+
+
+                setTimeout(
+                    () => {
+
+                        copyBtn.innerHTML =
+                            "⧉";
+
+                    },
+                    1200
+                );
+
+            }
+            catch(error){
+
+                console.error(
+                    error
+                );
+
+            }
+
+        }
+    );
+
+
+    footer.appendChild(
+        reactBtn
+    );
+
+
+    footer.appendChild(
+        copyBtn
+    );
+
+
+    // ========================================================
+    // DELETE BUTTON — OWN MESSAGES ONLY
+    // ========================================================
+
+    if(mine && messageId){
+
+        const deleteBtn =
+            document.createElement("button");
+
+
+        deleteBtn.type =
+            "button";
+
+
+        deleteBtn.className =
+            "message-action delete";
+
+
+        deleteBtn.innerHTML =
+            "🗑";
+
+
+        deleteBtn.title =
+            "Delete";
+
+
+        deleteBtn.addEventListener(
+            "click",
+            async () => {
+
+                const confirmed =
+                    confirm(
+                        "Delete this message?"
+                    );
+
+
+                if(!confirmed){
+
+                    return;
+
+                }
+
+
+                try{
+
+                    const messageRef =
+                        ref(
+                            db,
+                            `rooms/${ROOM_ID}/messages/${messageId}`
+                        );
+
+
+                    await remove(
+                        messageRef
+                    );
+
+
+                    wrapper.remove();
+
+                }
+                catch(error){
+
+                    console.error(
+                        "Delete error:",
+                        error
+                    );
+
+                }
+
+            }
+        );
+
+
+        footer.appendChild(
+            deleteBtn
+        );
+
+    }
+
+
+    // ========================================================
+    // BUILD MESSAGE
+    // ========================================================
 
     content.appendChild(
         head
@@ -528,6 +1155,11 @@ function renderMessage(message){
 
     content.appendChild(
         text
+    );
+
+
+    content.appendChild(
+        footer
     );
 
 
@@ -541,15 +1173,37 @@ function renderMessage(message){
     );
 
 
-    // ======================================
-    // AUTO SCROLL
-    // ======================================
+    // ========================================================
+    // PREMIUM ENTRY ANIMATION
+    // ========================================================
 
     requestAnimationFrame(
         () => {
 
-            messagesBox.scrollTop =
-                messagesBox.scrollHeight;
+            wrapper.classList.add(
+                "message-visible"
+            );
+
+        }
+    );
+
+
+    // ========================================================
+    // AUTO SCROLL
+    // ========================================================
+
+    requestAnimationFrame(
+        () => {
+
+            messagesBox.scrollTo({
+
+                top:
+                    messagesBox.scrollHeight,
+
+                behavior:
+                    "smooth"
+
+            });
 
         }
     );
@@ -557,9 +1211,220 @@ function renderMessage(message){
 }
 
 
-// ==========================================
-// TIME
-// ==========================================
+// ============================================================
+// EMOJI PICKER
+// ============================================================
+
+function setupEmojiPicker(){
+
+    if(!emojiBtn){
+
+        return;
+
+    }
+
+
+    emojiBtn.addEventListener(
+        "click",
+        event => {
+
+            event.stopPropagation();
+
+
+            if(!emojiPicker){
+
+                return;
+
+            }
+
+
+            emojiPicker.classList.toggle(
+                "show"
+            );
+
+
+            if(
+                emojiPicker.dataset.ready !==
+                "true"
+            ){
+
+                buildEmojiPicker();
+
+            }
+
+        }
+    );
+
+
+    document.addEventListener(
+        "click",
+        event => {
+
+            if(
+                emojiPicker &&
+                !emojiPicker.contains(event.target) &&
+                event.target !== emojiBtn
+            ){
+
+                emojiPicker.classList.remove(
+                    "show"
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+function buildEmojiPicker(){
+
+    if(!emojiPicker){
+
+        return;
+
+    }
+
+
+    emojiPicker.innerHTML =
+        "";
+
+
+    EMOJIS.forEach(
+        emoji => {
+
+            const button =
+                document.createElement("button");
+
+
+            button.type =
+                "button";
+
+
+            button.className =
+                "emoji-item";
+
+
+            button.textContent =
+                emoji;
+
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    const start =
+                        messageInput.selectionStart ||
+                        0;
+
+
+                    const end =
+                        messageInput.selectionEnd ||
+                        0;
+
+
+                    const value =
+                        messageInput.value;
+
+
+                    messageInput.value =
+                        value.slice(
+                            0,
+                            start
+                        ) +
+                        emoji +
+                        value.slice(
+                            end
+                        );
+
+
+                    const newPosition =
+                        start +
+                        emoji.length;
+
+
+                    messageInput.focus();
+
+
+                    messageInput.setSelectionRange(
+                        newPosition,
+                        newPosition
+                    );
+
+                }
+            );
+
+
+            emojiPicker.appendChild(
+                button
+            );
+
+        }
+    );
+
+
+    emojiPicker.dataset.ready =
+        "true";
+
+}
+
+
+// ============================================================
+// CHAT SEARCH
+// ============================================================
+
+function setupSearch(){
+
+    if(!searchInput){
+
+        return;
+
+    }
+
+
+    searchInput.addEventListener(
+        "input",
+        () => {
+
+            const query =
+                searchInput.value
+                    .trim()
+                    .toLowerCase();
+
+
+            const messages =
+                messagesBox?.querySelectorAll(
+                    ".chat-message"
+                );
+
+
+            messages?.forEach(
+                message => {
+
+                    const text =
+                        message.textContent
+                            .toLowerCase();
+
+
+                    message.style.display =
+                        !query ||
+                        text.includes(query)
+                        ? ""
+                        : "none";
+
+                }
+            );
+
+        }
+    );
+
+}
+
+
+// ============================================================
+// TIME FORMAT
+// ============================================================
 
 function formatTime(timestamp){
 
@@ -572,6 +1437,17 @@ function formatTime(timestamp){
 
     const date =
         new Date(timestamp);
+
+
+    if(
+        Number.isNaN(
+            date.getTime()
+        )
+    ){
+
+        return "...";
+
+    }
 
 
     return date.toLocaleTimeString(
@@ -590,18 +1466,82 @@ function formatTime(timestamp){
 }
 
 
-// ==========================================
+// ============================================================
 // LOGOUT
-// ==========================================
+// ============================================================
 
-logoutBtn.addEventListener(
+logoutBtn?.addEventListener(
     "click",
     async () => {
 
-        await signOut(auth);
+        try{
 
-        window.location.href =
-            "login.html";
+            if(currentUser){
+
+                const presenceRef =
+                    ref(
+                        db,
+                        "presence/" +
+                        currentUser.uid
+                    );
+
+
+                await remove(
+                    presenceRef
+                );
+
+            }
+
+
+            stopTyping();
+
+
+            await signOut(
+                auth
+            );
+
+
+            window.location.href =
+                "login.html";
+
+        }
+
+        catch(error){
+
+            console.error(
+                "Logout error:",
+                error
+            );
+
+        }
 
     }
+);
+
+
+// ============================================================
+// CLEANUP
+// ============================================================
+
+window.addEventListener(
+    "beforeunload",
+    () => {
+
+        stopTyping();
+
+    }
+);
+
+
+// ============================================================
+// CHAPCY V50 READY
+// ============================================================
+
+console.log(
+    "%c CHAPCY V50 PREMIUM CHAT ",
+    "background:#7437ff;color:white;font-size:16px;font-weight:bold;padding:8px 14px;border-radius:8px;"
+);
+
+console.log(
+    "Realtime chat engine loaded successfully."
 );
