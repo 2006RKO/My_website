@@ -1,76 +1,79 @@
-// ==========================================
-// CHAPCY REALTIME CHAT
-// ==========================================
+// ======================================================
+//                 CHAPCY REALTIME CHAT
+//                     APP.JS
+// ======================================================
+
+"use strict";
+
+
+// ======================================================
+// FIREBASE
+// ======================================================
 
 import {
     auth,
     db
-}
-from "./firebase.js";
+} from "./firebase.js";
 
 
 import {
     onAuthStateChanged,
     signOut
-}
-from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
 
 import {
     ref,
     push,
     set,
-    onChildAdded,
-    serverTimestamp,
     onValue,
-    onDisconnect
-}
-from "https://www.gstatic.com/firebasejs/12.18.0/firebase-database.js";
+    onChildAdded,
+    onChildChanged,
+    onDisconnect,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-database.js";
 
 
-// ==========================================
-// ELEMENTS
-// ==========================================
+// ======================================================
+// DOM ELEMENTS
+// ======================================================
 
 const messagesBox =
     document.getElementById("messages");
 
-
 const messageInput =
     document.getElementById("messageInput");
-
 
 const composer =
     document.getElementById("composer");
 
-
 const profileName =
     document.getElementById("profileName");
-
 
 const profileLetter =
     document.getElementById("profileLetter");
 
-
 const logoutBtn =
     document.getElementById("logoutBtn");
-
 
 const sideNav =
     document.getElementById("sideNav");
 
-
 const mobileOverlay =
     document.getElementById("mobileOverlay");
-
 
 const menuBtn =
     document.getElementById("menuBtn");
 
 
-// ==========================================
+// Optional online counter
+const onlineCount =
+    document.getElementById("onlineCount");
+
+
+// ======================================================
 // STATE
-// ==========================================
+// ======================================================
 
 let currentUser = null;
 
@@ -78,20 +81,16 @@ let currentProfile = null;
 
 let messagesListenerStarted = false;
 
+let presenceListenerStarted = false;
 
-// ==========================================
+
+// ======================================================
 // MOBILE MENU
-// ==========================================
+// ======================================================
 
 menuBtn?.addEventListener(
     "click",
-    () => {
-
-        sideNav.classList.add("open");
-
-        mobileOverlay.classList.add("show");
-
-    }
+    openMenu
 );
 
 
@@ -101,24 +100,39 @@ mobileOverlay?.addEventListener(
 );
 
 
-function closeMenu(){
+function openMenu(){
 
-    sideNav.classList.remove("open");
+    sideNav?.classList.add("open");
 
-    mobileOverlay.classList.remove("show");
+    mobileOverlay?.classList.add("show");
 
 }
 
 
-// ==========================================
+function closeMenu(){
+
+    sideNav?.classList.remove("open");
+
+    mobileOverlay?.classList.remove("show");
+
+}
+
+
+// ======================================================
 // AUTH STATE
-// ==========================================
+// ======================================================
 
 onAuthStateChanged(
     auth,
-    async user => {
+    user => {
+
+        // ------------------------------------------
+        // USER NOT LOGGED IN
+        // ------------------------------------------
 
         if(!user){
+
+            currentUser = null;
 
             window.location.href =
                 "login.html";
@@ -128,47 +142,15 @@ onAuthStateChanged(
         }
 
 
-        currentUser = user;
+        // ------------------------------------------
+        // USER LOGGED IN
+        // ------------------------------------------
+
+        currentUser =
+            user;
 
 
-        // ----------------------------------
-        // GET USER PROFILE
-        // ----------------------------------
-
-        const userRef =
-            ref(
-                db,
-                "users/" + user.uid
-            );
-
-
-        onValue(
-            userRef,
-            snapshot => {
-
-                currentProfile =
-                    snapshot.val() || {};
-
-
-                const username =
-                    currentProfile.username ||
-                    user.displayName ||
-                    user.email?.split("@")[0] ||
-                    "User";
-
-
-                profileName.textContent =
-                    username;
-
-
-                profileLetter.textContent =
-                    username
-                    .charAt(0)
-                    .toUpperCase();
-
-            }
-        );
-
+        loadUserProfile();
 
         setupPresence();
 
@@ -178,17 +160,155 @@ onAuthStateChanged(
 );
 
 
-// ==========================================
+// ======================================================
+// LOAD USER PROFILE
+// ======================================================
+
+function loadUserProfile(){
+
+    if(!currentUser){
+
+        return;
+
+    }
+
+
+    const userRef =
+        ref(
+            db,
+            "users/" +
+            currentUser.uid
+        );
+
+
+    onValue(
+        userRef,
+        snapshot => {
+
+            currentProfile =
+                snapshot.val() || {};
+
+
+            const username =
+                getCurrentUsername();
+
+
+            // --------------------------------------
+            // PROFILE NAME
+            // --------------------------------------
+
+            if(profileName){
+
+                profileName.textContent =
+                    username;
+
+            }
+
+
+            // --------------------------------------
+            // PROFILE LETTER
+            // --------------------------------------
+
+            if(profileLetter){
+
+                profileLetter.textContent =
+                    username
+                    .charAt(0)
+                    .toUpperCase();
+
+            }
+
+        },
+        error => {
+
+            console.error(
+                "Profile error:",
+                error
+            );
+
+        }
+    );
+
+}
+
+
+// ======================================================
+// GET CURRENT USERNAME
+// ======================================================
+
+function getCurrentUsername(){
+
+    if(
+        currentProfile?.username &&
+        currentProfile.username.trim()
+    ){
+
+        return currentProfile.username.trim();
+
+    }
+
+
+    if(
+        currentProfile?.name &&
+        currentProfile.name.trim()
+    ){
+
+        return currentProfile.name.trim();
+
+    }
+
+
+    if(
+        currentUser?.displayName &&
+        currentUser.displayName.trim()
+    ){
+
+        return currentUser.displayName.trim();
+
+    }
+
+
+    if(currentUser?.email){
+
+        return currentUser.email
+            .split("@")[0];
+
+    }
+
+
+    return "User";
+
+}
+
+
+// ======================================================
 // ONLINE PRESENCE
-// ==========================================
+// ======================================================
 
 function setupPresence(){
+
+    if(
+        !currentUser ||
+        presenceListenerStarted
+    ){
+
+        return;
+
+    }
+
+
+    presenceListenerStarted =
+        true;
+
+
+    const uid =
+        currentUser.uid;
+
 
     const presenceRef =
         ref(
             db,
-            "presence/" +
-            currentUser.uid
+            "presence/" + uid
         );
 
 
@@ -203,36 +323,39 @@ function setupPresence(){
         connectedRef,
         snapshot => {
 
-            if(
-                snapshot.val() !== true
-            ){
+            const connected =
+                snapshot.val();
+
+
+            if(connected !== true){
 
                 return;
 
             }
 
 
-            const username =
-                currentProfile?.username ||
-                currentUser.displayName ||
-                currentUser.email?.split("@")[0] ||
-                "User";
-
+            // --------------------------------------
+            // REMOVE PRESENCE WHEN USER LEAVES
+            // --------------------------------------
 
             onDisconnect(
                 presenceRef
             ).remove();
 
 
+            // --------------------------------------
+            // SET USER ONLINE
+            // --------------------------------------
+
             set(
                 presenceRef,
                 {
 
                     uid:
-                        currentUser.uid,
+                        uid,
 
                     username:
-                        username,
+                        getCurrentUsername(),
 
                     online:
                         true,
@@ -243,29 +366,118 @@ function setupPresence(){
                 }
             );
 
+        },
+        error => {
+
+            console.error(
+                "Presence error:",
+                error
+            );
+
         }
     );
 
 }
 
 
-// ==========================================
+// ======================================================
+// REALTIME ONLINE USERS
+// ======================================================
+
+const presenceRoot =
+    ref(
+        db,
+        "presence"
+    );
+
+
+onValue(
+    presenceRoot,
+    snapshot => {
+
+        if(!onlineCount){
+
+            return;
+
+        }
+
+
+        const users =
+            snapshot.val() || {};
+
+
+        let count =
+            0;
+
+
+        Object.values(users)
+            .forEach(user => {
+
+                if(
+                    user &&
+                    user.online === true
+                ){
+
+                    count++;
+
+                }
+
+            });
+
+
+        onlineCount.textContent =
+            count;
+
+    },
+    error => {
+
+        console.error(
+            "Online count error:",
+            error
+        );
+
+    }
+);
+
+
+// ======================================================
 // LOAD REALTIME MESSAGES
-// ==========================================
+// ======================================================
 
 function startMessages(){
 
-    if(messagesListenerStarted){
+    if(
+        messagesListenerStarted ||
+        !messagesBox
+    ){
+
         return;
+
     }
 
-    messagesListenerStarted = true;
+
+    messagesListenerStarted =
+        true;
+
+
+    // IMPORTANT:
+    // Your Firebase database uses:
+    //
+    // messages/
+    //
+    // NOT:
+    // rooms/general/messages
 
     const messagesRef =
         ref(
             db,
-            "rooms/general/messages"
+            "messages"
         );
+
+
+    // ----------------------------------------------
+    // EXISTING + NEW MESSAGES
+    // ----------------------------------------------
 
     onChildAdded(
         messagesRef,
@@ -274,29 +486,83 @@ function startMessages(){
             const message =
                 snapshot.val();
 
+
             if(!message){
+
                 return;
+
             }
+
 
             renderMessage(
                 message,
                 snapshot.key
             );
 
+        },
+        error => {
+
+            console.error(
+                "Message listener error:",
+                error
+            );
+
+        }
+    );
+
+
+    // ----------------------------------------------
+    // UPDATE MESSAGE
+    // ----------------------------------------------
+
+    onChildChanged(
+        messagesRef,
+        snapshot => {
+
+            const message =
+                snapshot.val();
+
+
+            if(!message){
+
+                return;
+
+            }
+
+
+            updateMessage(
+                message,
+                snapshot.key
+            );
+
+        },
+        error => {
+
+            console.error(
+                "Message update error:",
+                error
+            );
+
         }
     );
 
 }
-// ==========================================
-// SEND MESSAGE
-// ==========================================
 
-composer.addEventListener(
+
+// ======================================================
+// SEND MESSAGE
+// ======================================================
+
+composer?.addEventListener(
     "submit",
     async event => {
 
         event.preventDefault();
 
+
+        // ------------------------------------------
+        // CHECK LOGIN
+        // ------------------------------------------
 
         if(!currentUser){
 
@@ -305,8 +571,13 @@ composer.addEventListener(
         }
 
 
+        // ------------------------------------------
+        // GET TEXT
+        // ------------------------------------------
+
         const text =
-            messageInput.value.trim();
+            messageInput?.value
+            ?.trim();
 
 
         if(!text){
@@ -316,25 +587,40 @@ composer.addEventListener(
         }
 
 
+        // ------------------------------------------
+        // USERNAME
+        // ------------------------------------------
+
         const username =
-            currentProfile?.username ||
-            currentUser.displayName ||
-            currentUser.email?.split("@")[0] ||
-            "User";
+            getCurrentUsername();
 
 
         try{
 
+            // --------------------------------------
+            // REAL FIREBASE PATH
+            // --------------------------------------
+
             const messagesRef =
                 ref(
                     db,
-                    "rooms/general/messages"
+                    "messages"
                 );
 
 
-            const newMessage =
-                push(messagesRef);
+            // --------------------------------------
+            // CREATE MESSAGE ID
+            // --------------------------------------
 
+            const newMessage =
+                push(
+                    messagesRef
+                );
+
+
+            // --------------------------------------
+            // SAVE MESSAGE
+            // --------------------------------------
 
             await set(
                 newMessage,
@@ -343,34 +629,65 @@ composer.addEventListener(
                     uid:
                         currentUser.uid,
 
-                    username:
+                    name:
                         username,
 
                     text:
                         text,
 
-                    createdAt:
+                    time:
                         serverTimestamp()
 
                 }
             );
 
 
-            messageInput.value = "";
+            // --------------------------------------
+            // CLEAR INPUT
+            // --------------------------------------
+
+            messageInput.value =
+                "";
+
 
             messageInput.focus();
 
         }
-
         catch(error){
 
             console.error(
-                "Message error:",
+                "================================"
+            );
+
+            console.error(
+                "CHAPCY FIREBASE MESSAGE ERROR"
+            );
+
+            console.error(
+                "Code:",
+                error.code
+            );
+
+            console.error(
+                "Message:",
+                error.message
+            );
+
+            console.error(
+                "Full error:",
                 error
             );
 
+            console.error(
+                "================================"
+            );
+
+
             alert(
-                "Message failed to send."
+                "Firebase Error\n\n" +
+                error.code +
+                "\n\n" +
+                error.message
             );
 
         }
@@ -379,19 +696,61 @@ composer.addEventListener(
 );
 
 
-// ==========================================
+// ======================================================
 // RENDER MESSAGE
-// ==========================================
+// ======================================================
 
-function renderMessage(message){
+function renderMessage(
+    message,
+    messageId
+){
+
+    if(!messagesBox){
+
+        return;
+
+    }
+
+
+    // ----------------------------------------------
+    // PREVENT DUPLICATES
+    // ----------------------------------------------
+
+    if(
+        messageId &&
+        document.querySelector(
+            `[data-message-id="${messageId}"]`
+        )
+    ){
+
+        return;
+
+    }
+
 
     const wrapper =
-        document.createElement("article");
+        document.createElement(
+            "article"
+        );
 
+
+    // ----------------------------------------------
+    // MESSAGE ID
+    // ----------------------------------------------
+
+    wrapper.dataset.messageId =
+        messageId || "";
+
+
+    // ----------------------------------------------
+    // CHECK MY MESSAGE
+    // ----------------------------------------------
 
     const mine =
+        message.uid &&
+        currentUser &&
         message.uid ===
-        currentUser?.uid;
+        currentUser.uid;
 
 
     wrapper.className =
@@ -403,25 +762,30 @@ function renderMessage(message){
         );
 
 
-    // ======================================
-    // AVATAR
-    // ======================================
+    // =================================================
+    // AVATAR FOR OTHER USERS
+    // =================================================
 
     if(!mine){
 
         const avatar =
-            document.createElement("div");
+            document.createElement(
+                "div"
+            );
 
 
         avatar.className =
             "message-avatar";
 
 
+        const username =
+            message.name ||
+            message.username ||
+            "User";
+
+
         avatar.textContent =
-            (
-                message.username ||
-                "U"
-            )
+            username
             .charAt(0)
             .toUpperCase();
 
@@ -433,30 +797,42 @@ function renderMessage(message){
     }
 
 
-    // ======================================
-    // CONTENT
-    // ======================================
+    // =================================================
+    // MESSAGE CONTENT
+    // =================================================
 
     const content =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
 
     content.className =
         "message-content";
 
 
+    // =================================================
     // HEADER
+    // =================================================
 
     const head =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
 
     head.className =
         "message-head";
 
 
+    // ----------------------------------------------
+    // NAME
+    // ----------------------------------------------
+
     const name =
-        document.createElement("span");
+        document.createElement(
+            "span"
+        );
 
 
     name.className =
@@ -464,21 +840,32 @@ function renderMessage(message){
 
 
     name.textContent =
+        message.name ||
         message.username ||
         "User";
 
 
+    // ----------------------------------------------
+    // TIME
+    // ----------------------------------------------
+
     const time =
-        document.createElement("time");
+        document.createElement(
+            "time"
+        );
 
 
     time.className =
         "message-time";
 
 
+    time.dataset.time =
+        "true";
+
+
     time.textContent =
         formatTime(
-            message.createdAt
+            message.time
         );
 
 
@@ -492,24 +879,31 @@ function renderMessage(message){
     );
 
 
-    // TEXT
+    // =================================================
+    // MESSAGE TEXT
+    // =================================================
 
     const text =
-        document.createElement("p");
+        document.createElement(
+            "p"
+        );
 
 
     text.className =
         "message-text";
 
 
-    /*
-      textContent badala ya innerHTML
-      inalinda chat dhidi ya HTML injection.
-    */
+    // SECURITY:
+    // textContent prevents HTML injection.
 
     text.textContent =
-        message.text || "";
+        message.text ||
+        "";
 
+
+    // =================================================
+    // BUILD MESSAGE
+    // =================================================
 
     content.appendChild(
         head
@@ -531,48 +925,213 @@ function renderMessage(message){
     );
 
 
-    // ======================================
-    // AUTO SCROLL
-    // ======================================
+    // =================================================
+    // BUBBLE ANIMATION
+    // =================================================
 
     requestAnimationFrame(
         () => {
 
-            messagesBox.scrollTop =
-                messagesBox.scrollHeight;
+            wrapper.classList.add(
+                "show"
+            );
 
         }
     );
 
+
+    // =================================================
+    // AUTO SCROLL
+    // =================================================
+
+    scrollMessages();
+
 }
 
 
-// ==========================================
-// TIME
-// ==========================================
+// ======================================================
+// UPDATE MESSAGE
+// ======================================================
 
-function formatTime(timestamp){
+function updateMessage(
+    message,
+    messageId
+){
 
-    if(!timestamp){
+    if(!messageId){
+
+        return;
+
+    }
+
+
+    const wrapper =
+        document.querySelector(
+            `[data-message-id="${messageId}"]`
+        );
+
+
+    if(!wrapper){
+
+        // Message wasn't rendered yet.
+        renderMessage(
+            message,
+            messageId
+        );
+
+        return;
+
+    }
+
+
+    // ----------------------------------------------
+    // UPDATE TIME
+    // ----------------------------------------------
+
+    const time =
+        wrapper.querySelector(
+            ".message-time"
+        );
+
+
+    if(time){
+
+        time.textContent =
+            formatTime(
+                message.time
+            );
+
+    }
+
+
+    // ----------------------------------------------
+    // UPDATE TEXT
+    // ----------------------------------------------
+
+    const text =
+        wrapper.querySelector(
+            ".message-text"
+        );
+
+
+    if(text){
+
+        text.textContent =
+            message.text ||
+            "";
+
+    }
+
+}
+
+
+// ======================================================
+// FORMAT FIREBASE TIME
+// ======================================================
+
+function formatTime(value){
+
+    // ----------------------------------------------
+    // NO TIME YET
+    // ----------------------------------------------
+
+    if(
+        value === null ||
+        value === undefined
+    ){
 
         return "...";
 
     }
 
 
-    const date =
-        new Date(timestamp);
+    // ----------------------------------------------
+    // OLD DATABASE TIME
+    //
+    // Example:
+    // "5:57:30 PM"
+    // ----------------------------------------------
+
+    if(
+        typeof value ===
+        "string"
+    ){
+
+        return value;
+
+    }
 
 
-    return date.toLocaleTimeString(
-        [],
-        {
+    // ----------------------------------------------
+    // FIREBASE SERVER TIMESTAMP
+    // ----------------------------------------------
 
-            hour:
-                "2-digit",
+    if(
+        typeof value ===
+        "number"
+    ){
 
-            minute:
-                "2-digit"
+        const date =
+            new Date(value);
+
+
+        if(
+            Number.isNaN(
+                date.getTime()
+            )
+        ){
+
+            return "...";
+
+        }
+
+
+        return date.toLocaleTimeString(
+            [],
+            {
+
+                hour:
+                    "2-digit",
+
+                minute:
+                    "2-digit"
+
+            }
+        );
+
+    }
+
+
+    return "...";
+
+}
+
+
+// ======================================================
+// AUTO SCROLL
+// ======================================================
+
+function scrollMessages(){
+
+    if(!messagesBox){
+
+        return;
+
+    }
+
+
+    requestAnimationFrame(
+        () => {
+
+            messagesBox.scrollTo({
+
+                top:
+                    messagesBox.scrollHeight,
+
+                behavior:
+                    "smooth"
+
+            });
 
         }
     );
@@ -580,18 +1139,51 @@ function formatTime(timestamp){
 }
 
 
-// ==========================================
+// ======================================================
 // LOGOUT
-// ==========================================
+// ======================================================
 
-logoutBtn.addEventListener(
+logoutBtn?.addEventListener(
     "click",
     async () => {
 
-        await signOut(auth);
+        try{
 
-        window.location.href =
-            "login.html";
+            if(currentUser){
+
+                const presenceRef =
+                    ref(
+                        db,
+                        "presence/" +
+                        currentUser.uid
+                    );
+
+
+                await set(
+                    presenceRef,
+                    null
+                );
+
+            }
+
+
+            await signOut(
+                auth
+            );
+
+
+            window.location.href =
+                "login.html";
+
+        }
+        catch(error){
+
+            console.error(
+                "Logout error:",
+                error
+            );
+
+        }
 
     }
 );
