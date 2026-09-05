@@ -3898,3 +3898,548 @@ font-size:12px;
         bottom:14px;
     }
 }
+/* =====================================================
+   CHAPCY PROFILE EDITOR — V9 RESPONSIVE
+===================================================== */
+
+.profile{
+    position:relative;
+    width:64px;
+    height:64px;
+
+    padding:3px;
+
+    flex-shrink:0;
+
+    border:none;
+    border-radius:50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #00eaff,
+            #6540ff,
+            #ff00dd
+        );
+
+    cursor:pointer;
+
+    overflow:visible;
+
+    box-shadow:
+        0 0 20px rgba(0,210,255,.38);
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+.profile:hover{
+    transform:scale(1.06);
+
+    box-shadow:
+        0 0 25px rgba(0,220,255,.55),
+        0 0 45px rgba(120,0,255,.25);
+}
+
+.profile:active{
+    transform:scale(.92);
+}
+
+.profile img{
+    width:100%;
+    height:100%;
+
+    display:block;
+
+    object-fit:cover;
+
+    border-radius:50%;
+
+    border:3px solid #07102c;
+
+    background:#0b1230;
+}
+
+
+/* =====================================================
+   ONLINE DOT
+===================================================== */
+
+.profile .online-dot{
+    position:absolute;
+
+    right:2px;
+    bottom:4px;
+
+    width:13px;
+    height:13px;
+
+    margin:0;
+
+    border-radius:50%;
+
+    background:#00ff76;
+
+    border:2px solid #08132c;
+
+    box-shadow:
+        0 0 10px #00ff76;
+}
+
+
+/* =====================================================
+   PROFILE MODAL
+===================================================== */
+
+.profile-modal{
+
+    position:fixed;
+
+    inset:0;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:20px;
+
+    z-index:99999;
+
+    opacity:0;
+
+    visibility:hidden;
+
+    pointer-events:none;
+
+    transition:
+        opacity .25s ease,
+        visibility .25s ease;
+}
+
+
+.profile-modal.show{
+
+    opacity:1;
+
+    visibility:visible;
+
+    pointer-events:auto;
+}
+
+
+/* =====================================================
+   BACKDROP
+===================================================== */
+
+.profile-backdrop{
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+        rgba(0,0,0,.75);
+
+    backdrop-filter:blur(10px);
+
+    -webkit-backdrop-filter:blur(10px);
+}
+
+
+/* =====================================================
+   EDIT PROFILE BOX
+===================================================== */
+
+.profile-editor{
+
+    width:100%;
+
+    max-width:430px;
+
+    max-height:90vh;
+
+    position:relative;
+
+    z-index:2;
+
+    overflow-y:auto;
+
+    padding:25px;
+
+    border-radius:28px;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            rgba(12,18,50,.98),
+            rgba(4,6,25,.99)
+        );
+
+    border:
+        1px solid
+        rgba(0,220,255,.18);
+
+    box-shadow:
+
+        0 30px 100px
+        rgba(0,0,0,.65),
+
+        0 0 45px
+        rgba(90,0,255,.20);
+
+    transform:
+        translateY(25px)
+        scale(.96);
+
+    transition:
+        transform .3s ease;
+}
+
+
+.profile-modal.show
+.profile-editor{
+
+    transform:
+        translateY(0)
+        scale(1);
+}
+
+
+/* =====================================================
+   CLOSE BUTTON
+===================================================== */
+
+.profile-close{
+
+    position:absolute;
+
+    top:15px;
+    right:15px;
+
+    width:38px;
+    height:38px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:
+        rgba(255,255,255,.06);
+
+    color:
+        rgba(255,255,255,.75);
+
+    font-size:17px;
+
+    cursor:pointer;
+
+    transition:.25s ease;
+}
+
+.profile-close:hover{
+
+    background:
+        rgba(255,50,100,.15);
+
+    color:#ff6282;
+
+    transform:rotate(90deg);
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.profile-editor-header{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    margin-bottom:25px;
+}
+
+.profile-editor-icon{
+
+    width:46px;
+    height:46px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    flex-shrink:0;
+
+    border-radius:14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #6428ff,
+            #00cfff
+        );
+
+    color:#fff;
+
+    font-size:18px;
+
+    box-shadow:
+        0 0 25px
+        rgba(0,210,255,.25);
+}
+
+.profile-editor-header h2{
+
+    margin:0;
+
+    color:#fff;
+
+    font-size:20px;
+
+    font-weight:800;
+}
+
+.profile-editor-header p{
+
+    margin:3px 0 0;
+
+    color:
+        rgba(255,255,255,.40);
+
+    font-size:10px;
+}
+
+
+/* =====================================================
+   PROFILE PHOTO
+===================================================== */
+
+.profile-photo-editor{
+
+    text-align:center;
+
+    margin-bottom:25px;
+}
+
+.profile-photo-wrap{
+
+    width:110px;
+    height:110px;
+
+    position:relative;
+
+    margin:auto;
+}
+
+.profile-photo-wrap img{
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    display:block;
+
+    border-radius:50%;
+
+    border:
+        3px solid
+        rgba(0,220,255,.45);
+
+    box-shadow:
+
+        0 0 25px
+        rgba(0,210,255,.20),
+
+        0 15px 40px
+        rgba(0,0,0,.45);
+}
+
+
+/* =====================================================
+   CAMERA BUTTON
+===================================================== */
+
+.change-photo-btn{
+
+    position:absolute;
+
+    right:-2px;
+    bottom:2px;
+
+    width:38px;
+    height:38px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #6b28ff,
+            #00cfff
+        );
+
+    color:#fff;
+
+    border:
+        3px solid
+        #070a24;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 0 20px
+        rgba(0,210,255,.35);
+
+    transition:.25s ease;
+}
+
+.change-photo-btn:hover{
+
+    transform:scale(1.12);
+}
+
+.change-photo-btn:active{
+
+    transform:scale(.90);
+}
+
+
+/* =====================================================
+   PHOTO TEXT
+===================================================== */
+
+.profile-photo-editor h3{
+
+    margin-top:14px;
+
+    color:#fff;
+
+    font-size:16px;
+
+    font-weight:700;
+}
+
+.profile-photo-editor p{
+
+    margin-top:4px;
+
+    color:
+        rgba(255,255,255,.35);
+
+    font-size:9px;
+}
+
+
+/* =====================================================
+   FORM
+===================================================== */
+
+.profile-form{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+}
+
+.profile-form label{
+
+    margin-top:7px;
+
+    color:
+        rgba(255,255,255,.65);
+
+    font-size:10px;
+
+    font-weight:600;
+}
+
+
+/* =====================================================
+   INPUT
+===================================================== */
+
+.profile-input{
+
+    min-height:48px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:0 14px;
+
+    border-radius:14px;
+
+    background:
+        rgba(255,255,255,.045);
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
+    transition:.25s ease;
+}
+
+.profile-input:focus-within{
+
+    border-color:
+        rgba(0,220,255,.55);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(0,210,255,.07),
+
+        0 0 20px
+        rgba(0,210,255,.08);
+}
+
+.profile-input > i{
+
+    color:
+        rgba(0,220,255,.55);
+
+    font-size:13px;
+}
+
+.profile-input input,
+.profile-input textarea{
+
+    width:100%;
+
+    border:none;
+
+    outline:none;
+
+    background:transparent;
+
+    color:#fff;
+
+    font-family:'Poppins',sans-serif;
+
+    font-size:12px;
+}
+
+.profile
