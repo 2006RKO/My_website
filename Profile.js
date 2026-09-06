@@ -1,411 +1,830 @@
-/* =====================================================
-   CHAPCY PROFILE
-   REAL FIREBASE PROFILE SYSTEM
-===================================================== */
+/* =========================================================
+CHAPCY V50
+COMPLETE PROFILE SYSTEM
+Firebase Auth + Firestore
+========================================================= */
+
+"use strict";
+
+/* =========================================================
+FIREBASE IMPORTS
+========================================================= */
 
 import {
-    initializeApp
-} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
-
-
-import {
-    getAuth,
-    onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
-
+initializeApp
+} from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
 
 import {
-    getDatabase,
-    ref,
-    get,
-    update
-} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-database.js";
-
+getAuth,
+onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
 
 import {
-    getStorage,
-    ref as storageRef,
-    uploadBytes,
-    getDownloadURL
-} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-storage.js";
+getFirestore,
+doc,
+getDoc,
+setDoc,
+serverTimestamp
+} from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
 
-
-/* =====================================================
-   FIREBASE CONFIG
-===================================================== */
+/* =========================================================
+FIREBASE CONFIG
+========================================================= */
 
 const firebaseConfig = {
 
-    apiKey:
-        "AIzaSyDIID2LpzjLiqaLeLJKgp-Vd7tNIyN-M1k",
+apiKey:
+    "AIzaSyDIID2LpzjLiqaLeLJKgp-Vd7tNIyN-M1k",
 
-    authDomain:
-        "rko-website-design-2f792.firebaseapp.com",
+authDomain:
+    "rko-website-design-2f792.firebaseapp.com",
 
-    databaseURL:
-        "https://rko-website-design-2f792-default-rtdb.firebaseio.com",
+databaseURL:
+    "https://rko-website-design-2f792-default-rtdb.firebaseio.com",
 
-    projectId:
-        "rko-website-design-2f792",
+projectId:
+    "rko-website-design-2f792",
 
-    storageBucket:
-        "rko-website-design-2f792.firebasestorage.app",
+storageBucket:
+    "rko-website-design-2f792.firebasestorage.app",
 
-    messagingSenderId:
-        "782567629866",
+messagingSenderId:
+    "782567629866",
 
-    appId:
-        "1:782567629866:web:d6d80d454d0653ea8b4f53",
+appId:
+    "1:782567629866:web:d6d80d454d0653ea8b4f53",
 
-    measurementId:
-        "G-KQ1EKYE7E7"
+measurementId:
+    "G-KQ1EKYE7E7"
 
 };
 
+/* =========================================================
+INITIALIZE FIREBASE
+========================================================= */
 
-/* =====================================================
-   INITIALIZE FIREBASE
-===================================================== */
+const app =
+initializeApp(firebaseConfig);
 
-const app = initializeApp(firebaseConfig);
+const auth =
+getAuth(app);
 
-const auth = getAuth(app);
+const db =
+getFirestore(app);
 
-const db = getDatabase(app);
-
-const storage = getStorage(app);
-
-
-/* =====================================================
-   ELEMENTS
-===================================================== */
-
-const profileForm =
-    document.getElementById("profileForm");
-
-const fullNameInput =
-    document.getElementById("fullName");
-
-const usernameInput =
-    document.getElementById("username");
-
-const bioInput =
-    document.getElementById("bio");
-
-const phoneInput =
-    document.getElementById("phone");
-
-const emailInput =
-    document.getElementById("email");
-
-const profileImage =
-    document.getElementById("profileImage");
-
-const profileDisplayName =
-    document.getElementById("profileDisplayName");
-
-const profileUsername =
-    document.getElementById("profileUsername");
-
-const changePhotoBtn =
-    document.getElementById("changePhotoBtn");
-
-const profilePhotoInput =
-    document.getElementById("profilePhotoInput");
-
-const bioCounter =
-    document.getElementById("bioCounter");
-
-const profileMessage =
-    document.getElementById("profileMessage");
-
-const saveProfileBtn =
-    document.getElementById("saveProfileBtn");
-
-const saveText =
-    document.getElementById("saveText");
-
-const saveLoader =
-    document.getElementById("saveLoader");
+/* =========================================================
+ELEMENTS
+========================================================= */
 
 const backBtn =
-    document.getElementById("backBtn");
+document.getElementById("backBtn");
 
+const profileForm =
+document.getElementById("profileForm");
 
-/* =====================================================
-   VARIABLES
-===================================================== */
+const profileImage =
+document.getElementById("profileImage");
+
+const changePhotoBtn =
+document.getElementById("changePhotoBtn");
+
+const profilePhotoInput =
+document.getElementById("profilePhotoInput");
+
+const profileDisplayName =
+document.getElementById("profileDisplayName");
+
+const profileUsername =
+document.getElementById("profileUsername");
+
+const fullName =
+document.getElementById("fullName");
+
+const username =
+document.getElementById("username");
+
+const bio =
+document.getElementById("bio");
+
+const bioCounter =
+document.getElementById("bioCounter");
+
+const phone =
+document.getElementById("phone");
+
+const email =
+document.getElementById("email");
+
+const saveProfileBtn =
+document.getElementById("saveProfileBtn");
+
+const saveText =
+document.getElementById("saveText");
+
+const saveLoader =
+document.getElementById("saveLoader");
+
+const profileMessage =
+document.getElementById("profileMessage");
+
+/* =========================================================
+VARIABLES
+========================================================= */
 
 let currentUser = null;
 
 let selectedPhoto = null;
 
-let currentPhotoURL = "";
+/* =========================================================
+DEFAULT PROFILE IMAGE
+========================================================= */
+
+const defaultAvatar =
+"file_00000000b0d8820a998b33ad9cf233cb.png";
+
+/* =========================================================
+MESSAGE
+========================================================= */
+
+function showMessage(
+message,
+type = "info"
+) {
+
+if (!profileMessage) return;
 
 
-/* =====================================================
-   BACK BUTTON
-===================================================== */
-
-backBtn.addEventListener("click", () => {
-
-    window.location.href = "Index.html";
-
-});
+profileMessage.textContent =
+    message;
 
 
-/* =====================================================
-   BIO COUNTER
-===================================================== */
+profileMessage.className =
+    `profile-message ${type}`;
 
-bioInput.addEventListener("input", () => {
+}
 
-    bioCounter.textContent =
-        `${bioInput.value.length}/150`;
+/* =========================================================
+CLEAR MESSAGE
+========================================================= */
 
-});
+function clearMessage() {
 
-
-/* =====================================================
-   PHOTO BUTTON
-===================================================== */
-
-changePhotoBtn.addEventListener("click", () => {
-
-    profilePhotoInput.click();
-
-});
+if (!profileMessage) return;
 
 
-/* =====================================================
-   PHOTO SELECT
-===================================================== */
+profileMessage.textContent =
+    "";
+
+
+profileMessage.className =
+    "profile-message";
+
+}
+
+/* =========================================================
+BIO COUNTER
+========================================================= */
+
+function updateBioCounter() {
+
+if (!bio || !bioCounter) return;
+
+
+const length =
+    bio.value.length;
+
+
+bioCounter.textContent =
+    `${length}/150`;
+
+
+/* CHANGE COLOR WHEN NEAR LIMIT */
+
+if (length >= 135) {
+
+    bioCounter.style.color =
+        "#f59e0b";
+
+} else {
+
+    bioCounter.style.color =
+        "";
+
+}
+
+
+if (length >= 150) {
+
+    bioCounter.style.color =
+        "#ef4444";
+
+}
+
+}
+
+/* =========================================================
+BIO EVENT
+========================================================= */
+
+if (bio) {
+
+bio.addEventListener(
+    "input",
+    updateBioCounter
+);
+
+}
+
+/* =========================================================
+PHOTO BUTTON
+========================================================= */
+
+if (
+changePhotoBtn &&
+profilePhotoInput
+) {
+
+changePhotoBtn.addEventListener(
+    "click",
+    () => {
+
+        profilePhotoInput.click();
+
+    }
+);
+
+}
+
+/* =========================================================
+PHOTO SELECT
+========================================================= */
+
+if (profilePhotoInput) {
 
 profilePhotoInput.addEventListener(
     "change",
     event => {
 
         const file =
-            event.target.files[0];
+            event.target.files?.[0];
+
 
         if (!file) return;
 
 
-        if (!file.type.startsWith("image/")) {
+        /* CHECK FILE TYPE */
+
+        if (
+            !file.type.startsWith(
+                "image/"
+            )
+        ) {
 
             showMessage(
-                "Please select an image.",
+                "Please select a valid image.",
                 "error"
             );
 
+            profilePhotoInput.value =
+                "";
+
             return;
 
         }
 
 
-        if (file.size > 5 * 1024 * 1024) {
+        /* CHECK FILE SIZE */
+
+        if (
+            file.size >
+            5 * 1024 * 1024
+        ) {
 
             showMessage(
-                "Image must be less than 5MB.",
+                "Image must be smaller than 5MB.",
                 "error"
             );
 
-            return;
-
-        }
-
-
-        selectedPhoto = file;
-
-
-        const previewURL =
-            URL.createObjectURL(file);
-
-
-        profileImage.src =
-            previewURL;
-
-    }
-);
-
-
-/* =====================================================
-   AUTH STATE
-===================================================== */
-
-onAuthStateChanged(
-    auth,
-    async user => {
-
-        if (!user) {
-
-            showMessage(
-                "Please login to edit your profile.",
-                "error"
-            );
-
-            setTimeout(() => {
-
-                window.location.href =
-                    "Mychatregister.html";
-
-            }, 1800);
+            profilePhotoInput.value =
+                "";
 
             return;
 
         }
 
 
-        currentUser = user;
+        selectedPhoto =
+            file;
 
 
-        emailInput.value =
-            user.email || "";
+        /* CREATE PREVIEW */
+
+        const reader =
+            new FileReader();
 
 
-        await loadProfile(user.uid);
+        reader.onload =
+            () => {
 
-    }
-);
+                profileImage.src =
+                    reader.result;
 
-
-/* =====================================================
-   LOAD PROFILE
-===================================================== */
-
-async function loadProfile(uid) {
-
-    try {
-
-        const userRef =
-            ref(db, `users/${uid}`);
-
-        const snapshot =
-            await get(userRef);
+            };
 
 
-        if (!snapshot.exists()) {
-
-            profileDisplayName.textContent =
-                "CHAPCY User";
-
-            profileUsername.textContent =
-                "@username";
-
-            return;
-
-        }
-
-
-        const data =
-            snapshot.val();
-
-
-        fullNameInput.value =
-            data.fullName || data.name || "";
-
-
-        usernameInput.value =
-            data.username || "";
-
-
-        bioInput.value =
-            data.bio || "";
-
-
-        phoneInput.value =
-            data.phone || "";
-
-
-        currentPhotoURL =
-            data.photoURL ||
-            data.profileImage ||
-            "";
-
-
-        if (currentPhotoURL) {
-
-            profileImage.src =
-                currentPhotoURL;
-
-        }
-
-
-        updateProfilePreview();
-
-        updateBioCounter();
-
-    } catch(error) {
-
-        console.error(
-            "PROFILE LOAD ERROR:",
-            error
+        reader.readAsDataURL(
+            file
         );
 
 
         showMessage(
-            "Unable to load your profile.",
-            "error"
+            "Profile picture selected. Save your profile to apply it.",
+            "info"
         );
 
     }
+);
 
 }
 
+/* =========================================================
+COMPRESS IMAGE
+========================================================= */
 
-/* =====================================================
-   PROFILE PREVIEW
-===================================================== */
+function compressImage(
+file,
+maxWidth = 700,
+quality = 0.80
+) {
+
+return new Promise(
+    (resolve, reject) => {
+
+        const reader =
+            new FileReader();
+
+
+        reader.onload =
+            event => {
+
+                const image =
+                    new Image();
+
+
+                image.onload =
+                    () => {
+
+                        let width =
+                            image.width;
+
+                        let height =
+                            image.height;
+
+
+                        /* RESIZE */
+
+                        if (
+                            width >
+                            maxWidth
+                        ) {
+
+                            height =
+                                height *
+                                (
+                                    maxWidth /
+                                    width
+                                );
+
+                            width =
+                                maxWidth;
+
+                        }
+
+
+                        const canvas =
+                            document.createElement(
+                                "canvas"
+                            );
+
+
+                        canvas.width =
+                            width;
+
+                        canvas.height =
+                            height;
+
+
+                        const ctx =
+                            canvas.getContext(
+                                "2d"
+                            );
+
+
+                        ctx.drawImage(
+                            image,
+                            0,
+                            0,
+                            width,
+                            height
+                        );
+
+
+                        canvas.toBlob(
+                            blob => {
+
+                                if (!blob) {
+
+                                    reject(
+                                        new Error(
+                                            "Image compression failed."
+                                        )
+                                    );
+
+                                    return;
+
+                                }
+
+
+                                resolve(
+                                    blob
+                                );
+
+                            },
+                            "image/jpeg",
+                            quality
+                        );
+
+                    };
+
+
+                image.onerror =
+                    () => {
+
+                        reject(
+                            new Error(
+                                "Unable to read image."
+                            )
+                        );
+
+                    };
+
+
+                image.src =
+                    event.target.result;
+
+            };
+
+
+        reader.onerror =
+            () => {
+
+                reject(
+                    new Error(
+                        "Unable to load image."
+                    )
+                );
+
+            };
+
+
+        reader.readAsDataURL(
+            file
+        );
+
+    }
+);
+
+}
+
+/* =========================================================
+BLOB → BASE64
+========================================================= */
+
+function blobToBase64(blob) {
+
+return new Promise(
+    (resolve, reject) => {
+
+        const reader =
+            new FileReader();
+
+
+        reader.onloadend =
+            () => {
+
+                resolve(
+                    reader.result
+                );
+
+            };
+
+
+        reader.onerror =
+            reject;
+
+
+        reader.readAsDataURL(
+            blob
+        );
+
+    }
+);
+
+}
+
+/* =========================================================
+CLEAN USERNAME
+========================================================= */
+
+function cleanUsername(
+value
+) {
+
+return value
+    .trim()
+    .replace(
+        /^@+/,
+        ""
+    )
+    .replace(
+        /\s+/g,
+        ""
+    )
+    .replace(
+        /[^a-zA-Z0-9._-]/g,
+        ""
+    )
+    .toLowerCase();
+
+}
+
+/* =========================================================
+UPDATE PROFILE PREVIEW
+========================================================= */
 
 function updateProfilePreview() {
 
-    const name =
-        fullNameInput.value.trim();
+const name =
+    fullName?.value.trim() ||
+    "CHAPCY User";
 
 
-    const username =
-        usernameInput.value.trim();
+const user =
+    cleanUsername(
+        username?.value || ""
+    ) ||
+    "username";
 
+
+if (profileDisplayName) {
 
     profileDisplayName.textContent =
-        name || "CHAPCY User";
+        name;
 
+}
+
+
+if (profileUsername) {
 
     profileUsername.textContent =
-        username
-            ? `@${username.replace(/^@/, "")}`
-            : "@username";
+        `@${user}`;
 
 }
 
+}
 
-fullNameInput.addEventListener(
+/* =========================================================
+LIVE NAME
+========================================================= */
+
+if (fullName) {
+
+fullName.addEventListener(
     "input",
     updateProfilePreview
 );
 
+}
 
-usernameInput.addEventListener(
+/* =========================================================
+LIVE USERNAME
+========================================================= */
+
+if (username) {
+
+username.addEventListener(
     "input",
     updateProfilePreview
 );
 
+}
 
-/* =====================================================
-   BIO COUNTER
-===================================================== */
+/* =========================================================
+SAVE LOADING
+========================================================= */
 
-function updateBioCounter() {
+function setSaving(
+state
+) {
 
-    bioCounter.textContent =
-        `${bioInput.value.length}/150`;
+if (!saveProfileBtn)
+    return;
+
+
+saveProfileBtn.disabled =
+    state;
+
+
+if (state) {
+
+    if (saveText)
+        saveText.hidden = true;
+
+
+    if (saveLoader)
+        saveLoader.hidden = false;
+
+
+    saveProfileBtn.style.opacity =
+        "0.7";
+
+
+    saveProfileBtn.style.cursor =
+        "wait";
+
+} else {
+
+    if (saveText)
+        saveText.hidden = false;
+
+
+    if (saveLoader)
+        saveLoader.hidden = true;
+
+
+    saveProfileBtn.style.opacity =
+        "1";
+
+
+    saveProfileBtn.style.cursor =
+        "";
 
 }
 
+}
 
-/* =====================================================
-   SAVE PROFILE
-===================================================== */
+/* =========================================================
+LOAD PROFILE FROM FIRESTORE
+========================================================= */
+
+async function loadProfile(
+user
+) {
+
+try {
+
+    /* EMAIL FROM AUTH */
+
+    if (email) {
+
+        email.value =
+            user.email || "";
+
+    }
+
+
+    /* FIRESTORE */
+
+    const profileRef =
+        doc(
+            db,
+            "users",
+            user.uid
+        );
+
+
+    const snapshot =
+        await getDoc(
+            profileRef
+        );
+
+
+    if (snapshot.exists()) {
+
+        const data =
+            snapshot.data();
+
+
+        /* FULL NAME */
+
+        if (fullName) {
+
+            fullName.value =
+                data.fullName ||
+                data.displayName ||
+                user.displayName ||
+                "";
+
+        }
+
+
+        /* USERNAME */
+
+        if (username) {
+
+            username.value =
+                data.username ||
+                "";
+
+        }
+
+
+        /* BIO */
+
+        if (bio) {
+
+            bio.value =
+                data.bio ||
+                "";
+
+        }
+
+
+        /* PHONE */
+
+        if (phone) {
+
+            phone.value =
+                data.phone ||
+                "";
+
+        }
+
+
+        /* PROFILE IMAGE */
+
+        if (
+            data.photoURL &&
+            profileImage
+        ) {
+
+            profileImage.src =
+                data.photoURL;
+
+        }
+
+
+    } else {
+
+        /* FIRST TIME USER */
+
+        if (fullName) {
+
+            fullName.value =
+                user.displayName ||
+                "";
+
+        }
+
+
+        if (email) {
+
+            email.value =
+                user.email ||
+                "";
+
+        }
+
+    }
+
+
+    updateProfilePreview();
+
+    updateBioCounter();
+
+
+} catch (error) {
+
+    console.error(
+        "CHAPCY Profile Load Error:",
+        error
+    );
+
+
+    showMessage(
+        "Unable to load your profile.",
+        "error"
+    );
+
+}
+
+}
+
+/* =========================================================
+SAVE PROFILE
+========================================================= */
+
+if (profileForm) {
 
 profileForm.addEventListener(
     "submit",
@@ -414,10 +833,15 @@ profileForm.addEventListener(
         event.preventDefault();
 
 
+        clearMessage();
+
+
+        /* AUTH CHECK */
+
         if (!currentUser) {
 
             showMessage(
-                "You are not logged in.",
+                "Please login to edit your profile.",
                 "error"
             );
 
@@ -426,53 +850,80 @@ profileForm.addEventListener(
         }
 
 
-        const fullName =
-            fullNameInput.value.trim();
+        /* GET VALUES */
+
+        const name =
+            fullName.value.trim();
 
 
-        const username =
-            usernameInput.value
-                .trim()
-                .replace(/^@/, "")
-                .toLowerCase();
+        const cleanUser =
+            cleanUsername(
+                username.value
+            );
 
 
-        const bio =
-            bioInput.value.trim();
+        const userBio =
+            bio.value.trim();
 
 
-        const phone =
-            phoneInput.value.trim();
+        const userPhone =
+            phone.value.trim();
 
 
-        if (!fullName) {
+        /* =================================================
+                       VALIDATION
+        ================================================== */
+
+        if (!name) {
 
             showMessage(
-                "Enter your full name.",
+                "Please enter your full name.",
                 "error"
             );
+
+            fullName.focus();
 
             return;
 
         }
 
 
-        if (!username) {
+        if (!cleanUser) {
 
             showMessage(
-                "Enter your username.",
+                "Please enter a username.",
                 "error"
             );
+
+            username.focus();
 
             return;
 
         }
 
 
-        if (!/^[a-zA-Z0-9._]+$/.test(username)) {
+        if (
+            cleanUser.length < 3
+        ) {
 
             showMessage(
-                "Username can only contain letters, numbers, dots and underscores.",
+                "Username must contain at least 3 characters.",
+                "error"
+            );
+
+            username.focus();
+
+            return;
+
+        }
+
+
+        if (
+            userBio.length > 150
+        ) {
+
+            showMessage(
+                "Your bio is too long.",
                 "error"
             );
 
@@ -487,146 +938,169 @@ profileForm.addEventListener(
         try {
 
             let photoURL =
-                currentPhotoURL;
+                profileImage?.src ||
+                defaultAvatar;
 
 
-            /* =========================================
-               UPLOAD NEW PHOTO
-            ========================================= */
+            /* =================================================
+                     PROCESS PHOTO
+            ================================================== */
 
             if (selectedPhoto) {
 
-                const fileExtension =
-                    selectedPhoto.name
-                        .split(".")
-                        .pop();
-
-
-                const imagePath =
-                    `profilePhotos/${currentUser.uid}/profile.${fileExtension}`;
-
-
-                const imageRef =
-                    storageRef(
-                        storage,
-                        imagePath
-                    );
-
-
-                await uploadBytes(
-                    imageRef,
-                    selectedPhoto
+                showMessage(
+                    "Preparing your profile picture...",
+                    "info"
                 );
 
 
+                const compressed =
+                    await compressImage(
+                        selectedPhoto,
+                        700,
+                        0.80
+                    );
+
+
                 photoURL =
-                    await getDownloadURL(
-                        imageRef
+                    await blobToBase64(
+                        compressed
                     );
 
             }
 
 
-            /* =========================================
-               SAVE TO REALTIME DATABASE
-            ========================================= */
+            /* =================================================
+                     PROFILE OBJECT
+            ================================================== */
 
-            const userRef =
-                ref(
+            const profileData = {
+
+                uid:
+                    currentUser.uid,
+
+                fullName:
+                    name,
+
+                displayName:
+                    name,
+
+                username:
+                    cleanUser,
+
+                bio:
+                    userBio,
+
+                phone:
+                    userPhone,
+
+                email:
+                    currentUser.email ||
+                    "",
+
+                photoURL:
+                    photoURL,
+
+                updatedAt:
+                    serverTimestamp()
+
+            };
+
+
+            /* =================================================
+                     SAVE TO FIRESTORE
+            ================================================== */
+
+            await setDoc(
+                doc(
                     db,
-                    `users/${currentUser.uid}`
-                );
-
-
-            await update(
-                userRef,
+                    "users",
+                    currentUser.uid
+                ),
+                profileData,
                 {
-
-                    fullName:
-                        fullName,
-
-                    name:
-                        fullName,
-
-                    username:
-                        username,
-
-                    bio:
-                        bio,
-
-                    phone:
-                        phone,
-
-                    email:
-                        currentUser.email || "",
-
-                    photoURL:
-                        photoURL,
-
-                    updatedAt:
-                        Date.now()
-
+                    merge: true
                 }
             );
 
 
-            currentPhotoURL =
-                photoURL;
+            /* UPDATE INPUT */
 
+            username.value =
+                cleanUser;
+
+
+            /* UPDATE PREVIEW */
+
+            updateProfilePreview();
+
+
+            /* RESET PHOTO */
 
             selectedPhoto =
                 null;
 
 
-            updateProfilePreview();
+            if (profilePhotoInput) {
 
+                profilePhotoInput.value =
+                    "";
+
+            }
+
+
+            /* SUCCESS */
 
             showMessage(
-                "✓ Profile updated successfully!",
+                "✓ Profile saved successfully!",
                 "success"
             );
 
 
-            /* =========================================
-               UPDATE LOCAL HEADER IMAGE
-            ========================================= */
+            /* AUTO CLEAR */
 
-            localStorage.setItem(
-                "chapcyProfilePhoto",
-                photoURL
+            setTimeout(
+                () => {
+
+                    clearMessage();
+
+                },
+                4000
             );
 
 
-        } catch(error) {
+        } catch (error) {
 
             console.error(
-                "PROFILE SAVE ERROR:",
+                "CHAPCY Profile Save Error:",
                 error
             );
 
 
             let message =
-                "Failed to save profile.";
+                "Unable to save your profile.";
 
+
+            /* FIRESTORE ERROR */
 
             if (
                 error.code ===
-                "storage/unauthorized"
+                "permission-denied"
             ) {
 
                 message =
-                    "You don't have permission to upload this photo.";
+                    "Firebase permission denied. Check your Firestore rules.";
 
             }
 
 
             if (
                 error.code ===
-                "storage/quota-exceeded"
+                "unavailable"
             ) {
 
                 message =
-                    "Storage quota exceeded.";
+                    "Firebase is temporarily unavailable. Check your internet.";
 
             }
 
@@ -636,70 +1110,113 @@ profileForm.addEventListener(
                 "error"
             );
 
+
+        } finally {
+
+            setSaving(false);
+
         }
-
-
-        setSaving(false);
 
     }
 );
 
+}
 
-/* =====================================================
-   SAVE STATE
-===================================================== */
+/* =========================================================
+BACK BUTTON
+========================================================= */
 
-function setSaving(isSaving) {
+if (backBtn) {
 
-    saveProfileBtn.disabled =
-        isSaving;
+backBtn.addEventListener(
+    "click",
+    () => {
+
+        if (
+            window.history.length > 1
+        ) {
+
+            window.history.back();
+
+        } else {
+
+            window.location.href =
+                "index.html";
+
+        }
+
+    }
+);
+
+}
+
+/* =========================================================
+AUTH STATE
+========================================================= */
+
+onAuthStateChanged(
+auth,
+async user => {
+
+    if (user) {
+
+        currentUser =
+            user;
 
 
-    if (isSaving) {
+        console.log(
+            "CHAPCY User:",
+            user.uid
+        );
 
-        saveText.hidden =
-            true;
 
-        saveLoader.hidden =
-            false;
+        await loadProfile(
+            user
+        );
+
 
     } else {
 
-        saveText.hidden =
-            false;
+        currentUser =
+            null;
 
-        saveLoader.hidden =
-            true;
+
+        console.log(
+            "No CHAPCY user logged in."
+        );
+
+
+        if (email) {
+
+            email.value =
+                "";
+
+        }
+
+
+        showMessage(
+            "You must be logged in to edit your profile.",
+            "error"
+        );
 
     }
 
 }
 
+);
 
-/* =====================================================
-   MESSAGE
-===================================================== */
+/* =========================================================
+INITIAL UI
+========================================================= */
 
-function showMessage(
-    message,
-    type
-) {
+updateBioCounter();
 
-    profileMessage.textContent =
-        message;
+updateProfilePreview();
 
-    profileMessage.className =
-        `profile-message ${type}`;
+/* =========================================================
+CHAPCY V50 READY
+========================================================= */
 
-
-    setTimeout(() => {
-
-        profileMessage.textContent =
-            "";
-
-        profileMessage.className =
-            "profile-message";
-
-    }, 4000);
-
-    }
+console.log(
+"🚀 CHAPCY V50 Profile System Ready"
+);
