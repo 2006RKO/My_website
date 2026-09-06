@@ -1,347 +1,800 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
 
-<head>
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
-    <meta charset="UTF-8">
+<meta
+    name="theme-color"
+    content="#030712"
+>
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
+<meta
+    name="description"
+    content="CHAPCY V50 — Edit your profile"
+>
+
+<title>CHAPCY V50 — Edit Profile</title>
+
+
+<!-- FONT -->
+
+<link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+>
+
+<link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet"
+>
+
+
+<!-- FONT AWESOME -->
+
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+>
+
+
+<!-- PROFILE CSS -->
+
+<link
+    rel="stylesheet"
+    href="Profile.css"
+>
+
+</head><body><!-- =====================================================
+                     BACKGROUND
+====================================================== -->
+
+<div class="profile-background">
+
+    <div class="bg-orb orb-one"></div>
+
+    <div class="bg-orb orb-two"></div>
+
+    <div class="bg-orb orb-three"></div>
+
+    <div class="bg-grid"></div>
+
+</div>
+
+
+
+<!-- =====================================================
+                       TOP HEADER
+====================================================== -->
+
+<header class="profile-header">
+
+
+    <!-- BACK -->
+
+    <button
+        class="back-btn"
+        id="backBtn"
+        type="button"
+        aria-label="Go back"
     >
 
-    <meta name="theme-color" content="#030712">
+        <i class="fa-solid fa-arrow-left"></i>
 
-    <title>CHAPCY — Edit Profile</title>
+    </button>
 
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+
+
+    <!-- TITLE -->
+
+    <div class="header-title">
+
+        <span class="brand-name">
+            CHAPCY
+        </span>
+
+        <h1>
+            Edit Profile
+        </h1>
+
+    </div>
+
+
+
+    <!-- HEADER ICON -->
+
+    <div
+        class="header-icon"
+        aria-hidden="true"
     >
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet"
-    >
+        <i class="fa-solid fa-user-pen"></i>
 
-    <link rel="stylesheet" href="Profile.css">
-
-</head>
-
-<body>
-
-    <!-- BACKGROUND -->
-
-    <div class="profile-background"></div>
+    </div>
 
 
-    <!-- HEADER -->
-
-    <header class="profile-header">
-
-        <button
-            class="back-btn"
-            id="backBtn"
-            type="button"
-        >
-            <i class="fa-solid fa-arrow-left"></i>
-        </button>
+</header>
 
 
-        <div class="header-title">
 
-            <span>CHAPCY</span>
+<!-- =====================================================
+                       MAIN CONTENT
+====================================================== -->
 
-            <h1>Edit Profile</h1>
+<main class="profile-page">
+
+
+    <!-- =================================================
+                     PROFILE HERO
+    ================================================== -->
+
+    <section class="profile-hero">
+
+
+        <div class="hero-glow"></div>
+
+
+        <div class="hero-content">
+
+
+            <span class="hero-badge">
+
+                <i class="fa-solid fa-circle-check"></i>
+
+                CHAPCY MEMBER
+
+            </span>
+
+
+            <h2>
+                Your Profile
+            </h2>
+
+
+            <p>
+                Make your CHAPCY profile look exactly the way
+                you want.
+            </p>
+
 
         </div>
 
 
-        <div class="header-icon">
-
-            <i class="fa-solid fa-user-pen"></i>
-
-        </div>
-
-    </header>
+    </section>
 
 
 
-    <!-- MAIN -->
+    <!-- =================================================
+                     PROFILE CARD
+    ================================================== -->
 
-    <main class="profile-page">
-
-
-        <!-- PROFILE CARD -->
-
-        <section class="profile-card">
+    <section class="profile-card">
 
 
-            <!-- AVATAR -->
+        <!-- CARD TOP -->
 
-            <div class="avatar-section">
+        <div class="card-top">
 
-                <div class="avatar-wrapper">
+            <div class="card-top-icon">
 
-                    <img
-                        id="profileImage"
-                        src="file_00000000b0d8820a998b33ad9cf233cb.png"
-                        alt="Profile Picture"
-                    >
-
-                    <button
-                        class="camera-btn"
-                        id="changePhotoBtn"
-                        type="button"
-                    >
-                        <i class="fa-solid fa-camera"></i>
-                    </button>
-
-                </div>
-
-
-                <h2 id="profileDisplayName">
-                    CHAPCY User
-                </h2>
-
-                <p id="profileUsername">
-                    @username
-                </p>
-
-
-                <input
-                    type="file"
-                    id="profilePhotoInput"
-                    accept="image/*"
-                    hidden
-                >
+                <i class="fa-solid fa-id-card"></i>
 
             </div>
 
 
+            <div>
 
-            <!-- FORM -->
+                <span>
+                    PROFILE SETTINGS
+                </span>
 
-            <form id="profileForm">
+                <h3>
+                    Personal Information
+                </h3>
 
+            </div>
 
-                <!-- FULL NAME -->
-
-                <div class="input-group">
-
-                    <label for="fullName">
-                        <i class="fa-solid fa-user"></i>
-                        Full Name
-                    </label>
-
-                    <div class="input-wrapper">
-
-                        <input
-                            type="text"
-                            id="fullName"
-                            placeholder="Enter your full name"
-                            maxlength="50"
-                            required
-                        >
-
-                    </div>
-
-                </div>
+        </div>
 
 
 
-                <!-- USERNAME -->
+        <!-- =================================================
+                         AVATAR
+        ================================================== -->
 
-                <div class="input-group">
-
-                    <label for="username">
-                        <i class="fa-solid fa-at"></i>
-                        Username
-                    </label>
-
-                    <div class="input-wrapper">
-
-                        <span class="username-symbol">@</span>
-
-                        <input
-                            type="text"
-                            id="username"
-                            placeholder="username"
-                            maxlength="30"
-                            required
-                        >
-
-                    </div>
-
-                </div>
+        <div class="avatar-section">
 
 
-
-                <!-- BIO -->
-
-                <div class="input-group">
-
-                    <label for="bio">
-
-                        <i class="fa-solid fa-pen"></i>
-
-                        Bio
-
-                    </label>
-
-                    <div class="textarea-wrapper">
-
-                        <textarea
-                            id="bio"
-                            maxlength="150"
-                            placeholder="Tell the world about yourself..."
-                        ></textarea>
-
-                        <span id="bioCounter">
-                            0/150
-                        </span>
-
-                    </div>
-
-                </div>
+            <div class="avatar-wrapper">
 
 
+                <!-- PROFILE IMAGE -->
 
-                <!-- PHONE -->
-
-                <div class="input-group">
-
-                    <label for="phone">
-
-                        <i class="fa-solid fa-phone"></i>
-
-                        Phone Number
-
-                    </label>
-
-                    <div class="input-wrapper">
-
-                        <input
-                            type="tel"
-                            id="phone"
-                            placeholder="+255..."
-                            maxlength="20"
-                        >
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- EMAIL -->
-
-                <div class="input-group">
-
-                    <label for="email">
-
-                        <i class="fa-solid fa-envelope"></i>
-
-                        Email
-
-                    </label>
-
-                    <div class="input-wrapper readonly">
-
-                        <input
-                            type="email"
-                            id="email"
-                            readonly
-                        >
-
-                        <i class="fa-solid fa-lock"></i>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- SAVE -->
-
-                <button
-                    type="submit"
-                    class="save-btn"
-                    id="saveProfileBtn"
+                <img
+                    id="profileImage"
+                    src="file_00000000b0d8820a998b33ad9cf233cb.png"
+                    alt="Profile Picture"
                 >
 
-                    <span id="saveText">
-                        <i class="fa-solid fa-floppy-disk"></i>
-                        Save Profile
-                    </span>
 
-                    <span
-                        id="saveLoader"
-                        class="save-loader"
-                        hidden
-                    ></span>
+                <!-- ONLINE INDICATOR -->
+
+                <span
+                    class="online-indicator"
+                    title="Online"
+                ></span>
+
+
+                <!-- CAMERA -->
+
+                <button
+                    class="camera-btn"
+                    id="changePhotoBtn"
+                    type="button"
+                    aria-label="Change profile picture"
+                >
+
+                    <i class="fa-solid fa-camera"></i>
 
                 </button>
 
 
-            </form>
+            </div>
 
 
-            <!-- STATUS -->
 
-            <div
-                id="profileMessage"
-                class="profile-message"
-            ></div>
+            <!-- HIDDEN IMAGE INPUT -->
+
+            <input
+                type="file"
+                id="profilePhotoInput"
+                accept="image/*"
+                hidden
+            >
 
 
-        </section>
+
+            <!-- NAME -->
+
+            <h2 id="profileDisplayName">
+                CHAPCY User
+            </h2>
 
 
-        <!-- ACCOUNT INFO -->
+            <!-- USERNAME -->
 
-        <section class="account-info">
+            <p id="profileUsername">
+                @username
+            </p>
 
-            <div class="info-item">
+
+            <div class="profile-status">
+
+                <span class="status-dot"></span>
+
+                Active on CHAPCY
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+                          FORM
+        ================================================== -->
+
+        <form
+            id="profileForm"
+            novalidate
+        >
+
+
+            <!-- =================================================
+                          FULL NAME
+            ================================================== -->
+
+            <div class="input-group">
+
+
+                <label for="fullName">
+
+                    <span class="label-icon">
+
+                        <i class="fa-solid fa-user"></i>
+
+                    </span>
+
+                    <span>
+                        Full Name
+                    </span>
+
+                </label>
+
+
+                <div class="input-wrapper">
+
+
+                    <input
+                        type="text"
+                        id="fullName"
+                        name="fullName"
+                        placeholder="Enter your full name"
+                        maxlength="50"
+                        autocomplete="name"
+                        required
+                    >
+
+
+                    <i class="fa-solid fa-user input-icon"></i>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                          USERNAME
+            ================================================== -->
+
+            <div class="input-group">
+
+
+                <label for="username">
+
+                    <span class="label-icon">
+
+                        <i class="fa-solid fa-at"></i>
+
+                    </span>
+
+                    <span>
+                        Username
+                    </span>
+
+                </label>
+
+
+                <div class="input-wrapper username-input">
+
+
+                    <span class="username-symbol">
+                        @
+                    </span>
+
+
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        placeholder="username"
+                        maxlength="30"
+                        autocomplete="username"
+                        required
+                    >
+
+
+                </div>
+
+
+                <small class="input-hint">
+
+                    Your unique CHAPCY username.
+
+                </small>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                            BIO
+            ================================================== -->
+
+            <div class="input-group">
+
+
+                <label for="bio">
+
+                    <span class="label-icon">
+
+                        <i class="fa-solid fa-pen"></i>
+
+                    </span>
+
+                    <span>
+                        Bio
+                    </span>
+
+                </label>
+
+
+                <div class="textarea-wrapper">
+
+
+                    <textarea
+                        id="bio"
+                        name="bio"
+                        maxlength="150"
+                        placeholder="Tell the world about yourself..."
+                    ></textarea>
+
+
+                    <span id="bioCounter">
+                        0/150
+                    </span>
+
+
+                </div>
+
+
+                <small class="input-hint">
+
+                    Let people know a little about you.
+
+                </small>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                          PHONE
+            ================================================== -->
+
+            <div class="input-group">
+
+
+                <label for="phone">
+
+                    <span class="label-icon">
+
+                        <i class="fa-solid fa-phone"></i>
+
+                    </span>
+
+                    <span>
+                        Phone Number
+                    </span>
+
+                </label>
+
+
+                <div class="input-wrapper">
+
+
+                    <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        placeholder="+255..."
+                        maxlength="20"
+                        autocomplete="tel"
+                    >
+
+
+                    <i class="fa-solid fa-phone input-icon"></i>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                          EMAIL
+            ================================================== -->
+
+            <div class="input-group">
+
+
+                <label for="email">
+
+                    <span class="label-icon">
+
+                        <i class="fa-solid fa-envelope"></i>
+
+                    </span>
+
+                    <span>
+                        Email Address
+                    </span>
+
+                </label>
+
+
+                <div class="input-wrapper readonly">
+
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        readonly
+                    >
+
+
+                    <span class="verified-badge">
+
+                        <i class="fa-solid fa-circle-check"></i>
+
+                        Verified
+
+                    </span>
+
+
+                    <i class="fa-solid fa-lock lock-icon"></i>
+
+
+                </div>
+
+
+                <small class="input-hint">
+
+                    Your email is linked to your CHAPCY account.
+
+                </small>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                       PROFILE VISIBILITY
+            ================================================== -->
+
+            <div class="profile-preferences">
+
+
+                <div class="preference-icon">
+
+                    <i class="fa-solid fa-eye"></i>
+
+                </div>
+
+
+                <div class="preference-text">
+
+                    <strong>
+                        Profile Visibility
+                    </strong>
+
+                    <span>
+                        Your public profile information can be
+                        seen by other CHAPCY users.
+                    </span>
+
+                </div>
+
+
+                <i class="fa-solid fa-chevron-right preference-arrow"></i>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                          SAVE BUTTON
+            ================================================== -->
+
+            <button
+                type="submit"
+                class="save-btn"
+                id="saveProfileBtn"
+            >
+
+
+                <span id="saveText">
+
+                    <i class="fa-solid fa-floppy-disk"></i>
+
+                    Save Profile
+
+                </span>
+
+
+                <span
+                    id="saveLoader"
+                    class="save-loader"
+                    hidden
+                ></span>
+
+
+            </button>
+
+
+        </form>
+
+
+
+        <!-- =================================================
+                          STATUS MESSAGE
+        ================================================== -->
+
+        <div
+            id="profileMessage"
+            class="profile-message"
+            role="status"
+            aria-live="polite"
+        ></div>
+
+
+    </section>
+
+
+
+    <!-- =================================================
+                       ACCOUNT INFO
+    ================================================== -->
+
+    <section class="account-info">
+
+
+        <!-- PRIVACY -->
+
+        <div class="info-item">
+
+
+            <div class="info-icon">
 
                 <i class="fa-solid fa-shield-halved"></i>
 
-                <div>
+            </div>
 
-                    <strong>Privacy</strong>
 
-                    <span>Your profile information is protected.</span>
+            <div class="info-text">
 
-                </div>
+                <strong>
+                    Privacy & Security
+                </strong>
+
+                <span>
+                    Your profile information is protected
+                    and securely handled.
+                </span>
 
             </div>
 
 
-            <div class="info-item">
+            <i class="fa-solid fa-check-circle info-check"></i>
+
+
+        </div>
+
+
+
+        <!-- FIREBASE -->
+
+        <div class="info-item">
+
+
+            <div class="info-icon">
 
                 <i class="fa-solid fa-cloud"></i>
 
-                <div>
+            </div>
 
-                    <strong>Firebase Sync</strong>
 
-                    <span>Your changes are saved automatically to CHAPCY.</span>
+            <div class="info-text">
 
-                </div>
+                <strong>
+                    Firebase Sync
+                </strong>
+
+                <span>
+                    Your profile changes are synchronized
+                    with your CHAPCY account.
+                </span>
 
             </div>
 
-        </section>
+
+            <i class="fa-solid fa-cloud-arrow-up info-check"></i>
 
 
-    </main>
+        </div>
 
 
 
-    <!-- Firebase + Profile JS -->
+        <!-- ACCOUNT -->
 
-    <script type="module" src="Profile.js"></script>
+        <div class="info-item">
 
-</body>
 
-                  </html>
+            <div class="info-icon">
+
+                <i class="fa-solid fa-user-check"></i>
+
+            </div>
+
+
+            <div class="info-text">
+
+                <strong>
+                    CHAPCY Account
+                </strong>
+
+                <span>
+                    Keep your profile information up to date
+                    for the best CHAPCY experience.
+                </span>
+
+            </div>
+
+
+            <i class="fa-solid fa-chevron-right info-arrow"></i>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =================================================
+                          FOOTER
+    ================================================== -->
+
+    <footer class="profile-footer">
+
+        <div class="footer-logo">
+
+            <span class="footer-logo-main">
+                CHAPCY
+            </span>
+
+            <span class="footer-version">
+                V50
+            </span>
+
+        </div>
+
+
+        <p>
+            Connect • Chat • Share
+        </p>
+
+
+        <span class="footer-line"></span>
+
+
+        <small>
+            © 2026 CHAPCY. All rights reserved.
+        </small>
+
+
+    </footer>
+
+
+</main>
+
+
+
+<!-- =====================================================
+                     PROFILE JAVASCRIPT
+====================================================== -->
+
+<script
+    type="module"
+    src="Profile.js"
+></script>
+
+</body></html>
