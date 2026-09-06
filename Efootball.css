@@ -2709,3 +2709,247 @@ textarea:focus-visible {
     outline-offset:
         2px;
    }
+/* =====================================================
+   CHAPCY REALISTIC BACKGROUND
+   RESPONSIVE — PHONE + TABLET + LAPTOP
+===================================================== */
+
+body {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+
+    background-image:
+        linear-gradient(
+            rgba(2, 3, 15, 0.48),
+            rgba(2, 3, 15, 0.68)
+        ),
+        url("file_00000000e8a88211b89f26c5035d9c0d.png");
+
+    background-repeat: no-repeat;
+
+    /* Ijaze screen bila kuacha nafasi */
+    background-size: cover;
+
+    /* Center ya picha */
+    background-position: center center;
+
+    background-attachment: fixed;
+
+    background-color: #030511;
+}
+
+
+/* =====================================================
+   GLASS OVERLAY
+===================================================== */
+
+body::before {
+    content: "";
+
+    position: fixed;
+    inset: 0;
+
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            circle at 50% 35%,
+            rgba(93, 70, 255, 0.10),
+            transparent 45%
+        );
+
+    z-index: 0;
+}
+
+
+/* =====================================================
+   APP IWE JUU YA BACKGROUND
+===================================================== */
+
+.chapcy-app {
+    position: relative;
+    z-index: 1;
+}
+
+
+/* =====================================================
+   SIDEBAR
+===================================================== */
+
+.side-nav {
+    background:
+        rgba(5, 7, 25, 0.72) !important;
+
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+}
+
+
+/* =====================================================
+   CHAT AREA
+===================================================== */
+
+.chat-container {
+    background:
+        rgba(2, 4, 18, 0.38) !important;
+
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.chat-header {
+    background:
+        rgba(5, 7, 24, 0.64) !important;
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+}
+
+
+/* =====================================================
+   PINNED MESSAGE
+===================================================== */
+
+.pinned-bar {
+    background:
+        rgba(7, 8, 28, 0.60) !important;
+
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+}
+
+
+/* =====================================================
+   MESSAGES
+===================================================== */
+
+.messages {
+    background:
+        rgba(2, 3, 15, 0.08);
+}
+
+
+/* =====================================================
+   COMPOSER
+===================================================== */
+
+.composer {
+    background:
+        rgba(4, 6, 22, 0.76) !important;
+
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+
+/* =====================================================
+   LAPTOP / DESKTOP
+===================================================== */
+
+@media (min-width: 1101px) {
+
+    body {
+        background-size: cover;
+
+        /*
+          Picha portrait ikiwa kwenye laptop,
+          tunavuta focus kidogo juu/kati
+        */
+        background-position: center 42%;
+
+        background-attachment: fixed;
+    }
+
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (min-width: 761px) and (max-width: 1100px) {
+
+    body {
+        background-size: cover;
+
+        background-position: center center;
+
+        background-attachment: fixed;
+    }
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 760px) {
+
+    body {
+
+        /*
+          Kwenye simu picha ita-fill screen
+          bila distortion
+        */
+        background-size: cover;
+
+        background-position: center center;
+
+        /*
+          Fixed kwenye baadhi ya Android browsers
+          huleta bug, kwa hiyo scroll
+        */
+        background-attachment: scroll;
+    }
+
+    .chat-container {
+        background:
+            rgba(2, 4, 18, 0.30) !important;
+    }
+
+    .chat-header {
+        background:
+            rgba(5, 7, 24, 0.72) !important;
+    }
+
+    .composer {
+        background:
+            rgba(4, 6, 22, 0.86) !important;
+    }
+
+}
+
+
+/* =====================================================
+   SMALL PHONE
+===================================================== */
+
+@media (max-width: 420px) {
+
+    body {
+        background-size: cover;
+
+        background-position: center center;
+    }
+
+}
+
+
+/* =====================================================
+   VERY SMALL PHONE
+===================================================== */
+
+@media (max-width: 350px) {
+
+    body {
+        background-position: center center;
+    }
+
+}
