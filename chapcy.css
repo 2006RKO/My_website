@@ -4183,53 +4183,55 @@ font-size:12px;
     font-size:12px;
 }
 /* =========================================================
-   CHAPCY ACTIVITIES — ONE HORIZONTAL LINE
-   1        2        3        4
+   CHAPCY ACTIVITIES — 3 CARDS IN ONE ROW
 ========================================================= */
 
-.activity-card{
+#forYouCard{
+    display:none !important;
+}
+
+#dropCard,
+#notificationCard,
+#rewardsCard{
     position:relative;
-
-    /* SIZE */
-    width:220px;
-    min-width:220px;
-    height:210px;
-
-    /* SPACE BETWEEN CARDS */
-    margin:12px 10px;
-
-    padding:25px 18px;
-
     display:inline-flex;
+    vertical-align:top;
+
+    width:calc(33.333% - 8px);
+    min-height:145px;
+
+    margin:7px 3px;
+    padding:20px 8px;
+
+    box-sizing:border-box;
+
     flex-direction:column;
     justify-content:center;
     align-items:center;
-
     text-align:center;
-    vertical-align:top;
 
-    overflow:hidden;
-    cursor:pointer;
-
-    border-radius:28px;
+    border-radius:24px;
 
     background:
         linear-gradient(
             145deg,
             rgba(255,255,255,.12),
-            rgba(100,40,255,.14),
-            rgba(0,210,255,.08)
+            rgba(104,35,255,.14),
+            rgba(0,170,255,.10)
         );
 
-    border:1px solid rgba(130,190,255,.35);
+    border:1px solid rgba(180,100,255,.35);
 
-    backdrop-filter:blur(20px);
-    -webkit-backdrop-filter:blur(20px);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
 
     box-shadow:
-        0 15px 35px rgba(0,0,0,.45),
-        inset 0 1px 0 rgba(255,255,255,.15),
-        0 0 25px rgba(90,100,255,.16);
+        0 12px 30px rgba(0,0,0,.40),
+        inset 0 1px 0 rgba(255,255,255,.14),
+        0 0 25px rgba(120,50,255,.12);
+
+    overflow:hidden;
+    cursor:pointer;
 
     transition:
         transform .35s ease,
@@ -4238,33 +4240,36 @@ font-size:12px;
 }
 
 
-/* SHINY LIGHT */
-.activity-card::before{
+/* LIGHT SHINE */
+#dropCard::before,
+#notificationCard::before,
+#rewardsCard::before{
     content:"";
 
     position:absolute;
 
-    top:-60px;
-    left:-50px;
+    width:130px;
+    height:130px;
 
-    width:150px;
-    height:150px;
+    top:-70px;
+    left:-60px;
 
     border-radius:50%;
 
-    background:
-        radial-gradient(
-            circle,
-            rgba(255,255,255,.20),
-            transparent 70%
-        );
+    background:radial-gradient(
+        circle,
+        rgba(255,255,255,.18),
+        transparent 70%
+    );
 
     pointer-events:none;
 }
 
 
-/* MOVING LIGHT */
-.activity-card::after{
+/* MOVING GLASS LIGHT */
+#dropCard::after,
+#notificationCard::after,
+#rewardsCard::after{
     content:"";
 
     position:absolute;
@@ -4275,19 +4280,16 @@ font-size:12px;
     width:70%;
     height:100%;
 
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            rgba(255,255,255,.12),
-            transparent
-        );
+    background:linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.10),
+        transparent
+    );
 
     transform:skewX(-20deg);
 
     animation:activityLight 5s infinite;
-
-    pointer-events:none;
 }
 
 @keyframes activityLight{
@@ -4296,25 +4298,23 @@ font-size:12px;
         left:-120%;
     }
 
-    35%{
-        left:140%;
-    }
-
-    100%{
+    40%,100%{
         left:140%;
     }
 }
 
 
-/* ICON */
-.activity-card i{
-    position:relative;
+/* ICONS */
+#dropCard i,
+#notificationCard i,
+#rewardsCard i{
 
+    position:relative;
     z-index:2;
 
-    font-size:42px;
+    font-size:34px;
 
-    margin-bottom:18px;
+    margin-bottom:12px;
 
     transition:
         transform .35s ease,
@@ -4323,43 +4323,97 @@ font-size:12px;
 
 
 /* TEXT */
-.activity-card p{
-    position:relative;
+#dropCard p,
+#notificationCard p,
+#rewardsCard p{
 
+    position:relative;
     z-index:2;
 
     margin:0;
 
     color:#fff;
 
-    font-size:17px;
-
+    font-size:14px;
     font-weight:700;
 
     white-space:nowrap;
 
     text-shadow:
-        0 0 10px rgba(255,255,255,.25);
+        0 0 10px rgba(255,255,255,.20);
+}
+
+
+/* COLORS */
+#dropCard i{
+    color:#ff43d0;
+    filter:
+        drop-shadow(0 0 8px #ff43d0)
+        drop-shadow(0 0 18px rgba(255,67,208,.65));
+}
+
+#notificationCard i{
+    color:#ffd34d;
+    filter:
+        drop-shadow(0 0 8px #ffd34d)
+        drop-shadow(0 0 18px rgba(255,211,77,.65));
+}
+
+#rewardsCard i{
+    color:#83ff5c;
+    filter:
+        drop-shadow(0 0 8px #83ff5c)
+        drop-shadow(0 0 18px rgba(131,255,92,.65));
+}
+
+
+/* HOVER */
+#dropCard:hover,
+#notificationCard:hover,
+#rewardsCard:hover{
+
+    transform:
+        translateY(-7px)
+        scale(1.03);
+
+    border-color:rgba(255,255,255,.45);
+
+    box-shadow:
+        0 18px 40px rgba(0,0,0,.45),
+        0 0 30px rgba(150,70,255,.25),
+        inset 0 1px 0 rgba(255,255,255,.18);
+}
+
+#dropCard:hover i,
+#notificationCard:hover i,
+#rewardsCard:hover i{
+
+    transform:
+        translateY(-5px)
+        scale(1.12);
 }
 
 
 /* BADGE */
-.activity-badge{
+#dropCard .activity-badge,
+#notificationCard .activity-badge,
+#rewardsCard .activity-badge{
+
     position:absolute;
 
-    top:12px;
-    right:12px;
+    top:8px;
+    right:8px;
 
-    width:11px;
-    height:11px;
+    width:9px;
+    height:9px;
 
     border-radius:50%;
 
-    background:#ff397f;
+    background:#ff3d81;
 
     box-shadow:
-        0 0 8px #ff397f,
-        0 0 18px rgba(255,57,127,.8);
+        0 0 8px #ff3d81,
+        0 0 17px rgba(255,61,129,.8);
 
     z-index:5;
 
@@ -4370,156 +4424,43 @@ font-size:12px;
 
     0%,100%{
         transform:scale(1);
-        opacity:1;
     }
 
     50%{
-        transform:scale(1.4);
-        opacity:.65;
+        transform:scale(1.35);
     }
 }
 
 
-/* =========================================================
-   DIFFERENT NEON COLORS
-========================================================= */
+/* MOBILE */
+@media(max-width:500px){
 
-#forYouCard{
-    border-color:rgba(0,230,255,.45);
+    #dropCard,
+    #notificationCard,
+    #rewardsCard{
 
-    box-shadow:
-        0 15px 35px rgba(0,0,0,.45),
-        0 0 25px rgba(0,230,255,.18);
-}
+        width:calc(33.333% - 8px);
 
-#forYouCard i{
-    color:#00eaff;
+        min-height:135px;
 
-    filter:
-        drop-shadow(0 0 12px #00eaff);
-}
+        margin:6px 2px;
 
+        padding:18px 5px;
 
-#dropCard{
-    border-color:rgba(255,50,220,.45);
-
-    box-shadow:
-        0 15px 35px rgba(0,0,0,.45),
-        0 0 25px rgba(255,50,220,.18);
-}
-
-#dropCard i{
-    color:#ff42d4;
-
-    filter:
-        drop-shadow(0 0 12px #ff42d4);
-}
-
-
-#notificationCard{
-    border-color:rgba(255,195,50,.45);
-
-    box-shadow:
-        0 15px 35px rgba(0,0,0,.45),
-        0 0 25px rgba(255,195,50,.18);
-}
-
-#notificationCard i{
-    color:#ffd34d;
-
-    filter:
-        drop-shadow(0 0 12px #ffd34d);
-}
-
-
-#rewardsCard{
-    border-color:rgba(100,255,90,.45);
-
-    box-shadow:
-        0 15px 35px rgba(0,0,0,.45),
-        0 0 25px rgba(100,255,90,.18);
-}
-
-#rewardsCard i{
-    color:#8cff68;
-
-    filter:
-        drop-shadow(0 0 12px #8cff68);
-}
-
-
-/* HOVER */
-.activity-card:hover{
-    transform:translateY(-8px) scale(1.02);
-
-    box-shadow:
-        0 20px 45px rgba(0,0,0,.5),
-        0 0 35px rgba(150,80,255,.25);
-}
-
-.activity-card:hover i{
-    transform:scale(1.12);
-
-    filter:
-        drop-shadow(0 0 20px currentColor);
-}
-
-.activity-card:active{
-    transform:scale(.96);
-}
-
-
-/* =========================================================
-   IMPORTANT:
-   MAKE ALL 4 STAY ON ONE HORIZONTAL LINE
-========================================================= */
-
-main.page{
-    overflow-x:auto;
-    overflow-y:visible;
-
-    white-space:nowrap;
-
-    scrollbar-width:none;
-}
-
-main.page::-webkit-scrollbar{
-    display:none;
-}
-
-
-/* Rudisha text za sehemu nyingine zifanye wrap kawaida */
-main.page .topbar,
-main.page .mychat-navigation,
-main.page .group-slider,
-main.page .profile-modal{
-    white-space:normal;
-}
-
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media(max-width:600px){
-
-    .activity-card{
-        width:210px;
-        min-width:210px;
-
-        height:220px;
-
-        margin-left:8px;
-        margin-right:8px;
-
-        border-radius:26px;
+        border-radius:21px;
     }
 
-    .activity-card i{
-        font-size:40px;
+    #dropCard i,
+    #notificationCard i,
+    #rewardsCard i{
+
+        font-size:29px;
     }
 
-    .activity-card p{
-        font-size:16px;
+    #dropCard p,
+    #notificationCard p,
+    #rewardsCard p{
+
+        font-size:12px;
     }
 }
