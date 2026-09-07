@@ -4182,3 +4182,368 @@ font-size:12px;
 
     font-size:12px;
 }
+/* =========================================================
+   CHAPCY ACTIVITY CARDS — PREMIUM V21
+========================================================= */
+
+.activity-card{
+    position:relative;
+
+    width:calc(50% - 7px);
+    min-height:145px;
+
+    margin:7px 0;
+
+    padding:22px 12px 18px;
+
+    display:inline-flex;
+    vertical-align:top;
+
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+    text-align:center;
+
+    overflow:hidden;
+
+    cursor:pointer;
+
+    border-radius:26px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.11),
+            rgba(112,42,255,.10),
+            rgba(0,210,255,.06)
+        );
+
+    border:1px solid
+        rgba(190,105,255,.30);
+
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+
+    box-shadow:
+        0 12px 35px rgba(0,0,0,.38),
+        inset 0 1px 0 rgba(255,255,255,.12),
+        0 0 22px rgba(130,50,255,.12);
+
+    transition:
+        transform .35s cubic-bezier(.2,.8,.2,1),
+        box-shadow .35s ease,
+        border-color .35s ease;
+}
+
+
+/* =========================================================
+   GLASS SHINE
+========================================================= */
+
+.activity-card::before{
+    content:"";
+
+    position:absolute;
+
+    width:150px;
+    height:150px;
+
+    top:-85px;
+    left:-75px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.20),
+            transparent 68%
+        );
+
+    pointer-events:none;
+}
+
+
+/* =========================================================
+   MOVING NEON LIGHT
+========================================================= */
+
+.activity-card::after{
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    left:-120%;
+
+    width:80%;
+    height:100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.10),
+            transparent
+        );
+
+    transform:skewX(-20deg);
+
+    animation:
+        activityShine 5s infinite;
+
+    pointer-events:none;
+}
+
+@keyframes activityShine{
+
+    0%{
+        left:-120%;
+    }
+
+    35%,
+    100%{
+        left:140%;
+    }
+}
+
+
+/* =========================================================
+   ICON
+========================================================= */
+
+.activity-card i{
+    position:relative;
+
+    z-index:2;
+
+    font-size:34px;
+
+    color:#d85cff;
+
+    margin-bottom:10px;
+
+    filter:
+        drop-shadow(
+            0 0 10px
+            rgba(216,92,255,.70)
+        );
+
+    transition:
+        transform .35s ease,
+        filter .35s ease;
+}
+
+
+/* =========================================================
+   TEXT
+========================================================= */
+
+.activity-card p{
+    position:relative;
+
+    z-index:2;
+
+    margin:0;
+
+    color:#fff;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    letter-spacing:.2px;
+
+    text-shadow:
+        0 0 9px
+        rgba(255,255,255,.20);
+}
+
+
+/* =========================================================
+   BADGE
+========================================================= */
+
+.activity-badge{
+    position:absolute;
+
+    top:9px;
+    right:9px;
+
+    min-width:9px;
+    height:9px;
+
+    border-radius:50%;
+
+    background:#ff3d81;
+
+    box-shadow:
+        0 0 8px #ff3d81,
+        0 0 16px rgba(255,61,129,.75);
+
+    z-index:5;
+
+    animation:
+        activityBadgePulse 1.8s infinite;
+}
+
+@keyframes activityBadgePulse{
+
+    0%,100%{
+        transform:scale(1);
+        opacity:1;
+    }
+
+    50%{
+        transform:scale(1.35);
+        opacity:.65;
+    }
+}
+
+
+/* =========================================================
+   HOVER / TOUCH
+========================================================= */
+
+.activity-card:hover{
+    transform:
+        translateY(-6px)
+        scale(1.02);
+
+    border-color:
+        rgba(216,92,255,.65);
+
+    box-shadow:
+        0 18px 45px rgba(0,0,0,.45),
+        0 0 30px rgba(216,92,255,.22),
+        inset 0 1px 0 rgba(255,255,255,.15);
+}
+
+.activity-card:hover i{
+    transform:
+        translateY(-4px)
+        scale(1.10);
+
+    filter:
+        drop-shadow(
+            0 0 17px
+            rgba(216,92,255,1)
+        );
+}
+
+
+/* =========================================================
+   CLICK EFFECT
+========================================================= */
+
+.activity-card:active{
+    transform:
+        scale(.94);
+}
+
+
+/* =========================================================
+   DIFFERENT NEON COLORS
+========================================================= */
+
+/* FOR YOU */
+
+#forYouCard i{
+    color:#00eaff;
+
+    filter:
+        drop-shadow(
+            0 0 12px
+            rgba(0,234,255,.80)
+        );
+}
+
+
+/* CHAPCY DROP */
+
+#dropCard i{
+    color:#ff4fd8;
+
+    filter:
+        drop-shadow(
+            0 0 12px
+            rgba(255,79,216,.80)
+        );
+}
+
+
+/* NOTIFICATION */
+
+#notificationCard i{
+    color:#ffd34d;
+
+    filter:
+        drop-shadow(
+            0 0 12px
+            rgba(255,211,77,.80)
+        );
+}
+
+
+/* REWARDS */
+
+#rewardsCard i{
+    color:#8cff68;
+
+    filter:
+        drop-shadow(
+            0 0 12px
+            rgba(140,255,104,.80)
+        );
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:600px){
+
+    .activity-card{
+        min-height:135px;
+
+        border-radius:23px;
+
+        padding:
+            20px 9px 16px;
+    }
+
+    .activity-card i{
+        font-size:31px;
+    }
+
+    .activity-card p{
+        font-size:14px;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL SCREEN
+========================================================= */
+
+@media(max-width:360px){
+
+    .activity-card{
+        min-height:125px;
+
+        padding:
+            17px 7px 14px;
+
+        border-radius:20px;
+    }
+
+    .activity-card i{
+        font-size:28px;
+    }
+
+    .activity-card p{
+        font-size:13px;
+    }
+}
