@@ -4183,71 +4183,72 @@ font-size:12px;
     font-size:12px;
 }
 /* =========================================================
-   CHAPCY ACTIVITY CARDS — 4 IN ONE ROW
-   1  2  3  4
+   CHAPCY ACTIVITIES — ONE HORIZONTAL LINE
+   1        2        3        4
 ========================================================= */
 
 .activity-card{
     position:relative;
 
-    /* 4 CARDS MSTARI MMOJA */
+    /* SIZE */
+    width:220px;
+    min-width:220px;
+    height:210px;
+
+    /* SPACE BETWEEN CARDS */
+    margin:12px 10px;
+
+    padding:25px 18px;
+
     display:inline-flex;
-    vertical-align:top;
-
-    width:calc(25% - 8px);
-    min-height:155px;
-
-    margin:6px 3px;
-    padding:20px 8px 16px;
-
-    box-sizing:border-box;
-
     flex-direction:column;
     justify-content:center;
     align-items:center;
+
     text-align:center;
+    vertical-align:top;
 
     overflow:hidden;
     cursor:pointer;
 
-    border-radius:24px;
+    border-radius:28px;
 
     background:
         linear-gradient(
             145deg,
             rgba(255,255,255,.12),
-            rgba(111,42,255,.13),
+            rgba(100,40,255,.14),
             rgba(0,210,255,.08)
         );
 
-    border:1px solid rgba(190,105,255,.35);
+    border:1px solid rgba(130,190,255,.35);
 
-    backdrop-filter:blur(18px);
-    -webkit-backdrop-filter:blur(18px);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
 
     box-shadow:
-        0 12px 35px rgba(0,0,0,.42),
-        inset 0 1px 0 rgba(255,255,255,.13),
-        0 0 25px rgba(130,50,255,.15);
+        0 15px 35px rgba(0,0,0,.45),
+        inset 0 1px 0 rgba(255,255,255,.15),
+        0 0 25px rgba(90,100,255,.16);
 
     transition:
-        transform .35s cubic-bezier(.2,.8,.2,1),
+        transform .35s ease,
         box-shadow .35s ease,
         border-color .35s ease;
 }
 
 
-/* LIGHT GLOW */
+/* SHINY LIGHT */
 .activity-card::before{
     content:"";
 
     position:absolute;
 
-    width:120px;
-    height:120px;
+    top:-60px;
+    left:-50px;
 
-    top:-65px;
-    left:-55px;
+    width:150px;
+    height:150px;
 
     border-radius:50%;
 
@@ -4262,58 +4263,58 @@ font-size:12px;
 }
 
 
-/* MOVING GLASS SHINE */
+/* MOVING LIGHT */
 .activity-card::after{
     content:"";
 
     position:absolute;
 
     top:0;
-    left:-130%;
+    left:-120%;
 
-    width:75%;
+    width:70%;
     height:100%;
 
     background:
         linear-gradient(
             90deg,
             transparent,
-            rgba(255,255,255,.13),
+            rgba(255,255,255,.12),
             transparent
         );
 
     transform:skewX(-20deg);
 
-    animation:activityShine 5s infinite;
+    animation:activityLight 5s infinite;
 
     pointer-events:none;
 }
 
-
-@keyframes activityShine{
+@keyframes activityLight{
 
     0%{
-        left:-130%;
+        left:-120%;
     }
 
-    35%,100%{
+    35%{
         left:140%;
     }
 
+    100%{
+        left:140%;
+    }
 }
 
 
-/* =========================================================
-   ICON
-========================================================= */
-
+/* ICON */
 .activity-card i{
     position:relative;
+
     z-index:2;
 
-    font-size:31px;
+    font-size:42px;
 
-    margin-bottom:12px;
+    margin-bottom:18px;
 
     transition:
         transform .35s ease,
@@ -4321,58 +4322,51 @@ font-size:12px;
 }
 
 
-/* =========================================================
-   TEXT
-========================================================= */
-
+/* TEXT */
 .activity-card p{
     position:relative;
+
     z-index:2;
 
     margin:0;
 
     color:#fff;
 
-    font-size:13px;
-    font-weight:600;
+    font-size:17px;
 
-    line-height:1.2;
+    font-weight:700;
 
     white-space:nowrap;
 
     text-shadow:
-        0 0 9px rgba(255,255,255,.25);
+        0 0 10px rgba(255,255,255,.25);
 }
 
 
-/* =========================================================
-   BADGE
-========================================================= */
-
+/* BADGE */
 .activity-badge{
     position:absolute;
 
-    top:9px;
-    right:9px;
+    top:12px;
+    right:12px;
 
-    min-width:9px;
-    height:9px;
+    width:11px;
+    height:11px;
 
     border-radius:50%;
 
-    background:#ff3d81;
+    background:#ff397f;
 
     box-shadow:
-        0 0 8px #ff3d81,
-        0 0 16px rgba(255,61,129,.75);
+        0 0 8px #ff397f,
+        0 0 18px rgba(255,57,127,.8);
 
     z-index:5;
 
-    animation:activityBadgePulse 1.8s infinite;
+    animation:badgePulse 1.8s infinite;
 }
 
-
-@keyframes activityBadgePulse{
+@keyframes badgePulse{
 
     0%,100%{
         transform:scale(1);
@@ -4383,142 +4377,149 @@ font-size:12px;
         transform:scale(1.4);
         opacity:.65;
     }
-
 }
 
 
 /* =========================================================
-   HOVER
+   DIFFERENT NEON COLORS
 ========================================================= */
 
-.activity-card:hover{
-
-    transform:
-        translateY(-7px)
-        scale(1.03);
-
-    border-color:
-        rgba(216,92,255,.70);
+#forYouCard{
+    border-color:rgba(0,230,255,.45);
 
     box-shadow:
-        0 18px 45px rgba(0,0,0,.48),
-        0 0 30px rgba(216,92,255,.25),
-        inset 0 1px 0 rgba(255,255,255,.18);
+        0 15px 35px rgba(0,0,0,.45),
+        0 0 25px rgba(0,230,255,.18);
 }
-
-
-.activity-card:hover i{
-
-    transform:
-        translateY(-4px)
-        scale(1.12);
-
-}
-
-
-/* =========================================================
-   INDIVIDUAL COLORS
-========================================================= */
 
 #forYouCard i{
     color:#00eaff;
 
     filter:
-        drop-shadow(
-            0 0 12px rgba(0,234,255,.85)
-        );
+        drop-shadow(0 0 12px #00eaff);
 }
 
+
+#dropCard{
+    border-color:rgba(255,50,220,.45);
+
+    box-shadow:
+        0 15px 35px rgba(0,0,0,.45),
+        0 0 25px rgba(255,50,220,.18);
+}
 
 #dropCard i{
-    color:#ff4fd8;
+    color:#ff42d4;
 
     filter:
-        drop-shadow(
-            0 0 12px rgba(255,79,216,.85)
-        );
+        drop-shadow(0 0 12px #ff42d4);
 }
 
+
+#notificationCard{
+    border-color:rgba(255,195,50,.45);
+
+    box-shadow:
+        0 15px 35px rgba(0,0,0,.45),
+        0 0 25px rgba(255,195,50,.18);
+}
 
 #notificationCard i{
     color:#ffd34d;
 
     filter:
-        drop-shadow(
-            0 0 12px rgba(255,211,77,.85)
-        );
+        drop-shadow(0 0 12px #ffd34d);
 }
 
+
+#rewardsCard{
+    border-color:rgba(100,255,90,.45);
+
+    box-shadow:
+        0 15px 35px rgba(0,0,0,.45),
+        0 0 25px rgba(100,255,90,.18);
+}
 
 #rewardsCard i{
     color:#8cff68;
 
     filter:
-        drop-shadow(
-            0 0 12px rgba(140,255,104,.85)
-        );
+        drop-shadow(0 0 12px #8cff68);
+}
+
+
+/* HOVER */
+.activity-card:hover{
+    transform:translateY(-8px) scale(1.02);
+
+    box-shadow:
+        0 20px 45px rgba(0,0,0,.5),
+        0 0 35px rgba(150,80,255,.25);
+}
+
+.activity-card:hover i{
+    transform:scale(1.12);
+
+    filter:
+        drop-shadow(0 0 20px currentColor);
+}
+
+.activity-card:active{
+    transform:scale(.96);
 }
 
 
 /* =========================================================
-   MOBILE — BADO 4 MSTARI MMOJA
+   IMPORTANT:
+   MAKE ALL 4 STAY ON ONE HORIZONTAL LINE
+========================================================= */
+
+main.page{
+    overflow-x:auto;
+    overflow-y:visible;
+
+    white-space:nowrap;
+
+    scrollbar-width:none;
+}
+
+main.page::-webkit-scrollbar{
+    display:none;
+}
+
+
+/* Rudisha text za sehemu nyingine zifanye wrap kawaida */
+main.page .topbar,
+main.page .mychat-navigation,
+main.page .group-slider,
+main.page .profile-modal{
+    white-space:normal;
+}
+
+
+/* =========================================================
+   MOBILE
 ========================================================= */
 
 @media(max-width:600px){
 
     .activity-card{
+        width:210px;
+        min-width:210px;
 
-        width:calc(25% - 6px);
+        height:220px;
 
-        min-height:145px;
+        margin-left:8px;
+        margin-right:8px;
 
-        margin:5px 2px;
-
-        padding:
-            18px 5px
-            14px;
-
-        border-radius:22px;
+        border-radius:26px;
     }
 
     .activity-card i{
-        font-size:27px;
-        margin-bottom:10px;
+        font-size:40px;
     }
 
     .activity-card p{
-        font-size:11px;
-    }
-
-    .activity-badge{
-        top:8px;
-        right:7px;
-    }
-}
-
-
-/* =========================================================
-   VERY SMALL PHONES
-========================================================= */
-
-@media(max-width:380px){
-
-    .activity-card{
-
-        min-height:135px;
-
-        padding:
-            16px 3px
-            12px;
-
-        border-radius:19px;
-    }
-
-    .activity-card i{
-        font-size:24px;
-    }
-
-    .activity-card p{
-        font-size:10px;
+        font-size:16px;
     }
 }
