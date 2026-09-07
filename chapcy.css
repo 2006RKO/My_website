@@ -4443,3 +4443,643 @@ font-size:12px;
 }
 
 .profile
+/* =========================================================
+   CHAPCY ACTIVITY
+   For You • CHAPCY Drop • Notification • Rewards
+   ========================================================= */
+
+.activity-panel{
+    width:calc(100% - 32px);
+    max-width:900px;
+
+    margin:35px auto 25px;
+
+    padding:25px 12px 20px;
+
+    border:1px solid rgba(120,90,255,.25);
+
+    border-radius:28px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(35,10,80,.35),
+            rgba(0,45,90,.25)
+        );
+
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+
+    box-shadow:
+        0 0 25px rgba(100,30,255,.12),
+        inset 0 0 25px rgba(0,180,255,.04);
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+
+/* =========================================================
+   ACTIVITY GLOW
+   ========================================================= */
+
+.activity-panel::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:240px;
+    height:240px;
+
+    left:-120px;
+    top:-140px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(150,0,255,.22),
+            transparent 70%
+        );
+
+    filter:blur(20px);
+
+    pointer-events:none;
+
+    animation:activityGlow 7s ease-in-out infinite;
+}
+
+
+.activity-panel::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:250px;
+    height:250px;
+
+    right:-130px;
+    bottom:-150px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(0,200,255,.18),
+            transparent 70%
+        );
+
+    filter:blur(20px);
+
+    pointer-events:none;
+
+    animation:activityGlow2 8s ease-in-out infinite;
+}
+
+
+/* =========================================================
+   ACTIVITY TITLE
+   ========================================================= */
+
+.activity-panel h2{
+
+    position:relative;
+
+    z-index:2;
+
+    text-align:center;
+
+    margin:0 0 22px;
+
+    font-size:25px;
+
+    font-weight:800;
+
+    letter-spacing:4px;
+
+    color:#fff;
+
+    text-shadow:
+        0 0 8px rgba(255,255,255,.4),
+        0 0 18px rgba(80,150,255,.35);
+}
+
+
+/* =========================================================
+   ACTIVITY GRID
+   ========================================================= */
+
+.activity-grid{
+
+    position:relative;
+
+    z-index:3;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:10px;
+
+    width:100%;
+}
+
+
+/* =========================================================
+   ACTIVITY CARD
+   ========================================================= */
+
+.activity-card{
+
+    position:relative;
+
+    min-height:125px;
+
+    padding:15px 7px;
+
+    border-radius:20px;
+
+    border:1px solid rgba(255,255,255,.13);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(40,35,100,.52),
+            rgba(5,10,45,.78)
+        );
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:9px;
+
+    cursor:pointer;
+
+    color:#fff;
+
+    transition:
+        transform .35s ease,
+        border .35s ease,
+        box-shadow .35s ease,
+        background .35s ease;
+
+    overflow:hidden;
+
+    -webkit-tap-highlight-color:transparent;
+}
+
+
+/* =========================================================
+   CARD LIGHT SWEEP
+   ========================================================= */
+
+.activity-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:-100%;
+
+    left:-80%;
+
+    width:55%;
+
+    height:300%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.12),
+            transparent
+        );
+
+    transform:rotate(25deg);
+
+    transition:left .7s ease;
+
+    pointer-events:none;
+}
+
+
+.activity-card:hover::before{
+    left:130%;
+}
+
+
+/* =========================================================
+   HOVER
+   ========================================================= */
+
+.activity-card:hover{
+
+    transform:
+        translateY(-6px)
+        scale(1.02);
+
+    border-color:
+        rgba(0,220,255,.65);
+
+    box-shadow:
+        0 0 18px rgba(0,200,255,.20),
+        0 0 35px rgba(130,0,255,.14);
+}
+
+
+/* MOBILE TAP */
+
+.activity-card:active{
+
+    transform:
+        scale(.96);
+
+}
+
+
+/* =========================================================
+   ICON
+   ========================================================= */
+
+.activity-card > i{
+
+    font-size:29px;
+
+    color:#c457ff;
+
+    text-shadow:
+        0 0 8px currentColor,
+        0 0 18px currentColor;
+
+    transition:
+        transform .35s ease,
+        color .35s ease;
+}
+
+
+.activity-card:hover > i{
+
+    transform:
+        scale(1.15)
+        translateY(-2px);
+
+}
+
+
+/* =========================================================
+   CARD TEXT
+   ========================================================= */
+
+.activity-card p{
+
+    margin:0;
+
+    color:#fff;
+
+    font-size:14px;
+
+    font-weight:700;
+
+    text-align:center;
+
+    white-space:nowrap;
+}
+
+
+/* =========================================================
+   BADGE
+   ========================================================= */
+
+.activity-badge{
+
+    position:absolute;
+
+    top:9px;
+
+    right:9px;
+
+    min-width:25px;
+
+    height:25px;
+
+    padding:0 7px;
+
+    border-radius:50px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff006a,
+            #ff1744
+        );
+
+    color:#fff;
+
+    font-size:10px;
+
+    font-weight:800;
+
+    box-shadow:
+        0 0 10px rgba(255,0,90,.55);
+
+    animation:
+        activityBadgePulse 2s ease-in-out infinite;
+}
+
+
+/* =========================================================
+   INDIVIDUAL COLORS
+   ========================================================= */
+
+/* FOR YOU */
+
+#forYouCard > i{
+
+    color:#b65cff;
+}
+
+
+/* CHAPCY DROP */
+
+#dropCard > i{
+
+    color:#00eaff;
+}
+
+
+/* NOTIFICATION */
+
+#notificationCard > i{
+
+    color:#728cff;
+}
+
+
+/* REWARDS */
+
+#rewardsCard > i{
+
+    color:#ff62d4;
+}
+
+
+/* =========================================================
+   CHAPCY DROP ACTIVE
+   ========================================================= */
+
+#dropCard{
+
+    border-color:
+        rgba(0,220,255,.45);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(55,20,130,.55),
+            rgba(5,25,70,.82)
+        );
+
+    box-shadow:
+        0 0 18px rgba(0,210,255,.13),
+        inset 0 0 20px rgba(130,30,255,.08);
+}
+
+
+#dropCard::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    border-radius:20px;
+
+    border:1px solid transparent;
+
+    background:
+        linear-gradient(
+            120deg,
+            rgba(0,230,255,.4),
+            transparent 35%,
+            rgba(180,40,255,.35)
+        )
+        border-box;
+
+    -webkit-mask:
+        linear-gradient(#fff 0 0)
+        padding-box,
+        linear-gradient(#fff 0 0);
+
+    -webkit-mask-composite:xor;
+
+    mask-composite:exclude;
+
+    pointer-events:none;
+}
+
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+
+@keyframes activityBadgePulse{
+
+    0%,
+    100%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.12);
+    }
+}
+
+
+@keyframes activityGlow{
+
+    0%,
+    100%{
+        transform:translate(0,0);
+        opacity:.6;
+    }
+
+    50%{
+        transform:translate(80px,50px);
+        opacity:1;
+    }
+}
+
+
+@keyframes activityGlow2{
+
+    0%,
+    100%{
+        transform:translate(0,0);
+        opacity:.5;
+    }
+
+    50%{
+        transform:translate(-70px,-40px);
+        opacity:1;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media(max-width:650px){
+
+    .activity-panel{
+
+        width:calc(100% - 20px);
+
+        margin-top:30px;
+
+        padding:
+            22px 8px 17px;
+
+        border-radius:24px;
+    }
+
+
+    .activity-panel h2{
+
+        font-size:23px;
+
+        letter-spacing:3px;
+
+        margin-bottom:20px;
+    }
+
+
+    .activity-grid{
+
+        grid-template-columns:
+            repeat(4, minmax(90px,1fr));
+
+        overflow-x:auto;
+
+        padding:
+            3px 3px 8px;
+
+        gap:9px;
+
+        scroll-snap-type:x mandatory;
+
+        scrollbar-width:none;
+    }
+
+
+    .activity-grid::-webkit-scrollbar{
+
+        display:none;
+    }
+
+
+    .activity-card{
+
+        min-width:90px;
+
+        min-height:120px;
+
+        border-radius:18px;
+
+        scroll-snap-align:center;
+    }
+
+
+    .activity-card > i{
+
+        font-size:27px;
+    }
+
+
+    .activity-card p{
+
+        font-size:12px;
+    }
+
+
+    .activity-badge{
+
+        top:7px;
+
+        right:7px;
+
+        min-width:23px;
+
+        height:23px;
+
+        font-size:9px;
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+   ========================================================= */
+
+@media(max-width:380px){
+
+    .activity-panel{
+
+        width:calc(100% - 14px);
+
+        padding-left:6px;
+
+        padding-right:6px;
+    }
+
+
+    .activity-grid{
+
+        grid-template-columns:
+            repeat(4, minmax(82px,1fr));
+
+        gap:7px;
+    }
+
+
+    .activity-card{
+
+        min-width:82px;
+
+        min-height:112px;
+
+        padding:12px 5px;
+    }
+
+
+    .activity-card > i{
+
+        font-size:24px;
+    }
+
+
+    .activity-card p{
+
+        font-size:11px;
+    }
+
+}
