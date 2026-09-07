@@ -4944,23 +4944,32 @@ font-size:12px;
 
 
 /* =========================================================
-   MOBILE
+   MOBILE — STANDING BENT GLASS ACTIVITIES
    ========================================================= */
 
 @media(max-width:650px){
 
     .activity-panel{
-
         width:calc(100% - 20px);
 
-        margin-top:30px;
+        margin:30px auto 20px;
 
         padding:
-            22px 8px 17px;
+            18px 5px 20px;
 
-        border-radius:24px;
+        border-radius:26px;
+
+        background:
+            rgba(8,12,45,.14);
+
+        backdrop-filter:blur(14px);
+        -webkit-backdrop-filter:blur(14px);
+
+        overflow:hidden;
     }
 
+
+    /* TITLE */
 
     .activity-panel h2{
 
@@ -4968,21 +4977,34 @@ font-size:12px;
 
         letter-spacing:3px;
 
-        margin-bottom:20px;
+        margin-bottom:18px;
     }
 
 
+    /* =====================================================
+       HORIZONTAL ACTIVITY ROW
+    ===================================================== */
+
     .activity-grid{
 
-        grid-template-columns:
-            repeat(4, minmax(90px,1fr));
+        display:flex;
+
+        flex-direction:row;
+
+        align-items:center;
+
+        justify-content:flex-start;
+
+        gap:14px;
+
+        width:100%;
 
         overflow-x:auto;
 
-        padding:
-            3px 3px 8px;
+        overflow-y:visible;
 
-        gap:9px;
+        padding:
+            12px 14px 25px;
 
         scroll-snap-type:x mandatory;
 
@@ -4991,46 +5013,357 @@ font-size:12px;
 
 
     .activity-grid::-webkit-scrollbar{
-
         display:none;
     }
 
 
+    /* =====================================================
+       STANDING GLASS CARD
+    ===================================================== */
+
     .activity-card{
 
-        min-width:90px;
+        position:relative;
 
-        min-height:120px;
+        flex:0 0 145px;
 
-        border-radius:18px;
+        width:145px;
+
+        height:210px;
+
+        min-width:145px;
+        min-height:210px;
+
+        border-radius:26px;
 
         scroll-snap-align:center;
+
+        display:flex;
+
+        flex-direction:column;
+
+        align-items:center;
+
+        justify-content:center;
+
+        background:
+            linear-gradient(
+                145deg,
+                rgba(255,255,255,.11),
+                rgba(255,255,255,.025)
+            );
+
+        border:
+            1px solid
+            rgba(255,255,255,.18);
+
+        backdrop-filter:blur(16px);
+        -webkit-backdrop-filter:blur(16px);
+
+        box-shadow:
+            0 18px 40px rgba(0,0,0,.45),
+            inset 0 1px 1px rgba(255,255,255,.18);
+
+        overflow:hidden;
+
+        transform-style:preserve-3d;
+
+        transition:
+            transform .45s ease,
+            box-shadow .45s ease,
+            border-color .45s ease;
     }
 
+
+    /* =====================================================
+       BENT EFFECT
+    ===================================================== */
+
+    .activity-card:nth-child(1){
+
+        transform:
+            perspective(700px)
+            rotateY(-7deg)
+            rotateZ(-2deg)
+            translateY(6px);
+    }
+
+
+    .activity-card:nth-child(2){
+
+        transform:
+            perspective(700px)
+            rotateY(4deg)
+            rotateZ(2deg)
+            translateY(-4px);
+    }
+
+
+    .activity-card:nth-child(3){
+
+        transform:
+            perspective(700px)
+            rotateY(-4deg)
+            rotateZ(-2deg)
+            translateY(5px);
+    }
+
+
+    .activity-card:nth-child(4){
+
+        transform:
+            perspective(700px)
+            rotateY(7deg)
+            rotateZ(2deg)
+            translateY(-4px);
+    }
+
+
+    /* =====================================================
+       GLASS SHINE
+    ===================================================== */
+
+    .activity-card::before{
+
+        content:"";
+
+        position:absolute;
+
+        top:-40%;
+
+        left:-70%;
+
+        width:200%;
+
+        height:80px;
+
+        background:
+            linear-gradient(
+                90deg,
+                transparent,
+                rgba(255,255,255,.20),
+                transparent
+            );
+
+        transform:rotate(-25deg);
+
+        pointer-events:none;
+
+        animation:
+            glassShine 5s ease-in-out infinite;
+    }
+
+
+    @keyframes glassShine{
+
+        0%{
+            left:-100%;
+        }
+
+        45%,
+        100%{
+            left:120%;
+        }
+    }
+
+
+    /* =====================================================
+       NEON GLOW
+    ===================================================== */
+
+    .activity-card::after{
+
+        content:"";
+
+        position:absolute;
+
+        bottom:13px;
+
+        width:42px;
+
+        height:3px;
+
+        border-radius:20px;
+
+        background:
+            linear-gradient(
+                90deg,
+                #b82cff,
+                #00d9ff
+            );
+
+        box-shadow:
+            0 0 10px #b82cff,
+            0 0 20px #00d9ff;
+
+        animation:
+            activityLine 2.5s ease-in-out infinite;
+    }
+
+
+    @keyframes activityLine{
+
+        0%,
+        100%{
+            transform:scaleX(.7);
+
+            opacity:.45;
+        }
+
+        50%{
+            transform:scaleX(1.25);
+
+            opacity:1;
+        }
+    }
+
+
+    /* =====================================================
+       ICON
+    ===================================================== */
 
     .activity-card > i{
 
-        font-size:27px;
+        position:relative;
+
+        z-index:5;
+
+        font-size:39px;
+
+        margin-bottom:17px;
+
+        color:#d85cff;
+
+        filter:
+            drop-shadow(0 0 8px #d85cff)
+            drop-shadow(0 0 20px rgba(150,0,255,.65));
+
+        animation:
+            iconFloat 3s ease-in-out infinite;
     }
 
+
+    @keyframes iconFloat{
+
+        0%,
+        100%{
+            transform:translateY(0);
+        }
+
+        50%{
+            transform:translateY(-6px);
+        }
+    }
+
+
+    /* =====================================================
+       TEXT
+    ===================================================== */
 
     .activity-card p{
 
-        font-size:12px;
+        position:relative;
+
+        z-index:5;
+
+        font-size:14px;
+
+        font-weight:700;
+
+        color:#fff;
+
+        text-align:center;
+
+        white-space:nowrap;
+
+        text-shadow:
+            0 2px 12px rgba(0,0,0,.6);
     }
 
 
+    /* =====================================================
+       BADGE
+    ===================================================== */
+
     .activity-badge{
 
-        top:7px;
+        position:absolute;
 
-        right:7px;
+        z-index:10;
 
-        min-width:23px;
+        top:9px;
 
-        height:23px;
+        right:9px;
 
-        font-size:9px;
+        min-width:29px;
+
+        height:29px;
+
+        padding:0 6px;
+
+        border-radius:50%;
+
+        display:flex;
+
+        align-items:center;
+
+        justify-content:center;
+
+        background:
+            linear-gradient(
+                135deg,
+                #ff2478,
+                #ff0055
+            );
+
+        color:#fff;
+
+        font-size:10px;
+
+        font-weight:800;
+
+        box-shadow:
+            0 0 12px rgba(255,0,90,.75),
+            0 0 25px rgba(255,0,90,.25);
+
+        animation:
+            badgePulse 2s ease-in-out infinite;
+    }
+
+
+    @keyframes badgePulse{
+
+        0%,
+        100%{
+            transform:scale(1);
+        }
+
+        50%{
+            transform:scale(1.12);
+        }
+    }
+
+
+    /* =====================================================
+       TOUCH / ACTIVE
+    ===================================================== */
+
+    .activity-card:active{
+
+        transform:
+            perspective(700px)
+            rotateY(0deg)
+            rotateZ(0deg)
+            translateY(-8px)
+            scale(1.04);
+
+        border-color:
+            rgba(0,220,255,.7);
+
+        box-shadow:
+            0 20px 50px rgba(0,0,0,.55),
+            0 0 30px rgba(0,220,255,.3),
+            0 0 55px rgba(140,0,255,.2);
     }
 
 }
@@ -5046,40 +5379,65 @@ font-size:12px;
 
         width:calc(100% - 14px);
 
-        padding-left:6px;
+        padding:
+            16px 3px 18px;
 
-        padding-right:6px;
+        border-radius:24px;
     }
 
 
     .activity-grid{
 
-        grid-template-columns:
-            repeat(4, minmax(82px,1fr));
+        gap:11px;
 
-        gap:7px;
+        padding:
+            10px 12px 23px;
     }
 
 
     .activity-card{
 
-        min-width:82px;
+        flex:0 0 132px;
 
-        min-height:112px;
+        width:132px;
 
-        padding:12px 5px;
+        height:195px;
+
+        min-width:132px;
+
+        min-height:195px;
+
+        border-radius:23px;
     }
 
 
     .activity-card > i{
 
-        font-size:24px;
+        font-size:35px;
+
+        margin-bottom:15px;
     }
 
 
     .activity-card p{
 
-        font-size:11px;
+        font-size:13px;
+    }
+
+
+    .activity-badge{
+
+        width:27px;
+
+        min-width:27px;
+
+        height:27px;
+
+        top:8px;
+
+        right:8px;
+
+        font-size:9px;
     }
 
 }
