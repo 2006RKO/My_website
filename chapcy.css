@@ -4183,52 +4183,52 @@ font-size:12px;
     font-size:12px;
 }
 /* =========================================================
-   CHAPCY ACTIVITY CARDS — PREMIUM V21
+   CHAPCY ACTIVITY CARDS — 4 IN ONE ROW
+   1  2  3  4
 ========================================================= */
 
 .activity-card{
     position:relative;
 
-    width:calc(50% - 7px);
-    min-height:145px;
-
-    margin:7px 0;
-
-    padding:22px 12px 18px;
-
+    /* 4 CARDS MSTARI MMOJA */
     display:inline-flex;
     vertical-align:top;
+
+    width:calc(25% - 8px);
+    min-height:155px;
+
+    margin:6px 3px;
+    padding:20px 8px 16px;
+
+    box-sizing:border-box;
 
     flex-direction:column;
     justify-content:center;
     align-items:center;
-
     text-align:center;
 
     overflow:hidden;
-
     cursor:pointer;
 
-    border-radius:26px;
+    border-radius:24px;
 
     background:
         linear-gradient(
             145deg,
-            rgba(255,255,255,.11),
-            rgba(112,42,255,.10),
-            rgba(0,210,255,.06)
+            rgba(255,255,255,.12),
+            rgba(111,42,255,.13),
+            rgba(0,210,255,.08)
         );
 
-    border:1px solid
-        rgba(190,105,255,.30);
+    border:1px solid rgba(190,105,255,.35);
 
     backdrop-filter:blur(18px);
     -webkit-backdrop-filter:blur(18px);
 
     box-shadow:
-        0 12px 35px rgba(0,0,0,.38),
-        inset 0 1px 0 rgba(255,255,255,.12),
-        0 0 22px rgba(130,50,255,.12);
+        0 12px 35px rgba(0,0,0,.42),
+        inset 0 1px 0 rgba(255,255,255,.13),
+        0 0 25px rgba(130,50,255,.15);
 
     transition:
         transform .35s cubic-bezier(.2,.8,.2,1),
@@ -4237,20 +4237,17 @@ font-size:12px;
 }
 
 
-/* =========================================================
-   GLASS SHINE
-========================================================= */
-
+/* LIGHT GLOW */
 .activity-card::before{
     content:"";
 
     position:absolute;
 
-    width:150px;
-    height:150px;
+    width:120px;
+    height:120px;
 
-    top:-85px;
-    left:-75px;
+    top:-65px;
+    left:-55px;
 
     border-radius:50%;
 
@@ -4258,54 +4255,51 @@ font-size:12px;
         radial-gradient(
             circle,
             rgba(255,255,255,.20),
-            transparent 68%
+            transparent 70%
         );
 
     pointer-events:none;
 }
 
 
-/* =========================================================
-   MOVING NEON LIGHT
-========================================================= */
-
+/* MOVING GLASS SHINE */
 .activity-card::after{
     content:"";
 
     position:absolute;
 
     top:0;
-    left:-120%;
+    left:-130%;
 
-    width:80%;
+    width:75%;
     height:100%;
 
     background:
         linear-gradient(
             90deg,
             transparent,
-            rgba(255,255,255,.10),
+            rgba(255,255,255,.13),
             transparent
         );
 
     transform:skewX(-20deg);
 
-    animation:
-        activityShine 5s infinite;
+    animation:activityShine 5s infinite;
 
     pointer-events:none;
 }
 
+
 @keyframes activityShine{
 
     0%{
-        left:-120%;
+        left:-130%;
     }
 
-    35%,
-    100%{
+    35%,100%{
         left:140%;
     }
+
 }
 
 
@@ -4315,20 +4309,11 @@ font-size:12px;
 
 .activity-card i{
     position:relative;
-
     z-index:2;
 
-    font-size:34px;
+    font-size:31px;
 
-    color:#d85cff;
-
-    margin-bottom:10px;
-
-    filter:
-        drop-shadow(
-            0 0 10px
-            rgba(216,92,255,.70)
-        );
+    margin-bottom:12px;
 
     transition:
         transform .35s ease,
@@ -4342,22 +4327,21 @@ font-size:12px;
 
 .activity-card p{
     position:relative;
-
     z-index:2;
 
     margin:0;
 
     color:#fff;
 
-    font-size:15px;
-
+    font-size:13px;
     font-weight:600;
 
-    letter-spacing:.2px;
+    line-height:1.2;
+
+    white-space:nowrap;
 
     text-shadow:
-        0 0 9px
-        rgba(255,255,255,.20);
+        0 0 9px rgba(255,255,255,.25);
 }
 
 
@@ -4384,9 +4368,9 @@ font-size:12px;
 
     z-index:5;
 
-    animation:
-        activityBadgePulse 1.8s infinite;
+    animation:activityBadgePulse 1.8s infinite;
 }
+
 
 @keyframes activityBadgePulse{
 
@@ -4396,154 +4380,145 @@ font-size:12px;
     }
 
     50%{
-        transform:scale(1.35);
+        transform:scale(1.4);
         opacity:.65;
     }
+
 }
 
 
 /* =========================================================
-   HOVER / TOUCH
+   HOVER
 ========================================================= */
 
 .activity-card:hover{
+
     transform:
-        translateY(-6px)
-        scale(1.02);
+        translateY(-7px)
+        scale(1.03);
 
     border-color:
-        rgba(216,92,255,.65);
+        rgba(216,92,255,.70);
 
     box-shadow:
-        0 18px 45px rgba(0,0,0,.45),
-        0 0 30px rgba(216,92,255,.22),
-        inset 0 1px 0 rgba(255,255,255,.15);
+        0 18px 45px rgba(0,0,0,.48),
+        0 0 30px rgba(216,92,255,.25),
+        inset 0 1px 0 rgba(255,255,255,.18);
 }
+
 
 .activity-card:hover i{
+
     transform:
         translateY(-4px)
-        scale(1.10);
+        scale(1.12);
 
-    filter:
-        drop-shadow(
-            0 0 17px
-            rgba(216,92,255,1)
-        );
 }
 
 
 /* =========================================================
-   CLICK EFFECT
+   INDIVIDUAL COLORS
 ========================================================= */
-
-.activity-card:active{
-    transform:
-        scale(.94);
-}
-
-
-/* =========================================================
-   DIFFERENT NEON COLORS
-========================================================= */
-
-/* FOR YOU */
 
 #forYouCard i{
     color:#00eaff;
 
     filter:
         drop-shadow(
-            0 0 12px
-            rgba(0,234,255,.80)
+            0 0 12px rgba(0,234,255,.85)
         );
 }
 
-
-/* CHAPCY DROP */
 
 #dropCard i{
     color:#ff4fd8;
 
     filter:
         drop-shadow(
-            0 0 12px
-            rgba(255,79,216,.80)
+            0 0 12px rgba(255,79,216,.85)
         );
 }
 
-
-/* NOTIFICATION */
 
 #notificationCard i{
     color:#ffd34d;
 
     filter:
         drop-shadow(
-            0 0 12px
-            rgba(255,211,77,.80)
+            0 0 12px rgba(255,211,77,.85)
         );
 }
 
-
-/* REWARDS */
 
 #rewardsCard i{
     color:#8cff68;
 
     filter:
         drop-shadow(
-            0 0 12px
-            rgba(140,255,104,.80)
+            0 0 12px rgba(140,255,104,.85)
         );
 }
 
 
 /* =========================================================
-   MOBILE
+   MOBILE — BADO 4 MSTARI MMOJA
 ========================================================= */
 
 @media(max-width:600px){
 
     .activity-card{
-        min-height:135px;
 
-        border-radius:23px;
+        width:calc(25% - 6px);
+
+        min-height:145px;
+
+        margin:5px 2px;
 
         padding:
-            20px 9px 16px;
+            18px 5px
+            14px;
+
+        border-radius:22px;
     }
 
     .activity-card i{
-        font-size:31px;
+        font-size:27px;
+        margin-bottom:10px;
     }
 
     .activity-card p{
-        font-size:14px;
+        font-size:11px;
+    }
+
+    .activity-badge{
+        top:8px;
+        right:7px;
     }
 }
 
 
 /* =========================================================
-   VERY SMALL SCREEN
+   VERY SMALL PHONES
 ========================================================= */
 
-@media(max-width:360px){
+@media(max-width:380px){
 
     .activity-card{
-        min-height:125px;
+
+        min-height:135px;
 
         padding:
-            17px 7px 14px;
+            16px 3px
+            12px;
 
-        border-radius:20px;
+        border-radius:19px;
     }
 
     .activity-card i{
-        font-size:28px;
+        font-size:24px;
     }
 
     .activity-card p{
-        font-size:13px;
+        font-size:10px;
     }
 }
