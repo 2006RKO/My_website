@@ -1177,3 +1177,140 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 });
+/* =====================================================
+        CHAPCY ACTIVITY NAVIGATION
+===================================================== */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const activityCards = document.querySelectorAll(".activity-card");
+
+    activityCards.forEach(card => {
+
+        // Keyboard support
+        card.addEventListener("keydown", (event) => {
+
+            if (event.key === "Enter" || event.key === " ") {
+
+                event.preventDefault();
+
+                card.click();
+            }
+
+        });
+
+        // Touch/click animation
+        card.addEventListener("click", () => {
+
+            card.classList.add("activity-clicked");
+
+            setTimeout(() => {
+                card.classList.remove("activity-clicked");
+            }, 300);
+
+        });
+
+    });
+
+});
+
+
+/* =====================================================
+             ACTIVITY FUNCTIONS
+===================================================== */
+
+function openForYou() {
+
+    window.location.href = "ForYou.html";
+
+}
+
+
+function openChapcyDrop() {
+
+    window.location.href = "ChapcyDrop.html";
+
+}
+
+
+function openNotification() {
+
+    window.location.href = "Notification.html";
+
+}
+
+
+function openRewards() {
+
+    window.location.href = "Reward.html";
+
+}
+
+
+/* =====================================================
+        OPTIONAL: UPDATE BADGES
+===================================================== */
+
+function updateActivityBadge(cardId, number) {
+
+    const card = document.getElementById(cardId);
+
+    if (!card) return;
+
+    const badge = card.querySelector(".activity-badge");
+
+    if (!badge) return;
+
+    badge.textContent = number;
+
+}
+
+
+/* =====================================================
+          HIDE BADGE WHEN ZERO
+===================================================== */
+
+function updateBadgeVisibility(cardId, number) {
+
+    const card = document.getElementById(cardId);
+
+    if (!card) return;
+
+    const badge = card.querySelector(".activity-badge");
+
+    if (!badge) return;
+
+    badge.textContent = number;
+
+    if (Number(number) <= 0) {
+
+        badge.style.display = "none";
+
+    } else {
+
+        badge.style.display = "flex";
+
+    }
+
+}
+
+
+/* =====================================================
+          ACTIVITY CLICK ANIMATION
+===================================================== */
+
+const activityClickStyle = document.createElement("style");
+
+activityClickStyle.textContent = `
+
+.activity-clicked {
+
+    transform: scale(.94) !important;
+
+    filter: brightness(1.35);
+
+}
+
+`;
+
+document.head.appendChild(activityClickStyle);
