@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#030712">
+
+    <title>CHAPCY — Notifications</title>
+
+    <!-- GOOGLE FONT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- NOTIFICATIONS CSS -->
+    <link rel="stylesheet" href="Notification.css">
+</head>
+
+<body>
+
+<!-- =====================================================
+     BACKGROUND
+===================================================== -->
+
+<div class="background-effects">
+    <span class="orb orb-one"></span>
+    <span class="orb orb-two"></span>
+    <span class="orb orb-three"></span>
+</div>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="notification-header">
+
+    <button
+        class="back-btn"
+        id="backBtn"
+        aria-label="Go back">
+
+        <i class="fa-solid fa-arrow-left"></i>
+
+    </button>
+
+
+    <div class="header-title">
+
+        <div class="header-icon">
+            <i class="fa-solid fa-bell"></i>
+
+            <span
+                id="headerUnreadBadge"
+                class="header-unread-badge hidden">
+                0
+            </span>
+        </div>
+
+        <div>
+            <h1>Notifications</h1>
+            <p>Stay updated with CHAPCY</p>
+        </div>
+
+    </div>
+
+
+    <button
+        class="header-action"
+        id="settingsBtn"
+        aria-label="Notification settings">
+
+        <i class="fa-solid fa-gear"></i>
+
+    </button>
+
+</header>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="notifications-page">
+
+
+    <!-- =================================================
+         USER STATUS
+    ================================================== -->
+
+    <section class="notification-status-card">
+
+        <div class="status-left">
+
+            <div class="status-icon">
+                <i class="fa-solid fa-bell"></i>
+            </div>
+
+            <div>
+
+                <span class="status-label">
+                    Notification Center
+                </span>
+
+                <strong id="unreadText">
+                    0 unread notifications
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <button
+            id="markAllBtn"
+            class="mark-all-btn">
+
+            <i class="fa-solid fa-check-double"></i>
+
+            Mark all as read
+
+        </button>
+
+    </section>
+
+
+
+    <!-- =================================================
+         FILTER TABS
+    ================================================== -->
+
+    <nav class="notification-tabs"
+         aria-label="Notification filters">
+
+        <button
+            class="notification-tab active"
+            data-filter="all">
+
+            <i class="fa-solid fa-layer-group"></i>
+
+            <span>All</span>
+
+            <b id="allCount">0</b>
+
+        </button>
+
+
+        <button
+            class="notification-tab"
+            data-filter="unread">
+
+            <i class="fa-solid fa-circle-dot"></i>
+
+            <span>Unread</span>
+
+            <b id="unreadCount">0</b>
+
+        </button>
+
+
+        <button
+            class="notification-tab"
+            data-filter="social">
+
+            <i class="fa-solid fa-users"></i>
+
+            <span>Social</span>
+
+        </button>
+
+
+        <button
+            class="notification-tab"
+            data-filter="rewards">
+
+            <i class="fa-solid fa-gift"></i>
+
+            <span>Rewards</span>
+
+        </button>
+
+
+        <button
+            class="notification-tab"
+            data-filter="shop">
+
+            <i class="fa-solid fa-bag-shopping"></i>
+
+            <span>Shop</span>
+
+        </button>
+
+    </nav>
+
+
+
+    <!-- =================================================
+         NOTIFICATIONS
+    ================================================== -->
+
+    <section
+        id="notificationsList"
+        class="notifications-list">
+
+        <!-- Firebase notifications zitaingia hapa -->
+
+    </section>
+
+
+
+    <!-- =================================================
+         EMPTY STATE
+    ================================================== -->
+
+    <section
+        id="emptyState"
+        class="empty-state hidden">
+
+        <div class="empty-icon">
+
+            <i class="fa-regular fa-bell-slash"></i>
+
+        </div>
+
+        <h2 id="emptyTitle">
+            No notifications
+        </h2>
+
+        <p id="emptyMessage">
+            You don't have any notifications yet.
+        </p>
+
+    </section>
+
+
+
+    <!-- =================================================
+         LOADING
+    ================================================== -->
+
+    <section
+        id="loadingState"
+        class="loading-state">
+
+        <div class="loader"></div>
+
+        <p>Loading notifications...</p>
+
+    </section>
+
+</main>
+
+
+
+<!-- =====================================================
+     NOTIFICATION DETAIL / ACTION MODAL
+===================================================== -->
+
+<div
+    id="notificationModal"
+    class="modal">
+
+    <div class="modal-backdrop"
+         data-close-modal></div>
+
+
+    <div class="modal-card">
+
+        <button
+            class="modal-close"
+            data-close-modal>
+
+            <i class="fa-solid fa-xmark"></i>
+
+        </button>
+
+
+        <div
+            id="modalNotificationIcon"
+            class="modal-notification-icon">
+
+            <i class="fa-solid fa-bell"></i>
+
+        </div>
+
+
+        <h2 id="modalTitle">
+            Notification
+        </h2>
+
+
+        <p id="modalMessage">
+            Notification message
+        </p>
+
+
+        <span
+            id="modalTime"
+            class="modal-time">
+        </span>
+
+
+        <button
+            id="modalActionBtn"
+            class="modal-action-btn">
+
+            Open
+
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     DELETE CONFIRMATION
+===================================================== -->
+
+<div
+    id="deleteModal"
+    class="modal">
+
+    <div class="modal-backdrop"
+         data-close-delete></div>
+
+
+    <div class="modal-card delete-card">
+
+        <div class="delete-icon">
+
+            <i class="fa-solid fa-trash"></i>
+
+        </div>
+
+        <h2>Delete notification?</h2>
+
+        <p>
+            This notification will be removed from your
+            notification center.
+        </p>
+
+
+        <div class="delete-actions">
+
+            <button
+                id="cancelDeleteBtn"
+                class="cancel-btn">
+
+                Cancel
+
+            </button>
+
+
+            <button
+                id="confirmDeleteBtn"
+                class="delete-btn">
+
+                Delete
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     TOAST
+===================================================== -->
+
+<div
+    id="toast"
+    class="toast">
+
+    <div class="toast-icon">
+
+        <i class="fa-solid fa-check"></i>
+
+    </div>
+
+    <div>
+
+        <strong id="toastTitle">
+            Success
+        </strong>
+
+        <p id="toastMessage">
+            Done
+        </p>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     FIREBASE + APP
+===================================================== -->
+
+<script type="module">
+
+    /*
+     * IMPORTANT:
+     * Notifications.js expects Firebase to be available
+     * through window.CHAPCY_FIREBASE.
+     *
+     * Your Firebase initialization file should create:
+     *
+     * window.CHAPCY_FIREBASE = {
+     *     app,
+     *     auth,
+     *     db
+     * };
+     */
+
+    import { initializeApp }
+        from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+    import {
+        getAuth,
+        onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+
+    import {
+        getFirestore
+    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+    /*
+     * =====================================================
+     * FIREBASE CONFIG
+     * =====================================================
+     *
+     * WEKA CONFIG YAKO HALISI HAPA.
+     */
+
+    const firebaseConfig = {
+
+        apiKey: "YOUR_API_KEY",
+
+        authDomain:
+            "YOUR_PROJECT.firebaseapp.com",
+
+        projectId:
+            "YOUR_PROJECT_ID",
+
+        storageBucket:
+            "YOUR_PROJECT.firebasestorage.app",
+
+        messagingSenderId:
+            "YOUR_MESSAGING_SENDER_ID",
+
+        appId:
+            "YOUR_APP_ID"
+    };
+
+
+    const app = initializeApp(firebaseConfig);
+
+    const auth = getAuth(app);
+
+    const db = getFirestore(app);
+
+
+    /*
+     * Expose Firebase globally
+     */
+
+    window.CHAPCY_FIREBASE = {
+        app,
+        auth,
+        db
+    };
+
+
+    /*
+     * Notify Notifications.js
+     */
+
+    onAuthStateChanged(auth, user => {
+
+        if (user) {
+
+            window.dispatchEvent(
+                new CustomEvent(
+                    "chapcyUserReady",
+                    {
+                        detail: {
+                            user
+                        }
+                    }
+                )
+            );
+
+        } else {
+
+            window.dispatchEvent(
+                new CustomEvent(
+                    "chapcyUserSignedOut"
+                )
+            );
+
+        }
+
+    });
+
+</script>
+
+
+<script src="Notification.js"></script>
+
+</body>
+              </html>
