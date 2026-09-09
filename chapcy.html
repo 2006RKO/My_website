@@ -87,17 +87,23 @@
             <span class="nav-badge">2</span>
         </div>
 
-        <div class="mychat-nav-text">
-            <h3>Messages</h3>
-            <p>New messages</p>
-        </div>
+        <div class="activity-card"
+     id="messagesCard"
+     role="button"
+     tabindex="0"
+     onclick="window.location.href='Messages.html'">
 
-        <div class="mychat-nav-arrow">
-            <i class="fa-solid fa-arrow-right"></i>
-        </div>
-
+    <div class="activity-icon messages-icon">
+        <i class="fa-solid fa-envelope"></i>
     </div>
 
+    <span class="activity-badge" id="unreadBadge">2</span>
+
+    <h3>Messages</h3>
+    <p>New messages</p>
+
+    <i class="fa-solid fa-arrow-right activity-arrow"></i>
+        </div>
 
     <div class="mychat-nav-card" onclick="openStatus()">
 
