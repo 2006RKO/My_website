@@ -59,95 +59,84 @@
 ===================================================== -->
 
 <section class="mychat-navigation">
+<nav class="message-navigation">
 
-    <div class="mychat-nav-card active"
-         onclick="window.location.href='Mychatregister.html'">
-
-        <div class="mychat-nav-icon">
+    <a href="chats.html" class="message-nav-item">
+        <span class="message-nav-icon">
             <i class="fa-solid fa-comments"></i>
-            <span class="nav-badge">3</span>
-        </div>
+        </span>
 
-        <div class="mychat-nav-text">
-            <h3>My Chats</h3>
-            <p>Private conversations</p>
-        </div>
+        <span class="message-nav-text">
+            My Chats
+        </span>
 
-        <div class="mychat-nav-arrow">
-            <i class="fa-solid fa-arrow-right"></i>
-        </div>
-
-    </div>
+        <span class="message-nav-badge" id="chatUnreadBadge">
+            3
+        </span>
+    </a>
 
 
-    <div class="mychat-nav-card" onclick="openMessages()">
+    <a href="Messages.html"
+       class="message-nav-item active">
 
-        <div class="mychat-nav-icon">
+        <span class="message-nav-icon">
             <i class="fa-solid fa-envelope"></i>
-            <span class="nav-badge">2</span>
-        </div>
+        </span>
 
-        <div class="activity-card"
-     id="messagesCard"
-     role="button"
-     tabindex="0"
-     onclick="window.location.href='Message.html'">
+        <span class="message-nav-text">
+            Messages
+        </span>
 
-    <div class="activity-icon messages-icon">
-        <i class="fa-solid fa-envelope"></i>
-    </div>
+        <span class="message-nav-badge" id="messageUnreadBadge">
+            2
+        </span>
 
-    <span class="activity-badge" id="unreadBadge">2</span>
+    </a>
 
-    <h3>Messages</h3>
-    <p>New messages</p>
 
-    <i class="fa-solid fa-arrow-right activity-arrow"></i>
-        </div>
+    <a href="status.html" class="message-nav-item">
 
-    <div class="mychat-nav-card" onclick="openStatus()">
-
-        <div class="mychat-nav-icon status-icon">
+        <span class="message-nav-icon status">
             <i class="fa-solid fa-circle-play"></i>
-        </div>
+        </span>
 
-    <div class="mychat-nav-card" onclick="openCalls()">
+        <span class="message-nav-text">
+            Status
+        </span>
 
-        <div class="mychat-nav-icon call-icon">
+    </a>
+
+
+    <a href="calls.html" class="message-nav-item">
+
+        <span class="message-nav-icon calls">
             <i class="fa-solid fa-phone"></i>
-        </div>
+        </span>
 
-        <div class="mychat-nav-text">
-            <h3>Calls</h3>
-            <p>Voice & video calls</p>
-        </div>
+        <span class="message-nav-text">
+            Calls
+        </span>
 
-        <div class="mychat-nav-arrow">
-            <i class="fa-solid fa-arrow-right"></i>
-        </div>
-
-    </div>
+    </a>
 
 
-    <div class="mychat-nav-card" onclick="openMentions()">
+    <a href="mentions.html" class="message-nav-item">
 
-        <div class="mychat-nav-icon mention-icon">
+        <span class="message-nav-icon mentions">
             <i class="fa-solid fa-at"></i>
-            <span class="nav-badge">1</span>
-        </div>
+        </span>
 
-        <div class="mychat-nav-text">
-            <h3>Mentions</h3>
-            <p>People mentioned you</p>
-        </div>
+        <span class="message-nav-text">
+            Mentions
+        </span>
 
-        <div class="mychat-nav-arrow">
-            <i class="fa-solid fa-arrow-right"></i>
-        </div>
+        <span class="message-nav-badge">
+            1
+        </span>
 
-    </div>
+    </a>
 
-</section>
+</nav>
     </div>
 </div>
     <section class="group-slider">
