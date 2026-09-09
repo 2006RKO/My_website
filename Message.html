@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>CHAPCY • Messages</title>
+
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- GOOGLE FONT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- MESSAGE CSS -->
+    <link rel="stylesheet" href="messages.css">
+</head>
+
+<body>
+
+<!-- =====================================================
+     BACKGROUND
+===================================================== -->
+
+<div class="bg-glow glow-one"></div>
+<div class="bg-glow glow-two"></div>
+<div class="bg-glow glow-three"></div>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="messages-header">
+
+    <button class="back-btn"
+            id="backBtn"
+            aria-label="Go back">
+
+        <i class="fa-solid fa-arrow-left"></i>
+
+    </button>
+
+
+    <div class="header-title">
+
+        <div class="title-icon">
+            <i class="fa-solid fa-envelope"></i>
+        </div>
+
+        <div>
+            <h1>Messages</h1>
+            <span id="connectionStatus">
+                Connecting...
+            </span>
+        </div>
+
+    </div>
+
+
+    <div class="header-actions">
+
+        <button class="header-btn"
+                id="markAllBtn"
+                title="Mark all as read">
+
+            <i class="fa-solid fa-check-double"></i>
+
+        </button>
+
+        <button class="header-btn"
+                id="refreshBtn"
+                title="Refresh">
+
+            <i class="fa-solid fa-rotate"></i>
+
+        </button>
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="messages-page">
+
+
+    <!-- =================================================
+         SEARCH
+    ================================================== -->
+
+    <div class="search-container">
+
+        <i class="fa-solid fa-magnifying-glass"></i>
+
+        <input
+            type="search"
+            id="searchInput"
+            placeholder="Search messages..."
+            autocomplete="off">
+
+        <button id="clearSearch"
+                class="clear-search"
+                aria-label="Clear search">
+
+            <i class="fa-solid fa-xmark"></i>
+
+        </button>
+
+    </div>
+
+
+
+    <!-- =================================================
+         FILTERS
+    ================================================== -->
+
+    <div class="message-filters">
+
+        <button class="filter-btn active"
+                data-filter="all">
+
+            <i class="fa-solid fa-inbox"></i>
+
+            <span>All</span>
+
+            <b id="allCount">0</b>
+
+        </button>
+
+
+        <button class="filter-btn"
+                data-filter="unread">
+
+            <i class="fa-solid fa-envelope"></i>
+
+            <span>Unread</span>
+
+            <b id="unreadCount">0</b>
+
+        </button>
+
+    </div>
+
+
+
+    <!-- =================================================
+         LOADING
+    ================================================== -->
+
+    <section id="loadingState"
+             class="state-box">
+
+        <div class="loader"></div>
+
+        <p>Loading your messages...</p>
+
+    </section>
+
+
+
+    <!-- =================================================
+         ERROR
+    ================================================== -->
+
+    <section id="errorState"
+             class="state-box hidden">
+
+        <div class="state-icon error-icon">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+
+        <h3>Unable to load messages</h3>
+
+        <p id="errorText">
+            Please try again.
+        </p>
+
+        <button id="retryBtn"
+                class="retry-btn">
+
+            <i class="fa-solid fa-rotate-right"></i>
+            Try Again
+
+        </button>
+
+    </section>
+
+
+
+    <!-- =================================================
+         EMPTY
+    ================================================== -->
+
+    <section id="emptyState"
+             class="state-box hidden">
+
+        <div class="empty-icon">
+
+            <i class="fa-regular fa-envelope-open"></i>
+
+        </div>
+
+        <h3 id="emptyTitle">
+            No messages
+        </h3>
+
+        <p id="emptyText">
+            Your inbox is currently empty.
+        </p>
+
+    </section>
+
+
+
+    <!-- =================================================
+         MESSAGE LIST
+    ================================================== -->
+
+    <section id="messageList"
+             class="message-list">
+
+    </section>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     MESSAGE VIEW MODAL
+===================================================== -->
+
+<div id="messageModal"
+     class="modal hidden">
+
+    <div class="modal-backdrop"
+         id="modalBackdrop"></div>
+
+
+    <div class="message-modal">
+
+        <div class="modal-header">
+
+            <button id="closeModal"
+                    class="modal-close">
+
+                <i class="fa-solid fa-arrow-left"></i>
+
+            </button>
+
+
+            <h2>Message</h2>
+
+
+            <button id="deleteMessageBtn"
+                    class="delete-btn"
+                    title="Delete message">
+
+                <i class="fa-solid fa-trash"></i>
+
+            </button>
+
+        </div>
+
+
+
+        <div class="modal-body">
+
+
+            <!-- SENDER -->
+
+            <div class="sender-profile">
+
+                <div class="sender-avatar"
+                     id="modalAvatar">
+
+                    <span id="modalAvatarText">
+                        ?
+                    </span>
+
+                </div>
+
+
+                <div class="sender-info">
+
+                    <h3 id="modalSenderName">
+                        User
+                    </h3>
+
+                    <span id="modalSenderEmail">
+                        --
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- TIME -->
+
+            <div class="message-time">
+
+                <i class="fa-regular fa-clock"></i>
+
+                <span id="modalTime">
+                    --
+                </span>
+
+            </div>
+
+
+
+            <!-- MESSAGE -->
+
+            <div class="full-message"
+                 id="modalMessage">
+
+            </div>
+
+
+
+            <!-- REPLY -->
+
+            <button class="reply-btn"
+                    id="replyBtn">
+
+                <i class="fa-solid fa-reply"></i>
+
+                Reply
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     TOAST
+===================================================== -->
+
+<div id="toast"
+     class="toast">
+
+    <i id="toastIcon"
+       class="fa-solid fa-check"></i>
+
+    <span id="toastText">
+        Done
+    </span>
+
+</div>
+
+
+
+<!-- =====================================================
+     FIREBASE
+===================================================== -->
+
+<script type="module"
+        src="messages.js"></script>
+
+</body>
+  </html>
