@@ -3,477 +3,963 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>CHAPCY V21</title>
 
   <link rel="stylesheet" href="chapcy.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+  />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
 </head>
+
 <body>
 
   <!-- BACKGROUND -->
-  <img src="file_00000000b3448243aebfedfba8912525.png" class="background" alt="CHAPCY Background">
+  <img
+    src="file_00000000b3448243aebfedfba8912525.png"
+    class="background"
+    alt="CHAPCY Background"
+  >
 
   <div class="bubble"></div>
+
 
   <!-- PAGE CONTAINER -->
   <main class="page">
 
+
+    <!-- =========================
+         TOP BAR
+    ========================== -->
+
     <header class="topbar">
-      <button class="menu-btn">
+
+      <button class="menu-btn" type="button">
         <i class="fa-solid fa-bars"></i>
       </button>
 
+
       <div class="brand">
-        <img src="file_000000004f547243bb0fa43d66db1edf.png" alt="CHAPCY Logo" class="logo">
+
+        <img
+          src="file_000000004f547243bb0fa43d66db1edf.png"
+          alt="CHAPCY Logo"
+          class="logo"
+        >
+
         <div>
           <h1>CHAPCY</h1>
           <p>Worldwide Community 🌐</p>
         </div>
+
       </div>
 
-      <button class="profile profile-link"
+
+      <button
+        class="profile profile-link"
         id="profileOpenBtn"
         type="button"
-        aria-label="Edit Profile">
+        aria-label="Edit Profile"
+      >
 
-    <img
-        src="file_00000000b0d8820a998b33ad9cf233cb.png"
-        alt="Profile"
-        id="headerProfileImage"
-    >
+        <img
+          src="file_00000000b0d8820a998b33ad9cf233cb.png"
+          alt="Profile"
+          id="headerProfileImage"
+        >
 
-    <span class="online-dot"></span>
+        <span class="online-dot"></span>
 
       </button>
-        <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge">3</span></button>
 
-        <div class="reputation">
-          <i class="fa-solid fa-trophy"></i>
-          <span>0</span>
-        </div>
+
+      <button class="icon-btn" type="button">
+
+        <i class="fa-regular fa-bell"></i>
+
+        <span class="badge">3</span>
+
+      </button>
+
+
+      <div class="reputation">
+
+        <i class="fa-solid fa-trophy"></i>
+
+        <span>0</span>
+
+      </div>
+
     </header>
-<!-- =====================================================
-     CHAPCY MESSAGE NAVIGATION
-===================================================== -->
-<nav class="chapcy-main-nav">
 
-    <a href="chats.html" class="chapcy-nav-item">
+
+
+    <!-- =========================
+         MAIN NAVIGATION
+    ========================== -->
+
+    <nav class="chapcy-main-nav">
+
+      <a
+        href="chats.html"
+        class="chapcy-nav-item"
+      >
+
         <span class="nav-icon">
-            <i class="fa-solid fa-comments"></i>
+          <i class="fa-solid fa-comments"></i>
         </span>
 
         <span>My Chats</span>
 
         <b class="nav-badge">3</b>
-    </a>
 
-    <a href="Messages.html" class="chapcy-nav-item active">
+      </a>
+
+
+      <a
+        href="Messages.html"
+        class="chapcy-nav-item active"
+      >
+
         <span class="nav-icon">
-            <i class="fa-solid fa-envelope"></i>
+          <i class="fa-solid fa-envelope"></i>
         </span>
 
         <span>Messages</span>
 
-        <b class="nav-badge" id="messageUnreadBadge">2</b>
-    </a>
+        <b
+          class="nav-badge"
+          id="messageUnreadBadge"
+        >
+          2
+        </b>
 
-    <a href="status.html" class="chapcy-nav-item">
+      </a>
+
+
+      <a
+        href="status.html"
+        class="chapcy-nav-item"
+      >
+
         <span class="nav-icon status">
-            <i class="fa-solid fa-circle-play"></i>
+          <i class="fa-solid fa-circle-play"></i>
         </span>
 
         <span>Status</span>
-    </a>
 
-    <a href="calls.html" class="chapcy-nav-item">
+      </a>
+
+
+      <a
+        href="calls.html"
+        class="chapcy-nav-item"
+      >
+
         <span class="nav-icon calls">
-            <i class="fa-solid fa-phone"></i>
+          <i class="fa-solid fa-phone"></i>
         </span>
 
         <span>Calls</span>
-    </a>
 
-    <a href="mentions.html" class="chapcy-nav-item">
+      </a>
+
+
+      <a
+        href="mentions.html"
+        class="chapcy-nav-item"
+      >
+
         <span class="nav-icon mention">
-            <i class="fa-solid fa-at"></i>
+          <i class="fa-solid fa-at"></i>
         </span>
 
         <span>Mentions</span>
 
         <b class="nav-badge">1</b>
-    </a>
 
-</nav>
+      </a>
 
-</div>
-          <article class="group-card" onclick="window.location.href='Efootball.html'">
+    </nav>
 
-  <img src="file_0000000056bc71f4a363399654e8a3dd.png" alt="eFootball">
 
-  <h3>🎮 eFootball</h3>
 
-  <p>
-    Play eFootball, tournaments, clubs, tips and worldwide competitions.
-  </p>
+    <!-- =================================================
+         GROUP SLIDER
+         GROUP ZOTE ZIKO NDANI YA SLIDER-TRACK MOJA
+    ================================================== -->
 
-  <div class="card-buttons">
+    <section class="group-slider">
 
-    <a href="Efootball.html"
-       class="join-btn"
-       onclick="event.stopPropagation();">
-       Join Group
-    </a>
 
-    <a href="Efootball.html"
-       class="payment-btn"
-       onclick="event.stopPropagation();">
-       Pro League
-    </a>
+      <!-- PREVIOUS -->
+      <button
+        class="slider-btn prev"
+        id="prevBtn"
+        type="button"
+        aria-label="Previous Group"
+      >
 
-  </div>
+        <i class="fa-solid fa-chevron-left"></i>
 
-          </article>
+      </button>
+
+
+
+      <!-- SLIDER VIEWPORT -->
+      <div class="slider-wrapper">
+
+
+        <!-- =================================================
+             HII NDIYO TRACK MOJA YA GROUP ZOTE
+        ================================================== -->
+
+        <div
+          class="slider-track"
+          id="sliderTrack"
+        >
+
+
+          <!-- =========================
+               1. eFOOTBALL
+          ========================== -->
 
           <article
-    class="group-card betting-card"
-    onclick="window.location.href='Betting.html'"
-    role="button"
-    tabindex="0"
->
+            class="group-card"
+            data-url="Efootball.html"
+            role="button"
+            tabindex="0"
+          >
 
-  <img
-      src="file_00000000ed7871f4925c076a1a655b15.png"
-      alt="Betting"
-  >
+            <img
+              src="file_0000000056bc71f4a363399654e8a3dd.png"
+              alt="eFootball"
+            >
 
-  <h3>💰 Betting</h3>
+            <h3>🎮 eFootball</h3>
 
-  <p>
-    Predictions, odds discussion and responsible
-    betting community.
-  </p>
+            <p>
+              Play eFootball, tournaments, clubs,
+              tips and worldwide competitions.
+            </p>
 
-  <div class="card-buttons">
 
-    <a
-        href="Betting.html"
-        class="join-btn"
-        onclick="event.stopPropagation();"
-    >
-      <i class="fa-solid fa-arrow-right"></i>
-      Open Betting
-    </a>
+            <div class="card-buttons">
 
-    <a
-        href="#"
-        class="payment-btn"
-        onclick="event.stopPropagation();"
-    >
-      <i class="fa-solid fa-crown"></i>
-      VIP Tips
-    </a>
+              <a
+                href="Efootball.html"
+                class="join-btn"
+                onclick="event.stopPropagation();"
+              >
+                Join Group
+              </a>
 
-  </div>
-</nav>
 
-<section class="group-slider">
+              <a
+                href="Efootball.html"
+                class="payment-btn"
+                onclick="event.stopPropagation();"
+              >
+                Pro League
+              </a>
 
-    <button class="slider-btn prev" id="prevBtn" type="button">
-        <i class="fa-solid fa-chevron-left"></i>
-    </button>
+            </div>
 
-    <div class="slider-wrapper">
+          </article>
 
-        <div class="slider-track" id="sliderTrack">
-            <img src="file_00000000e86471f4b386c6acc7d23f5b.png" alt="Music Group">
+
+
+          <!-- =========================
+               2. BETTING
+          ========================== -->
+
+          <article
+            class="group-card betting-card"
+            data-url="Betting.html"
+            role="button"
+            tabindex="0"
+          >
+
+            <img
+              src="file_00000000ed7871f4925c076a1a655b15.png"
+              alt="Betting"
+            >
+
+            <h3>💰 Betting</h3>
+
+            <p>
+              Predictions, odds discussion and
+              responsible betting community.
+            </p>
+
+
+            <div class="card-buttons">
+
+              <a
+                href="Betting.html"
+                class="join-btn"
+                onclick="event.stopPropagation();"
+              >
+
+                <i class="fa-solid fa-arrow-right"></i>
+
+                Open Betting
+
+              </a>
+
+
+              <a
+                href="#"
+                class="payment-btn"
+                onclick="event.stopPropagation();"
+              >
+
+                <i class="fa-solid fa-crown"></i>
+
+                VIP Tips
+
+              </a>
+
+            </div>
+
+          </article>
+
+
+
+          <!-- =========================
+               3. MUSIC
+          ========================== -->
+
+          <article class="group-card">
+
+            <img
+              src="file_00000000e86471f4b386c6acc7d23f5b.png"
+              alt="Music Group"
+            >
+
             <h3>🎵 Music Group</h3>
-            <p>Discover artists, albums, DJs and music lovers around the world.</p>
+
+            <p>
+              Discover artists, albums, DJs and
+              music lovers around the world.
+            </p>
+
+
             <div class="card-buttons">
-              <a href="#" class="join-btn">Join Group</a>
-              <a href="#" class="payment-btn">Music Pro</a>
+
+              <a
+                href="#"
+                class="join-btn"
+              >
+                Join Group
+              </a>
+
+              <a
+                href="#"
+                class="payment-btn"
+              >
+                Music Pro
+              </a>
+
             </div>
+
           </article>
 
+
+
+          <!-- =========================
+               4. FOOD
+          ========================== -->
+
           <article class="group-card">
-            <img src="file_00000000c68871f48c1a80d96ec0e300.png" alt="Food Group">
+
+            <img
+              src="file_00000000c68871f48c1a80d96ec0e300.png"
+              alt="Food Group"
+            >
+
             <h3>🍔 Food Group</h3>
-            <p>Recipes, restaurants, cooking tips and delicious food from every country.</p>
+
+            <p>
+              Recipes, restaurants, cooking tips
+              and delicious food from every country.
+            </p>
+
+
             <div class="card-buttons">
-              <a href="#" class="join-btn">Join Group</a>
-              <a href="#" class="payment-btn">Food Club</a>
+
+              <a
+                href="#"
+                class="join-btn"
+              >
+                Join Group
+              </a>
+
+              <a
+                href="#"
+                class="payment-btn"
+              >
+                Food Club
+              </a>
+
             </div>
+
           </article>
 
+
+
+          <!-- =========================
+               5. COD & PUBG
+          ========================== -->
+
           <article class="group-card">
-            <img src="file_00000000c28c71f4b62c08fb5b2d7870.png" alt="COD & PUBG">
+
+            <img
+              src="file_00000000c28c71f4b62c08fb5b2d7870.png"
+              alt="COD & PUBG"
+            >
+
             <h3>🔥 COD & PUBG</h3>
-            <p>Battle Royale community, clans, tournaments and live voice chat.</p>
+
+            <p>
+              Battle Royale community, clans,
+              tournaments and live voice chat.
+            </p>
+
+
             <div class="card-buttons">
-              <a href="#" class="join-btn">Join Group</a>
-              <a href="#" class="payment-btn">Elite Squad</a>
+
+              <a
+                href="#"
+                class="join-btn"
+              >
+                Join Group
+              </a>
+
+              <a
+                href="#"
+                class="payment-btn"
+              >
+                Elite Squad
+              </a>
+
             </div>
+
           </article>
 
+
+
+          <!-- =========================
+               6. NEWS
+          ========================== -->
+
           <article class="group-card">
-            <img src="file_00000000bdb471f488fbf6d8c64b40c3.png" alt="News Group">
+
+            <img
+              src="file_00000000bdb471f488fbf6d8c64b40c3.png"
+              alt="News Group"
+            >
+
             <h3>📰 News Group</h3>
-            <p>Breaking news, technology, politics and world events in real time.</p>
+
+            <p>
+              Breaking news, technology,
+              politics and world events in real time.
+            </p>
+
+
             <div class="card-buttons">
-              <a href="#" class="join-btn">Join Group</a>
-              <a href="#" class="payment-btn">News Plus</a>
+
+              <a
+                href="#"
+                class="join-btn"
+              >
+                Join Group
+              </a>
+
+              <a
+                href="#"
+                class="payment-btn"
+              >
+                News Plus
+              </a>
+
             </div>
+
           </article>
 
+
+
+          <!-- =========================
+               7. ART
+          ========================== -->
+
           <article class="group-card">
-            <img src="file_000000009d0c71f48ea69bd0ea0c0f4f.png" alt="Art Group">
+
+            <img
+              src="file_000000009d0c71f48ea69bd0ea0c0f4f.png"
+              alt="Art Group"
+            >
+
             <h3>🎨 Art Group</h3>
-            <p>Digital art, drawing, painting, photography and creative inspiration.</p>
+
+            <p>
+              Digital art, drawing, painting,
+              photography and creative inspiration.
+            </p>
+
+
             <div class="card-buttons">
-              <a href="#" class="join-btn">Join Group</a>
-              <a href="#" class="payment-btn">Creative Pro</a>
+
+              <a
+                href="#"
+                class="join-btn"
+              >
+                Join Group
+              </a>
+
+              <a
+                href="#"
+                class="payment-btn"
+              >
+                Creative Pro
+              </a>
+
             </div>
+
           </article>
 
+
+
+          <!-- =========================
+               8. EDUCATION
+          ========================== -->
+
           <article class="group-card">
-            <img src="file_000000006d2871f49a121851a52fc041.png" alt="Education Group">
+
+            <img
+              src="file_000000006d2871f49a121851a52fc041.png"
+              alt="Education Group"
+            >
+
             <h3>📚 Education Group</h3>
-            <p>Study together, share knowledge, courses and learning resources.</p>
+
+            <p>
+              Study together, share knowledge,
+              courses and learning resources.
+            </p>
+
+
             <div class="card-buttons">
-              <a href="#" class="join-btn">Join Group</a>
-              <a href="#" class="payment-btn">Study Pro</a>
+
+              <a
+                href="#"
+                class="join-btn"
+              >
+                Join Group
+              </a>
+
+              <a
+                href="#"
+                class="payment-btn"
+              >
+                Study Pro
+              </a>
+
             </div>
+
           </article>
 
+
+
+          <!-- =========================
+               9. BUSINESS
+          ========================== -->
+
           <article class="group-card">
-            <img src="file_00000000e84081f48c45f111376926ae.png" alt="Business Group">
+
+            <img
+              src="file_00000000e84081f48c45f111376926ae.png"
+              alt="Business Group"
+            >
+
             <h3>💼 Business Group</h3>
-            <p>Meet entrepreneurs, startups, investors and grow your business globally.</p>
+
+            <p>
+              Meet entrepreneurs, startups,
+              investors and grow your business globally.
+            </p>
+
+
             <div class="card-buttons">
-              <a href="#" class="join-btn">Join Group</a>
-              <a href="#" class="payment-btn">Business Pro</a>
+
+              <a
+                href="#"
+                class="join-btn"
+              >
+                Join Group
+              </a>
+
+              <a
+                href="#"
+                class="payment-btn"
+              >
+                Business Pro
+              </a>
+
             </div>
-          </article>
-
-          <article class="group-card">
-
-    <img
-        src="file_00000000f8187246ada067dc5e5a807b.png"
-        alt="CHAPCY TV"
-    >
-
-    <h3>📺 CHAPCY TV</h3>
-
-    <p>
-        Watch livestreams, exclusive creators,
-        entertainment and community shows.
-    </p>
-
-    <div class="card-buttons">
-
-        <a
-            href="Chapcytv.html"
-            class="join-btn"
-        >
-            <i class="fa-solid fa-play"></i>
-            Watch Now
-        </a>
-
-        <a
-            href="#"
-            class="payment-btn"
-        >
-            <i class="fa-solid fa-crown"></i>
-            TV Premium
-        </a>
-
-    </div>
 
           </article>
+
+
+
+          <!-- =========================
+               10. CHAPCY TV
+          ========================== -->
+
+          <article
+            class="group-card"
+            data-url="Chapcytv.html"
+            role="button"
+            tabindex="0"
+          >
+
+            <img
+              src="file_00000000f8187246ada067dc5e5a807b.png"
+              alt="CHAPCY TV"
+            >
+
+            <h3>📺 CHAPCY TV</h3>
+
+            <p>
+              Watch livestreams, exclusive creators,
+              entertainment and community shows.
+            </p>
+
+
+            <div class="card-buttons">
+
+              <a
+                href="Chapcytv.html"
+                class="join-btn"
+                onclick="event.stopPropagation();"
+              >
+
+                <i class="fa-solid fa-play"></i>
+
+                Watch Now
+
+              </a>
+
+
+              <a
+                href="#"
+                class="payment-btn"
+                onclick="event.stopPropagation();"
+              >
+
+                <i class="fa-solid fa-crown"></i>
+
+                TV Premium
+
+              </a>
+
+            </div>
+
+          </article>
+
+
+        <!-- END SLIDER TRACK -->
         </div>
+
+
+      <!-- END SLIDER WRAPPER -->
       </div>
-      <button class="slider-btn next" id="nextBtn" type="button">
-    <i class="fa-solid fa-chevron-right"></i>
+
+
+
+      <!-- NEXT -->
+      <button
+        class="slider-btn next"
+        id="nextBtn"
+        type="button"
+        aria-label="Next Group"
+      >
+
+        <i class="fa-solid fa-chevron-right"></i>
+
       </button>
+
+
     </section>
 
-<!-- CHAPCY DROP -->
-<div class="activity-card"
-     id="dropCard"
-     role="button"
-     tabindex="0"
-     onclick="window.location.href='ChapcyDrop.html'">
-
-    <i class="fa-solid fa-bag-shopping"></i>
-
-    <span class="activity-badge"></span>
-
-    <p>CHAPCY Drop</p>
-
-</div>
 
 
-<!-- NOTIFICATION -->
-<div class="activity-card"
-     id="notificationCard"
-     role="button"
-     tabindex="0"
-     onclick="window.location.href='Notification.html'">
+    <!-- =================================================
+         ACTIVITY / DASHBOARD
+    ================================================== -->
 
-    <i class="fa-solid fa-bell"></i>
+    <section class="activity-section">
 
-    <span class="activity-badge"></span>
 
-    <p>Notification</p>
+      <!-- FOR YOU -->
 
-</div>
-<div class="activity-card"
-     id="rewardsCard"
-     role="button"
-     tabindex="0"
-     onclick="window.location.href='Reward.html'">
+      <div
+        class="activity-card"
+        id="forYouCard"
+        role="button"
+        tabindex="0"
+        onclick="openForYou()"
+      >
 
-    <i class="fa-solid fa-gift"></i>
+        <i class="fa-solid fa-compass"></i>
 
-    <span class="activity-badge"></span>
+        <span class="activity-badge"></span>
 
-    <p>Rewards</p>
+        <p>For You</p>
 
-</div>
-</div>
+      </div>
 
-</section>
+
+
+      <!-- CHAPCY DROP -->
+
+      <div
+        class="activity-card"
+        id="dropCard"
+        role="button"
+        tabindex="0"
+        onclick="openChapcyDrop()"
+      >
+
+        <i class="fa-solid fa-bag-shopping"></i>
+
+        <span class="activity-badge"></span>
+
+        <p>CHAPCY Drop</p>
+
+      </div>
+
+
+
+      <!-- NOTIFICATION -->
+
+      <div
+        class="activity-card"
+        id="notificationCard"
+        role="button"
+        tabindex="0"
+        onclick="openNotification()"
+      >
+
+        <i class="fa-solid fa-bell"></i>
+
+        <span class="activity-badge"></span>
+
+        <p>Notification</p>
+
+      </div>
+
+
+
+      <!-- REWARDS -->
+
+      <div
+        class="activity-card"
+        id="rewardsCard"
+        role="button"
+        tabindex="0"
+        onclick="openRewards()"
+      >
+
+        <i class="fa-solid fa-gift"></i>
+
+        <span class="activity-badge"></span>
+
+        <p>Rewards</p>
+
+      </div>
+
+
+    </section>
+
 
   </main>
-  <!-- =====================================================
-     CHAPCY PROFILE EDITOR
-===================================================== -->
 
-<div class="profile-modal" id="profileModal">
 
-    <div class="profile-backdrop" id="profileBackdrop"></div>
+
+  <!-- =================================================
+       PROFILE MODAL
+  ================================================== -->
+
+  <div
+    class="profile-modal"
+    id="profileModal"
+  >
+
+    <div
+      class="profile-backdrop"
+      id="profileBackdrop"
+    ></div>
+
 
     <div class="profile-editor">
 
-        <button
-            class="profile-close"
-            id="profileCloseBtn"
-            type="button"
-            aria-label="Close Profile"
+
+      <button
+        class="profile-close"
+        id="profileCloseBtn"
+        type="button"
+        aria-label="Close Profile"
+      >
+
+        <i class="fa-solid fa-xmark"></i>
+
+      </button>
+
+
+
+      <div class="profile-editor-header">
+
+        <span class="profile-editor-icon">
+
+          <i class="fa-solid fa-user-pen"></i>
+
+        </span>
+
+
+        <div>
+
+          <h2>Edit Profile</h2>
+
+          <p>
+            Update your CHAPCY profile
+          </p>
+
+        </div>
+
+      </div>
+
+
+
+      <div class="profile-photo-editor">
+
+
+        <div class="profile-photo-wrap">
+
+          <img
+            src="file_00000000b0d8820a998b33ad9cf233cb.png"
+            id="editProfileImage"
+            alt="Profile Preview"
+          >
+
+
+          <label
+            for="profileGalleryInput"
+            class="change-photo-btn"
+          >
+
+            <i class="fa-solid fa-camera"></i>
+
+          </label>
+
+        </div>
+
+
+        <h3 id="profilePreviewName">
+          CHAPCY User
+        </h3>
+
+
+        <p>
+          Tap camera to change your profile photo
+        </p>
+
+
+        <input
+          type="file"
+          id="profileGalleryInput"
+          accept="image/*"
+          hidden
         >
-            <i class="fa-solid fa-xmark"></i>
+
+      </div>
+
+
+
+      <div class="profile-form">
+
+
+        <label>
+          Display Name
+        </label>
+
+
+        <div class="profile-input">
+
+          <i class="fa-solid fa-user"></i>
+
+          <input
+            type="text"
+            id="profileNameInput"
+            placeholder="Enter your name"
+            maxlength="30"
+          >
+
+        </div>
+
+
+
+        <label>
+          Bio
+        </label>
+
+
+        <div class="profile-input profile-textarea">
+
+          <i class="fa-solid fa-align-left"></i>
+
+          <textarea
+            id="profileBioInput"
+            placeholder="Tell people something about you..."
+            maxlength="160"
+          ></textarea>
+
+        </div>
+
+
+
+        <button
+          class="save-profile-btn"
+          id="saveProfileBtn"
+          type="button"
+        >
+
+          <i class="fa-solid fa-check"></i>
+
+          Save Profile
+
         </button>
 
 
-        <div class="profile-editor-header">
+      </div>
 
-            <span class="profile-editor-icon">
-                <i class="fa-solid fa-user-pen"></i>
-            </span>
-
-            <div>
-                <h2>Edit Profile</h2>
-                <p>Update your CHAPCY profile</p>
-            </div>
-
-        </div>
-
-
-        <!-- PROFILE IMAGE -->
-
-        <div class="profile-photo-editor">
-
-            <div class="profile-photo-wrap">
-
-                <img
-                    src="file_00000000b0d8820a998b33ad9cf233cb.png"
-                    id="editProfileImage"
-                    alt="Profile Preview"
-                >
-
-                <label
-                    for="profileGalleryInput"
-                    class="change-photo-btn"
-                >
-                    <i class="fa-solid fa-camera"></i>
-                </label>
-
-            </div>
-
-            <h3 id="profilePreviewName">
-                CHAPCY User
-            </h3>
-
-            <p>
-                Tap camera to change your profile photo
-            </p>
-
-            <!-- PHONE GALLERY -->
-
-            <input
-                type="file"
-                id="profileGalleryInput"
-                accept="image/*"
-                hidden
-            >
-
-        </div>
-
-
-        <!-- PROFILE FORM -->
-
-        <div class="profile-form">
-
-            <label>
-                Display Name
-            </label>
-
-            <div class="profile-input">
-
-                <i class="fa-solid fa-user"></i>
-
-                <input
-                    type="text"
-                    id="profileNameInput"
-                    placeholder="Enter your name"
-                    maxlength="0"
-                >
-
-            </div>
-
-
-            <label>
-                Bio
-            </label>
-
-            <div class="profile-input profile-textarea">
-
-                <i class="fa-solid fa-align-left"></i>
-
-                <textarea
-                    id="profileBioInput"
-                    placeholder="Tell people something about you..."
-                    maxlength="0"
-                ></textarea>
-
-            </div>
-
-
-            <button
-                class="save-profile-btn"
-                id="saveProfileBtn"
-                type="button"
-            >
-                <i class="fa-solid fa-check"></i>
-                Save Profile
-            </button>
-
-        </div>
 
     </div>
 
-</div>
+  </div>
 
+
+
+  <!-- JAVASCRIPT -->
   <script src="chapcy.js"></script>
+
 </body>
 </html>
