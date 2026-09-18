@@ -1,9 +1,3 @@
-/* =========================================================
-   CHAPCY MUSIC GROUP
-   MUSIC LIVE CHAT
-   FIREBASE REALTIME DATABASE
-========================================================= */
-
 import {
     auth,
     db
@@ -25,77 +19,41 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 
-/* =========================================================
-   ELEMENTS
-========================================================= */
+// =====================================
+// ELEMENTS
+// =====================================
 
-const sideNav =
-    document.getElementById("sideNav");
+const sideNav = document.getElementById("sideNav");
+const menuBtn = document.getElementById("menuBtn");
+const mobileOverlay = document.getElementById("mobileOverlay");
 
-const mobileOverlay =
-    document.getElementById("mobileOverlay");
+const profileName = document.getElementById("profileName");
+const profileLetter = document.getElementById("profileLetter");
+const logoutBtn = document.getElementById("logoutBtn");
 
-const menuBtn =
-    document.getElementById("menuBtn");
+const messagesBox = document.getElementById("messages");
+const emptyChat = document.getElementById("emptyChat");
 
-const profileName =
-    document.getElementById("profileName");
+const composer = document.getElementById("composer");
+const messageInput = document.getElementById("messageInput");
+const sendBtn = document.getElementById("sendBtn");
 
-const profileLetter =
-    document.getElementById("profileLetter");
+const emojiBtn = document.getElementById("emojiBtn");
+const emojiPanel = document.getElementById("emojiPanel");
 
-const logoutBtn =
-    document.getElementById("logoutBtn");
+const searchToggle = document.getElementById("searchToggle");
+const searchPanel = document.getElementById("searchPanel");
+const messageSearch = document.getElementById("messageSearch");
+const clearSearch = document.getElementById("clearSearch");
 
-const messages =
-    document.getElementById("messages");
-
-const emptyChat =
-    document.getElementById("emptyChat");
-
-const composer =
-    document.getElementById("composer");
-
-const messageInput =
-    document.getElementById("messageInput");
-
-const sendBtn =
-    document.getElementById("sendBtn");
-
-const emojiBtn =
-    document.getElementById("emojiBtn");
-
-const emojiPanel =
-    document.getElementById("emojiPanel");
-
-const searchToggle =
-    document.getElementById("searchToggle");
-
-const searchPanel =
-    document.getElementById("searchPanel");
-
-const messageSearch =
-    document.getElementById("messageSearch");
-
-const clearSearch =
-    document.getElementById("clearSearch");
-
-const roomInfoBtn =
-    document.getElementById("roomInfoBtn");
-
-const roomInfoPanel =
-    document.getElementById("roomInfoPanel");
-
-const closeRoomInfo =
-    document.getElementById("closeRoomInfo");
-
-const typingText =
-    document.getElementById("typingText");
+const roomInfoBtn = document.getElementById("roomInfoBtn");
+const roomInfoPanel = document.getElementById("roomInfoPanel");
+const closeRoomInfo = document.getElementById("closeRoomInfo");
 
 
-/* =========================================================
-   MUSIC FIREBASE ROOM
-========================================================= */
+// =====================================
+// MUSIC ROOM DATABASE
+// =====================================
 
 const musicMessagesRef = query(
     ref(db, "rooms/music/messages"),
@@ -103,94 +61,75 @@ const musicMessagesRef = query(
 );
 
 
-/* =========================================================
-   CURRENT USER
-========================================================= */
+// =====================================
+// CURRENT USER
+// =====================================
 
 let currentUser = null;
 
 
-/* =========================================================
-   GET USER NAME
-========================================================= */
-
-function getUserName() {
-
-    if (!currentUser) {
-        return "CHAPCY User";
-    }
-
-    return (
-        currentUser.displayName ||
-        currentUser.email?.split("@")[0] ||
-        "CHAPCY User"
-    );
-}
-
-
-/* =========================================================
-   AUTH STATE
-========================================================= */
+// =====================================
+// AUTH
+// =====================================
 
 onAuthStateChanged(auth, (user) => {
 
-    if (!user) {
+    currentUser = user || null;
 
-        window.location.href = "index.html";
+    if (user) {
 
-        return;
+        const name =
+            user.displayName ||
+            user.email?.split("@")[0] ||
+            "CHAPCY User";
+
+        if (profileName) {
+            profileName.textContent = name;
+        }
+
+        if (profileLetter) {
+            profileLetter.textContent =
+                name.charAt(0).toUpperCase();
+        }
+
+        console.log("Music user:", name);
+
+    } else {
+
+        // HAKUNA REDIRECT
+        // User anaendelea kubaki Music
+
+        currentUser = null;
+
+        if (profileName) {
+            profileName.textContent = "CHAPCY User";
+        }
+
+        if (profileLetter) {
+            profileLetter.textContent = "C";
+        }
+
+        console.log(
+            "Music: hakuna user aliye-login."
+        );
+
     }
-
-
-    currentUser = user;
-
-
-    const name = getUserName();
-
-
-    profileName.textContent =
-        name;
-
-
-    profileLetter.textContent =
-        name
-            .charAt(0)
-            .toUpperCase();
-
-
-    messageInput.focus();
 
 });
 
 
-/* =========================================================
-   MOBILE MENU
-========================================================= */
-
-function openMobileMenu() {
-
-    sideNav.classList.add("open");
-
-    mobileOverlay.classList.add("show");
-
-}
-
-
-function closeMobileMenu() {
-
-    sideNav.classList.remove("open");
-
-    mobileOverlay.classList.remove("show");
-
-}
-
+// =====================================
+// MOBILE MENU
+// =====================================
 
 if (menuBtn) {
 
-    menuBtn.addEventListener(
-        "click",
-        openMobileMenu
-    );
+    menuBtn.addEventListener("click", () => {
+
+        sideNav?.classList.add("open");
+        mobileOverlay?.classList.add("show");
+
+    });
 
 }
 
@@ -205,9 +144,17 @@ if (mobileOverlay) {
 }
 
 
-/* =========================================================
-   LOGOUT
-========================================================= */
+function closeMobileMenu() {
+
+    sideNav?.classList.remove("open");
+    mobileOverlay?.classList.remove("show");
+
+}
+
+
+// =====================================
+// LOGOUT
+// =====================================
 
 if (logoutBtn) {
 
@@ -219,6 +166,8 @@ if (logoutBtn) {
 
                 await signOut(auth);
 
+                console.log("Logged out");
+
                 window.location.href =
                     "index.html";
 
@@ -229,6 +178,10 @@ if (logoutBtn) {
                     error
                 );
 
+                alert(
+                    "Logout failed. Try again."
+                );
+
             }
 
         }
@@ -237,97 +190,119 @@ if (logoutBtn) {
 }
 
 
-/* =========================================================
-   CREATE MESSAGE
-========================================================= */
+// =====================================
+// USER NAME
+// =====================================
+
+function getUserName() {
+
+    if (!currentUser) {
+        return "CHAPCY User";
+    }
+
+    return (
+        currentUser.displayName ||
+        currentUser.email?.split("@")[0] ||
+        "CHAPCY User"
+    );
+
+}
+
+
+// =====================================
+// INITIAL
+// =====================================
+
+function getInitial(name) {
+
+    return (
+        name?.trim()?.charAt(0)?.toUpperCase() ||
+        "C"
+    );
+
+}
+
+
+// =====================================
+// FORMAT TIME
+// =====================================
+
+function formatTime(timestamp) {
+
+    if (!timestamp) {
+        return "now";
+    }
+
+    const date = new Date(timestamp);
+
+    if (isNaN(date.getTime())) {
+        return "now";
+    }
+
+    return date.toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit"
+    });
+
+}
+
+
+// =====================================
+// CREATE MESSAGE
+// =====================================
 
 function createMessage(message) {
 
-    if (!message) {
+    if (!message || !message.text) {
         return;
     }
-
-
-    if (emptyChat) {
-
-        emptyChat.style.display =
-            "none";
-
-    }
-
-
-    const article =
-        document.createElement("article");
-
-
-    article.className =
-        "chat-message";
-
-
-    if (
-        currentUser &&
-        message.userId === currentUser.uid
-    ) {
-
-        article.classList.add("own");
-
-    }
-
-
-    /* =========================================
-       AVATAR
-    ========================================= */
-
-    const avatar =
-        document.createElement("div");
-
-
-    avatar.className =
-        "message-avatar";
-
 
     const userName =
         message.userName ||
         "CHAPCY User";
 
-
-    avatar.textContent =
-        userName
-            .charAt(0)
-            .toUpperCase();
+    const isOwn =
+        currentUser &&
+        message.userId === currentUser.uid;
 
 
-    /* =========================================
-       CONTENT
-    ========================================= */
+    const messageElement =
+        document.createElement("article");
 
-    const content =
+    messageElement.className =
+        "chat-message" +
+        (isOwn ? " own" : "");
+
+
+    // AVATAR
+    const avatar =
         document.createElement("div");
 
+    avatar.className =
+        "message-avatar";
+
+    avatar.textContent =
+        getInitial(userName);
+
+
+    // CONTENT
+    const content =
+        document.createElement("div");
 
     content.className =
         "message-content";
 
 
-    /* =========================================
-       META
-    ========================================= */
-
+    // META
     const meta =
         document.createElement("div");
-
 
     meta.className =
         "message-meta";
 
 
     const name =
-        document.createElement("span");
-
-
-    name.className =
-        "message-name";
-
+        document.createElement("strong");
 
     name.textContent =
         userName;
@@ -336,115 +311,48 @@ function createMessage(message) {
     const time =
         document.createElement("span");
 
-
-    time.className =
-        "message-time";
-
-
     time.textContent =
-        formatMessageTime(
-            message.createdAt
-        );
+        formatTime(message.createdAt);
 
 
     meta.appendChild(name);
-
     meta.appendChild(time);
 
 
-    /* =========================================
-       BUBBLE
-    ========================================= */
-
+    // MESSAGE BUBBLE
     const bubble =
         document.createElement("div");
-
 
     bubble.className =
         "message-bubble";
 
-
-    /*
-       textContent is intentional.
-       It prevents HTML/script injection.
-    */
-
     bubble.textContent =
-        message.text || "";
+        message.text;
 
 
     content.appendChild(meta);
-
     content.appendChild(bubble);
 
+    messageElement.appendChild(avatar);
+    messageElement.appendChild(content);
 
-    article.appendChild(avatar);
-
-    article.appendChild(content);
-
-
-    messages.appendChild(article);
+    messagesBox.appendChild(messageElement);
 
 
-    scrollToBottom();
-
-}
-
-
-/* =========================================================
-   FORMAT MESSAGE TIME
-========================================================= */
-
-function formatMessageTime(timestamp) {
-
-    if (!timestamp) {
-
-        return "...";
-
+    if (emptyChat) {
+        emptyChat.remove();
     }
 
 
-    const date =
-        new Date(timestamp);
-
-
-    if (Number.isNaN(date.getTime())) {
-
-        return "...";
-
-    }
-
-
-    return date.toLocaleTimeString(
-        [],
-        {
-            hour: "2-digit",
-            minute: "2-digit"
-        }
-    );
+    messagesBox.scrollTop =
+        messagesBox.scrollHeight;
 
 }
 
 
-/* =========================================================
-   SCROLL TO BOTTOM
-========================================================= */
-
-function scrollToBottom() {
-
-    requestAnimationFrame(() => {
-
-        messages.scrollTop =
-            messages.scrollHeight;
-
-    });
-
-}
-
-
-/* =========================================================
-   RECEIVE MUSIC MESSAGES
-========================================================= */
+// =====================================
+// RECEIVE MESSAGES
+// =====================================
 
 onChildAdded(
     musicMessagesRef,
@@ -453,14 +361,13 @@ onChildAdded(
         const message =
             snapshot.val();
 
-
         createMessage(message);
 
     },
     (error) => {
 
         console.error(
-            "Music messages error:",
+            "Firebase read error:",
             error
         );
 
@@ -468,93 +375,9 @@ onChildAdded(
 );
 
 
-/* =========================================================
-   SEND MESSAGE
-========================================================= */
-
-async function sendMessage() {
-
-    if (!currentUser) {
-
-        return;
-
-    }
-
-
-    const text =
-        messageInput.value.trim();
-
-
-    if (!text) {
-
-        return;
-
-    }
-
-
-    try {
-
-        sendBtn.disabled = true;
-
-
-        const newMessageRef =
-            push(
-                ref(
-                    db,
-                    "rooms/music/messages"
-                )
-            );
-
-
-        await set(
-            newMessageRef,
-            {
-
-                text: text,
-
-                userId:
-                    currentUser.uid,
-
-                userName:
-                    getUserName(),
-
-                createdAt:
-                    serverTimestamp()
-
-            }
-        );
-
-
-        messageInput.value =
-            "";
-
-
-        messageInput.focus();
-
-
-    } catch (error) {
-
-        console.error(
-            "Send music message error:",
-            error
-        );
-
-        alert(
-            "Message haijatumwa. Angalia Firebase connection."
-        );
-
-    } finally {
-
-        sendBtn.disabled = false;
-
-    }
-
-}
-
-
-/* =========================================================
-   COMPOSER SUBMIT
-========================================================= */
+// =====================================
+// SEND MESSAGE
+// =====================================
 
 if (composer) {
 
@@ -564,32 +387,71 @@ if (composer) {
 
             event.preventDefault();
 
-            await sendMessage();
+            const text =
+                messageInput.value.trim();
 
-        }
-    );
+            if (!text) {
+                return;
+            }
 
-}
+
+            sendBtn.disabled = true;
 
 
-/* =========================================================
-   ENTER TO SEND
-========================================================= */
+            try {
 
-if (messageInput) {
+                const newMessageRef =
+                    push(
+                        ref(
+                            db,
+                            "rooms/music/messages"
+                        )
+                    );
 
-    messageInput.addEventListener(
-        "keydown",
-        async (event) => {
 
-            if (
-                event.key === "Enter" &&
-                !event.shiftKey
-            ) {
+                await set(
+                    newMessageRef,
+                    {
 
-                event.preventDefault();
+                        text: text,
 
-                await sendMessage();
+                        userId:
+                            currentUser?.uid ||
+                            "guest",
+
+                        userName:
+                            getUserName(),
+
+                        createdAt:
+                            serverTimestamp()
+
+                    }
+                );
+
+
+                messageInput.value = "";
+
+                emojiPanel?.classList.remove(
+                    "show"
+                );
+
+                messageInput.focus();
+
+
+            } catch (error) {
+
+                console.error(
+                    "Message send error:",
+                    error
+                );
+
+                alert(
+                    "Message failed to send. Check Firebase Database rules."
+                );
+
+            } finally {
+
+                sendBtn.disabled = false;
 
             }
 
@@ -599,9 +461,9 @@ if (messageInput) {
 }
 
 
-/* =========================================================
-   EMOJI PANEL
-========================================================= */
+// =====================================
+// EMOJI
+// =====================================
 
 if (emojiBtn) {
 
@@ -609,7 +471,7 @@ if (emojiBtn) {
         "click",
         () => {
 
-            emojiPanel.classList.toggle(
+            emojiPanel?.classList.toggle(
                 "show"
             );
 
@@ -619,32 +481,42 @@ if (emojiBtn) {
 }
 
 
-/* =========================================================
-   EMOJI BUTTONS
-========================================================= */
+document
+    .querySelectorAll(
+        ".emoji-panel button"
+    )
+    .forEach((button) => {
 
-if (emojiPanel) {
+        button.addEventListener(
+            "click",
+            () => {
 
-    const emojiButtons =
-        emojiPanel.querySelectorAll(
-            "button"
+                messageInput.value +=
+                    button.textContent;
+
+                messageInput.focus();
+
+            }
         );
 
-
-    emojiButtons.forEach(
-        (button) => {
-
-            button.addEventListener(
-                "click",
-                () => {
-
-                    messageInput.value +=
-                        button.textContent;
+    });
 
 
-                    messageInput.focus();
+// =====================================
+// ADD BUTTON
+// =====================================
 
-                }
+const addBtn =
+    document.getElementById("addBtn");
+
+if (addBtn) {
+
+    addBtn.addEventListener(
+        "click",
+        () => {
+
+            emojiPanel?.classList.toggle(
+                "show"
             );
 
         }
@@ -653,9 +525,9 @@ if (emojiPanel) {
 }
 
 
-/* =========================================================
-   SEARCH TOGGLE
-========================================================= */
+// =====================================
+// SEARCH
+// =====================================
 
 if (searchToggle) {
 
@@ -663,18 +535,25 @@ if (searchToggle) {
         "click",
         () => {
 
-            searchPanel.classList.toggle(
+            searchPanel?.classList.toggle(
                 "show"
             );
 
-
             if (
-                searchPanel.classList.contains(
+                searchPanel?.classList.contains(
                     "show"
                 )
             ) {
 
-                messageSearch.focus();
+                messageSearch?.focus();
+
+            } else {
+
+                if (messageSearch) {
+                    messageSearch.value = "";
+                }
+
+                filterMessages("");
 
             }
 
@@ -684,52 +563,14 @@ if (searchToggle) {
 }
 
 
-/* =========================================================
-   SEARCH MESSAGES
-========================================================= */
-
 if (messageSearch) {
 
     messageSearch.addEventListener(
         "input",
         () => {
 
-            const search =
-                messageSearch.value
-                    .trim()
-                    .toLowerCase();
-
-
-            const chatMessages =
-                messages.querySelectorAll(
-                    ".chat-message"
-                );
-
-
-            chatMessages.forEach(
-                (message) => {
-
-                    const text =
-                        message.textContent
-                            .toLowerCase();
-
-
-                    if (
-                        !search ||
-                        text.includes(search)
-                    ) {
-
-                        message.style.display =
-                            "";
-
-                    } else {
-
-                        message.style.display =
-                            "none";
-
-                    }
-
-                }
+            filterMessages(
+                messageSearch.value.toLowerCase()
             );
 
         }
@@ -737,10 +578,6 @@ if (messageSearch) {
 
 }
 
-
-/* =========================================================
-   CLEAR SEARCH
-========================================================= */
 
 if (clearSearch) {
 
@@ -748,16 +585,11 @@ if (clearSearch) {
         "click",
         () => {
 
-            messageSearch.value =
-                "";
+            if (messageSearch) {
+                messageSearch.value = "";
+            }
 
-
-            messageSearch.dispatchEvent(
-                new Event("input")
-            );
-
-
-            messageSearch.focus();
+            filterMessages("");
 
         }
     );
@@ -765,9 +597,32 @@ if (clearSearch) {
 }
 
 
-/* =========================================================
-   ROOM INFORMATION
-========================================================= */
+function filterMessages(searchText) {
+
+    const allMessages =
+        messagesBox.querySelectorAll(
+            ".chat-message"
+        );
+
+
+    allMessages.forEach((message) => {
+
+        const text =
+            message.textContent.toLowerCase();
+
+        message.style.display =
+            text.includes(searchText)
+                ? "flex"
+                : "none";
+
+    });
+
+}
+
+
+// =====================================
+// ROOM INFO
+// =====================================
 
 if (roomInfoBtn) {
 
@@ -775,7 +630,7 @@ if (roomInfoBtn) {
         "click",
         () => {
 
-            roomInfoPanel.classList.toggle(
+            roomInfoPanel?.classList.add(
                 "show"
             );
 
@@ -791,7 +646,7 @@ if (closeRoomInfo) {
         "click",
         () => {
 
-            roomInfoPanel.classList.remove(
+            roomInfoPanel?.classList.remove(
                 "show"
             );
 
@@ -801,103 +656,28 @@ if (closeRoomInfo) {
 }
 
 
-/* =========================================================
-   CLOSE EMOJI WHEN CLICKING INPUT
-========================================================= */
+// =====================================
+// ENTER TO SEND
+// =====================================
 
 if (messageInput) {
 
     messageInput.addEventListener(
-        "focus",
-        () => {
-
-            emojiPanel.classList.remove(
-                "show"
-            );
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   TYPING INDICATOR
-========================================================= */
-
-let typingTimer = null;
-
-
-if (messageInput) {
-
-    messageInput.addEventListener(
-        "input",
-        () => {
-
-            if (!messageInput.value.trim()) {
-
-                typingText.textContent =
-                    "";
-
-                return;
-
-            }
-
-
-            typingText.textContent =
-                "Typing...";
-
-
-            clearTimeout(
-                typingTimer
-            );
-
-
-            typingTimer =
-                setTimeout(
-                    () => {
-
-                        typingText.textContent =
-                            "";
-
-                    },
-                    1200
-                );
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   PREVENT EMPTY SUBMIT
-========================================================= */
-
-if (composer) {
-
-    composer.addEventListener(
-        "submit",
+        "keydown",
         (event) => {
 
             if (
-                !messageInput.value.trim()
+                event.key === "Enter" &&
+                !event.shiftKey
             ) {
 
                 event.preventDefault();
 
+                composer?.requestSubmit();
+
             }
 
         }
     );
 
 }
-
-
-/* =========================================================
-   FINISH
-========================================================= */
-
-console.log(
-    "CHAPCY Music Group loaded successfully."
-);
