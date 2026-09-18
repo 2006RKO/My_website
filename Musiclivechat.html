@@ -1,1 +1,597 @@
 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="theme-color"
+        content="#030511"
+    >
+
+    <title>CHAPCY • Music Live Chat</title>
+
+    <link
+        rel="stylesheet"
+        href="Music.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    >
+
+</head>
+
+<body>
+
+<div class="chapcy-app">
+
+
+    <!-- =========================================
+         MOBILE OVERLAY
+    ========================================== -->
+
+    <div
+        class="mobile-overlay"
+        id="mobileOverlay"
+    ></div>
+
+
+    <!-- =========================================
+         SIDEBAR
+    ========================================== -->
+
+    <aside
+        class="side-nav"
+        id="sideNav"
+    >
+
+        <div class="brand">
+
+            <div class="brand-logo">
+                <img
+                    src="file_000000004f547243bb0fa43d66db1edf.png"
+                    alt="CHAPCY"
+                >
+            </div>
+
+            <div class="brand-text">
+
+                <strong>CHAPCY</strong>
+
+                <span>Music Live Chat</span>
+
+            </div>
+
+        </div>
+
+
+        <!-- MAIN NAV -->
+
+        <nav class="nav-menu">
+
+            <a
+                href="#"
+                class="nav-item active"
+            >
+                <i class="fa-solid fa-comments"></i>
+                <span>Live Chat</span>
+            </a>
+
+            <a
+                href="#"
+                class="nav-item"
+            >
+                <i class="fa-solid fa-globe"></i>
+                <span>Vairo</span>
+            </a>
+
+            <a
+                href="#"
+                class="nav-item"
+            >
+                <i class="fa-solid fa-layer-group"></i>
+                <span>Rooms</span>
+            </a>
+
+            <a
+                href="#"
+                class="nav-item"
+            >
+                <i class="fa-solid fa-users"></i>
+                <span>People</span>
+            </a>
+
+            <a
+                href="#"
+                class="nav-item"
+            >
+                <i class="fa-solid fa-at"></i>
+                <span>Mentions</span>
+            </a>
+
+            <a
+                href="#"
+                class="nav-item"
+            >
+                <i class="fa-solid fa-envelope"></i>
+                <span>Messages</span>
+            </a>
+
+            <a
+                href="#"
+                class="nav-item"
+            >
+                <i class="fa-solid fa-gear"></i>
+                <span>Settings</span>
+            </a>
+
+        </nav>
+
+
+        <!-- PROFILE -->
+
+        <div class="sidebar-bottom">
+
+            <div class="mini-profile">
+
+                <div
+                    class="profile-avatar"
+                    id="profileLetter"
+                >
+                    U
+                </div>
+
+                <div class="profile-details">
+
+                    <strong id="profileName">
+                        CHAPCY User
+                    </strong>
+
+                    <span>
+                        <i class="fa-solid fa-circle"></i>
+                        Online
+                    </span>
+
+                </div>
+
+            </div>
+
+            <button
+                class="logout-btn"
+                id="logoutBtn"
+                type="button"
+            >
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =========================================
+         MAIN AREA
+    ========================================== -->
+
+    <main class="main-area">
+
+
+        <!-- =====================================
+             MOBILE HEADER
+        ====================================== -->
+
+        <header class="mobile-header">
+
+            <button
+                class="menu-btn"
+                id="menuBtn"
+                type="button"
+            >
+
+                <i class="fa-solid fa-bars"></i>
+
+            </button>
+
+
+            <div class="mobile-brand">
+
+                <img
+                    src="file_000000004f547243bb0fa43d66db1edf.png"
+                    alt="CHAPCY"
+                >
+
+                <span>Music</span>
+
+            </div>
+
+
+            <button
+                class="mobile-search-btn"
+                type="button"
+            >
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+            </button>
+
+        </header>
+
+
+        <!-- =====================================
+             CHAT AREA
+        ====================================== -->
+
+        <section class="chat-section">
+
+
+            <!-- CHAT HEADER -->
+
+            <div class="chat-header">
+
+                <div class="chat-title-wrap">
+
+
+                    <div class="room-icon">
+
+                        <span>🎵</span>
+
+                    </div>
+
+
+                    <div class="chat-title">
+
+                        <h1>
+                            Music Live Chat
+                        </h1>
+
+                        <p>
+                            Share music, artists, songs &amp; vibes 🎧
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="chat-actions">
+
+                    <button
+                        class="header-action"
+                        id="roomInfoBtn"
+                        type="button"
+                        title="Room information"
+                    >
+
+                        <i class="fa-solid fa-circle-info"></i>
+
+                    </button>
+
+
+                    <button
+                        class="header-action"
+                        id="searchToggle"
+                        type="button"
+                        title="Search"
+                    >
+
+                        <i class="fa-solid fa-magnifying-glass"></i>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================
+                 PINNED ROOM RULE
+            ================================== -->
+
+            <div class="pinned-message">
+
+                <div class="pinned-icon">
+
+                    <i class="fa-solid fa-thumbtack"></i>
+
+                </div>
+
+                <div class="pinned-content">
+
+                    <strong>
+                        Music Room Rules
+                    </strong>
+
+                    <span>
+                        Share your favourite songs, artists and good vibes.
+                        Respect everyone. 🎶
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================
+                 SEARCH
+            ================================== -->
+
+            <div
+                class="search-panel"
+                id="searchPanel"
+            >
+
+                <div class="search-box">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    <input
+                        type="search"
+                        id="messageSearch"
+                        placeholder="Search music messages..."
+                        autocomplete="off"
+                    >
+
+                    <button
+                        id="clearSearch"
+                        type="button"
+                    >
+
+                        <i class="fa-solid fa-xmark"></i>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================
+                 ROOM INFO
+            ================================== -->
+
+            <div
+                class="room-info-panel"
+                id="roomInfoPanel"
+            >
+
+                <div class="room-info-icon">
+                    🎵
+                </div>
+
+                <div class="room-info-text">
+
+                    <strong>
+                        Music Live Chat
+                    </strong>
+
+                    <span>
+                        Talk about songs, artists, albums,
+                        playlists and everything music.
+                    </span>
+
+                </div>
+
+                <button
+                    id="closeRoomInfo"
+                    type="button"
+                >
+
+                    <i class="fa-solid fa-xmark"></i>
+
+                </button>
+
+            </div>
+
+
+            <!-- =================================
+                 MESSAGES
+            ================================== -->
+
+            <div
+                class="messages-area"
+                id="messages"
+            >
+
+                <!-- Empty state will disappear
+                     when messages arrive -->
+
+                <div
+                    class="empty-chat"
+                    id="emptyChat"
+                >
+
+                    <div class="empty-icon">
+                        🎧
+                    </div>
+
+                    <h2>
+                        Welcome to Music Group
+                    </h2>
+
+                    <p>
+                        Start the conversation.
+                        Share a song, artist or music vibe 🎵
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================
+                 TYPING AREA
+            ================================== -->
+
+            <div
+                class="typing-area"
+                id="typingArea"
+            >
+
+                <span id="typingText"></span>
+
+            </div>
+
+
+            <!-- =================================
+                 EMOJI PANEL
+            ================================== -->
+
+            <div
+                class="emoji-panel"
+                id="emojiPanel"
+            >
+
+                <button type="button">🎵</button>
+                <button type="button">🎶</button>
+                <button type="button">🎧</button>
+                <button type="button">🎤</button>
+                <button type="button">🎸</button>
+                <button type="button">🥁</button>
+                <button type="button">🎹</button>
+                <button type="button">🎺</button>
+                <button type="button">🎻</button>
+                <button type="button">📻</button>
+                <button type="button">💿</button>
+                <button type="button">📀</button>
+                <button type="button">🔥</button>
+                <button type="button">❤️</button>
+                <button type="button">😍</button>
+                <button type="button">🥳</button>
+                <button type="button">👏</button>
+                <button type="button">🙌</button>
+                <button type="button">💯</button>
+                <button type="button">🚀</button>
+                <button type="button">🌍</button>
+                <button type="button">🕺</button>
+                <button type="button">💃</button>
+
+            </div>
+
+
+            <!-- =================================
+                 COMPOSER
+            ================================== -->
+
+            <form
+                class="composer"
+                id="composer"
+            >
+
+                <button
+                    class="composer-btn"
+                    id="emojiBtn"
+                    type="button"
+                    title="Emoji"
+                >
+
+                    <i class="fa-regular fa-face-smile"></i>
+
+                </button>
+
+
+                <input
+                    type="text"
+                    id="messageInput"
+                    placeholder="Type a music message..."
+                    autocomplete="off"
+                    maxlength="1000"
+                >
+
+
+                <button
+                    class="composer-btn"
+                    type="button"
+                    title="Attach"
+                >
+
+                    <i class="fa-solid fa-paperclip"></i>
+
+                </button>
+
+
+                <button
+                    class="send-btn"
+                    id="sendBtn"
+                    type="submit"
+                    title="Send message"
+                >
+
+                    <i class="fa-solid fa-paper-plane"></i>
+
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <!-- =====================================
+             RIGHT AD AREA
+        ====================================== -->
+
+        <aside class="ads-area">
+
+            <div class="ad-card">
+
+                <div class="ad-icon">
+                    🎧
+                </div>
+
+                <strong>
+                    CHAPCY Music
+                </strong>
+
+                <span>
+                    Music community space
+                </span>
+
+            </div>
+
+
+            <div class="ad-card">
+
+                <div class="ad-icon">
+                    🎵
+                </div>
+
+                <strong>
+                    Discover Music
+                </strong>
+
+                <span>
+                    Share your favourite sounds
+                </span>
+
+            </div>
+
+        </aside>
+
+
+    </main>
+
+</div>
+
+
+<!-- =========================================
+     MUSIC JAVASCRIPT
+========================================== -->
+
+<script
+    type="module"
+    src="Music.js"
+></script>
+
+</body>
+
+</html>
