@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="theme-color"
+        content="#020617"
+    >
+
+    <meta
+        name="description"
+        content="CHAPCY DROP — Shop products from the CHAPCY worldwide community."
+    >
+
+    <title>CHAPCY DROP • Shopping</title>
+
+    <!-- FONT -->
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- FONT AWESOME -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    >
+
+    <!-- CHAPCY DROP CSS -->
+    <link
+        rel="stylesheet"
+        href="ChapcyDrop.css"
+    >
+</head>
+
+
+<body>
+
+    <!-- =========================================
+         BACKGROUND
+    ========================================== -->
+
+    <img
+        class="background"
+        src="file_00000000e8a88211b89f26c5035d9c0d.png"
+        alt=""
+    >
+
+    <div class="bg-overlay"></div>
+
+
+    <!-- =========================================
+         PAGE
+    ========================================== -->
+
+    <main class="drop-page">
+
+
+        <!-- =====================================
+             TOP BAR
+        ====================================== -->
+
+        <header class="drop-topbar">
+
+            <!-- BACK -->
+            <button
+                class="icon-button"
+                id="backBtn"
+                type="button"
+                aria-label="Go back"
+            >
+                <i class="fa-solid fa-arrow-left"></i>
+            </button>
+
+
+            <!-- BRAND -->
+            <div class="drop-brand">
+
+                <div class="drop-logo">
+                    <img
+                        src="file_000000004f547243bb0fa43d66db1edf.png"
+                        alt="CHAPCY"
+                    >
+                </div>
+
+                <div class="drop-brand-text">
+
+                    <h1>CHAPCY DROP</h1>
+
+                    <p>
+                        Shop inside CHAPCY
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- ACTIONS -->
+            <div class="drop-actions">
+
+                <!-- SEARCH -->
+                <button
+                    class="icon-button"
+                    id="searchToggle"
+                    type="button"
+                    aria-label="Search"
+                >
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+
+
+                <!-- WISHLIST -->
+                <button
+                    class="icon-button action-with-badge"
+                    id="wishlistBtn"
+                    type="button"
+                    aria-label="Wishlist"
+                >
+
+                    <i class="fa-regular fa-heart"></i>
+
+                    <span
+                        class="action-badge"
+                        id="wishlistBadge"
+                    >
+                        0
+                    </span>
+
+                </button>
+
+
+                <!-- CART -->
+                <button
+                    class="icon-button action-with-badge"
+                    id="cartBtn"
+                    type="button"
+                    aria-label="Shopping cart"
+                >
+
+                    <i class="fa-solid fa-bag-shopping"></i>
+
+                    <span
+                        class="action-badge"
+                        id="cartBadge"
+                    >
+                        0
+                    </span>
+
+                </button>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =====================================
+             SEARCH BAR
+        ====================================== -->
+
+        <section
+            class="search-section"
+            id="searchSection"
+        >
+
+            <div class="search-box">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                <input
+                    type="search"
+                    id="productSearch"
+                    placeholder="Search products..."
+                    autocomplete="off"
+                >
+
+                <button
+                    id="clearSearch"
+                    type="button"
+                    aria-label="Clear search"
+                >
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================
+             HERO
+        ====================================== -->
+
+        <section class="drop-hero">
+
+            <div class="hero-content">
+
+                <span class="hero-label">
+                    <i class="fa-solid fa-bolt"></i>
+                    CHAPCY MARKETPLACE
+                </span>
+
+                <h2>
+                    Discover.
+                    <span>Shop.</span>
+                    Enjoy.
+                </h2>
+
+                <p>
+                    Discover products from sellers inside
+                    the CHAPCY worldwide community.
+                </p>
+
+                <div class="hero-actions">
+
+                    <button
+                        class="primary-btn"
+                        id="shopNowBtn"
+                        type="button"
+                    >
+                        <span>Shop Now</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+
+                    <button
+                        class="secondary-btn"
+                        id="sellOnChapcyBtn"
+                        type="button"
+                    >
+                        <i class="fa-solid fa-store"></i>
+                        <span>Sell on CHAPCY</span>
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================
+             CATEGORY NAVIGATION
+        ====================================== -->
+
+        <section class="category-section">
+
+            <div class="section-heading">
+
+                <div>
+                    <span class="small-label">
+                        EXPLORE
+                    </span>
+
+                    <h2>
+                        Categories
+                    </h2>
+                </div>
+
+                <button
+                    class="text-button"
+                    id="allCategoriesBtn"
+                    type="button"
+                >
+                    View all
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+
+            </div>
+
+
+            <!--
+                JS will load categories from Firebase.
+                No fake categories are written here.
+            -->
+
+            <div
+                class="category-list"
+                id="categoryList"
+            >
+
+                <div class="loading-small">
+                    <span class="loader"></span>
+                    <p>Loading categories...</p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================
+             PRODUCTS
+        ====================================== -->
+
+        <section
+            class="products-section"
+            id="productsSection"
+        >
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="small-label">
+                        CHAPCY DROP
+                    </span>
+
+                    <h2 id="productsTitle">
+                        Products
+                    </h2>
+
+                </div>
+
+
+                <!-- SORT -->
+                <div class="sort-wrapper">
+
+                    <label
+                        for="sortProducts"
+                        class="sr-only"
+                    >
+                        Sort products
+                    </label>
+
+                    <select
+                        id="sortProducts"
+                    >
+
+                        <option value="newest">
+                            Newest
+                        </option>
+
+                        <option value="price-low">
+                            Price: Low to High
+                        </option>
+
+                        <option value="price-high">
+                            Price: High to Low
+                        </option>
+
+                        <option value="popular">
+                            Popular
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+
+            <!--
+                Firebase products will appear here.
+            -->
+
+            <div
+                class="products-grid"
+                id="productsGrid"
+            >
+
+                <div
+                    class="products-loading"
+                    id="productsLoading"
+                >
+
+                    <div class="big-loader"></div>
+
+                    <h3>
+                        Loading CHAPCY DROP...
+                    </h3>
+
+                    <p>
+                        Connecting to the marketplace.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- EMPTY STATE -->
+
+            <div
+                class="empty-products"
+                id="emptyProducts"
+                hidden
+            >
+
+                <div class="empty-icon">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                </div>
+
+                <h3>
+                    No products found
+                </h3>
+
+                <p>
+                    There are no products matching
+                    your search or category.
+                </p>
+
+                <button
+                    class="primary-btn"
+                    id="resetProductsBtn"
+                    type="button"
+                >
+                    <i class="fa-solid fa-rotate-left"></i>
+                    Reset
+                </button>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================
+             LOAD MORE
+        ====================================== -->
+
+        <div
+            class="load-more-wrapper"
+            id="loadMoreWrapper"
+            hidden
+        >
+
+            <button
+                class="load-more-btn"
+                id="loadMoreBtn"
+                type="button"
+            >
+
+                <span>
+                    Load More
+                </span>
+
+                <i class="fa-solid fa-chevron-down"></i>
+
+            </button>
+
+        </div>
+
+
+
+        <!-- =====================================
+             SELLER CTA
+        ====================================== -->
+
+        <section class="seller-banner">
+
+            <div class="seller-banner-icon">
+                <i class="fa-solid fa-store"></i>
+            </div>
+
+            <div class="seller-banner-content">
+
+                <span>
+                    FOR SELLERS
+                </span>
+
+                <h2>
+                    Have something to sell?
+                </h2>
+
+                <p>
+                    Bring your products to the CHAPCY
+                    worldwide community.
+                </p>
+
+            </div>
+
+            <button
+                class="seller-banner-btn"
+                id="openSellerBtn"
+                type="button"
+            >
+                Start Selling
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+
+        </section>
+
+
+
+        <!-- =====================================
+             FOOTER
+        ====================================== -->
+
+        <footer class="drop-footer">
+
+            <div class="footer-brand">
+
+                <div class="footer-logo">
+                    <img
+                        src="file_000000004f547243bb0fa43d66db1edf.png"
+                        alt="CHAPCY"
+                    >
+                </div>
+
+                <div>
+
+                    <h3>
+                        CHAPCY DROP
+                    </h3>
+
+                    <p>
+                        Shopping inside the
+                        CHAPCY community.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="footer-links">
+
+                <button
+                    type="button"
+                    id="footerOrdersBtn"
+                >
+                    My Orders
+                </button>
+
+                <button
+                    type="button"
+                    id="footerWishlistBtn"
+                >
+                    Wishlist
+                </button>
+
+                <button
+                    type="button"
+                    id="footerSellerBtn"
+                >
+                    Sell on CHAPCY
+                </button>
+
+            </div>
+
+
+            <p class="copyright">
+                © <span id="currentYear"></span>
+                CHAPCY. All rights reserved.
+            </p>
+
+        </footer>
+
+    </main>
+
+
+
+    <!-- =========================================
+         PRODUCT QUICK VIEW MODAL
+    ========================================== -->
+
+    <div
+        class="product-modal"
+        id="productModal"
+        aria-hidden="true"
+    >
+
+        <div
+            class="modal-backdrop"
+            id="productModalBackdrop"
+        ></div>
+
+
+        <div class="product-modal-content">
+
+            <button
+                class="modal-close"
+                id="closeProductModal"
+                type="button"
+                aria-label="Close"
+            >
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+
+            <div
+                class="product-modal-image"
+                id="modalProductImage"
+            >
+                <!-- Firebase product image -->
+            </div>
+
+
+            <div class="product-modal-info">
+
+                <span
+                    class="modal-category"
+                    id="modalProductCategory"
+                >
+                </span>
+
+                <h2 id="modalProductName">
+                </h2>
+
+                <div
+                    class="modal-price"
+                    id="modalProductPrice"
+                >
+                </div>
+
+                <p
+                    class="modal-description"
+                    id="modalProductDescription"
+                >
+                </p>
+
+
+                <div class="seller-info">
+
+                    <div class="seller-avatar">
+                        <i class="fa-solid fa-store"></i>
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Seller
+                        </span>
+
+                        <strong
+                            id="modalSellerName"
+                        >
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="quantity-control">
+
+                    <span>
+                        Quantity
+                    </span>
+
+                    <div class="quantity-box">
+
+                        <button
+                            id="decreaseQuantity"
+                            type="button"
+                        >
+                            <i class="fa-solid fa-minus"></i>
+                        </button>
+
+                        <span id="productQuantity">
+                            1
+                        </span>
+
+                        <button
+                            id="increaseQuantity"
+                            type="button"
+                        >
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="modal-actions">
+
+                    <button
+                        class="wishlist-modal-btn"
+                        id="modalWishlistBtn"
+                        type="button"
+                    >
+                        <i class="fa-regular fa-heart"></i>
+                    </button>
+
+                    <button
+                        class="add-cart-btn"
+                        id="addToCartBtn"
+                        type="button"
+                    >
+                        <i class="fa-solid fa-bag-shopping"></i>
+                        Add to Cart
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================================
+         CART DRAWER
+    ========================================== -->
+
+    <aside
+        class="cart-drawer"
+        id="cartDrawer"
+        aria-hidden="true"
+    >
+
+        <div
+            class="drawer-backdrop"
+            id="cartBackdrop"
+        ></div>
+
+
+        <div class="cart-panel">
+
+            <div class="drawer-header">
+
+                <div>
+
+                    <span>
+                        CHAPCY DROP
+                    </span>
+
+                    <h2>
+                        Your Cart
+                    </h2>
+
+                </div>
+
+                <button
+                    class="modal-close"
+                    id="closeCart"
+                    type="button"
+                >
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+
+            </div>
+
+
+            <div
+                class="cart-items"
+                id="cartItems"
+            >
+
+                <!-- Firebase/user cart items -->
+
+            </div>
+
+
+            <div
+                class="cart-empty"
+                id="cartEmpty"
+            >
+
+                <i class="fa-solid fa-bag-shopping"></i>
+
+                <h3>
+                    Your cart is empty
+                </h3>
+
+                <p>
+                    Add products to your cart to continue.
+                </p>
+
+            </div>
+
+
+            <div class="cart-footer">
+
+                <div class="cart-total-row">
+
+                    <span>
+                        Total
+                    </span>
+
+                    <strong id="cartTotal">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <button
+                    class="checkout-btn"
+                    id="checkoutBtn"
+                    type="button"
+                >
+                    Proceed to Checkout
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =========================================
+         WISHLIST DRAWER
+    ========================================== -->
+
+    <aside
+        class="wishlist-drawer"
+        id="wishlistDrawer"
+        aria-hidden="true"
+    >
+
+        <div
+            class="drawer-backdrop"
+            id="wishlistBackdrop"
+        ></div>
+
+
+        <div class="wishlist-panel">
+
+            <div class="drawer-header">
+
+                <div>
+
+                    <span>
+                        CHAPCY DROP
+                    </span>
+
+                    <h2>
+                        Wishlist
+                    </h2>
+
+                </div>
+
+                <button
+                    class="modal-close"
+                    id="closeWishlist"
+                    type="button"
+                >
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+
+            </div>
+
+
+            <div
+                class="wishlist-items"
+                id="wishlistItems"
+            >
+                <!-- Firebase wishlist -->
+            </div>
+
+
+            <div
+                class="wishlist-empty"
+                id="wishlistEmpty"
+            >
+
+                <i class="fa-regular fa-heart"></i>
+
+                <h3>
+                    Your wishlist is empty
+                </h3>
+
+                <p>
+                    Save products you want to find later.
+                </p>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =========================================
+         NOTIFICATION
+    ========================================== -->
+
+    <div
+        class="drop-toast"
+        id="dropToast"
+        role="status"
+        aria-live="polite"
+    >
+
+        <div class="toast-icon">
+            <i class="fa-solid fa-check"></i>
+        </div>
+
+        <div class="toast-content">
+
+            <strong id="toastTitle">
+                CHAPCY DROP
+            </strong>
+
+            <p id="toastMessage">
+            </p>
+
+        </div>
+
+        <button
+            id="closeToast"
+            type="button"
+            aria-label="Close notification"
+        >
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+    </div>
+
+
+
+    <!-- =========================================
+         AUTH REQUIRED MODAL
+    ========================================== -->
+
+    <div
+        class="auth-modal"
+        id="authModal"
+        aria-hidden="true"
+    >
+
+        <div
+            class="modal-backdrop"
+            id="authBackdrop"
+        ></div>
+
+
+        <div class="auth-box">
+
+            <button
+                class="modal-close"
+                id="closeAuthModal"
+                type="button"
+            >
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+
+            <div class="auth-icon">
+                <i class="fa-solid fa-user-lock"></i>
+            </div>
+
+            <h2>
+                Login Required
+            </h2>
+
+            <p>
+                Please sign in to your CHAPCY account
+                to continue.
+            </p>
+
+            <button
+                class="primary-btn"
+                id="loginBtn"
+                type="button"
+            >
+                <i class="fa-solid fa-right-to-bracket"></i>
+                Login
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================================
+         FIREBASE
+    ========================================== -->
+
+    <!--
+        Use your existing Firebase configuration
+        in firebase.js.
+
+        DO NOT put products or fake users here.
+    -->
+
+    <script type="module" src="firebase.js"></script>
+
+    <!-- CHAPCY DROP LOGIC -->
+    <script type="module" src="ChapcyDrop.js"></script>
+
+
+</body>
+
+  </html>
