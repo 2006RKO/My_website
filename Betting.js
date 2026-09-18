@@ -14,7 +14,6 @@ import {
     set,
     onChildAdded,
     serverTimestamp,
-    onValue,
     query,
     orderByChild
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
@@ -51,7 +50,7 @@ const roomInfoPanel = document.getElementById("roomInfoPanel");
 
 
 // =====================================
-// BETTING ROOM DATABASE PATH
+// BETTING ROOM
 // =====================================
 
 const bettingMessagesRef = query(
@@ -61,108 +60,130 @@ const bettingMessagesRef = query(
 
 
 // =====================================
-// MOBILE MENU
-// =====================================
-
-menuBtn.addEventListener("click", () => {
-
-    sideNav.classList.add("open");
-
-    mobileOverlay.classList.add("show");
-
-});
-
-
-mobileOverlay.addEventListener("click", closeMobileMenu);
-
-
-function closeMobileMenu() {
-
-    sideNav.classList.remove("open");
-
-    mobileOverlay.classList.remove("show");
-
-}
-
-// =====================================
-// AUTHENTICATION
+// CURRENT USER
 // =====================================
 
 let currentUser = null;
 
+
+// =====================================
+// AUTH
+// =====================================
+
 onAuthStateChanged(auth, (user) => {
 
-    console.log("BETTING AUTH USER:", user);
+    currentUser = user || null;
 
-    if (!user) {
+    if (user) {
 
-        console.log(
-            "BETTING: Firebase haioni user aliye-login"
-        );
+        const name =
+            user.displayName ||
+            user.email?.split("@")[0] ||
+            "CHAPCY User";
 
-        return;
+        if (profileName) {
+            profileName.textContent = name;
+        }
+
+        if (profileLetter) {
+            profileLetter.textContent =
+                name.charAt(0).toUpperCase();
+        }
+
+        console.log("Betting user:", name);
+
+    } else {
+
+        // HAKUNA REDIRECT
+        // User ataendelea kubaki kwenye Betting
+
+        currentUser = null;
+
+        if (profileName) {
+            profileName.textContent = "CHAPCY User";
+        }
+
+        if (profileLetter) {
+            profileLetter.textContent = "C";
+        }
+
+        console.log("Betting: hakuna user aliye-login.");
+
     }
 
-    currentUser = user;
-
-    const name =
-        user.displayName ||
-        user.email?.split("@")[0] ||
-        "CHAPCY User";
-
-    profileName.textContent = name;
-
-    profileLetter.textContent =
-        name.charAt(0).toUpperCase();
-
 });
+
+
+// =====================================
+// MOBILE MENU
+// =====================================
+
+if (menuBtn) {
+
+    menuBtn.addEventListener("click", () => {
+
+        sideNav?.classList.add("open");
+        mobileOverlay?.classList.add("show");
+
+    });
+
+}
+
+
+if (mobileOverlay) {
+
+    mobileOverlay.addEventListener(
+        "click",
+        closeMobileMenu
+    );
+
+}
+
+
+function closeMobileMenu() {
+
+    sideNav?.classList.remove("open");
+    mobileOverlay?.classList.remove("show");
+
+}
 
 
 // =====================================
 // LOGOUT
 // =====================================
 
-logoutBtn.addEventListener("click", async () => {
+if (logoutBtn) {
 
-    try {
+    logoutBtn.addEventListener("click", async () => {
 
-        await signOut(auth);
+        try {
 
-        window.location.href = "index.html";
+            await signOut(auth);
 
-    } catch (error) {
+            console.log("Logged out");
 
-        console.error("Logout error:", error);
+            window.location.href = "index.html";
 
-        alert("Logout failed. Try again.");
+        } catch (error) {
 
-    }
+            console.error(
+                "Logout error:",
+                error
+            );
 
-});
+            alert(
+                "Logout failed. Try again."
+            );
 
+        }
 
-// =====================================
-// FORMAT TIME
-// =====================================
-
-function formatTime(timestamp) {
-
-    if (!timestamp) {
-        return "now";
-    }
-
-    const date = new Date(timestamp);
-
-    return date.toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit"
     });
 
 }
 
 
 // =====================================
-// GET USER NAME
+// USER NAME
 // =====================================
 
 function getUserName() {
@@ -181,15 +202,39 @@ function getUserName() {
 
 
 // =====================================
-// GET INITIAL
+// INITIAL
 // =====================================
 
 function getInitial(name) {
 
-    return name
-        .trim()
-        .charAt(0)
-        .toUpperCase();
+    return (
+        name?.trim()?.charAt(0)?.toUpperCase() ||
+        "C"
+    );
+
+}
+
+
+// =====================================
+// FORMAT TIME
+// =====================================
+
+function formatTime(timestamp) {
+
+    if (!timestamp) {
+        return "now";
+    }
+
+    const date = new Date(timestamp);
+
+    if (isNaN(date.getTime())) {
+        return "now";
+    }
+
+    return date.toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit"
+    });
 
 }
 
@@ -216,30 +261,43 @@ function createMessage(message) {
         document.createElement("article");
 
     messageElement.className =
-        "chat-message" + (isOwn ? " own" : "");
+        "chat-message" +
+        (isOwn ? " own" : "");
 
+
+    // AVATAR
     const avatar =
         document.createElement("div");
 
-    avatar.className = "message-avatar";
+    avatar.className =
+        "message-avatar";
 
     avatar.textContent =
         getInitial(userName);
 
+
+    // CONTENT
     const content =
         document.createElement("div");
 
-    content.className = "message-content";
+    content.className =
+        "message-content";
 
+
+    // META
     const meta =
         document.createElement("div");
 
-    meta.className = "message-meta";
+    meta.className =
+        "message-meta";
+
 
     const name =
         document.createElement("strong");
 
-    name.textContent = userName;
+    name.textContent =
+        userName;
+
 
     const time =
         document.createElement("span");
@@ -247,15 +305,21 @@ function createMessage(message) {
     time.textContent =
         formatTime(message.createdAt);
 
+
     meta.appendChild(name);
     meta.appendChild(time);
 
+
+    // BUBBLE
     const bubble =
         document.createElement("div");
 
-    bubble.className = "message-bubble";
+    bubble.className =
+        "message-bubble";
 
-    bubble.textContent = message.text;
+    bubble.textContent =
+        message.text;
+
 
     content.appendChild(meta);
     content.appendChild(bubble);
@@ -265,9 +329,11 @@ function createMessage(message) {
 
     messagesBox.appendChild(messageElement);
 
+
     if (emptyChat) {
         emptyChat.remove();
     }
+
 
     messagesBox.scrollTop =
         messagesBox.scrollHeight;
@@ -283,14 +349,18 @@ onChildAdded(
     bettingMessagesRef,
     (snapshot) => {
 
-        const message = snapshot.val();
+        const message =
+            snapshot.val();
 
         createMessage(message);
 
     },
     (error) => {
 
-        console.error("Firebase read error:", error);
+        console.error(
+            "Firebase read error:",
+            error
+        );
 
     }
 );
@@ -300,87 +370,125 @@ onChildAdded(
 // SEND MESSAGE
 // =====================================
 
-composer.addEventListener("submit", async (event) => {
+if (composer) {
 
-    event.preventDefault();
+    composer.addEventListener(
+        "submit",
+        async (event) => {
 
-    const text =
-        messageInput.value.trim();
+            event.preventDefault();
 
-    if (!text) {
-        return;
-    }
+            const text =
+                messageInput.value.trim();
 
-    if (!currentUser) {
+            if (!text) {
+                return;
+            }
 
-        alert("Please login first.");
 
-        return;
+            sendBtn.disabled = true;
 
-    }
 
-    sendBtn.disabled = true;
+            try {
 
-    try {
+                const newMessageRef =
+                    push(
+                        ref(
+                            db,
+                            "rooms/betting/messages"
+                        )
+                    );
 
-        const newMessageRef =
-            push(ref(db, "rooms/betting/messages"));
 
-        await set(newMessageRef, {
+                await set(
+                    newMessageRef,
+                    {
 
-            text: text,
+                        text: text,
 
-            userId: currentUser.uid,
+                        userId:
+                            currentUser?.uid ||
+                            "guest",
 
-            userName: getUserName(),
+                        userName:
+                            getUserName(),
 
-            createdAt: serverTimestamp()
+                        createdAt:
+                            serverTimestamp()
 
-        });
+                    }
+                );
 
-        messageInput.value = "";
 
-        emojiPanel.classList.remove("show");
+                messageInput.value = "";
 
-        messageInput.focus();
+                emojiPanel?.classList.remove(
+                    "show"
+                );
 
-    } catch (error) {
+                messageInput.focus();
 
-        console.error("Message send error:", error);
 
-        alert("Message failed to send. Check Firebase Database rules.");
+            } catch (error) {
 
-    } finally {
+                console.error(
+                    "Message send error:",
+                    error
+                );
 
-        sendBtn.disabled = false;
+                alert(
+                    "Message failed to send. Check Firebase Database rules."
+                );
 
-    }
+            } finally {
 
-});
+                sendBtn.disabled = false;
+
+            }
+
+        }
+    );
+
+}
 
 
 // =====================================
-// EMOJI PANEL
+// EMOJI
 // =====================================
 
-emojiBtn.addEventListener("click", () => {
+if (emojiBtn) {
 
-    emojiPanel.classList.toggle("show");
+    emojiBtn.addEventListener(
+        "click",
+        () => {
 
-});
+            emojiPanel?.classList.toggle(
+                "show"
+            );
+
+        }
+    );
+
+}
 
 
 document
-    .querySelectorAll(".emoji-panel button")
+    .querySelectorAll(
+        ".emoji-panel button"
+    )
     .forEach((button) => {
 
-        button.addEventListener("click", () => {
+        button.addEventListener(
+            "click",
+            () => {
 
-            messageInput.value += button.textContent;
+                messageInput.value +=
+                    button.textContent;
 
-            messageInput.focus();
+                messageInput.focus();
 
-        });
+            }
+        );
 
     });
 
@@ -389,48 +497,87 @@ document
 // ADD BUTTON
 // =====================================
 
-document.getElementById("addBtn")
-    .addEventListener("click", () => {
+const addBtn =
+    document.getElementById("addBtn");
 
-        emojiPanel.classList.toggle("show");
+if (addBtn) {
 
-    });
+    addBtn.addEventListener(
+        "click",
+        () => {
+
+            emojiPanel?.classList.toggle(
+                "show"
+            );
+
+        }
+    );
+
+}
 
 
 // =====================================
 // SEARCH
 // =====================================
 
-searchBtn.addEventListener("click", () => {
+if (searchBtn) {
 
-    searchBox.classList.toggle("show");
+    searchBtn.addEventListener(
+        "click",
+        () => {
 
-    if (searchBox.classList.contains("show")) {
-
-        searchInput.focus();
-
-    } else {
-
-        searchInput.value = "";
-
-        filterMessages("");
-
-    }
-
-});
+            searchBox?.classList.toggle(
+                "show"
+            );
 
 
-searchInput.addEventListener("input", () => {
+            if (
+                searchBox?.classList.contains(
+                    "show"
+                )
+            ) {
 
-    filterMessages(searchInput.value.toLowerCase());
+                searchInput?.focus();
 
-});
+            } else {
+
+                if (searchInput) {
+                    searchInput.value = "";
+                }
+
+                filterMessages("");
+
+            }
+
+        }
+    );
+
+}
+
+
+if (searchInput) {
+
+    searchInput.addEventListener(
+        "input",
+        () => {
+
+            filterMessages(
+                searchInput.value.toLowerCase()
+            );
+
+        }
+    );
+
+}
 
 
 function filterMessages(searchText) {
 
     const allMessages =
-        messagesBox.querySelectorAll(".chat-message");
+        messagesBox.querySelectorAll(
+            ".chat-message"
+        );
+
 
     allMessages.forEach((message) => {
 
@@ -448,31 +595,47 @@ function filterMessages(searchText) {
 
 
 // =====================================
-// ROOM INFORMATION
+// ROOM INFO
 // =====================================
 
-roomInfoBtn.addEventListener("click", () => {
+if (roomInfoBtn) {
 
-    roomInfoPanel.classList.toggle("show");
+    roomInfoBtn.addEventListener(
+        "click",
+        () => {
 
-});
+            roomInfoPanel?.classList.toggle(
+                "show"
+            );
+
+        }
+    );
+
+}
 
 
 // =====================================
-// ENTER KEY
+// ENTER TO SEND
 // =====================================
 
-messageInput.addEventListener("keydown", (event) => {
+if (messageInput) {
 
-    if (
-        event.key === "Enter" &&
-        !event.shiftKey
-    ) {
+    messageInput.addEventListener(
+        "keydown",
+        (event) => {
 
-        event.preventDefault();
+            if (
+                event.key === "Enter" &&
+                !event.shiftKey
+            ) {
 
-        composer.requestSubmit();
+                event.preventDefault();
 
-    }
+                composer?.requestSubmit();
 
-});
+            }
+
+        }
+    );
+
+}
