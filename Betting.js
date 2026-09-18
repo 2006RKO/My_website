@@ -84,7 +84,6 @@ function closeMobileMenu() {
 
 }
 
-
 // =====================================
 // AUTHENTICATION
 // =====================================
@@ -93,12 +92,15 @@ let currentUser = null;
 
 onAuthStateChanged(auth, (user) => {
 
+    console.log("BETTING AUTH USER:", user);
+
     if (!user) {
 
-        window.location.href = "index.html";
+        console.log(
+            "BETTING: Firebase haioni user aliye-login"
+        );
 
         return;
-
     }
 
     currentUser = user;
