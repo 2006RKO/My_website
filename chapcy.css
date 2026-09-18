@@ -2210,3 +2210,373 @@ body::after {
             .01ms !important;
     }
    }
+/* =========================================================
+   CHAPCY HOME HUB
+========================================================= */
+
+.chapcy-home-hub {
+  width: 100%;
+  margin: 30px auto 50px;
+  padding: 0 0 26px;
+
+  position: relative;
+  overflow: hidden;
+
+  border: 1px solid rgba(120, 220, 255, .16);
+  border-radius: 30px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(4, 12, 29, .96),
+      rgba(12, 7, 31, .96)
+    );
+
+  box-shadow:
+    0 25px 70px rgba(0, 0, 0, .38),
+    0 0 50px rgba(0, 210, 255, .05),
+    inset 0 1px 0 rgba(255,255,255,.06);
+
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+}
+
+
+/* HEADER */
+
+.hub-header {
+  min-height: 82px;
+  padding: 18px 25px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-bottom: 1px solid rgba(255,255,255,.07);
+}
+
+
+.hub-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+
+.hub-logo {
+  width: 50px;
+  height: 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 16px;
+
+  color: #fff;
+  font-size: 20px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(0,220,255,.22),
+      rgba(145,70,255,.28)
+    );
+
+  border: 1px solid rgba(100,230,255,.22);
+
+  box-shadow:
+    0 0 25px rgba(0,220,255,.12);
+}
+
+
+.hub-brand h2 {
+  margin: 0;
+
+  color: #fff;
+
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: .5px;
+}
+
+
+.hub-brand p {
+  margin: 3px 0 0;
+
+  color: rgba(220,235,255,.56);
+
+  font-size: 11px;
+}
+
+
+.hub-more-btn {
+  width: 42px;
+  height: 42px;
+
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.08);
+
+  background: rgba(255,255,255,.04);
+
+  color: rgba(255,255,255,.7);
+
+  cursor: pointer;
+}
+
+
+/* FEATURED */
+
+.hub-featured {
+  min-height: 300px;
+  margin: 22px;
+
+  display: flex;
+  align-items: flex-end;
+
+  padding: 28px;
+
+  position: relative;
+  overflow: hidden;
+
+  border-radius: 25px;
+
+  background:
+    radial-gradient(
+      circle at 75% 30%,
+      rgba(0,220,255,.18),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at 20% 80%,
+      rgba(145,60,255,.20),
+      transparent 38%
+    ),
+    rgba(255,255,255,.025);
+
+  border: 1px solid rgba(255,255,255,.07);
+}
+
+
+.hub-featured-content {
+  position: relative;
+  z-index: 2;
+}
+
+
+.hub-live-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  padding: 6px 10px;
+
+  border-radius: 999px;
+
+  color: #fff;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  background: rgba(255,255,255,.07);
+}
+
+
+.hub-live-label span {
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: #ff315f;
+
+  box-shadow: 0 0 12px rgba(255,49,95,.8);
+}
+
+
+.hub-featured h3 {
+  margin: 14px 0 5px;
+
+  color: #fff;
+
+  font-size: clamp(24px, 4vw, 42px);
+  font-weight: 800;
+}
+
+
+.hub-featured p {
+  margin: 0;
+
+  max-width: 600px;
+
+  color: rgba(230,240,255,.62);
+
+  font-size: 13px;
+}
+
+
+/* SECTIONS */
+
+.hub-section {
+  padding: 8px 22px 25px;
+}
+
+
+.hub-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  margin-bottom: 15px;
+}
+
+
+.hub-section-header > div:first-child {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+
+.hub-section-icon {
+  width: 42px;
+  height: 42px;
+
+  flex: 0 0 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 13px;
+
+  color: #fff;
+
+  background: rgba(255,255,255,.05);
+
+  border: 1px solid rgba(255,255,255,.08);
+}
+
+
+.hub-section-title h3 {
+  margin: 0;
+
+  color: #fff;
+
+  font-size: 17px;
+  font-weight: 700;
+}
+
+
+.hub-section-title p {
+  margin: 2px 0 0;
+
+  color: rgba(220,235,255,.48);
+
+  font-size: 10px;
+}
+
+
+.hub-view-all {
+  color: rgba(100,225,255,.85);
+
+  font-size: 11px;
+  font-weight: 600;
+
+  text-decoration: none;
+
+  white-space: nowrap;
+}
+
+
+.hub-view-all i {
+  margin-left: 4px;
+}
+
+
+/* FEEDS */
+
+.hub-horizontal-feed,
+.hub-video-feed,
+.hub-rewards-feed {
+  width: 100%;
+  min-height: 170px;
+
+  display: flex;
+  gap: 14px;
+
+  overflow-x: auto;
+
+  scrollbar-width: none;
+}
+
+
+.hub-horizontal-feed::-webkit-scrollbar,
+.hub-video-feed::-webkit-scrollbar,
+.hub-rewards-feed::-webkit-scrollbar {
+  display: none;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+  .chapcy-home-hub {
+    margin-top: 20px;
+    border-radius: 21px;
+  }
+
+  .hub-header {
+    min-height: 70px;
+    padding: 14px 16px;
+  }
+
+  .hub-logo {
+    width: 43px;
+    height: 43px;
+    border-radius: 13px;
+  }
+
+  .hub-brand h2 {
+    font-size: 18px;
+  }
+
+  .hub-featured {
+    min-height: 245px;
+    margin: 15px;
+    padding: 20px;
+    border-radius: 19px;
+  }
+
+  .hub-section {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .hub-section-title h3 {
+    font-size: 15px;
+  }
+
+  .hub-section-title p {
+    font-size: 9px;
+  }
+
+}
+
+
+/* SMALL PHONES */
+
+@media (max-width: 380px) {
+
+  .chapcy-home-hub {
+    border-radius: 18px;
+  }
+
+  .hub-featured {
+    min-height: 220px;
+  }
+
+}
