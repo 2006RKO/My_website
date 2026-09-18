@@ -1,1 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="theme-color"
+        content="#030511"
+    >
+
+    <title>CHAPCY • Betting Live Chat</title>
+
+    <link
+        rel="stylesheet"
+        href="Betting.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    >
+
+</head>
+
+<body>
+
+<div class="chapcy-app">
+
+    <!-- SIDEBAR -->
+
+    <aside
+        class="side-nav"
+        id="sideNav"
+    >
+
+        <div class="logo-area">
+
+            <div class="logo-mark">
+                C
+            </div>
+
+            <div class="logo-info">
+
+                <strong>
+                    CHAPCY
+                </strong>
+
+                <span>
+                    Betting Live Chat
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <nav class="main-nav">
+
+            <button class="nav-link active">
+                <i class="fa-solid fa-comments"></i>
+                <span>Live Chat</span>
+            </button>
+
+            <button class="nav-link">
+                <i class="fa-solid fa-fire"></i>
+                <span>Vairo</span>
+            </button>
+
+            <button class="nav-link">
+                <i class="fa-solid fa-layer-group"></i>
+                <span>Rooms</span>
+            </button>
+
+            <button class="nav-link">
+                <i class="fa-solid fa-users"></i>
+                <span>People</span>
+            </button>
+
+            <button class="nav-link">
+                <i class="fa-solid fa-at"></i>
+                <span>Mentions</span>
+            </button>
+
+            <button class="nav-link">
+                <i class="fa-solid fa-envelope"></i>
+                <span>Messages</span>
+            </button>
+
+            <button class="nav-link">
+                <i class="fa-solid fa-gear"></i>
+                <span>Settings</span>
+            </button>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="room-status">
+
+                <span class="status-dot"></span>
+
+                <span>
+                    Betting room online
+                </span>
+
+            </div>
+
+
+            <div class="profile-mini">
+
+                <div class="profile-avatar">
+
+                    <span id="profileLetter">
+                        ?
+                    </span>
+
+                    <i></i>
+
+                </div>
+
+
+                <div class="profile-info">
+
+                    <strong id="profileName">
+                        Loading...
+                    </strong>
+
+                    <span>
+                        <i class="fa-solid fa-circle"></i>
+                        Online
+                    </span>
+
+                </div>
+
+
+                <button
+                    id="logoutBtn"
+                    title="Logout"
+                >
+
+                    <i class="fa-solid fa-right-from-bracket"></i>
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MOBILE OVERLAY -->
+
+    <div
+        class="mobile-overlay"
+        id="mobileOverlay"
+    ></div>
+
+
+    <!-- MAIN CHAT -->
+
+    <main class="chat-container">
+
+        <header class="chat-header">
+
+            <div class="mobile-left">
+
+                <button
+                    class="menu-btn"
+                    id="menuBtn"
+                >
+
+                    <i class="fa-solid fa-bars"></i>
+
+                </button>
+
+
+                <div class="mobile-logo">
+                    C
+                </div>
+
+            </div>
+
+
+            <div class="room-title">
+
+                <div class="room-icon">
+                    💰
+                </div>
+
+                <div>
+
+                    <h1>
+                        Betting Live Chat
+                    </h1>
+
+                    <p>
+                        Discuss matches, odds and predictions 🔥
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="header-tools">
+
+                <button
+                    id="searchBtn"
+                    title="Search"
+                >
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                </button>
+
+
+                <button
+                    id="roomInfoBtn"
+                    title="Room information"
+                >
+
+                    <i class="fa-solid fa-circle-info"></i>
+
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <!-- PINNED MESSAGE -->
+
+        <section class="pinned-bar">
+
+            <div class="pinned-icon">
+                📌
+            </div>
+
+            <div>
+
+                <strong>
+                    Betting Room Rules
+                </strong>
+
+                <p>
+                    Share predictions respectfully. Bet responsibly. ⚽🔥
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- ROOM INFO -->
+
+        <div
+            class="room-info-panel"
+            id="roomInfoPanel"
+        >
+
+            <strong>
+                💰 Betting Live Chat
+            </strong>
+
+            <p>
+                Talk about football, betting tips, match results and predictions.
+            </p>
+
+            <small>
+                CHAPCY does not guarantee betting results. Bet responsibly.
+            </small>
+
+        </div>
+
+
+        <!-- SEARCH BOX -->
+
+        <div
+            class="search-box"
+            id="searchBox"
+        >
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search messages..."
+            >
+
+        </div>
+
+
+        <!-- MESSAGES -->
+
+        <section
+            class="messages"
+            id="messages"
+        >
+
+            <div
+                class="empty-chat"
+                id="emptyChat"
+            >
+
+                <div class="empty-chat-icon">
+                    ⚽💰
+                </div>
+
+                <h3>
+                    Welcome to Betting Live Chat
+                </h3>
+
+                <p>
+                    Start the conversation with the CHAPCY community.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- TYPING -->
+
+        <div
+            class="typing"
+            id="typing"
+        ></div>
+
+
+        <!-- EMOJI PANEL -->
+
+        <div
+            class="emoji-panel"
+            id="emojiPanel"
+        >
+
+            <button>⚽</button>
+            <button>🔥</button>
+            <button>💰</button>
+            <button>💵</button>
+            <button>🎯</button>
+            <button>✅</button>
+            <button>❌</button>
+            <button>📈</button>
+            <button>📉</button>
+            <button>🏆</button>
+            <button>🥇</button>
+            <button>🥳</button>
+            <button>😂</button>
+            <button>🤣</button>
+            <button>😍</button>
+            <button>👏</button>
+            <button>🙏</button>
+            <button>👀</button>
+            <button>🚀</button>
+            <button>💯</button>
+            <button>⚡</button>
+            <button>🌍</button>
+            <button>❤️</button>
+            <button>👍</button>
+
+        </div>
+
+
+        <!-- COMPOSER -->
+
+        <form
+            class="composer"
+            id="composer"
+        >
+
+            <button
+                type="button"
+                class="composer-add"
+                id="addBtn"
+                title="More options"
+            >
+
+                <i class="fa-solid fa-plus"></i>
+
+            </button>
+
+
+            <input
+                type="text"
+                id="messageInput"
+                placeholder="Type a betting message..."
+                maxlength="2000"
+                autocomplete="off"
+            >
+
+
+            <button
+                type="button"
+                class="emoji-btn"
+                id="emojiBtn"
+                title="Emojis"
+            >
+
+                <i class="fa-regular fa-face-smile"></i>
+
+            </button>
+
+
+            <button
+                type="submit"
+                class="send-btn"
+                id="sendBtn"
+                title="Send message"
+            >
+
+                <i class="fa-solid fa-paper-plane"></i>
+
+            </button>
+
+        </form>
+
+    </main>
+
+
+    <!-- ADS -->
+
+    <aside class="ads-area">
+
+        <div class="ads-title">
+
+            <strong>
+                Advertisements
+            </strong>
+
+            <i class="fa-solid fa-circle-info"></i>
+
+        </div>
+
+
+        <div class="ad-slot">
+
+            <div class="ad-plus">
+                <i class="fa-solid fa-plus"></i>
+            </div>
+
+            <strong>
+                CHAPCY AD
+            </strong>
+
+            <span>
+                Your advert can appear here
+            </span>
+
+        </div>
+
+
+        <div class="ad-slot">
+
+            <div class="ad-plus">
+                <i class="fa-solid fa-plus"></i>
+            </div>
+
+            <strong>
+                CHAPCY AD
+            </strong>
+
+            <span>
+                Promote your business
+            </span>
+
+        </div>
+
+
+        <div class="ad-slot">
+
+            <div class="ad-plus">
+                <i class="fa-solid fa-plus"></i>
+            </div>
+
+            <strong>
+                CHAPCY AD
+            </strong>
+
+            <span>
+                Connect with the world
+            </span>
+
+        </div>
+
+    </aside>
+
+</div>
+
+
+<script
+    type="module"
+    src="Betting.js"
+></script>
+
+</body>
+</html>
