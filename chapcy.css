@@ -3074,3 +3074,10 @@ body::after {
         transform: translateY(-45px) !important;
     }
 }
+/* =========================================================
+   MOVE CHAPCY AD HUB CLOSER TO ACTIVITY CARDS
+========================================================= */
+
+.chapcy-ad-hub {
+    margin-top: -55px !important;
+}
