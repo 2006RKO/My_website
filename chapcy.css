@@ -3079,5 +3079,7 @@ body::after {
 ========================================================= */
 
 .chapcy-ad-hub {
-    margin-top: -96px !important;
+    position: relative !important;
+    top: -100px !important;
+    margin-top: 0 !important;
 }
