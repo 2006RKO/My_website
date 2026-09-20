@@ -2580,3 +2580,409 @@ body::after {
   }
 
 }
+/* =========================================================
+   CHAPCY V21
+   TOP NAV — MATCHES BOTTOM ACTIVITY CARDS
+   OVERRIDE ONLY — KEEP ALL OLD CSS
+========================================================= */
+
+.chapcy-main-nav {
+    width: calc(100% - 28px);
+    max-width: 1100px;
+    margin: 16px auto 20px;
+
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    gap: 12px;
+
+    padding: 10px;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+
+    background: linear-gradient(
+        145deg,
+        rgba(5, 10, 27, .90),
+        rgba(15, 8, 32, .86)
+    );
+
+    border: 1px solid rgba(255,255,255,.09);
+    border-radius: 24px;
+
+    box-shadow:
+        0 18px 45px rgba(0,0,0,.32),
+        inset 0 1px 0 rgba(255,255,255,.06);
+
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+.chapcy-main-nav::-webkit-scrollbar {
+    display: none;
+}
+
+
+/* =========================
+   NAV CARD
+========================= */
+
+.chapcy-nav-item {
+    position: relative;
+
+    flex: 1 1 0;
+    min-width: 145px;
+    min-height: 115px;
+
+    padding: 14px 12px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    color: rgba(255,255,255,.68);
+    text-decoration: none;
+
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 20px;
+
+    background: linear-gradient(
+        145deg,
+        rgba(255,255,255,.09),
+        rgba(255,255,255,.025)
+    );
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,.25),
+        inset 0 1px 0 rgba(255,255,255,.06);
+
+    font-size: 11px;
+    font-weight: 700;
+
+    overflow: hidden;
+
+    transition:
+        transform .3s ease,
+        border-color .3s ease,
+        box-shadow .3s ease,
+        background .3s ease,
+        color .3s ease;
+}
+
+
+/* =========================
+   GLOW
+========================= */
+
+.chapcy-nav-item::before {
+    content: "";
+
+    position: absolute;
+
+    width: 90px;
+    height: 90px;
+
+    top: -45px;
+    right: -35px;
+
+    border-radius: 50%;
+
+    background: rgba(0,217,255,.13);
+
+    filter: blur(10px);
+
+    pointer-events: none;
+}
+
+
+/* =========================
+   ACTIVE / HOVER
+========================= */
+
+.chapcy-nav-item:hover,
+.chapcy-nav-item.active {
+    color: #fff;
+
+    transform: translateY(-5px);
+
+    border-color: rgba(0,217,255,.50);
+
+    background: linear-gradient(
+        145deg,
+        rgba(0,217,255,.16),
+        rgba(156,60,255,.14)
+    );
+
+    box-shadow:
+        0 18px 40px rgba(0,0,0,.38),
+        0 0 25px rgba(0,217,255,.14),
+        inset 0 1px 0 rgba(255,255,255,.09);
+}
+
+
+/* =========================
+   ICON
+========================= */
+
+.nav-icon {
+    position: relative;
+    z-index: 2;
+
+    width: 46px;
+    height: 46px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 14px;
+
+    color: #00d9ff;
+
+    background: rgba(0,217,255,.10);
+
+    border: 1px solid rgba(0,217,255,.12);
+
+    font-size: 18px;
+
+    box-shadow:
+        inset 0 0 18px rgba(0,217,255,.04);
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease;
+}
+
+
+.chapcy-nav-item:hover .nav-icon,
+.chapcy-nav-item.active .nav-icon {
+    transform: scale(1.08);
+
+    box-shadow:
+        0 0 20px rgba(0,217,255,.18),
+        inset 0 0 18px rgba(0,217,255,.06);
+}
+
+
+/* =========================
+   ICON COLORS
+========================= */
+
+.nav-icon.status {
+    color: #00ff88;
+    background: rgba(0,255,136,.09);
+    border-color: rgba(0,255,136,.12);
+}
+
+.nav-icon.calls {
+    color: #8f7cff;
+    background: rgba(143,124,255,.09);
+    border-color: rgba(143,124,255,.12);
+}
+
+.nav-icon.mention {
+    color: #ff67d9;
+    background: rgba(255,103,217,.09);
+    border-color: rgba(255,103,217,.12);
+}
+
+
+/* =========================
+   TEXT
+========================= */
+
+.chapcy-nav-item > span:not(.nav-icon) {
+    position: relative;
+    z-index: 2;
+
+    white-space: nowrap;
+
+    line-height: 1.2;
+}
+
+
+/* =========================
+   BADGE
+========================= */
+
+.nav-badge {
+    position: absolute;
+
+    top: 9px;
+    right: 9px;
+
+    min-width: 20px;
+    height: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0 5px;
+
+    border-radius: 999px;
+
+    color: #fff;
+
+    background: linear-gradient(
+        135deg,
+        #ff315b,
+        #ff174f
+    );
+
+    font-size: 8px;
+    font-weight: 800;
+
+    border: 2px solid #080b1d;
+
+    box-shadow:
+        0 0 12px rgba(255,49,91,.38);
+
+    z-index: 5;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1000px) {
+
+    .chapcy-main-nav {
+        gap: 10px;
+        padding: 9px;
+    }
+
+    .chapcy-nav-item {
+        flex: 0 0 120px;
+
+        width: 120px;
+        min-width: 120px;
+
+        min-height: 110px;
+    }
+}
+
+
+/* =========================================================
+   PHONE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .chapcy-main-nav {
+        width: calc(100% - 18px);
+
+        margin: 11px auto 15px;
+
+        gap: 9px;
+        padding: 8px;
+
+        border-radius: 20px;
+    }
+
+    .chapcy-nav-item {
+        flex: 0 0 105px;
+
+        width: 105px;
+        min-width: 105px;
+
+        min-height: 108px;
+
+        padding: 12px 7px;
+
+        gap: 8px;
+
+        border-radius: 17px;
+
+        font-size: 9px;
+    }
+
+    .nav-icon {
+        width: 38px;
+        height: 38px;
+
+        border-radius: 12px;
+
+        font-size: 15px;
+    }
+
+    .nav-badge {
+        top: 7px;
+        right: 7px;
+
+        min-width: 17px;
+        height: 17px;
+
+        font-size: 7px;
+    }
+}
+
+
+/* =========================================================
+   SMALL PHONE
+========================================================= */
+
+@media (max-width: 390px) {
+
+    .chapcy-main-nav {
+        gap: 8px;
+        padding: 7px;
+    }
+
+    .chapcy-nav-item {
+        flex: 0 0 94px;
+
+        width: 94px;
+        min-width: 94px;
+
+        min-height: 100px;
+
+        border-radius: 16px;
+
+        font-size: 8px;
+    }
+
+    .nav-icon {
+        width: 34px;
+        height: 34px;
+
+        border-radius: 10px;
+
+        font-size: 14px;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL PHONE
+========================================================= */
+
+@media (max-width: 330px) {
+
+    .chapcy-nav-item {
+        flex: 0 0 86px;
+
+        width: 86px;
+        min-width: 86px;
+
+        min-height: 94px;
+
+        font-size: 7px;
+    }
+
+    .nav-icon {
+        width: 31px;
+        height: 31px;
+
+        font-size: 13px;
+    }
+}
