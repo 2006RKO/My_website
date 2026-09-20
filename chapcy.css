@@ -3370,3 +3370,30 @@ body::after {
         flex-basis: 38px;
     }
 }
+/* =========================================================
+   CHAPCY CONTENT CONTAINER — FORCE DOWN
+========================================================= */
+
+.chapcy-content-container {
+    position: relative !important;
+    top: 120px !important;
+    transform: none !important;
+    margin-top: 20px !important;
+    z-index: 5 !important;
+}
+
+@media (max-width: 700px) {
+    .chapcy-content-container {
+        position: relative !important;
+        top: 100px !important;
+        transform: none !important;
+        margin-top: 15px !important;
+    }
+}
+
+@media (max-width: 390px) {
+    .chapcy-content-container {
+        top: 85px !important;
+        margin-top: 12px !important;
+    }
+}
