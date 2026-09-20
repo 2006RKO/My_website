@@ -2581,177 +2581,207 @@ body::after {
 
 }
 /* =========================================================
-   CHAPCY V21
-   TOP NAV — MATCHES BOTTOM ACTIVITY CARDS
-   OVERRIDE ONLY — KEEP ALL OLD CSS
+   CHAPCY TOP NAV
+   SAME STYLE AS BOTTOM ACTIVITY CARDS
+   ONE ROW • RESPONSIVE • MOBILE SCROLL
 ========================================================= */
 
 .chapcy-main-nav {
-    width: calc(100% - 28px);
-    max-width: 1100px;
-    margin: 16px auto 20px;
+    width: calc(100% - 20px) !important;
+    max-width: 1100px !important;
 
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: stretch;
-    gap: 12px;
+    margin: 18px auto 20px !important;
+    padding: 0 !important;
 
-    padding: 10px;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: stretch !important;
 
-    overflow-x: auto;
-    overflow-y: hidden;
+    gap: 12px !important;
 
-    scrollbar-width: none;
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+
+    scrollbar-width: none !important;
     -webkit-overflow-scrolling: touch;
-
-    background: linear-gradient(
-        145deg,
-        rgba(5, 10, 27, .90),
-        rgba(15, 8, 32, .86)
-    );
-
-    border: 1px solid rgba(255,255,255,.09);
-    border-radius: 24px;
-
-    box-shadow:
-        0 18px 45px rgba(0,0,0,.32),
-        inset 0 1px 0 rgba(255,255,255,.06);
-
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
 }
 
 .chapcy-main-nav::-webkit-scrollbar {
-    display: none;
+    display: none !important;
 }
 
 
-/* =========================
-   NAV CARD
-========================= */
+/* =========================================================
+   TOP NAV CARD
+   SAME FEEL AS ACTIVITY CARD
+========================================================= */
 
 .chapcy-nav-item {
-    position: relative;
+    position: relative !important;
 
-    flex: 1 1 0;
-    min-width: 145px;
-    min-height: 115px;
+    flex: 1 1 0 !important;
 
-    padding: 14px 12px;
+    width: auto !important;
+    min-width: 0 !important;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    height: 150px !important;
+    min-height: 150px !important;
 
-    gap: 10px;
+    padding: 17px !important;
 
-    color: rgba(255,255,255,.68);
-    text-decoration: none;
+    display: flex !important;
+    flex-direction: row !important;
 
-    border: 1px solid rgba(255,255,255,.08);
-    border-radius: 20px;
+    align-items: center !important;
+    justify-content: center !important;
 
-    background: linear-gradient(
-        145deg,
-        rgba(255,255,255,.09),
-        rgba(255,255,255,.025)
-    );
+    gap: 13px !important;
+
+    color: rgba(255,255,255,.75) !important;
+
+    text-decoration: none !important;
+
+    border-radius: 21px !important;
+
+    border: 1px solid rgba(255,255,255,.10) !important;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.11),
+            rgba(255,255,255,.035)
+        ) !important;
 
     box-shadow:
-        0 12px 30px rgba(0,0,0,.25),
-        inset 0 1px 0 rgba(255,255,255,.06);
+        0 15px 35px rgba(0,0,0,.28),
+        inset 0 1px 0 rgba(255,255,255,.07) !important;
 
-    font-size: 11px;
-    font-weight: 700;
+    backdrop-filter: blur(17px);
+    -webkit-backdrop-filter: blur(17px);
 
-    overflow: hidden;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+
+    overflow: hidden !important;
 
     transition:
         transform .3s ease,
         border-color .3s ease,
         box-shadow .3s ease,
         background .3s ease,
-        color .3s ease;
+        color .3s ease !important;
 }
 
 
-/* =========================
-   GLOW
-========================= */
+/* PURPLE GLOW */
 
 .chapcy-nav-item::before {
     content: "";
 
     position: absolute;
 
-    width: 90px;
-    height: 90px;
+    width: 100px;
+    height: 100px;
 
+    right: -45px;
     top: -45px;
-    right: -35px;
 
     border-radius: 50%;
 
-    background: rgba(0,217,255,.13);
+    background:
+        rgba(156,60,255,.13);
 
-    filter: blur(10px);
+    filter: blur(5px);
 
     pointer-events: none;
 }
 
 
-/* =========================
-   ACTIVE / HOVER
-========================= */
+/* CYAN GLOW */
 
-.chapcy-nav-item:hover,
-.chapcy-nav-item.active {
-    color: #fff;
+.chapcy-nav-item::after {
+    content: "";
 
-    transform: translateY(-5px);
+    position: absolute;
 
-    border-color: rgba(0,217,255,.50);
+    width: 80px;
+    height: 80px;
 
-    background: linear-gradient(
-        145deg,
-        rgba(0,217,255,.16),
-        rgba(156,60,255,.14)
-    );
+    left: -40px;
+    bottom: -40px;
 
-    box-shadow:
-        0 18px 40px rgba(0,0,0,.38),
-        0 0 25px rgba(0,217,255,.14),
-        inset 0 1px 0 rgba(255,255,255,.09);
+    border-radius: 50%;
+
+    background:
+        rgba(0,217,255,.09);
+
+    filter: blur(8px);
+
+    pointer-events: none;
 }
 
 
-/* =========================
+/* =========================================================
+   ACTIVE / HOVER
+========================================================= */
+
+.chapcy-nav-item:hover,
+.chapcy-nav-item.active {
+    color: #fff !important;
+
+    transform: translateY(-5px) !important;
+
+    border-color:
+        rgba(0,217,255,.45) !important;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(0,217,255,.14),
+            rgba(156,60,255,.12)
+        ) !important;
+
+    box-shadow:
+        0 20px 40px rgba(0,0,0,.35),
+        0 0 25px rgba(0,217,255,.10),
+        inset 0 1px 0 rgba(255,255,255,.08) !important;
+}
+
+
+/* =========================================================
    ICON
-========================= */
+========================================================= */
 
 .nav-icon {
-    position: relative;
-    z-index: 2;
+    position: relative !important;
 
-    width: 46px;
-    height: 46px;
+    z-index: 3;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 48px !important;
+    height: 48px !important;
 
-    flex-shrink: 0;
+    flex: 0 0 48px !important;
 
-    border-radius: 14px;
+    display: flex !important;
 
-    color: #00d9ff;
+    align-items: center !important;
+    justify-content: center !important;
 
-    background: rgba(0,217,255,.10);
+    border-radius: 15px !important;
 
-    border: 1px solid rgba(0,217,255,.12);
+    color: #00d9ff !important;
 
-    font-size: 18px;
+    background:
+        rgba(0,217,255,.12) !important;
+
+    border:
+        1px solid rgba(0,217,255,.12) !important;
+
+    font-size: 20px !important;
 
     box-shadow:
         inset 0 0 18px rgba(0,217,255,.04);
@@ -2761,6 +2791,8 @@ body::after {
         box-shadow .3s ease;
 }
 
+
+/* ICON ACTIVE */
 
 .chapcy-nav-item:hover .nav-icon,
 .chapcy-nav-item.active .nav-icon {
@@ -2772,81 +2804,92 @@ body::after {
 }
 
 
-/* =========================
+/* =========================================================
    ICON COLORS
-========================= */
+========================================================= */
 
 .nav-icon.status {
-    color: #00ff88;
-    background: rgba(0,255,136,.09);
-    border-color: rgba(0,255,136,.12);
+    color: #00ff88 !important;
+
+    background:
+        rgba(0,255,136,.11) !important;
 }
 
 .nav-icon.calls {
-    color: #8f7cff;
-    background: rgba(143,124,255,.09);
-    border-color: rgba(143,124,255,.12);
+    color: #8f7cff !important;
+
+    background:
+        rgba(143,124,255,.11) !important;
 }
 
 .nav-icon.mention {
-    color: #ff67d9;
-    background: rgba(255,103,217,.09);
-    border-color: rgba(255,103,217,.12);
+    color: #ff67d9 !important;
+
+    background:
+        rgba(255,103,217,.11) !important;
 }
 
 
-/* =========================
+/* =========================================================
    TEXT
-========================= */
+========================================================= */
 
 .chapcy-nav-item > span:not(.nav-icon) {
     position: relative;
-    z-index: 2;
+
+    z-index: 3;
 
     white-space: nowrap;
 
     line-height: 1.2;
+
+    font-size: 12px;
+
+    font-weight: 700;
 }
 
 
-/* =========================
+/* =========================================================
    BADGE
-========================= */
+========================================================= */
 
 .nav-badge {
-    position: absolute;
+    position: absolute !important;
 
-    top: 9px;
-    right: 9px;
+    top: 12px !important;
+    right: 12px !important;
 
-    min-width: 20px;
-    height: 20px;
+    min-width: 21px !important;
+    height: 21px !important;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    padding: 0 5px !important;
 
-    padding: 0 5px;
+    display: flex !important;
 
-    border-radius: 999px;
+    align-items: center !important;
+    justify-content: center !important;
 
-    color: #fff;
+    border-radius: 999px !important;
 
-    background: linear-gradient(
-        135deg,
-        #ff315b,
-        #ff174f
-    );
+    color: #fff !important;
 
-    font-size: 8px;
-    font-weight: 800;
+    background:
+        linear-gradient(
+            135deg,
+            #ff315b,
+            #ff174f
+        ) !important;
 
-    border: 2px solid #080b1d;
+    border:
+        2px solid #080b1d !important;
+
+    font-size: 8px !important;
+    font-weight: 800 !important;
 
     box-shadow:
         0 0 12px rgba(255,49,91,.38);
 
-    z-index: 5;
+    z-index: 10;
 }
 
 
@@ -2857,72 +2900,90 @@ body::after {
 @media (max-width: 1000px) {
 
     .chapcy-main-nav {
-        gap: 10px;
-        padding: 9px;
+        gap: 10px !important;
     }
 
     .chapcy-nav-item {
-        flex: 0 0 120px;
+        flex: 1 1 0 !important;
 
-        width: 120px;
-        min-width: 120px;
+        height: 135px !important;
+        min-height: 135px !important;
 
-        min-height: 110px;
+        padding: 14px !important;
+    }
+
+    .nav-icon {
+        width: 43px !important;
+        height: 43px !important;
+
+        flex-basis: 43px !important;
+
+        font-size: 18px !important;
+    }
+
+    .chapcy-nav-item > span:not(.nav-icon) {
+        font-size: 10px;
     }
 }
 
 
 /* =========================================================
-   PHONE
+   MOBILE
 ========================================================= */
 
 @media (max-width: 700px) {
 
     .chapcy-main-nav {
-        width: calc(100% - 18px);
+        width: calc(100% - 16px) !important;
 
-        margin: 11px auto 15px;
+        margin: 11px auto 15px !important;
 
-        gap: 9px;
-        padding: 8px;
+        padding: 0 !important;
 
-        border-radius: 20px;
+        gap: 10px !important;
+
+        overflow-x: auto !important;
     }
 
     .chapcy-nav-item {
-        flex: 0 0 105px;
+        flex: 0 0 145px !important;
 
-        width: 105px;
-        min-width: 105px;
+        width: 145px !important;
+        min-width: 145px !important;
 
-        min-height: 108px;
+        height: 125px !important;
+        min-height: 125px !important;
 
-        padding: 12px 7px;
+        padding: 12px !important;
 
-        gap: 8px;
+        gap: 10px !important;
 
-        border-radius: 17px;
-
-        font-size: 9px;
+        border-radius: 18px !important;
     }
 
     .nav-icon {
-        width: 38px;
-        height: 38px;
+        width: 40px !important;
+        height: 40px !important;
 
-        border-radius: 12px;
+        flex-basis: 40px !important;
 
-        font-size: 15px;
+        border-radius: 12px !important;
+
+        font-size: 16px !important;
+    }
+
+    .chapcy-nav-item > span:not(.nav-icon) {
+        font-size: 10px;
     }
 
     .nav-badge {
-        top: 7px;
-        right: 7px;
+        top: 8px !important;
+        right: 8px !important;
 
-        min-width: 17px;
-        height: 17px;
+        min-width: 18px !important;
+        height: 18px !important;
 
-        font-size: 7px;
+        font-size: 7px !important;
     }
 }
 
@@ -2934,30 +2995,32 @@ body::after {
 @media (max-width: 390px) {
 
     .chapcy-main-nav {
-        gap: 8px;
-        padding: 7px;
+        gap: 8px !important;
     }
 
     .chapcy-nav-item {
-        flex: 0 0 94px;
+        flex: 0 0 135px !important;
 
-        width: 94px;
-        min-width: 94px;
+        width: 135px !important;
+        min-width: 135px !important;
 
-        min-height: 100px;
+        height: 120px !important;
+        min-height: 120px !important;
 
-        border-radius: 16px;
+        padding: 10px !important;
 
-        font-size: 8px;
+        gap: 8px !important;
+
+        border-radius: 17px !important;
     }
 
     .nav-icon {
-        width: 34px;
-        height: 34px;
+        width: 37px !important;
+        height: 37px !important;
 
-        border-radius: 10px;
+        flex-basis: 37px !important;
 
-        font-size: 14px;
+        font-size: 15px !important;
     }
 }
 
@@ -2969,20 +3032,21 @@ body::after {
 @media (max-width: 330px) {
 
     .chapcy-nav-item {
-        flex: 0 0 86px;
+        flex: 0 0 125px !important;
 
-        width: 86px;
-        min-width: 86px;
+        width: 125px !important;
+        min-width: 125px !important;
 
-        min-height: 94px;
-
-        font-size: 7px;
+        height: 112px !important;
+        min-height: 112px !important;
     }
 
     .nav-icon {
-        width: 31px;
-        height: 31px;
+        width: 34px !important;
+        height: 34px !important;
 
-        font-size: 13px;
+        flex-basis: 34px !important;
+
+        font-size: 14px !important;
     }
-}
+             }
