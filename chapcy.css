@@ -3083,3 +3083,7 @@ body::after {
     top: -300px !important;
     margin-top: 0 !important;
 }
+/* MOVE AD HUB UP */
+.chapcy-ad-hub {
+    margin-top: -250px !important;
+}
