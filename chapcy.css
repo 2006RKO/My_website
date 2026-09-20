@@ -3397,3 +3397,32 @@ body::after {
         margin-top: 12px !important;
     }
 }
+ /* =========================================================
+    CHAPCY CONTENT CONTAINER — FINAL DOWN POSITION
+ ========================================================= */
+
+.chapcy-content-container {
+    position: relative !important;
+    top: 180px !important;
+    margin-top: 180px !important;
+    transform: none !important;
+    z-index: 10 !important;
+}
+
+/* PHONE */
+@media (max-width: 700px) {
+    .chapcy-content-container {
+        position: relative !important;
+        top: 150px !important;
+        margin-top: 150px !important;
+        transform: none !important;
+    }
+}
+
+/* SMALL PHONE */
+@media (max-width: 390px) {
+    .chapcy-content-container {
+        top: 130px !important;
+        margin-top: 130px !important;
+    }
+}
