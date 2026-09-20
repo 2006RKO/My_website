@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="theme-color"
+        content="#030511"
+    >
+
+    <title>CHAPCY • Data Hub</title>
+
+    <link
+        rel="stylesheet"
+        href="bundle.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    >
+
+</head>
+
+
+<body>
+
+    <div class="datahub-page">
+
+
+        <!-- =========================
+             HEADER
+        ========================== -->
+
+        <header class="datahub-header">
+
+            <button
+                class="back-btn"
+                id="backBtn"
+                aria-label="Go back"
+            >
+                <i class="fa-solid fa-arrow-left"></i>
+            </button>
+
+
+            <div class="header-brand">
+
+                <div class="brand-icon">
+                    <i class="fa-solid fa-wifi"></i>
+                </div>
+
+                <div>
+                    <h1>CHAPCY Data Hub</h1>
+                    <p>Buy data • Earn points • Stay connected</p>
+                </div>
+
+            </div>
+
+
+            <button
+                class="points-button"
+                id="pointsButton"
+            >
+
+                <i class="fa-solid fa-star"></i>
+
+                <span id="headerPoints">
+                    0
+                </span>
+
+            </button>
+
+        </header>
+
+
+
+        <!-- =========================
+             MAIN
+        ========================== -->
+
+        <main class="datahub-main">
+
+
+            <!-- HERO -->
+
+            <section class="data-hero">
+
+                <div class="hero-content">
+
+                    <span class="hero-badge">
+                        <i class="fa-solid fa-bolt"></i>
+                        CHAPCY REWARDS
+                    </span>
+
+                    <h2>
+                        Buy Data.
+                        <br>
+                        <span>Earn CHAPCY Points.</span>
+                    </h2>
+
+                    <p>
+                        Get your data bundle and earn
+                        CHAPCY Points that you can use
+                        across the CHAPCY community.
+                    </p>
+
+                    <div class="hero-actions">
+
+                        <button
+                            class="hero-btn"
+                            id="buyNowBtn"
+                        >
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            Buy Data
+                        </button>
+
+                        <button
+                            class="hero-btn secondary"
+                            id="rewardsBtn"
+                        >
+                            <i class="fa-solid fa-gift"></i>
+                            My Rewards
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="hero-glow"></div>
+
+                <div class="hero-orb orb-one"></div>
+                <div class="hero-orb orb-two"></div>
+
+            </section>
+
+
+
+            <!-- =========================
+                 STATS
+            ========================== -->
+
+            <section class="mini-stats">
+
+                <div class="mini-stat">
+
+                    <div class="mini-icon">
+                        <i class="fa-solid fa-database"></i>
+                    </div>
+
+                    <div>
+                        <strong id="dataPurchased">
+                            0 GB
+                        </strong>
+
+                        <span>
+                            Data Purchased
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <div class="mini-stat">
+
+                    <div class="mini-icon">
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+
+                    <div>
+                        <strong id="totalPoints">
+                            0
+                        </strong>
+
+                        <span>
+                            CHAPCY Points
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <div class="mini-stat">
+
+                    <div class="mini-icon">
+                        <i class="fa-solid fa-fire"></i>
+                    </div>
+
+                    <div>
+                        <strong id="streakCount">
+                            0 Days
+                        </strong>
+
+                        <span>
+                            Data Streak
+                        </span>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =========================
+                 NETWORKS
+            ========================== -->
+
+            <section class="section-block">
+
+                <div class="section-heading">
+
+                    <div>
+                        <span>
+                            CHOOSE NETWORK
+                        </span>
+
+                        <h3>
+                            Select your network
+                        </h3>
+                    </div>
+
+                </div>
+
+
+                <div class="network-grid" id="networkGrid">
+
+
+                    <button
+                        class="network-card active"
+                        data-network="tigo"
+                    >
+
+                        <div class="network-logo tigo-logo">
+                            T
+                        </div>
+
+                        <div class="network-info">
+
+                            <strong>
+                                Tigo
+                            </strong>
+
+                            <span>
+                                CHAPCY Partner
+                            </span>
+
+                        </div>
+
+                        <i class="fa-solid fa-check check-icon"></i>
+
+                    </button>
+
+
+
+                    <button
+                        class="network-card"
+                        data-network="airtel"
+                    >
+
+                        <div class="network-logo airtel-logo">
+                            A
+                        </div>
+
+                        <div class="network-info">
+
+                            <strong>
+                                Airtel
+                            </strong>
+
+                            <span>
+                                Data Bundles
+                            </span>
+
+                        </div>
+
+                        <i class="fa-solid fa-check check-icon"></i>
+
+                    </button>
+
+
+
+                    <button
+                        class="network-card"
+                        data-network="vodacom"
+                    >
+
+                        <div class="network-logo vodacom-logo">
+                            V
+                        </div>
+
+                        <div class="network-info">
+
+                            <strong>
+                                Vodacom
+                            </strong>
+
+                            <span>
+                                Data Bundles
+                            </span>
+
+                        </div>
+
+                        <i class="fa-solid fa-check check-icon"></i>
+
+                    </button>
+
+
+
+                    <button
+                        class="network-card"
+                        data-network="halotel"
+                    >
+
+                        <div class="network-logo halotel-logo">
+                            H
+                        </div>
+
+                        <div class="network-info">
+
+                            <strong>
+                                Halotel
+                            </strong>
+
+                            <span>
+                                Data Bundles
+                            </span>
+
+                        </div>
+
+                        <i class="fa-solid fa-check check-icon"></i>
+
+                    </button>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =========================
+                 DATA PACKAGES
+            ========================== -->
+
+            <section
+                class="section-block"
+                id="packagesSection"
+            >
+
+                <div class="section-heading package-heading">
+
+                    <div>
+
+                        <span id="selectedNetworkLabel">
+                            TIGO DATA
+                        </span>
+
+                        <h3>
+                            Choose your bundle
+                        </h3>
+
+                    </div>
+
+                    <span class="secure-label">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        Secure
+                    </span>
+
+                </div>
+
+
+                <div
+                    class="package-grid"
+                    id="packageGrid"
+                >
+
+                    <!-- JS INJECTS PACKAGES -->
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =========================
+                 STREAK
+            ========================== -->
+
+            <section class="streak-card">
+
+                <div class="streak-icon">
+                    <i class="fa-solid fa-fire"></i>
+                </div>
+
+                <div class="streak-content">
+
+                    <span>
+                        DATA STREAK
+                    </span>
+
+                    <h3>
+                        Keep your CHAPCY streak alive 🔥
+                    </h3>
+
+                    <p>
+                        Buy data regularly and unlock
+                        extra CHAPCY rewards.
+                    </p>
+
+                </div>
+
+                <div class="streak-days">
+
+                    <strong id="streakNumber">
+                        0
+                    </strong>
+
+                    <span>
+                        DAYS
+                    </span>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =========================
+                 HOW IT WORKS
+            ========================== -->
+
+            <section class="section-block">
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <span>
+                            HOW IT WORKS
+                        </span>
+
+                        <h3>
+                            Simple. Buy. Earn. Chat.
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+                <div class="steps-grid">
+
+
+                    <div class="step-card">
+
+                        <div class="step-number">
+                            01
+                        </div>
+
+                        <i class="fa-solid fa-mobile-screen-button"></i>
+
+                        <h4>
+                            Choose Data
+                        </h4>
+
+                        <p>
+                            Select your network and
+                            preferred bundle.
+                        </p>
+
+                    </div>
+
+
+                    <div class="step-card">
+
+                        <div class="step-number">
+                            02
+                        </div>
+
+                        <i class="fa-solid fa-credit-card"></i>
+
+                        <h4>
+                            Complete Payment
+                        </h4>
+
+                        <p>
+                            Choose an available
+                            payment method.
+                        </p>
+
+                    </div>
+
+
+                    <div class="step-card">
+
+                        <div class="step-number">
+                            03
+                        </div>
+
+                        <i class="fa-solid fa-star"></i>
+
+                        <h4>
+                            Earn Points
+                        </h4>
+
+                        <p>
+                            Your CHAPCY Points are
+                            added after a successful purchase.
+                        </p>
+
+                    </div>
+
+
+                    <div class="step-card">
+
+                        <div class="step-number">
+                            04
+                        </div>
+
+                        <i class="fa-solid fa-comments"></i>
+
+                        <h4>
+                            Keep Chatting
+                        </h4>
+
+                        <p>
+                            Use your data and enjoy
+                            CHAPCY Live Chat.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =========================
+                 PURCHASE HISTORY
+            ========================== -->
+
+            <section class="section-block">
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <span>
+                            ACTIVITY
+                        </span>
+
+                        <h3>
+                            Recent purchases
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="history-list"
+                    id="historyList"
+                >
+
+                    <div class="empty-history">
+
+                        <i class="fa-solid fa-receipt"></i>
+
+                        <p>
+                            No purchases yet
+                        </p>
+
+                        <span>
+                            Your data purchases will appear here.
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+        </main>
+
+
+
+        <!-- =========================
+             PURCHASE MODAL
+        ========================== -->
+
+        <div
+            class="modal-overlay"
+            id="purchaseModal"
+        >
+
+            <div class="purchase-modal">
+
+                <button
+                    class="modal-close"
+                    id="modalClose"
+                >
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+
+
+                <div class="modal-icon">
+                    <i class="fa-solid fa-wifi"></i>
+                </div>
+
+
+                <span id="modalNetwork">
+                    TIGO
+                </span>
+
+
+                <h2 id="modalBundle">
+                    1 GB
+                </h2>
+
+
+                <div class="modal-price">
+
+                    <span>
+                        Price
+                    </span>
+
+                    <strong id="modalPrice">
+                        TSh 0
+                    </strong>
+
+                </div>
+
+
+                <div class="modal-reward">
+
+                    <i class="fa-solid fa-star"></i>
+
+                    <span>
+                        You earn
+                    </span>
+
+                    <strong id="modalPoints">
+                        +10 Points
+                    </strong>
+
+                </div>
+
+
+                <div class="phone-field">
+
+                    <label>
+                        Phone Number
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="phoneNumber"
+                        placeholder="07XXXXXXXX"
+                        maxlength="12"
+                    >
+
+                </div>
+
+
+                <button
+                    class="confirm-btn"
+                    id="confirmPurchase"
+                >
+
+                    <i class="fa-solid fa-lock"></i>
+
+                    Continue Purchase
+
+                </button>
+
+
+                <small class="modal-note">
+                    Payment and bundle delivery will be
+                    processed through CHAPCY's authorized
+                    service provider.
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             TOAST
+        ========================== -->
+
+        <div
+            class="toast"
+            id="toast"
+        >
+
+            <i class="fa-solid fa-circle-check"></i>
+
+            <span id="toastMessage">
+                Done
+            </span>
+
+        </div>
+
+
+    </div>
+
+
+    <script
+        type="module"
+        src="bundle.js"
+    ></script>
+
+</body>
+
+  </html>
