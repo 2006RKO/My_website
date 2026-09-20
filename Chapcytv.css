@@ -947,3 +947,80 @@ body{
     }
 
   }
+/* =========================================================
+   CHAPCY V21
+   TOP NAV — MATCHES BOTTOM ACTIVITY CARDS
+   OVERRIDE ONLY
+========================================================= */
+
+/* DESKTOP */
+.chapcy-main-nav{
+    display:flex;
+    gap:14px;
+    width:100%;
+    max-width:1050px;
+    margin:18px auto;
+    overflow:hidden;
+}
+
+.chapcy-nav-item{
+    flex:1 1 0;
+    min-width:0;
+    height:72px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+
+    border-radius:18px;
+}
+
+/* TABLET */
+@media (max-width:768px){
+
+    .chapcy-main-nav{
+        max-width:none;
+        overflow-x:auto;
+        justify-content:flex-start;
+        padding:4px 10px 10px;
+        scrollbar-width:none;
+    }
+
+    .chapcy-main-nav::-webkit-scrollbar{
+        display:none;
+    }
+
+    .chapcy-nav-item{
+        flex:0 0 145px;
+        min-width:145px;
+        height:70px;
+    }
+}
+
+/* PHONE */
+@media (max-width:480px){
+
+    .chapcy-main-nav{
+        gap:10px;
+        padding-left:8px;
+        padding-right:8px;
+    }
+
+    .chapcy-nav-item{
+        flex:0 0 135px;
+        min-width:135px;
+        height:66px;
+        border-radius:16px;
+    }
+}
+
+/* SMALL PHONE */
+@media (max-width:330px){
+
+    .chapcy-nav-item{
+        flex:0 0 125px;
+        min-width:125px;
+        height:62px;
+    }
+}
