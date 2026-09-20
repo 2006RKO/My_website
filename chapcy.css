@@ -3050,3 +3050,27 @@ body::after {
         font-size: 14px !important;
     }
              }
+/* =========================================================
+   CHAPCY — MOVE CONTENT CONTAINER UP
+   ========================================================= */
+
+.chapcy-content-container {
+    margin-top: 20px !important;
+    transform: translateY(-70px) !important;
+}
+
+/* Tablet */
+@media (max-width: 700px) {
+    .chapcy-content-container {
+        margin-top: 15px !important;
+        transform: translateY(-55px) !important;
+    }
+}
+
+/* Small phones */
+@media (max-width: 390px) {
+    .chapcy-content-container {
+        margin-top: 12px !important;
+        transform: translateY(-45px) !important;
+    }
+}
