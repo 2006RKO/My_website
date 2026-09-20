@@ -1314,3 +1314,34 @@ activityClickStyle.textContent = `
 `;
 
 document.head.appendChild(activityClickStyle);
+const pointsElement = document.getElementById("chapcyPoints");
+const userElement = document.getElementById("chapcyPointsUser");
+
+onAuthStateChanged(auth, async (user) => {
+
+    if (!user) {
+        pointsElement.textContent = "0";
+        userElement.textContent = "Guest";
+        return;
+    }
+
+    userElement.textContent =
+        user.displayName ||
+        user.email ||
+        "CHAPCY User";
+
+    const pointsRef = ref(
+        db,
+        `users/${user.uid}/chapcyPoints`
+    );
+
+    onValue(pointsRef, (snapshot) => {
+
+        const points = snapshot.val() ?? 0;
+
+        pointsElement.textContent =
+            Number(points).toLocaleString();
+
+    });
+
+});
