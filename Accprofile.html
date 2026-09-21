@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+  >
 
   <title>CHAPCY — Profile</title>
 
@@ -25,17 +28,26 @@
   <img
     src="file_00000000b3448243aebfedfba8912525.png"
     class="profile-background"
-    alt="CHAPCY Background"
+    alt=""
   >
+
+  <div class="profile-bg-overlay"></div>
+
 
   <main class="profile-page">
 
-    <!-- TOP BAR -->
+    <!-- =========================================
+         TOP BAR
+    ========================================== -->
+
     <header class="profile-topbar">
 
-      <a href="chapcy.html" class="back-btn">
+      <a href="chapcy.html" class="back-btn" aria-label="Back">
+
         <i class="fa-solid fa-arrow-left"></i>
+
       </a>
+
 
       <div class="profile-brand">
 
@@ -51,85 +63,148 @@
 
       </div>
 
-      <button class="top-icon">
+
+      <button
+        class="top-action"
+        id="profileMenuBtn"
+        type="button"
+        aria-label="Profile menu"
+      >
+
         <i class="fa-solid fa-ellipsis-vertical"></i>
+
       </button>
 
     </header>
 
 
-    <!-- PROFILE COVER -->
+    <!-- =========================================
+         COVER
+    ========================================== -->
+
     <section class="profile-cover">
 
       <div class="cover-glow"></div>
 
-      <div class="cover-content">
-        <span>CHAPCY</span>
-        <small>Connect • Grow • Belong</small>
+      <div class="cover-brand">
+
+        <strong>CHAPCY</strong>
+
+        <span>
+          Connect • Chat • Belong
+        </span>
+
       </div>
 
     </section>
 
 
-    <!-- PROFILE HEADER -->
-    <section class="profile-header">
+    <!-- =========================================
+         USER PROFILE
+    ========================================== -->
 
-      <div class="profile-photo-container">
+    <section class="profile-main">
 
-        <img
-          src="file_00000000b0d8820a998b33ad9cf233cb.png"
-          class="profile-photo"
-          id="profilePhoto"
-          alt="Profile"
-        >
+      <div class="profile-photo-area">
 
-        <span class="profile-online"></span>
+        <div class="profile-photo-ring">
+
+          <img
+            src="file_00000000b0d8820a998b33ad9cf233cb.png"
+            id="profilePhoto"
+            alt="Profile"
+          >
+
+          <span
+            class="profile-online"
+            id="profileOnline"
+          ></span>
+
+        </div>
 
       </div>
 
 
       <div class="profile-actions">
 
-        <button class="edit-profile-btn">
+        <button
+          class="edit-profile-btn"
+          id="editProfileBtn"
+          type="button"
+        >
+
           <i class="fa-solid fa-pen"></i>
-          Edit Profile
+
+          <span>Edit Profile</span>
+
         </button>
 
-        <button class="settings-btn">
+
+        <button
+          class="profile-settings-btn"
+          id="profileSettingsBtn"
+          type="button"
+          aria-label="Settings"
+        >
+
           <i class="fa-solid fa-gear"></i>
+
         </button>
 
       </div>
 
 
-      <div class="profile-information">
+      <div class="profile-info">
 
         <h1>
-          CHAPCY User
-          <span class="verified">
-            <i class="fa-solid fa-check"></i>
+
+          <span id="profileDisplayName">
+            CHAPCY User
           </span>
+
+          <span
+            class="verified-badge"
+            id="verifiedBadge"
+            hidden
+          >
+
+            <i class="fa-solid fa-check"></i>
+
+          </span>
+
         </h1>
 
-        <p class="username">
+
+        <p
+          class="profile-username"
+          id="profileUsername"
+        >
           @chapcyuser
         </p>
 
-        <p class="bio">
-          Creator • Gamer • Music lover<br>
-          Building my world on CHAPCY 🌍
+
+        <p
+          class="profile-bio"
+          id="profileBio"
+        >
+          Welcome to my CHAPCY profile.
         </p>
+
 
         <div class="profile-meta">
 
-          <span>
+          <span id="profileLocation">
             <i class="fa-solid fa-location-dot"></i>
             Tanzania
           </span>
 
-          <span>
+
+          <span id="profileJoined">
+
             <i class="fa-regular fa-calendar"></i>
+
             Joined CHAPCY
+
           </span>
 
         </div>
@@ -139,81 +214,135 @@
     </section>
 
 
-    <!-- PROFILE STATS -->
+    <!-- =========================================
+         SOCIAL STATS
+    ========================================== -->
+
     <section class="profile-stats">
 
-      <a href="#" class="profile-stat">
+      <a
+        href="Followers.html"
+        class="profile-stat"
+      >
 
-        <strong id="followersCount">0</strong>
+        <strong id="followersCount">
+          0
+        </strong>
 
-        <span>Followers</span>
-
-      </a>
-
-
-      <a href="#" class="profile-stat">
-
-        <strong id="friendsCount">0</strong>
-
-        <span>Friends</span>
+        <span>
+          Followers
+        </span>
 
       </a>
 
 
-      <a href="ChapcyPoints.html" class="profile-stat points-stat">
+      <a
+        href="Friends.html"
+        class="profile-stat"
+      >
 
-        <strong id="profilePoints">0</strong>
+        <strong id="friendsCount">
+          0
+        </strong>
 
-        <span>CHAPCY Points</span>
+        <span>
+          Friends
+        </span>
 
       </a>
 
 
-      <a href="Wallet.html" class="profile-stat wallet-stat">
+      <a
+        href="ChapcyPoints.html"
+        class="profile-stat points-stat"
+      >
 
-        <strong id="walletBalance">TZS 0</strong>
+        <strong id="profilePoints">
+          0
+        </strong>
 
-        <span>Wallet</span>
+        <span>
+          CHAPCY Points
+        </span>
+
+      </a>
+
+
+      <a
+        href="Wallet.html"
+        class="profile-stat wallet-stat"
+      >
+
+        <strong id="walletBalance">
+          TZS 0
+        </strong>
+
+        <span>
+          Wallet
+        </span>
 
       </a>
 
     </section>
 
 
-    <!-- POINTS + WALLET -->
+    <!-- =========================================
+         POINTS + WALLET
+    ========================================== -->
+
     <section class="profile-finance">
 
-      <a href="ChapcyPoints.html" class="finance-card points-card">
+      <a
+        href="ChapcyPoints.html"
+        class="finance-card points-card"
+      >
 
         <div class="finance-icon">
           <i class="fa-solid fa-star"></i>
         </div>
 
-        <div class="finance-info">
 
-          <span>CHAPCY POINTS</span>
+        <div class="finance-content">
+
+          <span>
+            CHAPCY POINTS
+          </span>
 
           <strong>
-            <span id="pointsBalance">0</span>
-            <small>PTS</small>
+
+            <span id="pointsBalance">
+              0
+            </span>
+
+            <small>
+              PTS
+            </small>
+
           </strong>
 
         </div>
+
 
         <i class="fa-solid fa-chevron-right finance-arrow"></i>
 
       </a>
 
 
-      <a href="Wallet.html" class="finance-card wallet-card">
+      <a
+        href="Wallet.html"
+        class="finance-card wallet-card"
+      >
 
         <div class="finance-icon">
           <i class="fa-solid fa-wallet"></i>
         </div>
 
-        <div class="finance-info">
 
-          <span>CHAPCY WALLET</span>
+        <div class="finance-content">
+
+          <span>
+            CHAPCY WALLET
+          </span>
 
           <strong id="walletAmount">
             TZS 0
@@ -221,6 +350,7 @@
 
         </div>
 
+
         <i class="fa-solid fa-chevron-right finance-arrow"></i>
 
       </a>
@@ -228,120 +358,151 @@
     </section>
 
 
-    <!-- PROFILE TABS -->
+    <!-- =========================================
+         PROFILE TABS
+    ========================================== -->
+
     <nav class="profile-tabs">
 
-      <button class="profile-tab active">
+      <button
+        class="profile-tab active"
+        data-tab="videos"
+        type="button"
+      >
+
         <i class="fa-solid fa-play"></i>
-        Videos
+
+        <span>Videos</span>
+
       </button>
 
-      <button class="profile-tab">
+
+      <button
+        class="profile-tab"
+        data-tab="posts"
+        type="button"
+      >
+
         <i class="fa-solid fa-table-cells"></i>
-        Posts
+
+        <span>Posts</span>
+
       </button>
 
-      <button class="profile-tab">
+
+      <button
+        class="profile-tab"
+        data-tab="liked"
+        type="button"
+      >
+
         <i class="fa-regular fa-heart"></i>
-        Liked
+
+        <span>Liked</span>
+
       </button>
 
     </nav>
 
 
-    <!-- VIDEOS -->
+    <!-- =========================================
+         CONTENT
+    ========================================== -->
+
     <section class="profile-content">
+
+
+      <!-- CONTENT HEADER -->
 
       <div class="content-heading">
 
         <div>
-          <h2>Your Videos</h2>
-          <span>Videos posted on CHAPCY</span>
+
+          <h2 id="contentTitle">
+            Your Videos
+          </h2>
+
+          <span id="contentSubtitle">
+            Videos posted on CHAPCY
+          </span>
+
         </div>
 
-        <button class="upload-btn">
+
+        <button
+          class="create-btn"
+          id="createContentBtn"
+          type="button"
+        >
+
           <i class="fa-solid fa-plus"></i>
-          Create
+
+          <span>Create</span>
+
         </button>
 
       </div>
 
 
-      <div class="video-grid" id="userVideos">
+      <!-- LOADING -->
 
-        <!-- FIREBASE VIDEOS ZITAINGIA HAPA -->
+      <div
+        class="content-loading"
+        id="contentLoading"
+      >
 
-        <article class="video-card">
+        <div class="loading-spinner"></div>
 
-          <div class="video-preview">
-
-            <img
-              src="file_00000000b3448243aebfedfba8912525.png"
-              alt="Video"
-            >
-
-            <span class="video-play">
-              <i class="fa-solid fa-play"></i>
-            </span>
-
-            <span class="video-duration">
-              0:45
-            </span>
-
-            <span class="video-views">
-              <i class="fa-solid fa-play"></i>
-              0
-            </span>
-
-          </div>
-
-          <div class="video-info">
-            <span>My first CHAPCY video</span>
-            <i class="fa-solid fa-ellipsis-vertical"></i>
-          </div>
-
-        </article>
-
-
-        <article class="video-card">
-
-          <div class="video-preview">
-
-            <img
-              src="file_00000000b3448243aebfedfba8912525.png"
-              alt="Video"
-            >
-
-            <span class="video-play">
-              <i class="fa-solid fa-play"></i>
-            </span>
-
-            <span class="video-duration">
-              1:02
-            </span>
-
-            <span class="video-views">
-              <i class="fa-solid fa-play"></i>
-              0
-            </span>
-
-          </div>
-
-          <div class="video-info">
-            <span>Good vibes only</span>
-            <i class="fa-solid fa-ellipsis-vertical"></i>
-          </div>
-
-        </article>
+        <span>
+          Loading CHAPCY content...
+        </span>
 
       </div>
+
+
+      <!-- VIDEOS -->
+
+      <div
+        class="video-grid"
+        id="userVideos"
+      ></div>
+
+
+      <!-- EMPTY STATE -->
+
+      <div
+        class="content-empty"
+        id="contentEmpty"
+        hidden
+      >
+
+        <div class="empty-icon">
+
+          <i class="fa-solid fa-video"></i>
+
+        </div>
+
+        <h3>
+          No videos yet
+        </h3>
+
+        <p>
+          Your CHAPCY videos will appear here.
+        </p>
+
+      </div>
+
 
     </section>
 
   </main>
 
 
+  <!-- =========================================
+       JAVASCRIPT
+  ========================================== -->
+
   <script src="profile.js"></script>
 
 </body>
-  </html>
+</html>
