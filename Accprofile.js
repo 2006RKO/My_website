@@ -1,1623 +1,2995 @@
 /* =========================================================
-   CHAPCY PROFILE
-   FIREBASE READY
-   Authentication + Realtime Database + Storage
-
-   Compatible with:
-   Profile.html
-   profile.css
-========================================================= */
-
-
-/* =========================================================
-   FIREBASE IMPORTS
-========================================================= */
-
-import { initializeApp } from
-    "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+   CHAPCY PROFILE JS
+   Firebase Auth + Realtime Database + Storage
+   ========================================================= */
 
 import {
-    getAuth,
-    onAuthStateChanged,
-    updateProfile
-} from
-    "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 
 import {
-    getDatabase,
-    ref,
-    get,
-    set,
-    update,
-    onValue
-} from
-    "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
+  getAuth,
+  onAuthStateChanged,
+  updateProfile
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
 import {
-    getStorage,
-    ref as storageRef,
-    uploadBytes,
-    getDownloadURL
-} from
-    "https://www.gstatic.com/firebasejs/10.12.5/firebase-storage.js";
+  getDatabase,
+  ref,
+  get,
+  set,
+  update,
+  onValue
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
+
+import {
+  getStorage,
+  ref as storageRef,
+  uploadBytes,
+  getDownloadURL
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-storage.js";
 
 
 /* =========================================================
    FIREBASE CONFIG
-========================================================= */
+   ========================================================= */
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDIID2LpzjLiqaLeLJKgp-Vd7tNIyN-M1k",
-    authDomain: "rko-website-design-2f792.firebaseapp.com",
-    databaseURL: "https://rko-website-design-2f792-default-rtdb.firebaseio.com",
-    projectId: "rko-website-design-2f792",
-    storageBucket: "rko-website-design-2f792.firebasestorage.app",
-    messagingSenderId: "782567629866",
-    appId: "1:782567629866:web:d6d80d454d0653ea8b4f53",
-    measurementId: "G-KQ1EKYE7E7"
+  apiKey: "AIzaSyDIID2LpzjLiqaLeLJKgp-Vd7tNIyN-M1k",
+  authDomain: "rko-website-design-2f792.firebaseapp.com",
+  databaseURL: "https://rko-website-design-2f792-default-rtdb.firebaseio.com",
+  projectId: "rko-website-design-2f792",
+  storageBucket: "rko-website-design-2f792.firebasestorage.app",
+  messagingSenderId: "782567629866",
+  appId: "1:782567629866:web:d6d80d454d0653ea8b4f53",
+  measurementId: "G-KQ1EKYE7E7"
 };
 
 
 /* =========================================================
    INITIALIZE FIREBASE
-========================================================= */
+   ========================================================= */
 
 const app = initializeApp(firebaseConfig);
-
 const auth = getAuth(app);
 const db = getDatabase(app);
 const storage = getStorage(app);
 
 
 /* =========================================================
-   GLOBAL STATE
-========================================================= */
+   GLOBAL VARIABLES
+   ========================================================= */
 
 let currentUser = null;
 let currentProfile = null;
 let selectedPhotoFile = null;
+let profileListener = null;
 
 
 /* =========================================================
-   DOM HELPERS
-========================================================= */
+   DOM HELPER
+   ========================================================= */
 
 const $ = (id) => document.getElementById(id);
 
-const profileHero = $("profileHero");
+function setText(id, value) {
+  const element = $(id);
 
-const profileImage = $("profileImage");
-const profileOnline = $("profileOnline");
+  if (element) {
+    element.textContent = value ?? "";
+  }
+}
 
-const profileName = $("profileName");
-const profileUsername = $("profileUsername");
-const chapcyUserId = $("chapcyUserId");
+function setImage(id, url) {
+  const element = $(id);
 
-const profileBio = $("profileBio");
-
-const followersCount = $("followersCount");
-const friendsCount = $("friendsCount");
-const profilePoints = $("profilePoints");
-
-const walletBalance = $("walletBalance");
-
-const editProfileModal = $("editProfileModal");
-
-const editProfileForm = $("editProfileForm");
-
-const editProfileImage = $("editProfileImage");
-const profilePhotoInput = $("profilePhotoInput");
-
-const editDisplayName = $("editDisplayName");
-const editUsername = $("editUsername");
-const editBio = $("editBio");
-
-const bioCounter = $("bioCounter");
-
-const userVideosGrid = $("userVideosGrid");
-const emptyVideos = $("emptyVideos");
-
-const toast = $("profileToast");
-const toastMessage = $("toastMessage");
-
-
-/* =========================================================
-   DEFAULT PROFILE IMAGE
-========================================================= */
-
-const DEFAULT_PROFILE_IMAGE =
-    "file_00000000b0d8820a998b33ad9cf233cb.png";
+  if (element && url) {
+    element.src = url;
+  }
+}
 
 
 /* =========================================================
    TOAST
-========================================================= */
+   ========================================================= */
 
 function showToast(message) {
 
-    if (!toast || !toastMessage) return;
+  const toast = $("profileToast");
+  const toastMessage = $("toastMessage");
 
+  if (!toast) {
+    console.log("CHAPCY:", message);
+    return;
+  }
+
+  if (toastMessage) {
     toastMessage.textContent = message;
+  }
 
-    toast.classList.add("show");
+  toast.classList.add("show");
 
-    clearTimeout(window.chapcyToastTimer);
+  clearTimeout(window.chapcyToastTimer);
 
-    window.chapcyToastTimer = setTimeout(() => {
-        toast.classList.remove("show");
-    }, 2500);
+  window.chapcyToastTimer = setTimeout(() => {
+    toast.classList.remove("show");
+  }, 2800);
+}
+
+window.showToast = showToast;
+
+
+/* =========================================================
+   GENERATE CHAPCY ID
+   ========================================================= */
+
+function generateChapcyId(uid) {
+
+  if (!uid) {
+    return "CPY-00000000";
+  }
+
+  const cleanUID = uid
+    .replace(/[^a-zA-Z0-9]/g, "")
+    .toUpperCase();
+
+  return "CPY-" + cleanUID.slice(-8);
 }
 
 
 /* =========================================================
-   FORMAT NUMBER
-========================================================= */
+   DEFAULT PROFILE
+   ========================================================= */
 
-function formatNumber(value) {
+function createDefaultProfile(user) {
 
-    const number = Number(value || 0);
+  return {
+    uid: user.uid,
 
-    return number.toLocaleString("en-US");
+    displayName:
+      user.displayName ||
+      "CHAPCY User",
+
+    username:
+      user.email
+        ? user.email.split("@")[0]
+        : "chapcyuser",
+
+    photoURL:
+      user.photoURL ||
+      "file_00000000b0d8820a998b33ad9cf233cb.png",
+
+    bio:
+      "Welcome to my CHAPCY profile.",
+
+    chapcyId:
+      generateChapcyId(user.uid),
+
+    followersCount: 0,
+
+    friendsCount: 0,
+
+    chapcyPoints: 0,
+
+    walletBalance: 0,
+
+    online: true,
+
+    createdAt: Date.now()
+  };
 }
 
 
 /* =========================================================
-   CREATE CHAPCY ID
-========================================================= */
-
-function createChapcyId(uid) {
-
-    if (!uid) return "CPY-000000";
-
-    const clean = uid
-        .replace(/[^a-zA-Z0-9]/g, "")
-        .toUpperCase();
-
-    return "CPY-" + clean.slice(-8);
-}
-
-
-/* =========================================================
-   GET CURRENT USER PROFILE
-========================================================= */
+   LOAD CURRENT PROFILE
+   ========================================================= */
 
 async function loadCurrentProfile(user) {
 
-    if (!user) return;
+  currentUser = user;
 
-    currentUser = user;
+  const userRef = ref(db, `users/${user.uid}`);
 
-    const userRef = ref(db, `users/${user.uid}`);
+  try {
 
-    try {
+    const snapshot = await get(userRef);
 
-        const snapshot = await get(userRef);
+    if (!snapshot.exists()) {
 
-        let data = {};
+      const defaultProfile = createDefaultProfile(user);
 
-        if (snapshot.exists()) {
-            data = snapshot.val() || {};
-        }
+      await set(userRef, defaultProfile);
 
-        currentProfile = {
-            ...data
-        };
+      currentProfile = defaultProfile;
 
-        /*
-          If user doesn't exist in RTDB yet,
-          create a safe basic profile.
-        */
+      renderProfile(defaultProfile);
 
-        if (!snapshot.exists()) {
+    } else {
 
-            const newProfile = {
+      currentProfile = snapshot.val();
 
-                uid: user.uid,
+      if (!currentProfile.chapcyId) {
 
-                displayName:
-                    user.displayName ||
-                    "CHAPCY User",
+        currentProfile.chapcyId =
+          generateChapcyId(user.uid);
 
-                username:
-                    data.username ||
-                    "chapcyuser",
+        await update(userRef, {
+          chapcyId: currentProfile.chapcyId
+        });
+      }
 
-                photoURL:
-                    user.photoURL ||
-                    DEFAULT_PROFILE_IMAGE,
-
-                bio:
-                    "Welcome to my CHAPCY profile.",
-
-                chapcyId:
-                    createChapcyId(user.uid),
-
-                followersCount: 0,
-
-                friendsCount: 0,
-
-                /*
-                  These values are created as
-                  initial placeholders only.
-                  Money/points should later be
-                  controlled by trusted backend logic.
-                */
-
-                chapcyPoints: 0,
-
-                walletBalance: 0,
-
-                online: true,
-
-                createdAt: Date.now()
-            };
-
-            await set(userRef, newProfile);
-
-            currentProfile = newProfile;
-        }
-
-        renderProfile(currentProfile);
-
-        listenToProfile(user.uid);
-
-    } catch (error) {
-
-        console.error(
-            "CHAPCY profile loading error:",
-            error
-        );
-
-        showToast("Unable to load profile");
+      renderProfile(currentProfile);
     }
+
+    listenToProfile(user.uid);
+
+  } catch (error) {
+
+    console.error(
+      "CHAPCY profile loading error:",
+      error
+    );
+
+    showToast(
+      "Unable to load profile"
+    );
+  }
 }
 
 
 /* =========================================================
-   LISTEN TO REALTIME PROFILE
-========================================================= */
+   REALTIME PROFILE LISTENER
+   ========================================================= */
 
 function listenToProfile(uid) {
 
-    const userRef = ref(db, `users/${uid}`);
+  const userRef = ref(db, `users/${uid}`);
 
-    onValue(userRef, (snapshot) => {
+  if (profileListener) {
+    profileListener();
+    profileListener = null;
+  }
 
-        if (!snapshot.exists()) return;
+  profileListener = onValue(
+    userRef,
+    (snapshot) => {
 
-        currentProfile = snapshot.val() || {};
+      if (!snapshot.exists()) {
+        return;
+      }
 
-        renderProfile(currentProfile);
+      currentProfile = snapshot.val();
 
-    }, (error) => {
+      renderProfile(currentProfile);
 
-        console.error(
-            "Profile realtime listener:",
-            error
-        );
+    },
+    (error) => {
 
-    });
+      console.error(
+        "Profile realtime error:",
+        error
+      );
+    }
+  );
 }
 
 
 /* =========================================================
    RENDER PROFILE
-========================================================= */
+   ========================================================= */
 
-function renderProfile(data) {
+function renderProfile(profile) {
 
-    if (!data) return;
+  if (!profile) {
+    return;
+  }
 
 
-    /* -----------------------------------------
-       USER ID
-    ----------------------------------------- */
+  /* -----------------------------------------
+     PROFILE PHOTO
+     ----------------------------------------- */
 
-    if (profileHero) {
+  const photo =
+    profile.photoURL ||
+    "file_00000000b0d8820a998b33ad9cf233cb.png";
 
-        profileHero.dataset.userId =
-            data.uid ||
-            currentUser?.uid ||
-            "";
+  setImage("profileImage", photo);
+  setImage("editProfileImage", photo);
+  setImage("headerProfileImage", photo);
+
+
+  /* -----------------------------------------
+     NAME
+     ----------------------------------------- */
+
+  setText(
+    "profileName",
+    profile.displayName || "CHAPCY User"
+  );
+
+
+  /* -----------------------------------------
+     USERNAME
+     ----------------------------------------- */
+
+  let username =
+    profile.username ||
+    "chapcyuser";
+
+  if (!username.startsWith("@")) {
+    username = "@" + username;
+  }
+
+  setText(
+    "profileUsername",
+    username
+  );
+
+
+  /* -----------------------------------------
+     CHAPCY ID
+     ----------------------------------------- */
+
+  setText(
+    "chapcyUserId",
+    profile.chapcyId ||
+    generateChapcyId(profile.uid)
+  );
+
+
+  /* -----------------------------------------
+     BIO
+     ----------------------------------------- */
+
+  setText(
+    "profileBio",
+    profile.bio ||
+    "Welcome to my CHAPCY profile."
+  );
+
+
+  /* -----------------------------------------
+     STATS
+     ----------------------------------------- */
+
+  setText(
+    "followersCount",
+    formatNumber(
+      profile.followersCount || 0
+    )
+  );
+
+  setText(
+    "friendsCount",
+    formatNumber(
+      profile.friendsCount || 0
+    )
+  );
+
+  setText(
+    "profilePoints",
+    formatNumber(
+      profile.chapcyPoints || 0
+    )
+  );
+
+
+  /* -----------------------------------------
+     WALLET
+     ----------------------------------------- */
+
+  setText(
+    "walletBalance",
+    formatMoney(
+      profile.walletBalance || 0
+    )
+  );
+
+
+  /* -----------------------------------------
+     ONLINE STATUS
+     ----------------------------------------- */
+
+  const online =
+    $("profileOnline");
+
+  if (online) {
+
+    if (profile.online === true) {
+      online.classList.add("active");
+      online.style.display = "block";
+    } else {
+      online.classList.remove("active");
+      online.style.display = "none";
     }
+  }
 
 
-    /* -----------------------------------------
-       NAME
-    ----------------------------------------- */
+  /* -----------------------------------------
+     EDIT FORM
+     ----------------------------------------- */
 
-    const name =
-        data.displayName ||
-        data.name ||
-        currentUser?.displayName ||
-        "CHAPCY User";
+  setText(
+    "editDisplayName",
+    profile.displayName || ""
+  );
 
-    if (profileName) {
-        profileName.textContent = name;
-    }
+  setText(
+    "editUsername",
+    profile.username || ""
+  );
 
-
-    /* -----------------------------------------
-       USERNAME
-    ----------------------------------------- */
-
-    let username =
-        data.username ||
-        "chapcyuser";
-
-    username = username
-        .replace(/^@/, "");
-
-    if (profileUsername) {
-
-        profileUsername.textContent =
-            "@" + username;
-    }
+  setText(
+    "editBio",
+    profile.bio || ""
+  );
 
 
-    /* -----------------------------------------
-       PROFILE PHOTO
-    ----------------------------------------- */
+  /* -----------------------------------------
+     BIO COUNTER
+     ----------------------------------------- */
 
-    const photo =
-        data.photoURL ||
-        currentUser?.photoURL ||
-        DEFAULT_PROFILE_IMAGE;
-
-    if (profileImage) {
-        profileImage.src = photo;
-    }
-
-    if (editProfileImage) {
-        editProfileImage.src = photo;
-    }
+  updateBioCounter(
+    profile.bio || ""
+  );
 
 
-    /* -----------------------------------------
-       BIO
-    ----------------------------------------- */
+  /* -----------------------------------------
+     VIDEOS
+     ----------------------------------------- */
 
-    if (profileBio) {
-
-        profileBio.textContent =
-            data.bio ||
-            "Welcome to my CHAPCY profile.";
-    }
-
-
-    /* -----------------------------------------
-       CHAPCY ID
-    ----------------------------------------- */
-
-    const id =
-        data.chapcyId ||
-        createChapcyId(
-            data.uid ||
-            currentUser?.uid
-        );
-
-    if (chapcyUserId) {
-        chapcyUserId.textContent = id;
-    }
-
-
-    /* -----------------------------------------
-       FOLLOWERS
-    ----------------------------------------- */
-
-    if (followersCount) {
-
-        followersCount.textContent =
-            formatNumber(
-                data.followersCount || 0
-            );
-    }
-
-
-    /* -----------------------------------------
-       FRIENDS
-    ----------------------------------------- */
-
-    if (friendsCount) {
-
-        friendsCount.textContent =
-            formatNumber(
-                data.friendsCount || 0
-            );
-    }
-
-
-    /* -----------------------------------------
-       CHAPCY POINTS
-    ----------------------------------------- */
-
-    if (profilePoints) {
-
-        profilePoints.textContent =
-            formatNumber(
-                data.chapcyPoints || 0
-            );
-    }
-
-
-    /* -----------------------------------------
-       WALLET
-    ----------------------------------------- */
-
-    if (walletBalance) {
-
-        walletBalance.textContent =
-            formatNumber(
-                data.walletBalance || 0
-            );
-    }
-
-
-    /* -----------------------------------------
-       ONLINE
-    ----------------------------------------- */
-
-    updateOnlineStatus(
-        data.online === true
-    );
-
-
-    /* -----------------------------------------
-       EDIT FORM
-    ----------------------------------------- */
-
-    if (editDisplayName) {
-
-        editDisplayName.value =
-            name;
-    }
-
-    if (editUsername) {
-
-        editUsername.value =
-            username;
-    }
-
-    if (editBio) {
-
-        editBio.value =
-            data.bio || "";
-
-        updateBioCounter();
-    }
-
-
-    /* -----------------------------------------
-       VIDEOS
-    ----------------------------------------- */
-
-    renderVideos(
-        data.videos || {}
-    );
+  renderVideos(
+    profile.videos || {}
+  );
 }
 
 
 /* =========================================================
-   ONLINE STATUS
-========================================================= */
+   FORMAT NUMBER
+   ========================================================= */
 
-function updateOnlineStatus(isOnline) {
+function formatNumber(number) {
 
-    if (!profileOnline) return;
+  const value =
+    Number(number) || 0;
 
-    if (isOnline) {
-
-        profileOnline.classList.add("online");
-
-        profileOnline.setAttribute(
-            "aria-label",
-            "Online"
-        );
-
-    } else {
-
-        profileOnline.classList.remove("online");
-
-        profileOnline.setAttribute(
-            "aria-label",
-            "Offline"
-        );
-    }
+  return value.toLocaleString();
 }
 
 
 /* =========================================================
-   AUTH STATE
-========================================================= */
+   FORMAT MONEY
+   ========================================================= */
 
-onAuthStateChanged(auth, async (user) => {
+function formatMoney(amount) {
 
-    if (user) {
+  const value =
+    Number(amount) || 0;
 
-        console.log(
-            "CHAPCY logged in:",
-            user.uid
-        );
-
-        await loadCurrentProfile(user);
-
-    } else {
-
-        console.log(
-            "No CHAPCY user logged in"
-        );
-
-        /*
-          Redirect to your existing login/register page.
-          Change this filename if your actual login page
-          has a different name.
-        */
-
-        window.location.href =
-            "register.html";
+  return value.toLocaleString(
+    "en-US",
+    {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
     }
-});
-
-
-/* =========================================================
-   BACK BUTTON
-========================================================= */
-
-const backBtn = $("backBtn");
-
-if (backBtn) {
-
-    backBtn.addEventListener(
-        "click",
-        () => {
-
-            if (window.history.length > 1) {
-
-                window.history.back();
-
-            } else {
-
-                window.location.href =
-                    "CHAPCY.html";
-            }
-        }
-    );
+  );
 }
 
 
 /* =========================================================
    COPY CHAPCY ID
-========================================================= */
+   ========================================================= */
 
-const copyChapcyId = $("copyChapcyId");
+const copyChapcyId =
+  $("copyChapcyId");
 
 if (copyChapcyId) {
 
-    copyChapcyId.addEventListener(
-        "click",
-        async () => {
+  copyChapcyId.addEventListener(
+    "click",
+    async () => {
 
-            const id =
-                chapcyUserId?.textContent?.trim();
+      const id =
+        $("chapcyUserId")?.textContent;
 
-            if (!id) return;
+      if (!id) {
+        return;
+      }
 
-            try {
+      try {
 
-                await navigator.clipboard.writeText(id);
+        await navigator.clipboard.writeText(id);
 
-                showToast(
-                    "CHAPCY ID copied"
-                );
+        showToast(
+          "CHAPCY ID copied"
+        );
 
-            } catch (error) {
+      } catch (error) {
 
-                console.error(error);
+        console.error(error);
 
-                showToast(
-                    "Copy failed"
-                );
-            }
-        }
-    );
-}
-
-
-/* =========================================================
-   SHARE PROFILE
-========================================================= */
-
-const shareProfileBtn =
-    $("shareProfileBtn");
-
-if (shareProfileBtn) {
-
-    shareProfileBtn.addEventListener(
-        "click",
-        async () => {
-
-            if (!currentUser) return;
-
-            const username =
-                currentProfile?.username ||
-                currentUser.uid;
-
-            const profileURL =
-                `${window.location.origin}${window.location.pathname}?user=${encodeURIComponent(username)}`;
-
-            const shareData = {
-
-                title:
-                    `${currentProfile?.displayName || "CHAPCY User"} — CHAPCY`,
-
-                text:
-                    `Check out this profile on CHAPCY.`,
-
-                url:
-                    profileURL
-            };
-
-            try {
-
-                if (
-                    navigator.share
-                ) {
-
-                    await navigator.share(
-                        shareData
-                    );
-
-                } else {
-
-                    await navigator.clipboard.writeText(
-                        profileURL
-                    );
-
-                    showToast(
-                        "Profile link copied"
-                    );
-                }
-
-            } catch (error) {
-
-                /*
-                  User cancelled native share.
-                  No error toast needed.
-                */
-
-                console.log(
-                    "Share cancelled"
-                );
-            }
-        }
-    );
+        showToast(
+          "Unable to copy CHAPCY ID"
+        );
+      }
+    }
+  );
 }
 
 
 /* =========================================================
    EDIT PROFILE MODAL
-========================================================= */
-
-const editProfileBtn =
-    $("editProfileBtn");
-
-const closeEditProfile =
-    $("closeEditProfile");
+   ========================================================= */
 
 function openEditProfile() {
 
-    if (!editProfileModal) return;
+  const modal =
+    $("editProfileModal");
 
-    editProfileModal.classList.add("show");
+  if (!modal) {
+    return;
+  }
 
-    editProfileModal.setAttribute(
-        "aria-hidden",
-        "false"
+  if (currentProfile) {
+
+    setInput(
+      "editDisplayName",
+      currentProfile.displayName || ""
     );
 
-    document.body.style.overflow =
-        "hidden";
+    setInput(
+      "editUsername",
+      currentProfile.username || ""
+    );
+
+    setInput(
+      "editBio",
+      currentProfile.bio || ""
+    );
+
+    setImage(
+      "editProfileImage",
+      currentProfile.photoURL ||
+      "file_00000000b0d8820a998b33ad9cf233cb.png"
+    );
+  }
+
+  modal.classList.add("show");
+
+  document.body.classList.add(
+    "modal-open"
+  );
 }
 
-function closeEditProfileModal() {
+window.openEditProfile =
+  openEditProfile;
 
-    if (!editProfileModal) return;
 
-    editProfileModal.classList.remove(
-        "show"
-    );
+/* =========================================================
+   EDIT BUTTON
+   ========================================================= */
 
-    editProfileModal.setAttribute(
-        "aria-hidden",
-        "true"
-    );
-
-    document.body.style.overflow =
-        "";
-}
+const editProfileBtn =
+  $("editProfileBtn");
 
 if (editProfileBtn) {
 
-    editProfileBtn.addEventListener(
-        "click",
-        openEditProfile
-    );
-}
+  editProfileBtn.addEventListener(
+    "click",
+    (event) => {
 
-if (closeEditProfile) {
+      event.preventDefault();
 
-    closeEditProfile.addEventListener(
-        "click",
-        closeEditProfileModal
-    );
-}
+      event.stopPropagation();
 
-
-/* =========================================================
-   MODAL BACKDROP CLOSE
-========================================================= */
-
-const modalBackdrop =
-    document.querySelector(
-        ".modal-backdrop"
-    );
-
-if (modalBackdrop) {
-
-    modalBackdrop.addEventListener(
-        "click",
-        closeEditProfileModal
-    );
+      openEditProfile();
+    }
+  );
 }
 
 
 /* =========================================================
-   PROFILE PHOTO SELECT
-========================================================= */
+   CLOSE EDIT MODAL
+   ========================================================= */
+
+function closeEditProfile() {
+
+  const modal =
+    $("editProfileModal");
+
+  if (!modal) {
+    return;
+  }
+
+  modal.classList.remove("show");
+
+  document.body.classList.remove(
+    "modal-open"
+  );
+}
+
+
+const closeEditProfileBtn =
+  $("closeEditProfile");
+
+if (closeEditProfileBtn) {
+
+  closeEditProfileBtn.addEventListener(
+    "click",
+    (event) => {
+
+      event.preventDefault();
+
+      closeEditProfile();
+    }
+  );
+}
+
+
+/* =========================================================
+   CLOSE MODAL BY BACKDROP
+   ========================================================= */
+
+const editModal =
+  $("editProfileModal");
+
+if (editModal) {
+
+  editModal.addEventListener(
+    "click",
+    (event) => {
+
+      if (
+        event.target === editModal
+      ) {
+        closeEditProfile();
+      }
+    }
+  );
+}
+
+
+/* =========================================================
+   INPUT HELPER
+   ========================================================= */
+
+function setInput(id, value) {
+
+  const input = $(id);
+
+  if (input) {
+    input.value = value ?? "";
+  }
+}
+
+
+/* =========================================================
+   PROFILE PHOTO INPUT
+   ========================================================= */
+
+const profilePhotoInput =
+  $("profilePhotoInput");
 
 if (profilePhotoInput) {
 
-    profilePhotoInput.addEventListener(
-        "change",
-        (event) => {
+  profilePhotoInput.addEventListener(
+    "change",
+    (event) => {
 
-            const file =
-                event.target.files?.[0];
+      const file =
+        event.target.files?.[0];
 
-            if (!file) return;
+      if (!file) {
+        return;
+      }
 
+      if (!file.type.startsWith("image/")) {
 
-            /* Check image */
+        showToast(
+          "Please select an image"
+        );
 
-            if (!file.type.startsWith("image/")) {
+        return;
+      }
 
-                showToast(
-                    "Please select an image"
-                );
+      if (file.size > 5 * 1024 * 1024) {
 
-                return;
-            }
+        showToast(
+          "Image must be below 5MB"
+        );
 
+        return;
+      }
 
-            /* Maximum 5MB */
+      selectedPhotoFile = file;
 
-            if (
-                file.size >
-                5 * 1024 * 1024
-            ) {
+      const preview =
+        URL.createObjectURL(file);
 
-                showToast(
-                    "Image must be below 5MB"
-                );
-
-                return;
-            }
-
-
-            selectedPhotoFile =
-                file;
-
-
-            /* Preview */
-
-            const previewURL =
-                URL.createObjectURL(file);
-
-            if (editProfileImage) {
-
-                editProfileImage.src =
-                    previewURL;
-            }
-        }
-    );
-}
-
-
-/* =========================================================
-   UPLOAD PROFILE PHOTO
-========================================================= */
-
-async function uploadProfilePhoto(
-    file,
-    uid
-) {
-
-    if (!file || !uid) {
-        return null;
+      setImage(
+        "editProfileImage",
+        preview
+      );
     }
-
-    const fileExtension =
-        file.name
-            .split(".")
-            .pop()
-            .toLowerCase();
-
-    const filePath =
-        `profilePhotos/${uid}/profile.${fileExtension}`;
-
-    const imageRef =
-        storageRef(
-            storage,
-            filePath
-        );
-
-    await uploadBytes(
-        imageRef,
-        file,
-        {
-            contentType: file.type
-        }
-    );
-
-    const downloadURL =
-        await getDownloadURL(
-            imageRef
-        );
-
-    return downloadURL;
+  );
 }
 
 
 /* =========================================================
-   EDIT PROFILE FORM
-========================================================= */
-
-if (editProfileForm) {
-
-    editProfileForm.addEventListener(
-        "submit",
-        async (event) => {
-
-            event.preventDefault();
-
-
-            if (!currentUser) {
-
-                showToast(
-                    "You are not logged in"
-                );
-
-                return;
-            }
-
-
-            const displayName =
-                editDisplayName
-                    ?.value
-                    .trim() ||
-                "CHAPCY User";
-
-
-            const username =
-                editUsername
-                    ?.value
-                    .trim()
-                    .replace(/^@/, "")
-                    .toLowerCase();
-
-
-            const bio =
-                editBio
-                    ?.value
-                    .trim() ||
-                "";
-
-
-            if (!username) {
-
-                showToast(
-                    "Username is required"
-                );
-
-                return;
-            }
-
-
-            if (
-                !/^[a-z0-9._]+$/.test(
-                    username
-                )
-            ) {
-
-                showToast(
-                    "Username can use letters, numbers, . and _"
-                );
-
-                return;
-            }
-
-
-            if (bio.length > 160) {
-
-                showToast(
-                    "Bio is too long"
-                );
-
-                return;
-            }
-
-
-            const saveButton =
-                $("saveProfileBtn");
-
-            const originalButtonHTML =
-                saveButton?.innerHTML;
-
-
-            try {
-
-                if (saveButton) {
-
-                    saveButton.disabled =
-                        true;
-
-                    saveButton.innerHTML =
-                        `<i class="fa-solid fa-spinner fa-spin"></i>
-                         Saving...`;
-                }
-
-
-                /* -----------------------------------------
-                   PHOTO
-                ----------------------------------------- */
-
-                let photoURL =
-                    currentProfile?.photoURL ||
-                    currentUser.photoURL ||
-                    DEFAULT_PROFILE_IMAGE;
-
-
-                if (selectedPhotoFile) {
-
-                    showToast(
-                        "Uploading photo..."
-                    );
-
-                    const uploadedURL =
-                        await uploadProfilePhoto(
-                            selectedPhotoFile,
-                            currentUser.uid
-                        );
-
-                    if (uploadedURL) {
-
-                        photoURL =
-                            uploadedURL;
-                    }
-                }
-
-
-                /* -----------------------------------------
-                   UPDATE AUTH PROFILE
-                ----------------------------------------- */
-
-                await updateProfile(
-                    currentUser,
-                    {
-                        displayName,
-                        photoURL
-                    }
-                );
-
-
-                /* -----------------------------------------
-                   UPDATE REALTIME DATABASE
-                ----------------------------------------- */
-
-                const userRef =
-                    ref(
-                        db,
-                        `users/${currentUser.uid}`
-                    );
-
-
-                await update(
-                    userRef,
-                    {
-                        uid:
-                            currentUser.uid,
-
-                        displayName,
-
-                        username,
-
-                        photoURL,
-
-                        bio,
-
-                        chapcyId:
-                            currentProfile?.chapcyId ||
-                            createChapcyId(
-                                currentUser.uid
-                            )
-                    }
-                );
-
-
-                selectedPhotoFile =
-                    null;
-
-
-                showToast(
-                    "Profile updated successfully"
-                );
-
-
-                closeEditProfileModal();
-
-
-            } catch (error) {
-
-                console.error(
-                    "Profile save error:",
-                    error
-                );
-
-                showToast(
-                    firebaseErrorMessage(
-                        error
-                    )
-                );
-
-
-            } finally {
-
-                if (saveButton) {
-
-                    saveButton.disabled =
-                        false;
-
-                    saveButton.innerHTML =
-                        originalButtonHTML ||
-                        `<i class="fa-solid fa-check"></i>
-                         Save Changes`;
-                }
-            }
-        }
-    );
+   EDIT PROFILE IMAGE BUTTON
+   ========================================================= */
+
+const editPhotoBtn =
+  $("editPhotoBtn");
+
+if (editPhotoBtn) {
+
+  editPhotoBtn.addEventListener(
+    "click",
+    () => {
+
+      if (profilePhotoInput) {
+        profilePhotoInput.click();
+      }
+    }
+  );
 }
 
 
 /* =========================================================
    BIO COUNTER
-========================================================= */
+   ========================================================= */
 
-function updateBioCounter() {
+function updateBioCounter(value) {
 
-    if (!editBio || !bioCounter) return;
+  const counter =
+    $("bioCounter");
 
-    const length =
-        editBio.value.length;
+  if (!counter) {
+    return;
+  }
 
-    bioCounter.textContent =
-        `${length} / 160`;
+  const length =
+    (value || "").length;
+
+  counter.textContent =
+    `${length}/150`;
 }
+
+
+const editBio =
+  $("editBio");
 
 if (editBio) {
 
-    editBio.addEventListener(
-        "input",
-        updateBioCounter
-    );
+  editBio.addEventListener(
+    "input",
+    () => {
+
+      updateBioCounter(
+        editBio.value
+      );
+    }
+  );
 }
 
 
 /* =========================================================
-   EDIT COVER
-========================================================= */
+   SAVE PROFILE
+   ========================================================= */
 
-const editCoverBtn =
-    $("editCoverBtn");
+const editProfileForm =
+  $("editProfileForm");
 
-if (editCoverBtn) {
+if (editProfileForm) {
 
-    editCoverBtn.addEventListener(
-        "click",
-        () => {
+  editProfileForm.addEventListener(
+    "submit",
+    async (event) => {
 
-            showToast(
-                "Cover photo coming soon"
+      event.preventDefault();
+
+      if (!currentUser) {
+
+        showToast(
+          "Please login first"
+        );
+
+        return;
+      }
+
+      const saveButton =
+        $("saveProfileBtn");
+
+      if (saveButton) {
+        saveButton.disabled = true;
+        saveButton.textContent =
+          "Saving...";
+      }
+
+      try {
+
+        const displayName =
+          $("editDisplayName")
+            ?.value
+            ?.trim() ||
+          "CHAPCY User";
+
+        let username =
+          $("editUsername")
+            ?.value
+            ?.trim() ||
+          "chapcyuser";
+
+        username =
+          username
+            .replace(/^@+/, "")
+            .replace(/\s+/g, "")
+            .toLowerCase();
+
+        const bio =
+          $("editBio")
+            ?.value
+            ?.trim() ||
+          "";
+
+
+        /* -------------------------------------
+           PHOTO UPLOAD
+           ------------------------------------- */
+
+        let photoURL =
+          currentProfile?.photoURL ||
+          currentUser.photoURL ||
+          "file_00000000b0d8820a998b33ad9cf233cb.png";
+
+
+        if (selectedPhotoFile) {
+
+          const extension =
+            getFileExtension(
+              selectedPhotoFile.name
+            );
+
+          const fileRef =
+            storageRef(
+              storage,
+              `profilePhotos/${currentUser.uid}/profile.${extension}`
+            );
+
+          await uploadBytes(
+            fileRef,
+            selectedPhotoFile
+          );
+
+          photoURL =
+            await getDownloadURL(
+              fileRef
             );
         }
-    );
+
+
+        /* -------------------------------------
+           UPDATE FIREBASE AUTH
+           ------------------------------------- */
+
+        await updateProfile(
+          currentUser,
+          {
+            displayName,
+            photoURL
+          }
+        );
+
+
+        /* -------------------------------------
+           UPDATE REALTIME DATABASE
+           ------------------------------------- */
+
+        const userRef =
+          ref(
+            db,
+            `users/${currentUser.uid}`
+          );
+
+        await update(
+          userRef,
+          {
+            displayName,
+            username,
+            bio,
+            photoURL,
+            updatedAt: Date.now()
+          }
+        );
+
+
+        /* -------------------------------------
+           LOCAL DATA
+           ------------------------------------- */
+
+        currentProfile = {
+          ...currentProfile,
+
+          displayName,
+          username,
+          bio,
+          photoURL,
+          uid: currentUser.uid
+        };
+
+
+        renderProfile(
+          currentProfile
+        );
+
+
+        selectedPhotoFile = null;
+
+        if (profilePhotoInput) {
+          profilePhotoInput.value = "";
+        }
+
+
+        closeEditProfile();
+
+        showToast(
+          "Profile updated successfully"
+        );
+
+      } catch (error) {
+
+        console.error(
+          "Profile save error:",
+          error
+        );
+
+        showToast(
+          error?.message ||
+          "Unable to save profile"
+        );
+
+      } finally {
+
+        if (saveButton) {
+
+          saveButton.disabled = false;
+
+          saveButton.textContent =
+            "Save Profile";
+        }
+      }
+    }
+  );
 }
 
 
 /* =========================================================
-   PROFILE PHOTO QUICK EDIT
-========================================================= */
+   FILE EXTENSION
+   ========================================================= */
 
-const editPhotoBtn =
-    $("editPhotoBtn");
+function getFileExtension(filename) {
 
-if (editPhotoBtn) {
+  const parts =
+    filename.split(".");
 
-    editPhotoBtn.addEventListener(
-        "click",
-        () => {
+  if (parts.length < 2) {
+    return "jpg";
+  }
 
-            openEditProfile();
+  return parts
+    .pop()
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, "") || "jpg";
+}
 
-            setTimeout(() => {
 
-                profilePhotoInput?.click();
+/* =========================================================
+   SHARE PROFILE
+   ========================================================= */
 
-            }, 200);
+const shareProfileBtn =
+  $("shareProfileBtn");
+
+if (shareProfileBtn) {
+
+  shareProfileBtn.addEventListener(
+    "click",
+    async () => {
+
+      if (!currentUser) {
+        return;
+      }
+
+      const username =
+        currentProfile?.username ||
+        "chapcyuser";
+
+      const profileURL =
+        `${window.location.origin}${window.location.pathname}?user=${encodeURIComponent(
+          username
+        )}`;
+
+      const shareData = {
+
+        title:
+          `${currentProfile?.displayName || "CHAPCY User"} | CHAPCY`,
+
+        text:
+          `Check out my CHAPCY profile @${username}`,
+
+        url:
+          profileURL
+      };
+
+
+      try {
+
+        if (
+          navigator.share
+        ) {
+
+          await navigator.share(
+            shareData
+          );
+
+        } else {
+
+          await navigator.clipboard.writeText(
+            profileURL
+          );
+
+          showToast(
+            "Profile link copied"
+          );
         }
-    );
+
+      } catch (error) {
+
+        if (
+          error?.name !==
+          "AbortError"
+        ) {
+
+          console.error(error);
+
+          showToast(
+            "Unable to share profile"
+          );
+        }
+      }
+    }
+  );
+}
+
+
+/* =========================================================
+   WALLET — DISPLAY ONLY
+   ========================================================= */
+
+const addMoneyBtn =
+  $("addMoneyBtn");
+
+if (addMoneyBtn) {
+
+  addMoneyBtn.addEventListener(
+    "click",
+    () => {
+
+      showToast(
+        "Add Money feature is ready for payment integration"
+      );
+    }
+  );
+}
+
+
+const withdrawBtn =
+  $("withdrawBtn");
+
+if (withdrawBtn) {
+
+  withdrawBtn.addEventListener(
+    "click",
+    () => {
+
+      showToast(
+        "Withdraw feature is ready for payment integration"
+      );
+    }
+  );
 }
 
 
 /* =========================================================
    PROFILE MENU
-========================================================= */
+   ========================================================= */
 
 const profileMenuBtn =
-    $("profileMenuBtn");
+  $("profileMenuBtn");
 
 if (profileMenuBtn) {
 
-    profileMenuBtn.addEventListener(
-        "click",
-        () => {
+  profileMenuBtn.addEventListener(
+    "click",
+    () => {
 
-            showToast(
-                "Profile options coming soon"
-            );
-        }
-    );
+      showToast(
+        "CHAPCY profile menu"
+      );
+    }
+  );
 }
 
 
 /* =========================================================
-   WALLET
-========================================================= */
+   TABS
+   ========================================================= */
 
-const addMoneyBtn =
-    $("addMoneyBtn");
+const tabButtons =
+  document.querySelectorAll(
+    ".profile-tab"
+  );
 
-const withdrawBtn =
-    $("withdrawBtn");
+tabButtons.forEach(
+  (button) => {
 
+    button.addEventListener(
+      "click",
+      () => {
 
-if (addMoneyBtn) {
-
-    addMoneyBtn.addEventListener(
-        "click",
-        () => {
-
-            showToast(
-                "Add Money will connect to CHAPCY Wallet"
+        tabButtons.forEach(
+          (item) => {
+            item.classList.remove(
+              "active"
             );
-        }
+          }
+        );
+
+        button.classList.add(
+          "active"
+        );
+
+        const tab =
+          button.dataset.tab;
+
+        handleProfileTab(
+          tab
+        );
+      }
     );
-}
-
-
-if (withdrawBtn) {
-
-    withdrawBtn.addEventListener(
-        "click",
-        () => {
-
-            showToast(
-                "Withdraw will connect to CHAPCY Wallet"
-            );
-        }
-    );
-}
+  }
+);
 
 
 /* =========================================================
-   WALLET MORE
-========================================================= */
+   TAB HANDLER
+   ========================================================= */
 
-const walletMoreBtn =
-    $("walletMoreBtn");
+function handleProfileTab(tab) {
 
-if (walletMoreBtn) {
+  if (!tab) {
+    return;
+  }
 
-    walletMoreBtn.addEventListener(
-        "click",
-        () => {
+  if (tab === "videos") {
 
-            showToast(
-                "Wallet options coming soon"
-            );
-        }
+    if (currentProfile) {
+      renderVideos(
+        currentProfile.videos || {}
+      );
+    }
+
+    return;
+  }
+
+
+  if (tab === "liked") {
+
+    renderEmptyTab(
+      "No liked videos yet"
     );
+
+    return;
+  }
+
+
+  if (tab === "saved") {
+
+    renderEmptyTab(
+      "No saved videos yet"
+    );
+
+    return;
+  }
 }
-
-
-/* =========================================================
-   PROFILE TABS
-========================================================= */
-
-const profileTabs =
-    document.querySelectorAll(
-        ".profile-tab"
-    );
-
-const profileTabContents =
-    document.querySelectorAll(
-        ".profile-tab-content"
-    );
-
-
-profileTabs.forEach((tab) => {
-
-    tab.addEventListener(
-        "click",
-        () => {
-
-            const selectedTab =
-                tab.dataset.tab;
-
-
-            profileTabs.forEach(
-                (item) => {
-
-                    item.classList.remove(
-                        "active"
-                    );
-                }
-            );
-
-
-            profileTabContents.forEach(
-                (content) => {
-
-                    content.classList.remove(
-                        "active"
-                    );
-                }
-            );
-
-
-            tab.classList.add(
-                "active"
-            );
-
-
-            const content =
-                document.getElementById(
-                    `${selectedTab}Tab`
-                );
-
-
-            if (content) {
-
-                content.classList.add(
-                    "active"
-                );
-            }
-        }
-    );
-
-});
 
 
 /* =========================================================
    RENDER VIDEOS
-========================================================= */
+   ========================================================= */
 
 function renderVideos(videos) {
 
-    if (!userVideosGrid) return;
+  const grid =
+    $("userVideosGrid");
+
+  const empty =
+    $("emptyVideos");
+
+  if (!grid) {
+    return;
+  }
+
+  grid.innerHTML = "";
 
 
-    userVideosGrid.innerHTML = "";
+  let videoList = [];
 
 
-    let videoList = [];
+  if (
+    Array.isArray(videos)
+  ) {
 
+    videoList =
+      videos.map(
+        (video, index) => ({
+          ...video,
+          id: video?.id || index
+        })
+      );
 
-    if (
-        Array.isArray(videos)
-    ) {
+  } else if (
+    videos &&
+    typeof videos === "object"
+  ) {
 
-        videoList =
-            videos.map(
-                (video, index) => ({
-                    id: index,
-                    ...video
-                })
-            );
-
-    } else {
-
-        videoList =
-            Object.entries(videos)
-                .map(
-                    ([id, video]) => ({
-                        id,
-                        ...(video || {})
-                    })
-                );
-    }
-
-
-    if (!videoList.length) {
-
-        if (emptyVideos) {
-
-            emptyVideos.style.display =
-                "flex";
-        }
-
-        return;
-    }
-
-
-    if (emptyVideos) {
-
-        emptyVideos.style.display =
-            "none";
-    }
-
-
-    videoList.forEach(
-        (video) => {
-
-            const card =
-                createVideoCard(
-                    video
-                );
-
-            userVideosGrid.appendChild(
-                card
-            );
-        }
-    );
-}
-
-
-/* =========================================================
-   CREATE VIDEO CARD
-========================================================= */
-
-function createVideoCard(video) {
-
-    const card =
-        document.createElement(
-            "div"
+    videoList =
+      Object.entries(videos)
+        .map(
+          ([id, video]) => ({
+            ...(video || {}),
+            id
+          })
         );
-
-    card.className =
-        "video-card";
+  }
 
 
-    const thumbnail =
+  if (!videoList.length) {
+
+    if (empty) {
+      empty.style.display = "block";
+    }
+
+    return;
+  }
+
+
+  if (empty) {
+    empty.style.display = "none";
+  }
+
+
+  videoList.forEach(
+    (video) => {
+
+      const card =
+        document.createElement("article");
+
+      card.className =
+        "profile-video-card";
+
+
+      const image =
         video.thumbnail ||
         video.cover ||
-        video.thumbnailURL;
+        video.image ||
+        "file_00000000b3448243aebfedfba8912525.png";
 
 
-    if (thumbnail) {
+      card.innerHTML = `
+        <img
+          src="${escapeHTML(image)}"
+          alt="CHAPCY Video"
+          loading="lazy"
+        >
 
-        const img =
-            document.createElement(
-                "img"
-            );
-
-        img.src =
-            thumbnail;
-
-        img.alt =
-            video.title ||
-            "CHAPCY Video";
-
-        img.loading =
-            "lazy";
-
-        card.appendChild(
-            img
-        );
-
-    } else if (video.videoURL) {
-
-        const videoElement =
-            document.createElement(
-                "video"
-            );
-
-        videoElement.src =
-            video.videoURL;
-
-        videoElement.muted =
-            true;
-
-        videoElement.preload =
-            "metadata";
-
-        videoElement.playsInline =
-            true;
-
-        card.appendChild(
-            videoElement
-        );
-
-    } else {
-
-        const placeholder =
-            document.createElement(
-                "div"
-            );
-
-        placeholder.style.cssText =
-            `
-            width:100%;
-            height:100%;
-            display:grid;
-            place-items:center;
-            background:
-            linear-gradient(
-                145deg,
-                #081329,
-                #18082a
-            );
-            color:#00eaff;
-            font-size:24px;
-            `;
-
-        placeholder.innerHTML =
-            `<i class="fa-solid fa-video"></i>`;
-
-        card.appendChild(
-            placeholder
-        );
-    }
+        <div class="profile-video-overlay">
+          <span>
+            <i class="fa-solid fa-play"></i>
+            ${formatNumber(video.views || 0)}
+          </span>
+        </div>
+      `;
 
 
-    const info =
-        document.createElement(
-            "div"
-        );
-
-    info.className =
-        "video-info";
-
-
-    const title =
-        document.createElement(
-            "span"
-        );
-
-    title.textContent =
-        video.title ||
-        "";
-
-
-    const views =
-        document.createElement(
-            "span"
-        );
-
-    views.innerHTML =
-        `<i class="fa-solid fa-eye"></i>
-         ${formatNumber(video.views || 0)}`;
-
-
-    info.appendChild(
-        title
-    );
-
-    info.appendChild(
-        views
-    );
-
-
-    card.appendChild(
-        info
-    );
-
-
-    if (video.videoURL) {
-
-        card.addEventListener(
-            "click",
-            () => {
-
-                window.location.href =
-                    video.videoURL;
-            }
-        );
-    }
-
-
-    return card;
-}
-
-
-/* =========================================================
-   CREATE VIDEO BUTTON
-========================================================= */
-
-const createVideoBtn =
-    $("createVideoBtn");
-
-if (createVideoBtn) {
-
-    createVideoBtn.addEventListener(
+      card.addEventListener(
         "click",
         () => {
 
-            /*
-              Change this to your actual
-              CHAPCY video creation page.
-            */
+          if (video.url) {
 
             window.location.href =
-                "Chapcytv.html";
+              video.url;
+
+            return;
+          }
+
+          if (video.id) {
+
+            window.location.href =
+              `Chapcytv.html?video=${encodeURIComponent(
+                video.id
+              )}`;
+          }
         }
-    );
-}
+      );
 
 
-/* =========================================================
-   FIREBASE ERROR MESSAGES
-========================================================= */
-
-function firebaseErrorMessage(
-    error
-) {
-
-    const code =
-        error?.code || "";
-
-
-    switch (code) {
-
-        case "storage/unauthorized":
-            return "You don't have permission to upload this photo.";
-
-        case "storage/canceled":
-            return "Photo upload cancelled.";
-
-        case "storage/quota-exceeded":
-            return "Storage limit reached.";
-
-        case "auth/requires-recent-login":
-            return "Please login again before changing your profile.";
-
-        case "database/permission-denied":
-            return "Firebase permission denied.";
-
-        default:
-            return "Something went wrong. Please try again.";
+      grid.appendChild(card);
     }
+  );
 }
 
 
 /* =========================================================
-   DEBUG
-========================================================= */
+   EMPTY TAB
+   ========================================================= */
+
+function renderEmptyTab(message) {
+
+  const grid =
+    $("userVideosGrid");
+
+  const empty =
+    $("emptyVideos");
+
+  if (grid) {
+    grid.innerHTML = "";
+  }
+
+  if (empty) {
+
+    empty.style.display =
+      "block";
+
+    const title =
+      empty.querySelector(
+        "h3"
+      );
+
+    if (title) {
+      title.textContent =
+        message;
+    }
+  }
+}
+
+
+/* =========================================================
+   CREATE VIDEO
+   ========================================================= */
+
+const createVideoBtn =
+  $("createVideoBtn");
+
+if (createVideoBtn) {
+
+  createVideoBtn.addEventListener(
+    "click",
+    () => {
+
+      window.location.href =
+        "Chapcytv.html";
+    }
+  );
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+   ========================================================= */
+
+function escapeHTML(value) {
+
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+
+/* =========================================================
+   AUTH STATE
+   IMPORTANT:
+   DO NOT REDIRECT TO register.html
+   ========================================================= */
+
+onAuthStateChanged(
+  auth,
+  async (user) => {
+
+    if (user) {
+
+      console.log(
+        "CHAPCY logged in:",
+        user.uid
+      );
+
+      await loadCurrentProfile(
+        user
+      );
+
+    } else {
+
+      /*
+       * IMPORTANT FIX:
+       * The old code redirected to register.html.
+       * That caused Profile.html to disappear.
+       *
+       * We now keep the page open.
+       */
+
+      console.log(
+        "No Firebase user currently logged in."
+      );
+
+      showToast(
+        "Please login to use your profile"
+      );
+    }
+  }
+);
+
+
+/* =========================================================
+   PAGE VISIBILITY
+   ========================================================= */
+
+document.addEventListener(
+  "visibilitychange",
+  () => {
+
+    if (
+      !document.hidden &&
+      currentUser
+    ) {
+
+      console.log(
+        "CHAPCY profile active"
+      );
+    }
+  }
+);
+
+
+/* =========================================================
+   GLOBAL DEBUG OBJECT
+   ========================================================= */
+
+window.CHAPCY_PROFILE = {
+
+  getUser: () =>
+    currentUser,
+
+  getProfile: () =>
+    currentProfile,
+
+  openEditProfile,
+
+  closeEditProfile,
+
+  reload: async () => {
+
+    if (currentUser) {
+
+      await loadCurrentProfile(
+        currentUser
+      );
+    }
+  }
+};
+
 
 console.log(
-    "%cCHAPCY PROFILE READY",
-    `
-    color:#00eaff;
-    font-size:18px;
-    font-weight:bold;
-    `
-);pppp
+  "CHAPCY Profile JS loaded successfully."
+);/* =========================================================
+   CHAPCY PROFILE JS
+   Firebase Auth + Realtime Database + Storage
+   ========================================================= */
+
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+
+import {
+  getAuth,
+  onAuthStateChanged,
+  updateProfile
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+
+import {
+  getDatabase,
+  ref,
+  get,
+  set,
+  update,
+  onValue
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
+
+import {
+  getStorage,
+  ref as storageRef,
+  uploadBytes,
+  getDownloadURL
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-storage.js";
+
+
+/* =========================================================
+   FIREBASE CONFIG
+   ========================================================= */
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDIID2LpzjLiqaLeLJKgp-Vd7tNIyN-M1k",
+  authDomain: "rko-website-design-2f792.firebaseapp.com",
+  databaseURL: "https://rko-website-design-2f792-default-rtdb.firebaseio.com",
+  projectId: "rko-website-design-2f792",
+  storageBucket: "rko-website-design-2f792.firebasestorage.app",
+  messagingSenderId: "782567629866",
+  appId: "1:782567629866:web:d6d80d454d0653ea8b4f53",
+  measurementId: "G-KQ1EKYE7E7"
+};
+
+
+/* =========================================================
+   INITIALIZE FIREBASE
+   ========================================================= */
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getDatabase(app);
+const storage = getStorage(app);
+
+
+/* =========================================================
+   GLOBAL VARIABLES
+   ========================================================= */
+
+let currentUser = null;
+let currentProfile = null;
+let selectedPhotoFile = null;
+let profileListener = null;
+
+
+/* =========================================================
+   DOM HELPER
+   ========================================================= */
+
+const $ = (id) => document.getElementById(id);
+
+function setText(id, value) {
+  const element = $(id);
+
+  if (element) {
+    element.textContent = value ?? "";
+  }
+}
+
+function setImage(id, url) {
+  const element = $(id);
+
+  if (element && url) {
+    element.src = url;
+  }
+}
+
+
+/* =========================================================
+   TOAST
+   ========================================================= */
+
+function showToast(message) {
+
+  const toast = $("profileToast");
+  const toastMessage = $("toastMessage");
+
+  if (!toast) {
+    console.log("CHAPCY:", message);
+    return;
+  }
+
+  if (toastMessage) {
+    toastMessage.textContent = message;
+  }
+
+  toast.classList.add("show");
+
+  clearTimeout(window.chapcyToastTimer);
+
+  window.chapcyToastTimer = setTimeout(() => {
+    toast.classList.remove("show");
+  }, 2800);
+}
+
+window.showToast = showToast;
+
+
+/* =========================================================
+   GENERATE CHAPCY ID
+   ========================================================= */
+
+function generateChapcyId(uid) {
+
+  if (!uid) {
+    return "CPY-00000000";
+  }
+
+  const cleanUID = uid
+    .replace(/[^a-zA-Z0-9]/g, "")
+    .toUpperCase();
+
+  return "CPY-" + cleanUID.slice(-8);
+}
+
+
+/* =========================================================
+   DEFAULT PROFILE
+   ========================================================= */
+
+function createDefaultProfile(user) {
+
+  return {
+    uid: user.uid,
+
+    displayName:
+      user.displayName ||
+      "CHAPCY User",
+
+    username:
+      user.email
+        ? user.email.split("@")[0]
+        : "chapcyuser",
+
+    photoURL:
+      user.photoURL ||
+      "file_00000000b0d8820a998b33ad9cf233cb.png",
+
+    bio:
+      "Welcome to my CHAPCY profile.",
+
+    chapcyId:
+      generateChapcyId(user.uid),
+
+    followersCount: 0,
+
+    friendsCount: 0,
+
+    chapcyPoints: 0,
+
+    walletBalance: 0,
+
+    online: true,
+
+    createdAt: Date.now()
+  };
+}
+
+
+/* =========================================================
+   LOAD CURRENT PROFILE
+   ========================================================= */
+
+async function loadCurrentProfile(user) {
+
+  currentUser = user;
+
+  const userRef = ref(db, `users/${user.uid}`);
+
+  try {
+
+    const snapshot = await get(userRef);
+
+    if (!snapshot.exists()) {
+
+      const defaultProfile = createDefaultProfile(user);
+
+      await set(userRef, defaultProfile);
+
+      currentProfile = defaultProfile;
+
+      renderProfile(defaultProfile);
+
+    } else {
+
+      currentProfile = snapshot.val();
+
+      if (!currentProfile.chapcyId) {
+
+        currentProfile.chapcyId =
+          generateChapcyId(user.uid);
+
+        await update(userRef, {
+          chapcyId: currentProfile.chapcyId
+        });
+      }
+
+      renderProfile(currentProfile);
+    }
+
+    listenToProfile(user.uid);
+
+  } catch (error) {
+
+    console.error(
+      "CHAPCY profile loading error:",
+      error
+    );
+
+    showToast(
+      "Unable to load profile"
+    );
+  }
+}
+
+
+/* =========================================================
+   REALTIME PROFILE LISTENER
+   ========================================================= */
+
+function listenToProfile(uid) {
+
+  const userRef = ref(db, `users/${uid}`);
+
+  if (profileListener) {
+    profileListener();
+    profileListener = null;
+  }
+
+  profileListener = onValue(
+    userRef,
+    (snapshot) => {
+
+      if (!snapshot.exists()) {
+        return;
+      }
+
+      currentProfile = snapshot.val();
+
+      renderProfile(currentProfile);
+
+    },
+    (error) => {
+
+      console.error(
+        "Profile realtime error:",
+        error
+      );
+    }
+  );
+}
+
+
+/* =========================================================
+   RENDER PROFILE
+   ========================================================= */
+
+function renderProfile(profile) {
+
+  if (!profile) {
+    return;
+  }
+
+
+  /* -----------------------------------------
+     PROFILE PHOTO
+     ----------------------------------------- */
+
+  const photo =
+    profile.photoURL ||
+    "file_00000000b0d8820a998b33ad9cf233cb.png";
+
+  setImage("profileImage", photo);
+  setImage("editProfileImage", photo);
+  setImage("headerProfileImage", photo);
+
+
+  /* -----------------------------------------
+     NAME
+     ----------------------------------------- */
+
+  setText(
+    "profileName",
+    profile.displayName || "CHAPCY User"
+  );
+
+
+  /* -----------------------------------------
+     USERNAME
+     ----------------------------------------- */
+
+  let username =
+    profile.username ||
+    "chapcyuser";
+
+  if (!username.startsWith("@")) {
+    username = "@" + username;
+  }
+
+  setText(
+    "profileUsername",
+    username
+  );
+
+
+  /* -----------------------------------------
+     CHAPCY ID
+     ----------------------------------------- */
+
+  setText(
+    "chapcyUserId",
+    profile.chapcyId ||
+    generateChapcyId(profile.uid)
+  );
+
+
+  /* -----------------------------------------
+     BIO
+     ----------------------------------------- */
+
+  setText(
+    "profileBio",
+    profile.bio ||
+    "Welcome to my CHAPCY profile."
+  );
+
+
+  /* -----------------------------------------
+     STATS
+     ----------------------------------------- */
+
+  setText(
+    "followersCount",
+    formatNumber(
+      profile.followersCount || 0
+    )
+  );
+
+  setText(
+    "friendsCount",
+    formatNumber(
+      profile.friendsCount || 0
+    )
+  );
+
+  setText(
+    "profilePoints",
+    formatNumber(
+      profile.chapcyPoints || 0
+    )
+  );
+
+
+  /* -----------------------------------------
+     WALLET
+     ----------------------------------------- */
+
+  setText(
+    "walletBalance",
+    formatMoney(
+      profile.walletBalance || 0
+    )
+  );
+
+
+  /* -----------------------------------------
+     ONLINE STATUS
+     ----------------------------------------- */
+
+  const online =
+    $("profileOnline");
+
+  if (online) {
+
+    if (profile.online === true) {
+      online.classList.add("active");
+      online.style.display = "block";
+    } else {
+      online.classList.remove("active");
+      online.style.display = "none";
+    }
+  }
+
+
+  /* -----------------------------------------
+     EDIT FORM
+     ----------------------------------------- */
+
+  setText(
+    "editDisplayName",
+    profile.displayName || ""
+  );
+
+  setText(
+    "editUsername",
+    profile.username || ""
+  );
+
+  setText(
+    "editBio",
+    profile.bio || ""
+  );
+
+
+  /* -----------------------------------------
+     BIO COUNTER
+     ----------------------------------------- */
+
+  updateBioCounter(
+    profile.bio || ""
+  );
+
+
+  /* -----------------------------------------
+     VIDEOS
+     ----------------------------------------- */
+
+  renderVideos(
+    profile.videos || {}
+  );
+}
+
+
+/* =========================================================
+   FORMAT NUMBER
+   ========================================================= */
+
+function formatNumber(number) {
+
+  const value =
+    Number(number) || 0;
+
+  return value.toLocaleString();
+}
+
+
+/* =========================================================
+   FORMAT MONEY
+   ========================================================= */
+
+function formatMoney(amount) {
+
+  const value =
+    Number(amount) || 0;
+
+  return value.toLocaleString(
+    "en-US",
+    {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    }
+  );
+}
+
+
+/* =========================================================
+   COPY CHAPCY ID
+   ========================================================= */
+
+const copyChapcyId =
+  $("copyChapcyId");
+
+if (copyChapcyId) {
+
+  copyChapcyId.addEventListener(
+    "click",
+    async () => {
+
+      const id =
+        $("chapcyUserId")?.textContent;
+
+      if (!id) {
+        return;
+      }
+
+      try {
+
+        await navigator.clipboard.writeText(id);
+
+        showToast(
+          "CHAPCY ID copied"
+        );
+
+      } catch (error) {
+
+        console.error(error);
+
+        showToast(
+          "Unable to copy CHAPCY ID"
+        );
+      }
+    }
+  );
+}
+
+
+/* =========================================================
+   EDIT PROFILE MODAL
+   ========================================================= */
+
+function openEditProfile() {
+
+  const modal =
+    $("editProfileModal");
+
+  if (!modal) {
+    return;
+  }
+
+  if (currentProfile) {
+
+    setInput(
+      "editDisplayName",
+      currentProfile.displayName || ""
+    );
+
+    setInput(
+      "editUsername",
+      currentProfile.username || ""
+    );
+
+    setInput(
+      "editBio",
+      currentProfile.bio || ""
+    );
+
+    setImage(
+      "editProfileImage",
+      currentProfile.photoURL ||
+      "file_00000000b0d8820a998b33ad9cf233cb.png"
+    );
+  }
+
+  modal.classList.add("show");
+
+  document.body.classList.add(
+    "modal-open"
+  );
+}
+
+window.openEditProfile =
+  openEditProfile;
+
+
+/* =========================================================
+   EDIT BUTTON
+   ========================================================= */
+
+const editProfileBtn =
+  $("editProfileBtn");
+
+if (editProfileBtn) {
+
+  editProfileBtn.addEventListener(
+    "click",
+    (event) => {
+
+      event.preventDefault();
+
+      event.stopPropagation();
+
+      openEditProfile();
+    }
+  );
+}
+
+
+/* =========================================================
+   CLOSE EDIT MODAL
+   ========================================================= */
+
+function closeEditProfile() {
+
+  const modal =
+    $("editProfileModal");
+
+  if (!modal) {
+    return;
+  }
+
+  modal.classList.remove("show");
+
+  document.body.classList.remove(
+    "modal-open"
+  );
+}
+
+
+const closeEditProfileBtn =
+  $("closeEditProfile");
+
+if (closeEditProfileBtn) {
+
+  closeEditProfileBtn.addEventListener(
+    "click",
+    (event) => {
+
+      event.preventDefault();
+
+      closeEditProfile();
+    }
+  );
+}
+
+
+/* =========================================================
+   CLOSE MODAL BY BACKDROP
+   ========================================================= */
+
+const editModal =
+  $("editProfileModal");
+
+if (editModal) {
+
+  editModal.addEventListener(
+    "click",
+    (event) => {
+
+      if (
+        event.target === editModal
+      ) {
+        closeEditProfile();
+      }
+    }
+  );
+}
+
+
+/* =========================================================
+   INPUT HELPER
+   ========================================================= */
+
+function setInput(id, value) {
+
+  const input = $(id);
+
+  if (input) {
+    input.value = value ?? "";
+  }
+}
+
+
+/* =========================================================
+   PROFILE PHOTO INPUT
+   ========================================================= */
+
+const profilePhotoInput =
+  $("profilePhotoInput");
+
+if (profilePhotoInput) {
+
+  profilePhotoInput.addEventListener(
+    "change",
+    (event) => {
+
+      const file =
+        event.target.files?.[0];
+
+      if (!file) {
+        return;
+      }
+
+      if (!file.type.startsWith("image/")) {
+
+        showToast(
+          "Please select an image"
+        );
+
+        return;
+      }
+
+      if (file.size > 5 * 1024 * 1024) {
+
+        showToast(
+          "Image must be below 5MB"
+        );
+
+        return;
+      }
+
+      selectedPhotoFile = file;
+
+      const preview =
+        URL.createObjectURL(file);
+
+      setImage(
+        "editProfileImage",
+        preview
+      );
+    }
+  );
+}
+
+
+/* =========================================================
+   EDIT PROFILE IMAGE BUTTON
+   ========================================================= */
+
+const editPhotoBtn =
+  $("editPhotoBtn");
+
+if (editPhotoBtn) {
+
+  editPhotoBtn.addEventListener(
+    "click",
+    () => {
+
+      if (profilePhotoInput) {
+        profilePhotoInput.click();
+      }
+    }
+  );
+}
+
+
+/* =========================================================
+   BIO COUNTER
+   ========================================================= */
+
+function updateBioCounter(value) {
+
+  const counter =
+    $("bioCounter");
+
+  if (!counter) {
+    return;
+  }
+
+  const length =
+    (value || "").length;
+
+  counter.textContent =
+    `${length}/150`;
+}
+
+
+const editBio =
+  $("editBio");
+
+if (editBio) {
+
+  editBio.addEventListener(
+    "input",
+    () => {
+
+      updateBioCounter(
+        editBio.value
+      );
+    }
+  );
+}
+
+
+/* =========================================================
+   SAVE PROFILE
+   ========================================================= */
+
+const editProfileForm =
+  $("editProfileForm");
+
+if (editProfileForm) {
+
+  editProfileForm.addEventListener(
+    "submit",
+    async (event) => {
+
+      event.preventDefault();
+
+      if (!currentUser) {
+
+        showToast(
+          "Please login first"
+        );
+
+        return;
+      }
+
+      const saveButton =
+        $("saveProfileBtn");
+
+      if (saveButton) {
+        saveButton.disabled = true;
+        saveButton.textContent =
+          "Saving...";
+      }
+
+      try {
+
+        const displayName =
+          $("editDisplayName")
+            ?.value
+            ?.trim() ||
+          "CHAPCY User";
+
+        let username =
+          $("editUsername")
+            ?.value
+            ?.trim() ||
+          "chapcyuser";
+
+        username =
+          username
+            .replace(/^@+/, "")
+            .replace(/\s+/g, "")
+            .toLowerCase();
+
+        const bio =
+          $("editBio")
+            ?.value
+            ?.trim() ||
+          "";
+
+
+        /* -------------------------------------
+           PHOTO UPLOAD
+           ------------------------------------- */
+
+        let photoURL =
+          currentProfile?.photoURL ||
+          currentUser.photoURL ||
+          "file_00000000b0d8820a998b33ad9cf233cb.png";
+
+
+        if (selectedPhotoFile) {
+
+          const extension =
+            getFileExtension(
+              selectedPhotoFile.name
+            );
+
+          const fileRef =
+            storageRef(
+              storage,
+              `profilePhotos/${currentUser.uid}/profile.${extension}`
+            );
+
+          await uploadBytes(
+            fileRef,
+            selectedPhotoFile
+          );
+
+          photoURL =
+            await getDownloadURL(
+              fileRef
+            );
+        }
+
+
+        /* -------------------------------------
+           UPDATE FIREBASE AUTH
+           ------------------------------------- */
+
+        await updateProfile(
+          currentUser,
+          {
+            displayName,
+            photoURL
+          }
+        );
+
+
+        /* -------------------------------------
+           UPDATE REALTIME DATABASE
+           ------------------------------------- */
+
+        const userRef =
+          ref(
+            db,
+            `users/${currentUser.uid}`
+          );
+
+        await update(
+          userRef,
+          {
+            displayName,
+            username,
+            bio,
+            photoURL,
+            updatedAt: Date.now()
+          }
+        );
+
+
+        /* -------------------------------------
+           LOCAL DATA
+           ------------------------------------- */
+
+        currentProfile = {
+          ...currentProfile,
+
+          displayName,
+          username,
+          bio,
+          photoURL,
+          uid: currentUser.uid
+        };
+
+
+        renderProfile(
+          currentProfile
+        );
+
+
+        selectedPhotoFile = null;
+
+        if (profilePhotoInput) {
+          profilePhotoInput.value = "";
+        }
+
+
+        closeEditProfile();
+
+        showToast(
+          "Profile updated successfully"
+        );
+
+      } catch (error) {
+
+        console.error(
+          "Profile save error:",
+          error
+        );
+
+        showToast(
+          error?.message ||
+          "Unable to save profile"
+        );
+
+      } finally {
+
+        if (saveButton) {
+
+          saveButton.disabled = false;
+
+          saveButton.textContent =
+            "Save Profile";
+        }
+      }
+    }
+  );
+}
+
+
+/* =========================================================
+   FILE EXTENSION
+   ========================================================= */
+
+function getFileExtension(filename) {
+
+  const parts =
+    filename.split(".");
+
+  if (parts.length < 2) {
+    return "jpg";
+  }
+
+  return parts
+    .pop()
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, "") || "jpg";
+}
+
+
+/* =========================================================
+   SHARE PROFILE
+   ========================================================= */
+
+const shareProfileBtn =
+  $("shareProfileBtn");
+
+if (shareProfileBtn) {
+
+  shareProfileBtn.addEventListener(
+    "click",
+    async () => {
+
+      if (!currentUser) {
+        return;
+      }
+
+      const username =
+        currentProfile?.username ||
+        "chapcyuser";
+
+      const profileURL =
+        `${window.location.origin}${window.location.pathname}?user=${encodeURIComponent(
+          username
+        )}`;
+
+      const shareData = {
+
+        title:
+          `${currentProfile?.displayName || "CHAPCY User"} | CHAPCY`,
+
+        text:
+          `Check out my CHAPCY profile @${username}`,
+
+        url:
+          profileURL
+      };
+
+
+      try {
+
+        if (
+          navigator.share
+        ) {
+
+          await navigator.share(
+            shareData
+          );
+
+        } else {
+
+          await navigator.clipboard.writeText(
+            profileURL
+          );
+
+          showToast(
+            "Profile link copied"
+          );
+        }
+
+      } catch (error) {
+
+        if (
+          error?.name !==
+          "AbortError"
+        ) {
+
+          console.error(error);
+
+          showToast(
+            "Unable to share profile"
+          );
+        }
+      }
+    }
+  );
+}
+
+
+/* =========================================================
+   WALLET — DISPLAY ONLY
+   ========================================================= */
+
+const addMoneyBtn =
+  $("addMoneyBtn");
+
+if (addMoneyBtn) {
+
+  addMoneyBtn.addEventListener(
+    "click",
+    () => {
+
+      showToast(
+        "Add Money feature is ready for payment integration"
+      );
+    }
+  );
+}
+
+
+const withdrawBtn =
+  $("withdrawBtn");
+
+if (withdrawBtn) {
+
+  withdrawBtn.addEventListener(
+    "click",
+    () => {
+
+      showToast(
+        "Withdraw feature is ready for payment integration"
+      );
+    }
+  );
+}
+
+
+/* =========================================================
+   PROFILE MENU
+   ========================================================= */
+
+const profileMenuBtn =
+  $("profileMenuBtn");
+
+if (profileMenuBtn) {
+
+  profileMenuBtn.addEventListener(
+    "click",
+    () => {
+
+      showToast(
+        "CHAPCY profile menu"
+      );
+    }
+  );
+}
+
+
+/* =========================================================
+   TABS
+   ========================================================= */
+
+const tabButtons =
+  document.querySelectorAll(
+    ".profile-tab"
+  );
+
+tabButtons.forEach(
+  (button) => {
+
+    button.addEventListener(
+      "click",
+      () => {
+
+        tabButtons.forEach(
+          (item) => {
+            item.classList.remove(
+              "active"
+            );
+          }
+        );
+
+        button.classList.add(
+          "active"
+        );
+
+        const tab =
+          button.dataset.tab;
+
+        handleProfileTab(
+          tab
+        );
+      }
+    );
+  }
+);
+
+
+/* =========================================================
+   TAB HANDLER
+   ========================================================= */
+
+function handleProfileTab(tab) {
+
+  if (!tab) {
+    return;
+  }
+
+  if (tab === "videos") {
+
+    if (currentProfile) {
+      renderVideos(
+        currentProfile.videos || {}
+      );
+    }
+
+    return;
+  }
+
+
+  if (tab === "liked") {
+
+    renderEmptyTab(
+      "No liked videos yet"
+    );
+
+    return;
+  }
+
+
+  if (tab === "saved") {
+
+    renderEmptyTab(
+      "No saved videos yet"
+    );
+
+    return;
+  }
+}
+
+
+/* =========================================================
+   RENDER VIDEOS
+   ========================================================= */
+
+function renderVideos(videos) {
+
+  const grid =
+    $("userVideosGrid");
+
+  const empty =
+    $("emptyVideos");
+
+  if (!grid) {
+    return;
+  }
+
+  grid.innerHTML = "";
+
+
+  let videoList = [];
+
+
+  if (
+    Array.isArray(videos)
+  ) {
+
+    videoList =
+      videos.map(
+        (video, index) => ({
+          ...video,
+          id: video?.id || index
+        })
+      );
+
+  } else if (
+    videos &&
+    typeof videos === "object"
+  ) {
+
+    videoList =
+      Object.entries(videos)
+        .map(
+          ([id, video]) => ({
+            ...(video || {}),
+            id
+          })
+        );
+  }
+
+
+  if (!videoList.length) {
+
+    if (empty) {
+      empty.style.display = "block";
+    }
+
+    return;
+  }
+
+
+  if (empty) {
+    empty.style.display = "none";
+  }
+
+
+  videoList.forEach(
+    (video) => {
+
+      const card =
+        document.createElement("article");
+
+      card.className =
+        "profile-video-card";
+
+
+      const image =
+        video.thumbnail ||
+        video.cover ||
+        video.image ||
+        "file_00000000b3448243aebfedfba8912525.png";
+
+
+      card.innerHTML = `
+        <img
+          src="${escapeHTML(image)}"
+          alt="CHAPCY Video"
+          loading="lazy"
+        >
+
+        <div class="profile-video-overlay">
+          <span>
+            <i class="fa-solid fa-play"></i>
+            ${formatNumber(video.views || 0)}
+          </span>
+        </div>
+      `;
+
+
+      card.addEventListener(
+        "click",
+        () => {
+
+          if (video.url) {
+
+            window.location.href =
+              video.url;
+
+            return;
+          }
+
+          if (video.id) {
+
+            window.location.href =
+              `Chapcytv.html?video=${encodeURIComponent(
+                video.id
+              )}`;
+          }
+        }
+      );
+
+
+      grid.appendChild(card);
+    }
+  );
+}
+
+
+/* =========================================================
+   EMPTY TAB
+   ========================================================= */
+
+function renderEmptyTab(message) {
+
+  const grid =
+    $("userVideosGrid");
+
+  const empty =
+    $("emptyVideos");
+
+  if (grid) {
+    grid.innerHTML = "";
+  }
+
+  if (empty) {
+
+    empty.style.display =
+      "block";
+
+    const title =
+      empty.querySelector(
+        "h3"
+      );
+
+    if (title) {
+      title.textContent =
+        message;
+    }
+  }
+}
+
+
+/* =========================================================
+   CREATE VIDEO
+   ========================================================= */
+
+const createVideoBtn =
+  $("createVideoBtn");
+
+if (createVideoBtn) {
+
+  createVideoBtn.addEventListener(
+    "click",
+    () => {
+
+      window.location.href =
+        "Chapcytv.html";
+    }
+  );
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+   ========================================================= */
+
+function escapeHTML(value) {
+
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+
+/* =========================================================
+   AUTH STATE
+   IMPORTANT:
+   DO NOT REDIRECT TO register.html
+   ========================================================= */
+
+onAuthStateChanged(
+  auth,
+  async (user) => {
+
+    if (user) {
+
+      console.log(
+        "CHAPCY logged in:",
+        user.uid
+      );
+
+      await loadCurrentProfile(
+        user
+      );
+
+    } else {
+
+      /*
+       * IMPORTANT FIX:
+       * The old code redirected to register.html.
+       * That caused Profile.html to disappear.
+       *
+       * We now keep the page open.
+       */
+
+      console.log(
+        "No Firebase user currently logged in."
+      );
+
+      showToast(
+        "Please login to use your profile"
+      );
+    }
+  }
+);
+
+
+/* =========================================================
+   PAGE VISIBILITY
+   ========================================================= */
+
+document.addEventListener(
+  "visibilitychange",
+  () => {
+
+    if (
+      !document.hidden &&
+      currentUser
+    ) {
+
+      console.log(
+        "CHAPCY profile active"
+      );
+    }
+  }
+);
+
+
+/* =========================================================
+   GLOBAL DEBUG OBJECT
+   ========================================================= */
+
+window.CHAPCY_PROFILE = {
+
+  getUser: () =>
+    currentUser,
+
+  getProfile: () =>
+    currentProfile,
+
+  openEditProfile,
+
+  closeEditProfile,
+
+  reload: async () => {
+
+    if (currentUser) {
+
+      await loadCurrentProfile(
+        currentUser
+      );
+    }
+  }
+};
+
+
+console.log(
+  "CHAPCY Profile JS loaded successfully."
+);
