@@ -3363,28 +3363,29 @@ body::after {
     }
 }
 /* =========================================================
-   CHAPCY AD HUB — MOVE UP NEAR ACTIVITIES
+   CHAPCY AD HUB — FORCE UP
 ========================================================= */
 
 .chapcy-ad-hub {
     position: relative !important;
-    top: -40px !important;
-    margin-top: 0 !important;
+    margin-top: -180px !important;
+    top: 0 !important;
     transform: none !important;
+    z-index: 20 !important;
 }
 
-/* PHONE */
+/* MOBILE */
 @media (max-width: 700px) {
     .chapcy-ad-hub {
-        top: -35px !important;
-        margin-top: 0 !important;
+        margin-top: -160px !important;
+        top: 0 !important;
+        transform: none !important;
     }
 }
 
-/* SMALL PHONE */
+/* SMALL MOBILE */
 @media (max-width: 390px) {
     .chapcy-ad-hub {
-        top: -30px !important;
-        margin-top: 0 !important;
+        margin-top: -140px !important;
     }
 }
