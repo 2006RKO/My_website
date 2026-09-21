@@ -2,211 +2,222 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-  >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>CHAPCY — Profile</title>
 
-  <link rel="stylesheet" href="Accprofile.css">
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
+  <!-- Font Awesome -->
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
   >
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-    rel="stylesheet"
-  >
+  <!-- CHAPCY Profile CSS -->
+  <link rel="stylesheet" href="Accprofile.css">
 </head>
 
 <body>
 
   <!-- BACKGROUND -->
-  <img
-    src="file_00000000b3448243aebfedfba8912525.png"
-    class="profile-background"
-    alt=""
-  >
+  <div class="profile-background"></div>
+  <div class="profile-glow glow-one"></div>
+  <div class="profile-glow glow-two"></div>
 
-  <div class="profile-bg-overlay"></div>
+  <!-- TOP BAR -->
+  <header class="profile-topbar">
 
+    <button
+      class="back-btn"
+      id="backBtn"
+      type="button"
+      aria-label="Back"
+    >
+      <i class="fa-solid fa-arrow-left"></i>
+    </button>
 
-  <main class="profile-page">
-
-    <!-- =========================================
-         TOP BAR
-    ========================================== -->
-
-    <header class="profile-topbar">
-
-      <a href="chapcy.html" class="back-btn" aria-label="Back">
-
-        <i class="fa-solid fa-arrow-left"></i>
-
-      </a>
-
-
-      <div class="profile-brand">
-
-        <img
-          src="file_000000004f547243bb0fa43d66db1edf.png"
-          alt="CHAPCY"
-        >
-
-        <div>
-          <strong>CHAPCY</strong>
-          <span>Worldwide Community 🌐</span>
-        </div>
-
-      </div>
-
-
-      <button
-        class="top-action"
-        id="profileMenuBtn"
-        type="button"
-        aria-label="Profile menu"
+    <div class="profile-brand">
+      <img
+        src="file_000000004f547243bb0fa43d66db1edf.png"
+        alt="CHAPCY"
       >
 
-        <i class="fa-solid fa-ellipsis-vertical"></i>
-
-      </button>
-
-    </header>
-
-
-    <!-- =========================================
-         COVER
-    ========================================== -->
-
-    <section class="profile-cover">
-
-      <div class="cover-glow"></div>
-
-      <div class="cover-brand">
-
+      <div>
         <strong>CHAPCY</strong>
+        <span>Profile</span>
+      </div>
+    </div>
 
-        <span>
-          Connect • Chat • Belong
-        </span>
+    <button
+      class="top-action-btn"
+      id="profileMenuBtn"
+      type="button"
+      aria-label="Profile menu"
+    >
+      <i class="fa-solid fa-ellipsis"></i>
+    </button>
 
+  </header>
+
+
+  <!-- MAIN -->
+  <main class="profile-page">
+
+    <!-- PROFILE HERO -->
+    <section
+      class="profile-hero"
+      id="profileHero"
+      data-user-id=""
+    >
+
+      <!-- COVER -->
+      <div class="profile-cover">
+        <div class="cover-overlay"></div>
+
+        <button
+          class="cover-edit-btn"
+          id="editCoverBtn"
+          type="button"
+        >
+          <i class="fa-solid fa-camera"></i>
+        </button>
       </div>
 
-    </section>
 
+      <!-- PROFILE INFORMATION -->
+      <div class="profile-main-info">
 
-    <!-- =========================================
-         USER PROFILE
-    ========================================== -->
-
-    <section class="profile-main">
-
-      <div class="profile-photo-area">
-
-        <div class="profile-photo-ring">
+        <div class="profile-photo-wrap">
 
           <img
             src="file_00000000b0d8820a998b33ad9cf233cb.png"
-            id="profilePhoto"
-            alt="Profile"
+            alt="Profile photo"
+            id="profileImage"
+            class="profile-photo"
           >
 
           <span
             class="profile-online"
             id="profileOnline"
+            aria-label="Offline"
           ></span>
+
+          <button
+            class="photo-edit-btn"
+            id="editPhotoBtn"
+            type="button"
+            aria-label="Change profile photo"
+          >
+            <i class="fa-solid fa-camera"></i>
+          </button>
+
+        </div>
+
+
+        <div class="profile-identity">
+
+          <div class="name-row">
+
+            <h1 id="profileName">
+              CHAPCY User
+            </h1>
+
+            <span
+              class="verified-badge"
+              id="verifiedBadge"
+              title="Verified CHAPCY account"
+            >
+              <i class="fa-solid fa-check"></i>
+            </span>
+
+          </div>
+
+          <p
+            class="profile-username"
+            id="profileUsername"
+          >
+            @chapcyuser
+          </p>
+
+          <div class="chapcy-id-row">
+
+            <span>
+              CHAPCY ID:
+            </span>
+
+            <strong id="chapcyUserId">
+              CPY-000000
+            </strong>
+
+            <button
+              id="copyChapcyId"
+              type="button"
+              aria-label="Copy CHAPCY ID"
+            >
+              <i class="fa-regular fa-copy"></i>
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- PROFILE ACTIONS -->
+        <div class="profile-actions">
+
+          <button
+            class="primary-profile-btn"
+            id="editProfileBtn"
+            type="button"
+          >
+            <i class="fa-solid fa-pen"></i>
+            <span>Edit Profile</span>
+          </button>
+
+          <button
+            class="secondary-profile-btn"
+            id="shareProfileBtn"
+            type="button"
+          >
+            <i class="fa-solid fa-share-nodes"></i>
+            <span>Share</span>
+          </button>
 
         </div>
 
       </div>
 
 
-      <div class="profile-actions">
+      <!-- BIO -->
+      <div class="profile-bio-section">
 
-        <button
-          class="edit-profile-btn"
-          id="editProfileBtn"
-          type="button"
-        >
-
-          <i class="fa-solid fa-pen"></i>
-
-          <span>Edit Profile</span>
-
-        </button>
-
-
-        <button
-          class="profile-settings-btn"
-          id="profileSettingsBtn"
-          type="button"
-          aria-label="Settings"
-        >
-
-          <i class="fa-solid fa-gear"></i>
-
-        </button>
-
-      </div>
-
-
-      <div class="profile-info">
-
-        <h1>
-
-          <span id="profileDisplayName">
-            CHAPCY User
-          </span>
-
-          <span
-            class="verified-badge"
-            id="verifiedBadge"
-            hidden
-          >
-
-            <i class="fa-solid fa-check"></i>
-
-          </span>
-
-        </h1>
-
-
-        <p
-          class="profile-username"
-          id="profileUsername"
-        >
-          @chapcyuser
-        </p>
-
-
-        <p
-          class="profile-bio"
-          id="profileBio"
-        >
+        <p id="profileBio">
           Welcome to my CHAPCY profile.
         </p>
 
-
-        <div class="profile-meta">
-
-          <span id="profileLocation">
-            <i class="fa-solid fa-location-dot"></i>
-            Tanzania
-          </span>
+      </div>
 
 
-          <span id="profileJoined">
+      <!-- STATS -->
+      <div class="profile-stats">
 
-            <i class="fa-regular fa-calendar"></i>
+        <div class="profile-stat">
+          <strong id="followersCount">0</strong>
+          <span>Followers</span>
+        </div>
 
-            Joined CHAPCY
+        <div class="profile-stat">
+          <strong id="friendsCount">0</strong>
+          <span>Friends</span>
+        </div>
 
-          </span>
-
+        <div class="profile-stat">
+          <strong id="profilePoints">0</strong>
+          <span>CHAPCY Points</span>
         </div>
 
       </div>
@@ -214,295 +225,327 @@
     </section>
 
 
-    <!-- =========================================
-         SOCIAL STATS
-    ========================================== -->
+    <!-- WALLET -->
+    <section class="profile-wallet">
 
-    <section class="profile-stats">
+      <div class="wallet-header">
 
-      <a
-        href="Followers.html"
-        class="profile-stat"
-      >
+        <div class="wallet-title">
 
-        <strong id="followersCount">
-          0
-        </strong>
+          <div class="wallet-icon">
+            <i class="fa-solid fa-wallet"></i>
+          </div>
 
-        <span>
-          Followers
-        </span>
-
-      </a>
-
-
-      <a
-        href="Friends.html"
-        class="profile-stat"
-      >
-
-        <strong id="friendsCount">
-          0
-        </strong>
-
-        <span>
-          Friends
-        </span>
-
-      </a>
-
-
-      <a
-        href="ChapcyPoints.html"
-        class="profile-stat points-stat"
-      >
-
-        <strong id="profilePoints">
-          0
-        </strong>
-
-        <span>
-          CHAPCY Points
-        </span>
-
-      </a>
-
-
-      <a
-        href="Wallet.html"
-        class="profile-stat wallet-stat"
-      >
-
-        <strong id="walletBalance">
-          TZS 0
-        </strong>
-
-        <span>
-          Wallet
-        </span>
-
-      </a>
-
-    </section>
-
-
-    <!-- =========================================
-         POINTS + WALLET
-    ========================================== -->
-
-    <section class="profile-finance">
-
-      <a
-        href="ChapcyPoints.html"
-        class="finance-card points-card"
-      >
-
-        <div class="finance-icon">
-          <i class="fa-solid fa-star"></i>
-        </div>
-
-
-        <div class="finance-content">
-
-          <span>
-            CHAPCY POINTS
-          </span>
-
-          <strong>
-
-            <span id="pointsBalance">
-              0
-            </span>
-
-            <small>
-              PTS
-            </small>
-
-          </strong>
+          <div>
+            <span>CHAPCY Wallet</span>
+            <small>Your available balance</small>
+          </div>
 
         </div>
-
-
-        <i class="fa-solid fa-chevron-right finance-arrow"></i>
-
-      </a>
-
-
-      <a
-        href="Wallet.html"
-        class="finance-card wallet-card"
-      >
-
-        <div class="finance-icon">
-          <i class="fa-solid fa-wallet"></i>
-        </div>
-
-
-        <div class="finance-content">
-
-          <span>
-            CHAPCY WALLET
-          </span>
-
-          <strong id="walletAmount">
-            TZS 0
-          </strong>
-
-        </div>
-
-
-        <i class="fa-solid fa-chevron-right finance-arrow"></i>
-
-      </a>
-
-    </section>
-
-
-    <!-- =========================================
-         PROFILE TABS
-    ========================================== -->
-
-    <nav class="profile-tabs">
-
-      <button
-        class="profile-tab active"
-        data-tab="videos"
-        type="button"
-      >
-
-        <i class="fa-solid fa-play"></i>
-
-        <span>Videos</span>
-
-      </button>
-
-
-      <button
-        class="profile-tab"
-        data-tab="posts"
-        type="button"
-      >
-
-        <i class="fa-solid fa-table-cells"></i>
-
-        <span>Posts</span>
-
-      </button>
-
-
-      <button
-        class="profile-tab"
-        data-tab="liked"
-        type="button"
-      >
-
-        <i class="fa-regular fa-heart"></i>
-
-        <span>Liked</span>
-
-      </button>
-
-    </nav>
-
-
-    <!-- =========================================
-         CONTENT
-    ========================================== -->
-
-    <section class="profile-content">
-
-
-      <!-- CONTENT HEADER -->
-
-      <div class="content-heading">
-
-        <div>
-
-          <h2 id="contentTitle">
-            Your Videos
-          </h2>
-
-          <span id="contentSubtitle">
-            Videos posted on CHAPCY
-          </span>
-
-        </div>
-
 
         <button
-          class="create-btn"
-          id="createContentBtn"
+          class="wallet-more"
+          id="walletMoreBtn"
           type="button"
         >
-
-          <i class="fa-solid fa-plus"></i>
-
-          <span>Create</span>
-
+          <i class="fa-solid fa-ellipsis"></i>
         </button>
 
       </div>
 
 
-      <!-- LOADING -->
+      <div class="wallet-balance">
 
-      <div
-        class="content-loading"
-        id="contentLoading"
-      >
+        <small>Available Balance</small>
 
-        <div class="loading-spinner"></div>
+        <h2>
+          <span id="walletCurrency">TZS</span>
+          <strong id="walletBalance">0</strong>
+        </h2>
 
-        <span>
-          Loading CHAPCY content...
-        </span>
+      </div>
+
+
+      <div class="wallet-actions">
+
+        <button
+          class="wallet-action add-money"
+          id="addMoneyBtn"
+          type="button"
+        >
+          <i class="fa-solid fa-plus"></i>
+          <span>Add Money</span>
+        </button>
+
+        <button
+          class="wallet-action withdraw-money"
+          id="withdrawBtn"
+          type="button"
+        >
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          <span>Withdraw</span>
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- CONTENT -->
+    <section class="profile-content">
+
+      <!-- TABS -->
+      <div class="profile-tabs">
+
+        <button
+          class="profile-tab active"
+          data-tab="videos"
+          type="button"
+        >
+          <i class="fa-solid fa-video"></i>
+          <span>Videos</span>
+        </button>
+
+        <button
+          class="profile-tab"
+          data-tab="liked"
+          type="button"
+        >
+          <i class="fa-regular fa-heart"></i>
+          <span>Liked</span>
+        </button>
+
+        <button
+          class="profile-tab"
+          data-tab="saved"
+          type="button"
+        >
+          <i class="fa-regular fa-bookmark"></i>
+          <span>Saved</span>
+        </button>
 
       </div>
 
 
       <!-- VIDEOS -->
-
       <div
-        class="video-grid"
-        id="userVideos"
-      ></div>
-
-
-      <!-- EMPTY STATE -->
-
-      <div
-        class="content-empty"
-        id="contentEmpty"
-        hidden
+        class="profile-tab-content active"
+        id="videosTab"
       >
 
-        <div class="empty-icon">
+        <div
+          class="videos-grid"
+          id="userVideosGrid"
+        >
+          <!-- Firebase videos will appear here -->
+        </div>
 
-          <i class="fa-solid fa-video"></i>
+        <div
+          class="empty-profile-content"
+          id="emptyVideos"
+        >
+
+          <div class="empty-icon">
+            <i class="fa-solid fa-video-slash"></i>
+          </div>
+
+          <h3>No videos yet</h3>
+
+          <p>
+            Your CHAPCY videos will appear here.
+          </p>
+
+          <button
+            id="createVideoBtn"
+            type="button"
+          >
+            <i class="fa-solid fa-plus"></i>
+            Create Video
+          </button>
 
         </div>
 
-        <h3>
-          No videos yet
-        </h3>
+      </div>
 
-        <p>
-          Your CHAPCY videos will appear here.
-        </p>
+
+      <!-- LIKED -->
+      <div
+        class="profile-tab-content"
+        id="likedTab"
+      >
+
+        <div class="empty-profile-content">
+
+          <div class="empty-icon">
+            <i class="fa-regular fa-heart"></i>
+          </div>
+
+          <h3>No liked videos</h3>
+
+          <p>
+            Videos you like will appear here.
+          </p>
+
+        </div>
 
       </div>
 
+
+      <!-- SAVED -->
+      <div
+        class="profile-tab-content"
+        id="savedTab"
+      >
+
+        <div class="empty-profile-content">
+
+          <div class="empty-icon">
+            <i class="fa-regular fa-bookmark"></i>
+          </div>
+
+          <h3>No saved videos</h3>
+
+          <p>
+            Videos you save will appear here.
+          </p>
+
+        </div>
+
+      </div>
 
     </section>
 
   </main>
 
 
-  <!-- =========================================
-       JAVASCRIPT
-  ========================================== -->
+  <!-- EDIT PROFILE MODAL -->
+  <div
+    class="profile-modal"
+    id="editProfileModal"
+    aria-hidden="true"
+  >
 
-  <script src="Accprofile.js"></script>
+    <div class="modal-backdrop"></div>
+
+    <div class="edit-profile-box">
+
+      <div class="modal-header">
+
+        <div>
+          <h2>Edit Profile</h2>
+          <p>Update your CHAPCY profile</p>
+        </div>
+
+        <button
+          id="closeEditProfile"
+          type="button"
+        >
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+
+      </div>
+
+
+      <form id="editProfileForm">
+
+        <div class="edit-photo">
+
+          <img
+            id="editProfileImage"
+            src="file_00000000b0d8820a998b33ad9cf233cb.png"
+            alt="Profile"
+          >
+
+          <label
+            for="profilePhotoInput"
+            class="change-photo-btn"
+          >
+            <i class="fa-solid fa-camera"></i>
+          </label>
+
+          <input
+            type="file"
+            id="profilePhotoInput"
+            accept="image/*"
+            hidden
+          >
+
+        </div>
+
+
+        <label>
+          Display Name
+
+          <input
+            type="text"
+            id="editDisplayName"
+            maxlength="40"
+            placeholder="Your name"
+          >
+        </label>
+
+
+        <label>
+          Username
+
+          <div class="username-input">
+            <span>@</span>
+
+            <input
+              type="text"
+              id="editUsername"
+              maxlength="30"
+              placeholder="username"
+            >
+          </div>
+
+        </label>
+
+
+        <label>
+          Bio
+
+          <textarea
+            id="editBio"
+            maxlength="160"
+            rows="4"
+            placeholder="Tell people about yourself..."
+          ></textarea>
+
+          <small id="bioCounter">
+            0 / 160
+          </small>
+        </label>
+
+
+        <button
+          class="save-profile-btn"
+          id="saveProfileBtn"
+          type="submit"
+        >
+          <i class="fa-solid fa-check"></i>
+          Save Changes
+        </button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+  <!-- TOAST -->
+  <div
+    class="profile-toast"
+    id="profileToast"
+  >
+    <i class="fa-solid fa-check"></i>
+    <span id="toastMessage">Done</span>
+  </div>
+
+
+  <!-- Firebase / Profile JS -->
+  <script type="module" src="Accprofile.js"></script>
 
 </body>
-</html>
+            </html>
