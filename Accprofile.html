@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>CHAPCY — Profile</title>
+
+  <link rel="stylesheet" href="profile.css">
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+</head>
+
+<body>
+
+  <!-- BACKGROUND -->
+  <img
+    src="file_00000000b3448243aebfedfba8912525.png"
+    class="profile-background"
+    alt="CHAPCY Background"
+  >
+
+  <main class="profile-page">
+
+    <!-- TOP BAR -->
+    <header class="profile-topbar">
+
+      <a href="chapcy.html" class="back-btn">
+        <i class="fa-solid fa-arrow-left"></i>
+      </a>
+
+      <div class="profile-brand">
+
+        <img
+          src="file_000000004f547243bb0fa43d66db1edf.png"
+          alt="CHAPCY"
+        >
+
+        <div>
+          <strong>CHAPCY</strong>
+          <span>Worldwide Community 🌐</span>
+        </div>
+
+      </div>
+
+      <button class="top-icon">
+        <i class="fa-solid fa-ellipsis-vertical"></i>
+      </button>
+
+    </header>
+
+
+    <!-- PROFILE COVER -->
+    <section class="profile-cover">
+
+      <div class="cover-glow"></div>
+
+      <div class="cover-content">
+        <span>CHAPCY</span>
+        <small>Connect • Grow • Belong</small>
+      </div>
+
+    </section>
+
+
+    <!-- PROFILE HEADER -->
+    <section class="profile-header">
+
+      <div class="profile-photo-container">
+
+        <img
+          src="file_00000000b0d8820a998b33ad9cf233cb.png"
+          class="profile-photo"
+          id="profilePhoto"
+          alt="Profile"
+        >
+
+        <span class="profile-online"></span>
+
+      </div>
+
+
+      <div class="profile-actions">
+
+        <button class="edit-profile-btn">
+          <i class="fa-solid fa-pen"></i>
+          Edit Profile
+        </button>
+
+        <button class="settings-btn">
+          <i class="fa-solid fa-gear"></i>
+        </button>
+
+      </div>
+
+
+      <div class="profile-information">
+
+        <h1>
+          CHAPCY User
+          <span class="verified">
+            <i class="fa-solid fa-check"></i>
+          </span>
+        </h1>
+
+        <p class="username">
+          @chapcyuser
+        </p>
+
+        <p class="bio">
+          Creator • Gamer • Music lover<br>
+          Building my world on CHAPCY 🌍
+        </p>
+
+        <div class="profile-meta">
+
+          <span>
+            <i class="fa-solid fa-location-dot"></i>
+            Tanzania
+          </span>
+
+          <span>
+            <i class="fa-regular fa-calendar"></i>
+            Joined CHAPCY
+          </span>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- PROFILE STATS -->
+    <section class="profile-stats">
+
+      <a href="#" class="profile-stat">
+
+        <strong id="followersCount">0</strong>
+
+        <span>Followers</span>
+
+      </a>
+
+
+      <a href="#" class="profile-stat">
+
+        <strong id="friendsCount">0</strong>
+
+        <span>Friends</span>
+
+      </a>
+
+
+      <a href="ChapcyPoints.html" class="profile-stat points-stat">
+
+        <strong id="profilePoints">0</strong>
+
+        <span>CHAPCY Points</span>
+
+      </a>
+
+
+      <a href="Wallet.html" class="profile-stat wallet-stat">
+
+        <strong id="walletBalance">TZS 0</strong>
+
+        <span>Wallet</span>
+
+      </a>
+
+    </section>
+
+
+    <!-- POINTS + WALLET -->
+    <section class="profile-finance">
+
+      <a href="ChapcyPoints.html" class="finance-card points-card">
+
+        <div class="finance-icon">
+          <i class="fa-solid fa-star"></i>
+        </div>
+
+        <div class="finance-info">
+
+          <span>CHAPCY POINTS</span>
+
+          <strong>
+            <span id="pointsBalance">0</span>
+            <small>PTS</small>
+          </strong>
+
+        </div>
+
+        <i class="fa-solid fa-chevron-right finance-arrow"></i>
+
+      </a>
+
+
+      <a href="Wallet.html" class="finance-card wallet-card">
+
+        <div class="finance-icon">
+          <i class="fa-solid fa-wallet"></i>
+        </div>
+
+        <div class="finance-info">
+
+          <span>CHAPCY WALLET</span>
+
+          <strong id="walletAmount">
+            TZS 0
+          </strong>
+
+        </div>
+
+        <i class="fa-solid fa-chevron-right finance-arrow"></i>
+
+      </a>
+
+    </section>
+
+
+    <!-- PROFILE TABS -->
+    <nav class="profile-tabs">
+
+      <button class="profile-tab active">
+        <i class="fa-solid fa-play"></i>
+        Videos
+      </button>
+
+      <button class="profile-tab">
+        <i class="fa-solid fa-table-cells"></i>
+        Posts
+      </button>
+
+      <button class="profile-tab">
+        <i class="fa-regular fa-heart"></i>
+        Liked
+      </button>
+
+    </nav>
+
+
+    <!-- VIDEOS -->
+    <section class="profile-content">
+
+      <div class="content-heading">
+
+        <div>
+          <h2>Your Videos</h2>
+          <span>Videos posted on CHAPCY</span>
+        </div>
+
+        <button class="upload-btn">
+          <i class="fa-solid fa-plus"></i>
+          Create
+        </button>
+
+      </div>
+
+
+      <div class="video-grid" id="userVideos">
+
+        <!-- FIREBASE VIDEOS ZITAINGIA HAPA -->
+
+        <article class="video-card">
+
+          <div class="video-preview">
+
+            <img
+              src="file_00000000b3448243aebfedfba8912525.png"
+              alt="Video"
+            >
+
+            <span class="video-play">
+              <i class="fa-solid fa-play"></i>
+            </span>
+
+            <span class="video-duration">
+              0:45
+            </span>
+
+            <span class="video-views">
+              <i class="fa-solid fa-play"></i>
+              0
+            </span>
+
+          </div>
+
+          <div class="video-info">
+            <span>My first CHAPCY video</span>
+            <i class="fa-solid fa-ellipsis-vertical"></i>
+          </div>
+
+        </article>
+
+
+        <article class="video-card">
+
+          <div class="video-preview">
+
+            <img
+              src="file_00000000b3448243aebfedfba8912525.png"
+              alt="Video"
+            >
+
+            <span class="video-play">
+              <i class="fa-solid fa-play"></i>
+            </span>
+
+            <span class="video-duration">
+              1:02
+            </span>
+
+            <span class="video-views">
+              <i class="fa-solid fa-play"></i>
+              0
+            </span>
+
+          </div>
+
+          <div class="video-info">
+            <span>Good vibes only</span>
+            <i class="fa-solid fa-ellipsis-vertical"></i>
+          </div>
+
+        </article>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <script src="profile.js"></script>
+
+</body>
+  </html>
