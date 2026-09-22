@@ -2,11 +2,6 @@
 <html lang="en">
 
 <head>
-
-    <!-- =====================================================
-         BASIC
-    ====================================================== -->
-
     <meta charset="UTF-8">
 
     <meta
@@ -21,26 +16,18 @@
 
     <meta
         name="description"
-        content="CHAPCY Worldwide Live Chat - Verify your phone number"
+        content="CHAPCY Worldwide Live Chat - Secure phone verification"
     >
 
     <title>CHAPCY — Verify Phone</title>
 
 
-    <!-- =====================================================
+    <!-- ==============================
          GOOGLE FONT
-    ====================================================== -->
+    =============================== -->
 
-    <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com"
-    >
-
-    <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin
-    >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
@@ -48,9 +35,9 @@
     >
 
 
-    <!-- =====================================================
+    <!-- ==============================
          FONT AWESOME
-    ====================================================== -->
+    =============================== -->
 
     <link
         rel="stylesheet"
@@ -58,9 +45,9 @@
     >
 
 
-    <!-- =====================================================
+    <!-- ==============================
          CHAPCY OTP CSS
-    ====================================================== -->
+    =============================== -->
 
     <link
         rel="stylesheet"
@@ -73,18 +60,19 @@
 <body>
 
 
-    <!-- =====================================================
-         BACKGROUND EFFECTS
-    ====================================================== -->
+    <!-- ==============================
+         BACKGROUND
+    =============================== -->
 
-    <div class="background-effects">
+    <div
+        class="background-effects"
+        aria-hidden="true"
+    >
 
         <div class="stars"></div>
 
         <div class="glow glow-one"></div>
-
         <div class="glow glow-two"></div>
-
         <div class="glow glow-three"></div>
 
         <div class="particles">
@@ -103,48 +91,63 @@
         </div>
 
         <div class="planet planet-one"></div>
-
         <div class="planet planet-two"></div>
 
     </div>
 
 
-    <!-- =====================================================
+    <!-- ==============================
          OTP PAGE
-    ====================================================== -->
+    =============================== -->
 
     <main class="otp-page">
 
 
-        <!-- =================================================
+        <!-- ==========================
              OTP CARD
-        ================================================== -->
+        =========================== -->
 
         <section
             class="otp-card"
             id="otpCard"
+            aria-labelledby="otpTitle"
         >
 
 
-            <!-- =============================================
-                 BACK BUTTON
-            ============================================== -->
+            <!-- ======================
+                 TOP BAR
+            ======================= -->
 
-            <button
-                class="back-btn"
-                id="backBtn"
-                type="button"
-                aria-label="Go back"
-            >
+            <div class="otp-topbar">
 
-                <i class="fa-solid fa-arrow-left"></i>
+                <button
+                    class="back-btn"
+                    id="backBtn"
+                    type="button"
+                    aria-label="Go back"
+                >
 
-            </button>
+                    <i class="fa-solid fa-arrow-left"></i>
+
+                </button>
 
 
-            <!-- =============================================
+                <div class="secure-status">
+
+                    <span class="secure-dot"></span>
+
+                    <span>
+                        Secure verification
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- ======================
                  BRAND
-            ============================================== -->
+            ======================= -->
 
             <div class="brand">
 
@@ -154,18 +157,25 @@
 
                 </div>
 
+
                 <div class="brand-name">
 
-                    <span>CHAPCY</span>
+                    <strong>
+                        CHAPCY
+                    </strong>
+
+                    <span>
+                        Worldwide Community
+                    </span>
 
                 </div>
 
             </div>
 
 
-            <!-- =============================================
-                 PHONE VERIFICATION ICON
-            ============================================== -->
+            <!-- ======================
+                 VERIFICATION ICON
+            ======================= -->
 
             <div class="verification-icon">
 
@@ -184,19 +194,30 @@
             </div>
 
 
-            <!-- =============================================
+            <!-- ======================
                  HEADER
-            ============================================== -->
+            ======================= -->
 
-            <div class="otp-header">
+            <header class="otp-header">
 
-                <h1>
+                <div class="eyebrow">
+
+                    <i class="fa-solid fa-shield-halved"></i>
+
+                    PHONE VERIFICATION
+
+                </div>
+
+
+                <h1 id="otpTitle">
                     Verify Your Number
                 </h1>
+
 
                 <p>
                     We sent a verification code to
                 </p>
+
 
                 <div
                     class="phone-number"
@@ -204,6 +225,7 @@
                 >
                     +255 ••••••••••
                 </div>
+
 
                 <button
                     class="change-number-btn"
@@ -217,26 +239,27 @@
 
                 </button>
 
-            </div>
+            </header>
 
 
-            <!-- =============================================
+            <!-- ======================
                  OTP FORM
-            ============================================== -->
+            ======================= -->
 
             <form
                 id="otpForm"
                 autocomplete="one-time-code"
+                novalidate
             >
 
 
-                <!-- =========================================
-                     OTP INPUTS
-                ========================================== -->
+                <!-- OTP INPUTS -->
 
                 <div
                     class="otp-input-container"
                     id="otpInputContainer"
+                    role="group"
+                    aria-label="Verification code"
                 >
 
                     <input
@@ -246,6 +269,7 @@
                         inputmode="numeric"
                         autocomplete="one-time-code"
                         maxlength="1"
+                        pattern="[0-9]"
                         aria-label="OTP digit 1"
                     >
 
@@ -255,6 +279,7 @@
                         class="otp-input"
                         inputmode="numeric"
                         maxlength="1"
+                        pattern="[0-9]"
                         aria-label="OTP digit 2"
                     >
 
@@ -264,6 +289,7 @@
                         class="otp-input"
                         inputmode="numeric"
                         maxlength="1"
+                        pattern="[0-9]"
                         aria-label="OTP digit 3"
                     >
 
@@ -273,6 +299,7 @@
                         class="otp-input"
                         inputmode="numeric"
                         maxlength="1"
+                        pattern="[0-9]"
                         aria-label="OTP digit 4"
                     >
 
@@ -282,6 +309,7 @@
                         class="otp-input"
                         inputmode="numeric"
                         maxlength="1"
+                        pattern="[0-9]"
                         aria-label="OTP digit 5"
                     >
 
@@ -291,15 +319,14 @@
                         class="otp-input"
                         inputmode="numeric"
                         maxlength="1"
+                        pattern="[0-9]"
                         aria-label="OTP digit 6"
                     >
 
                 </div>
 
 
-                <!-- =========================================
-                     ERROR
-                ========================================== -->
+                <!-- ERROR -->
 
                 <div
                     class="otp-error"
@@ -318,9 +345,7 @@
                 </div>
 
 
-                <!-- =========================================
-                     VERIFY BUTTON
-                ========================================== -->
+                <!-- VERIFY BUTTON -->
 
                 <button
                     class="verify-btn"
@@ -345,13 +370,12 @@
 
                 </button>
 
-
             </form>
 
 
-            <!-- =============================================
+            <!-- ======================
                  RESEND
-            ============================================== -->
+            ======================= -->
 
             <div
                 class="resend-area"
@@ -361,6 +385,7 @@
                 <p>
                     Didn't receive the code?
                 </p>
+
 
                 <button
                     class="resend-btn"
@@ -374,6 +399,7 @@
                     Resend code
 
                 </button>
+
 
                 <div
                     class="resend-timer"
@@ -391,13 +417,18 @@
             </div>
 
 
-            <!-- =============================================
-                 SECURITY NOTE
-            ============================================== -->
+            <!-- ======================
+                 SECURITY
+            ======================= -->
 
             <div class="security-note">
 
-                <i class="fa-solid fa-shield-halved"></i>
+                <div class="security-icon">
+
+                    <i class="fa-solid fa-lock"></i>
+
+                </div>
+
 
                 <div>
 
@@ -406,8 +437,8 @@
                     </strong>
 
                     <p>
-                        Your verification code is private
-                        and should not be shared with anyone.
+                        Never share your verification
+                        code with anyone.
                     </p>
 
                 </div>
@@ -415,9 +446,9 @@
             </div>
 
 
-            <!-- =============================================
-                 SUCCESS SECTION
-            ============================================== -->
+            <!-- ======================
+                 SUCCESS
+            ======================= -->
 
             <section
                 class="otp-success"
@@ -431,14 +462,17 @@
 
                 </div>
 
+
                 <h2>
                     Number Verified!
                 </h2>
 
+
                 <p>
-                    Your phone number has been successfully
-                    verified.
+                    Your phone number has been
+                    successfully verified.
                 </p>
+
 
                 <div
                     class="verified-phone"
@@ -446,6 +480,7 @@
                 >
                     +255 ••••••••••
                 </div>
+
 
                 <button
                     class="enter-chapcy-btn"
@@ -462,19 +497,20 @@
             </section>
 
 
-            <!-- =============================================
+            <!-- ======================
                  FOOTER
-            ============================================== -->
+            ======================= -->
 
             <footer class="otp-footer">
 
                 <p>
 
-                    <i class="fa-solid fa-lock"></i>
+                    <i class="fa-solid fa-shield-halved"></i>
 
                     Protected by CHAPCY Security
 
                 </p>
+
 
                 <span>
                     © 2026 CHAPCY Worldwide Live Chat
@@ -488,11 +524,9 @@
     </main>
 
 
-    <!-- =====================================================
-         FIREBASE RECAPTCHA CONTAINER
-         
-         JavaScript will control this automatically.
-    ====================================================== -->
+    <!-- ==============================
+         FIREBASE RECAPTCHA
+    =============================== -->
 
     <div
         id="recaptcha-container"
@@ -500,13 +534,9 @@
     ></div>
 
 
-    <!-- =====================================================
-         CHAPCY OTP JAVASCRIPT
-         
-         IMPORTANT:
-         Do NOT put Firebase JS inside this HTML.
-         Everything is inside Mychatotp.js
-    ====================================================== -->
+    <!-- ==============================
+         OTP JAVASCRIPT
+    =============================== -->
 
     <script
         type="module"
