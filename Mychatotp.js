@@ -1,6 +1,7 @@
 /* =========================================================
    CHAPCY — MYCHAT OTP
    Firebase Phone Authentication
+   XAMPP + PHP + MySQL READY
    ========================================================= */
 
 import {
@@ -41,81 +42,92 @@ const auth = getAuth(app);
 
 
 /* =========================================================
-   DOM ELEMENTS
+   DOM
    ========================================================= */
 
-const phoneNumberEl =
-    document.getElementById("phoneNumber");
+const otpCard =
+    document.getElementById("otpCard");
+
+const otpSuccess =
+    document.getElementById("otpSuccess");
+
+const otpPhoneNumber =
+    document.getElementById("otpPhoneNumber");
 
 const changeNumberBtn =
-    document.getElementById("changeNumber");
+    document.getElementById("changeNumberBtn");
+
+const otpForm =
+    document.getElementById("otpForm");
 
 const otpInputs =
     document.querySelectorAll(".otp-input");
 
+const otpError =
+    document.getElementById("otpError");
+
+const otpErrorText =
+    document.getElementById("otpErrorText");
+
 const verifyBtn =
     document.getElementById("verifyBtn");
+
+const verifyText =
+    document.getElementById("verifyText");
+
+const verifyArrow =
+    document.getElementById("verifyArrow");
+
+const verifyLoader =
+    document.getElementById("verifyLoader");
 
 const resendBtn =
     document.getElementById("resendBtn");
 
-const resendTimer =
-    document.getElementById("resendTimer");
+const timer =
+    document.getElementById("timer");
 
-const otpError =
-    document.getElementById("otpError");
-
-const otpCard =
-    document.querySelector(".otp-card");
-
-const successSection =
-    document.getElementById("successSection");
+const verifiedPhone =
+    document.getElementById("verifiedPhone");
 
 const enterChapcyBtn =
-    document.getElementById("enterChapcy");
+    document.getElementById("enterChapcyBtn");
+
+const backBtn =
+    document.getElementById("backBtn");
 
 const recaptchaContainer =
     document.getElementById("recaptcha-container");
 
 
 /* =========================================================
-   SESSION STORAGE
+   SESSION DATA
    ========================================================= */
 
 let phoneNumber =
-    sessionStorage.getItem(
-        "chapcyPendingPhone"
-    );
+    sessionStorage.getItem("chapcyPendingPhone");
 
 let verificationId =
-    sessionStorage.getItem(
-        "chapcyVerificationId"
-    );
+    sessionStorage.getItem("chapcyVerificationId");
 
 let countryName =
-    sessionStorage.getItem(
-        "chapcyCountryName"
-    ) || "Tanzania";
+    sessionStorage.getItem("chapcyCountryName") ||
+    "Tanzania";
 
 let countryCode =
-    sessionStorage.getItem(
-        "chapcyCountryCode"
-    ) || "+255";
+    sessionStorage.getItem("chapcyCountryCode") ||
+    "+255";
 
 let countryFlag =
-    sessionStorage.getItem(
-        "chapcyCountryFlag"
-    ) || "🇹🇿";
+    sessionStorage.getItem("chapcyCountryFlag") ||
+    "🇹🇿";
 
 
 /* =========================================================
-   CHECK OTP SESSION
+   CHECK SESSION
    ========================================================= */
 
-if (
-    !phoneNumber ||
-    !verificationId
-) {
+if (!phoneNumber || !verificationId) {
 
     console.warn(
         "CHAPCY: OTP session missing."
@@ -123,20 +135,58 @@ if (
 
     window.location.href =
         "Mychatregister.html";
+
 }
 
 
 /* =========================================================
-   DISPLAY PHONE NUMBER
+   DISPLAY PHONE
    ========================================================= */
 
-if (
-    phoneNumberEl &&
-    phoneNumber
-) {
+if (otpPhoneNumber && phoneNumber) {
 
-    phoneNumberEl.textContent =
+    otpPhoneNumber.textContent =
         phoneNumber;
+
+}
+
+
+/* =========================================================
+   ERROR
+   ========================================================= */
+
+function showError(message) {
+
+    if (!otpError) return;
+
+    if (otpErrorText) {
+
+        otpErrorText.textContent =
+            message;
+
+    } else {
+
+        otpError.textContent =
+            message;
+
+    }
+
+    otpError.hidden = false;
+    otpError.classList.add("show");
+
+}
+
+
+function hideError() {
+
+    if (!otpError) return;
+
+    if (otpErrorText) {
+        otpErrorText.textContent = "";
+    }
+
+    otpError.classList.remove("show");
+    otpError.hidden = true;
 
 }
 
@@ -145,210 +195,178 @@ if (
    OTP INPUT
    ========================================================= */
 
-otpInputs.forEach(
-    (input, index) => {
+otpInputs.forEach((input, index) => {
 
-        /* ---------------------------------------------
-           INPUT
-        --------------------------------------------- */
+    input.addEventListener("input", event => {
 
-        input.addEventListener(
-            "input",
-            (event) => {
+        let value =
+            event.target.value
+                .replace(/\D/g, "")
+                .slice(0, 1);
 
-                let value =
-                    event.target.value
-                        .replace(/\D/g, "");
+        event.target.value =
+            value;
 
-                value =
-                    value.substring(0, 1);
+        if (value) {
 
-                event.target.value =
-                    value;
+            input.classList.add("filled");
 
+            if (
+                index <
+                otpInputs.length - 1
+            ) {
 
-                if (value) {
-
-                    input.classList.add(
-                        "filled"
-                    );
-
-                    if (
-                        index <
-                        otpInputs.length - 1
-                    ) {
-
-                        otpInputs[
-                            index + 1
-                        ].focus();
-
-                    }
-
-                } else {
-
-                    input.classList.remove(
-                        "filled"
-                    );
-
-                }
-
-
-                hideError();
+                otpInputs[index + 1].focus();
 
             }
-        );
+
+        } else {
+
+            input.classList.remove("filled");
+
+        }
+
+        hideError();
+
+        /* AUTO VERIFY */
+
+        if (
+            getOTPCode().length === 6
+        ) {
+
+            setTimeout(() => {
+                verifyOTP();
+            }, 250);
+
+        }
+
+    });
 
 
-        /* ---------------------------------------------
-           BACKSPACE
-        --------------------------------------------- */
+    input.addEventListener("keydown", event => {
 
-        input.addEventListener(
-            "keydown",
-            (event) => {
+        if (
+            event.key === "Backspace" &&
+            !input.value &&
+            index > 0
+        ) {
 
-                if (
-                    event.key ===
-                    "Backspace" &&
-                    !input.value &&
-                    index > 0
-                ) {
+            otpInputs[index - 1].focus();
 
-                    otpInputs[
-                        index - 1
-                    ].focus();
-
-                }
-
-            }
-        );
+        }
 
 
-        /* ---------------------------------------------
-           ARROW LEFT
-        --------------------------------------------- */
+        if (
+            event.key === "ArrowLeft" &&
+            index > 0
+        ) {
 
-        input.addEventListener(
-            "keydown",
-            (event) => {
+            otpInputs[index - 1].focus();
 
-                if (
-                    event.key ===
-                    "ArrowLeft" &&
-                    index > 0
-                ) {
-
-                    otpInputs[
-                        index - 1
-                    ].focus();
-
-                }
-
-            }
-        );
+        }
 
 
-        /* ---------------------------------------------
-           ARROW RIGHT
-        --------------------------------------------- */
+        if (
+            event.key === "ArrowRight" &&
+            index <
+            otpInputs.length - 1
+        ) {
 
-        input.addEventListener(
-            "keydown",
-            (event) => {
+            otpInputs[index + 1].focus();
 
-                if (
-                    event.key ===
-                    "ArrowRight" &&
-                    index <
-                    otpInputs.length - 1
-                ) {
+        }
 
-                    otpInputs[
-                        index + 1
-                    ].focus();
+    });
+
+
+    /* PASTE OTP */
+
+    input.addEventListener("paste", event => {
+
+        event.preventDefault();
+
+        const pasted =
+            event.clipboardData
+                .getData("text")
+                .replace(/\D/g, "")
+                .slice(0, 6);
+
+        pasted.split("").forEach(
+            (digit, i) => {
+
+                if (otpInputs[i]) {
+
+                    otpInputs[i].value =
+                        digit;
+
+                    otpInputs[i]
+                        .classList
+                        .add("filled");
 
                 }
 
             }
         );
 
+        if (pasted.length === 6) {
 
-        /* ---------------------------------------------
-           PASTE OTP
-        --------------------------------------------- */
+            otpInputs[5].focus();
 
-        input.addEventListener(
-            "paste",
-            (event) => {
+            setTimeout(() => {
+                verifyOTP();
+            }, 250);
 
-                event.preventDefault();
+        }
 
-                const pasted =
-                    event.clipboardData
-                        .getData("text")
-                        .replace(/\D/g, "")
-                        .substring(0, 6);
+    });
 
-
-                pasted
-                    .split("")
-                    .forEach(
-                        (digit, i) => {
-
-                            if (
-                                otpInputs[i]
-                            ) {
-
-                                otpInputs[i]
-                                    .value =
-                                    digit;
-
-                                otpInputs[i]
-                                    .classList
-                                    .add(
-                                        "filled"
-                                    );
-
-                            }
-
-                        }
-                    );
-
-
-                if (
-                    pasted.length === 6
-                ) {
-
-                    otpInputs[5]
-                        .focus();
-
-                }
-
-            }
-        );
-
-    }
-);
+});
 
 
 /* =========================================================
-   GET OTP CODE
+   GET OTP
    ========================================================= */
 
 function getOTPCode() {
 
-    let code = "";
+    return Array.from(otpInputs)
+        .map(input => input.value)
+        .join("");
 
-    otpInputs.forEach(
-        (input) => {
+}
 
-            code +=
-                input.value;
 
-        }
-    );
+/* =========================================================
+   VERIFY LOADING
+   ========================================================= */
 
-    return code;
+function setVerifyLoading(loading) {
+
+    if (!verifyBtn) return;
+
+    verifyBtn.disabled =
+        loading;
+
+    if (verifyText) {
+
+        verifyText.style.display =
+            loading ? "none" : "inline";
+
+    }
+
+    if (verifyArrow) {
+
+        verifyArrow.style.display =
+            loading ? "none" : "inline";
+
+    }
+
+    if (verifyLoader) {
+
+        verifyLoader.style.display =
+            loading ? "inline-flex" : "none";
+
+    }
 
 }
 
@@ -359,23 +377,23 @@ function getOTPCode() {
 
 async function verifyOTP() {
 
+    if (
+        verifyBtn &&
+        verifyBtn.disabled
+    ) {
+        return;
+    }
+
     const code =
         getOTPCode();
-
 
     hideError();
 
 
-    /* ---------------------------------------------
-       VALIDATE
-    --------------------------------------------- */
-
-    if (
-        code.length !== 6
-    ) {
+    if (code.length !== 6) {
 
         showError(
-            "Please enter the complete 6-digit code."
+            "Please enter the complete 6-digit verification code."
         );
 
         return;
@@ -383,26 +401,24 @@ async function verifyOTP() {
     }
 
 
-    /* ---------------------------------------------
-       LOADING
-    --------------------------------------------- */
+    if (!verificationId) {
+
+        showError(
+            "Your verification session has expired. Please request a new code."
+        );
+
+        return;
+
+    }
+
 
     setVerifyLoading(true);
 
 
     try {
 
-        if (!verificationId) {
-
-            throw new Error(
-                "Verification session expired."
-            );
-
-        }
-
-
         /* -----------------------------------------
-           CREATE PHONE CREDENTIAL
+           CREATE FIREBASE CREDENTIAL
         ----------------------------------------- */
 
         const credential =
@@ -413,7 +429,7 @@ async function verifyOTP() {
 
 
         /* -----------------------------------------
-           SIGN IN WITH PHONE
+           VERIFY PHONE
         ----------------------------------------- */
 
         const result =
@@ -428,7 +444,7 @@ async function verifyOTP() {
 
 
         console.log(
-            "CHAPCY USER:",
+            "CHAPCY Firebase user:",
             user
         );
 
@@ -465,22 +481,18 @@ async function verifyOTP() {
 
 
         /* -----------------------------------------
-           SAVE USER
+           LOCAL STORAGE
         ----------------------------------------- */
 
         localStorage.setItem(
             "chapcyUser",
-            JSON.stringify(
-                userData
-            )
+            JSON.stringify(userData)
         );
-
 
         localStorage.setItem(
             "chapcyRegistered",
             "true"
         );
-
 
         localStorage.setItem(
             "chapcyPhone",
@@ -488,12 +500,10 @@ async function verifyOTP() {
             phoneNumber
         );
 
-
         localStorage.setItem(
             "chapcyUID",
             user.uid
         );
-
 
         localStorage.setItem(
             "chapcyCountry",
@@ -501,8 +511,15 @@ async function verifyOTP() {
         );
 
 
+        /* =================================================
+           SEND VERIFIED USER TO XAMPP / PHP / MYSQL
+           ================================================= */
+
+        await saveUserToDatabase(userData);
+
+
         /* -----------------------------------------
-           VERIFIED
+           OTP VERIFIED
         ----------------------------------------- */
 
         sessionStorage.setItem(
@@ -512,7 +529,7 @@ async function verifyOTP() {
 
 
         /* -----------------------------------------
-           REMOVE PENDING DATA
+           CLEAN SESSION
         ----------------------------------------- */
 
         sessionStorage.removeItem(
@@ -528,7 +545,10 @@ async function verifyOTP() {
            SHOW SUCCESS
         ----------------------------------------- */
 
-        showSuccess();
+        showSuccess(
+            user.phoneNumber ||
+            phoneNumber
+        );
 
     }
 
@@ -539,66 +559,70 @@ async function verifyOTP() {
             error
         );
 
-
         let message =
-            "Invalid verification code. Please try again.";
+            "Unable to verify the code. Please try again.";
 
 
-        if (
-            error.code ===
-            "auth/invalid-verification-code"
-        ) {
+        switch (error.code) {
 
-            message =
-                "The verification code is incorrect.";
+            case "auth/invalid-verification-code":
+
+                message =
+                    "The verification code is incorrect.";
+
+                break;
+
+
+            case "auth/code-expired":
+
+                message =
+                    "This verification code has expired. Please request a new code.";
+
+                break;
+
+
+            case "auth/session-expired":
+
+                message =
+                    "Your verification session has expired. Please request a new code.";
+
+                break;
+
+
+            case "auth/too-many-requests":
+
+                message =
+                    "Too many verification attempts. Please wait and try again.";
+
+                break;
+
+
+            default:
+
+                if (
+                    error.message &&
+                    error.message.includes(
+                        "Failed to fetch"
+                    )
+                ) {
+
+                    message =
+                        "Unable to connect to the CHAPCY server.";
+
+                }
+
+                break;
 
         }
 
 
-        if (
-            error.code ===
-            "auth/code-expired"
-        ) {
-
-            message =
-                "This verification code has expired. Please request a new one.";
-
-        }
-
-
-        if (
-            error.code ===
-            "auth/session-expired"
-        ) {
-
-            message =
-                "Your verification session has expired. Please register again.";
-
-        }
-
-
-        if (
-            error.code ===
-            "auth/too-many-requests"
-        ) {
-
-            message =
-                "Too many attempts. Please wait and try again.";
-
-        }
-
-
-        showError(
-            message
-        );
+        showError(message);
 
     }
 
     finally {
 
-        setVerifyLoading(
-            false
-        );
+        setVerifyLoading(false);
 
     }
 
@@ -606,250 +630,181 @@ async function verifyOTP() {
 
 
 /* =========================================================
-   VERIFY BUTTON
+   VERIFY FORM
    ========================================================= */
+
+if (otpForm) {
+
+    otpForm.addEventListener(
+        "submit",
+        event => {
+
+            event.preventDefault();
+
+            verifyOTP();
+
+        }
+    );
+
+}
+
 
 if (verifyBtn) {
 
     verifyBtn.addEventListener(
         "click",
-        verifyOTP
+        event => {
+
+            event.preventDefault();
+
+            verifyOTP();
+
+        }
     );
 
 }
 
 
 /* =========================================================
-   AUTO VERIFY
+   SAVE USER TO XAMPP / MYSQL
    ========================================================= */
 
-otpInputs.forEach(
-    (input) => {
+async function saveUserToDatabase(userData) {
 
-        input.addEventListener(
-            "input",
-            () => {
+    /*
+       IMPORTANT:
 
-                if (
-                    getOTPCode()
-                        .length === 6
-                ) {
+       Change this URL if your XAMPP folder
+       has a different name.
 
-                    setTimeout(
-                        () => {
+       Example:
+       http://localhost/YOUR_FOLDER/verify-user.php
+    */
 
-                            verifyOTP();
-
-                        },
-                        300
-                    );
-
-                }
-
-            }
-        );
-
-    }
-);
+    const PHP_URL =
+        "http://localhost/chapcy/verify-user.php";
 
 
-/* =========================================================
-   RESEND VARIABLES
-   ========================================================= */
+    const formData =
+        new FormData();
 
-let resendSeconds = 60;
+    formData.append(
+        "uid",
+        userData.uid
+    );
 
-let resendInterval = null;
+    formData.append(
+        "phone",
+        userData.phoneNumber
+    );
 
-let resendRecaptcha = null;
+    formData.append(
+        "country",
+        userData.country
+    );
 
+    formData.append(
+        "country_code",
+        userData.countryCode
+    );
 
-/* =========================================================
-   RESEND OTP
-   ========================================================= */
-
-async function resendOTP() {
-
-    if (
-        resendSeconds > 0
-    ) {
-
-        return;
-
-    }
-
-
-    hideError();
-
-    setResendLoading(
-        true
+    formData.append(
+        "country_flag",
+        userData.countryFlag
     );
 
 
+    const response =
+        await fetch(
+            PHP_URL,
+            {
+                method: "POST",
+                body: formData
+            }
+        );
+
+
+    const responseText =
+        await response.text();
+
+
+    console.log(
+        "PHP RESPONSE:",
+        responseText
+    );
+
+
+    let data;
+
     try {
 
-        /* -----------------------------------------
-           CLEAR OLD RECAPTCHA
-        ----------------------------------------- */
-
-        if (
-            resendRecaptcha
-        ) {
-
-            try {
-
-                resendRecaptcha.clear();
-
-            } catch (error) {
-
-                console.log(
-                    "reCAPTCHA clear:",
-                    error
-                );
-
-            }
-
-            resendRecaptcha =
-                null;
-
-        }
-
-
-        /* -----------------------------------------
-           CREATE NEW RECAPTCHA
-        ----------------------------------------- */
-
-        resendRecaptcha =
-            new RecaptchaVerifier(
-                auth,
-                "recaptcha-container",
-                {
-                    size: "invisible",
-
-                    callback: () => {
-
-                        console.log(
-                            "CHAPCY reCAPTCHA solved."
-                        );
-
-                    },
-
-                    "expired-callback": () => {
-
-                        console.log(
-                            "CHAPCY reCAPTCHA expired."
-                        );
-
-                    }
-                }
-            );
-
-
-        /* -----------------------------------------
-           SEND NEW OTP
-        ----------------------------------------- */
-
-        const confirmationResult =
-            await signInWithPhoneNumber(
-                auth,
-                phoneNumber,
-                resendRecaptcha
-            );
-
-
-        /* -----------------------------------------
-           UPDATE VERIFICATION ID
-        ----------------------------------------- */
-
-        verificationId =
-            confirmationResult
-                .verificationId;
-
-
-        sessionStorage.setItem(
-            "chapcyVerificationId",
-            verificationId
-        );
-
-
-        /* -----------------------------------------
-           CLEAR INPUTS
-        ----------------------------------------- */
-
-        otpInputs.forEach(
-            (input) => {
-
-                input.value = "";
-
-                input.classList.remove(
-                    "filled"
-                );
-
-            }
-        );
-
-
-        /* -----------------------------------------
-           FOCUS FIRST INPUT
-        ----------------------------------------- */
-
-        if (
-            otpInputs.length
-        ) {
-
-            otpInputs[0]
-                .focus();
-
-        }
-
-
-        /* -----------------------------------------
-           START TIMER
-        ----------------------------------------- */
-
-        startResendTimer();
-
-
-        showTemporaryMessage(
-            "A new verification code has been sent."
-        );
+        data =
+            JSON.parse(responseText);
 
     }
 
     catch (error) {
 
         console.error(
-            "CHAPCY RESEND ERROR:",
-            error
+            "PHP returned invalid JSON:",
+            responseText
         );
 
-
-        let message =
-            "Unable to resend the code. Please try again.";
-
-
-        if (
-            error.code ===
-            "auth/too-many-requests"
-        ) {
-
-            message =
-                "Too many requests. Please wait before trying again.";
-
-        }
-
-
-        showError(
-            message
+        throw new Error(
+            "PHP server returned an invalid response."
         );
 
     }
 
-    finally {
 
-        setResendLoading(
-            false
+    if (!data.success) {
+
+        throw new Error(
+            data.message ||
+            "Unable to save user."
         );
+
+    }
+
+
+    return data;
+
+}
+
+
+/* =========================================================
+   SUCCESS
+   ========================================================= */
+
+function showSuccess(phone) {
+
+    if (otpCard) {
+
+        otpCard.style.display =
+            "none";
+
+    }
+
+
+    if (otpSuccess) {
+
+        otpSuccess.hidden =
+            false;
+
+        otpSuccess.style.display =
+            "block";
+
+        otpSuccess.classList.add(
+            "show"
+        );
+
+    }
+
+
+    if (verifiedPhone) {
+
+        verifiedPhone.textContent =
+            phone;
 
     }
 
@@ -857,128 +812,29 @@ async function resendOTP() {
 
 
 /* =========================================================
-   RESEND BUTTON
+   ENTER CHAPCY
    ========================================================= */
 
-if (resendBtn) {
+if (enterChapcyBtn) {
 
-    resendBtn.addEventListener(
+    enterChapcyBtn.addEventListener(
         "click",
-        resendOTP
-    );
+        () => {
 
-}
-
-
-/* =========================================================
-   RESEND TIMER
-   ========================================================= */
-
-function startResendTimer() {
-
-    resendSeconds =
-        60;
-
-
-    updateTimer();
-
-
-    clearInterval(
-        resendInterval
-    );
-
-
-    resendInterval =
-        setInterval(
-            () => {
-
-                resendSeconds--;
-
-                updateTimer();
-
-
-                if (
-                    resendSeconds <= 0
-                ) {
-
-                    clearInterval(
-                        resendInterval
-                    );
-
-                    resendInterval =
-                        null;
-
-                    if (
-                        resendBtn
-                    ) {
-
-                        resendBtn.disabled =
-                            false;
-
-                    }
-
-                }
-
-            },
-            1000
-        );
-
-}
-
-
-/* =========================================================
-   UPDATE TIMER UI
-   ========================================================= */
-
-function updateTimer() {
-
-    if (
-        resendTimer
-    ) {
-
-        if (
-            resendSeconds > 0
-        ) {
-
-            resendTimer.textContent =
-                `Resend code in ${resendSeconds}s`;
-
-        } else {
-
-            resendTimer.textContent =
-                "You can resend the code now.";
+            window.location.href =
+                "Mychat.html";
 
         }
-
-    }
-
-
-    if (
-        resendBtn
-    ) {
-
-        resendBtn.disabled =
-            resendSeconds > 0;
-
-    }
+    );
 
 }
-
-
-/* =========================================================
-   START TIMER
-   ========================================================= */
-
-startResendTimer();
 
 
 /* =========================================================
    CHANGE PHONE NUMBER
    ========================================================= */
 
-if (
-    changeNumberBtn
-) {
+if (changeNumberBtn) {
 
     changeNumberBtn.addEventListener(
         "click",
@@ -1019,51 +875,17 @@ if (
 
 
 /* =========================================================
-   SHOW SUCCESS
+   BACK BUTTON
    ========================================================= */
 
-function showSuccess() {
+if (backBtn) {
 
-    if (
-        otpCard
-    ) {
-
-        otpCard.style.display =
-            "none";
-
-    }
-
-
-    if (
-        successSection
-    ) {
-
-        successSection.classList.add(
-            "show"
-        );
-
-        successSection.style.display =
-            "block";
-
-    }
-
-}
-
-
-/* =========================================================
-   ENTER CHAPCY
-   ========================================================= */
-
-if (
-    enterChapcyBtn
-) {
-
-    enterChapcyBtn.addEventListener(
+    backBtn.addEventListener(
         "click",
         () => {
 
             window.location.href =
-                "Mychat.html";
+                "Mychatregister.html";
 
         }
     );
@@ -1072,40 +894,90 @@ if (
 
 
 /* =========================================================
-   SHOW ERROR
+   RESEND
    ========================================================= */
 
-function showError(
-    message
-) {
+let resendSeconds = 60;
 
-    if (
-        !otpError
-    ) {
+let resendInterval = null;
 
-        return;
+let resendRecaptcha = null;
+
+
+function startResendTimer() {
+
+    resendSeconds = 60;
+
+    updateTimer();
+
+    clearInterval(
+        resendInterval
+    );
+
+
+    resendInterval =
+        setInterval(() => {
+
+            resendSeconds--;
+
+            updateTimer();
+
+
+            if (
+                resendSeconds <= 0
+            ) {
+
+                clearInterval(
+                    resendInterval
+                );
+
+                resendInterval =
+                    null;
+
+            }
+
+        }, 1000);
+
+}
+
+
+function updateTimer() {
+
+    if (!timer) return;
+
+
+    if (resendSeconds > 0) {
+
+        timer.textContent =
+            `Resend code in ${resendSeconds}s`;
+
+    } else {
+
+        timer.textContent =
+            "You can resend the code now.";
 
     }
 
 
-    otpError.textContent =
-        message;
+    if (resendBtn) {
 
-    otpError.classList.add(
-        "show"
-    );
+        resendBtn.disabled =
+            resendSeconds > 0;
+
+    }
 
 }
 
 
 /* =========================================================
-   HIDE ERROR
+   RESEND OTP
    ========================================================= */
 
-function hideError() {
+async function resendOTP() {
 
     if (
-        !otpError
+        resendSeconds > 0 ||
+        !phoneNumber
     ) {
 
         return;
@@ -1113,105 +985,164 @@ function hideError() {
     }
 
 
-    otpError.textContent =
-        "";
-
-    otpError.classList.remove(
-        "show"
-    );
-
-}
+    hideError();
 
 
-/* =========================================================
-   TEMPORARY MESSAGE
-   ========================================================= */
+    if (resendBtn) {
 
-function showTemporaryMessage(
-    message
-) {
-
-    if (
-        !otpError
-    ) {
-
-        return;
+        resendBtn.disabled =
+            true;
 
     }
 
 
-    otpError.textContent =
-        message;
+    try {
 
-    otpError.classList.add(
-        "show"
-    );
+        /* -----------------------------------------
+           CLEAR OLD RECAPTCHA
+        ----------------------------------------- */
 
+        if (resendRecaptcha) {
 
-    setTimeout(
-        () => {
+            try {
 
-            hideError();
+                resendRecaptcha.clear();
 
-        },
-        3500
-    );
+            } catch (error) {
 
-}
+                console.warn(
+                    "reCAPTCHA clear error:",
+                    error
+                );
 
+            }
 
-/* =========================================================
-   VERIFY BUTTON LOADING
-   ========================================================= */
+            resendRecaptcha =
+                null;
 
-function setVerifyLoading(
-    loading
-) {
-
-    if (
-        !verifyBtn
-    ) {
-
-        return;
-
-    }
+        }
 
 
-    verifyBtn.disabled =
-        loading;
+        /* -----------------------------------------
+           CREATE RECAPTCHA
+        ----------------------------------------- */
+
+        resendRecaptcha =
+            new RecaptchaVerifier(
+                auth,
+                "recaptcha-container",
+                {
+                    size: "invisible",
+
+                    callback: () => {
+
+                        console.log(
+                            "CHAPCY reCAPTCHA solved."
+                        );
+
+                    },
+
+                    "expired-callback": () => {
+
+                        console.log(
+                            "CHAPCY reCAPTCHA expired."
+                        );
+
+                    }
+                }
+            );
 
 
-    const content =
-        verifyBtn.querySelector(
-            ".verify-button-content"
+        /* -----------------------------------------
+           SEND NEW CODE
+        ----------------------------------------- */
+
+        const confirmationResult =
+            await signInWithPhoneNumber(
+                auth,
+                phoneNumber,
+                resendRecaptcha
+            );
+
+
+        verificationId =
+            confirmationResult.verificationId;
+
+
+        sessionStorage.setItem(
+            "chapcyVerificationId",
+            verificationId
         );
 
-    const loader =
-        verifyBtn.querySelector(
-            ".button-loader"
+
+        /* -----------------------------------------
+           CLEAR OTP
+        ----------------------------------------- */
+
+        otpInputs.forEach(input => {
+
+            input.value = "";
+
+            input.classList.remove(
+                "filled"
+            );
+
+        });
+
+
+        if (otpInputs.length) {
+
+            otpInputs[0].focus();
+
+        }
+
+
+        startResendTimer();
+
+
+        showError(
+            "A new verification code has been sent."
         );
 
 
-    if (
-        content
-    ) {
-
-        content.style.display =
-            loading
-                ? "none"
-                : "flex";
+        setTimeout(
+            hideError,
+            3500
+        );
 
     }
 
+    catch (error) {
 
-    if (
-        loader
-    ) {
+        console.error(
+            "CHAPCY RESEND ERROR:",
+            error
+        );
 
-        loader.style.display =
-            loading
-                ? "block"
-                : "none";
+
+        let message =
+            "Unable to resend the code. Please try again.";
+
+
+        if (
+            error.code ===
+            "auth/too-many-requests"
+        ) {
+
+            message =
+                "Too many requests. Please wait before trying again.";
+
+        }
+
+
+        showError(message);
+
+        if (resendBtn) {
+
+            resendBtn.disabled =
+                false;
+
+        }
 
     }
 
@@ -1219,25 +1150,15 @@ function setVerifyLoading(
 
 
 /* =========================================================
-   RESEND BUTTON LOADING
+   RESEND BUTTON
    ========================================================= */
 
-function setResendLoading(
-    loading
-) {
+if (resendBtn) {
 
-    if (
-        !resendBtn
-    ) {
-
-        return;
-
-    }
-
-
-    resendBtn.disabled =
-        loading ||
-        resendSeconds > 0;
+    resendBtn.addEventListener(
+        "click",
+        resendOTP
+    );
 
 }
 
@@ -1248,11 +1169,10 @@ function setResendLoading(
 
 document.addEventListener(
     "keydown",
-    (event) => {
+    event => {
 
         if (
-            event.key ===
-            "Enter" &&
+            event.key === "Enter" &&
             getOTPCode().length === 6
         ) {
 
@@ -1268,25 +1188,28 @@ document.addEventListener(
    INITIAL FOCUS
    ========================================================= */
 
-setTimeout(
-    () => {
+setTimeout(() => {
 
-        if (
-            otpInputs.length > 0
-        ) {
+    if (
+        otpInputs.length > 0
+    ) {
 
-            otpInputs[0]
-                .focus();
+        otpInputs[0].focus();
 
-        }
+    }
 
-    },
-    500
-);
+}, 500);
 
 
 /* =========================================================
-   DEBUG INFO
+   START TIMER
+   ========================================================= */
+
+startResendTimer();
+
+
+/* =========================================================
+   DEBUG
    ========================================================= */
 
 console.log(
