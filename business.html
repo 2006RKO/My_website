@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<meta
+    name="theme-color"
+    content="#030511"
+>
+
+<title>CHAPCY • Business Live Chat</title>
+
+<link
+    rel="stylesheet"
+    href="business.css"
+>
+
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+>
+
+</head>
+
+
+<body>
+
+<div class="chapcy-app">
+
+
+    <!-- =========================
+         SIDEBAR
+    ========================== -->
+
+    <aside
+        class="side-nav"
+        id="sideNav"
+    >
+
+        <div class="logo-area">
+
+            <div class="logo-mark">
+                C
+            </div>
+
+            <div class="logo-info">
+
+                <strong>
+                    CHAPCY
+                </strong>
+
+                <span>
+                    Business Live Chat
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <nav class="main-nav">
+
+            <button
+                class="nav-link active"
+                data-section="chat"
+            >
+
+                <i class="fa-solid fa-comments"></i>
+
+                <span>
+                    Live Chat
+                </span>
+
+            </button>
+
+
+            <button
+                class="nav-link"
+                data-section="discover"
+            >
+
+                <i class="fa-solid fa-compass"></i>
+
+                <span>
+                    Discover
+                </span>
+
+            </button>
+
+
+            <button
+                class="nav-link"
+                data-section="rooms"
+            >
+
+                <i class="fa-solid fa-layer-group"></i>
+
+                <span>
+                    Rooms
+                </span>
+
+            </button>
+
+
+            <button
+                class="nav-link"
+                data-section="people"
+            >
+
+                <i class="fa-solid fa-users"></i>
+
+                <span>
+                    People
+                </span>
+
+            </button>
+
+
+            <button
+                class="nav-link"
+                data-section="mentions"
+            >
+
+                <i class="fa-solid fa-at"></i>
+
+                <span>
+                    Mentions
+                </span>
+
+            </button>
+
+
+            <button
+                class="nav-link"
+                data-section="messages"
+            >
+
+                <i class="fa-solid fa-envelope"></i>
+
+                <span>
+                    Messages
+                </span>
+
+            </button>
+
+
+            <button
+                class="nav-link"
+                data-section="settings"
+            >
+
+                <i class="fa-solid fa-gear"></i>
+
+                <span>
+                    Settings
+                </span>
+
+            </button>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="room-status">
+
+                <span class="status-dot"></span>
+
+                <span>
+                    Business room online
+                </span>
+
+            </div>
+
+
+            <div class="profile-mini">
+
+                <div class="profile-avatar">
+
+                    <span id="profileLetter">
+                        ?
+                    </span>
+
+                    <i></i>
+
+                </div>
+
+
+                <div class="profile-info">
+
+                    <strong id="profileName">
+                        Loading...
+                    </strong>
+
+                    <span>
+
+                        <i class="fa-solid fa-circle"></i>
+
+                        Online
+
+                    </span>
+
+                </div>
+
+
+                <button
+                    id="logoutBtn"
+                    title="Logout"
+                >
+
+                    <i class="fa-solid fa-right-from-bracket"></i>
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MOBILE OVERLAY -->
+
+    <div
+        class="mobile-overlay"
+        id="mobileOverlay"
+    ></div>
+
+
+    <!-- =========================
+         MAIN CHAT
+    ========================== -->
+
+    <main class="chat-container">
+
+
+        <header class="chat-header">
+
+            <div class="mobile-left">
+
+                <button
+                    class="menu-btn"
+                    id="menuBtn"
+                >
+
+                    <i class="fa-solid fa-bars"></i>
+
+                </button>
+
+
+                <div class="mobile-logo">
+                    C
+                </div>
+
+            </div>
+
+
+            <div class="room-title">
+
+                <div class="room-icon">
+                    💼
+                </div>
+
+
+                <div>
+
+                    <h1>
+                        Business Live Chat
+                    </h1>
+
+                    <p>
+                        Connect, learn, build and grow together 🌍
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="header-tools">
+
+                <button
+                    id="searchBtn"
+                    title="Search"
+                >
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                </button>
+
+
+                <button
+                    id="roomInfoBtn"
+                    title="Room information"
+                >
+
+                    <i class="fa-solid fa-circle-info"></i>
+
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <!-- =========================
+             PINNED MESSAGE
+        ========================== -->
+
+        <section class="pinned-bar">
+
+            <div class="pinned-icon">
+                📌
+            </div>
+
+
+            <div>
+
+                <strong>
+                    Business Room Rules
+                </strong>
+
+                <p>
+                    Share useful ideas, respect others and build valuable connections. 🤝
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             ROOM INFO
+        ========================== -->
+
+        <div
+            class="room-info-panel"
+            id="roomInfoPanel"
+        >
+
+            <strong>
+                💼 CHAPCY Business Live Chat
+            </strong>
+
+            <p>
+                Talk about business ideas, entrepreneurship,
+                marketing, products, technology, careers and networking.
+            </p>
+
+            <small>
+                Keep conversations respectful and useful for the CHAPCY community.
+            </small>
+
+        </div>
+
+
+        <!-- =========================
+             SEARCH
+        ========================== -->
+
+        <div
+            class="search-box"
+            id="searchBox"
+        >
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search business messages..."
+                autocomplete="off"
+            >
+
+        </div>
+
+
+        <!-- =========================
+             MESSAGES
+        ========================== -->
+
+        <section
+            class="messages"
+            id="messages"
+        >
+
+            <div
+                class="empty-chat"
+                id="emptyChat"
+            >
+
+                <div class="empty-chat-icon">
+                    💼🌍
+                </div>
+
+
+                <h3>
+                    Welcome to Business Live Chat
+                </h3>
+
+
+                <p>
+                    Start a conversation with entrepreneurs,
+                    creators and the CHAPCY community.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- TYPING -->
+
+        <div
+            class="typing"
+            id="typing"
+        ></div>
+
+
+        <!-- =========================
+             EMOJI PANEL
+        ========================== -->
+
+        <div
+            class="emoji-panel"
+            id="emojiPanel"
+        >
+
+            <button>💼</button>
+            <button>💡</button>
+            <button>🚀</button>
+            <button>📈</button>
+            <button>📊</button>
+            <button>💰</button>
+            <button>💵</button>
+            <button>🤝</button>
+            <button>🏆</button>
+            <button>🎯</button>
+            <button>🔥</button>
+            <button>💯</button>
+            <button>🌍</button>
+            <button>💻</button>
+            <button>📱</button>
+            <button>🛒</button>
+            <button>🏢</button>
+            <button>👨‍💼</button>
+            <button>👩‍💼</button>
+            <button>👏</button>
+            <button>🙏</button>
+            <button>❤️</button>
+            <button>👍</button>
+            <button>✨</button>
+
+        </div>
+
+
+        <!-- =========================
+             COMPOSER
+        ========================== -->
+
+        <form
+            class="composer"
+            id="composer"
+        >
+
+            <button
+                type="button"
+                class="composer-add"
+                id="addBtn"
+                title="More options"
+            >
+
+                <i class="fa-solid fa-plus"></i>
+
+            </button>
+
+
+            <input
+                type="text"
+                id="messageInput"
+                placeholder="Type a business message..."
+                maxlength="2000"
+                autocomplete="off"
+            >
+
+
+            <button
+                type="button"
+                class="emoji-btn"
+                id="emojiBtn"
+                title="Emojis"
+            >
+
+                <i class="fa-regular fa-face-smile"></i>
+
+            </button>
+
+
+            <button
+                type="submit"
+                class="send-btn"
+                id="sendBtn"
+                title="Send message"
+            >
+
+                <i class="fa-solid fa-paper-plane"></i>
+
+            </button>
+
+        </form>
+
+    </main>
+
+
+    <!-- =========================
+         ADS AREA
+    ========================== -->
+
+    <aside class="ads-area">
+
+        <div class="ads-title">
+
+            <strong>
+                Advertisements
+            </strong>
+
+            <i class="fa-solid fa-circle-info"></i>
+
+        </div>
+
+
+        <div class="ad-slot">
+
+            <div class="ad-plus">
+                <i class="fa-solid fa-plus"></i>
+            </div>
+
+            <strong>
+                CHAPCY AD
+            </strong>
+
+            <span>
+                Promote your business here
+            </span>
+
+        </div>
+
+
+        <div class="ad-slot">
+
+            <div class="ad-plus">
+                <i class="fa-solid fa-plus"></i>
+            </div>
+
+            <strong>
+                CHAPCY AD
+            </strong>
+
+            <span>
+                Reach potential customers
+            </span>
+
+        </div>
+
+
+        <div class="ad-slot">
+
+            <div class="ad-plus">
+                <i class="fa-solid fa-plus"></i>
+            </div>
+
+            <strong>
+                CHAPCY AD
+            </strong>
+
+            <span>
+                Connect with the world
+            </span>
+
+        </div>
+
+    </aside>
+
+</div>
+
+
+<script
+    type="module"
+    src="business.js"
+></script>
+
+</body>
+
+</html>
