@@ -1,0 +1,806 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="theme-color"
+        content="#030511"
+    >
+
+    <title>CHAPCY • PUBG Live Chat</title>
+
+
+    <!-- GOOGLE FONT -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- FONT AWESOME -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    >
+
+
+    <!-- PUBG CSS -->
+
+    <link
+        rel="stylesheet"
+        href="pubg.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<div class="chapcy-app">
+
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside
+        class="side-nav"
+        id="sideNav"
+    >
+
+
+        <!-- LOGO -->
+
+        <div class="logo-area">
+
+            <div class="logo-mark">
+                C
+            </div>
+
+            <div class="logo-info">
+
+                <strong>
+                    CHAPCY
+                </strong>
+
+                <span>
+                    PUBG Live Chat
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- NAVIGATION -->
+
+        <nav class="main-nav">
+
+
+            <!-- LIVE CHAT -->
+
+            <button
+                class="nav-link active"
+                type="button"
+            >
+
+                <i class="fa-solid fa-comments"></i>
+
+                <span>
+                    Live Chat
+                </span>
+
+            </button>
+
+
+            <!-- PUBG -->
+
+            <a
+                href="PUBG.html"
+                class="nav-link"
+            >
+
+                <i class="fa-solid fa-fire"></i>
+
+                <span>
+                    PUBG
+                </span>
+
+            </a>
+
+
+            <!-- CODM -->
+
+            <a
+                href="CODMvsPUBG.html"
+                class="nav-link"
+            >
+
+                <i class="fa-solid fa-crosshairs"></i>
+
+                <span>
+                    CODM
+                </span>
+
+            </a>
+
+
+            <!-- ROOMS -->
+
+            <a
+                href="BattleRooms.html"
+                class="nav-link"
+            >
+
+                <i class="fa-solid fa-layer-group"></i>
+
+                <span>
+                    Rooms
+                </span>
+
+            </a>
+
+
+            <!-- PEOPLE -->
+
+            <a
+                href="GamingPeople.html"
+                class="nav-link"
+            >
+
+                <i class="fa-solid fa-users"></i>
+
+                <span>
+                    People
+                </span>
+
+            </a>
+
+
+            <!-- MENTIONS -->
+
+            <a
+                href="Mentions.html"
+                class="nav-link"
+            >
+
+                <i class="fa-solid fa-at"></i>
+
+                <span>
+                    Mentions
+                </span>
+
+            </a>
+
+
+            <!-- MESSAGES -->
+
+            <a
+                href="Message.html"
+                class="nav-link"
+            >
+
+                <i class="fa-solid fa-envelope"></i>
+
+                <span>
+                    Messages
+                </span>
+
+            </a>
+
+
+            <!-- SETTINGS -->
+
+            <a
+                href="Settings.html"
+                class="nav-link"
+            >
+
+                <i class="fa-solid fa-gear"></i>
+
+                <span>
+                    Settings
+                </span>
+
+            </a>
+
+
+        </nav>
+
+
+        <!-- SIDEBAR BOTTOM -->
+
+        <div class="sidebar-bottom">
+
+
+            <!-- ROOM STATUS -->
+
+            <div class="room-status">
+
+                <span class="status-dot"></span>
+
+                <span>
+                    PUBG room online
+                </span>
+
+            </div>
+
+
+            <!-- PROFILE -->
+
+            <div class="profile-mini">
+
+
+                <div class="profile-avatar">
+
+                    <span id="profileLetter">
+                        ?
+                    </span>
+
+                    <i></i>
+
+                </div>
+
+
+                <div class="profile-info">
+
+                    <strong id="profileName">
+                        Loading...
+                    </strong>
+
+                    <span>
+
+                        <i class="fa-solid fa-circle"></i>
+
+                        Online
+
+                    </span>
+
+                </div>
+
+
+                <!-- LOGOUT -->
+
+                <button
+                    id="logoutBtn"
+                    type="button"
+                    title="Logout"
+                >
+
+                    <i class="fa-solid fa-right-from-bracket"></i>
+
+                </button>
+
+
+            </div>
+
+
+        </div>
+
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         MOBILE OVERLAY
+    ====================================================== -->
+
+    <div
+        class="mobile-overlay"
+        id="mobileOverlay"
+    ></div>
+
+
+
+    <!-- =====================================================
+         MAIN CHAT
+    ====================================================== -->
+
+    <main class="chat-container">
+
+
+        <!-- =================================================
+             HEADER
+        ================================================== -->
+
+        <header class="chat-header">
+
+
+            <!-- MOBILE LEFT -->
+
+            <div class="mobile-left">
+
+                <button
+                    class="menu-btn"
+                    id="menuBtn"
+                    type="button"
+                >
+
+                    <i class="fa-solid fa-bars"></i>
+
+                </button>
+
+
+                <div class="mobile-logo">
+                    C
+                </div>
+
+            </div>
+
+
+
+            <!-- ROOM TITLE -->
+
+            <div class="room-title">
+
+
+                <div class="room-icon">
+                    🔥
+                </div>
+
+
+                <div>
+
+                    <h1>
+                        PUBG Live Chat
+                    </h1>
+
+                    <p>
+                        PUBG Mobile gaming community 🔥🎮
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- HEADER TOOLS -->
+
+            <div class="header-tools">
+
+
+                <!-- CODM BUTTON -->
+
+                <a
+                    href="CODMvsPUBG.html"
+                    class="codm-live-btn"
+                    title="Open CODM Live Chat"
+                >
+
+                    <span>
+                        🎯
+                    </span>
+
+                    <strong>
+                        CODM LIVE CHAT
+                    </strong>
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </a>
+
+
+
+                <!-- SEARCH -->
+
+                <button
+                    id="searchBtn"
+                    type="button"
+                    title="Search"
+                >
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                </button>
+
+
+
+                <!-- ROOM INFO -->
+
+                <button
+                    id="roomInfoBtn"
+                    type="button"
+                    title="Room information"
+                >
+
+                    <i class="fa-solid fa-circle-info"></i>
+
+                </button>
+
+
+            </div>
+
+
+        </header>
+
+
+
+        <!-- =================================================
+             PINNED MESSAGE
+        ================================================== -->
+
+        <section class="pinned-bar">
+
+
+            <div class="pinned-icon">
+                📌
+            </div>
+
+
+            <div>
+
+                <strong>
+                    PUBG Community Rules
+                </strong>
+
+                <p>
+                    Respect other players, share useful tips and keep the battle fun. 🔥🎮
+                </p>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             ROOM INFO
+        ================================================== -->
+
+        <div
+            class="room-info-panel"
+            id="roomInfoPanel"
+        >
+
+
+            <strong>
+                🔥 PUBG Live Chat
+            </strong>
+
+
+            <p>
+                Talk about PUBG Mobile, weapons, loadouts,
+                ranked matches, maps, tactics and gameplay.
+            </p>
+
+
+            <small>
+                Welcome to the CHAPCY PUBG gaming community.
+            </small>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             SEARCH
+        ================================================== -->
+
+        <div
+            class="search-box"
+            id="searchBox"
+        >
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search PUBG messages..."
+                autocomplete="off"
+            >
+
+        </div>
+
+
+
+        <!-- =================================================
+             MESSAGES
+        ================================================== -->
+
+        <section
+            class="messages"
+            id="messages"
+        >
+
+
+            <!-- EMPTY CHAT -->
+
+            <div
+                class="empty-chat"
+                id="emptyChat"
+            >
+
+
+                <div class="empty-chat-icon">
+                    🔥🎮
+                </div>
+
+
+                <h3>
+                    Welcome to PUBG Live Chat
+                </h3>
+
+
+                <p>
+                    Join the CHAPCY PUBG community and start the conversation.
+                </p>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             TYPING
+        ================================================== -->
+
+        <div
+            class="typing"
+            id="typing"
+        ></div>
+
+
+
+        <!-- =================================================
+             EMOJI PANEL
+        ================================================== -->
+
+        <div
+            class="emoji-panel"
+            id="emojiPanel"
+        >
+
+
+            <button type="button">🔥</button>
+            <button type="button">🎮</button>
+            <button type="button">🎯</button>
+            <button type="button">💀</button>
+            <button type="button">🔫</button>
+            <button type="button">💥</button>
+            <button type="button">🏆</button>
+            <button type="button">🥇</button>
+            <button type="button">🥈</button>
+            <button type="button">⚡</button>
+            <button type="button">👑</button>
+            <button type="button">😎</button>
+            <button type="button">😂</button>
+            <button type="button">🤣</button>
+            <button type="button">🤯</button>
+            <button type="button">💯</button>
+            <button type="button">👏</button>
+            <button type="button">🙏</button>
+            <button type="button">❤️</button>
+            <button type="button">☠️</button>
+            <button type="button">🚀</button>
+            <button type="button">👀</button>
+            <button type="button">🫡</button>
+            <button type="button">🌍</button>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             MESSAGE COMPOSER
+        ================================================== -->
+
+        <form
+            class="composer"
+            id="composer"
+        >
+
+
+            <!-- ADD -->
+
+            <button
+                type="button"
+                class="composer-add"
+                id="addBtn"
+                title="More options"
+            >
+
+                <i class="fa-solid fa-plus"></i>
+
+            </button>
+
+
+
+            <!-- MESSAGE INPUT -->
+
+            <input
+                type="text"
+                id="messageInput"
+                placeholder="Type a PUBG message..."
+                maxlength="2000"
+                autocomplete="off"
+            >
+
+
+
+            <!-- EMOJI -->
+
+            <button
+                type="button"
+                class="emoji-btn"
+                id="emojiBtn"
+                title="Emojis"
+            >
+
+                <i class="fa-regular fa-face-smile"></i>
+
+            </button>
+
+
+
+            <!-- SEND -->
+
+            <button
+                type="submit"
+                class="send-btn"
+                id="sendBtn"
+                title="Send message"
+            >
+
+                <i class="fa-solid fa-paper-plane"></i>
+
+            </button>
+
+
+        </form>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         ADS AREA
+    ====================================================== -->
+
+    <aside class="ads-area">
+
+
+        <div class="ads-title">
+
+            <strong>
+                Advertisements
+            </strong>
+
+            <i class="fa-solid fa-circle-info"></i>
+
+        </div>
+
+
+
+        <!-- AD 1 -->
+
+        <div class="ad-slot">
+
+
+            <div class="ad-plus">
+
+                <i class="fa-solid fa-plus"></i>
+
+            </div>
+
+
+            <strong>
+                CHAPCY AD
+            </strong>
+
+
+            <span>
+                Your advert can appear here
+            </span>
+
+
+        </div>
+
+
+
+        <!-- AD 2 -->
+
+        <div class="ad-slot">
+
+
+            <div class="ad-plus">
+
+                <i class="fa-solid fa-plus"></i>
+
+            </div>
+
+
+            <strong>
+                CHAPCY AD
+            </strong>
+
+
+            <span>
+                Promote your PUBG community
+            </span>
+
+
+        </div>
+
+
+
+        <!-- AD 3 -->
+
+        <div class="ad-slot">
+
+
+            <div class="ad-plus">
+
+                <i class="fa-solid fa-plus"></i>
+
+            </div>
+
+
+            <strong>
+                CHAPCY AD
+            </strong>
+
+
+            <span>
+                Connect with PUBG players
+            </span>
+
+
+        </div>
+
+
+    </aside>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+====================================================== -->
+
+<script
+    type="module"
+    src="pubg.js"
+></script>
+
+
+</body>
+
+</html>
+```
