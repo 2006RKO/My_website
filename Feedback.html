@@ -1,91 +1,42 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <title>CHAPCY • Feedback</title>
 
-    <meta
-        name="theme-color"
-        content="#030511"
-    >
+    <!-- Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <meta
-        name="description"
-        content="CHAPCY V27 Feedback & Suggestions"
-    >
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
-    <title>CHAPCY V27 • Feedback</title>
-
-    <!-- GOOGLE FONT -->
-    <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com"
-    >
-
-    <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin
-    >
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet"
-    >
-
-    <!-- FONT AWESOME -->
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-    >
-
-    <!-- CHAPCY FEEDBACK CSS -->
-    <link
-        rel="stylesheet"
-        href="Feedback.css"
-    >
+    <link rel="stylesheet" href="Feedback.css">
 </head>
 
 <body>
 
     <!-- BACKGROUND -->
     <div class="background">
-        <div class="gradient gradient-one"></div>
-        <div class="gradient gradient-two"></div>
-        <div class="gradient gradient-three"></div>
-
-        <div class="particles">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
+        <div class="glow glow-1"></div>
+        <div class="glow glow-2"></div>
+        <div class="glow glow-3"></div>
     </div>
-
 
     <!-- TOP BAR -->
     <header class="topbar">
 
-        <a
-            href="chapcy.html"
-            class="back-btn"
-            aria-label="Back to CHAPCY"
-        >
+        <a href="chapcy.html" class="back-btn" aria-label="Back">
             <i class="fa-solid fa-arrow-left"></i>
         </a>
 
-        <div class="top-title">
-            <div class="mini-logo">C</div>
+        <div class="brand">
+            <div class="brand-logo">C</div>
 
             <div>
                 <strong>CHAPCY</strong>
@@ -93,110 +44,88 @@
             </div>
         </div>
 
-        <div class="top-status">
+        <div class="status">
             <span class="status-dot"></span>
-            <span>V27</span>
+            V27
         </div>
 
     </header>
 
 
     <!-- MAIN -->
-    <main class="page">
+    <main class="container">
 
         <!-- HERO -->
         <section class="hero">
 
             <div class="hero-icon">
-                <i class="fa-solid fa-lightbulb"></i>
+                <i class="fa-regular fa-comment-dots"></i>
             </div>
 
-            <span class="hero-label">
-                YOUR VOICE MATTERS
-            </span>
+            <span class="small-title">CHAPCY COMMUNITY</span>
 
             <h1>
-                What do you want
-                <span>on CHAPCY?</span>
+                Your voice<br>
+                <span>matters.</span>
             </h1>
 
             <p>
-                Share your ideas, suggestions, improvements,
-                or report something you would like us to fix.
+                Tell us what you want to see on CHAPCY.
+                Your ideas help us build a better community.
             </p>
 
         </section>
 
 
         <!-- FEEDBACK CARD -->
-        <section class="feedback-card">
+        <section class="feedback-card" id="feedbackCard">
 
-            <div class="card-top">
+            <div class="card-header">
 
-                <div class="card-title">
-                    <i class="fa-solid fa-pen-to-square"></i>
-
-                    <div>
-                        <strong>Write your message</strong>
-                        <span>Tell us what you think</span>
-                    </div>
+                <div class="header-icon">
+                    <i class="fa-solid fa-lightbulb"></i>
                 </div>
 
-                <div class="secure-badge">
-                    <i class="fa-solid fa-shield-halved"></i>
-                    Secure
+                <div>
+                    <h2>Share your idea</h2>
+                    <p>Feature, improvement, bug or suggestion.</p>
                 </div>
 
             </div>
 
 
-            <!-- FORM -->
-            <form
-                id="feedbackForm"
-                autocomplete="off"
-            >
+            <form id="feedbackForm">
 
-                <div class="textarea-wrapper">
+                <div class="input-wrapper">
 
                     <textarea
                         id="feedbackMessage"
-                        name="message"
                         maxlength="1000"
                         placeholder="Write your suggestion here..."
-                        required
-                    ></textarea>
+                        required></textarea>
 
                     <div class="textarea-bottom">
-
-                        <span class="typing-hint">
-                            <i class="fa-solid fa-message"></i>
-                            Be clear and respectful
+                        <span>
+                            <i class="fa-solid fa-lock"></i>
+                            Your feedback is private
                         </span>
 
-                        <span id="counter">
-                            0 / 1000
-                        </span>
-
+                        <span id="counter">0 / 1000</span>
                     </div>
 
                 </div>
 
 
-                <!-- SEND BUTTON -->
-                <button
-                    type="submit"
-                    id="sendFeedback"
-                    class="send-btn"
-                >
+                <button type="submit" id="sendFeedback" class="send-btn">
 
                     <span class="send-content">
                         <i class="fa-solid fa-paper-plane"></i>
-                        <strong>SEND MESSAGE</strong>
+                        SEND FEEDBACK
                     </span>
 
                     <span class="send-loading">
                         <i class="fa-solid fa-circle-notch fa-spin"></i>
-                        Sending...
+                        SENDING...
                     </span>
 
                 </button>
@@ -204,20 +133,15 @@
             </form>
 
 
-            <!-- 3 DAYS INFORMATION -->
             <div class="cooldown-info">
 
-                <div class="info-icon">
-                    <i class="fa-solid fa-clock"></i>
-                </div>
+                <i class="fa-regular fa-clock"></i>
 
                 <div>
                     <strong>One message every 3 days</strong>
-
-                    <p>
-                        After sending your suggestion, you can submit
-                        another one after 3 days.
-                    </p>
+                    <span>
+                        You can send another suggestion after the cooldown ends.
+                    </span>
                 </div>
 
             </div>
@@ -225,52 +149,27 @@
         </section>
 
 
-        <!-- LOCKED STATE -->
-        <section
-            id="feedbackLocked"
-            class="locked-card"
-            hidden
-        >
+        <!-- LOCKED -->
+        <section class="locked-card" id="feedbackLocked">
 
-            <div class="lock-animation">
-
-                <div class="lock-ring ring-one"></div>
-                <div class="lock-ring ring-two"></div>
-
-                <div class="lock-icon">
-                    <i class="fa-solid fa-lock"></i>
-                </div>
-
+            <div class="lock-circle">
+                <i class="fa-solid fa-lock"></i>
             </div>
 
-            <span class="locked-label">
-                TEMPORARILY LOCKED
-            </span>
+            <span class="locked-label">TEMPORARILY LOCKED</span>
 
-            <h2>
-                Thank you for your message
-            </h2>
+            <h2>Thank you for your feedback.</h2>
 
             <p>
-                You have already sent your feedback.
-                You can send another message after:
+                You have already submitted a suggestion.
+                You can send another one when the timer reaches zero.
             </p>
 
-            <div
-                id="countdown"
-                class="countdown"
-            >
-                3 DAYS
+            <div class="countdown" id="countdown">
+                3d 00h 00m 00s
             </div>
 
-            <span class="countdown-label">
-                Remaining time
-            </span>
-
-            <a
-                href="chapcy.html"
-                class="home-btn"
-            >
+            <a href="chapcy.html" class="home-btn">
                 <i class="fa-solid fa-house"></i>
                 BACK TO CHAPCY
             </a>
@@ -278,129 +177,62 @@
         </section>
 
 
-        <!-- SUCCESS ANIMATION -->
-        <section
-            id="successScreen"
-            class="success-screen"
-            hidden
-        >
+        <!-- SUCCESS -->
+        <section class="success-screen" id="successScreen">
 
-            <!-- MOVING LIGHTS -->
-            <div class="success-lights">
-
-                <span class="light light-one"></span>
-                <span class="light light-two"></span>
-                <span class="light light-three"></span>
-                <span class="light light-four"></span>
-                <span class="light light-five"></span>
-                <span class="light light-six"></span>
-
-            </div>
-
-
-            <!-- COLOR RINGS -->
-            <div class="success-rings">
-
-                <div class="success-ring ring-a"></div>
-                <div class="success-ring ring-b"></div>
-                <div class="success-ring ring-c"></div>
-
-            </div>
-
-
-            <!-- SENT CONTENT -->
-            <div class="success-content">
-
-                <div class="success-check">
-
-                    <div class="check-circle">
-                        <i class="fa-solid fa-check"></i>
-                    </div>
-
-                </div>
-
-                <div class="sent-word">
-                    SENT
-                </div>
-
-                <h2>
-                    Message Sent Successfully
-                </h2>
-
-                <p>
-                    Thank you for helping us make CHAPCY better.
-                </p>
-
-                <div class="success-progress">
-                    <span></span>
-                </div>
-
-                <small>
-                    Redirecting you to CHAPCY...
-                </small>
-
-            </div>
-
-        </section>
-
-
-        <!-- NOTIFICATION -->
-        <div
-            id="successNotification"
-            class="notification"
-            role="alert"
-            aria-live="assertive"
-            hidden
-        >
-
-            <div class="notification-icon">
+            <div class="success-circle">
                 <i class="fa-solid fa-check"></i>
             </div>
 
-            <div class="notification-text">
-                <strong>Message sent successfully</strong>
+            <div class="sent-text">SENT</div>
 
-                <span>
-                    Your feedback has been received.
-                </span>
-            </div>
-
-            <button
-                type="button"
-                id="closeNotification"
-                aria-label="Close notification"
-            >
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-
-        </div>
-
-
-        <!-- FOOTER -->
-        <footer class="footer">
-
-            <div class="footer-logo">
-                <span>C</span>
-                CHAPCY
-            </div>
+            <h2>Message sent successfully</h2>
 
             <p>
-                Building a better worldwide community together.
+                Thank you for helping us make CHAPCY better.
             </p>
 
-            <div class="footer-line"></div>
+            <div class="progress">
+                <span></span>
+            </div>
 
             <small>
-                © 2026 CHAPCY • V27
+                Redirecting you to CHAPCY...
             </small>
 
-        </footer>
+        </section>
 
     </main>
 
 
-    <!-- FEEDBACK JAVASCRIPT -->
-    <script src="Feedback.js"></script>
+    <!-- SUCCESS NOTIFICATION -->
+    <div class="notification" id="successNotification">
+
+        <div class="notification-icon">
+            <i class="fa-solid fa-check"></i>
+        </div>
+
+        <div class="notification-text">
+            <strong>Feedback sent</strong>
+            <span>Thank you for your suggestion.</span>
+        </div>
+
+        <button id="closeNotification">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+    </div>
+
+
+    <!-- FOOTER -->
+    <footer>
+        <span>© 2026 CHAPCY</span>
+        <span>•</span>
+        <span>Built for the community</span>
+    </footer>
+
+
+    <script type="module" src="Feedback.js"></script>
 
 </body>
 </html>
