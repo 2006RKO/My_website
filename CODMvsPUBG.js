@@ -1,505 +1,1129 @@
-document.addEventListener("DOMContentLoaded", () => {
+```javascript
+/* =========================================================
+   CHAPCY — CODM LIVE CHAT
+   CODMvsPUBG.js
 
-    /* =========================
-       MOBILE SIDEBAR
-    ========================= */
+   Firebase Realtime Database
+   + XAMPP / PHP
+   + MySQL
 
-    const sideNav = document.getElementById("sideNav");
-    const menuBtn = document.getElementById("menuBtn");
-    const mobileOverlay = document.getElementById("mobileOverlay");
+   Firebase room:
+   rooms/codm/messages
+========================================================= */
 
-    function openMenu() {
-        if (sideNav) sideNav.classList.add("open");
-        if (mobileOverlay) mobileOverlay.classList.add("show");
-    }
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
-    function closeMenu() {
-        if (sideNav) sideNav.classList.remove("open");
-        if (mobileOverlay) mobileOverlay.classList.remove("show");
-    }
+import {
+    getAuth,
+    onAuthStateChanged,
+    signOut
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
-    if (menuBtn) {
-        menuBtn.addEventListener("click", () => {
-            if (sideNav.classList.contains("open")) {
-                closeMenu();
-            } else {
-                openMenu();
+import {
+    getDatabase,
+    ref,
+    push,
+    set,
+    onValue,
+    onChildAdded,
+    serverTimestamp,
+    onDisconnect
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-database.js";
+
+
+/* =========================================================
+   FIREBASE CONFIG
+========================================================= */
+
+const firebaseConfig = {
+
+    apiKey: "AIzaSyDIID2LpzjLiLeLJKgp-Vd7tNIyN-M1k",
+
+    authDomain:
+        "rko-website-design-2f792.firebaseapp.com",
+
+    databaseURL:
+        "https://rko-website-design-2f792-default-rtdb.firebaseio.com",
+
+    projectId:
+        "rko-website-design-2f792",
+
+    storageBucket:
+        "rko-website-design-2f792.firebasestorage.app",
+
+    messagingSenderId:
+        "782567629866",
+
+    appId:
+        "1:782567629866:web:d6d80d454d0653ea8b4f53",
+
+    measurementId:
+        "G-KQ1EKYE7E7"
+};
+
+
+/* =========================================================
+   INITIALIZE FIREBASE
+========================================================= */
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+const db = getDatabase(app);
+
+
+/* =========================================================
+   CONFIG
+========================================================= */
+
+const ROOM_NAME = "codm";
+
+const PHP_ENDPOINT =
+    "http://localhost/chapcy/save-codm-message.php";
+
+
+/* =========================================================
+   DOM
+========================================================= */
+
+const sideNav =
+    document.getElementById("sideNav");
+
+const mobileOverlay =
+    document.getElementById("mobileOverlay");
+
+const menuBtn =
+    document.getElementById("menuBtn");
+
+const logoutBtn =
+    document.getElementById("logoutBtn");
+
+const profileName =
+    document.getElementById("profileName");
+
+const profileLetter =
+    document.getElementById("profileLetter");
+
+const composer =
+    document.getElementById("composer");
+
+const messageInput =
+    document.getElementById("messageInput");
+
+const messages =
+    document.getElementById("messages");
+
+const emptyChat =
+    document.getElementById("emptyChat");
+
+const emojiBtn =
+    document.getElementById("emojiBtn");
+
+const emojiPanel =
+    document.getElementById("emojiPanel");
+
+const searchBtn =
+    document.getElementById("searchBtn");
+
+const searchBox =
+    document.getElementById("searchBox");
+
+const searchInput =
+    document.getElementById("searchInput");
+
+const roomInfoBtn =
+    document.getElementById("roomInfoBtn");
+
+const roomInfoPanel =
+    document.getElementById("roomInfoPanel");
+
+const addBtn =
+    document.getElementById("addBtn");
+
+
+/* =========================================================
+   USER DATA
+========================================================= */
+
+let currentUser = null;
+
+let currentUserName = "CHAPCY Gamer";
+
+let loadedMessageIds = new Set();
+
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+function openMenu() {
+
+    sideNav?.classList.add("open");
+
+    mobileOverlay?.classList.add("show");
+}
+
+function closeMenu() {
+
+    sideNav?.classList.remove("open");
+
+    mobileOverlay?.classList.remove("show");
+}
+
+menuBtn?.addEventListener(
+    "click",
+    openMenu
+);
+
+mobileOverlay?.addEventListener(
+    "click",
+    closeMenu
+);
+
+
+/* =========================================================
+   CLOSE MENU WHEN NAV LINK CLICKED
+========================================================= */
+
+document
+    .querySelectorAll(".nav-link")
+    .forEach(link => {
+
+        link.addEventListener(
+            "click",
+            () => {
+
+                if (
+                    window.innerWidth <= 760
+                ) {
+                    closeMenu();
+                }
+
             }
-        });
-    }
+        );
 
-    if (mobileOverlay) {
-        mobileOverlay.addEventListener("click", closeMenu);
-    }
-
-    /* Close mobile menu after clicking a navigation link */
-
-    document.querySelectorAll(".nav-link").forEach(link => {
-        link.addEventListener("click", () => {
-            if (window.innerWidth <= 850) {
-                closeMenu();
-            }
-        });
     });
 
 
-    /* =========================
-       LOGOUT PREVIEW
-    ========================= */
+/* =========================================================
+   AUTH
+========================================================= */
 
-    const logoutBtn = document.getElementById("logoutBtn");
+onAuthStateChanged(
+    auth,
+    async user => {
 
-    if (logoutBtn) {
-        logoutBtn.addEventListener("click", (event) => {
-            event.preventDefault();
+        if (!user) {
 
-            alert(
-                "CHAPCY Preview Mode\n\n" +
-                "Login / Logout system itaunganishwa baadaye."
-            );
-        });
-    }
+            currentUser = null;
 
+            currentUserName =
+                "CHAPCY Gamer";
 
-    /* =========================
-       CHAT ELEMENTS
-    ========================= */
+            if (profileName) {
+                profileName.textContent =
+                    "Guest";
+            }
 
-    const messages = document.getElementById("messages");
-    const emptyChat = document.getElementById("emptyChat");
-    const composer = document.getElementById("composer");
-    const messageInput = document.getElementById("messageInput");
-    const sendBtn = document.getElementById("sendBtn");
+            if (profileLetter) {
+                profileLetter.textContent =
+                    "?";
+            }
 
+            /*
+             * Do NOT redirect automatically.
+             *
+             * This allows the page design
+             * to remain visible.
+             */
 
-    /* =========================
-       SEND MESSAGE
-    ========================= */
-
-    function sendMessage() {
-
-        if (!messageInput || !messages) return;
-
-        const text = messageInput.value.trim();
-
-        if (!text) return;
-
-        /* Remove empty state */
-
-        if (emptyChat) {
-            emptyChat.style.display = "none";
+            return;
         }
 
-        /* Create message */
 
-        const message = document.createElement("div");
+        currentUser = user;
 
-        message.className = "message mine";
 
-        message.innerHTML = `
-            <div class="message-body">
-                <div class="message-name">
-                    You
-                </div>
+        /* USERNAME */
 
-                <div class="message-text">
-                    ${escapeHTML(text)}
-                </div>
-            </div>
+        currentUserName =
+            user.displayName ||
+            user.email ||
+            user.phoneNumber ||
+            "CHAPCY Gamer";
 
-            <div class="avatar">
-                Y
-            </div>
-        `;
 
-        messages.appendChild(message);
+        if (profileName) {
 
-        messageInput.value = "";
+            profileName.textContent =
+                currentUserName;
 
-        scrollChatToBottom();
+        }
+
+
+        if (profileLetter) {
+
+            profileLetter.textContent =
+                currentUserName
+                    .charAt(0)
+                    .toUpperCase();
+
+        }
+
+
+        /* PRESENCE */
+
+        setupPresence(user.uid);
+
     }
+);
 
 
-    /* =========================
-       ESCAPE HTML
-       Prevents user input from
-       becoming HTML
-    ========================= */
+/* =========================================================
+   PRESENCE
+========================================================= */
 
-    function escapeHTML(value) {
-        const div = document.createElement("div");
-        div.textContent = value;
-        return div.innerHTML;
-    }
+function setupPresence(uid) {
 
+    const connectedRef =
+        ref(db, ".info/connected");
 
-    /* =========================
-       SEND BUTTON
-    ========================= */
-
-    if (sendBtn) {
-        sendBtn.addEventListener("click", sendMessage);
-    }
+    const userStatusRef =
+        ref(
+            db,
+            `presence/${uid}`
+        );
 
 
-    /* =========================
-       ENTER TO SEND
-    ========================= */
+    onValue(
+        connectedRef,
+        snapshot => {
 
-    if (messageInput) {
-
-        messageInput.addEventListener("keydown", event => {
-
-            if (event.key === "Enter" && !event.shiftKey) {
-
-                event.preventDefault();
-
-                sendMessage();
+            if (
+                snapshot.val() !== true
+            ) {
+                return;
             }
 
-        });
+
+            onDisconnect(
+                userStatusRef
+            )
+                .set({
+                    state: "offline",
+                    last_changed:
+                        serverTimestamp()
+                });
+
+
+            set(
+                userStatusRef,
+                {
+                    state: "online",
+                    last_changed:
+                        serverTimestamp()
+                }
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   LOAD LIVE CHAT
+========================================================= */
+
+const messagesRef =
+    ref(
+        db,
+        `rooms/${ROOM_NAME}/messages`
+    );
+
+
+onChildAdded(
+    messagesRef,
+    snapshot => {
+
+        const data =
+            snapshot.val();
+
+        if (!data) {
+            return;
+        }
+
+
+        if (
+            loadedMessageIds.has(
+                snapshot.key
+            )
+        ) {
+            return;
+        }
+
+
+        loadedMessageIds.add(
+            snapshot.key
+        );
+
+
+        renderMessage(
+            data,
+            snapshot.key
+        );
+
     }
+);
 
 
-    /* =========================
-       AUTO SCROLL CHAT
-    ========================= */
+/* =========================================================
+   SEND MESSAGE
+========================================================= */
 
-    function scrollChatToBottom() {
+composer?.addEventListener(
+    "submit",
+    async event => {
 
-        if (!messages) return;
-
-        messages.scrollTo({
-            top: messages.scrollHeight,
-            behavior: "smooth"
-        });
-    }
+        event.preventDefault();
 
 
-    /* =========================
-       EMOJI PANEL
-    ========================= */
-
-    const emojiBtn = document.getElementById("emojiBtn");
-    const emojiPanel = document.getElementById("emojiPanel");
-
-    if (emojiBtn && emojiPanel) {
-
-        emojiBtn.addEventListener("click", event => {
-
-            event.stopPropagation();
-
-            emojiPanel.classList.toggle("show");
-        });
-
-        emojiPanel.addEventListener("click", event => {
-            event.stopPropagation();
-        });
-
-        document.addEventListener("click", () => {
-            emojiPanel.classList.remove("show");
-        });
-    }
+        const text =
+            messageInput
+                ?.value
+                ?.trim();
 
 
-    /* =========================
-       EMOJI SELECTION
-    ========================= */
+        if (!text) {
+            return;
+        }
 
-    document.querySelectorAll(".emoji").forEach(emoji => {
 
-        emoji.addEventListener("click", () => {
+        if (text.length > 2000) {
 
-            if (!messageInput) return;
+            alert(
+                "Message is too long."
+            );
 
-            messageInput.value += emoji.textContent;
+            return;
+        }
+
+
+        /*
+         * If Firebase Auth is not available,
+         * allow the interface to remain usable.
+         */
+
+        const uid =
+            currentUser?.uid ||
+            "guest-" +
+            Date.now();
+
+
+        const name =
+            currentUserName ||
+            "CHAPCY Gamer";
+
+
+        const messageData = {
+
+            uid: uid,
+
+            name: name,
+
+            message: text,
+
+            room: ROOM_NAME,
+
+            createdAt:
+                serverTimestamp()
+
+        };
+
+
+        try {
+
+            /* FIREBASE */
+
+            const newMessage =
+                push(messagesRef);
+
+
+            await set(
+                newMessage,
+                messageData
+            );
+
+
+            /* XAMPP / MYSQL */
+
+            await saveToPHP({
+                firebase_uid: uid,
+                name: name,
+                phone:
+                    currentUser?.phoneNumber ||
+                    "",
+                room: ROOM_NAME,
+                message: text
+            });
+
+
+            messageInput.value = "";
 
             messageInput.focus();
-        });
+
+
+        } catch (error) {
+
+            console.error(
+                "Send message error:",
+                error
+            );
+
+
+            alert(
+                "Message failed to send. Check Firebase or XAMPP."
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   SAVE MESSAGE TO PHP / MYSQL
+========================================================= */
+
+async function saveToPHP(data) {
+
+    try {
+
+        const response =
+            await fetch(
+                PHP_ENDPOINT,
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify(data)
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "PHP server returned " +
+                response.status
+            );
+
+        }
+
+
+        const result =
+            await response.json();
+
+
+        if (!result.success) {
+
+            console.warn(
+                "MySQL save:",
+                result.message
+            );
+
+        }
+
+
+    } catch (error) {
+
+        /*
+         * Firebase message has already
+         * been saved. PHP/MySQL failure
+         * should not remove the Firebase
+         * message.
+         */
+
+        console.warn(
+            "XAMPP/MySQL unavailable:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   RENDER MESSAGE
+========================================================= */
+
+function renderMessage(
+    data,
+    messageId
+) {
+
+    if (!messages) {
+        return;
+    }
+
+
+    if (emptyChat) {
+
+        emptyChat.style.display =
+            "none";
+
+    }
+
+
+    const message =
+        document.createElement(
+            "div"
+        );
+
+    message.className =
+        "message";
+
+
+    message.dataset.messageId =
+        messageId;
+
+
+    /* AVATAR */
+
+    const avatar =
+        document.createElement(
+            "div"
+        );
+
+    avatar.className =
+        "message-avatar";
+
+
+    const name =
+        data.name ||
+        "CHAPCY Gamer";
+
+
+    avatar.textContent =
+        name
+            .charAt(0)
+            .toUpperCase();
+
+
+    /* CONTENT */
+
+    const content =
+        document.createElement(
+            "div"
+        );
+
+    content.className =
+        "message-content";
+
+
+    /* META */
+
+    const meta =
+        document.createElement(
+            "div"
+        );
+
+    meta.className =
+        "message-meta";
+
+
+    const nameElement =
+        document.createElement(
+            "span"
+        );
+
+    nameElement.className =
+        "message-name";
+
+    nameElement.textContent =
+        name;
+
+
+    const time =
+        document.createElement(
+            "span"
+        );
+
+    time.className =
+        "message-time";
+
+    time.textContent =
+        formatMessageTime(
+            data.createdAt
+        );
+
+
+    meta.appendChild(
+        nameElement
+    );
+
+    meta.appendChild(
+        time
+    );
+
+
+    /* TEXT */
+
+    const text =
+        document.createElement(
+            "div"
+        );
+
+    text.className =
+        "message-text";
+
+    text.textContent =
+        data.message || "";
+
+
+    content.appendChild(
+        meta
+    );
+
+    content.appendChild(
+        text
+    );
+
+
+    message.appendChild(
+        avatar
+    );
+
+    message.appendChild(
+        content
+    );
+
+
+    messages.appendChild(
+        message
+    );
+
+
+    scrollToBottom();
+
+}
+
+
+/* =========================================================
+   MESSAGE TIME
+========================================================= */
+
+function formatMessageTime(
+    timestamp
+) {
+
+    if (
+        !timestamp ||
+        typeof timestamp !== "number"
+    ) {
+        return "now";
+    }
+
+
+    const date =
+        new Date(timestamp);
+
+
+    return date.toLocaleTimeString(
+        [],
+        {
+            hour: "2-digit",
+            minute: "2-digit"
+        }
+    );
+
+}
+
+
+/* =========================================================
+   SCROLL
+========================================================= */
+
+function scrollToBottom() {
+
+    if (!messages) {
+        return;
+    }
+
+    messages.scrollTop =
+        messages.scrollHeight;
+
+}
+
+
+/* =========================================================
+   EMOJI
+========================================================= */
+
+emojiBtn?.addEventListener(
+    "click",
+    event => {
+
+        event.stopPropagation();
+
+        emojiPanel?.classList.toggle(
+            "show"
+        );
+
+    }
+);
+
+
+document
+    .querySelectorAll(
+        "#emojiPanel button"
+    )
+    .forEach(button => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                const emoji =
+                    button.textContent;
+
+                const start =
+                    messageInput.selectionStart;
+
+                const end =
+                    messageInput.selectionEnd;
+
+                const value =
+                    messageInput.value;
+
+
+                messageInput.value =
+                    value.substring(
+                        0,
+                        start
+                    ) +
+                    emoji +
+                    value.substring(
+                        end
+                    );
+
+
+                messageInput.focus();
+
+
+                messageInput.selectionStart =
+                    start +
+                    emoji.length;
+
+                messageInput.selectionEnd =
+                    start +
+                    emoji.length;
+
+            }
+        );
 
     });
 
 
-    /* =========================
-       ADD BUTTON
-    ========================= */
+/* =========================================================
+   CLOSE EMOJI PANEL
+========================================================= */
 
-    const addBtn = document.getElementById("addBtn");
+document.addEventListener(
+    "click",
+    event => {
 
-    if (addBtn) {
+        if (
+            emojiPanel &&
+            !emojiPanel.contains(
+                event.target
+            ) &&
+            event.target !== emojiBtn
+        ) {
 
-        addBtn.addEventListener("click", () => {
-
-            alert(
-                "CHAPCY Attachments\n\n" +
-                "📷 Camera\n" +
-                "🖼️ Gallery\n" +
-                "📎 File\n" +
-                "🎤 Voice"
+            emojiPanel.classList.remove(
+                "show"
             );
 
-        });
+        }
 
     }
+);
 
 
-    /* =========================
-       SEARCH
-    ========================= */
+/* =========================================================
+   SEARCH BUTTON
+========================================================= */
 
-    const searchBtn = document.getElementById("searchBtn");
-    const searchBox = document.getElementById("searchBox");
-    const searchInput = document.getElementById("searchInput");
+searchBtn?.addEventListener(
+    "click",
+    () => {
 
-    if (searchBtn && searchBox) {
+        searchBox?.classList.toggle(
+            "show"
+        );
 
-        searchBtn.addEventListener("click", () => {
 
-            searchBox.classList.toggle("show");
+        if (
+            searchBox?.classList.contains(
+                "show"
+            )
+        ) {
 
-            if (searchBox.classList.contains("show") && searchInput) {
-                setTimeout(() => {
-                    searchInput.focus();
-                }, 100);
-            }
-        });
+            searchInput?.focus();
+
+        } else {
+
+            clearSearch();
+
+        }
+
     }
+);
 
 
-    /* =========================
-       SEARCH CHAT MESSAGES
-    ========================= */
+/* =========================================================
+   SEARCH MESSAGES
+========================================================= */
 
-    if (searchInput) {
+searchInput?.addEventListener(
+    "input",
+    () => {
 
-        searchInput.addEventListener("input", () => {
-
-            const query = searchInput.value
+        const query =
+            searchInput.value
                 .trim()
                 .toLowerCase();
 
-            document.querySelectorAll(".message").forEach(message => {
+
+        const allMessages =
+            document.querySelectorAll(
+                ".message"
+            );
+
+
+        allMessages.forEach(
+            message => {
 
                 const text =
-                    message.textContent.toLowerCase();
+                    message.textContent
+                        .toLowerCase();
 
-                if (!query || text.includes(query)) {
-                    message.style.display = "";
+
+                if (
+                    !query ||
+                    text.includes(query)
+                ) {
+
+                    message.style.display =
+                        "";
+
                 } else {
-                    message.style.display = "none";
+
+                    message.style.display =
+                        "none";
+
                 }
 
-            });
+            }
+        );
 
-        });
+    }
+);
+
+
+function clearSearch() {
+
+    if (searchInput) {
+        searchInput.value = "";
     }
 
 
-    /* =========================
-       ROOM INFO
-    ========================= */
+    document
+        .querySelectorAll(
+            ".message"
+        )
+        .forEach(
+            message => {
 
-    const roomInfoBtn = document.getElementById("roomInfoBtn");
-    const roomInfoPanel = document.getElementById("roomInfoPanel");
+                message.style.display =
+                    "";
 
-    if (roomInfoBtn && roomInfoPanel) {
+            }
+        );
 
-        roomInfoBtn.addEventListener("click", event => {
+}
 
-            event.stopPropagation();
 
-            roomInfoPanel.classList.toggle("show");
+/* =========================================================
+   ROOM INFO
+========================================================= */
 
-        });
+roomInfoBtn?.addEventListener(
+    "click",
+    () => {
 
-        roomInfoPanel.addEventListener("click", event => {
-            event.stopPropagation();
-        });
+        roomInfoPanel?.classList.toggle(
+            "show"
+        );
 
-        document.addEventListener("click", () => {
-            roomInfoPanel.classList.remove("show");
-        });
     }
+);
 
 
-    /* =========================
-       LIVE BUTTON EFFECT
-    ========================= */
+/* =========================================================
+   ADD BUTTON
+========================================================= */
 
-    document.querySelectorAll(".game-live-btn").forEach(button => {
+addBtn?.addEventListener(
+    "click",
+    () => {
 
-        button.addEventListener("click", () => {
+        alert(
+            "More CODM chat features will be added here."
+        );
 
-            button.classList.add("clicked");
-
-            setTimeout(() => {
-                button.classList.remove("clicked");
-            }, 500);
-
-        });
-
-    });
+    }
+);
 
 
-    /* =========================
-       BATTLE SCORE ANIMATION
-    ========================= */
+/* =========================================================
+   ENTER TO SEND
+========================================================= */
 
-    const scoreNumbers =
-        document.querySelectorAll(".score-number");
+messageInput?.addEventListener(
+    "keydown",
+    event => {
 
-    scoreNumbers.forEach(score => {
+        if (
+            event.key === "Enter" &&
+            !event.shiftKey
+        ) {
 
-        const target =
-            parseInt(score.textContent.trim());
+            event.preventDefault();
 
-        if (isNaN(target)) return;
+            composer?.requestSubmit();
 
-        let current = 0;
-
-        score.textContent = "0";
-
-        const duration = 800;
-
-        const start = performance.now();
-
-        function animateScore(time) {
-
-            const progress =
-                Math.min((time - start) / duration, 1);
-
-            current =
-                Math.floor(progress * target);
-
-            score.textContent = current;
-
-            if (progress < 1) {
-                requestAnimationFrame(animateScore);
-            } else {
-                score.textContent = target;
-            }
         }
 
-        requestAnimationFrame(animateScore);
-
-    });
-
-
-    /* =========================
-       CARD HOVER TILT
-       Desktop only
-    ========================= */
-
-    const teams =
-        document.querySelectorAll(".team");
-
-    teams.forEach(team => {
-
-        team.addEventListener("mousemove", event => {
-
-            if (window.innerWidth < 850) return;
-
-            const rect =
-                team.getBoundingClientRect();
-
-            const x =
-                event.clientX - rect.left;
-
-            const y =
-                event.clientY - rect.top;
-
-            const rotateY =
-                ((x / rect.width) - 0.5) * 5;
-
-            const rotateX =
-                ((y / rect.height) - 0.5) * -5;
-
-            team.style.transform =
-                `perspective(700px)
-                 rotateX(${rotateX}deg)
-                 rotateY(${rotateY}deg)
-                 translateY(-2px)`;
-        });
-
-        team.addEventListener("mouseleave", () => {
-            team.style.transform = "";
-        });
-
-    });
+    }
+);
 
 
-    /* =========================
-       PREVIEW WELCOME MESSAGE
-    ========================= */
+/* =========================================================
+   LOGOUT
+========================================================= */
 
-    setTimeout(() => {
+logoutBtn?.addEventListener(
+    "click",
+    async () => {
 
-        if (!messages || !emptyChat) return;
-
-        const welcome =
-            document.createElement("div");
-
-        welcome.className = "message";
-
-        welcome.innerHTML = `
-            <div class="avatar">
-                C
-            </div>
-
-            <div class="message-body">
-                <div class="message-name">
-                    CHAPCY Battle
-                </div>
-
-                <div class="message-text">
-                    🔥 Karibu kwenye CODM VS PUBG Battle Room!
-                </div>
-            </div>
-        `;
-
-        emptyChat.style.display = "none";
-
-        messages.appendChild(welcome);
-
-    }, 700);
+        const confirmed =
+            confirm(
+                "Logout from CHAPCY?"
+            );
 
 
-    /* =========================
-       ESC KEY
-    ========================= */
+        if (!confirmed) {
+            return;
+        }
 
-    document.addEventListener("keydown", event => {
 
-        if (event.key === "Escape") {
+        try {
+
+            await signOut(auth);
 
             closeMenu();
 
-            if (emojiPanel) {
-                emojiPanel.classList.remove("show");
-            }
+        } catch (error) {
 
-            if (roomInfoPanel) {
-                roomInfoPanel.classList.remove("show");
-            }
+            console.error(
+                "Logout error:",
+                error
+            );
 
-            if (searchBox) {
-                searchBox.classList.remove("show");
-            }
+            alert(
+                "Logout failed."
+            );
+
         }
 
-    });
+    }
+);
 
 
-    /* =========================
-       WINDOW RESIZE
-    ========================= */
+/* =========================================================
+   ESC KEY
+========================================================= */
 
-    window.addEventListener("resize", () => {
+document.addEventListener(
+    "keydown",
+    event => {
 
-        if (window.innerWidth > 850) {
+        if (
+            event.key === "Escape"
+        ) {
+
             closeMenu();
+
+            emojiPanel?.classList.remove(
+                "show"
+            );
+
+            roomInfoPanel?.classList.remove(
+                "show"
+            );
+
         }
 
-    });
+    }
+);
 
-});
+
+/* =========================================================
+   RESIZE
+========================================================= */
+
+window.addEventListener(
+    "resize",
+    () => {
+
+        if (
+            window.innerWidth > 760
+        ) {
+
+            closeMenu();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   START
+========================================================= */
+
+console.log(
+    "CHAPCY CODM Live Chat loaded."
+);
+
+console.log(
+    "Firebase room:",
+    `rooms/${ROOM_NAME}/messages`
+);
+
+console.log(
+    "PHP endpoint:",
+    PHP_ENDPOINT
+);
+```
