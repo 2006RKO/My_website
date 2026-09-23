@@ -1,409 +1,1047 @@
-/* =========================================================
-   CHAPCY — FOOD GROUP CARD
-   Premium Food / Neon Glass Design
-========================================================= */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
-.food-card {
-  position: relative;
-  overflow: hidden;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(10, 15, 25, 0.96),
-      rgba(24, 18, 8, 0.94)
-    );
-
-  border: 1px solid rgba(255, 174, 0, 0.38);
-
-  box-shadow:
-    0 20px 55px rgba(0, 0, 0, 0.55),
-    0 0 25px rgba(255, 166, 0, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
-
-  transition:
-    transform 0.45s ease,
-    box-shadow 0.45s ease,
-    border-color 0.45s ease;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* Animated food glow */
-.food-card::before {
-  content: "";
-  position: absolute;
-  width: 260px;
-  height: 260px;
+:root {
+    --bg: #050914;
+    --panel: rgba(10, 18, 34, 0.82);
+    --panel-2: rgba(15, 24, 42, 0.92);
+    --border: rgba(255, 255, 255, 0.09);
 
-  top: -120px;
-  right: -100px;
+    --food: #ff9f1c;
+    --food-light: #ffd166;
+    --cyan: #00e5ff;
 
-  background: radial-gradient(
-    circle,
-    rgba(255, 174, 0, 0.30),
-    rgba(255, 94, 0, 0.12),
-    transparent 70%
-  );
+    --text: #ffffff;
+    --muted: #9ca9bd;
 
-  filter: blur(20px);
-  pointer-events: none;
-  animation: foodGlow 5s ease-in-out infinite alternate;
+    --own-message:
+        linear-gradient(
+            135deg,
+            #ff8c00,
+            #ffb703
+        );
+
+    --other-message:
+        rgba(22, 31, 50, 0.95);
 }
 
-/* Bottom glow */
-.food-card::after {
-  content: "";
-  position: absolute;
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
 
-  width: 220px;
-  height: 120px;
+body {
+    font-family: "Poppins", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow: hidden;
+}
 
-  bottom: -80px;
-  left: 50%;
 
-  transform: translateX(-50%);
+/* =====================================
+   BACKGROUND
+===================================== */
 
-  background: radial-gradient(
-    ellipse,
-    rgba(255, 106, 0, 0.25),
-    transparent 70%
-  );
+.food-background {
+    position: fixed;
+    inset: 0;
+    z-index: -5;
+    overflow: hidden;
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(255, 159, 28, .15),
+            transparent 35%
+        ),
+        #050914;
+}
 
-  filter: blur(25px);
-  pointer-events: none;
+.food-bg-image {
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(2, 7, 17, .92),
+            rgba(5, 12, 27, .82)
+        );
+
+    background-size: cover;
+    background-position: center;
+
+    opacity: .8;
+}
+
+.food-glow {
+    position: absolute;
+    width: 380px;
+    height: 380px;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: .22;
+    animation: foodGlow 10s infinite alternate ease-in-out;
+}
+
+.glow-one {
+    background: #ff7b00;
+    top: -120px;
+    left: -100px;
+}
+
+.glow-two {
+    background: #ffd166;
+    right: -150px;
+    bottom: -100px;
+    animation-delay: 2s;
+}
+
+.glow-three {
+    background: #00e5ff;
+    left: 45%;
+    top: 40%;
+    animation-delay: 4s;
 }
 
 @keyframes foodGlow {
-  0% {
-    transform: translate(0, 0) scale(1);
-    opacity: 0.65;
-  }
 
-  50% {
-    transform: translate(-30px, 25px) scale(1.15);
-    opacity: 1;
-  }
+    from {
+        transform: translate(
+            -30px,
+            -20px
+        ) scale(.9);
+    }
 
-  100% {
-    transform: translate(15px, 45px) scale(0.95);
-    opacity: 0.7;
-  }
+    to {
+        transform: translate(
+            50px,
+            40px
+        ) scale(1.15);
+    }
 }
 
 
-/* =========================================================
-   FOOD IMAGE
-========================================================= */
+/* =====================================
+   APP
+===================================== */
 
-.food-card img {
-  width: 100%;
-  height: 215px;
+.app {
+    width: 100%;
+    height: 100vh;
 
-  display: block;
+    display: flex;
 
-  object-fit: cover;
+    background:
+        rgba(2, 7, 17, .35);
 
-  border-radius: 20px 20px 0 0;
-
-  filter:
-    saturate(1.18)
-    contrast(1.08)
-    brightness(0.92);
-
-  transition:
-    transform 0.6s ease,
-    filter 0.6s ease;
-}
-
-.food-card:hover img {
-  transform: scale(1.055);
-
-  filter:
-    saturate(1.35)
-    contrast(1.1)
-    brightness(1.02);
+    backdrop-filter: blur(14px);
 }
 
 
-/* =========================================================
-   FOOD TITLE
-========================================================= */
+/* =====================================
+   SIDEBAR
+===================================== */
+
+.side-nav {
+    width: 270px;
+    min-width: 270px;
+
+    height: 100%;
+
+    background:
+        rgba(7, 14, 28, .88);
+
+    border-right:
+        1px solid var(--border);
+
+    backdrop-filter:
+        blur(25px);
+
+    padding: 22px 16px;
+
+    display: flex;
+    flex-direction: column;
+
+    z-index: 50;
+}
+
+.logo {
+    padding: 10px 12px 24px;
+}
+
+.logo h2 {
+    font-size: 23px;
+    font-weight: 800;
+
+    background:
+        linear-gradient(
+            90deg,
+            #fff,
+            var(--food-light),
+            var(--food)
+        );
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.logo span {
+    display: block;
+    color: var(--muted);
+    font-size: 11px;
+    margin-top: 2px;
+}
+
+
+/* =====================================
+   PROFILE
+===================================== */
+
+.profile-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 12px;
+
+    border-radius: 18px;
+
+    background:
+        rgba(255,255,255,.04);
+
+    border:
+        1px solid var(--border);
+
+    margin-bottom: 18px;
+}
+
+.profile-avatar {
+    width: 43px;
+    height: 43px;
+
+    border-radius: 50%;
+
+    display: grid;
+    place-items: center;
+
+    font-weight: 700;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--food),
+            #ff6b00
+        );
+
+    box-shadow:
+        0 0 20px
+        rgba(255,159,28,.3);
+}
+
+.profile-info {
+    min-width: 0;
+}
+
+.profile-info strong {
+    display: block;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.online-text {
+    color: #43f58b;
+    font-size: 11px;
+}
+
+
+/* =====================================
+   NAV
+===================================== */
+
+.side-nav nav {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.side-nav nav a {
+    color: #aebbd0;
+
+    text-decoration: none;
+
+    padding: 12px 13px;
+
+    border-radius: 13px;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    font-size: 13px;
+
+    transition: .25s ease;
+}
+
+.side-nav nav a:hover,
+.side-nav nav a.active {
+    color: #fff;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(255,159,28,.17),
+            rgba(255,255,255,.04)
+        );
+
+    border:
+        1px solid
+        rgba(255,159,28,.2);
+
+    transform: translateX(3px);
+}
+
+.side-nav nav i {
+    width: 20px;
+    text-align: center;
+    color: var(--food);
+}
+
+
+/* =====================================
+   LOGOUT
+===================================== */
+
+.logout-btn {
+    margin-top: auto;
+
+    border: 1px solid
+        rgba(255,80,80,.15);
+
+    background:
+        rgba(255,70,70,.06);
+
+    color: #ff8585;
+
+    padding: 12px;
+
+    border-radius: 13px;
+
+    cursor: pointer;
+
+    font-family: inherit;
+
+    transition: .25s;
+}
+
+.logout-btn:hover {
+    background:
+        rgba(255,70,70,.12);
+}
+
+
+/* =====================================
+   MAIN CHAT
+===================================== */
+
+.chat {
+    flex: 1;
+
+    min-width: 0;
+
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    position: relative;
+}
+
+
+/* =====================================
+   HEADER
+===================================== */
+
+.chat-header {
+    min-height: 75px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 14px;
+
+    padding: 12px 22px;
+
+    background:
+        rgba(6, 14, 28, .72);
+
+    border-bottom:
+        1px solid var(--border);
+
+    backdrop-filter:
+        blur(22px);
+
+    z-index: 20;
+}
+
+.menu-btn {
+    display: none;
+
+    width: 40px;
+    height: 40px;
+
+    border: 1px solid var(--border);
+    border-radius: 12px;
+
+    background: rgba(255,255,255,.05);
+    color: white;
+
+    cursor: pointer;
+}
+
+.chat-room-icon {
+    width: 45px;
+    height: 45px;
+
+    border-radius: 15px;
+
+    display: grid;
+    place-items: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff8c00,
+            #ffb703
+        );
+
+    font-size: 21px;
+
+    box-shadow:
+        0 0 22px
+        rgba(255,159,28,.28);
+}
+
+.chat-title {
+    flex: 1;
+    min-width: 0;
+}
+
+.chat-title h1 {
+    font-size: 16px;
+}
+
+.chat-title p {
+    color: var(--muted);
+    font-size: 10px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/* =====================================
+   SEARCH
+===================================== */
+
+.search-wrap {
+    display: flex;
+    align-items: center;
+}
+
+.search-box {
+    display: none;
+}
+
+.search-box.show {
+    display: block;
+}
+
+.search-box input {
+    width: 190px;
+
+    border: 1px solid var(--border);
+    border-radius: 12px;
+
+    padding: 9px 12px;
+
+    outline: none;
+
+    background:
+        rgba(255,255,255,.05);
+
+    color: white;
+
+    font-family: inherit;
+}
+
+
+/* =====================================
+   ICON BUTTONS
+===================================== */
+
+.icon-btn {
+    width: 40px;
+    height: 40px;
+
+    border: 1px solid var(--border);
+    border-radius: 12px;
+
+    background:
+        rgba(255,255,255,.04);
+
+    color: #dce7f5;
+
+    cursor: pointer;
+
+    transition: .25s;
+}
+
+.icon-btn:hover {
+    border-color:
+        rgba(255,159,28,.4);
+
+    color: var(--food);
+}
+
+
+/* =====================================
+   MESSAGES
+===================================== */
+
+.messages {
+    flex: 1;
+
+    overflow-y: auto;
+
+    padding: 25px;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 16px;
+
+    scrollbar-width: thin;
+}
+
+.chat-message {
+    display: flex;
+
+    align-items: flex-end;
+
+    gap: 10px;
+
+    max-width: 75%;
+}
+
+.chat-message.own {
+    align-self: flex-end;
+    flex-direction: row-reverse;
+}
+
+.message-avatar {
+    width: 36px;
+    height: 36px;
+
+    min-width: 36px;
+
+    border-radius: 50%;
+
+    display: grid;
+    place-items: center;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    background:
+        linear-gradient(
+            135deg,
+            #263652,
+            #16233a
+        );
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+}
+
+.chat-message.own .message-avatar {
+    background:
+        linear-gradient(
+            135deg,
+            var(--food),
+            #ff6b00
+        );
+}
+
+.message-content {
+    min-width: 0;
+}
+
+.message-meta {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-bottom: 4px;
+
+    font-size: 10px;
+
+    color: var(--muted);
+}
+
+.message-meta strong {
+    color: #e8eef8;
+}
+
+.message-bubble {
+    padding: 11px 14px;
+
+    border-radius: 17px 17px 17px 5px;
+
+    background:
+        var(--other-message);
+
+    border:
+        1px solid
+        rgba(255,255,255,.07);
+
+    color: #edf3fc;
+
+    font-size: 13px;
+
+    line-height: 1.55;
+
+    word-break: break-word;
+
+    box-shadow:
+        0 8px 25px
+        rgba(0,0,0,.18);
+}
+
+.chat-message.own .message-bubble {
+    background:
+        var(--own-message);
+
+    color: #16100a;
+
+    border-radius:
+        17px 17px 5px 17px;
+
+    font-weight: 500;
+}
+
+
+/* =====================================
+   EMPTY CHAT
+===================================== */
+
+.empty-chat {
+    margin: auto;
+
+    text-align: center;
+
+    color: var(--muted);
+}
+
+.empty-chat i {
+    font-size: 45px;
+
+    color: var(--food);
+
+    margin-bottom: 12px;
+
+    filter:
+        drop-shadow(
+            0 0 14px
+            rgba(255,159,28,.35)
+        );
+}
+
+.empty-chat h3 {
+    color: white;
+    font-size: 17px;
+}
+
+.empty-chat p {
+    font-size: 12px;
+}
+
+
+/* =====================================
+   COMPOSER
+===================================== */
+
+.composer {
+    padding: 14px 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    background:
+        rgba(6, 14, 28, .82);
+
+    border-top:
+        1px solid var(--border);
+
+    backdrop-filter:
+        blur(22px);
+
+    position: relative;
+}
+
+.message-input {
+    flex: 1;
+
+    min-width: 0;
+
+    border:
+        1px solid var(--border);
+
+    background:
+        rgba(255,255,255,.05);
+
+    color: white;
+
+    padding: 12px 15px;
+
+    border-radius: 15px;
+
+    outline: none;
+
+    font-family: inherit;
+
+    resize: none;
+}
+
+.message-input:focus {
+    border-color:
+        rgba(255,159,28,.45);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(255,159,28,.07);
+}
+
+.send-btn {
+    width: 45px;
+    height: 45px;
+
+    border: none;
+
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff8c00,
+            #ffb703
+        );
+
+    color: #15100a;
+
+    cursor: pointer;
+
+    font-size: 17px;
+
+    transition: .25s;
+}
+
+.send-btn:hover {
+    transform: scale(1.05);
+
+    box-shadow:
+        0 0 22px
+        rgba(255,159,28,.35);
+}
+
+.send-btn:disabled {
+    opacity: .5;
+}
+
+
+/* =====================================
+   EMOJI
+===================================== */
+
+.emoji-panel {
+    display: none;
+
+    position: absolute;
+
+    bottom: 78px;
+    left: 20px;
+
+    width: 290px;
+    max-height: 230px;
+
+    overflow-y: auto;
+
+    padding: 12px;
+
+    background:
+        rgba(9,17,31,.97);
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 20px 50px
+        rgba(0,0,0,.4);
+
+    z-index: 100;
+}
+
+.emoji-panel.show {
+    display: grid;
+
+    grid-template-columns:
+        repeat(7, 1fr);
+
+    gap: 5px;
+}
+
+.emoji-panel button {
+    border: none;
+
+    background:
+        transparent;
+
+    font-size: 21px;
+
+    padding: 7px;
+
+    border-radius: 9px;
+
+    cursor: pointer;
+}
+
+.emoji-panel button:hover {
+    background:
+        rgba(255,255,255,.08);
+}
+
+
+/* =====================================
+   RIGHT PANEL
+===================================== */
+
+.right-panel {
+    width: 290px;
+
+    padding: 20px 17px;
+
+    border-left:
+        1px solid var(--border);
+
+    background:
+        rgba(7,14,28,.78);
+
+    backdrop-filter:
+        blur(20px);
+
+    overflow-y: auto;
+}
+
+.food-card {
+    padding: 18px;
+
+    border:
+        1px solid
+        rgba(255,159,28,.14);
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,159,28,.09),
+            rgba(255,255,255,.03)
+        );
+
+    margin-bottom: 15px;
+}
 
 .food-card h3 {
-  position: relative;
-  z-index: 2;
-
-  margin: 18px 18px 8px;
-
-  color: #ffffff;
-
-  font-size: 22px;
-  font-weight: 800;
-
-  letter-spacing: -0.4px;
-
-  text-shadow:
-    0 0 8px rgba(255, 174, 0, 0.25);
+    font-size: 14px;
+    margin-bottom: 6px;
 }
-
-.food-card h3::first-letter {
-  font-size: 25px;
-}
-
-
-/* =========================================================
-   FOOD DESCRIPTION
-========================================================= */
 
 .food-card p {
-  position: relative;
-  z-index: 2;
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.6;
+}
 
-  margin: 0 18px;
-
-  color: rgba(255, 255, 255, 0.72);
-
-  font-size: 13.5px;
-  line-height: 1.65;
-
-  min-height: 67px;
+.food-card i {
+    color: var(--food);
+    font-size: 25px;
+    margin-bottom: 10px;
 }
 
 
-/* =========================================================
-   BUTTON AREA
-========================================================= */
+/* =====================================
+   MOBILE OVERLAY
+===================================== */
 
-.food-card .card-buttons {
-  position: relative;
-  z-index: 5;
+.mobile-overlay {
+    display: none;
 
-  display: flex;
+    position: fixed;
 
-  gap: 10px;
+    inset: 0;
 
-  padding: 18px;
+    background:
+        rgba(0,0,0,.55);
 
-  margin-top: 4px;
+    backdrop-filter:
+        blur(4px);
+
+    z-index: 40;
+}
+
+.mobile-overlay.show {
+    display: block;
 }
 
 
-/* =========================================================
-   JOIN GROUP
-========================================================= */
+/* =====================================
+   ROOM INFO
+===================================== */
 
-.food-card .join-btn {
-  flex: 1;
+.room-info-panel {
+    position: absolute;
 
-  display: flex;
+    top: 76px;
+    right: 20px;
 
-  align-items: center;
-  justify-content: center;
+    width: 300px;
 
-  gap: 7px;
+    padding: 18px;
 
-  min-height: 44px;
+    background:
+        rgba(9,17,31,.96);
 
-  padding: 10px 13px;
+    border:
+        1px solid var(--border);
 
-  border-radius: 14px;
+    border-radius: 18px;
 
-  background:
-    linear-gradient(
-      135deg,
-      #ffd400,
-      #ff9d00
-    );
+    box-shadow:
+        0 20px 60px
+        rgba(0,0,0,.4);
 
-  color: #111;
+    z-index: 30;
 
-  font-size: 13px;
-  font-weight: 800;
-
-  text-decoration: none;
-
-  border: 1px solid rgba(255, 255, 255, 0.25);
-
-  box-shadow:
-    0 8px 20px rgba(255, 157, 0, 0.25),
-    inset 0 1px 0 rgba(255, 255, 255, 0.4);
-
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+    display: none;
 }
 
-.food-card .join-btn:hover {
-  transform: translateY(-3px);
-
-  box-shadow:
-    0 12px 30px rgba(255, 157, 0, 0.42),
-    0 0 18px rgba(255, 196, 0, 0.25);
-}
-
-.food-card .join-btn i {
-  font-size: 12px;
+.room-info-panel.show {
+    display: block;
 }
 
 
-/* =========================================================
-   FOOD PRO
-========================================================= */
+/* =====================================
+   RESPONSIVE
+===================================== */
 
-.food-card .payment-btn {
-  flex: 1;
+@media (max-width: 1050px) {
 
-  display: flex;
+    .right-panel {
+        display: none;
+    }
 
-  align-items: center;
-  justify-content: center;
-
-  gap: 7px;
-
-  min-height: 44px;
-
-  padding: 10px 13px;
-
-  border-radius: 14px;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255, 166, 0, 0.13),
-      rgba(255, 91, 0, 0.08)
-    );
-
-  color: #ffd21a;
-
-  font-size: 13px;
-  font-weight: 800;
-
-  text-decoration: none;
-
-  border: 1px solid rgba(255, 188, 0, 0.45);
-
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.06),
-    0 6px 18px rgba(255, 140, 0, 0.08);
-
-  backdrop-filter: blur(12px);
-
-  transition:
-    transform 0.3s ease,
-    background 0.3s ease,
-    box-shadow 0.3s ease;
 }
 
-.food-card .payment-btn:hover {
-  transform: translateY(-3px);
+@media (max-width: 760px) {
 
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255, 190, 0, 0.22),
-      rgba(255, 87, 0, 0.15)
-    );
+    .side-nav {
+        position: fixed;
 
-  box-shadow:
-    0 10px 25px rgba(255, 140, 0, 0.22),
-    0 0 16px rgba(255, 190, 0, 0.12);
+        left: -290px;
+        top: 0;
+
+        transition: .3s ease;
+
+        box-shadow:
+            15px 0 50px
+            rgba(0,0,0,.4);
+    }
+
+    .side-nav.open {
+        left: 0;
+    }
+
+    .menu-btn {
+        display: grid;
+        place-items: center;
+    }
+
+    .chat-header {
+        padding: 10px 12px;
+    }
+
+    .chat-title h1 {
+        font-size: 14px;
+    }
+
+    .chat-title p {
+        max-width: 180px;
+    }
+
+    .messages {
+        padding: 16px 12px;
+    }
+
+    .chat-message {
+        max-width: 88%;
+    }
+
+    .composer {
+        padding: 10px;
+    }
+
+    .emoji-panel {
+        left: 10px;
+        bottom: 70px;
+        width: calc(100vw - 20px);
+    }
+
+    .search-box input {
+        width: 140px;
+    }
+
 }
 
-.food-card .payment-btn i {
-  font-size: 12px;
-}
+@media (max-width: 480px) {
 
+    .chat-room-icon {
+        width: 40px;
+        height: 40px;
+    }
 
-/* =========================================================
-   CARD HOVER
-========================================================= */
+    .icon-btn {
+        width: 36px;
+        height: 36px;
+    }
 
-.food-card:hover {
-  border-color: rgba(255, 190, 0, 0.65);
+    .message-bubble {
+        font-size: 12px;
+    }
 
-  box-shadow:
-    0 25px 65px rgba(0, 0, 0, 0.65),
-    0 0 35px rgba(255, 157, 0, 0.18),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-}
-
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media (max-width: 600px) {
-
-  .food-card img {
-    height: 190px;
-  }
-
-  .food-card h3 {
-    font-size: 20px;
-    margin-top: 15px;
-  }
-
-  .food-card p {
-    font-size: 13px;
-    line-height: 1.55;
-  }
-
-  .food-card .card-buttons {
-    gap: 8px;
-    padding: 15px;
-  }
-
-  .food-card .join-btn,
-  .food-card .payment-btn {
-    min-height: 42px;
-    font-size: 12px;
-    border-radius: 12px;
-  }
-}
-
-
-/* =========================================================
-   SMALL PHONES
-========================================================= */
-
-@media (max-width: 390px) {
-
-  .food-card img {
-    height: 175px;
-  }
-
-  .food-card h3 {
-    font-size: 18px;
-  }
-
-  .food-card p {
-    font-size: 12px;
-  }
-
-  .food-card .card-buttons {
-    flex-direction: column;
-  }
-
-  .food-card .join-btn,
-  .food-card .payment-btn {
-    width: 100%;
-  }
-}
-
-
-/* =========================================================
-   REDUCE MOTION
-========================================================= */
-
-@media (prefers-reduced-motion: reduce) {
-
-  .food-card::before {
-    animation: none;
-  }
-
-  .food-card,
-  .food-card img,
-  .food-card .join-btn,
-  .food-card .payment-btn {
-    transition: none;
-  }
 }
