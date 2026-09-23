@@ -1,14 +1,11 @@
 ```javascript
-/* =========================================================
-   CHAPCY V27 — FEEDBACK SYSTEM
-   Firebase + PHP/MySQL
-   3-Day Cooldown
-   10-Second Success Animation
-========================================================= */
+// ======================================================
+// CHAPCY V27 — FEEDBACK SYSTEM
+// Firebase + XAMPP + MySQL
+// 1 feedback every 3 days
+// ======================================================
 
-import {
-    initializeApp
-} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
 import {
     getAuth,
@@ -22,9 +19,9 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-database.js";
 
 
-/* =========================================================
-   FIREBASE CONFIG
-========================================================= */
+// ======================================================
+// FIREBASE CONFIG
+// ======================================================
 
 const firebaseConfig = {
     apiKey: "AIzaSyDIID2LpzjLiLeLJKgp-Vd7tNIyN-M1k",
@@ -38,28 +35,27 @@ const firebaseConfig = {
 };
 
 
-/* =========================================================
-   FIREBASE INITIALIZATION
-========================================================= */
+// ======================================================
+// INITIALIZE FIREBASE
+// ======================================================
 
 const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
+const db = getDatabase(app);
 
-const database = getDatabase(app);
 
-
-/* =========================================================
-   PHP ENDPOINT
-========================================================= */
+// ======================================================
+// PHP ENDPOINT
+// ======================================================
 
 const PHP_ENDPOINT =
     "http://localhost/chapcy/save-feedback.php";
 
 
-/* =========================================================
-   ELEMENTS
-========================================================= */
+// ======================================================
+// ELEMENTS
+// ======================================================
 
 const feedbackForm =
     document.getElementById("feedbackForm");
@@ -74,7 +70,7 @@ const sendFeedback =
     document.getElementById("sendFeedback");
 
 const feedbackCard =
-    document.querySelector(".feedback-card");
+    document.getElementById("feedbackCard");
 
 const feedbackLocked =
     document.getElementById("feedbackLocked");
@@ -92,9 +88,9 @@ const closeNotification =
     document.getElementById("closeNotification");
 
 
-/* =========================================================
-   USER DATA
-========================================================= */
+// ======================================================
+// USER DATA
+// ======================================================
 
 let currentUser = null;
 
@@ -104,157 +100,117 @@ let currentUserData = {
 };
 
 let isSubmitting = false;
-
 let countdownTimer = null;
 
 
-/* =========================================================
-   CHARACTER COUNTER
-========================================================= */
+// ======================================================
+// CHARACTER COUNTER
+// ======================================================
 
 function updateCounter() {
 
-    if (!feedbackMessage || !counter) {
-        return;
-    }
+    if (!feedbackMessage || !counter) return;
 
     const length = feedbackMessage.value.length;
 
-    counter.textContent =
-        `${length} / 1000`;
-
+    counter.textContent = `${length} / 1000`;
 }
 
+feedbackMessage?.addEventListener(
+    "input",
+    updateCounter
+);
 
-if (feedbackMessage) {
-
-    feedbackMessage.addEventListener(
-        "input",
-        updateCounter
-    );
-
-    updateCounter();
-}
+updateCounter();
 
 
-/* =========================================================
-   NOTIFICATION
-========================================================= */
+// ======================================================
+// NOTIFICATION
+// ======================================================
 
 function showNotification() {
 
-    if (!successNotification) {
-        return;
-    }
+    if (!successNotification) return;
 
-    successNotification.hidden = false;
+    successNotification.style.display = "flex";
 
+    setTimeout(() => {
+        successNotification.style.display = "none";
+    }, 5000);
 }
 
 
 function hideNotification() {
 
-    if (!successNotification) {
-        return;
-    }
+    if (!successNotification) return;
 
-    successNotification.hidden = true;
-
+    successNotification.style.display = "none";
 }
 
 
-if (closeNotification) {
-
-    closeNotification.addEventListener(
-        "click",
-        hideNotification
-    );
-
-}
+closeNotification?.addEventListener(
+    "click",
+    hideNotification
+);
 
 
-/* =========================================================
-   FORMAT REMAINING TIME
-========================================================= */
+// ======================================================
+// FORMAT COUNTDOWN
+// ======================================================
 
 function formatRemaining(seconds) {
 
-    seconds = Math.max(
-        0,
-        Math.floor(Number(seconds) || 0)
-    );
+    seconds = Math.max(0, Math.floor(seconds));
 
     const days =
         Math.floor(seconds / 86400);
 
+    seconds %= 86400;
+
     const hours =
-        Math.floor(
-            (seconds % 86400) / 3600
-        );
+        Math.floor(seconds / 3600);
+
+    seconds %= 3600;
 
     const minutes =
-        Math.floor(
-            (seconds % 3600) / 60
-        );
+        Math.floor(seconds / 60);
 
     const secs =
         seconds % 60;
 
-
-    if (days > 0) {
-
-        return `${days}D ${hours}H ${minutes}M`;
-
-    }
-
-    if (hours > 0) {
-
-        return `${hours}H ${minutes}M ${secs}S`;
-
-    }
-
-    if (minutes > 0) {
-
-        return `${minutes}M ${secs}S`;
-
-    }
-
-    return `${secs}S`;
+    return `${days}d ${String(hours).padStart(2, "0")}h ${String(minutes).padStart(2, "0")}m ${String(secs).padStart(2, "0")}s`;
 }
 
 
-/* =========================================================
-   SHOW LOCKED SCREEN
-========================================================= */
+// ======================================================
+// SHOW LOCKED SCREEN
+// ======================================================
 
 function showLockedScreen(seconds) {
 
-    seconds = Math.max(
-        0,
-        Number(seconds) || 0
-    );
-
-
     if (feedbackCard) {
-        feedbackCard.hidden = true;
+        feedbackCard.style.display = "none";
+    }
+
+    if (successScreen) {
+        successScreen.style.display = "none";
     }
 
     if (feedbackLocked) {
-        feedbackLocked.hidden = false;
+        feedbackLocked.style.display = "block";
     }
 
-
     updateCountdown(seconds);
-
 
     if (countdownTimer) {
         clearInterval(countdownTimer);
     }
 
-
     countdownTimer = setInterval(() => {
 
         seconds--;
+
+        updateCountdown(seconds);
 
         if (seconds <= 0) {
 
@@ -263,101 +219,68 @@ function showLockedScreen(seconds) {
             countdownTimer = null;
 
             unlockFeedback();
-
-            return;
         }
-
-        updateCountdown(seconds);
 
     }, 1000);
 }
 
 
-/* =========================================================
-   COUNTDOWN
-========================================================= */
+// ======================================================
+// UPDATE COUNTDOWN
+// ======================================================
 
 function updateCountdown(seconds) {
 
-    if (!countdown) {
-        return;
-    }
+    if (!countdown) return;
 
     countdown.textContent =
         formatRemaining(seconds);
 }
 
 
-/* =========================================================
-   UNLOCK FEEDBACK
-========================================================= */
+// ======================================================
+// UNLOCK FEEDBACK
+// ======================================================
 
 function unlockFeedback() {
 
+    if (countdownTimer) {
+        clearInterval(countdownTimer);
+        countdownTimer = null;
+    }
+
     if (feedbackLocked) {
-        feedbackLocked.hidden = true;
+        feedbackLocked.style.display = "none";
     }
 
     if (feedbackCard) {
-        feedbackCard.hidden = false;
+        feedbackCard.style.display = "block";
     }
-
-    if (feedbackMessage) {
-        feedbackMessage.disabled = false;
-        feedbackMessage.value = "";
-    }
-
-    if (sendFeedback) {
-
-        sendFeedback.disabled = false;
-
-        sendFeedback.classList.remove(
-            "loading"
-        );
-
-    }
-
-    updateCounter();
 }
 
 
-/* =========================================================
-   GET USER DATA FROM FIREBASE DATABASE
-========================================================= */
+// ======================================================
+// LOAD USER DATA FROM FIREBASE
+// ======================================================
 
 async function loadUserData(user) {
-
-    currentUserData = {
-        name:
-            user.displayName ||
-            "CHAPCY User",
-
-        phone:
-            user.phoneNumber || ""
-    };
-
 
     try {
 
         const userRef =
-            ref(database, `users/${user.uid}`);
+            ref(db, `users/${user.uid}`);
 
         const snapshot =
             await get(userRef);
 
-
         if (snapshot.exists()) {
 
-            const data =
-                snapshot.val() || {};
-
+            const data = snapshot.val();
 
             currentUserData.name =
                 data.name ||
                 data.displayName ||
-                user.displayName ||
                 "CHAPCY User";
-
 
             currentUserData.phone =
                 data.phone ||
@@ -365,50 +288,63 @@ async function loadUserData(user) {
                 user.phoneNumber ||
                 "";
 
+        } else {
+
+            currentUserData.name =
+                user.displayName ||
+                "CHAPCY User";
+
+            currentUserData.phone =
+                user.phoneNumber ||
+                "";
         }
 
     } catch (error) {
 
-        console.warn(
-            "Could not load Firebase user profile:",
+        console.error(
+            "Unable to load user data:",
             error
         );
 
-    }
+        currentUserData.name =
+            user.displayName ||
+            "CHAPCY User";
 
+        currentUserData.phone =
+            user.phoneNumber ||
+            "";
+    }
 }
 
 
-/* =========================================================
-   AUTH STATE
-========================================================= */
+// ======================================================
+// AUTH STATE
+// ======================================================
 
 onAuthStateChanged(
     auth,
     async (user) => {
 
+        currentUser = user;
+
         if (!user) {
 
-            currentUser = null;
+            console.warn(
+                "CHAPCY Feedback: user is not logged in."
+            );
 
             if (sendFeedback) {
                 sendFeedback.disabled = true;
             }
 
             if (feedbackMessage) {
-
                 feedbackMessage.disabled = true;
-
                 feedbackMessage.placeholder =
-                    "Please login to send feedback.";
-
+                    "Please login to send feedback...";
             }
 
             return;
         }
-
-
-        currentUser = user;
 
 
         await loadUserData(user);
@@ -419,78 +355,58 @@ onAuthStateChanged(
         }
 
         if (feedbackMessage) {
-
             feedbackMessage.disabled = false;
-
             feedbackMessage.placeholder =
                 "Write your suggestion here...";
-
         }
 
+        console.log(
+            "Feedback user:",
+            currentUserData.name
+        );
     }
 );
 
 
-/* =========================================================
-   SEND FEEDBACK TO PHP
-========================================================= */
+// ======================================================
+// SEND DATA TO PHP
+// ======================================================
 
 async function sendToPHP(message) {
 
     if (!currentUser) {
-
         throw new Error(
             "Please login before sending feedback."
         );
-
     }
 
 
-    const formData =
-        new FormData();
+    const response = await fetch(
+        PHP_ENDPOINT,
+        {
+            method: "POST",
 
+            headers: {
+                "Content-Type":
+                    "application/x-www-form-urlencoded;charset=UTF-8"
+            },
 
-    formData.append(
-        "firebase_uid",
-        currentUser.uid
+            body: new URLSearchParams({
+
+                firebase_uid:
+                    currentUser.uid,
+
+                name:
+                    currentUserData.name,
+
+                phone:
+                    currentUserData.phone,
+
+                message:
+                    message
+            })
+        }
     );
-
-
-    formData.append(
-        "name",
-        currentUserData.name
-    );
-
-
-    formData.append(
-        "phone",
-        currentUserData.phone
-    );
-
-
-    formData.append(
-        "message",
-        message
-    );
-
-
-    const response =
-        await fetch(
-            PHP_ENDPOINT,
-            {
-                method: "POST",
-                body: formData
-            }
-        );
-
-
-    if (!response.ok) {
-
-        throw new Error(
-            `Server error: ${response.status}`
-        );
-
-    }
 
 
     const text =
@@ -498,7 +414,6 @@ async function sendToPHP(message) {
 
 
     let data;
-
 
     try {
 
@@ -512,9 +427,8 @@ async function sendToPHP(message) {
         );
 
         throw new Error(
-            "PHP returned an invalid response."
+            "Server returned an invalid response."
         );
-
     }
 
 
@@ -522,55 +436,43 @@ async function sendToPHP(message) {
 }
 
 
-/* =========================================================
-   SUCCESS ANIMATION
-========================================================= */
+// ======================================================
+// SUCCESS ANIMATION
+// ======================================================
 
 function startSuccessAnimation() {
 
-    if (!feedbackCard) {
-        return;
+    if (feedbackCard) {
+        feedbackCard.style.display = "none";
     }
 
-
-    if (successScreen) {
-
-        successScreen.hidden = false;
-
+    if (feedbackLocked) {
+        feedbackLocked.style.display = "none";
     }
 
+    if (!successScreen) return;
 
-    /*
-       Hide the form while animation runs
-    */
-
-    feedbackCard.hidden = true;
+    successScreen.style.display = "block";
 
 
-    /*
-       Make sure success screen starts fresh
-    */
-
-    if (successScreen) {
-
-        successScreen.classList.remove(
-            "success-start"
+    // Restart progress animation
+    const progress =
+        successScreen.querySelector(
+            ".progress span"
         );
 
-        void successScreen.offsetWidth;
+    if (progress) {
 
-        successScreen.classList.add(
-            "success-start"
-        );
+        progress.style.animation = "none";
 
+        void progress.offsetWidth;
+
+        progress.style.animation =
+            "progress 10s linear forwards";
     }
 
 
-    /*
-       Show notification
-       after short visual delay
-    */
-
+    // Show notification
     setTimeout(() => {
 
         showNotification();
@@ -578,273 +480,183 @@ function startSuccessAnimation() {
     }, 700);
 
 
-    /*
-       Keep success animation for
-       EXACTLY 10 seconds
-    */
-
+    // Redirect after 10 seconds
     setTimeout(() => {
-
-        if (successScreen) {
-            successScreen.hidden = true;
-        }
-
-
-        /*
-           Redirect back to CHAPCY
-        */
 
         window.location.href =
             "chapcy.html";
 
     }, 10000);
-
 }
 
 
-/* =========================================================
-   FORM SUBMISSION
-========================================================= */
+// ======================================================
+// SUBMIT FEEDBACK
+// ======================================================
 
-if (feedbackForm) {
+feedbackForm?.addEventListener(
+    "submit",
+    async (event) => {
 
-    feedbackForm.addEventListener(
-        "submit",
-        async (event) => {
-
-            event.preventDefault();
+        event.preventDefault();
 
 
-            if (isSubmitting) {
-                return;
-            }
+        if (isSubmitting) return;
 
 
-            /* -------------------------
-               LOGIN CHECK
-            ------------------------- */
+        // Check login
+        if (!currentUser) {
 
-            if (!currentUser) {
+            alert(
+                "Please login to your CHAPCY account first."
+            );
 
-                alert(
-                    "Please login to your CHAPCY account first."
-                );
-
-                return;
-            }
+            return;
+        }
 
 
-            /* -------------------------
-               MESSAGE
-            ------------------------- */
-
-            const message =
-                feedbackMessage
-                    ? feedbackMessage.value.trim()
-                    : "";
+        const message =
+            feedbackMessage.value.trim();
 
 
-            if (!message) {
+        // Empty message
+        if (!message) {
 
-                alert(
-                    "Please write your feedback first."
-                );
+            alert(
+                "Please write your feedback first."
+            );
 
-                if (feedbackMessage) {
-                    feedbackMessage.focus();
+            feedbackMessage.focus();
+
+            return;
+        }
+
+
+        // Maximum length
+        if (message.length > 1000) {
+
+            alert(
+                "Your feedback cannot exceed 1000 characters."
+            );
+
+            return;
+        }
+
+
+        isSubmitting = true;
+
+
+        if (sendFeedback) {
+            sendFeedback.classList.add("loading");
+            sendFeedback.disabled = true;
+        }
+
+
+        try {
+
+            const result =
+                await sendToPHP(message);
+
+
+            // ==========================================
+            // SERVER LOCK
+            // ==========================================
+
+            if (
+                result.locked === true ||
+                result.success === false &&
+                result.remaining_seconds
+            ) {
+
+                const seconds =
+                    Number(
+                        result.remaining_seconds || 0
+                    );
+
+                showLockedScreen(seconds);
+
+                if (result.message) {
+                    console.log(result.message);
                 }
 
                 return;
             }
 
 
-            if (message.length > 1000) {
+            // ==========================================
+            // SUCCESS
+            // ==========================================
 
-                alert(
-                    "Your message is too long. Maximum 1000 characters."
-                );
+            if (result.success === true) {
+
+                feedbackMessage.value = "";
+
+                updateCounter();
+
+                startSuccessAnimation();
 
                 return;
             }
 
 
-            /* -------------------------
-               START LOADING
-            ------------------------- */
+            // ==========================================
+            // UNKNOWN RESPONSE
+            // ==========================================
 
-            isSubmitting = true;
+            throw new Error(
+                result.message ||
+                "Unable to send feedback."
+            );
 
+
+        } catch (error) {
+
+            console.error(
+                "Feedback error:",
+                error
+            );
+
+            alert(
+                error.message ||
+                "Something went wrong. Please try again."
+            );
+
+        } finally {
+
+            isSubmitting = false;
 
             if (sendFeedback) {
 
-                sendFeedback.disabled = true;
-
-                sendFeedback.classList.add(
+                sendFeedback.classList.remove(
                     "loading"
                 );
 
+                sendFeedback.disabled =
+                    !currentUser;
             }
-
-
-            try {
-
-                const result =
-                    await sendToPHP(message);
-
-
-                /* =====================
-                   SERVER COOLDOWN
-                ===================== */
-
-                if (
-                    result.locked === true
-                ) {
-
-                    showLockedScreen(
-                        result.remaining_seconds
-                    );
-
-                    isSubmitting = false;
-
-                    if (sendFeedback) {
-
-                        sendFeedback.disabled = false;
-
-                        sendFeedback.classList.remove(
-                            "loading"
-                        );
-
-                    }
-
-                    return;
-                }
-
-
-                /* =====================
-                   SUCCESS
-                ===================== */
-
-                if (
-                    result.success === true
-                ) {
-
-                    /*
-                       Clear message
-                    */
-
-                    if (feedbackMessage) {
-                        feedbackMessage.value = "";
-                    }
-
-                    updateCounter();
-
-
-                    /*
-                       Start V27 animation
-                    */
-
-                    startSuccessAnimation();
-
-
-                    /*
-                       Keep submitting locked
-                    */
-
-                    isSubmitting = true;
-
-                    return;
-                }
-
-
-                /* =====================
-                   SERVER ERROR
-                ===================== */
-
-                throw new Error(
-                    result.message ||
-                    "Unable to send feedback."
-                );
-
-            } catch (error) {
-
-                console.error(
-                    "Feedback error:",
-                    error
-                );
-
-
-                alert(
-                    error.message ||
-                    "Something went wrong while sending your feedback."
-                );
-
-
-                isSubmitting = false;
-
-
-                if (sendFeedback) {
-
-                    sendFeedback.disabled = false;
-
-                    sendFeedback.classList.remove(
-                        "loading"
-                    );
-
-                }
-
-            }
-
         }
-    );
-
-}
-
-
-/* =========================================================
-   PREVENT DOUBLE CLICK
-========================================================= */
-
-if (sendFeedback) {
-
-    sendFeedback.addEventListener(
-        "click",
-        () => {
-
-            if (isSubmitting) {
-                return;
-            }
-
-        }
-    );
-
-}
+    }
+);
 
 
-/* =========================================================
-   CLEANUP
-========================================================= */
+// ======================================================
+// CLEANUP
+// ======================================================
 
 window.addEventListener(
     "beforeunload",
     () => {
 
         if (countdownTimer) {
-
-            clearInterval(
-                countdownTimer
-            );
-
-            countdownTimer = null;
-
+            clearInterval(countdownTimer);
         }
-
     }
 );
 
 
-/* =========================================================
-   DEBUG
-========================================================= */
+// ======================================================
+// STARTUP
+// ======================================================
 
 console.log(
     "CHAPCY V27 Feedback System Loaded 🚀"
