@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
   <meta charset="UTF-8">
 
   <meta
@@ -10,21 +9,45 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>CHAPCY • Food Live Chat</title>
-
-  <!-- FONT AWESOME -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+  <meta
+    name="theme-color"
+    content="#050812"
   >
 
-  <!-- POPPINS -->
+  <title>CHAPCY • Food Live Chat</title>
+
+  <!-- =====================================================
+       GOOGLE FONT
+  ====================================================== -->
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
   <link
     href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
     rel="stylesheet"
   >
 
-  <!-- FOOD CSS -->
+
+  <!-- =====================================================
+       FONT AWESOME 6.7.2
+  ====================================================== -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+  >
+
+
+  <!-- =====================================================
+       FOOD CSS
+  ====================================================== -->
   <link
     rel="stylesheet"
     href="Food.css"
@@ -37,7 +60,7 @@
 
 
   <!-- =====================================================
-       BACKGROUND
+       PREMIUM FOOD BACKGROUND
   ====================================================== -->
 
   <div class="food-background">
@@ -53,7 +76,9 @@
   </div>
 
 
-  <!-- MOBILE SIDEBAR OVERLAY -->
+  <!-- =====================================================
+       MOBILE SIDEBAR OVERLAY
+  ====================================================== -->
 
   <div
     class="sidebar-overlay"
@@ -63,14 +88,14 @@
 
 
   <!-- =====================================================
-       MAIN APP
+       APP
   ====================================================== -->
 
   <div class="app">
 
 
     <!-- ===================================================
-         SIDEBAR
+         LEFT SIDEBAR
     ==================================================== -->
 
     <aside class="sidebar">
@@ -81,8 +106,11 @@
       <div class="sidebar-logo">
 
         <div class="logo-circle">
+
           <i class="fa-solid fa-utensils"></i>
+
         </div>
+
 
         <div class="logo-text">
 
@@ -96,7 +124,9 @@
 
 
 
-      <!-- USER -->
+      <!-- =================================================
+           USER PROFILE
+      ================================================== -->
 
       <div class="sidebar-user">
 
@@ -130,7 +160,9 @@
 
 
 
-      <!-- NAVIGATION -->
+      <!-- =================================================
+           NAVIGATION
+      ================================================== -->
 
       <nav class="sidebar-nav">
 
@@ -284,7 +316,9 @@
 
 
 
-      <!-- FOOD ROOM STATUS -->
+      <!-- =================================================
+           ROOM STATUS
+      ================================================== -->
 
       <div class="sidebar-room-status">
 
@@ -306,7 +340,9 @@
 
 
 
-      <!-- LOGOUT -->
+      <!-- =================================================
+           LOGOUT
+      ================================================== -->
 
       <button
         type="button"
@@ -328,14 +364,14 @@
 
 
     <!-- ===================================================
-         CHAT AREA
+         CENTER CHAT
     ==================================================== -->
 
     <main class="chat">
 
 
       <!-- =================================================
-           HEADER
+           CHAT HEADER
       ================================================== -->
 
       <header class="chat-header">
@@ -355,7 +391,7 @@
 
 
 
-        <!-- ROOM ICON -->
+        <!-- FOOD ICON -->
 
         <div class="chat-room-icon">
 
@@ -365,7 +401,7 @@
 
 
 
-        <!-- ROOM TITLE -->
+        <!-- TITLE -->
 
         <div class="chat-title">
 
@@ -403,7 +439,7 @@
 
 
 
-          <!-- ROOM INFO -->
+          <!-- INFO -->
 
           <button
             type="button"
@@ -429,7 +465,6 @@
 
       <section class="pinned-message">
 
-
         <div class="pinned-icon">
 
           <i class="fa-solid fa-thumbtack"></i>
@@ -450,13 +485,12 @@
 
         </div>
 
-
       </section>
 
 
 
       <!-- =================================================
-           ROOM INFO PANEL
+           ROOM INFORMATION
       ================================================== -->
 
       <section
@@ -466,11 +500,16 @@
 
         <div class="room-info-header">
 
-          <div>
+
+          <div class="room-info-title">
+
 
             <span class="room-info-icon">
+
               <i class="fa-solid fa-utensils"></i>
+
             </span>
+
 
             <div>
 
@@ -487,16 +526,18 @@
           </div>
 
 
+
           <button
             type="button"
-            id="roomInfoClose"
             class="room-info-close"
-            aria-label="Close"
+            id="roomInfoClose"
+            aria-label="Close room information"
           >
 
             <i class="fa-solid fa-xmark"></i>
 
           </button>
+
 
         </div>
 
@@ -534,7 +575,7 @@
 
 
       <!-- =================================================
-           CHAT MESSAGES
+           MESSAGES
       ================================================== -->
 
       <section
@@ -587,8 +628,8 @@
 
           </div>
 
-        </div>
 
+        </div>
 
       </section>
 
@@ -606,7 +647,7 @@
 
 
       <!-- =================================================
-           COMPOSER
+           MESSAGE COMPOSER
       ================================================== -->
 
       <form
@@ -622,7 +663,7 @@
           type="button"
           class="composer-btn"
           id="emojiBtn"
-          aria-label="Emoji"
+          aria-label="Open emoji"
         >
 
           <i class="fa-regular fa-face-smile"></i>
@@ -636,7 +677,8 @@
         <button
           type="button"
           class="composer-btn"
-          aria-label="Attachment"
+          id="attachmentBtn"
+          aria-label="Attach file"
         >
 
           <i class="fa-solid fa-paperclip"></i>
@@ -645,13 +687,25 @@
 
 
 
-        <!-- MESSAGE -->
+        <!-- HIDDEN FILE INPUT -->
+
+        <input
+          type="file"
+          id="fileInput"
+          hidden
+          accept="image/*,video/*"
+        >
+
+
+
+        <!-- MESSAGE INPUT -->
 
         <textarea
           id="messageInput"
           rows="1"
-          placeholder="Type a food message..."
           maxlength="2000"
+          placeholder="Type a food message..."
+          autocomplete="off"
         ></textarea>
 
 
@@ -678,13 +732,15 @@
 
 
     <!-- ===================================================
-         RIGHT FOOD PANEL
+         RIGHT PANEL
     ==================================================== -->
 
     <aside class="right-panel">
 
 
-      <!-- FOOD COMMUNITY -->
+      <!-- =================================================
+           FOOD COMMUNITY CARD
+      ================================================== -->
 
       <div class="right-card food-community-card">
 
@@ -697,6 +753,7 @@
           >
 
           <div class="image-overlay"></div>
+
 
           <div class="image-title">
 
@@ -713,6 +770,7 @@
         </div>
 
 
+
         <div class="right-card-content">
 
           <h3>
@@ -726,6 +784,7 @@
 
 
           <div class="food-stats">
+
 
             <div>
 
@@ -752,6 +811,7 @@
 
             </div>
 
+
           </div>
 
         </div>
@@ -760,7 +820,9 @@
 
 
 
-      <!-- POPULAR TOPICS -->
+      <!-- =================================================
+           POPULAR TOPICS
+      ================================================== -->
 
       <div class="right-card topics-card">
 
@@ -778,8 +840,11 @@
         </div>
 
 
+
         <div class="topic-list">
 
+
+          <!-- TOPIC 1 -->
 
           <div class="topic-item">
 
@@ -802,6 +867,9 @@
           </div>
 
 
+
+          <!-- TOPIC 2 -->
+
           <div class="topic-item">
 
             <span>
@@ -823,6 +891,9 @@
           </div>
 
 
+
+          <!-- TOPIC 3 -->
+
           <div class="topic-item">
 
             <span>
@@ -843,6 +914,9 @@
 
           </div>
 
+
+
+          <!-- TOPIC 4 -->
 
           <div class="topic-item">
 
@@ -871,7 +945,9 @@
 
 
 
-      <!-- FOOD PRO -->
+      <!-- =================================================
+           FOOD PRO
+      ================================================== -->
 
       <div class="right-card food-pro-card">
 
@@ -907,6 +983,7 @@
 
         </a>
 
+
       </div>
 
 
@@ -925,6 +1002,96 @@
     type="module"
     src="Food.js"
   ></script>
+
+
+  <!-- =====================================================
+       SMALL UI HELPERS
+       These don't interfere with Firebase Food.js
+  ====================================================== -->
+
+  <script>
+
+    /* -----------------------------------------------------
+       ATTACHMENT BUTTON
+    ----------------------------------------------------- */
+
+    const attachmentBtn =
+      document.getElementById("attachmentBtn");
+
+    const fileInput =
+      document.getElementById("fileInput");
+
+
+    if (attachmentBtn && fileInput) {
+
+      attachmentBtn.addEventListener(
+        "click",
+        () => {
+
+          fileInput.click();
+
+        }
+      );
+
+
+      fileInput.addEventListener(
+        "change",
+        () => {
+
+          if (!fileInput.files.length) {
+            return;
+          }
+
+          const file =
+            fileInput.files[0];
+
+          console.log(
+            "Selected file:",
+            file.name
+          );
+
+          /*
+            File upload haijaunganishwa na Firebase
+            Storage bado. Hii ni kwa UI tu mpaka
+            upload system ya Storage iwekwe.
+          */
+
+        }
+      );
+
+    }
+
+
+
+    /* -----------------------------------------------------
+       AUTO RESIZE MESSAGE INPUT
+    ----------------------------------------------------- */
+
+    const messageInput =
+      document.getElementById("messageInput");
+
+
+    if (messageInput) {
+
+      messageInput.addEventListener(
+        "input",
+        () => {
+
+          messageInput.style.height =
+            "auto";
+
+          messageInput.style.height =
+            Math.min(
+              messageInput.scrollHeight,
+              130
+            ) + "px";
+
+        }
+      );
+
+    }
+
+  </script>
 
 
 </body>
