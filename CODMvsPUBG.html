@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>CHAPCY • CODM VS PUBG Live Chat</title>
+
+
+    <!-- GOOGLE FONT -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- FONT AWESOME -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    >
+
+
+    <!-- CSS -->
+
+    <link
+        rel="stylesheet"
+        href="CODMvsPUBG.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     GAMING BACKGROUND
+===================================================== -->
+
+<div class="gaming-background">
+
+    <div class="gaming-bg-image"></div>
+
+    <div class="gaming-glow glow-blue"></div>
+
+    <div class="gaming-glow glow-red"></div>
+
+    <div class="gaming-glow glow-purple"></div>
+
+</div>
+
+
+
+<!-- =====================================================
+     MOBILE OVERLAY
+===================================================== -->
+
+<div
+    class="mobile-overlay"
+    id="mobileOverlay"
+></div>
+
+
+
+<!-- =====================================================
+     APP
+===================================================== -->
+
+<div class="app">
+
+
+
+    <!-- =================================================
+         SIDEBAR
+    ================================================== -->
+
+    <aside
+        class="side-nav"
+        id="sideNav"
+    >
+
+
+        <!-- LOGO -->
+
+        <div class="logo">
+
+            <h2>
+                CHAPCY
+            </h2>
+
+            <span>
+                CODM VS PUBG
+            </span>
+
+        </div>
+
+
+
+        <!-- PROFILE -->
+
+        <div class="profile-box">
+
+            <div
+                class="profile-avatar"
+                id="profileLetter"
+            >
+                C
+            </div>
+
+            <div class="profile-info">
+
+                <strong id="profileName">
+                    CHAPCY Gamer
+                </strong>
+
+                <span class="online-text">
+                    ● Battle room online
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- NAVIGATION -->
+
+        <nav>
+
+
+            <a
+                href="CODMvsPUBG.html"
+                class="active"
+            >
+
+                <i class="fa-solid fa-gamepad"></i>
+
+                <span>
+                    Battle Chat
+                </span>
+
+            </a>
+
+
+            <a href="CODM.html">
+
+                <i class="fa-solid fa-crosshairs"></i>
+
+                <span>
+                    CODM Live Chat
+                </span>
+
+            </a>
+
+
+            <a href="PUBG.html">
+
+                <i class="fa-solid fa-gun"></i>
+
+                <span>
+                    PUBG Live Chat
+                </span>
+
+            </a>
+
+
+            <a href="BattleRooms.html">
+
+                <i class="fa-solid fa-layer-group"></i>
+
+                <span>
+                    Battle Rooms
+                </span>
+
+            </a>
+
+
+            <a href="GamingPeople.html">
+
+                <i class="fa-solid fa-users"></i>
+
+                <span>
+                    Players
+                </span>
+
+            </a>
+
+
+            <a href="Mentions.html">
+
+                <i class="fa-solid fa-at"></i>
+
+                <span>
+                    Mentions
+                </span>
+
+            </a>
+
+
+            <a href="Message.html">
+
+                <i class="fa-solid fa-message"></i>
+
+                <span>
+                    Messages
+                </span>
+
+            </a>
+
+
+            <a href="Settings.html">
+
+                <i class="fa-solid fa-gear"></i>
+
+                <span>
+                    Settings
+                </span>
+
+            </a>
+
+
+        </nav>
+
+
+
+        <!-- LOGOUT -->
+
+        <button
+            class="logout-btn"
+            id="logoutBtn"
+            type="button"
+        >
+
+            <i class="fa-solid fa-right-from-bracket"></i>
+
+            Logout
+
+        </button>
+
+
+    </aside>
+
+
+
+    <!-- =================================================
+         MAIN CHAT
+    ================================================== -->
+
+    <main class="chat">
+
+
+
+        <!-- =================================================
+             HEADER
+        ================================================== -->
+
+        <header class="chat-header">
+
+
+            <!-- MOBILE MENU -->
+
+            <button
+                class="menu-btn"
+                id="menuBtn"
+                type="button"
+            >
+
+                <i class="fa-solid fa-bars"></i>
+
+            </button>
+
+
+
+            <!-- GAME ICON -->
+
+            <div class="chat-room-icon">
+
+                🎮
+
+            </div>
+
+
+
+            <!-- TITLE -->
+
+            <div class="chat-title">
+
+                <h1>
+                    CODM <span>VS</span> PUBG
+                </h1>
+
+                <p>
+                    The ultimate mobile battle community 🔥
+                </p>
+
+            </div>
+
+
+
+            <!-- SEARCH -->
+
+            <div
+                class="search-box"
+                id="searchBox"
+            >
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search battle chat..."
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+
+            <!-- SEARCH BUTTON -->
+
+            <button
+                class="icon-btn"
+                id="searchBtn"
+                type="button"
+            >
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+            </button>
+
+
+
+            <!-- ROOM INFO -->
+
+            <button
+                class="icon-btn"
+                id="roomInfoBtn"
+                type="button"
+            >
+
+                <i class="fa-solid fa-circle-info"></i>
+
+            </button>
+
+
+        </header>
+
+
+
+        <!-- =================================================
+             BATTLE BANNER
+        ================================================== -->
+
+        <section class="battle-banner">
+
+
+            <!-- CODM -->
+
+            <div class="battle-team codm-team">
+
+                <div class="team-icon">
+
+                    🎯
+
+                </div>
+
+                <div>
+
+                    <strong>
+                        CODM
+                    </strong>
+
+                    <small>
+                        Call of Duty Mobile
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- VS -->
+
+            <div class="vs-area">
+
+                <div class="vs-line"></div>
+
+                <strong>
+                    VS
+                </strong>
+
+                <span>
+                    BATTLE
+                </span>
+
+                <div class="vs-line"></div>
+
+            </div>
+
+
+
+            <!-- PUBG -->
+
+            <div class="battle-team pubg-team">
+
+                <div class="team-icon">
+
+                    🔥
+
+                </div>
+
+                <div>
+
+                    <strong>
+                        PUBG
+                    </strong>
+
+                    <small>
+                        PUBG Mobile
+                    </small>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             GAME BUTTONS
+        ================================================== -->
+
+        <section class="game-buttons">
+
+
+            <a
+                href="CODM.html"
+                class="game-live-btn codm-live"
+            >
+
+                <span class="game-btn-icon">
+                    🎯
+                </span>
+
+                <span>
+
+                    <strong>
+                        CODM LIVE CHAT
+                    </strong>
+
+                    <small>
+                        Enter COD Mobile battle room
+                    </small>
+
+                </span>
+
+                <i class="fa-solid fa-arrow-right"></i>
+
+            </a>
+
+
+
+            <a
+                href="PUBG.html"
+                class="game-live-btn pubg-live"
+            >
+
+                <span class="game-btn-icon">
+                    🔥
+                </span>
+
+                <span>
+
+                    <strong>
+                        PUBG LIVE CHAT
+                    </strong>
+
+                    <small>
+                        Enter PUBG Mobile battle room
+                    </small>
+
+                </span>
+
+                <i class="fa-solid fa-arrow-right"></i>
+
+            </a>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             ROOM INFO PANEL
+        ================================================== -->
+
+        <div
+            class="room-info-panel"
+            id="roomInfoPanel"
+        >
+
+            <h3>
+                🎮 CODM VS PUBG
+            </h3>
+
+            <br>
+
+            <p>
+                Welcome to the CHAPCY Gaming Battle Room.
+            </p>
+
+            <br>
+
+            <p>
+                Choose your side and enter the dedicated live chat.
+            </p>
+
+            <br>
+
+            <p>
+                🎯 CODM — Call of Duty Mobile
+            </p>
+
+            <p>
+                🔥 PUBG — PUBG Mobile
+            </p>
+
+            <p>
+                🏆 Competitive Gaming
+            </p>
+
+            <p>
+                🌍 Global Players
+            </p>
+
+        </div>
+
+
+
+        <!-- =================================================
+             CHAT MESSAGES
+        ================================================== -->
+
+        <section
+            class="messages"
+            id="messages"
+        >
+
+
+            <div
+                class="empty-chat"
+                id="emptyChat"
+            >
+
+                <div class="battle-icon">
+
+                    🎮
+
+                </div>
+
+                <h3>
+                    Welcome to CODM VS PUBG
+                </h3>
+
+                <p>
+                    Defend your game, challenge the other side and join the battle.
+                </p>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             EMOJI PANEL
+        ================================================== -->
+
+        <div
+            class="emoji-panel"
+            id="emojiPanel"
+        >
+
+            <button type="button">🎮</button>
+            <button type="button">🔥</button>
+            <button type="button">💀</button>
+            <button type="button">🎯</button>
+            <button type="button">🔫</button>
+            <button type="button">💥</button>
+            <button type="button">🏆</button>
+
+            <button type="button">🥇</button>
+            <button type="button">🥈</button>
+            <button type="button">🥉</button>
+            <button type="button">⚡</button>
+            <button type="button">👑</button>
+            <button type="button">😈</button>
+            <button type="button">😎</button>
+
+            <button type="button">😂</button>
+            <button type="button">🤣</button>
+            <button type="button">🤯</button>
+            <button type="button">💯</button>
+            <button type="button">👏</button>
+            <button type="button">❤️</button>
+            <button type="button">☠️</button>
+
+        </div>
+
+
+
+        <!-- =================================================
+             COMPOSER
+        ================================================== -->
+
+        <form
+            class="composer"
+            id="composer"
+        >
+
+
+            <!-- ADD -->
+
+            <button
+                type="button"
+                class="icon-btn"
+                id="addBtn"
+            >
+
+                <i class="fa-solid fa-plus"></i>
+
+            </button>
+
+
+
+            <!-- EMOJI -->
+
+            <button
+                type="button"
+                class="icon-btn"
+                id="emojiBtn"
+            >
+
+                <i class="fa-regular fa-face-smile"></i>
+
+            </button>
+
+
+
+            <!-- MESSAGE -->
+
+            <textarea
+                class="message-input"
+                id="messageInput"
+                rows="1"
+                placeholder="Defend your game..."
+                autocomplete="off"
+            ></textarea>
+
+
+
+            <!-- SEND -->
+
+            <button
+                type="submit"
+                class="send-btn"
+                id="sendBtn"
+            >
+
+                <i class="fa-solid fa-paper-plane"></i>
+
+            </button>
+
+
+        </form>
+
+
+    </main>
+
+
+
+    <!-- =================================================
+         RIGHT PANEL
+    ================================================== -->
+
+    <aside class="right-panel">
+
+
+
+        <!-- BATTLE STATUS -->
+
+        <div class="gaming-card battle-status-card">
+
+            <div class="card-title">
+
+                <i class="fa-solid fa-fire"></i>
+
+                <strong>
+                    LIVE BATTLE
+                </strong>
+
+            </div>
+
+            <div class="battle-score">
+
+                <div>
+
+                    <strong>
+                        CODM
+                    </strong>
+
+                    <span>
+                        0
+                    </span>
+
+                </div>
+
+                <b>
+                    VS
+                </b>
+
+                <div>
+
+                    <strong>
+                        PUBG
+                    </strong>
+
+                    <span>
+                        0
+                    </span>
+
+                </div>
+
+            </div>
+
+            <small>
+                Battle discussion is live
+            </small>
+
+        </div>
+
+
+
+        <!-- CODM -->
+
+        <div class="gaming-card codm-card">
+
+            <div class="game-card-icon">
+                🎯
+            </div>
+
+            <h3>
+                CODM Players
+            </h3>
+
+            <p>
+                Talk loadouts, weapons, ranked matches and COD Mobile strategies.
+            </p>
+
+            <a
+                href="CODM.html"
+                class="small-game-btn"
+            >
+
+                Enter CODM
+
+                <i class="fa-solid fa-arrow-right"></i>
+
+            </a>
+
+        </div>
+
+
+
+        <!-- PUBG -->
+
+        <div class="gaming-card pubg-card">
+
+            <div class="game-card-icon">
+                🔥
+            </div>
+
+            <h3>
+                PUBG Players
+            </h3>
+
+            <p>
+                Discuss maps, weapons, squads, tactics and PUBG Mobile battles.
+            </p>
+
+            <a
+                href="PUBG.html"
+                class="small-game-btn"
+            >
+
+                Enter PUBG
+
+                <i class="fa-solid fa-arrow-right"></i>
+
+            </a>
+
+        </div>
+
+
+
+        <!-- BATTLE RULES -->
+
+        <div class="gaming-card">
+
+            <div class="card-title">
+
+                <i class="fa-solid fa-shield-halved"></i>
+
+                <strong>
+                    BATTLE RULES
+                </strong>
+
+            </div>
+
+            <p>
+                🏆 Keep the competition fun.
+            </p>
+
+            <p>
+                🎮 Respect other players.
+            </p>
+
+            <p>
+                🔥 Defend your game with facts.
+            </p>
+
+            <p>
+                🚫 No spam or abuse.
+            </p>
+
+        </div>
+
+
+
+        <!-- TRENDING -->
+
+        <div class="gaming-card">
+
+            <div class="card-title">
+
+                <i class="fa-solid fa-chart-line"></i>
+
+                <strong>
+                    TRENDING
+                </strong>
+
+            </div>
+
+            <p>
+                🔥 CODM vs PUBG
+            </p>
+
+            <p>
+                🎯 Best weapons
+            </p>
+
+            <p>
+                🗺️ Best maps
+            </p>
+
+            <p>
+                🏆 Ranked mode
+            </p>
+
+        </div>
+
+
+
+    </aside>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script src="CODMvsPUBG.js"></script>
+
+
+</body>
+
+</html>
