@@ -2,56 +2,44 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+    <meta charset="UTF-8">
 
-  <meta
-    name="theme-color"
-    content="#050812"
-  >
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-  <title>CHAPCY • Food Live Chat</title>
+    <title>CHAPCY • Food Live Chat</title>
 
-  <!-- =====================================================
-       GOOGLE FONT
-  ====================================================== -->
-  <link
-    rel="preconnect"
-    href="https://fonts.googleapis.com"
-  >
+    <!-- FONT -->
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
 
-  <link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin
-  >
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-    rel="stylesheet"
-  >
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
 
+    <!-- FONT AWESOME -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    >
 
-  <!-- =====================================================
-       FONT AWESOME 6.7.2
-  ====================================================== -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-  >
-
-
-  <!-- =====================================================
-       FOOD CSS
-  ====================================================== -->
-  <link
-    rel="stylesheet"
-    href="Food.css"
-  >
+    <!-- FOOD CSS -->
+    <link
+        rel="stylesheet"
+        href="Food.css"
+    >
 
 </head>
 
@@ -59,11 +47,11 @@
 <body>
 
 
-  <!-- =====================================================
-       PREMIUM FOOD BACKGROUND
-  ====================================================== -->
+<!-- =====================================
+     BACKGROUND
+===================================== -->
 
-  <div class="food-background">
+<div class="food-background">
 
     <div class="food-bg-image"></div>
 
@@ -73,1025 +61,670 @@
 
     <div class="food-glow glow-three"></div>
 
-  </div>
+</div>
 
 
-  <!-- =====================================================
-       MOBILE SIDEBAR OVERLAY
-  ====================================================== -->
+<!-- =====================================
+     MOBILE OVERLAY
+===================================== -->
 
-  <div
-    class="sidebar-overlay"
-    id="sidebarOverlay"
-  ></div>
-
-
-
-  <!-- =====================================================
-       APP
-  ====================================================== -->
-
-  <div class="app">
+<div
+    class="mobile-overlay"
+    id="mobileOverlay"
+></div>
 
 
-    <!-- ===================================================
-         LEFT SIDEBAR
-    ==================================================== -->
+<!-- =====================================
+     APP
+===================================== -->
 
-    <aside class="sidebar">
-
-
-      <!-- LOGO -->
-
-      <div class="sidebar-logo">
-
-        <div class="logo-circle">
-
-          <i class="fa-solid fa-utensils"></i>
-
-        </div>
+<div class="app">
 
 
-        <div class="logo-text">
+    <!-- =================================
+         SIDEBAR
+    ================================== -->
 
-          <strong>CHAPCY</strong>
-
-          <span>Food Live Chat</span>
-
-        </div>
-
-      </div>
-
+    <aside
+        class="side-nav"
+        id="sideNav"
+    >
 
 
-      <!-- =================================================
-           USER PROFILE
-      ================================================== -->
+        <!-- LOGO -->
 
-      <div class="sidebar-user">
+        <div class="logo">
 
-        <div class="user-avatar-wrap">
+            <h2>
+                CHAPCY
+            </h2>
 
-          <div
-            class="user-avatar"
-            id="currentUserAvatar"
-          >
-            C
-          </div>
-
-          <span class="online-dot"></span>
+            <span>
+                Worldwide Food Community 🌍
+            </span>
 
         </div>
 
 
-        <div class="user-details">
+        <!-- PROFILE -->
 
-          <strong id="currentUserName">
-            CHAPCY User
-          </strong>
+        <div class="profile-box">
 
-          <span>
-            Food Community
-          </span>
+            <div
+                class="profile-avatar"
+                id="profileLetter"
+            >
+                C
+            </div>
+
+            <div class="profile-info">
+
+                <strong id="profileName">
+                    CHAPCY User
+                </strong>
+
+                <span class="online-text">
+                    ● Food room online
+                </span>
+
+            </div>
 
         </div>
 
-      </div>
+
+        <!-- NAVIGATION -->
+
+        <nav>
 
 
+            <!-- HOME -->
 
-      <!-- =================================================
-           NAVIGATION
-      ================================================== -->
+            <a
+                href="Food.html"
+                class="active"
+                data-food-page="home"
+            >
 
-      <nav class="sidebar-nav">
+                <i class="fa-solid fa-house"></i>
+
+                <span>
+                    Food Chat
+                </span>
+
+            </a>
 
 
-        <!-- LIVE CHAT -->
+            <!-- DISCOVER -->
 
-        <a
-          href="Food.html"
-          class="nav-item active"
+            <a
+                href="FoodExplore.html"
+                data-food-page="discover"
+            >
+
+                <i class="fa-solid fa-compass"></i>
+
+                <span>
+                    Discover Food
+                </span>
+
+            </a>
+
+
+            <!-- ROOMS -->
+
+            <a
+                href="FoodRooms.html"
+                data-food-page="rooms"
+            >
+
+                <i class="fa-solid fa-layer-group"></i>
+
+                <span>
+                    Food Rooms
+                </span>
+
+            </a>
+
+
+            <!-- PEOPLE -->
+
+            <a
+                href="FoodPeople.html"
+                data-food-page="people"
+            >
+
+                <i class="fa-solid fa-users"></i>
+
+                <span>
+                    Food People
+                </span>
+
+            </a>
+
+
+            <!-- MENTIONS -->
+
+            <a
+                href="Mentions.html"
+                data-food-page="mentions"
+            >
+
+                <i class="fa-solid fa-at"></i>
+
+                <span>
+                    Mentions
+                </span>
+
+            </a>
+
+
+            <!-- MESSAGES -->
+
+            <a
+                href="Message.html"
+                data-food-page="messages"
+            >
+
+                <i class="fa-solid fa-message"></i>
+
+                <span>
+                    Messages
+                </span>
+
+            </a>
+
+
+            <!-- SETTINGS -->
+
+            <a
+                href="Settings.html"
+                data-food-page="settings"
+            >
+
+                <i class="fa-solid fa-gear"></i>
+
+                <span>
+                    Settings
+                </span>
+
+            </a>
+
+
+        </nav>
+
+
+        <!-- LOGOUT -->
+
+        <button
+            type="button"
+            class="logout-btn"
+            id="logoutBtn"
         >
 
-          <span class="nav-icon">
-            <i class="fa-solid fa-comments"></i>
-          </span>
+            <i class="fa-solid fa-right-from-bracket"></i>
 
-          <span>
-            Live Chat
-          </span>
+            Logout
 
-        </a>
-
-
-
-        <!-- DISCOVER -->
-
-        <a
-          href="FoodExplore.html"
-          class="nav-item"
-          data-food-page="discover"
-        >
-
-          <span class="nav-icon">
-            <i class="fa-solid fa-compass"></i>
-          </span>
-
-          <span>
-            Discover
-          </span>
-
-        </a>
-
-
-
-        <!-- ROOMS -->
-
-        <a
-          href="FoodRooms.html"
-          class="nav-item"
-          data-food-page="rooms"
-        >
-
-          <span class="nav-icon">
-            <i class="fa-solid fa-layer-group"></i>
-          </span>
-
-          <span>
-            Rooms
-          </span>
-
-        </a>
-
-
-
-        <!-- PEOPLE -->
-
-        <a
-          href="FoodPeople.html"
-          class="nav-item"
-          data-food-page="people"
-        >
-
-          <span class="nav-icon">
-            <i class="fa-solid fa-users"></i>
-          </span>
-
-          <span>
-            People
-          </span>
-
-        </a>
-
-
-
-        <!-- MENTIONS -->
-
-        <a
-          href="Mentions.html"
-          class="nav-item"
-          data-food-page="mentions"
-        >
-
-          <span class="nav-icon">
-            <i class="fa-solid fa-at"></i>
-          </span>
-
-          <span>
-            Mentions
-          </span>
-
-          <b class="nav-badge">
-            0
-          </b>
-
-        </a>
-
-
-
-        <!-- MESSAGES -->
-
-        <a
-          href="Message.html"
-          class="nav-item"
-          data-food-page="messages"
-        >
-
-          <span class="nav-icon">
-            <i class="fa-solid fa-envelope"></i>
-          </span>
-
-          <span>
-            Messages
-          </span>
-
-          <b class="nav-badge">
-            2
-          </b>
-
-        </a>
-
-
-
-        <!-- SETTINGS -->
-
-        <a
-          href="Settings.html"
-          class="nav-item"
-          data-food-page="settings"
-        >
-
-          <span class="nav-icon">
-            <i class="fa-solid fa-gear"></i>
-          </span>
-
-          <span>
-            Settings
-          </span>
-
-        </a>
-
-      </nav>
-
-
-
-      <!-- =================================================
-           ROOM STATUS
-      ================================================== -->
-
-      <div class="sidebar-room-status">
-
-        <span class="status-pulse"></span>
-
-        <div>
-
-          <strong>
-            Food room online
-          </strong>
-
-          <small>
-            Global food community
-          </small>
-
-        </div>
-
-      </div>
-
-
-
-      <!-- =================================================
-           LOGOUT
-      ================================================== -->
-
-      <button
-        type="button"
-        class="logout-btn"
-        id="logoutBtn"
-      >
-
-        <i class="fa-solid fa-right-from-bracket"></i>
-
-        <span>
-          Logout
-        </span>
-
-      </button>
+        </button>
 
 
     </aside>
 
 
 
-    <!-- ===================================================
-         CENTER CHAT
-    ==================================================== -->
+    <!-- =================================
+         MAIN CHAT
+    ================================== -->
 
     <main class="chat">
 
 
-      <!-- =================================================
-           CHAT HEADER
-      ================================================== -->
+        <!-- =================================
+             CHAT HEADER
+        ================================== -->
 
-      <header class="chat-header">
-
-
-        <!-- MOBILE MENU -->
-
-        <button
-          type="button"
-          class="menu-btn"
-          aria-label="Open menu"
-        >
-
-          <i class="fa-solid fa-bars"></i>
-
-        </button>
+        <header class="chat-header">
 
 
+            <!-- MOBILE MENU -->
 
-        <!-- FOOD ICON -->
-
-        <div class="chat-room-icon">
-
-          <i class="fa-solid fa-utensils"></i>
-
-        </div>
-
-
-
-        <!-- TITLE -->
-
-        <div class="chat-title">
-
-          <h1>
-            Food Live Chat
-          </h1>
-
-          <p>
-            Recipes, restaurants, cooking tips & food lovers 🌍
-          </p>
-
-        </div>
-
-
-
-        <!-- HEADER ACTIONS -->
-
-        <div class="chat-header-actions">
-
-
-          <!-- SEARCH -->
-
-          <div class="search-wrap">
-
-            <i class="fa-solid fa-magnifying-glass"></i>
-
-            <input
-              type="search"
-              id="searchInput"
-              placeholder="Search messages..."
-              autocomplete="off"
+            <button
+                type="button"
+                class="menu-btn"
+                id="menuBtn"
+                aria-label="Open menu"
             >
 
-          </div>
+                <i class="fa-solid fa-bars"></i>
+
+            </button>
 
 
+            <!-- FOOD ICON -->
 
-          <!-- INFO -->
+            <div class="chat-room-icon">
 
-          <button
-            type="button"
-            class="header-icon-btn"
-            id="roomInfoBtn"
-            aria-label="Room information"
-          >
-
-            <i class="fa-solid fa-circle-info"></i>
-
-          </button>
-
-        </div>
-
-
-      </header>
-
-
-
-      <!-- =================================================
-           PINNED MESSAGE
-      ================================================== -->
-
-      <section class="pinned-message">
-
-        <div class="pinned-icon">
-
-          <i class="fa-solid fa-thumbtack"></i>
-
-        </div>
-
-
-        <div class="pinned-content">
-
-          <strong>
-            Food Room Rules
-          </strong>
-
-          <span>
-            Share recipes respectfully, support food creators
-            and keep the community friendly. 🍔❤️
-          </span>
-
-        </div>
-
-      </section>
-
-
-
-      <!-- =================================================
-           ROOM INFORMATION
-      ================================================== -->
-
-      <section
-        class="room-info-panel"
-        id="roomInfoPanel"
-      >
-
-        <div class="room-info-header">
-
-
-          <div class="room-info-title">
-
-
-            <span class="room-info-icon">
-
-              <i class="fa-solid fa-utensils"></i>
-
-            </span>
-
-
-            <div>
-
-              <h2>
-                Food Live Chat
-              </h2>
-
-              <p>
-                Global Food Community
-              </p>
+                🍔
 
             </div>
 
-          </div>
+
+            <!-- TITLE -->
+
+            <div class="chat-title">
+
+                <h1>
+                    Food Live Chat
+                </h1>
+
+                <p>
+                    Recipes, restaurants, cooking tips & food lovers 🌍
+                </p>
+
+            </div>
+
+
+            <!-- SEARCH -->
+
+            <div class="search-wrap">
+
+                <div
+                    class="search-box"
+                    id="searchBox"
+                >
+
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Search messages..."
+                        autocomplete="off"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- SEARCH BUTTON -->
+
+            <button
+                type="button"
+                class="icon-btn"
+                id="searchBtn"
+                aria-label="Search"
+            >
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+            </button>
+
+
+            <!-- ROOM INFO -->
+
+            <button
+                type="button"
+                class="icon-btn"
+                id="roomInfoBtn"
+                aria-label="Food room information"
+            >
+
+                <i class="fa-solid fa-circle-info"></i>
+
+            </button>
+
+
+        </header>
 
 
 
-          <button
-            type="button"
-            class="room-info-close"
-            id="roomInfoClose"
-            aria-label="Close room information"
-          >
+        <!-- =================================
+             PINNED MESSAGE
+        ================================== -->
 
-            <i class="fa-solid fa-xmark"></i>
+        <div
+            class="pinned-message"
+            style="
+                margin: 12px 20px 0;
+                padding: 10px 14px;
+                border-radius: 14px;
+                background: rgba(255,159,28,.07);
+                border: 1px solid rgba(255,159,28,.12);
+                color: #cbd5e5;
+                font-size: 11px;
+            "
+        >
 
-          </button>
+            <i
+                class="fa-solid fa-thumbtack"
+                style="color:#ff9f1c;"
+            ></i>
 
+            <span>
+                Welcome to CHAPCY Food 🌮 — Share recipes, food ideas and discover delicious meals.
+            </span>
 
         </div>
 
 
 
-        <div class="room-info-body">
+        <!-- =================================
+             ROOM INFO PANEL
+        ================================== -->
 
-          <p>
-            Connect with food lovers from around the world.
-            Share recipes, restaurant recommendations,
-            cooking ideas and discover new flavours.
-          </p>
+        <div
+            class="room-info-panel"
+            id="roomInfoPanel"
+        >
 
+            <h3>
+                🍔 Food Live Chat
+            </h3>
 
-          <div class="food-tags">
+            <br>
 
-            <span>🍔 Recipes</span>
+            <p>
+                Welcome to the CHAPCY Food community.
+            </p>
 
-            <span>🍕 Restaurants</span>
+            <br>
 
-            <span>👨‍🍳 Cooking</span>
+            <p>
+                Discuss:
+            </p>
 
-            <span>🌍 Global Food</span>
+            <br>
 
-            <span>☕ Drinks</span>
+            <p>
+                🍕 Recipes
+            </p>
 
-            <span>🔥 Food Tips</span>
+            <p>
+                🍔 Restaurants
+            </p>
 
-          </div>
+            <p>
+                🍰 Desserts
+            </p>
+
+            <p>
+                🌮 Street Food
+            </p>
+
+            <p>
+                👨‍🍳 Cooking Tips
+            </p>
+
+            <p>
+                🌍 Food Around The World
+            </p>
 
         </div>
 
-      </section>
+
+
+        <!-- =================================
+             MESSAGES
+        ================================== -->
+
+        <section
+            class="messages"
+            id="messages"
+        >
+
+
+            <!-- EMPTY CHAT -->
+
+            <div
+                class="empty-chat"
+                id="emptyChat"
+            >
+
+                <i class="fa-solid fa-utensils"></i>
+
+                <h3>
+                    Welcome to Food Live Chat
+                </h3>
+
+                <p>
+                    Start a conversation with food lovers around the world.
+                </p>
+
+            </div>
+
+
+        </section>
 
 
 
-      <!-- =================================================
-           MESSAGES
-      ================================================== -->
+        <!-- =================================
+             EMOJI PANEL
+        ================================== -->
 
-      <section
-        class="chat-messages"
-        id="chatMessages"
-      >
-
-
-        <!-- EMPTY STATE -->
-
-        <div class="empty-state">
+        <div
+            class="emoji-panel"
+            id="emojiPanel"
+        >
 
 
-          <div class="empty-food-icon">
+            <button type="button">🍔</button>
+            <button type="button">🍕</button>
+            <button type="button">🌭</button>
+            <button type="button">🍟</button>
+            <button type="button">🌮</button>
+            <button type="button">🌯</button>
+            <button type="button">🥪</button>
 
-            <i class="fa-solid fa-bowl-food"></i>
+            <button type="button">🍗</button>
+            <button type="button">🍖</button>
+            <button type="button">🍤</button>
+            <button type="button">🍣</button>
+            <button type="button">🍜</button>
+            <button type="button">🍝</button>
+            <button type="button">🍛</button>
 
-          </div>
+            <button type="button">🍚</button>
+            <button type="button">🍲</button>
+            <button type="button">🥗</button>
+            <button type="button">🥘</button>
+            <button type="button">🍳</button>
+            <button type="button">🥚</button>
+            <button type="button">🧀</button>
 
+            <button type="button">🍰</button>
+            <button type="button">🎂</button>
+            <button type="button">🧁</button>
+            <button type="button">🍩</button>
+            <button type="button">🍪</button>
+            <button type="button">🍫</button>
+            <button type="button">🍭</button>
 
-          <h2>
-            Welcome to Food Live Chat 🍔
-          </h2>
+            <button type="button">🍎</button>
+            <button type="button">🍊</button>
+            <button type="button">🍋</button>
+            <button type="button">🍉</button>
+            <button type="button">🍇</button>
+            <button type="button">🍓</button>
+            <button type="button">🥭</button>
 
+            <button type="button">🥤</button>
+            <button type="button">🧃</button>
+            <button type="button">☕</button>
+            <button type="button">🍵</button>
+            <button type="button">🧋</button>
+            <button type="button">🍹</button>
+            <button type="button">🥂</button>
 
-          <p>
-            Share your favourite recipes,
-            discover restaurants and connect
-            with food lovers around the world.
-          </p>
-
-
-          <div class="empty-tags">
-
-            <span>
-              🍕 Recipes
-            </span>
-
-            <span>
-              🍽️ Restaurants
-            </span>
-
-            <span>
-              👨‍🍳 Cooking
-            </span>
-
-            <span>
-              🌍 Food Lovers
-            </span>
-
-          </div>
-
+            <button type="button">😋</button>
+            <button type="button">😍</button>
+            <button type="button">🤤</button>
+            <button type="button">🔥</button>
+            <button type="button">❤️</button>
+            <button type="button">👏</button>
+            <button type="button">😂</button>
 
         </div>
 
-      </section>
 
 
+        <!-- =================================
+             MESSAGE COMPOSER
+        ================================== -->
 
-      <!-- =================================================
-           EMOJI PANEL
-      ================================================== -->
-
-      <div
-        class="emoji-panel"
-        id="emojiPanel"
-      ></div>
-
-
-
-      <!-- =================================================
-           MESSAGE COMPOSER
-      ================================================== -->
-
-      <form
-        class="message-composer"
-        id="messageForm"
-        autocomplete="off"
-      >
-
-
-        <!-- EMOJI -->
-
-        <button
-          type="button"
-          class="composer-btn"
-          id="emojiBtn"
-          aria-label="Open emoji"
-        >
-
-          <i class="fa-regular fa-face-smile"></i>
-
-        </button>
-
-
-
-        <!-- ATTACHMENT -->
-
-        <button
-          type="button"
-          class="composer-btn"
-          id="attachmentBtn"
-          aria-label="Attach file"
-        >
-
-          <i class="fa-solid fa-paperclip"></i>
-
-        </button>
-
-
-
-        <!-- HIDDEN FILE INPUT -->
-
-        <input
-          type="file"
-          id="fileInput"
-          hidden
-          accept="image/*,video/*"
+        <form
+            class="composer"
+            id="composer"
         >
 
 
+            <!-- ADD -->
 
-        <!-- MESSAGE INPUT -->
+            <button
+                type="button"
+                class="icon-btn"
+                id="addBtn"
+                aria-label="Add"
+            >
 
-        <textarea
-          id="messageInput"
-          rows="1"
-          maxlength="2000"
-          placeholder="Type a food message..."
-          autocomplete="off"
-        ></textarea>
+                <i class="fa-solid fa-plus"></i>
 
-
-
-        <!-- SEND -->
-
-        <button
-          type="submit"
-          class="send-btn"
-          id="sendBtn"
-          aria-label="Send message"
-        >
-
-          <i class="fa-solid fa-paper-plane"></i>
-
-        </button>
+            </button>
 
 
-      </form>
+            <!-- EMOJI -->
+
+            <button
+                type="button"
+                class="icon-btn"
+                id="emojiBtn"
+                aria-label="Emoji"
+            >
+
+                <i class="fa-regular fa-face-smile"></i>
+
+            </button>
+
+
+            <!-- INPUT -->
+
+            <textarea
+                class="message-input"
+                id="messageInput"
+                rows="1"
+                placeholder="Share something delicious..."
+                autocomplete="off"
+            ></textarea>
+
+
+            <!-- SEND -->
+
+            <button
+                type="submit"
+                class="send-btn"
+                id="sendBtn"
+                aria-label="Send message"
+            >
+
+                <i class="fa-solid fa-paper-plane"></i>
+
+            </button>
+
+
+        </form>
 
 
     </main>
 
 
 
-    <!-- ===================================================
+    <!-- =================================
          RIGHT PANEL
-    ==================================================== -->
+    ================================== -->
 
     <aside class="right-panel">
 
 
-      <!-- =================================================
-           FOOD COMMUNITY CARD
-      ================================================== -->
+        <!-- FOOD COMMUNITY -->
 
-      <div class="right-card food-community-card">
+        <div class="food-card">
 
+            <i class="fa-solid fa-utensils"></i>
 
-        <div class="right-card-image">
+            <h3>
+                Food Community
+            </h3>
 
-          <img
-            src="file_00000000c68871f48c1a80d96ec0e300.png"
-            alt="Food Community"
-          >
-
-          <div class="image-overlay"></div>
-
-
-          <div class="image-title">
-
-            <span>
-              🍔
-            </span>
-
-            <strong>
-              Food Community
-            </strong>
-
-          </div>
+            <p>
+                Connect with food lovers, chefs and restaurant fans from around the world.
+            </p>
 
         </div>
 
 
+        <!-- POPULAR TOPICS -->
 
-        <div class="right-card-content">
+        <div class="food-card">
 
-          <h3>
-            Taste the World 🌍
-          </h3>
+            <i class="fa-solid fa-fire"></i>
 
-          <p>
-            Meet chefs, food lovers, restaurants
-            and creators from different countries.
-          </p>
+            <h3>
+                Popular Topics
+            </h3>
 
+            <p>
+                🍕 Pizza
+            </p>
 
-          <div class="food-stats">
+            <p>
+                🍔 Burgers
+            </p>
 
+            <p>
+                👨‍🍳 Cooking
+            </p>
 
-            <div>
+            <p>
+                🍰 Desserts
+            </p>
 
-              <strong>
-                24K+
-              </strong>
-
-              <span>
-                Members
-              </span>
-
-            </div>
-
-
-            <div>
-
-              <strong>
-                120+
-              </strong>
-
-              <span>
-                Countries
-              </span>
-
-            </div>
-
-
-          </div>
-
-        </div>
-
-      </div>
-
-
-
-      <!-- =================================================
-           POPULAR TOPICS
-      ================================================== -->
-
-      <div class="right-card topics-card">
-
-
-        <div class="right-card-heading">
-
-          <h3>
-            🔥 Popular Topics
-          </h3>
-
-          <span>
-            Food
-          </span>
+            <p>
+                🌍 World Food
+            </p>
 
         </div>
 
 
+        <!-- FOOD PRO -->
 
-        <div class="topic-list">
+        <div class="food-card">
 
+            <i class="fa-solid fa-crown"></i>
 
-          <!-- TOPIC 1 -->
+            <h3>
+                Food Pro
+            </h3>
 
-          <div class="topic-item">
-
-            <span>
-              🍕
-            </span>
-
-            <div>
-
-              <strong>
-                Pizza Lovers
-              </strong>
-
-              <small>
-                Recipes & reviews
-              </small>
-
-            </div>
-
-          </div>
-
-
-
-          <!-- TOPIC 2 -->
-
-          <div class="topic-item">
-
-            <span>
-              🍗
-            </span>
-
-            <div>
-
-              <strong>
-                Chicken Recipes
-              </strong>
-
-              <small>
-                Easy cooking ideas
-              </small>
-
-            </div>
-
-          </div>
-
-
-
-          <!-- TOPIC 3 -->
-
-          <div class="topic-item">
-
-            <span>
-              🥗
-            </span>
-
-            <div>
-
-              <strong>
-                Healthy Food
-              </strong>
-
-              <small>
-                Healthy recipes
-              </small>
-
-            </div>
-
-          </div>
-
-
-
-          <!-- TOPIC 4 -->
-
-          <div class="topic-item">
-
-            <span>
-              ☕
-            </span>
-
-            <div>
-
-              <strong>
-                Drinks & Coffee
-              </strong>
-
-              <small>
-                Drinks community
-              </small>
-
-            </div>
-
-          </div>
-
+            <p>
+                Unlock premium food communities, exclusive recipes and special CHAPCY Food features.
+            </p>
 
         </div>
-
-      </div>
-
-
-
-      <!-- =================================================
-           FOOD PRO
-      ================================================== -->
-
-      <div class="right-card food-pro-card">
-
-
-        <div class="pro-icon">
-
-          <i class="fa-solid fa-crown"></i>
-
-        </div>
-
-
-        <h3>
-          Food Pro
-        </h3>
-
-
-        <p>
-          Unlock premium food communities,
-          exclusive recipes and special events.
-        </p>
-
-
-        <a
-          href="Food.html"
-          class="pro-btn"
-        >
-
-          <span>
-            Explore Food Pro
-          </span>
-
-          <i class="fa-solid fa-arrow-right"></i>
-
-        </a>
-
-
-      </div>
 
 
     </aside>
 
 
-  </div>
+</div>
 
 
 
-  <!-- =====================================================
-       JAVASCRIPT
-  ====================================================== -->
+<!-- =====================================
+     FOOD JAVASCRIPT
+===================================== -->
 
-  <script
+<script
     type="module"
     src="Food.js"
-  ></script>
-
-
-  <!-- =====================================================
-       SMALL UI HELPERS
-       These don't interfere with Firebase Food.js
-  ====================================================== -->
-
-  <script>
-
-    /* -----------------------------------------------------
-       ATTACHMENT BUTTON
-    ----------------------------------------------------- */
-
-    const attachmentBtn =
-      document.getElementById("attachmentBtn");
-
-    const fileInput =
-      document.getElementById("fileInput");
-
-
-    if (attachmentBtn && fileInput) {
-
-      attachmentBtn.addEventListener(
-        "click",
-        () => {
-
-          fileInput.click();
-
-        }
-      );
-
-
-      fileInput.addEventListener(
-        "change",
-        () => {
-
-          if (!fileInput.files.length) {
-            return;
-          }
-
-          const file =
-            fileInput.files[0];
-
-          console.log(
-            "Selected file:",
-            file.name
-          );
-
-          /*
-            File upload haijaunganishwa na Firebase
-            Storage bado. Hii ni kwa UI tu mpaka
-            upload system ya Storage iwekwe.
-          */
-
-        }
-      );
-
-    }
-
-
-
-    /* -----------------------------------------------------
-       AUTO RESIZE MESSAGE INPUT
-    ----------------------------------------------------- */
-
-    const messageInput =
-      document.getElementById("messageInput");
-
-
-    if (messageInput) {
-
-      messageInput.addEventListener(
-        "input",
-        () => {
-
-          messageInput.style.height =
-            "auto";
-
-          messageInput.style.height =
-            Math.min(
-              messageInput.scrollHeight,
-              130
-            ) + "px";
-
-        }
-      );
-
-    }
-
-  </script>
+></script>
 
 
 </body>
