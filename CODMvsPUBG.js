@@ -1,4 +1,3 @@
-```javascript
 /* =========================================================
    CHAPCY — CODM LIVE CHAT
    CODMvsPUBG.js
