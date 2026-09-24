@@ -1345,3 +1345,249 @@ onAuthStateChanged(auth, async (user) => {
     });
 
 });
+/* =========================================================
+   CHAPCY REAL TOP WALLET
+   COINS + MONEY BALANCE
+========================================================= */
+
+let chapcyTopCoins = 0;
+let chapcyTopBalance = 0;
+let chapcyTopCurrency = "TZS";
+
+let chapcyBalanceVisible = true;
+
+
+/* =========================================================
+   LOAD REAL WALLET FROM PHP + MYSQL
+========================================================= */
+
+async function loadTopWallet(){
+
+    try{
+
+        const response = await fetch("wallet.php", {
+            method: "GET",
+            credentials: "same-origin",
+            cache: "no-store"
+        });
+
+        if(!response.ok){
+            throw new Error(
+                "Wallet server error: " + response.status
+            );
+        }
+
+        const data = await response.json();
+
+        if(!data.success){
+            throw new Error(
+                data.message || "Wallet unavailable"
+            );
+        }
+
+        chapcyTopCoins =
+            Number(data.coins ?? 0);
+
+        chapcyTopBalance =
+            Number(data.balance ?? 0);
+
+        chapcyTopCurrency =
+            data.currency || "TZS";
+
+        updateTopWallet();
+
+    }catch(error){
+
+        console.error(
+            "CHAPCY WALLET ERROR:",
+            error
+        );
+
+        const coinsEl =
+            document.getElementById(
+                "topProfileCoins"
+            );
+
+        const balanceEl =
+            document.getElementById(
+                "topProfileBalance"
+            );
+
+        const currencyEl =
+            document.getElementById(
+                "topProfileCurrency"
+            );
+
+        if(coinsEl){
+            coinsEl.textContent = "—";
+        }
+
+        if(balanceEl){
+            balanceEl.textContent = "—";
+        }
+
+        if(currencyEl){
+            currencyEl.textContent = "Balance";
+        }
+
+    }
+
+}
+
+
+/* =========================================================
+   FORMAT MONEY
+========================================================= */
+
+function formatTopMoney(){
+
+    try{
+
+        return new Intl.NumberFormat(
+            "en-US",
+            {
+                style: "currency",
+                currency: chapcyTopCurrency,
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 2
+            }
+        ).format(chapcyTopBalance);
+
+    }catch(error){
+
+        return (
+            chapcyTopCurrency +
+            " " +
+            Number(
+                chapcyTopBalance
+            ).toLocaleString()
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   UPDATE TOP WALLET
+========================================================= */
+
+function updateTopWallet(){
+
+    const coinsEl =
+        document.getElementById(
+            "topProfileCoins"
+        );
+
+    const balanceEl =
+        document.getElementById(
+            "topProfileBalance"
+        );
+
+    const currencyEl =
+        document.getElementById(
+            "topProfileCurrency"
+        );
+
+
+    /* COINS */
+
+    if(coinsEl){
+
+        coinsEl.textContent =
+            Number(
+                chapcyTopCoins
+            ).toLocaleString();
+
+    }
+
+
+    /* CURRENCY */
+
+    if(currencyEl){
+
+        currencyEl.textContent =
+            chapcyTopCurrency;
+
+    }
+
+
+    /* BALANCE */
+
+    if(balanceEl){
+
+        balanceEl.textContent =
+            chapcyBalanceVisible
+                ? formatTopMoney()
+                : "••••••";
+
+    }
+
+}
+
+
+/* =========================================================
+   SHOW / HIDE BALANCE
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        const eye =
+            document.getElementById(
+                "topBalanceEye"
+            );
+
+        if(!eye) return;
+
+
+        eye.addEventListener(
+            "click",
+            () => {
+
+                chapcyBalanceVisible =
+                    !chapcyBalanceVisible;
+
+
+                const icon =
+                    document.getElementById(
+                        "topBalanceEyeIcon"
+                    );
+
+
+                if(icon){
+
+                    icon.className =
+                        chapcyBalanceVisible
+                            ? "fa-solid fa-eye"
+                            : "fa-solid fa-eye-slash";
+
+                }
+
+
+                updateTopWallet();
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   START WALLET
+========================================================= */
+
+loadTopWallet();
+
+
+/* =========================================================
+   AUTO REFRESH
+   Keeps Home / Reward / Profile synchronized
+========================================================= */
+
+setInterval(
+    loadTopWallet,
+    30000
+);
