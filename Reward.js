@@ -1,129 +1,1032 @@
-```javascript
 /* =========================================================
-   CHAPCY REWARDS V27
-   XAMPP + PHP READY
+   CHAPCY REWARDS SYSTEM
+   Points + Coins + Streak + Data + Bundles
 ========================================================= */
 
-"use strict";
 
+/* =========================
+   DEFAULT USER WALLET
+========================= */
 
-/* =========================================================
-   API CONFIGURATION
-========================================================= */
-
-/*
-   Kama Reward.html iko:
-
-   http://localhost/chapcy/Reward.html
-
-   basi API hizi zitakuwa:
-
-   http://localhost/chapcy/api/...
-*/
-
-const API = {
-
-    rewards:
-        "api/rewards.php",
-
-    daily:
-        "api/daily-reward.php",
-
-    buyPoints:
-        "api/buy-points.php",
-
-    buyBundle:
-        "api/buy-bundle.php",
-
-    redeem:
-        "api/redeem.php",
-
-    history:
-        "api/history.php"
-
+const DEFAULT_WALLET = {
+    points: 0,
+    coins: 0,
+    streak: 0,
+    xp: 0,
+    level: 1,
+    lastLogin: null,
+    transactions: []
 };
 
 
-/* =========================================================
-   GLOBAL STATE
-========================================================= */
-
-const STATE = {
-
-    userId:null,
-
-    points:0,
-
-    earned:0,
-
-    spent:0,
-
-    pending:0,
-
-    xp:0,
-
-    level:1,
-
-    levelName:"Bronze",
-
-    streak:0,
-
-    dailyClaimed:false,
-
-    loading:false,
-
-    history:[]
-
-};
+let wallet =
+    JSON.parse(localStorage.getItem("chapcyWallet")) ||
+    DEFAULT_WALLET;
 
 
-/* =========================================================
-   DOM HELPERS
-========================================================= */
+/* =========================
+   SAVE
+========================= */
 
-const $ = id =>
-    document.getElementById(id);
+function saveWallet(){
 
+    localStorage.setItem(
+        "chapcyWallet",
+        JSON.stringify(wallet)
+    );
 
-const formatNumber = number => {
-
-    return Number(number || 0)
-        .toLocaleString("en-US");
-
-};
+}
 
 
-const setText = (id,value) => {
+/* =========================
+   FORMAT NUMBERS
+========================= */
 
-    const element = $(id);
+function formatNumber(number){
 
-    if(element){
+    return Number(number || 0).toLocaleString();
 
-        element.textContent = value;
+}
+
+
+/* =========================
+   UPDATE UI
+========================= */
+
+function updateWalletUI(){
+
+    const points =
+        document.getElementById("pointsBalance");
+
+    const coins =
+        document.getElementById("coinsBalance");
+
+    const streak =
+        document.getElementById("streakDays");
+
+    if(points){
+        points.textContent =
+            formatNumber(wallet.points);
+    }
+
+    if(coins){
+        coins.textContent =
+            formatNumber(wallet.coins);
+    }
+
+    if(streak){
+        streak.textContent =
+            formatNumber(wallet.streak);
+    }
+
+
+    updateLevel();
+
+    renderTransactions();
+
+    saveWallet();
+
+}
+
+
+/* =========================
+   XP / LEVEL
+========================= */
+
+function updateLevel(){
+
+    const xp = Number(wallet.xp || 0);
+
+    let level = 1;
+
+    if(xp >= 1000){
+        level = 5;
+    }else if(xp >= 500){
+        level = 4;
+    }else if(xp >= 250){
+        level = 3;
+    }else if(xp >= 100){
+        level = 2;
+    }
+
+
+    wallet.level = level;
+
+
+    const names = {
+        1:"Bronze",
+        2:"Silver",
+        3:"Gold",
+        4:"Platinum",
+        5:"Diamond"
+    };
+
+
+    const requirements = {
+        1:100,
+        2:250,
+        3:500,
+        4:1000,
+        5:1000
+    };
+
+
+    const levelName =
+        document.getElementById("levelName");
+
+    const xpText =
+        document.getElementById("xpText");
+
+    const progress =
+        document.getElementById("xpProgress");
+
+
+    if(levelName){
+
+        levelName.textContent =
+            names[level];
 
     }
 
-};
+
+    const maxXP =
+        requirements[level];
+
+    const previousXP =
+
+        level === 1 ? 0 :
+        level === 2 ? 100 :
+        level === 3 ? 250 :
+        level === 4 ? 500 :
+        1000;
 
 
-/* =========================================================
+    const current =
+        Math.max(0,xp - previousXP);
+
+    const needed =
+        Math.max(1,maxXP - previousXP);
+
+    const percentage =
+        Math.min(100,(current / needed) * 100);
+
+
+    if(xpText){
+
+        xpText.textContent =
+            `${formatNumber(xp)} XP`;
+
+    }
+
+
+    if(progress){
+
+        setTimeout(() => {
+
+            progress.style.width =
+                percentage + "%";
+
+        },100);
+
+    }
+
+}
+
+
+/* =========================
+   TRANSACTION
+========================= */
+
+function addTransaction(
+    title,
+    description,
+    value
+){
+
+    wallet.transactions.unshift({
+
+        title,
+        description,
+        value,
+
+        date:
+            new Date().toLocaleString()
+
+    });
+
+
+    if(wallet.transactions.length > 30){
+
+        wallet.transactions =
+            wallet.transactions.slice(0,30);
+
+    }
+
+}
+
+
+/* =========================
+   ADD POINTS
+========================= */
+
+function addPoints(amount, reason="Reward"){
+
+    amount = Number(amount);
+
+    if(amount <= 0){
+        return;
+    }
+
+    wallet.points += amount;
+
+    wallet.xp += amount;
+
+    addTransaction(
+        reason,
+        "CHAPCY Points earned",
+        `+${amount} PTS`
+    );
+
+    updateWalletUI();
+
+}
+
+
+/* =========================
+   ADD COINS
+========================= */
+
+function addCoins(amount, reason="Reward"){
+
+    amount = Number(amount);
+
+    if(amount <= 0){
+        return;
+    }
+
+    wallet.coins += amount;
+
+    wallet.xp += Math.min(amount,20);
+
+    addTransaction(
+        reason,
+        "CHAPCY Coins earned",
+        `+${amount} Coins`
+    );
+
+    updateWalletUI();
+
+}
+
+
+/* =========================
+   DAILY LOGIN
+========================= */
+
+function checkDailyLogin(){
+
+    const today =
+        new Date().toISOString().slice(0,10);
+
+
+    if(wallet.lastLogin === today){
+
+        return;
+
+    }
+
+
+    const yesterdayDate =
+        new Date();
+
+    yesterdayDate.setDate(
+        yesterdayDate.getDate() - 1
+    );
+
+
+    const yesterday =
+        yesterdayDate
+        .toISOString()
+        .slice(0,10);
+
+
+    if(wallet.lastLogin === yesterday){
+
+        wallet.streak++;
+
+    }else{
+
+        wallet.streak = 1;
+
+    }
+
+
+    wallet.lastLogin = today;
+
+
+    /* Rare Points */
+
+    addPoints(
+        1,
+        "Daily Login"
+    );
+
+
+    /* Coins are easier to earn */
+
+    addCoins(
+        10,
+        "Daily Login Bonus"
+    );
+
+
+    /* 7 DAY BONUS */
+
+    if(wallet.streak === 7){
+
+        addPoints(
+            5,
+            "7-Day Streak Bonus"
+        );
+
+        addCoins(
+            50,
+            "7-Day Streak Coins"
+        );
+
+    }
+
+
+    /* 30 DAY BONUS */
+
+    if(wallet.streak === 30){
+
+        addPoints(
+            15,
+            "30-Day Streak Bonus"
+        );
+
+        addCoins(
+            150,
+            "30-Day Streak Coins"
+        );
+
+    }
+
+
+    saveWallet();
+
+}
+
+
+/* =========================
+   BUY POINTS
+========================= */
+
+function buyPoints(points, price){
+
+    const confirmBuy =
+        confirm(
+            `Buy ${formatNumber(points)} CHAPCY Points for TSh ${formatNumber(price)}?`
+        );
+
+
+    if(!confirmBuy){
+
+        return;
+
+    }
+
+
+    /*
+       REAL PAYMENT SHOULD BE
+       CONNECTED HERE LATER.
+    */
+
+
+    addPoints(
+        points,
+        "Purchased CHAPCY Points"
+    );
+
+
+    showToast(
+        `${formatNumber(points)} Points added`
+    );
+
+}
+
+
+/* =========================
+   BUNDLE PURCHASE
+========================= */
+
+function buyBundle(
+    name,
+    price,
+    coins,
+    points,
+    data
+){
+
+    const confirmed =
+        confirm(
+
+            `Buy ${name} for TSh ${formatNumber(price)}?\n\n` +
+
+            `🪙 ${formatNumber(coins)} Coins\n` +
+
+            `⭐ ${formatNumber(points)} Points\n` +
+
+            `📶 ${data}`
+
+        );
+
+
+    if(!confirmed){
+
+        return;
+
+    }
+
+
+    /*
+       REAL PAYMENT GATEWAY
+       WILL BE CONNECTED HERE.
+    */
+
+
+    addCoins(
+        coins,
+        `${name} Bundle`
+    );
+
+
+    addPoints(
+        points,
+        `${name} Bundle`
+    );
+
+
+    addTransaction(
+
+        `${name} Data Bundle`,
+
+        `${data} included`,
+
+        `+${data}`
+
+    );
+
+
+    showToast(
+        `${name} bundle activated`
+    );
+
+}
+
+
+/* =========================
+   NETWORK
+========================= */
+
+let selectedNetwork =
+    "Vodacom";
+
+
+function selectNetwork(button){
+
+    document
+        .querySelectorAll(".network")
+        .forEach(btn => {
+
+            btn.classList.remove("active");
+
+        });
+
+
+    button.classList.add("active");
+
+
+    selectedNetwork =
+        button.dataset.network;
+
+
+    const display =
+        document.getElementById(
+            "selectedNetwork"
+        );
+
+
+    if(display){
+
+        display.textContent =
+            selectedNetwork;
+
+    }
+
+}
+
+
+/* =========================
+   BUY DATA
+========================= */
+
+function buyData(
+    data,
+    cost
+){
+
+    const phone =
+        document
+        .getElementById("dataPhone")
+        .value
+        .trim();
+
+
+    if(!phone){
+
+        showToast(
+            "Enter your phone number first"
+        );
+
+        return;
+
+    }
+
+
+    if(phone.length < 9){
+
+        showToast(
+            "Enter a valid phone number"
+        );
+
+        return;
+
+    }
+
+
+    if(wallet.points < cost){
+
+        showToast(
+            `You need ${formatNumber(cost)} Points`
+        );
+
+        return;
+
+    }
+
+
+    const confirmed =
+        confirm(
+
+            `Buy ${data} for ${formatNumber(cost)} Points?\n\n` +
+
+            `Network: ${selectedNetwork}\n` +
+
+            `Number: ${phone}`
+
+        );
+
+
+    if(!confirmed){
+
+        return;
+
+    }
+
+
+    wallet.points -= cost;
+
+
+    addTransaction(
+
+        `Data Purchase — ${data}`,
+
+        `${selectedNetwork} • ${phone}`,
+
+        `-${formatNumber(cost)} PTS`
+
+    );
+
+
+    updateWalletUI();
+
+
+    /*
+       REAL DATA API WILL BE CONNECTED HERE.
+    */
+
+
+    showToast(
+        `${data} request created`
+    );
+
+}
+
+
+/* =========================
+   CHALLENGE
+========================= */
+
+function completeChallenge(
+    button,
+    points,
+    coins
+){
+
+    if(button.dataset.completed === "true"){
+
+        return;
+
+    }
+
+
+    button.dataset.completed =
+        "true";
+
+
+    button.textContent =
+        "Completed ✓";
+
+
+    button.disabled = true;
+
+
+    addPoints(
+        points,
+        "Daily Challenge"
+    );
+
+
+    addCoins(
+        coins,
+        "Daily Challenge"
+    );
+
+
+    showToast(
+        "Challenge completed"
+    );
+
+}
+
+
+/* =========================
+   MYSTERY BOX
+========================= */
+
+function openMysteryBox(){
+
+    document
+        .getElementById("mysteryModal")
+        .classList.add("show");
+
+}
+
+
+function closeMystery(){
+
+    document
+        .getElementById("mysteryModal")
+        .classList.remove("show");
+
+}
+
+
+function claimMystery(){
+
+    const cost = 50;
+
+
+    if(wallet.coins < cost){
+
+        showToast(
+            "You need 50 Coins"
+        );
+
+        return;
+
+    }
+
+
+    wallet.coins -= cost;
+
+
+    /*
+       Rare rewards:
+       mostly coins,
+       sometimes points.
+    */
+
+
+    const random =
+        Math.random();
+
+
+    let rewardText = "";
+
+
+    if(random < 0.70){
+
+        const coins =
+            Math.floor(
+                Math.random() * 101
+            ) + 20;
+
+        addCoins(
+            coins,
+            "Mystery Box"
+        );
+
+        rewardText =
+            `🪙 You won ${coins} Coins!`;
+
+    }else{
+
+        const points =
+            Math.floor(
+                Math.random() * 6
+            );
+
+        if(points > 0){
+
+            addPoints(
+                points,
+                "Mystery Box"
+            );
+
+        }
+
+
+        rewardText =
+            `⭐ You won ${points} Points!`;
+
+    }
+
+
+    addTransaction(
+        "Mystery Box",
+        "Mystery reward",
+        rewardText
+    );
+
+
+    updateWalletUI();
+
+
+    document
+        .getElementById("mysteryTitle")
+        .textContent =
+            "🎉 Congratulations!";
+
+
+    document
+        .getElementById("mysteryResult")
+        .textContent =
+            rewardText;
+
+
+    document
+        .querySelector(".mystery-modal .main-action")
+        .textContent =
+            "Close";
+
+
+    document
+        .querySelector(".mystery-modal .main-action")
+        .onclick =
+            closeMystery;
+
+}
+
+
+/* =========================
+   HISTORY
+========================= */
+
+function openHistory(){
+
+    renderHistory();
+
+    document
+        .getElementById("historyModal")
+        .classList.add("show");
+
+}
+
+
+function closeHistory(){
+
+    document
+        .getElementById("historyModal")
+        .classList.remove("show");
+
+}
+
+
+function renderHistory(){
+
+    const list =
+        document.getElementById(
+            "historyList"
+        );
+
+
+    if(!list){
+
+        return;
+
+    }
+
+
+    if(wallet.transactions.length === 0){
+
+        list.innerHTML =
+            `<div class="empty-transactions">
+                No transactions yet.
+            </div>`;
+
+        return;
+
+    }
+
+
+    list.innerHTML =
+        wallet.transactions
+        .map(item => `
+
+            <div class="history-item">
+
+                <div>
+                    <strong>
+                        ${escapeHTML(item.title)}
+                    </strong>
+
+                    <span>
+                        ${escapeHTML(item.description)}
+                    </span>
+
+                    <span>
+                        ${escapeHTML(item.date)}
+                    </span>
+                </div>
+
+                <b>
+                    ${escapeHTML(item.value)}
+                </b>
+
+            </div>
+
+        `)
+        .join("");
+
+}
+
+
+/* =========================
+   RECENT TRANSACTIONS
+========================= */
+
+function renderTransactions(){
+
+    const list =
+        document.getElementById(
+            "recentTransactions"
+        );
+
+
+    if(!list){
+
+        return;
+
+    }
+
+
+    if(wallet.transactions.length === 0){
+
+        list.innerHTML =
+            `<div class="empty-transactions">
+                No transactions yet.
+            </div>`;
+
+        return;
+
+    }
+
+
+    list.innerHTML =
+        wallet.transactions
+        .slice(0,5)
+        .map(item => `
+
+            <div class="transaction">
+
+                <div class="transaction-icon">
+                    <i class="fa-solid fa-receipt"></i>
+                </div>
+
+                <div class="transaction-info">
+
+                    <strong>
+                        ${escapeHTML(item.title)}
+                    </strong>
+
+                    <span>
+                        ${escapeHTML(item.description)}
+                    </span>
+
+                </div>
+
+                <div class="transaction-value">
+                    ${escapeHTML(item.value)}
+                </div>
+
+            </div>
+
+        `)
+        .join("");
+
+}
+
+
+/* =========================
+   CHAPCY DROP
+========================= */
+
+function openDrop(){
+
+    showToast(
+        "CHAPCY Drop is opening..."
+    );
+
+    setTimeout(() => {
+
+        window.location.href =
+            "ChapcyDrop.html";
+
+    },500);
+
+}
+
+
+/* =========================
+   COIN INFO
+========================= */
+
+function showCoinInfo(){
+
+    showToast(
+        "Coins are mainly used for Chat, Groups and Gifts"
+    );
+
+}
+
+
+/* =========================
+   REFERRAL
+========================= */
+
+function copyReferral(){
+
+    navigator
+        .clipboard
+        .writeText("CHAPCY2026")
+        .then(() => {
+
+            showToast(
+                "Referral code copied"
+            );
+
+        })
+        .catch(() => {
+
+            showToast(
+                "Referral code: CHAPCY2026"
+            );
+
+        });
+
+}
+
+
+/* =========================
    TOAST
-========================================================= */
+========================= */
 
 let toastTimer;
 
 
-function showToast(message,type="success"){
+function showToast(message){
 
     const toast =
-        $("toast");
+        document.getElementById("toast");
 
     const text =
-        $("toastMessage");
+        document.getElementById("toastMessage");
+
 
     if(!toast || !text){
-
-        alert(message);
 
         return;
 
@@ -132,12 +1035,6 @@ function showToast(message,type="success"){
 
     text.textContent =
         message;
-
-
-    toast.classList.toggle(
-        "error",
-        type === "error"
-    );
 
 
     toast.classList.add("show");
@@ -151,80 +1048,57 @@ function showToast(message,type="success"){
 
             toast.classList.remove("show");
 
-        },3500);
+        },3000);
 
 }
 
 
-/* =========================================================
-   MODALS
-========================================================= */
+/* =========================
+   SCROLL
+========================= */
 
-function openModal(id){
+function scrollToSection(id){
 
-    const modal =
-        $(id);
-
-    if(!modal) return;
-
-    modal.classList.add("active");
-
-    modal.setAttribute(
-        "aria-hidden",
-        "false"
-    );
+    const element =
+        document.getElementById(id);
 
 
-    document.body.style.overflow =
-        "hidden";
+    if(element){
 
-}
-
-
-function closeModal(id){
-
-    const modal =
-        $(id);
-
-    if(!modal) return;
-
-    modal.classList.remove("active");
-
-    modal.setAttribute(
-        "aria-hidden",
-        "true"
-    );
-
-
-    const opened =
-        document.querySelector(
-            ".modal.active"
-        );
-
-
-    if(!opened){
-
-        document.body.style.overflow =
-            "";
+        element.scrollIntoView({
+            behavior:"smooth",
+            block:"start"
+        });
 
     }
 
 }
 
 
-window.closeModal =
-    closeModal;
+/* =========================
+   REFRESH
+========================= */
+
+function refreshWallet(){
+
+    updateWalletUI();
+
+    showToast(
+        "Wallet refreshed"
+    );
+
+}
 
 
-/* =========================================================
+/* =========================
    BACK
-========================================================= */
+========================= */
 
 function goBack(){
 
-    if(window.history.length > 1){
+    if(history.length > 1){
 
-        window.history.back();
+        history.back();
 
     }else{
 
@@ -236,1545 +1110,11 @@ function goBack(){
 }
 
 
-window.goBack =
-    goBack;
-
-
-/* =========================================================
-   SCROLL
-========================================================= */
-
-function scrollToSection(id){
-
-    const element =
-        $(id);
-
-    if(!element) return;
-
-    element.scrollIntoView({
-
-        behavior:"smooth",
-
-        block:"start"
-
-    });
-
-}
-
-
-window.scrollToSection =
-    scrollToSection;
-
-
-/* =========================================================
-   FIREBASE USER
-========================================================= */
-
-function getCurrentUser(){
-
-    if(
-        window.CHAPCY_CURRENT_USER
-    ){
-
-        return window.CHAPCY_CURRENT_USER;
-
-    }
-
-    return null;
-
-}
-
-
-/* =========================================================
-   GET USER ID
-========================================================= */
-
-function getUserId(){
-
-    const user =
-        getCurrentUser();
-
-
-    if(user && user.uid){
-
-        return user.uid;
-
-    }
-
-
-    /*
-       Optional fallback for XAMPP sessions.
-    */
-
-    if(window.CHAPCY_USER_ID){
-
-        return window.CHAPCY_USER_ID;
-
-    }
-
-
-    return null;
-
-}
-
-
-/* =========================================================
-   API REQUEST
-========================================================= */
-
-async function apiRequest(
-    endpoint,
-    options={}
-){
-
-    const userId =
-        getUserId();
-
-
-    const controller =
-        new AbortController();
-
-
-    const timeout =
-        setTimeout(
-            () => controller.abort(),
-            15000
-        );
-
-
-    try{
-
-        const response =
-            await fetch(
-                endpoint,
-                {
-
-                    method:
-                        options.method || "POST",
-
-                    headers:{
-                        "Content-Type":
-                            "application/json",
-
-                        "Accept":
-                            "application/json"
-
-                    },
-
-                    credentials:"include",
-
-                    body:
-                        options.body
-                        ? JSON.stringify({
-                            ...options.body,
-                            user_id:userId
-                        })
-                        : JSON.stringify({
-                            user_id:userId
-                        }),
-
-                    signal:
-                        controller.signal
-
-                }
-            );
-
-
-        clearTimeout(timeout);
-
-
-        const raw =
-            await response.text();
-
-
-        let data;
-
-
-        try{
-
-            data =
-                JSON.parse(raw);
-
-        }catch(error){
-
-            console.error(
-                "Invalid PHP JSON:",
-                raw
-            );
-
-            throw new Error(
-                "Server returned invalid response."
-            );
-
-        }
-
-
-        if(!response.ok){
-
-            throw new Error(
-                data.message ||
-                "Server request failed."
-            );
-
-        }
-
-
-        if(
-            data.success === false
-        ){
-
-            throw new Error(
-                data.message ||
-                "Transaction failed."
-            );
-
-        }
-
-
-        return data;
-
-    }catch(error){
-
-        clearTimeout(timeout);
-
-
-        if(
-            error.name ===
-            "AbortError"
-        ){
-
-            throw new Error(
-                "Server took too long to respond."
-            );
-
-        }
-
-
-        throw error;
-
-    }
-
-}
-
-
-/* =========================================================
-   LOAD REWARDS
-========================================================= */
-
-async function loadRewards(){
-
-    try{
-
-        const data =
-            await apiRequest(
-                API.rewards,
-                {
-                    method:"POST"
-                }
-            );
-
-
-        if(data.user){
-
-            applyUserData(
-                data.user
-            );
-
-        }
-
-
-        if(data.stats){
-
-            applyStats(
-                data.stats
-            );
-
-        }
-
-
-        if(
-            typeof data.daily_claimed
-            !== "undefined"
-        ){
-
-            STATE.dailyClaimed =
-                Boolean(
-                    data.daily_claimed
-                );
-
-        }
-
-
-        updateUI();
-
-
-    }catch(error){
-
-        console.error(
-            "Rewards loading error:",
-            error
-        );
-
-
-        /*
-           Don't destroy UI if backend
-           isn't connected yet.
-        */
-
-        showToast(
-            "Unable to load reward balance.",
-            "error"
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   APPLY USER DATA
-========================================================= */
-
-function applyUserData(user){
-
-    STATE.points =
-        Number(
-            user.coins ??
-            user.points ??
-            0
-        );
-
-
-    STATE.xp =
-        Number(
-            user.xp ??
-            0
-        );
-
-
-    STATE.level =
-        Number(
-            user.level ??
-            1
-        );
-
-
-    STATE.streak =
-        Number(
-            user.login_streak ??
-            user.streak ??
-            0
-        );
-
-
-    if(user.level_name){
-
-        STATE.levelName =
-            user.level_name;
-
-    }
-
-}
-
-
-/* =========================================================
-   APPLY STATS
-========================================================= */
-
-function applyStats(stats){
-
-    STATE.earned =
-        Number(
-            stats.earned ??
-            0
-        );
-
-
-    STATE.spent =
-        Number(
-            stats.spent ??
-            0
-        );
-
-
-    STATE.pending =
-        Number(
-            stats.pending ??
-            0
-        );
-
-}
-
-
-/* =========================================================
-   UPDATE UI
-========================================================= */
-
-function updateUI(){
-
-    setText(
-        "availablePoints",
-        formatNumber(STATE.points)
-    );
-
-
-    setText(
-        "earnedPoints",
-        formatNumber(STATE.earned)
-    );
-
-
-    setText(
-        "spentPoints",
-        formatNumber(STATE.spent)
-    );
-
-
-    setText(
-        "pendingPoints",
-        formatNumber(STATE.pending)
-    );
-
-
-    setText(
-        "streakDays",
-        STATE.streak
-    );
-
-
-    setText(
-        "userLevel",
-        STATE.levelName
-    );
-
-
-    updateLevel();
-
-
-    updateDailyReward();
-
-}
-
-
-/* =========================================================
-   LEVEL SYSTEM
-========================================================= */
-
-function updateLevel(){
-
-    const levels = [
-
-        {
-            name:"Bronze",
-            min:0,
-            max:5000
-        },
-
-        {
-            name:"Silver",
-            min:5000,
-            max:15000
-        },
-
-        {
-            name:"Gold",
-            min:15000,
-            max:30000
-        },
-
-        {
-            name:"Platinum",
-            min:30000,
-            max:60000
-        },
-
-        {
-            name:"Diamond",
-            min:60000,
-            max:100000
-        },
-
-        {
-            name:"Legend",
-            min:100000,
-            max:250000
-        }
-
-    ];
-
-
-    let current =
-        levels[0];
-
-
-    for(
-        const level of levels
-    ){
-
-        if(
-            STATE.xp >=
-            level.min
-        ){
-
-            current =
-                level;
-
-        }
-
-    }
-
-
-    const progress =
-        current.max === Infinity
-        ? 100
-        : Math.min(
-            100,
-            Math.max(
-                0,
-                (
-                    (
-                        STATE.xp -
-                        current.min
-                    )
-                    /
-                    (
-                        current.max -
-                        current.min
-                    )
-                ) * 100
-            )
-        );
-
-
-    setText(
-        "userLevel",
-        current.name
-    );
-
-
-    setText(
-        "levelText",
-        `${formatNumber(
-            STATE.xp
-        )} / ${formatNumber(
-            current.max
-        )} XP`
-    );
-
-
-    const progressBar =
-        $("levelProgress");
-
-
-    if(progressBar){
-
-        progressBar.style.width =
-            `${progress}%`;
-
-    }
-
-}
-
-
-/* =========================================================
-   DAILY REWARD UI
-========================================================= */
-
-function updateDailyReward(){
-
-    const button =
-        $("dailyRewardBtn");
-
-
-    const card =
-        $("dailyLoginCard");
-
-
-    const status =
-        $("loginRewardStatus");
-
-
-    const text =
-        $("dailyRewardText");
-
-
-    if(STATE.dailyClaimed){
-
-        if(button){
-
-            button.disabled =
-                true;
-
-            button.innerHTML =
-                `<i class="fa-solid fa-check"></i> Claimed`;
-
-        }
-
-
-        if(status){
-
-            status.textContent =
-                "Today's reward claimed";
-
-        }
-
-
-        if(text){
-
-            text.textContent =
-                "Come back tomorrow for your next reward.";
-
-        }
-
-
-        if(card){
-
-            card.classList.add(
-                "loading"
-            );
-
-        }
-
-    }else{
-
-        if(button){
-
-            button.disabled =
-                false;
-
-            button.innerHTML =
-                `<i class="fa-solid fa-gift"></i> Claim`;
-
-        }
-
-
-        if(status){
-
-            status.textContent =
-                "Check in today";
-
-        }
-
-
-        if(text){
-
-            text.textContent =
-                "Login today and collect your CHAPCY Points.";
-
-        }
-
-
-        if(card){
-
-            card.classList.remove(
-                "loading"
-            );
-
-        }
-
-    }
-
-}
-
-
-/* =========================================================
-   DAILY LOGIN CLAIM
-========================================================= */
-
-async function claimDailyLogin(){
-
-    if(STATE.dailyClaimed){
-
-        showToast(
-            "Today's reward has already been claimed."
-        );
-
-        return;
-
-    }
-
-
-    const button =
-        $("dailyRewardBtn");
-
-
-    if(button){
-
-        button.disabled =
-            true;
-
-        button.classList.add(
-            "loading"
-        );
-
-        button.innerHTML =
-            `<i class="fa-solid fa-spinner fa-spin"></i> Claiming...`;
-
-    }
-
-
-    try{
-
-        const data =
-            await apiRequest(
-                API.daily,
-                {
-                    method:"POST",
-                    body:{
-                        reward:20
-                    }
-                }
-            );
-
-
-        if(data.user){
-
-            applyUserData(
-                data.user
-            );
-
-        }
-
-
-        if(data.stats){
-
-            applyStats(
-                data.stats
-            );
-
-        }
-
-
-        STATE.dailyClaimed =
-            true;
-
-
-        updateUI();
-
-
-        showToast(
-            data.message ||
-            "Daily reward claimed! +20 Points"
-        );
-
-
-    }catch(error){
-
-        console.error(error);
-
-
-        showToast(
-            error.message ||
-            "Daily reward failed.",
-            "error"
-        );
-
-
-        if(button){
-
-            button.disabled =
-                false;
-
-        }
-
-    }finally{
-
-        if(button){
-
-            button.classList.remove(
-                "loading"
-            );
-
-        }
-
-    }
-
-}
-
-
-window.claimDailyLogin =
-    claimDailyLogin;
-
-
-/* =========================================================
-   REWARD ACTION
-========================================================= */
-
-async function rewardAction(type){
-
-    const rewards = {
-
-        watch:5,
-
-        comment:3,
-
-        reaction:1,
-
-        profile:50
-
-    };
-
-
-    const amount =
-        rewards[type];
-
-
-    if(!amount){
-
-        return;
-
-    }
-
-
-    try{
-
-        const data =
-            await apiRequest(
-                API.rewards,
-                {
-                    method:"POST",
-
-                    body:{
-                        action:type,
-                        reward:amount
-                    }
-
-                }
-            );
-
-
-        if(data.user){
-
-            applyUserData(
-                data.user
-            );
-
-        }
-
-
-        if(data.stats){
-
-            applyStats(
-                data.stats
-            );
-
-        }
-
-
-        updateUI();
-
-
-        showToast(
-            data.message ||
-            `You earned +${amount} Points`
-        );
-
-
-    }catch(error){
-
-        showToast(
-            error.message ||
-            "Reward action failed.",
-            "error"
-        );
-
-    }
-
-}
-
-
-window.rewardAction =
-    rewardAction;
-
-
-/* =========================================================
-   BUY POINTS
-========================================================= */
-
-async function buyPoints(
-    points,
-    price
-){
-
-    openModal(
-        "buyPointsModal"
-    );
-
-
-    closeModal(
-        "buyPointsModal"
-    );
-
-
-    const confirmed =
-        await confirmTransaction(
-            "Buy CHAPCY Points",
-            `You selected ${formatNumber(points)} Points for TSh ${formatNumber(price)}. Continue to payment?`
-        );
-
-
-    if(!confirmed){
-
-        return;
-
-    }
-
-
-    try{
-
-        showToast(
-            "Creating payment request..."
-        );
-
-
-        const data =
-            await apiRequest(
-                API.buyPoints,
-                {
-                    method:"POST",
-
-                    body:{
-                        points:points,
-                        amount:price,
-                        currency:"TZS"
-                    }
-
-                }
-            );
-
-
-        /*
-           PHP can return payment URL,
-           reference or instructions.
-        */
-
-        if(data.payment_url){
-
-            window.location.href =
-                data.payment_url;
-
-            return;
-
-        }
-
-
-        if(data.user){
-
-            applyUserData(
-                data.user
-            );
-
-        }
-
-
-        if(data.stats){
-
-            applyStats(
-                data.stats
-            );
-
-        }
-
-
-        updateUI();
-
-
-        showToast(
-            data.message ||
-            "Payment request created."
-        );
-
-
-    }catch(error){
-
-        showToast(
-            error.message ||
-            "Unable to create payment.",
-            "error"
-        );
-
-    }
-
-}
-
-
-window.buyPoints =
-    buyPoints;
-
-
-/* =========================================================
-   BUY DATA BUNDLE
-========================================================= */
-
-async function buyBundle(
-    bundle,
-    points
-){
-
-    const confirmed =
-        await confirmTransaction(
-            "Buy Data Bundle",
-            `Buy ${bundle} using ${formatNumber(points)} CHAPCY Points?`
-        );
-
-
-    if(!confirmed){
-
-        return;
-
-    }
-
-
-    if(
-        STATE.points <
-        points
-    ){
-
-        showToast(
-            "You do not have enough CHAPCY Points.",
-            "error"
-        );
-
-        return;
-
-    }
-
-
-    try{
-
-        showToast(
-            "Processing bundle..."
-        );
-
-
-        const data =
-            await apiRequest(
-                API.buyBundle,
-                {
-                    method:"POST",
-
-                    body:{
-                        bundle:bundle,
-                        points:points
-                    }
-
-                }
-            );
-
-
-        if(data.user){
-
-            applyUserData(
-                data.user
-            );
-
-        }
-
-
-        if(data.stats){
-
-            applyStats(
-                data.stats
-            );
-
-        }
-
-
-        updateUI();
-
-
-        showToast(
-            data.message ||
-            `${bundle} bundle purchased successfully.`
-        );
-
-
-    }catch(error){
-
-        showToast(
-            error.message ||
-            "Bundle purchase failed.",
-            "error"
-        );
-
-    }
-
-}
-
-
-window.buyBundle =
-    buyBundle;
-
-
-/* =========================================================
-   REDEEM
-========================================================= */
-
-async function redeemReward(
-    type,
-    value,
-    points
-){
-
-    if(
-        STATE.points <
-        Number(points)
-    ){
-
-        showToast(
-            "Insufficient CHAPCY Points.",
-            "error"
-        );
-
-        return;
-
-    }
-
-
-    const confirmed =
-        await confirmTransaction(
-            "Confirm Redemption",
-            `Use ${formatNumber(points)} CHAPCY Points for this reward?`
-        );
-
-
-    if(!confirmed){
-
-        return;
-
-    }
-
-
-    try{
-
-        showToast(
-            "Processing redemption..."
-        );
-
-
-        const data =
-            await apiRequest(
-                API.redeem,
-                {
-                    method:"POST",
-
-                    body:{
-                        reward_type:type,
-                        value:value,
-                        points:points
-                    }
-
-                }
-            );
-
-
-        if(data.user){
-
-            applyUserData(
-                data.user
-            );
-
-        }
-
-
-        if(data.stats){
-
-            applyStats(
-                data.stats
-            );
-
-        }
-
-
-        updateUI();
-
-
-        showToast(
-            data.message ||
-            "Reward redeemed successfully."
-        );
-
-
-    }catch(error){
-
-        showToast(
-            error.message ||
-            "Redemption failed.",
-            "error"
-        );
-
-    }
-
-}
-
-
-window.redeemReward =
-    redeemReward;
-
-
-/* =========================================================
-   CONFIRM TRANSACTION
-========================================================= */
-
-function confirmTransaction(
-    title,
-    message
-){
-
-    return new Promise(
-        resolve => {
-
-            const modal =
-                $("confirmModal");
-
-
-            const titleElement =
-                $("confirmTitle");
-
-
-            const messageElement =
-                $("confirmMessage");
-
-
-            const button =
-                $("confirmButton");
-
-
-            if(
-                !modal ||
-                !titleElement ||
-                !messageElement ||
-                !button
-            ){
-
-                resolve(
-                    window.confirm(
-                        message
-                    )
-                );
-
-                return;
-
-            }
-
-
-            titleElement.textContent =
-                title;
-
-
-            messageElement.textContent =
-                message;
-
-
-            openModal(
-                "confirmModal"
-            );
-
-
-            const handler = () => {
-
-                button.removeEventListener(
-                    "click",
-                    handler
-                );
-
-
-                closeModal(
-                    "confirmModal"
-                );
-
-
-                resolve(true);
-
-            };
-
-
-            button.addEventListener(
-                "click",
-                handler
-            );
-
-
-            modal.dataset.cancelled =
-                "false";
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   BUY POINTS MODAL
-========================================================= */
-
-function openBuyPoints(){
-
-    openModal(
-        "buyPointsModal"
-    );
-
-}
-
-
-window.openBuyPoints =
-    openBuyPoints;
-
-
-/* =========================================================
-   HISTORY
-========================================================= */
-
-async function openHistory(){
-
-    openModal(
-        "historyModal"
-    );
-
-
-    const list =
-        $("historyList");
-
-
-    if(!list) return;
-
-
-    list.innerHTML = `
-
-        <div class="empty-history">
-
-            <i class="fa-solid fa-spinner fa-spin"></i>
-
-            <p>
-                Loading transactions...
-            </p>
-
-        </div>
-
-    `;
-
-
-    try{
-
-        const data =
-            await apiRequest(
-                API.history,
-                {
-                    method:"POST"
-                }
-            );
-
-
-        const history =
-            data.transactions ||
-            data.history ||
-            [];
-
-
-        STATE.history =
-            history;
-
-
-        renderHistory(
-            history
-        );
-
-
-    }catch(error){
-
-        console.error(error);
-
-
-        list.innerHTML = `
-
-            <div class="empty-history">
-
-                <i class="fa-solid fa-triangle-exclamation"></i>
-
-                <p>
-                    Unable to load history.
-                </p>
-
-            </div>
-
-        `;
-
-    }
-
-}
-
-
-window.openHistory =
-    openHistory;
-
-
-/* =========================================================
-   RENDER HISTORY
-========================================================= */
-
-function renderHistory(
-    history
-){
-
-    const list =
-        $("historyList");
-
-
-    if(!list) return;
-
-
-    if(!history.length){
-
-        list.innerHTML = `
-
-            <div class="empty-history">
-
-                <i class="fa-solid fa-receipt"></i>
-
-                <p>
-                    No transactions yet.
-                </p>
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    list.innerHTML =
-        history.map(
-            transaction => {
-
-                const points =
-                    Number(
-                        transaction.points ??
-                        0
-                    );
-
-
-                const isPlus =
-                    points > 0;
-
-
-                const icon =
-                    transaction.icon ||
-                    (
-                        isPlus
-                        ? "fa-plus"
-                        : "fa-minus"
-                    );
-
-
-                const date =
-                    transaction.created_at
-                    ? formatDate(
-                        transaction.created_at
-                    )
-                    : "";
-
-
-                return `
-
-                    <div class="history-item">
-
-                        <div class="history-icon">
-
-                            <i class="fa-solid ${icon}"></i>
-
-                        </div>
-
-
-                        <div class="history-info">
-
-                            <strong>
-                                ${
-                                    escapeHTML(
-                                        transaction.description ||
-                                        transaction.type ||
-                                        "CHAPCY Transaction"
-                                    )
-                                }
-                            </strong>
-
-                            <small>
-                                ${date}
-                            </small>
-
-                        </div>
-
-
-                        <div class="
-                            history-points
-                            ${isPlus ? "plus" : "minus"}
-                        ">
-
-                            ${
-                                isPlus
-                                ? "+"
-                                : ""
-                            }
-
-                            ${formatNumber(points)}
-
-                        </div>
-
-                    </div>
-
-                `;
-
-            }
-        ).join("");
-
-}
-
-
-/* =========================================================
-   DATE
-========================================================= */
-
-function formatDate(
-    date
-){
-
-    const parsed =
-        new Date(date);
-
-
-    if(
-        Number.isNaN(
-            parsed.getTime()
-        )
-    ){
-
-        return date;
-
-    }
-
-
-    return parsed.toLocaleString(
-        "en-TZ",
-        {
-            day:"2-digit",
-            month:"short",
-            year:"numeric",
-            hour:"2-digit",
-            minute:"2-digit"
-        }
-    );
-
-}
-
-
-/* =========================================================
-   ESCAPE HTML
-========================================================= */
-
-function escapeHTML(
-    value
-){
+/* =========================
+   SECURITY
+========================= */
+
+function escapeHTML(value){
 
     return String(value)
         .replaceAll("&","&amp;")
@@ -1786,328 +1126,17 @@ function escapeHTML(
 }
 
 
-/* =========================================================
-   REFERRAL
-========================================================= */
-
-function openReferral(){
-
-    const section =
-        document.querySelector(
-            ".referral-card"
-        );
-
-
-    if(section){
-
-        section.scrollIntoView({
-            behavior:"smooth",
-            block:"center"
-        });
-
-    }
-
-}
-
-
-window.openReferral =
-    openReferral;
-
-
-/* =========================================================
-   COPY REFERRAL
-========================================================= */
-
-async function copyReferral(){
-
-    const element =
-        $("referralCode");
-
-
-    if(!element) return;
-
-
-    const code =
-        element.textContent.trim();
-
-
-    try{
-
-        await navigator.clipboard.writeText(
-            code
-        );
-
-
-        showToast(
-            "Referral code copied."
-        );
-
-    }catch(error){
-
-        showToast(
-            "Unable to copy referral code.",
-            "error"
-        );
-
-    }
-
-}
-
-
-window.copyReferral =
-    copyReferral;
-
-
-/* =========================================================
-   SHARE REFERRAL
-========================================================= */
-
-async function shareReferral(){
-
-    const element =
-        $("referralCode");
-
-
-    const code =
-        element
-        ? element.textContent.trim()
-        : "CHAPCY2026";
-
-
-    const shareData = {
-
-        title:
-            "Join CHAPCY",
-
-        text:
-            `Join me on CHAPCY and earn rewards. My referral code is ${code}.`
-
-    };
-
-
-    try{
-
-        if(
-            navigator.share
-        ){
-
-            await navigator.share(
-                shareData
-            );
-
-        }else{
-
-            await navigator.clipboard.writeText(
-                shareData.text
-            );
-
-
-            showToast(
-                "Invite message copied."
-            );
-
-        }
-
-    }catch(error){
-
-        if(
-            error.name !==
-            "AbortError"
-        ){
-
-            showToast(
-                "Unable to share invite.",
-                "error"
-            );
-
-        }
-
-    }
-
-}
-
-
-window.shareReferral =
-    shareReferral;
-
-
-/* =========================================================
-   MYSTERY BOX
-========================================================= */
-
-function openMysteryBox(){
-
-    showToast(
-        "Mystery Box system is ready for PHP connection."
-    );
-
-}
-
-
-window.openMysteryBox =
-    openMysteryBox;
-
-
-/* =========================================================
-   AUTH READY
-========================================================= */
-
-window.addEventListener(
-    "chapcyUserReady",
-    event => {
-
-        const user =
-            event.detail;
-
-
-        if(user){
-
-            window.CHAPCY_CURRENT_USER =
-                user;
-
-        }
-
-
-        loadRewards();
-
-    }
-);
-
-
-/* =========================================================
-   SIGNED OUT
-========================================================= */
-
-window.addEventListener(
-    "chapcyUserSignedOut",
-    () => {
-
-        STATE.userId =
-            null;
-
-        STATE.points =
-            0;
-
-        STATE.earned =
-            0;
-
-        STATE.spent =
-            0;
-
-        STATE.pending =
-            0;
-
-        STATE.streak =
-            0;
-
-        STATE.dailyClaimed =
-            false;
-
-
-        updateUI();
-
-
-        showToast(
-            "Please login to use CHAPCY Rewards.",
-            "error"
-        );
-
-    }
-);
-
-
-/* =========================================================
-   ESC KEY
-========================================================= */
-
-document.addEventListener(
-    "keydown",
-    event => {
-
-        if(
-            event.key !==
-            "Escape"
-        ){
-
-            return;
-
-        }
-
-
-        const modal =
-            document.querySelector(
-                ".modal.active"
-            );
-
-
-        if(modal){
-
-            closeModal(
-                modal.id
-            );
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   PREVENT DOUBLE SUBMIT
-========================================================= */
-
-document.addEventListener(
-    "click",
-    event => {
-
-        const button =
-            event.target.closest(
-                "button"
-            );
-
-
-        if(!button) return;
-
-
-        if(
-            button.dataset.processing ===
-            "true"
-        ){
-
-            event.preventDefault();
-
-            return;
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   INITIALIZE
-========================================================= */
+/* =========================
+   START
+========================= */
 
 document.addEventListener(
     "DOMContentLoaded",
     () => {
 
-        updateUI();
+        checkDailyLogin();
 
-
-        /*
-           If Firebase has already
-           initialized before this script.
-        */
-
-        if(
-            window.CHAPCY_CURRENT_USER
-        ){
-
-            loadRewards();
-
-        }
+        updateWalletUI();
 
     }
 );
-```
