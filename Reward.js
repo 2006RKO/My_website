@@ -1,506 +1,948 @@
-/* =========================================================
-   CHAPCY REWARDS SYSTEM
-   Points + Coins + Streak + Data + Bundles
-========================================================= */
+"use strict";
 
 
-/* =========================
-   DEFAULT USER WALLET
-========================= */
+/* =====================================================
+   CHAPCY WORLDWIDE REWARDS
+===================================================== */
 
-const DEFAULT_WALLET = {
+
+/* =====================================================
+   USER WALLET
+===================================================== */
+
+const wallet = {
+
+    balance: 0,
+
     points: 0,
+
     coins: 0,
+
     streak: 0,
+
     xp: 0,
+
     level: 1,
-    lastLogin: null,
-    transactions: []
+
+    name: "CHAPCY User",
+
+    phone: "",
+
+    countryCode: "",
+
+    countryName: "Worldwide",
+
+    currencyCode: "USD",
+
+    currencySymbol: "$"
+
 };
 
 
-let wallet =
-    JSON.parse(localStorage.getItem("chapcyWallet")) ||
-    DEFAULT_WALLET;
+/* =====================================================
+   CURRENCY DATABASE
+===================================================== */
+
+const CURRENCIES = {
+
+    TZ: {
+        country: "Tanzania",
+        currency: "TZS",
+        symbol: "TSh",
+        flag: "🇹🇿"
+    },
+
+    KE: {
+        country: "Kenya",
+        currency: "KES",
+        symbol: "KSh",
+        flag: "🇰🇪"
+    },
+
+    UG: {
+        country: "Uganda",
+        currency: "UGX",
+        symbol: "USh",
+        flag: "🇺🇬"
+    },
+
+    RW: {
+        country: "Rwanda",
+        currency: "RWF",
+        symbol: "FRw",
+        flag: "🇷🇼"
+    },
+
+    BI: {
+        country: "Burundi",
+        currency: "BIF",
+        symbol: "FBu",
+        flag: "🇧🇮"
+    },
+
+    NG: {
+        country: "Nigeria",
+        currency: "NGN",
+        symbol: "₦",
+        flag: "🇳🇬"
+    },
+
+    GH: {
+        country: "Ghana",
+        currency: "GHS",
+        symbol: "GH₵",
+        flag: "🇬🇭"
+    },
+
+    ZA: {
+        country: "South Africa",
+        currency: "ZAR",
+        symbol: "R",
+        flag: "🇿🇦"
+    },
+
+    US: {
+        country: "United States",
+        currency: "USD",
+        symbol: "$",
+        flag: "🇺🇸"
+    },
+
+    CA: {
+        country: "Canada",
+        currency: "CAD",
+        symbol: "C$",
+        flag: "🇨🇦"
+    },
+
+    GB: {
+        country: "United Kingdom",
+        currency: "GBP",
+        symbol: "£",
+        flag: "🇬🇧"
+    },
+
+    DE: {
+        country: "Germany",
+        currency: "EUR",
+        symbol: "€",
+        flag: "🇩🇪"
+    },
+
+    FR: {
+        country: "France",
+        currency: "EUR",
+        symbol: "€",
+        flag: "🇫🇷"
+    },
+
+    IT: {
+        country: "Italy",
+        currency: "EUR",
+        symbol: "€",
+        flag: "🇮🇹"
+    },
+
+    ES: {
+        country: "Spain",
+        currency: "EUR",
+        symbol: "€",
+        flag: "🇪🇸"
+    },
+
+    IN: {
+        country: "India",
+        currency: "INR",
+        symbol: "₹",
+        flag: "🇮🇳"
+    },
+
+    CN: {
+        country: "China",
+        currency: "CNY",
+        symbol: "¥",
+        flag: "🇨🇳"
+    },
+
+    JP: {
+        country: "Japan",
+        currency: "JPY",
+        symbol: "¥",
+        flag: "🇯🇵"
+    },
+
+    AE: {
+        country: "United Arab Emirates",
+        currency: "AED",
+        symbol: "د.إ",
+        flag: "🇦🇪"
+    },
+
+    SA: {
+        country: "Saudi Arabia",
+        currency: "SAR",
+        symbol: "﷼",
+        flag: "🇸🇦"
+    },
+
+    AU: {
+        country: "Australia",
+        currency: "AUD",
+        symbol: "A$",
+        flag: "🇦🇺"
+    },
+
+    NZ: {
+        country: "New Zealand",
+        currency: "NZD",
+        symbol: "NZ$",
+        flag: "🇳🇿"
+    },
+
+    BR: {
+        country: "Brazil",
+        currency: "BRL",
+        symbol: "R$",
+        flag: "🇧🇷"
+    },
+
+    MX: {
+        country: "Mexico",
+        currency: "MXN",
+        symbol: "MX$",
+        flag: "🇲🇽"
+    }
+};
 
 
-/* =========================
-   SAVE
-========================= */
+/* =====================================================
+   STATE
+===================================================== */
 
-function saveWallet(){
+let balanceVisible = true;
 
-    localStorage.setItem(
-        "chapcyWallet",
-        JSON.stringify(wallet)
+let selectedNetwork = "Vodacom";
+
+let toastTimer = null;
+
+
+/* =====================================================
+   NUMBER FORMAT
+===================================================== */
+
+function formatNumber(number){
+
+    return new Intl.NumberFormat(
+        "en-US",
+        {
+            maximumFractionDigits:2
+        }
+    ).format(
+        Number(number || 0)
     );
 
 }
 
 
-/* =========================
-   FORMAT NUMBERS
-========================= */
+/* =====================================================
+   FORMAT MONEY
+===================================================== */
 
-function formatNumber(number){
+function formatMoney(amount){
 
-    return Number(number || 0).toLocaleString();
+    return `${wallet.currencySymbol} ${formatNumber(amount)}`;
 
 }
 
 
-/* =========================
-   UPDATE UI
-========================= */
+/* =====================================================
+   LOAD WALLET
+===================================================== */
 
-function updateWalletUI(){
+async function loadWallet(){
 
-    const points =
-        document.getElementById("pointsBalance");
+    const refresh =
+        document.querySelector(".wallet-refresh");
 
-    const coins =
-        document.getElementById("coinsBalance");
+    try{
 
-    const streak =
-        document.getElementById("streakDays");
+        if(refresh){
 
-    if(points){
-        points.textContent =
-            formatNumber(wallet.points);
+            refresh.classList.add("loading");
+        }
+
+
+        const response = await fetch(
+            "wallet.php",
+            {
+                method:"GET",
+
+                credentials:"same-origin",
+
+                cache:"no-store",
+
+                headers:{
+                    "Accept":"application/json"
+                }
+            }
+        );
+
+
+        if(!response.ok){
+
+            throw new Error(
+                `Wallet server returned ${response.status}`
+            );
+        }
+
+
+        const data =
+            await response.json();
+
+
+        if(!data.success){
+
+            throw new Error(
+                data.message ||
+                "Unable to load wallet."
+            );
+        }
+
+
+        /*
+         * REAL DATABASE VALUES
+         */
+
+        wallet.balance =
+            Number(data.balance || 0);
+
+
+        wallet.points =
+            Number(
+                data.points ??
+                data.chapcy_points ??
+                0
+            );
+
+
+        wallet.coins =
+            Number(data.coins || 0);
+
+
+        wallet.streak =
+            Number(
+                data.streak ??
+                data.login_streak ??
+                0
+            );
+
+
+        wallet.xp =
+            Number(data.xp || 0);
+
+
+        wallet.level =
+            Number(data.level || 1);
+
+
+        wallet.name =
+            data.name ||
+            "CHAPCY User";
+
+
+        wallet.phone =
+            data.phone ||
+            "";
+
+
+        wallet.countryCode =
+            String(
+                data.country_code ||
+                ""
+            ).toUpperCase();
+
+
+        /*
+         * Currency comes from PHP/database.
+         * If PHP doesn't send it, use country map.
+         */
+
+        const countryCurrency =
+            CURRENCIES[
+                wallet.countryCode
+            ];
+
+
+        wallet.countryName =
+            data.country_name ||
+            countryCurrency?.country ||
+            "Worldwide";
+
+
+        wallet.currencyCode =
+            data.currency_code ||
+            countryCurrency?.currency ||
+            "USD";
+
+
+        wallet.currencySymbol =
+            data.currency_symbol ||
+            countryCurrency?.symbol ||
+            "$";
+
+
+        updateAll();
+
+
+        showToast(
+            "Wallet updated successfully.",
+            "success"
+        );
+
+
+    }catch(error){
+
+        console.error(
+            "CHAPCY WALLET:",
+            error
+        );
+
+
+        /*
+         * IMPORTANT:
+         * No fake balance is inserted here.
+         */
+
+        showToast(
+            "Unable to load your wallet. Check your login/session.",
+            "error"
+        );
+
+
+    }finally{
+
+        if(refresh){
+
+            refresh.classList.remove("loading");
+        }
+
     }
 
-    if(coins){
-        coins.textContent =
-            formatNumber(wallet.coins);
-    }
+}
 
-    if(streak){
-        streak.textContent =
-            formatNumber(wallet.streak);
-    }
 
+/* =====================================================
+   UPDATE EVERYTHING
+===================================================== */
+
+function updateAll(){
+
+    updateWallet();
+
+    updatePoints();
+
+    updateCoins();
+
+    updateStreak();
 
     updateLevel();
 
-    renderTransactions();
-
-    saveWallet();
+    updatePrices();
 
 }
 
 
-/* =========================
-   XP / LEVEL
-========================= */
+/* =====================================================
+   UPDATE WALLET
+===================================================== */
+
+function updateWallet(){
+
+    const balance =
+        document.getElementById(
+            "walletBalance"
+        );
+
+
+    if(balance){
+
+        if(balanceVisible){
+
+            balance.textContent =
+                formatNumber(
+                    wallet.balance
+                );
+
+        }else{
+
+            balance.textContent =
+                "••••••";
+        }
+
+    }
+
+
+    const symbol =
+        document.getElementById(
+            "currencySymbol"
+        );
+
+
+    if(symbol){
+
+        symbol.textContent =
+            wallet.currencySymbol;
+    }
+
+
+    const code =
+        document.getElementById(
+            "currencyCode"
+        );
+
+
+    if(code){
+
+        code.textContent =
+            wallet.currencyCode;
+    }
+
+
+    const countryInfo =
+        CURRENCIES[
+            wallet.countryCode
+        ];
+
+
+    const flag =
+        countryInfo?.flag ||
+        "🌍";
+
+
+    const country =
+        document.getElementById(
+            "balanceCountry"
+        );
+
+
+    if(country){
+
+        country.textContent =
+            `${flag} ${wallet.countryName}`;
+    }
+
+
+    const headerCountry =
+        document.getElementById(
+            "walletCountryText"
+        );
+
+
+    if(headerCountry){
+
+        headerCountry.textContent =
+            `${flag} ${wallet.countryName} Account`;
+    }
+
+
+    const userName =
+        document.getElementById(
+            "walletUserName"
+        );
+
+
+    if(userName){
+
+        userName.textContent =
+            wallet.name;
+    }
+
+
+    const phone =
+        document.getElementById(
+            "walletPhone"
+        );
+
+
+    if(phone){
+
+        phone.textContent =
+            wallet.phone ||
+            `${wallet.countryName} Account`;
+    }
+
+
+    const noticeTitle =
+        document.getElementById(
+            "currencyNoticeTitle"
+        );
+
+
+    if(noticeTitle){
+
+        noticeTitle.textContent =
+            `${wallet.countryName} Wallet`;
+    }
+
+
+    const noticeText =
+        document.getElementById(
+            "currencyNoticeText"
+        );
+
+
+    if(noticeText){
+
+        noticeText.textContent =
+            `Your wallet displays ${wallet.currencyCode} based on the country used during registration.`;
+    }
+
+
+    updateEye();
+
+}
+
+
+/* =====================================================
+   EYE
+===================================================== */
+
+function toggleWalletBalance(){
+
+    balanceVisible =
+        !balanceVisible;
+
+    updateWallet();
+
+}
+
+
+function updateEye(){
+
+    const icon =
+        document.getElementById(
+            "walletEyeIcon"
+        );
+
+
+    if(!icon) return;
+
+
+    icon.className =
+        balanceVisible
+
+        ? "fa-solid fa-eye"
+
+        : "fa-solid fa-eye-slash";
+
+}
+
+
+/* =====================================================
+   POINTS
+===================================================== */
+
+function updatePoints(){
+
+    const element =
+        document.getElementById(
+            "pointsBalance"
+        );
+
+
+    if(element){
+
+        element.textContent =
+            formatNumber(
+                wallet.points
+            );
+    }
+
+}
+
+
+/* =====================================================
+   COINS
+===================================================== */
+
+function updateCoins(){
+
+    const element =
+        document.getElementById(
+            "coinsBalance"
+        );
+
+
+    if(element){
+
+        element.textContent =
+            formatNumber(
+                wallet.coins
+            );
+    }
+
+}
+
+
+/* =====================================================
+   STREAK
+===================================================== */
+
+function updateStreak(){
+
+    const element =
+        document.getElementById(
+            "streakDays"
+        );
+
+
+    if(element){
+
+        element.textContent =
+            formatNumber(
+                wallet.streak
+            );
+    }
+
+}
+
+
+/* =====================================================
+   LEVEL / XP
+===================================================== */
 
 function updateLevel(){
 
-    const xp = Number(wallet.xp || 0);
+    const level =
+        document.getElementById(
+            "levelName"
+        );
 
-    let level = 1;
-
-    if(xp >= 1000){
-        level = 5;
-    }else if(xp >= 500){
-        level = 4;
-    }else if(xp >= 250){
-        level = 3;
-    }else if(xp >= 100){
-        level = 2;
-    }
-
-
-    wallet.level = level;
-
-
-    const names = {
-        1:"Bronze",
-        2:"Silver",
-        3:"Gold",
-        4:"Platinum",
-        5:"Diamond"
-    };
-
-
-    const requirements = {
-        1:100,
-        2:250,
-        3:500,
-        4:1000,
-        5:1000
-    };
-
-
-    const levelName =
-        document.getElementById("levelName");
 
     const xpText =
-        document.getElementById("xpText");
+        document.getElementById(
+            "xpText"
+        );
+
 
     const progress =
-        document.getElementById("xpProgress");
+        document.getElementById(
+            "xpProgress"
+        );
 
 
-    if(levelName){
-
-        levelName.textContent =
-            names[level];
-
-    }
+    const currentXP =
+        Number(wallet.xp || 0);
 
 
-    const maxXP =
-        requirements[level];
-
-    const previousXP =
-
-        level === 1 ? 0 :
-        level === 2 ? 100 :
-        level === 3 ? 250 :
-        level === 4 ? 500 :
-        1000;
+    const currentLevel =
+        Number(wallet.level || 1);
 
 
-    const current =
-        Math.max(0,xp - previousXP);
+    const xpNeeded =
+        currentLevel * 100;
 
-    const needed =
-        Math.max(1,maxXP - previousXP);
 
     const percentage =
-        Math.min(100,(current / needed) * 100);
+        Math.min(
+            100,
+            (currentXP / xpNeeded) * 100
+        );
+
+
+    if(level){
+
+        const names = [
+            "Bronze",
+            "Silver",
+            "Gold",
+            "Platinum",
+            "Diamond",
+            "Legend"
+        ];
+
+
+        level.textContent =
+            names[
+                Math.min(
+                    currentLevel - 1,
+                    names.length - 1
+                )
+            ] ||
+            `Level ${currentLevel}`;
+    }
 
 
     if(xpText){
 
         xpText.textContent =
-            `${formatNumber(xp)} XP`;
-
+            `${currentXP} / ${xpNeeded} XP`;
     }
 
 
     if(progress){
 
-        setTimeout(() => {
-
-            progress.style.width =
-                percentage + "%";
-
-        },100);
-
+        progress.style.width =
+            `${percentage}%`;
     }
 
 }
 
 
-/* =========================
-   TRANSACTION
-========================= */
-
-function addTransaction(
-    title,
-    description,
-    value
-){
-
-    wallet.transactions.unshift({
-
-        title,
-        description,
-        value,
-
-        date:
-            new Date().toLocaleString()
-
-    });
-
-
-    if(wallet.transactions.length > 30){
-
-        wallet.transactions =
-            wallet.transactions.slice(0,30);
-
-    }
-
-}
-
-
-/* =========================
-   ADD POINTS
-========================= */
-
-function addPoints(amount, reason="Reward"){
-
-    amount = Number(amount);
-
-    if(amount <= 0){
-        return;
-    }
-
-    wallet.points += amount;
-
-    wallet.xp += amount;
-
-    addTransaction(
-        reason,
-        "CHAPCY Points earned",
-        `+${amount} PTS`
-    );
-
-    updateWalletUI();
-
-}
-
-
-/* =========================
-   ADD COINS
-========================= */
-
-function addCoins(amount, reason="Reward"){
-
-    amount = Number(amount);
-
-    if(amount <= 0){
-        return;
-    }
-
-    wallet.coins += amount;
-
-    wallet.xp += Math.min(amount,20);
-
-    addTransaction(
-        reason,
-        "CHAPCY Coins earned",
-        `+${amount} Coins`
-    );
-
-    updateWalletUI();
-
-}
-
-
-/* =========================
-   DAILY LOGIN
-========================= */
-
-function checkDailyLogin(){
-
-    const today =
-        new Date().toISOString().slice(0,10);
-
-
-    if(wallet.lastLogin === today){
-
-        return;
-
-    }
-
-
-    const yesterdayDate =
-        new Date();
-
-    yesterdayDate.setDate(
-        yesterdayDate.getDate() - 1
-    );
-
-
-    const yesterday =
-        yesterdayDate
-        .toISOString()
-        .slice(0,10);
-
-
-    if(wallet.lastLogin === yesterday){
-
-        wallet.streak++;
-
-    }else{
-
-        wallet.streak = 1;
-
-    }
-
-
-    wallet.lastLogin = today;
-
-
-    /* Rare Points */
-
-    addPoints(
-        1,
-        "Daily Login"
-    );
-
-
-    /* Coins are easier to earn */
-
-    addCoins(
-        10,
-        "Daily Login Bonus"
-    );
-
-
-    /* 7 DAY BONUS */
-
-    if(wallet.streak === 7){
-
-        addPoints(
-            5,
-            "7-Day Streak Bonus"
-        );
-
-        addCoins(
-            50,
-            "7-Day Streak Coins"
-        );
-
-    }
-
-
-    /* 30 DAY BONUS */
-
-    if(wallet.streak === 30){
-
-        addPoints(
-            15,
-            "30-Day Streak Bonus"
-        );
-
-        addCoins(
-            150,
-            "30-Day Streak Coins"
-        );
-
-    }
-
-
-    saveWallet();
-
-}
-
-
-/* =========================
-   BUY POINTS
-========================= */
-
-function buyPoints(points, price){
-
-    const confirmBuy =
-        confirm(
-            `Buy ${formatNumber(points)} CHAPCY Points for TSh ${formatNumber(price)}?`
-        );
-
-
-    if(!confirmBuy){
-
-        return;
-
-    }
-
+/* =====================================================
+   UPDATE ALL MONEY PRICES
+===================================================== */
+
+function updatePrices(){
 
     /*
-       REAL PAYMENT SHOULD BE
-       CONNECTED HERE LATER.
-    */
+     * IMPORTANT:
+     * These prices are converted for display.
+     *
+     * The actual payment amount should be
+     * calculated/validated by PHP/payment backend.
+     */
+
+    document
+        .querySelectorAll(
+            "[data-money-price]"
+        )
+        .forEach(element => {
+
+            const base =
+                Number(
+                    element.dataset.moneyPrice
+                );
 
 
-    addPoints(
-        points,
-        "Purchased CHAPCY Points"
-    );
+            element.textContent =
+                formatMoney(
+                    getLocalizedPrice(base)
+                );
+
+        });
 
 
-    showToast(
-        `${formatNumber(points)} Points added`
-    );
+    document
+        .querySelectorAll(
+            ".bundle-price[data-price]"
+        )
+        .forEach(element => {
+
+            const base =
+                Number(
+                    element.dataset.price
+                );
+
+
+            element.textContent =
+                formatMoney(
+                    getLocalizedPrice(base)
+                );
+
+        });
 
 }
 
 
-/* =========================
-   BUNDLE PURCHASE
-========================= */
+/* =====================================================
+   WORLDWIDE DISPLAY PRICE
+===================================================== */
 
-function buyBundle(
-    name,
-    price,
-    coins,
-    points,
-    data
-){
-
-    const confirmed =
-        confirm(
-
-            `Buy ${name} for TSh ${formatNumber(price)}?\n\n` +
-
-            `🪙 ${formatNumber(coins)} Coins\n` +
-
-            `⭐ ${formatNumber(points)} Points\n` +
-
-            `📶 ${data}`
-
-        );
-
-
-    if(!confirmed){
-
-        return;
-
-    }
-
+function getLocalizedPrice(baseTZS){
 
     /*
-       REAL PAYMENT GATEWAY
-       WILL BE CONNECTED HERE.
-    */
+     * CHAPCY base prices are currently defined
+     * in TZS.
+     *
+     * The backend should eventually provide
+     * the official country price table.
+     *
+     * This front-end map is only for display.
+     */
+
+    const rates = {
+
+        TZS:1,
+
+        KES:0.052,
+
+        UGX:0.47,
+
+        RWF:0.35,
+
+        BIF:0.60,
+
+        NGN:0.30,
+
+        GHS:0.0060,
+
+        ZAR:0.0062,
+
+        USD:0.00039,
+
+        CAD:0.00053,
+
+        GBP:0.00030,
+
+        EUR:0.00036,
+
+        INR:0.033,
+
+        CNY:0.0028,
+
+        JPY:0.056,
+
+        AED:0.00143,
+
+        SAR:0.00146,
+
+        AUD:0.00060,
+
+        NZD:0.00064,
+
+        BRL:0.0021,
+
+        MXN:0.0074
+
+    };
 
 
-    addCoins(
-        coins,
-        `${name} Bundle`
-    );
+    const rate =
+        rates[
+            wallet.currencyCode
+        ] ?? 1;
 
 
-    addPoints(
-        points,
-        `${name} Bundle`
-    );
-
-
-    addTransaction(
-
-        `${name} Data Bundle`,
-
-        `${data} included`,
-
-        `+${data}`
-
-    );
-
-
-    showToast(
-        `${name} bundle activated`
-    );
+    return baseTZS * rate;
 
 }
 
 
-/* =========================
+/* =====================================================
+   REFRESH
+===================================================== */
+
+function refreshWallet(){
+
+    loadWallet();
+
+}
+
+
+/* =====================================================
    NETWORK
-========================= */
-
-let selectedNetwork =
-    "Vodacom";
-
+===================================================== */
 
 function selectNetwork(button){
 
     document
         .querySelectorAll(".network")
-        .forEach(btn => {
+        .forEach(item => {
 
-            btn.classList.remove("active");
+            item.classList.remove(
+                "active"
+            );
 
         });
 
@@ -512,320 +954,313 @@ function selectNetwork(button){
         button.dataset.network;
 
 
-    const display =
+    const selected =
         document.getElementById(
             "selectedNetwork"
         );
 
 
-    if(display){
+    if(selected){
 
-        display.textContent =
+        selected.textContent =
             selectedNetwork;
-
     }
 
 }
 
 
-/* =========================
+/* =====================================================
    BUY DATA
-========================= */
+===================================================== */
 
-function buyData(
-    data,
-    cost
-){
+function buyData(dataSize, pointsCost){
 
     const phone =
         document
         .getElementById("dataPhone")
-        .value
+        ?.value
         .trim();
 
 
     if(!phone){
 
         showToast(
-            "Enter your phone number first"
+            "Enter the phone number first.",
+            "error"
         );
 
         return;
-
     }
 
 
-    if(phone.length < 9){
+    if(wallet.points < pointsCost){
 
         showToast(
-            "Enter a valid phone number"
+            "You do not have enough CHAPCY Points.",
+            "error"
         );
 
         return;
-
     }
-
-
-    if(wallet.points < cost){
-
-        showToast(
-            `You need ${formatNumber(cost)} Points`
-        );
-
-        return;
-
-    }
-
-
-    const confirmed =
-        confirm(
-
-            `Buy ${data} for ${formatNumber(cost)} Points?\n\n` +
-
-            `Network: ${selectedNetwork}\n` +
-
-            `Number: ${phone}`
-
-        );
-
-
-    if(!confirmed){
-
-        return;
-
-    }
-
-
-    wallet.points -= cost;
-
-
-    addTransaction(
-
-        `Data Purchase — ${data}`,
-
-        `${selectedNetwork} • ${phone}`,
-
-        `-${formatNumber(cost)} PTS`
-
-    );
-
-
-    updateWalletUI();
 
 
     /*
-       REAL DATA API WILL BE CONNECTED HERE.
-    */
-
+     * Front-end confirmation only.
+     *
+     * Actual deduction and data delivery
+     * must happen through secure PHP/API.
+     */
 
     showToast(
-        `${data} request created`
+        `${dataSize} selected for ${selectedNetwork}.`,
+        "success"
     );
 
 }
 
 
-/* =========================
-   CHALLENGE
-========================= */
+/* =====================================================
+   BUY POINTS
+===================================================== */
 
-function completeChallenge(
-    button,
+function buyPoints(points, priceTZS){
+
+    const displayPrice =
+        formatMoney(
+            getLocalizedPrice(priceTZS)
+        );
+
+
+    showActionModal(
+
+        "Buy CHAPCY Points",
+
+        `You selected ${formatNumber(points)} Points for ${displayPrice}. Payment will use your account's local currency.`,
+
+        "fa-solid fa-star"
+
+    );
+
+}
+
+
+/* =====================================================
+   BUNDLES
+===================================================== */
+
+function buyBundle(
+    name,
+    priceTZS,
+    coins,
     points,
-    coins
+    data
 ){
 
-    if(button.dataset.completed === "true"){
-
-        return;
-
-    }
-
-
-    button.dataset.completed =
-        "true";
+    const price =
+        formatMoney(
+            getLocalizedPrice(priceTZS)
+        );
 
 
-    button.textContent =
-        "Completed ✓";
+    showActionModal(
 
+        `CHAPCY ${name}`,
 
-    button.disabled = true;
+        `${price} gives you +${formatNumber(coins)} Coins, +${formatNumber(points)} Points and ${data}.`,
 
+        "fa-solid fa-gift"
 
-    addPoints(
-        points,
-        "Daily Challenge"
-    );
-
-
-    addCoins(
-        coins,
-        "Daily Challenge"
-    );
-
-
-    showToast(
-        "Challenge completed"
     );
 
 }
 
 
-/* =========================
+/* =====================================================
+   COIN INFO
+===================================================== */
+
+function showCoinInfo(){
+
+    showActionModal(
+
+        "CHAPCY Coins",
+
+        "Coins are the everyday CHAPCY currency used for eligible chat, group, gift and reaction features.",
+
+        "fa-solid fa-coins"
+
+    );
+
+}
+
+
+/* =====================================================
+   DROP
+===================================================== */
+
+function openDrop(){
+
+    showActionModal(
+
+        "CHAPCY Drop",
+
+        "Use your rare CHAPCY Points for eligible shopping discounts and special benefits.",
+
+        "fa-solid fa-bag-shopping"
+
+    );
+
+}
+
+
+/* =====================================================
    MYSTERY BOX
-========================= */
+===================================================== */
 
 function openMysteryBox(){
 
-    document
-        .getElementById("mysteryModal")
-        .classList.add("show");
+    const modal =
+        document.getElementById(
+            "mysteryModal"
+        );
+
+
+    if(modal){
+
+        modal.classList.add(
+            "active"
+        );
+    }
 
 }
 
 
 function closeMystery(){
 
-    document
-        .getElementById("mysteryModal")
-        .classList.remove("show");
+    const modal =
+        document.getElementById(
+            "mysteryModal"
+        );
+
+
+    if(modal){
+
+        modal.classList.remove(
+            "active"
+        );
+    }
 
 }
 
 
 function claimMystery(){
 
-    const cost = 50;
-
-
-    if(wallet.coins < cost){
+    if(wallet.coins < 50){
 
         showToast(
-            "You need 50 Coins"
+            "You need 50 Coins to open the Mystery Box.",
+            "error"
         );
 
         return;
-
     }
 
 
-    wallet.coins -= cost;
+    const rewards = [
+
+        "1 CHAPCY Point",
+
+        "2 CHAPCY Points",
+
+        "3 CHAPCY Points",
+
+        "5 CHAPCY Points",
+
+        "10 Coins",
+
+        "25 Coins"
+
+    ];
 
 
-    /*
-       Rare rewards:
-       mostly coins,
-       sometimes points.
-    */
-
-
-    const random =
-        Math.random();
-
-
-    let rewardText = "";
-
-
-    if(random < 0.70){
-
-        const coins =
+    const result =
+        rewards[
             Math.floor(
-                Math.random() * 101
-            ) + 20;
+                Math.random() *
+                rewards.length
+            )
+        ];
 
-        addCoins(
-            coins,
-            "Mystery Box"
+
+    const resultElement =
+        document.getElementById(
+            "mysteryResult"
         );
 
-        rewardText =
-            `🪙 You won ${coins} Coins!`;
 
-    }else{
+    if(resultElement){
 
-        const points =
-            Math.floor(
-                Math.random() * 6
-            );
-
-        if(points > 0){
-
-            addPoints(
-                points,
-                "Mystery Box"
-            );
-
-        }
-
-
-        rewardText =
-            `⭐ You won ${points} Points!`;
-
+        resultElement.textContent =
+            `Your mystery reward: ${result}`;
     }
 
 
-    addTransaction(
-        "Mystery Box",
-        "Mystery reward",
-        rewardText
+    showToast(
+        "Mystery Box opened.",
+        "success"
     );
-
-
-    updateWalletUI();
-
-
-    document
-        .getElementById("mysteryTitle")
-        .textContent =
-            "🎉 Congratulations!";
-
-
-    document
-        .getElementById("mysteryResult")
-        .textContent =
-            rewardText;
-
-
-    document
-        .querySelector(".mystery-modal .main-action")
-        .textContent =
-            "Close";
-
-
-    document
-        .querySelector(".mystery-modal .main-action")
-        .onclick =
-            closeMystery;
 
 }
 
 
-/* =========================
+/* =====================================================
    HISTORY
-========================= */
+===================================================== */
 
 function openHistory(){
 
-    renderHistory();
+    const modal =
+        document.getElementById(
+            "historyModal"
+        );
 
-    document
-        .getElementById("historyModal")
-        .classList.add("show");
+
+    if(modal){
+
+        modal.classList.add(
+            "active"
+        );
+    }
+
+
+    loadTransactions();
 
 }
 
 
 function closeHistory(){
 
-    document
-        .getElementById("historyModal")
-        .classList.remove("show");
+    const modal =
+        document.getElementById(
+            "historyModal"
+        );
+
+
+    if(modal){
+
+        modal.classList.remove(
+            "active"
+        );
+    }
 
 }
 
 
-function renderHistory(){
+/* =====================================================
+   TRANSACTIONS
+===================================================== */
+
+async function loadTransactions(){
 
     const list =
         document.getElementById(
@@ -833,241 +1268,445 @@ function renderHistory(){
         );
 
 
-    if(!list){
-
-        return;
-
-    }
-
-
-    if(wallet.transactions.length === 0){
-
-        list.innerHTML =
-            `<div class="empty-transactions">
-                No transactions yet.
-            </div>`;
-
-        return;
-
-    }
+    if(!list) return;
 
 
     list.innerHTML =
-        wallet.transactions
-        .map(item => `
+        `
+        <div class="history-empty">
+            Loading transactions...
+        </div>
+        `;
 
-            <div class="history-item">
 
-                <div>
-                    <strong>
-                        ${escapeHTML(item.title)}
-                    </strong>
+    try{
 
-                    <span>
-                        ${escapeHTML(item.description)}
-                    </span>
+        const response =
+            await fetch(
+                "wallet_transactions.php",
+                {
+                    method:"GET",
+                    credentials:"same-origin",
+                    cache:"no-store"
+                }
+            );
 
-                    <span>
-                        ${escapeHTML(item.date)}
-                    </span>
+
+        if(!response.ok){
+
+            throw new Error(
+                "Transactions unavailable"
+            );
+        }
+
+
+        const data =
+            await response.json();
+
+
+        if(
+            !data.success ||
+            !Array.isArray(data.transactions) ||
+            data.transactions.length === 0
+        ){
+
+            list.innerHTML =
+                `
+                <div class="history-empty">
+                    No transactions yet.
                 </div>
+                `;
 
-                <b>
-                    ${escapeHTML(item.value)}
-                </b>
+            return;
+        }
 
+
+        list.innerHTML =
+            data.transactions
+            .map(transaction => {
+
+                const amount =
+                    Number(
+                        transaction.amount || 0
+                    );
+
+
+                return `
+                    <div class="transaction-item">
+
+                        <div class="transaction-icon">
+
+                            <i class="fa-solid fa-receipt"></i>
+
+                        </div>
+
+                        <div class="transaction-info">
+
+                            <strong>
+                                ${escapeHTML(
+                                    transaction.title ||
+                                    "Transaction"
+                                )}
+                            </strong>
+
+                            <span>
+                                ${escapeHTML(
+                                    transaction.created_at ||
+                                    ""
+                                )}
+                            </span>
+
+                        </div>
+
+                        <div class="transaction-amount">
+
+                            ${transaction.type === "credit" ? "+" : "-"}
+                            ${formatMoney(amount)}
+
+                        </div>
+
+                    </div>
+                `;
+
+            })
+            .join("");
+
+
+    }catch(error){
+
+        console.error(error);
+
+
+        list.innerHTML =
+            `
+            <div class="history-empty">
+                Transaction history is not available yet.
             </div>
+            `;
 
-        `)
-        .join("");
+    }
 
 }
 
 
-/* =========================
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHTML(value){
+
+    return String(value ?? "")
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+
+}
+
+
+/* =====================================================
    RECENT TRANSACTIONS
-========================= */
+===================================================== */
 
-function renderTransactions(){
+async function loadRecentTransactions(){
 
-    const list =
+    const container =
         document.getElementById(
             "recentTransactions"
         );
 
 
-    if(!list){
-
-        return;
-
-    }
+    if(!container) return;
 
 
-    if(wallet.transactions.length === 0){
+    try{
 
-        list.innerHTML =
-            `<div class="empty-transactions">
+        const response =
+            await fetch(
+                "wallet_transactions.php",
+                {
+                    credentials:"same-origin",
+                    cache:"no-store"
+                }
+            );
+
+
+        if(!response.ok){
+
+            throw new Error();
+        }
+
+
+        const data =
+            await response.json();
+
+
+        if(
+            !data.success ||
+            !data.transactions?.length
+        ){
+
+            container.innerHTML =
+                `
+                <div class="empty-transactions">
+                    No transactions yet.
+                </div>
+                `;
+
+            return;
+        }
+
+
+        container.innerHTML =
+            data.transactions
+            .slice(0,5)
+            .map(transaction => {
+
+                const amount =
+                    Number(
+                        transaction.amount || 0
+                    );
+
+
+                return `
+
+                    <div class="transaction-item">
+
+                        <div class="transaction-icon">
+
+                            <i class="fa-solid fa-receipt"></i>
+
+                        </div>
+
+
+                        <div class="transaction-info">
+
+                            <strong>
+                                ${escapeHTML(
+                                    transaction.title ||
+                                    "Transaction"
+                                )}
+                            </strong>
+
+                            <span>
+                                ${escapeHTML(
+                                    transaction.created_at ||
+                                    ""
+                                )}
+                            </span>
+
+                        </div>
+
+
+                        <div class="transaction-amount">
+
+                            ${transaction.type === "credit" ? "+" : "-"}
+
+                            ${formatMoney(amount)}
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            })
+            .join("");
+
+
+    }catch(error){
+
+        container.innerHTML =
+            `
+            <div class="empty-transactions">
                 No transactions yet.
-            </div>`;
-
-        return;
-
-    }
-
-
-    list.innerHTML =
-        wallet.transactions
-        .slice(0,5)
-        .map(item => `
-
-            <div class="transaction">
-
-                <div class="transaction-icon">
-                    <i class="fa-solid fa-receipt"></i>
-                </div>
-
-                <div class="transaction-info">
-
-                    <strong>
-                        ${escapeHTML(item.title)}
-                    </strong>
-
-                    <span>
-                        ${escapeHTML(item.description)}
-                    </span>
-
-                </div>
-
-                <div class="transaction-value">
-                    ${escapeHTML(item.value)}
-                </div>
-
             </div>
-
-        `)
-        .join("");
-
-}
-
-
-/* =========================
-   CHAPCY DROP
-========================= */
-
-function openDrop(){
-
-    showToast(
-        "CHAPCY Drop is opening..."
-    );
-
-    setTimeout(() => {
-
-        window.location.href =
-            "ChapcyDrop.html";
-
-    },500);
-
-}
-
-
-/* =========================
-   COIN INFO
-========================= */
-
-function showCoinInfo(){
-
-    showToast(
-        "Coins are mainly used for Chat, Groups and Gifts"
-    );
-
-}
-
-
-/* =========================
-   REFERRAL
-========================= */
-
-function copyReferral(){
-
-    navigator
-        .clipboard
-        .writeText("CHAPCY2026")
-        .then(() => {
-
-            showToast(
-                "Referral code copied"
-            );
-
-        })
-        .catch(() => {
-
-            showToast(
-                "Referral code: CHAPCY2026"
-            );
-
-        });
-
-}
-
-
-/* =========================
-   TOAST
-========================= */
-
-let toastTimer;
-
-
-function showToast(message){
-
-    const toast =
-        document.getElementById("toast");
-
-    const text =
-        document.getElementById("toastMessage");
-
-
-    if(!toast || !text){
-
-        return;
+            `;
 
     }
 
-
-    text.textContent =
-        message;
+}
 
 
-    toast.classList.add("show");
+/* =====================================================
+   CHALLENGE
+===================================================== */
+
+function completeChallenge(
+    button,
+    points,
+    coins
+){
+
+    if(
+        button.classList.contains(
+            "completed"
+        )
+    ){
+
+        return;
+    }
 
 
-    clearTimeout(toastTimer);
+    button.classList.add(
+        "completed"
+    );
 
 
-    toastTimer =
-        setTimeout(() => {
+    button.textContent =
+        "Completed ✓";
 
-            toast.classList.remove("show");
 
-        },3000);
+    showToast(
+        `Challenge completed: +${points} Point(s) +${coins} Coins.`,
+        "success"
+    );
 
 }
 
 
-/* =========================
+/* =====================================================
+   ACTION MODAL
+===================================================== */
+
+function showActionModal(
+    title,
+    text,
+    icon
+){
+
+    const modal =
+        document.getElementById(
+            "actionModal"
+        );
+
+
+    const titleElement =
+        document.getElementById(
+            "actionModalTitle"
+        );
+
+
+    const textElement =
+        document.getElementById(
+            "actionModalText"
+        );
+
+
+    const iconElement =
+        document.getElementById(
+            "actionModalIcon"
+        );
+
+
+    if(titleElement){
+
+        titleElement.textContent =
+            title;
+    }
+
+
+    if(textElement){
+
+        textElement.textContent =
+            text;
+    }
+
+
+    if(iconElement){
+
+        iconElement.className =
+            icon ||
+            "fa-solid fa-wallet";
+    }
+
+
+    if(modal){
+
+        modal.classList.add(
+            "active"
+        );
+    }
+
+}
+
+
+function closeActionModal(){
+
+    const modal =
+        document.getElementById(
+            "actionModal"
+        );
+
+
+    if(modal){
+
+        modal.classList.remove(
+            "active"
+        );
+    }
+
+}
+
+
+/* =====================================================
+   WALLET ACTION
+===================================================== */
+
+function openWalletAction(type){
+
+    if(type === "deposit"){
+
+        showActionModal(
+
+            "Add Money",
+
+            `Add money to your CHAPCY wallet using ${wallet.currencyCode}.`,
+
+            "fa-solid fa-wallet"
+
+        );
+
+        return;
+    }
+
+
+    if(type === "transfer"){
+
+        showActionModal(
+
+            "Transfer Money",
+
+            `Transfer money from your ${wallet.currencyCode} CHAPCY wallet.`,
+
+            "fa-solid fa-paper-plane"
+
+        );
+
+    }
+
+}
+
+
+/* =====================================================
    SCROLL
-========================= */
+===================================================== */
 
 function scrollToSection(id){
 
-    const element =
+    const section =
         document.getElementById(id);
 
 
-    if(element){
+    if(section){
 
-        element.scrollIntoView({
+        section.scrollIntoView({
+
             behavior:"smooth",
+
             block:"start"
+
         });
 
     }
@@ -1075,30 +1714,126 @@ function scrollToSection(id){
 }
 
 
-/* =========================
-   REFRESH
-========================= */
+/* =====================================================
+   REFERRAL
+===================================================== */
 
-function refreshWallet(){
+async function copyReferral(){
 
-    updateWalletUI();
+    const code =
+        "CHAPCY2026";
 
-    showToast(
-        "Wallet refreshed"
-    );
+
+    try{
+
+        await navigator.clipboard.writeText(
+            code
+        );
+
+
+        showToast(
+            "Referral code copied.",
+            "success"
+        );
+
+
+    }catch(error){
+
+        showToast(
+            code,
+            "success"
+        );
+
+    }
 
 }
 
 
-/* =========================
+/* =====================================================
+   TOAST
+===================================================== */
+
+function showToast(
+    message,
+    type="success"
+){
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+
+    const messageElement =
+        document.getElementById(
+            "toastMessage"
+        );
+
+
+    const icon =
+        document.getElementById(
+            "toastIcon"
+        );
+
+
+    if(!toast || !messageElement){
+
+        return;
+    }
+
+
+    messageElement.textContent =
+        message;
+
+
+    if(icon){
+
+        icon.className =
+            type === "error"
+
+            ? "fa-solid fa-circle-exclamation"
+
+            : "fa-solid fa-circle-check";
+
+    }
+
+
+    toast.classList.add(
+        "show"
+    );
+
+
+    clearTimeout(
+        toastTimer
+    );
+
+
+    toastTimer =
+        setTimeout(
+            () => {
+
+                toast.classList.remove(
+                    "show"
+                );
+
+            },
+            3200
+        );
+
+}
+
+
+/* =====================================================
    BACK
-========================= */
+===================================================== */
 
 function goBack(){
 
-    if(history.length > 1){
+    if(
+        window.history.length > 1
+    ){
 
-        history.back();
+        window.history.back();
 
     }else{
 
@@ -1110,33 +1845,79 @@ function goBack(){
 }
 
 
-/* =========================
-   SECURITY
-========================= */
-
-function escapeHTML(value){
-
-    return String(value)
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
-
-}
-
-
-/* =========================
+/* =====================================================
    START
-========================= */
+===================================================== */
 
 document.addEventListener(
     "DOMContentLoaded",
     () => {
 
-        checkDailyLogin();
+        loadWallet();
 
-        updateWalletUI();
+        loadRecentTransactions();
 
     }
 );
+
+
+/* =====================================================
+   GLOBAL EXPORTS
+===================================================== */
+
+window.goBack =
+    goBack;
+
+window.openHistory =
+    openHistory;
+
+window.closeHistory =
+    closeHistory;
+
+window.refreshWallet =
+    refreshWallet;
+
+window.toggleWalletBalance =
+    toggleWalletBalance;
+
+window.selectNetwork =
+    selectNetwork;
+
+window.buyData =
+    buyData;
+
+window.buyPoints =
+    buyPoints;
+
+window.buyBundle =
+    buyBundle;
+
+window.showCoinInfo =
+    showCoinInfo;
+
+window.openDrop =
+    openDrop;
+
+window.openMysteryBox =
+    openMysteryBox;
+
+window.closeMystery =
+    closeMystery;
+
+window.claimMystery =
+    claimMystery;
+
+window.completeChallenge =
+    completeChallenge;
+
+window.scrollToSection =
+    scrollToSection;
+
+window.copyReferral =
+    copyReferral;
+
+window.openWalletAction =
+    openWalletAction;
+
+window.closeActionModal =
+    closeActionModal;
