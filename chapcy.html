@@ -35,68 +35,146 @@
   <!-- PAGE CONTAINER -->
   <main class="page">
 
+<!-- =========================
+     TOP BAR
+========================== -->
 
-    <!-- =========================
-         TOP BAR
-    ========================== -->
+<header class="topbar">
 
-    <header class="topbar">
+  <!-- MENU -->
+  <button class="menu-btn" type="button">
+    <i class="fa-solid fa-bars"></i>
+  </button>
 
-      <button class="menu-btn" type="button">
-        <i class="fa-solid fa-bars"></i>
+
+  <!-- BRAND -->
+  <div class="brand">
+
+    <img
+      src="file_000000004f547243bb0fa43d66db1edf.png"
+      alt="CHAPCY Logo"
+      class="logo"
+    >
+
+    <div>
+      <h1>CHAPCY</h1>
+      <p>Worldwide Community 🌐</p>
+    </div>
+
+  </div>
+
+  <!-- =================================
+       REAL COINS + MONEY BALANCE
+       ================================= -->
+
+  <div class="profile-wallet-mini">
+
+    <!-- COINS -->
+    <div class="wallet-mini-item coins-mini">
+
+      <span class="wallet-mini-icon">
+        <i class="fa-solid fa-coins"></i>
+      </span>
+
+      <div class="wallet-mini-text">
+        <small>Coins</small>
+
+        <!-- REAL DATABASE COINS -->
+        <strong id="topProfileCoins">
+          Loading...
+        </strong>
+      </div>
+
+    </div>
+
+
+    <!-- MONEY -->
+    <div class="wallet-mini-item money-mini">
+
+      <span class="wallet-mini-icon">
+        <i class="fa-solid fa-wallet"></i>
+      </span>
+
+      <div class="wallet-mini-text">
+
+        <small id="topProfileCurrency">
+          Balance
+        </small>
+
+        <!-- REAL DATABASE BALANCE -->
+        <strong id="topProfileBalance">
+          Loading...
+        </strong>
+
+      </div>
+
+
+      <!-- SHOW / HIDE -->
+      <button
+        type="button"
+        class="wallet-mini-eye"
+        id="topBalanceEye"
+        aria-label="Show or hide balance"
+      >
+        <i
+          class="fa-solid fa-eye"
+          id="topBalanceEyeIcon"
+        ></i>
       </button>
 
+    </div>
 
-      <div class="brand">
-
-        <img
-          src="file_000000004f547243bb0fa43d66db1edf.png"
-          alt="CHAPCY Logo"
-          class="logo"
-        >
-
-        <div>
-          <h1>CHAPCY</h1>
-          <p>Worldwide Community 🌐</p>
-        </div>
-
-      </div>
+  </div>
 
 
-      <a
-  href="Accprofile.html"
-  class="profile profile-link"
-  id="profileOpenBtn"
-  aria-label="Open Profile"
->
-  <img
-    src="file_00000000b0d8820a998b33ad9cf233cb.png"
-    alt="Profile"
-    id="headerProfileImage"
+  <!-- =================================
+       PROFILE
+       ================================= -->
+
+  <a
+    href="Accprofile.html"
+    class="profile profile-link"
+    id="profileOpenBtn"
+    aria-label="Open Profile"
   >
 
-  <span class="online-dot"></span>
-      </a>
+    <img
+      src="file_00000000b0d8820a998b33ad9cf233cb.png"
+      alt="Profile"
+      id="headerProfileImage"
+    >
 
-<a
-  href="Feedback.html"
-  class="icon-btn feedback-bell"
-  id="feedbackBell"
-  aria-label="CHAPCY Feedback"
->
-  <i class="fa-regular fa-bell"></i>
-  <span class="badge">3</span>
-</a>
+    <span class="online-dot"></span>
 
-      <div class="reputation">
+  </a>
 
-        <i class="fa-solid fa-trophy"></i>
 
-        <span>0</span>
+  <!-- FEEDBACK -->
+  <a
+    href="Feedback.html"
+    class="icon-btn feedback-bell"
+    id="feedbackBell"
+    aria-label="CHAPCY Feedback"
+  >
 
-      </div>
+    <i class="fa-regular fa-bell"></i>
 
-    </header>
+    <span class="badge">3</span>
+
+  </a>
+
+
+  <!-- REPUTATION -->
+  <div class="reputation">
+
+    <i class="fa-solid fa-trophy"></i>
+
+    <span>0</span>
+
+  </div>
+
+</header>
+    
 <!-- =================================================
      CHAPCY POINTS
 ================================================== -->
