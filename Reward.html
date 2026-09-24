@@ -1,193 +1,131 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width,
-                   initial-scale=1.0,
-                   maximum-scale=1.0,
-                   user-scalable=no">
-
-    <meta name="theme-color" content="#050816">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>CHAPCY Rewards</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
-
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
     <link rel="stylesheet" href="Reward.css">
-
 </head>
-
 
 <body>
 
-<!-- =====================================================
-     BACKGROUND
-===================================================== -->
+<div class="page-bg"></div>
+<div class="glow glow-one"></div>
+<div class="glow glow-two"></div>
 
-<div class="background-effects">
+<header class="reward-header">
 
-    <span class="orb orb-one"></span>
-    <span class="orb orb-two"></span>
-    <span class="orb orb-three"></span>
+    <button class="back-btn" onclick="goBack()">
+        <i class="fa-solid fa-arrow-left"></i>
+    </button>
 
-</div>
-
-
-<!-- =====================================================
-     PAGE
-===================================================== -->
-
-<main class="rewards-page">
-
-
-    <!-- =================================================
-         HEADER
-    ================================================== -->
-
-    <header class="rewards-header">
-
-        <button
-            class="icon-btn"
-            type="button"
-            onclick="goBack()"
-            aria-label="Back">
-
-            <i class="fa-solid fa-arrow-left"></i>
-
-        </button>
-
-
-        <div class="header-title">
-
-            <div class="header-icon">
-
-                <i class="fa-solid fa-gem"></i>
-
-            </div>
-
-            <div>
-
-                <h1>CHAPCY Rewards</h1>
-
-                <p>Earn more. Enjoy more.</p>
-
-            </div>
-
+    <div class="header-title">
+        <div class="header-icon">
+            <i class="fa-solid fa-gift"></i>
         </div>
 
+        <div>
+            <h1>CHAPCY Rewards</h1>
+            <span>Earn • Save • Redeem</span>
+        </div>
+    </div>
 
-        <button
-            class="icon-btn"
-            type="button"
-            onclick="openHistory()"
-            aria-label="History">
+    <button class="history-btn" onclick="openHistory()">
+        <i class="fa-solid fa-clock-rotate-left"></i>
+    </button>
 
-            <i class="fa-solid fa-clock-rotate-left"></i>
-
-        </button>
-
-    </header>
-
+</header>
 
 
-    <!-- =================================================
-         WALLET
-    ================================================== -->
+<main class="rewards-container">
 
-    <section class="wallet-card">
-
-        <div class="wallet-glow"></div>
-
+    <!-- WALLET -->
+    <section class="wallet-section">
 
         <div class="wallet-top">
 
-            <div>
+            <div class="wallet-heading">
+                <span>Your CHAPCY Wallet</span>
+                <small>Premium rewards currency</small>
+            </div>
 
-                <span class="wallet-label">
-                    Available CHAPCY Points
-                </span>
+            <button class="wallet-refresh" onclick="refreshWallet()">
+                <i class="fa-solid fa-rotate"></i>
+            </button>
+
+        </div>
 
 
-                <div class="points-row">
+        <div class="wallet-grid">
 
-                    <i class="fa-solid fa-gem"></i>
+            <!-- POINTS -->
+            <div class="wallet-card points-card">
 
-                    <strong id="availablePoints">
-                        0
+                <div class="wallet-card-icon">
+                    <i class="fa-solid fa-star"></i>
+                </div>
+
+                <div class="wallet-card-info">
+                    <small>CHAPCY POINTS</small>
+                    <strong id="pointsBalance">0</strong>
+                    <span>Rare premium currency</span>
+                </div>
+
+                <button onclick="scrollToSection('buyPointsSection')">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+
+            </div>
+
+
+            <!-- COINS -->
+            <div class="wallet-card coins-card">
+
+                <div class="wallet-card-icon">
+                    <i class="fa-solid fa-coins"></i>
+                </div>
+
+                <div class="wallet-card-info">
+                    <small>CHAPCY COINS</small>
+                    <strong id="coinsBalance">0</strong>
+                    <span>Chat & group currency</span>
+                </div>
+
+                <button onclick="showCoinInfo()">
+                    <i class="fa-solid fa-info"></i>
+                </button>
+
+            </div>
+
+
+            <!-- STREAK -->
+            <div class="wallet-card streak-card">
+
+                <div class="wallet-card-icon">
+                    <i class="fa-solid fa-fire"></i>
+                </div>
+
+                <div class="wallet-card-info">
+                    <small>LOGIN STREAK</small>
+
+                    <strong>
+                        <span id="streakDays">0</span>
+                        <em>days</em>
                     </strong>
 
+                    <span>Keep your streak alive</span>
                 </div>
 
-
-                <span class="wallet-subtitle">
-                    Your rewards balance
-                </span>
-
-            </div>
-
-
-            <button
-                class="buy-points-btn"
-                type="button"
-                onclick="openBuyPoints()">
-
-                <i class="fa-solid fa-plus"></i>
-
-                Buy Points
-
-            </button>
-
-        </div>
-
-
-
-        <!-- WALLET STATS -->
-
-        <div class="wallet-stats">
-
-            <div class="wallet-stat">
-
-                <span>Earned</span>
-
-                <strong id="earnedPoints">
-                    0
-                </strong>
-
-            </div>
-
-
-            <div class="wallet-stat">
-
-                <span>Spent</span>
-
-                <strong id="spentPoints">
-                    0
-                </strong>
-
-            </div>
-
-
-            <div class="wallet-stat">
-
-                <span>Pending</span>
-
-                <strong id="pendingPoints">
-                    0
-                </strong>
+                <div class="streak-fire">🔥</div>
 
             </div>
 
@@ -197,53 +135,25 @@
 
 
 
-    <!-- =================================================
-         DAILY LOGIN
-    ================================================== -->
+    <!-- LEVEL -->
+    <section class="level-card">
 
-    <section class="daily-login-card">
-
-        <div class="daily-login-icon">
-
-            <i class="fa-solid fa-calendar-check"></i>
-
+        <div class="level-avatar">
+            <i class="fa-solid fa-bolt"></i>
         </div>
 
+        <div class="level-info">
 
-        <div class="daily-login-content">
+            <div class="level-row">
+                <strong id="levelName">Bronze</strong>
+                <span id="xpText">0 / 100 XP</span>
+            </div>
 
-            <span class="eyebrow">
-                DAILY REWARD
-            </span>
+            <div class="xp-bar">
+                <div id="xpProgress"></div>
+            </div>
 
-            <h2>
-                Daily Login Bonus
-            </h2>
-
-            <p id="dailyRewardText">
-                Login every day and collect CHAPCY Points.
-            </p>
-
-        </div>
-
-
-        <div class="daily-login-action">
-
-            <strong>
-                +<span id="dailyRewardAmount">20</span>
-            </strong>
-
-            <button
-                id="dailyRewardBtn"
-                class="primary-btn"
-                type="button"
-                onclick="claimDailyLogin()">
-
-                <i class="fa-solid fa-gift"></i>
-
-                Claim
-
-            </button>
+            <small>Earn XP through activity and challenges</small>
 
         </div>
 
@@ -251,201 +161,41 @@
 
 
 
-    <!-- =================================================
-         LEVEL / STREAK
-    ================================================== -->
+    <!-- QUICK ACTIONS -->
+    <section class="section-block">
 
-    <section class="status-grid">
-
-
-        <div class="status-card level-card">
-
-            <div class="status-icon">
-
-                <i class="fa-solid fa-trophy"></i>
-
-            </div>
-
-
-            <div class="status-info">
-
-                <span>Your Level</span>
-
-                <h3 id="userLevel">
-                    Bronze
-                </h3>
-
-
-                <div class="progress-track">
-
-                    <span
-                        id="levelProgress"
-                        class="progress-fill"
-                        style="width:0%">
-                    </span>
-
-                </div>
-
-
-                <small id="levelText">
-                    0 / 5,000 XP
-                </small>
-
-            </div>
-
-        </div>
-
-
-
-        <div class="status-card streak-card">
-
-            <div class="status-icon">
-
-                <i class="fa-solid fa-fire"></i>
-
-            </div>
-
-
-            <div class="status-info">
-
-                <span>Daily Streak</span>
-
-                <h3>
-
-                    <span id="streakDays">
-                        0
-                    </span>
-
-                    Days
-
-                </h3>
-
-                <small>
-                    Keep coming back 🔥
-                </small>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =================================================
-         QUICK ACTIONS
-    ================================================== -->
-
-    <section class="section">
-
-        <div class="section-heading">
-
+        <div class="section-title">
             <div>
-
-                <span class="eyebrow">
-                    CHAPCY
-                </span>
-
-                <h2>
-                    Rewards Center
-                </h2>
-
+                <h2>Quick Actions</h2>
+                <span>Choose how you want to use your rewards</span>
             </div>
-
         </div>
 
 
         <div class="quick-grid">
 
-
-            <button
-                class="quick-card"
-                type="button"
-                onclick="scrollToSection('earnSection')">
-
-                <span class="quick-icon earn">
-
-                    <i class="fa-solid fa-coins"></i>
-
-                </span>
-
-                <strong>
-                    Earn
-                </strong>
-
-                <small>
-                    Get Points
-                </small>
-
+            <button class="quick-card" onclick="scrollToSection('earnSection')">
+                <i class="fa-solid fa-bolt"></i>
+                <strong>Earn</strong>
+                <span>Get Points & Coins</span>
             </button>
 
-
-
-            <button
-                class="quick-card"
-                type="button"
-                onclick="scrollToSection('bundleSection')">
-
-                <span class="quick-icon data">
-
-                    <i class="fa-solid fa-wifi"></i>
-
-                </span>
-
-                <strong>
-                    Buy Data
-                </strong>
-
-                <small>
-                    Use Points
-                </small>
-
+            <button class="quick-card" onclick="scrollToSection('dataSection')">
+                <i class="fa-solid fa-wifi"></i>
+                <strong>Buy Data</strong>
+                <span>Use Points</span>
             </button>
 
-
-
-            <button
-                class="quick-card"
-                type="button"
-                onclick="openBuyPoints()">
-
-                <span class="quick-icon mystery">
-
-                    <i class="fa-solid fa-gem"></i>
-
-                </span>
-
-                <strong>
-                    Buy Points
-                </strong>
-
-                <small>
-                    Add Balance
-                </small>
-
+            <button class="quick-card" onclick="scrollToSection('dropSection')">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <strong>CHAPCY Drop</strong>
+                <span>Get discounts</span>
             </button>
 
-
-
-            <button
-                class="quick-card"
-                type="button"
-                onclick="openHistory()">
-
-                <span class="quick-icon invite">
-
-                    <i class="fa-solid fa-clock-rotate-left"></i>
-
-                </span>
-
-                <strong>
-                    History
-                </strong>
-
-                <small>
-                    Transactions
-                </small>
-
+            <button class="quick-card" onclick="openMysteryBox()">
+                <i class="fa-solid fa-box-open"></i>
+                <strong>Mystery Box</strong>
+                <span>Try your luck</span>
             </button>
 
         </div>
@@ -454,714 +204,112 @@
 
 
 
-    <!-- =================================================
-         EARN POINTS
-    ================================================== -->
+    <!-- CHAPCY BUNDLES -->
+    <section class="section-block">
 
-    <section
-        class="section"
-        id="earnSection">
-
-
-        <div class="section-heading">
+        <div class="section-title">
 
             <div>
-
-                <span class="eyebrow">
-                    EARN
-                </span>
-
-                <h2>
-                    Earn CHAPCY Points
-                </h2>
-
+                <h2>🛍️ CHAPCY Bundles</h2>
+                <span>One purchase gives you Coins + Points + Data</span>
             </div>
 
         </div>
-
-
-
-        <div class="earn-grid">
-
-
-            <!-- DAILY LOGIN -->
-
-            <button
-                class="earn-card"
-                id="dailyLoginCard"
-                type="button"
-                onclick="claimDailyLogin()">
-
-                <span class="earn-icon">
-
-                    <i class="fa-solid fa-calendar-day"></i>
-
-                </span>
-
-
-                <div>
-
-                    <strong>
-                        Daily Login
-                    </strong>
-
-                    <small id="loginRewardStatus">
-                        Check in today
-                    </small>
-
-                </div>
-
-
-                <b>
-                    +20
-                </b>
-
-            </button>
-
-
-
-            <!-- WATCH -->
-
-            <button
-                class="earn-card"
-                type="button"
-                onclick="rewardAction('watch')">
-
-                <span class="earn-icon">
-
-                    <i class="fa-solid fa-circle-play"></i>
-
-                </span>
-
-
-                <div>
-
-                    <strong>
-                        Watch CHAPCY TV
-                    </strong>
-
-                    <small>
-                        Watch quality content
-                    </small>
-
-                </div>
-
-
-                <b>
-                    +5
-                </b>
-
-            </button>
-
-
-
-            <!-- COMMENT -->
-
-            <button
-                class="earn-card"
-                type="button"
-                onclick="rewardAction('comment')">
-
-                <span class="earn-icon">
-
-                    <i class="fa-solid fa-comments"></i>
-
-                </span>
-
-
-                <div>
-
-                    <strong>
-                        Meaningful Comment
-                    </strong>
-
-                    <small>
-                        Join conversations
-                    </small>
-
-                </div>
-
-
-                <b>
-                    +3
-                </b>
-
-            </button>
-
-
-
-            <!-- REACTION -->
-
-            <button
-                class="earn-card"
-                type="button"
-                onclick="rewardAction('reaction')">
-
-                <span class="earn-icon">
-
-                    <i class="fa-solid fa-heart"></i>
-
-                </span>
-
-
-                <div>
-
-                    <strong>
-                        Reaction
-                    </strong>
-
-                    <small>
-                        React to content
-                    </small>
-
-                </div>
-
-
-                <b>
-                    +1
-                </b>
-
-            </button>
-
-
-
-            <!-- PROFILE -->
-
-            <button
-                class="earn-card"
-                type="button"
-                onclick="rewardAction('profile')">
-
-                <span class="earn-icon">
-
-                    <i class="fa-solid fa-user-check"></i>
-
-                </span>
-
-
-                <div>
-
-                    <strong>
-                        Complete Profile
-                    </strong>
-
-                    <small>
-                        Finish your profile
-                    </small>
-
-                </div>
-
-
-                <b>
-                    +50
-                </b>
-
-            </button>
-
-
-
-            <!-- REFERRAL -->
-
-            <button
-                class="earn-card"
-                type="button"
-                onclick="openReferral()">
-
-                <span class="earn-icon">
-
-                    <i class="fa-solid fa-user-group"></i>
-
-                </span>
-
-
-                <div>
-
-                    <strong>
-                        Invite Friend
-                    </strong>
-
-                    <small>
-                        Invite active users
-                    </small>
-
-                </div>
-
-
-                <b>
-                    +200
-                </b>
-
-            </button>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =================================================
-         BUY CHAPCY POINTS
-    ================================================== -->
-
-    <section class="section">
-
-        <div class="section-heading">
-
-            <div>
-
-                <span class="eyebrow">
-                    CHAPCY WALLET
-                </span>
-
-                <h2>
-                    Buy CHAPCY Points
-                </h2>
-
-            </div>
-
-        </div>
-
-
-        <div class="points-packages">
-
-
-            <button
-                class="points-package"
-                onclick="buyPoints(500,500)">
-
-                <i class="fa-solid fa-gem"></i>
-
-                <strong>
-                    500
-                </strong>
-
-                <span>
-                    Points
-                </span>
-
-                <b>
-                    TSh 500
-                </b>
-
-            </button>
-
-
-
-            <button
-                class="points-package"
-                onclick="buyPoints(1200,1000)">
-
-                <i class="fa-solid fa-gem"></i>
-
-                <strong>
-                    1,200
-                </strong>
-
-                <span>
-                    Points
-                </span>
-
-                <b>
-                    TSh 1,000
-                </b>
-
-            </button>
-
-
-
-            <button
-                class="points-package popular-package"
-                onclick="buyPoints(3000,2000)">
-
-                <em>
-                    MOST POPULAR
-                </em>
-
-                <i class="fa-solid fa-gem"></i>
-
-                <strong>
-                    3,000
-                </strong>
-
-                <span>
-                    Points
-                </span>
-
-                <b>
-                    TSh 2,000
-                </b>
-
-            </button>
-
-
-
-            <button
-                class="points-package"
-                onclick="buyPoints(8000,5000)">
-
-                <i class="fa-solid fa-gem"></i>
-
-                <strong>
-                    8,000
-                </strong>
-
-                <span>
-                    Points
-                </span>
-
-                <b>
-                    TSh 5,000
-                </b>
-
-            </button>
-
-
-
-            <button
-                class="points-package"
-                onclick="buyPoints(18000,10000)">
-
-                <i class="fa-solid fa-gem"></i>
-
-                <strong>
-                    18,000
-                </strong>
-
-                <span>
-                    Points
-                </span>
-
-                <b>
-                    TSh 10,000
-                </b>
-
-            </button>
-
-
-
-            <button
-                class="points-package"
-                onclick="buyPoints(50000,25000)">
-
-                <i class="fa-solid fa-gem"></i>
-
-                <strong>
-                    50,000
-                </strong>
-
-                <span>
-                    Points
-                </span>
-
-                <b>
-                    TSh 25,000
-                </b>
-
-            </button>
-
-
-
-            <button
-                class="points-package"
-                onclick="buyPoints(120000,50000)">
-
-                <i class="fa-solid fa-gem"></i>
-
-                <strong>
-                    120,000
-                </strong>
-
-                <span>
-                    Points
-                </span>
-
-                <b>
-                    TSh 50,000
-                </b>
-
-            </button>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =================================================
-         BUY DATA BUNDLES WITH POINTS
-    ================================================== -->
-
-    <section
-        class="section"
-        id="bundleSection">
-
-
-        <div class="section-heading">
-
-            <div>
-
-                <span class="eyebrow">
-                    CHAPCY BUNDLES
-                </span>
-
-                <h2>
-                    Buy Data With Points
-                </h2>
-
-            </div>
-
-        </div>
-
 
 
         <div class="bundle-grid">
 
+            <div class="bundle-card">
 
-            <!-- 500MB -->
+                <div class="bundle-badge">STARTER</div>
 
-            <article class="bundle-card">
+                <h3>CHAPCY Starter</h3>
 
-                <div class="bundle-icon">
-
-                    <i class="fa-solid fa-wifi"></i>
-
+                <div class="bundle-price">
+                    TSh 1,000
                 </div>
 
-
-                <div class="bundle-info">
-
-                    <span>
-                        DATA BUNDLE
-                    </span>
-
-                    <h3>
-                        500 MB
-                    </h3>
-
-                    <p>
-                        Mobile internet bundle
-                    </p>
-
-                    <strong>
-
-                        <i class="fa-solid fa-gem"></i>
-
-                        1,500 Points
-
-                    </strong>
-
+                <div class="bundle-rewards">
+                    <span>🪙 +150 Coins</span>
+                    <span>⭐ +20 Points</span>
+                    <span>📶 100MB</span>
                 </div>
 
-
-                <button
-                    type="button"
-                    onclick="buyBundle('500MB',1500)">
-
-                    Buy
-
+                <button onclick="buyBundle('Starter',1000,150,20,'100MB')">
+                    Buy Package
                 </button>
 
-            </article>
-
-
-
-            <!-- 1GB -->
-
-            <article class="bundle-card">
-
-                <div class="bundle-icon">
-
-                    <i class="fa-solid fa-signal"></i>
-
-                </div>
-
-
-                <div class="bundle-info">
-
-                    <span>
-                        DATA BUNDLE
-                    </span>
-
-                    <h3>
-                        1 GB
-                    </h3>
-
-                    <p>
-                        Mobile internet bundle
-                    </p>
-
-                    <strong>
-
-                        <i class="fa-solid fa-gem"></i>
-
-                        3,000 Points
-
-                    </strong>
-
-                </div>
-
-
-                <button
-                    type="button"
-                    onclick="buyBundle('1GB',3000)">
-
-                    Buy
-
-                </button>
-
-            </article>
-
-
-
-            <!-- 2GB -->
-
-            <article class="bundle-card">
-
-                <div class="bundle-icon">
-
-                    <i class="fa-solid fa-bolt"></i>
-
-                </div>
-
-
-                <div class="bundle-info">
-
-                    <span>
-                        DATA BUNDLE
-                    </span>
-
-                    <h3>
-                        2 GB
-                    </h3>
-
-                    <p>
-                        Mobile internet bundle
-                    </p>
-
-                    <strong>
-
-                        <i class="fa-solid fa-gem"></i>
-
-                        5,500 Points
-
-                    </strong>
-
-                </div>
-
-
-                <button
-                    type="button"
-                    onclick="buyBundle('2GB',5500)">
-
-                    Buy
-
-                </button>
-
-            </article>
-
-
-
-            <!-- 5GB -->
-
-            <article class="bundle-card">
-
-                <div class="bundle-icon">
-
-                    <i class="fa-solid fa-rocket"></i>
-
-                </div>
-
-
-                <div class="bundle-info">
-
-                    <span>
-                        DATA BUNDLE
-                    </span>
-
-                    <h3>
-                        5 GB
-                    </h3>
-
-                    <p>
-                        Mobile internet bundle
-                    </p>
-
-                    <strong>
-
-                        <i class="fa-solid fa-gem"></i>
-
-                        12,000 Points
-
-                    </strong>
-
-                </div>
-
-
-                <button
-                    type="button"
-                    onclick="buyBundle('5GB',12000)">
-
-                    Buy
-
-                </button>
-
-            </article>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =================================================
-         MYSTERY BOX
-    ================================================== -->
-
-    <section class="section">
-
-        <div class="mystery-card">
-
-            <div class="mystery-box-icon">
-                🎁
             </div>
 
 
-            <div class="mystery-content">
+            <div class="bundle-card featured">
 
-                <span class="eyebrow">
-                    CHAPCY LUCKY BOX
-                </span>
-
-                <h2>
-                    Mystery Box
-                </h2>
-
-                <p>
-                    Open a guaranteed reward using your
-                    CHAPCY Points.
-                </p>
-
-
-                <div class="mystery-price">
-
-                    <i class="fa-solid fa-gem"></i>
-
-                    <strong>
-                        2,000 Points
-                    </strong>
-
+                <div class="popular-label">
+                    POPULAR
                 </div>
 
+                <h3>CHAPCY Basic</h3>
 
-                <button
-                    class="primary-btn"
-                    type="button"
-                    onclick="openMysteryBox()">
+                <div class="bundle-price">
+                    TSh 2,000
+                </div>
 
-                    <i class="fa-solid fa-box-open"></i>
+                <div class="bundle-rewards">
+                    <span>🪙 +350 Coins</span>
+                    <span>⭐ +50 Points</span>
+                    <span>📶 250MB</span>
+                </div>
 
-                    Open Mystery Box
+                <button onclick="buyBundle('Basic',2000,350,50,'250MB')">
+                    Buy Package
+                </button>
 
+            </div>
+
+
+            <div class="bundle-card">
+
+                <div class="bundle-badge">PLUS</div>
+
+                <h3>CHAPCY Plus</h3>
+
+                <div class="bundle-price">
+                    TSh 5,000
+                </div>
+
+                <div class="bundle-rewards">
+                    <span>🪙 +1,000 Coins</span>
+                    <span>⭐ +150 Points</span>
+                    <span>📶 500MB</span>
+                </div>
+
+                <button onclick="buyBundle('Plus',5000,1000,150,'500MB')">
+                    Buy Package
+                </button>
+
+            </div>
+
+
+            <div class="bundle-card premium">
+
+                <div class="bundle-badge">
+                    PREMIUM
+                </div>
+
+                <h3>CHAPCY Premium</h3>
+
+                <div class="bundle-price">
+                    TSh 10,000
+                </div>
+
+                <div class="bundle-rewards">
+                    <span>🪙 +2,500 Coins</span>
+                    <span>⭐ +350 Points</span>
+                    <span>📶 1GB</span>
+                </div>
+
+                <button onclick="buyBundle('Premium',10000,2500,350,'1GB')">
+                    Buy Package
                 </button>
 
             </div>
@@ -1172,155 +320,62 @@
 
 
 
-    <!-- =================================================
-         REDEEM
-    ================================================== -->
+    <!-- BUY POINTS -->
+    <section class="section-block" id="buyPointsSection">
 
-    <section
-        class="section"
-        id="redeemSection">
-
-
-        <div class="section-heading">
+        <div class="section-title">
 
             <div>
-
-                <span class="eyebrow">
-                    REDEEM
-                </span>
-
-                <h2>
-                    Use Your Points
-                </h2>
-
+                <h2>⭐ Buy CHAPCY Points</h2>
+                <span>Points are rare — use them wisely</span>
             </div>
 
         </div>
 
 
-        <div class="reward-grid">
+        <div class="points-grid">
 
+            <button onclick="buyPoints(100,500)">
+                <strong>100</strong>
+                <span>Points</span>
+                <b>TSh 500</b>
+            </button>
 
-            <article class="reward-card">
+            <button onclick="buyPoints(250,1000)">
+                <strong>250</strong>
+                <span>Points</span>
+                <b>TSh 1,000</b>
+            </button>
 
-                <div class="reward-icon airtime">
+            <button onclick="buyPoints(700,2000)">
+                <strong>700</strong>
+                <span>Points</span>
+                <b>TSh 2,000</b>
+            </button>
 
-                    <i class="fa-solid fa-phone"></i>
+            <button onclick="buyPoints(2000,5000)">
+                <strong>2,000</strong>
+                <span>Points</span>
+                <b>TSh 5,000</b>
+            </button>
 
-                </div>
+            <button onclick="buyPoints(4500,10000)">
+                <strong>4,500</strong>
+                <span>Points</span>
+                <b>TSh 10,000</b>
+            </button>
 
+            <button onclick="buyPoints(12000,25000)">
+                <strong>12,000</strong>
+                <span>Points</span>
+                <b>TSh 25,000</b>
+            </button>
 
-                <div class="reward-info">
-
-                    <h3>
-                        TSh 1,000 Airtime
-                    </h3>
-
-                    <p>
-                        Get airtime to your registered number.
-                    </p>
-
-                    <span>
-
-                        <i class="fa-solid fa-gem"></i>
-
-                        2,000 Points
-
-                    </span>
-
-                </div>
-
-
-                <button
-                    onclick="redeemReward('airtime',1000,2000)">
-
-                    Redeem
-
-                </button>
-
-            </article>
-
-
-
-            <article class="reward-card">
-
-                <div class="reward-icon shop">
-
-                    <i class="fa-solid fa-cart-shopping"></i>
-
-                </div>
-
-
-                <div class="reward-info">
-
-                    <h3>
-                        TSh 5,000 Shop Voucher
-                    </h3>
-
-                    <p>
-                        Use points on CHAPCY Shop.
-                    </p>
-
-                    <span>
-
-                        <i class="fa-solid fa-gem"></i>
-
-                        10,000 Points
-
-                    </span>
-
-                </div>
-
-
-                <button
-                    onclick="redeemReward('shop_voucher',5000,10000)">
-
-                    Redeem
-
-                </button>
-
-            </article>
-
-
-
-            <article class="reward-card">
-
-                <div class="reward-icon vip">
-
-                    <i class="fa-solid fa-crown"></i>
-
-                </div>
-
-
-                <div class="reward-info">
-
-                    <h3>
-                        30 Days CHAPCY VIP
-                    </h3>
-
-                    <p>
-                        Unlock premium CHAPCY benefits.
-                    </p>
-
-                    <span>
-
-                        <i class="fa-solid fa-gem"></i>
-
-                        15,000 Points
-
-                    </span>
-
-                </div>
-
-
-                <button
-                    onclick="redeemReward('vip_30',0,15000)">
-
-                    Redeem
-
-                </button>
-
-            </article>
+            <button onclick="buyPoints(25000,50000)">
+                <strong>25,000</strong>
+                <span>Points</span>
+                <b>TSh 50,000</b>
+            </button>
 
         </div>
 
@@ -1328,63 +383,394 @@
 
 
 
-    <!-- =================================================
-         REFERRAL
-    ================================================== -->
+    <!-- BUY DATA -->
+    <section class="section-block" id="dataSection">
 
-    <section class="section">
+        <div class="section-title">
 
-        <div class="referral-card">
+            <div>
+                <h2>📶 Buy Data With Points</h2>
+                <span>Choose your network and data package</span>
+            </div>
 
-            <div class="referral-icon">
+        </div>
 
-                <i class="fa-solid fa-user-plus"></i>
+
+        <!-- NETWORKS -->
+
+        <div class="network-selector">
+
+            <button class="network active" data-network="Vodacom"
+                    onclick="selectNetwork(this)">
+                <span class="network-logo vodacom">V</span>
+                Vodacom
+            </button>
+
+            <button class="network" data-network="Airtel"
+                    onclick="selectNetwork(this)">
+                <span class="network-logo airtel">A</span>
+                Airtel
+            </button>
+
+            <button class="network" data-network="Yas"
+                    onclick="selectNetwork(this)">
+                <span class="network-logo yas">Y</span>
+                Yas
+            </button>
+
+            <button class="network" data-network="Halotel"
+                    onclick="selectNetwork(this)">
+                <span class="network-logo halotel">H</span>
+                Halotel
+            </button>
+
+            <button class="network" data-network="TTCL"
+                    onclick="selectNetwork(this)">
+                <span class="network-logo ttcl">T</span>
+                TTCL
+            </button>
+
+        </div>
+
+
+        <div class="selected-network">
+            Network:
+            <strong id="selectedNetwork">Vodacom</strong>
+        </div>
+
+
+        <!-- PHONE -->
+
+        <div class="phone-input">
+
+            <i class="fa-solid fa-phone"></i>
+
+            <input
+                type="tel"
+                id="dataPhone"
+                placeholder="Enter phone number"
+                maxlength="15"
+            >
+
+        </div>
+
+
+        <!-- DATA GRID -->
+
+        <div class="data-grid">
+
+            <button onclick="buyData('100MB',50)">
+                <strong>100MB</strong>
+                <span>50 PTS</span>
+            </button>
+
+            <button onclick="buyData('250MB',100)">
+                <strong>250MB</strong>
+                <span>100 PTS</span>
+            </button>
+
+            <button onclick="buyData('500MB',250)">
+                <strong>500MB</strong>
+                <span>250 PTS</span>
+            </button>
+
+            <button onclick="buyData('750MB',350)">
+                <strong>750MB</strong>
+                <span>350 PTS</span>
+            </button>
+
+            <button onclick="buyData('1GB',450)">
+                <strong>1GB</strong>
+                <span>450 PTS</span>
+            </button>
+
+            <button onclick="buyData('1.5GB',650)">
+                <strong>1.5GB</strong>
+                <span>650 PTS</span>
+            </button>
+
+            <button onclick="buyData('2GB',800)">
+                <strong>2GB</strong>
+                <span>800 PTS</span>
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- EARN POINTS -->
+    <section class="section-block" id="earnSection">
+
+        <div class="section-title">
+
+            <div>
+                <h2>⭐ Earn Rare Points</h2>
+                <span>Points are intentionally limited</span>
+            </div>
+
+        </div>
+
+
+        <div class="earn-list">
+
+            <div class="earn-item">
+
+                <div class="earn-icon">
+                    🔐
+                </div>
+
+                <div>
+                    <strong>Daily Login</strong>
+                    <span>Login once every day</span>
+                </div>
+
+                <b>+1 PTS</b>
 
             </div>
 
 
-            <div class="referral-content">
+            <div class="earn-item">
 
-                <span class="eyebrow">
-                    INVITE & EARN
-                </span>
+                <div class="earn-icon">
+                    🔥
+                </div>
 
-                <h2>
-                    Grow CHAPCY Together
-                </h2>
+                <div>
+                    <strong>7-Day Streak</strong>
+                    <span>Maintain your login streak</span>
+                </div>
+
+                <b>+5 PTS</b>
+
+            </div>
+
+
+            <div class="earn-item">
+
+                <div class="earn-icon">
+                    📺
+                </div>
+
+                <div>
+                    <strong>Watch CHAPCY TV</strong>
+                    <span>Complete eligible activity</span>
+                </div>
+
+                <b>+1 PTS</b>
+
+            </div>
+
+
+            <div class="earn-item">
+
+                <div class="earn-icon">
+                    💬
+                </div>
+
+                <div>
+                    <strong>Meaningful Comment</strong>
+                    <span>Quality activity</span>
+                </div>
+
+                <b>+1 PTS</b>
+
+            </div>
+
+
+            <div class="earn-item">
+
+                <div class="earn-icon">
+                    👤
+                </div>
+
+                <div>
+                    <strong>Complete Profile</strong>
+                    <span>Finish your profile</span>
+                </div>
+
+                <b>+5 PTS</b>
+
+            </div>
+
+
+            <div class="earn-item">
+
+                <div class="earn-icon">
+                    🤝
+                </div>
+
+                <div>
+                    <strong>Invite Friend</strong>
+                    <span>Invite an active user</span>
+                </div>
+
+                <b>+10 PTS</b>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- CHALLENGES -->
+    <section class="section-block">
+
+        <div class="section-title">
+
+            <div>
+                <h2>🎯 Daily Challenges</h2>
+                <span>Complete activities to earn rewards</span>
+            </div>
+
+        </div>
+
+
+        <div class="challenge-grid">
+
+            <div class="challenge-card">
+
+                <div>📺</div>
+
+                <h3>Watch CHAPCY TV</h3>
+
+                <p>Watch 5 eligible videos.</p>
+
+                <strong>+1 PTS + 20 Coins</strong>
+
+                <button onclick="completeChallenge(this,1,20)">
+                    Complete
+                </button>
+
+            </div>
+
+
+            <div class="challenge-card">
+
+                <div>👥</div>
+
+                <h3>Join a Group</h3>
+
+                <p>Participate in a CHAPCY group.</p>
+
+                <strong>+1 PTS + 30 Coins</strong>
+
+                <button onclick="completeChallenge(this,1,30)">
+                    Complete
+                </button>
+
+            </div>
+
+
+            <div class="challenge-card">
+
+                <div>💬</div>
+
+                <h3>Meaningful Comment</h3>
+
+                <p>Leave a quality comment.</p>
+
+                <strong>+1 PTS + 15 Coins</strong>
+
+                <button onclick="completeChallenge(this,1,15)">
+                    Complete
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- COINS -->
+    <section class="section-block">
+
+        <div class="section-title">
+
+            <div>
+                <h2>🪙 CHAPCY Coins</h2>
+                <span>Use Coins for chat and group features</span>
+            </div>
+
+        </div>
+
+
+        <div class="coin-use-grid">
+
+            <div class="coin-use">
+                <i class="fa-solid fa-comments"></i>
+                <strong>Live Chat</strong>
+                <span>Use Coins for eligible chat features.</span>
+            </div>
+
+            <div class="coin-use">
+                <i class="fa-solid fa-users"></i>
+                <strong>Groups</strong>
+                <span>Use Coins for selected premium groups.</span>
+            </div>
+
+            <div class="coin-use">
+                <i class="fa-solid fa-gift"></i>
+                <strong>Gifts</strong>
+                <span>Send virtual gifts to other users.</span>
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- CHAPCY DROP -->
+    <section class="section-block" id="dropSection">
+
+        <div class="section-title">
+
+            <div>
+                <h2>🛍️ CHAPCY Drop</h2>
+                <span>Use Points for shopping discounts</span>
+            </div>
+
+        </div>
+
+
+        <div class="drop-card">
+
+            <div class="drop-icon">
+                <i class="fa-solid fa-bag-shopping"></i>
+            </div>
+
+            <div class="drop-content">
+
+                <h3>CHAPCY Drop Discount</h3>
 
                 <p>
-                    Invite friends and earn points when
-                    they become active users.
+                    Use your rare CHAPCY Points to unlock
+                    eligible shopping discounts.
                 </p>
 
+                <div class="drop-example">
 
-                <div class="referral-code">
-
-                    <span id="referralCode">
-                        CHAPCY2026
+                    <span>
+                        Example discount
                     </span>
 
-                    <button onclick="copyReferral()">
-
-                        <i class="fa-solid fa-copy"></i>
-
-                    </button>
+                    <strong>
+                        500 PTS → Discount Voucher
+                    </strong>
 
                 </div>
 
-
-                <button
-                    class="primary-btn"
-                    onclick="shareReferral()">
-
-                    <i class="fa-solid fa-share-nodes"></i>
-
-                    Share Invite
-
-                </button>
-
             </div>
+
+            <button onclick="openDrop()">
+                Open Drop
+            </button>
 
         </div>
 
@@ -1392,365 +778,113 @@
 
 
 
-    <!-- =================================================
-         FOOTER
-    ================================================== -->
+    <!-- MYSTERY -->
+    <section class="mystery-section">
 
-    <footer class="rewards-footer">
+        <div class="mystery-glow"></div>
 
-        <div class="footer-logo">
+        <div class="mystery-icon">
+            🎁
+        </div>
 
-            <i class="fa-solid fa-gem"></i>
+        <div class="mystery-content">
 
-            CHAPCY
+            <span>MYSTERY BOX</span>
+
+            <h2>Try your luck</h2>
+
+            <p>
+                Cost: <strong>50 Coins</strong>
+            </p>
 
         </div>
 
+        <button onclick="openMysteryBox()">
+            Open Box
+        </button>
 
-        <p>
-            Earn. Connect. Shop. Enjoy.
-        </p>
+    </section>
 
 
-        <small>
-            © 2026 CHAPCY Worldwide
-        </small>
 
-    </footer>
+    <!-- REFERRAL -->
+    <section class="referral-card">
+
+        <div>
+
+            <span>INVITE & EARN</span>
+
+            <h2>CHAPCY Referral</h2>
+
+            <p>
+                Invite friends and earn rare Points
+                plus Coins when they become active.
+            </p>
+
+        </div>
+
+        <div class="referral-code">
+            CHAPCY2026
+        </div>
+
+        <button onclick="copyReferral()">
+            <i class="fa-solid fa-copy"></i>
+            Copy
+        </button>
+
+    </section>
+
+
+
+    <!-- HISTORY -->
+    <section class="section-block">
+
+        <div class="section-title">
+
+            <div>
+                <h2>📜 Recent Transactions</h2>
+                <span>Your latest rewards activity</span>
+            </div>
+
+        </div>
+
+        <div id="recentTransactions" class="transactions-list">
+            <div class="empty-transactions">
+                No transactions yet.
+            </div>
+        </div>
+
+    </section>
 
 </main>
 
 
 
-<!-- =====================================================
-     TOAST
-===================================================== -->
-
-<div
-    id="toast"
-    class="toast"
-    role="alert">
-
+<!-- TOAST -->
+<div id="toast" class="toast">
     <i class="fa-solid fa-circle-check"></i>
-
-    <span id="toastMessage">
-        Success
-    </span>
-
+    <span id="toastMessage">Success</span>
 </div>
 
 
 
-<!-- =====================================================
-     HISTORY MODAL
-===================================================== -->
+<!-- HISTORY MODAL -->
+<div id="historyModal" class="modal">
 
-<div
-    id="historyModal"
-    class="modal"
-    aria-hidden="true">
-
-
-    <div
-        class="modal-overlay"
-        onclick="closeModal('historyModal')">
-    </div>
-
-
-    <div class="modal-box history-modal-box">
-
-
-        <button
-            class="modal-close"
-            onclick="closeModal('historyModal')">
-
-            <i class="fa-solid fa-xmark"></i>
-
-        </button>
-
-
-        <div class="modal-heading">
-
-            <div class="modal-icon">
-
-                <i class="fa-solid fa-clock-rotate-left"></i>
-
-            </div>
-
-
-            <div>
-
-                <h2>
-                    Transaction History
-                </h2>
-
-                <p>
-                    Your CHAPCY activity
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div
-            id="historyList"
-            class="history-list">
-
-            <div class="empty-history">
-
-                <i class="fa-solid fa-receipt"></i>
-
-                <p>
-                    Loading transactions...
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-
-<!-- =====================================================
-     BUY POINTS MODAL
-===================================================== -->
-
-<div
-    id="buyPointsModal"
-    class="modal"
-    aria-hidden="true">
-
-
-    <div
-        class="modal-overlay"
-        onclick="closeModal('buyPointsModal')">
-    </div>
-
-
-    <div class="modal-box buy-modal-box">
-
-
-        <button
-            class="modal-close"
-            onclick="closeModal('buyPointsModal')">
-
-            <i class="fa-solid fa-xmark"></i>
-
-        </button>
-
-
-        <div class="modal-heading">
-
-            <div class="modal-icon">
-
-                <i class="fa-solid fa-gem"></i>
-
-            </div>
-
-
-            <div>
-
-                <h2>
-                    Buy CHAPCY Points
-                </h2>
-
-                <p>
-                    Choose your package.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div class="packages">
-
-
-            <button onclick="buyPoints(500,500)">
-
-                <span>
-                    500 Points
-                </span>
-
-                <strong>
-                    TSh 500
-                </strong>
-
-            </button>
-
-
-            <button onclick="buyPoints(1200,1000)">
-
-                <span>
-                    1,200 Points
-                </span>
-
-                <strong>
-                    TSh 1,000
-                </strong>
-
-            </button>
-
-
-            <button
-                class="popular-package"
-                onclick="buyPoints(3000,2000)">
-
-                <em>
-                    MOST POPULAR
-                </em>
-
-                <span>
-                    3,000 Points
-                </span>
-
-                <strong>
-                    TSh 2,000
-                </strong>
-
-            </button>
-
-
-            <button onclick="buyPoints(8000,5000)">
-
-                <span>
-                    8,000 Points
-                </span>
-
-                <strong>
-                    TSh 5,000
-                </strong>
-
-            </button>
-
-
-            <button onclick="buyPoints(18000,10000)">
-
-                <span>
-                    18,000 Points
-                </span>
-
-                <strong>
-                    TSh 10,000
-                </strong>
-
-            </button>
-
-
-            <button onclick="buyPoints(50000,25000)">
-
-                <span>
-                    50,000 Points
-                </span>
-
-                <strong>
-                    TSh 25,000
-                </strong>
-
-            </button>
-
-
-            <button onclick="buyPoints(120000,50000)">
-
-                <span>
-                    120,000 Points
-                </span>
-
-                <strong>
-                    TSh 50,000
-                </strong>
-
-            </button>
-
-        </div>
-
-
-        <div class="payment-note">
-
-            <i class="fa-solid fa-shield-halved"></i>
-
-            <p>
-                Payment will be verified by the CHAPCY
-                backend before points are added.
-            </p>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-
-<!-- =====================================================
-     CONFIRM MODAL
-===================================================== -->
-
-<div
-    id="confirmModal"
-    class="modal"
-    aria-hidden="true">
-
-
-    <div
-        class="modal-overlay"
-        onclick="closeModal('confirmModal')">
-    </div>
-
+    <div class="modal-backdrop" onclick="closeHistory()"></div>
 
     <div class="modal-box">
 
-
-        <button
-            class="modal-close"
-            onclick="closeModal('confirmModal')">
-
+        <button class="modal-close" onclick="closeHistory()">
             <i class="fa-solid fa-xmark"></i>
-
         </button>
 
-
-        <div class="modal-icon">
-
-            <i class="fa-solid fa-circle-question"></i>
-
+        <div class="modal-heading">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            <h2>Transaction History</h2>
         </div>
 
-
-        <h2 id="confirmTitle">
-            Confirm
-        </h2>
-
-
-        <p id="confirmMessage">
-            Confirm this transaction.
-        </p>
-
-
-        <div class="confirm-actions">
-
-            <button
-                class="secondary-btn"
-                onclick="closeModal('confirmModal')">
-
-                Cancel
-
-            </button>
-
-
-            <button
-                class="primary-btn"
-                id="confirmButton">
-
-                Confirm
-
-            </button>
-
-        </div>
+        <div id="historyList" class="history-list"></div>
 
     </div>
 
@@ -1758,124 +892,39 @@
 
 
 
-<!-- =====================================================
-     FIREBASE
-===================================================== -->
+<!-- MYSTERY MODAL -->
+<div id="mysteryModal" class="modal">
 
-<script type="module">
+    <div class="modal-backdrop" onclick="closeMystery()"></div>
 
-import {
-    initializeApp
-}
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+    <div class="modal-box mystery-modal">
 
+        <button class="modal-close" onclick="closeMystery()">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
 
-import {
-    getAuth,
-    onAuthStateChanged
-}
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+        <div class="big-gift">
+            🎁
+        </div>
 
+        <h2 id="mysteryTitle">
+            Mystery Box
+        </h2>
 
-/*
-=========================================================
-YOUR FIREBASE CONFIG
-=========================================================
-*/
+        <p id="mysteryResult">
+            Open the box to discover your reward.
+        </p>
 
-const firebaseConfig = {
+        <button class="main-action" onclick="claimMystery()">
+            Open Now — 50 Coins
+        </button>
 
-    apiKey: "YOUR_API_KEY",
+    </div>
 
-    authDomain:
-        "YOUR_PROJECT.firebaseapp.com",
-
-    projectId:
-        "YOUR_PROJECT_ID",
-
-    storageBucket:
-        "YOUR_PROJECT.firebasestorage.app",
-
-    messagingSenderId:
-        "YOUR_MESSAGING_SENDER_ID",
-
-    appId:
-        "YOUR_APP_ID"
-
-};
+</div>
 
 
-const app =
-    initializeApp(firebaseConfig);
-
-
-const auth =
-    getAuth(app);
-
-
-/*
-=========================================================
-MAKE AUTH AVAILABLE TO REWARD.JS
-=========================================================
-*/
-
-window.CHAPCY_FIREBASE = {
-
-    app,
-    auth
-
-};
-
-
-/*
-=========================================================
-USER AUTH STATE
-=========================================================
-*/
-
-onAuthStateChanged(auth, user => {
-
-    if (user) {
-
-        window.CHAPCY_CURRENT_USER = user;
-
-        window.dispatchEvent(
-            new CustomEvent(
-                "chapcyUserReady",
-                {
-                    detail: user
-                }
-            )
-        );
-
-    }
-
-    else {
-
-        window.CHAPCY_CURRENT_USER = null;
-
-        window.dispatchEvent(
-            new CustomEvent(
-                "chapcyUserSignedOut"
-            )
-        );
-
-    }
-
-});
-
-</script>
-
-
-
-<!-- =====================================================
-     REWARDS JAVASCRIPT
-===================================================== -->
-
-<script src="Reward.js" defer></script>
-
+<script src="Reward.js"></script>
 
 </body>
-
 </html>
-```
