@@ -1,1459 +1,1165 @@
+```javascript
 /* =========================================================
-   CHAPCY NOTIFICATIONS SYSTEM
-   FIREBASE REALTIME
+   CHAPCY NOTIFICATION ENGINE
+   LIVE COMMUNITY + TRANSACTIONS + REWARDS
 ========================================================= */
 
-"use strict";
+document.addEventListener("DOMContentLoaded", () => {
+
+    let firebaseReady = false;
+    let currentUser = null;
+    let unsubscribeNotifications = null;
+
+    const notificationsList =
+        document.getElementById("notificationsList");
+
+    const loadingState =
+        document.getElementById("loadingState");
+
+    const emptyState =
+        document.getElementById("emptyState");
+
+    const unreadText =
+        document.getElementById("unreadText");
+
+    const unreadCount =
+        document.getElementById("unreadCount");
+
+    const allCount =
+        document.getElementById("allCount");
+
+    const headerUnreadBadge =
+        document.getElementById("headerUnreadBadge");
+
+    const markAllBtn =
+        document.getElementById("markAllBtn");
+
+    const backBtn =
+        document.getElementById("backBtn");
 
 
-/* =========================================================
-   FIREBASE
-========================================================= */
+    /* =====================================================
+       BACK BUTTON
+    ===================================================== */
 
-let db = null;
-let auth = null;
+    backBtn?.addEventListener("click", () => {
 
-let currentUser = null;
+        if (document.referrer) {
+            history.back();
+        } else {
+            window.location.href = "chapcy.html";
+        }
 
-let unsubscribeNotifications = null;
-
-
-/* =========================================================
-   STATE
-========================================================= */
-
-let notifications = [];
-
-let currentFilter = "all";
-
-let selectedNotification = null;
-
-let notificationToDelete = null;
+    });
 
 
-/* =========================================================
-   DOM
-========================================================= */
+    /* =====================================================
+       FIREBASE READY
+    ===================================================== */
 
-const notificationsList =
-    document.getElementById("notificationsList");
+    window.addEventListener(
+        "chapcyUserReady",
+        async (event) => {
 
-const loadingState =
-    document.getElementById("loadingState");
+            currentUser =
+                event.detail?.user || null;
 
-const emptyState =
-    document.getElementById("emptyState");
+            firebaseReady = true;
 
-const emptyTitle =
-    document.getElementById("emptyTitle");
+            await startNotifications();
 
-const emptyMessage =
-    document.getElementById("emptyMessage");
-
-const unreadText =
-    document.getElementById("unreadText");
-
-const headerUnreadBadge =
-    document.getElementById("headerUnreadBadge");
-
-const unreadCount =
-    document.getElementById("unreadCount");
-
-const allCount =
-    document.getElementById("allCount");
-
-const markAllBtn =
-    document.getElementById("markAllBtn");
-
-const backBtn =
-    document.getElementById("backBtn");
-
-const settingsBtn =
-    document.getElementById("settingsBtn");
-
-const notificationModal =
-    document.getElementById("notificationModal");
-
-const deleteModal =
-    document.getElementById("deleteModal");
-
-const toast =
-    document.getElementById("toast");
-
-
-/* =========================================================
-   FIREBASE IMPORTS
-========================================================= */
-
-let firebaseModulesLoaded = false;
-
-let firestoreModules = null;
-
-
-/* =========================================================
-   LOAD FIRESTORE MODULES
-========================================================= */
-
-async function loadFirestoreModules(){
-
-    if(firebaseModulesLoaded){
-
-        return firestoreModules;
-
-    }
-
-
-    firestoreModules = await import(
-        "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js"
+        }
     );
 
 
-    firebaseModulesLoaded = true;
+    /* =====================================================
+       USER SIGNED OUT
+    ===================================================== */
+
+    window.addEventListener(
+        "chapcyUserSignedOut",
+        () => {
+
+            currentUser = null;
+
+            stopNotifications();
+
+            showEmpty(
+                "Login required",
+                "Please login to view your CHAPCY notifications."
+            );
+
+        }
+    );
 
 
-    return firestoreModules;
-}
+    /* =====================================================
+       START NOTIFICATIONS
+    ===================================================== */
 
+    async function startNotifications(){
 
-/* =========================================================
-   INIT FIREBASE
-========================================================= */
+        if (!firebaseReady) return;
 
-async function initNotifications(){
+        if (!currentUser){
 
-    if(!window.CHAPCY_FIREBASE){
-
-        console.error(
-            "CHAPCY_FIREBASE has not been initialized."
-        );
-
-        showToast(
-            "Firebase Error",
-            "Firebase is not initialized."
-        );
-
-        return false;
-    }
-
-
-    db =
-        window.CHAPCY_FIREBASE.db;
-
-    auth =
-        window.CHAPCY_FIREBASE.auth;
-
-
-    return true;
-}
-
-
-/* =========================================================
-   AUTH READY
-========================================================= */
-
-window.addEventListener(
-    "chapcyUserReady",
-    async event => {
-
-        const user =
-            event.detail?.user;
-
-
-        if(!user){
+            showEmpty(
+                "No user",
+                "Please login to CHAPCY."
+            );
 
             return;
-
         }
 
 
-        currentUser = user;
+        try{
 
+            const firebase =
+                window.CHAPCY_FIREBASE;
 
-        await initNotifications();
+            if (!firebase){
 
-        await startRealtimeNotifications();
-
-    }
-);
-
-
-/* =========================================================
-   AUTH SIGNED OUT
-========================================================= */
-
-window.addEventListener(
-    "chapcyUserSignedOut",
-    () => {
-
-        currentUser = null;
-
-        notifications = [];
-
-
-        stopRealtimeNotifications();
-
-
-        renderNotifications();
-
-
-        showToast(
-            "Signed out",
-            "Please login to view notifications."
-        );
-
-    }
-);
-
-
-/* =========================================================
-   START REALTIME LISTENER
-========================================================= */
-
-async function startRealtimeNotifications(){
-
-    if(!currentUser){
-
-        return;
-
-    }
-
-
-    if(!db){
-
-        const ready =
-            await initNotifications();
-
-        if(!ready){
-
-            return;
-
-        }
-
-    }
-
-
-    stopRealtimeNotifications();
-
-
-    const {
-        collection,
-        query,
-        where,
-        orderBy,
-        onSnapshot
-    } = await loadFirestoreModules();
-
-
-    /*
-     * Firestore structure:
-     *
-     * notifications
-     *     notificationId
-     *
-     *       userId
-     *       type
-     *       title
-     *       message
-     *       icon
-     *       read
-     *       createdAt
-     *       actionUrl
-     *       actorId
-     *       actorName
-     *       actorPhoto
-     */
-
-
-    const notificationsRef =
-        collection(
-            db,
-            "notifications"
-        );
-
-
-    const notificationsQuery =
-        query(
-
-            notificationsRef,
-
-            where(
-                "userId",
-                "==",
-                currentUser.uid
-            ),
-
-            orderBy(
-                "createdAt",
-                "desc"
-            )
-
-        );
-
-
-    unsubscribeNotifications =
-        onSnapshot(
-
-            notificationsQuery,
-
-            snapshot => {
-
-                notifications =
-                    snapshot.docs.map(
-                        documentSnapshot => {
-
-                            return {
-
-                                id:
-                                    documentSnapshot.id,
-
-                                ...documentSnapshot.data()
-
-                            };
-
-                        }
-                    );
-
-
-                loadingState
-                    .classList
-                    .add("hidden");
-
-
-                renderNotifications();
-
-            },
-
-
-            error => {
-
-                console.error(
-                    "Notifications realtime error:",
-                    error
-                );
-
-
-                loadingState
-                    .classList
-                    .add("hidden");
-
-
-                showToast(
-                    "Notification Error",
-                    "Unable to load notifications."
+                throw new Error(
+                    "CHAPCY Firebase is not available."
                 );
 
             }
 
-        );
 
-}
-
-
-/* =========================================================
-   STOP REALTIME
-========================================================= */
-
-function stopRealtimeNotifications(){
-
-    if(
-        typeof unsubscribeNotifications
-        === "function"
-    ){
-
-        unsubscribeNotifications();
-
-        unsubscribeNotifications = null;
-
-    }
-
-}
+            const {
+                db
+            } = firebase;
 
 
-/* =========================================================
-   FILTER
-========================================================= */
+            /*
+             * Firebase Firestore imports
+             */
 
-function getFilteredNotifications(){
-
-    if(currentFilter === "all"){
-
-        return notifications;
-
-    }
-
-
-    if(currentFilter === "unread"){
-
-        return notifications.filter(
-            notification =>
-                notification.read !== true
-        );
-
-    }
-
-
-    if(currentFilter === "social"){
-
-        return notifications.filter(
-            notification =>
-                [
-                    "social",
-                    "like",
-                    "comment",
-                    "follow",
-                    "friend"
-                ].includes(
-                    notification.type
-                )
-        );
-
-    }
-
-
-    if(currentFilter === "rewards"){
-
-        return notifications.filter(
-            notification =>
-                [
-                    "reward",
-                    "rewards",
-                    "gift",
-                    "challenge",
-                    "points"
-                ].includes(
-                    notification.type
-                )
-        );
-
-    }
-
-
-    if(currentFilter === "shop"){
-
-        return notifications.filter(
-            notification =>
-                [
-                    "shop",
-                    "order",
-                    "payment",
-                    "delivery"
-                ].includes(
-                    notification.type
-                )
-        );
-
-    }
-
-
-    return notifications;
-}
-
-
-/* =========================================================
-   RENDER
-========================================================= */
-
-function renderNotifications(){
-
-    updateCounts();
-
-
-    const filtered =
-        getFilteredNotifications();
-
-
-    notificationsList.innerHTML = "";
-
-
-    if(filtered.length === 0){
-
-        emptyState
-            .classList
-            .remove("hidden");
-
-
-        if(currentFilter === "unread"){
-
-            emptyTitle.textContent =
-                "You're all caught up!";
-
-            emptyMessage.textContent =
-                "There are no unread notifications.";
-
-        }else{
-
-            emptyTitle.textContent =
-                "No notifications";
-
-            emptyMessage.textContent =
-                "You don't have any notifications yet.";
-
-        }
-
-
-        return;
-
-    }
-
-
-    emptyState
-        .classList
-        .add("hidden");
-
-
-    filtered.forEach(
-        notification => {
-
-            notificationsList.appendChild(
-                createNotificationElement(
-                    notification
-                )
+            const {
+                collection,
+                query,
+                orderBy,
+                limit,
+                onSnapshot
+            } = await import(
+                "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js"
             );
 
-        }
-    );
 
-}
-
-
-/* =========================================================
-   CREATE NOTIFICATION
-========================================================= */
-
-function createNotificationElement(notification){
-
-    const item =
-        document.createElement("article");
-
-
-    item.className =
-        "notification-item";
-
-
-    if(notification.read !== true){
-
-        item.classList.add("unread");
-
-    }
-
-
-    const iconType =
-        getIconType(
-            notification.type
-        );
-
-
-    const icon =
-        getNotificationIcon(
-            notification.type,
-            notification.icon
-        );
-
-
-    const time =
-        formatNotificationTime(
-            notification.createdAt
-        );
-
-
-    const title =
-        escapeHTML(
-            notification.title ||
-            "CHAPCY Notification"
-        );
-
-
-    const message =
-        escapeHTML(
-            notification.message ||
-            ""
-        );
-
-
-    item.innerHTML = `
-
-        <div class="notification-icon ${iconType}">
-            <i class="${icon}"></i>
-        </div>
-
-
-        <div class="notification-content">
-
-            <div class="notification-top">
-
-                <h3 class="notification-title">
-                    ${title}
-                </h3>
-
-                <span class="notification-time">
-                    ${time}
-                </span>
-
-            </div>
-
-
-            <p class="notification-message">
-                ${message}
-            </p>
-
-
-            ${
-                notification.actionLabel
-                ?
-                `
-                <span class="notification-action">
-
-                    ${escapeHTML(
-                        notification.actionLabel
-                    )}
-
-                    <i class="fa-solid fa-arrow-right"></i>
-
-                </span>
-                `
-                :
-                ""
-            }
-
-        </div>
-
-
-        <div class="notification-actions">
-
-            ${
-                notification.read !== true
-                ?
-                `
-                <button
-                    class="item-action"
-                    data-action="read"
-                    title="Mark as read">
-
-                    <i class="fa-solid fa-check"></i>
-
-                </button>
-                `
-                :
-                ""
-            }
-
-
-            <button
-                class="item-action delete"
-                data-action="delete"
-                title="Delete">
-
-                <i class="fa-solid fa-trash"></i>
-
-            </button>
-
-        </div>
-
-    `;
-
-
-    /*
-     * Open notification
-     */
-
-    item.addEventListener(
-        "click",
-        event => {
-
-            if(
-                event.target.closest(
-                    ".item-action"
-                )
-            ){
-
-                return;
-
-            }
-
-
-            openNotification(
-                notification
-            );
-
-        }
-    );
-
-
-    /*
-     * Mark read
-     */
-
-    const readButton =
-        item.querySelector(
-            '[data-action="read"]'
-        );
-
-
-    if(readButton){
-
-        readButton.addEventListener(
-            "click",
-            async event => {
-
-                event.stopPropagation();
-
-                await markAsRead(
-                    notification.id
+            /*
+             * =================================================
+             * PUBLIC COMMUNITY NOTIFICATIONS
+             * =================================================
+             *
+             * Every CHAPCY user can see important
+             * community activities.
+             */
+
+            const notificationsRef =
+                collection(
+                    db,
+                    "chapcyNotifications"
                 );
 
-            }
-        );
 
-    }
+            const notificationsQuery =
+                query(
+                    notificationsRef,
+                    orderBy(
+                        "createdAt",
+                        "desc"
+                    ),
+                    limit(100)
+                );
 
 
-    /*
-     * Delete
-     */
+            stopNotifications();
 
-    const deleteButton =
-        item.querySelector(
-            '[data-action="delete"]'
-        );
 
+            unsubscribeNotifications =
+                onSnapshot(
+                    notificationsQuery,
+                    snapshot => {
 
-    deleteButton.addEventListener(
-        "click",
-        event => {
+                        hideLoading();
 
-            event.stopPropagation();
+                        const notifications =
+                            snapshot.docs.map(
+                                doc => ({
 
+                                    id: doc.id,
 
-            notificationToDelete =
-                notification;
+                                    ...doc.data()
 
+                                })
+                            );
 
-            openDeleteModal();
 
-        }
-    );
+                        renderNotifications(
+                            notifications
+                        );
 
+                    },
 
-    return item;
-}
+                    error => {
 
+                        console.error(
+                            "CHAPCY Notifications error:",
+                            error
+                        );
 
-/* =========================================================
-   OPEN NOTIFICATION
-========================================================= */
+                        hideLoading();
 
-async function openNotification(notification){
-
-    selectedNotification =
-        notification;
-
-
-    if(notification.read !== true){
-
-        await markAsRead(
-            notification.id
-        );
-
-    }
-
-
-    document.getElementById(
-        "modalTitle"
-    ).textContent =
-        notification.title ||
-        "CHAPCY Notification";
-
-
-    document.getElementById(
-        "modalMessage"
-    ).textContent =
-        notification.message ||
-        "";
-
-
-    document.getElementById(
-        "modalTime"
-    ).textContent =
-        formatNotificationTime(
-            notification.createdAt
-        );
-
-
-    const actionButton =
-        document.getElementById(
-            "modalActionBtn"
-        );
-
-
-    if(notification.actionUrl){
-
-        actionButton.style.display =
-            "block";
-
-        actionButton.textContent =
-            notification.actionLabel ||
-            "Open";
-
-
-    }else{
-
-        actionButton.style.display =
-            "none";
-
-    }
-
-
-    const icon =
-        document.getElementById(
-            "modalNotificationIcon"
-        );
-
-
-    icon.innerHTML =
-        `<i class="${
-            getNotificationIcon(
-                notification.type,
-                notification.icon
-            )
-        }"></i>`;
-
-
-    notificationModal
-        .classList
-        .add("active");
-
-}
-
-
-/* =========================================================
-   MARK AS READ
-========================================================= */
-
-async function markAsRead(notificationId){
-
-    if(!currentUser || !db){
-
-        return;
-
-    }
-
-
-    try{
-
-        const {
-            doc,
-            updateDoc
-        } =
-            await loadFirestoreModules();
-
-
-        const notificationRef =
-            doc(
-                db,
-                "notifications",
-                notificationId
-            );
-
-
-        await updateDoc(
-            notificationRef,
-            {
-
-                read:true,
-
-                readAt:
-                    new Date()
-
-            }
-        );
-
-
-    }catch(error){
-
-        console.error(
-            "Mark read error:",
-            error
-        );
-
-
-        showToast(
-            "Error",
-            "Could not mark notification as read."
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   MARK ALL AS READ
-========================================================= */
-
-async function markAllAsRead(){
-
-    if(!currentUser || !db){
-
-        return;
-
-    }
-
-
-    const unread =
-        notifications.filter(
-            notification =>
-                notification.read !== true
-        );
-
-
-    if(unread.length === 0){
-
-        showToast(
-            "Already updated",
-            "All notifications are already read."
-        );
-
-        return;
-
-    }
-
-
-    markAllBtn.disabled = true;
-
-
-    try{
-
-        const {
-            doc,
-            writeBatch
-        } =
-            await loadFirestoreModules();
-
-
-        const batch =
-            writeBatch(db);
-
-
-        unread.forEach(
-            notification => {
-
-                const notificationRef =
-                    doc(
-                        db,
-                        "notifications",
-                        notification.id
-                    );
-
-
-                batch.update(
-                    notificationRef,
-                    {
-
-                        read:true,
-
-                        readAt:
-                            new Date()
+                        showEmpty(
+                            "Unable to load notifications",
+                            "Please check your connection and try again."
+                        );
 
                     }
                 );
 
+
+        }catch(error){
+
+            console.error(
+                "CHAPCY Notification Engine:",
+                error
+            );
+
+            hideLoading();
+
+            showEmpty(
+                "Something went wrong",
+                "Notifications could not be loaded."
+            );
+
+        }
+
+    }
+
+
+    /* =====================================================
+       STOP LISTENER
+    ===================================================== */
+
+    function stopNotifications(){
+
+        if(
+            typeof unsubscribeNotifications ===
+            "function"
+        ){
+
+            unsubscribeNotifications();
+
+            unsubscribeNotifications = null;
+
+        }
+
+    }
+
+
+    /* =====================================================
+       RENDER
+    ===================================================== */
+
+    function renderNotifications(
+        notifications
+    ){
+
+        if(!notificationsList) return;
+
+
+        notificationsList.innerHTML = "";
+
+
+        if(!notifications.length){
+
+            showEmpty(
+                "No notifications",
+                "CHAPCY community activity will appear here."
+            );
+
+            updateCounters([]);
+
+            return;
+
+        }
+
+
+        hideEmpty();
+
+
+        notifications.forEach(
+            notification => {
+
+                const card =
+                    createNotificationCard(
+                        notification
+                    );
+
+                notificationsList.appendChild(
+                    card
+                );
+
             }
         );
 
 
-        await batch.commit();
-
-
-        showToast(
-            "Done",
-            "All notifications marked as read."
-        );
-
-
-    }catch(error){
-
-        console.error(
-            "Mark all read error:",
-            error
-        );
-
-
-        showToast(
-            "Error",
-            "Unable to update notifications."
-        );
-
-    }finally{
-
-        markAllBtn.disabled = false;
-
-    }
-
-}
-
-
-/* =========================================================
-   DELETE
-========================================================= */
-
-async function deleteNotification(){
-
-    if(
-        !currentUser ||
-        !db ||
-        !notificationToDelete
-    ){
-
-        return;
-
-    }
-
-
-    try{
-
-        const {
-            doc,
-            deleteDoc
-        } =
-            await loadFirestoreModules();
-
-
-        await deleteDoc(
-            doc(
-                db,
-                "notifications",
-                notificationToDelete.id
-            )
-        );
-
-
-        closeDeleteModal();
-
-
-        showToast(
-            "Deleted",
-            "Notification removed."
-        );
-
-
-        notificationToDelete =
-            null;
-
-
-    }catch(error){
-
-        console.error(
-            "Delete notification error:",
-            error
-        );
-
-
-        showToast(
-            "Error",
-            "Could not delete notification."
+        updateCounters(
+            notifications
         );
 
     }
 
-}
 
+    /* =====================================================
+       CREATE CARD
+    ===================================================== */
 
-/* =========================================================
-   COUNTS
-========================================================= */
-
-function updateCounts(){
-
-    const total =
-        notifications.length;
-
-
-    const unread =
-        notifications.filter(
-            notification =>
-                notification.read !== true
-        ).length;
-
-
-    allCount.textContent =
-        total;
-
-
-    unreadCount.textContent =
-        unread;
-
-
-    unreadText.textContent =
-        `${unread} unread notification${
-            unread === 1 ? "" : "s"
-        }`;
-
-
-    if(unread > 0){
-
-        headerUnreadBadge
-            .classList
-            .remove("hidden");
-
-
-        headerUnreadBadge.textContent =
-            unread > 99
-                ? "99+"
-                : unread;
-
-
-    }else{
-
-        headerUnreadBadge
-            .classList
-            .add("hidden");
-
-    }
-
-}
-
-
-/* =========================================================
-   ICONS
-========================================================= */
-
-function getIconType(type){
-
-    if(
-        [
-            "reward",
-            "rewards",
-            "gift",
-            "challenge",
-            "points"
-        ].includes(type)
+    function createNotificationCard(
+        notification
     ){
 
-        return "rewards";
+        const card =
+            document.createElement("article");
 
-    }
-
-
-    if(
-        [
-            "like",
-            "comment",
-            "follow",
-            "friend",
-            "social"
-        ].includes(type)
-    ){
-
-        return "social";
-
-    }
+        card.className =
+            "notification-card";
 
 
-    if(
-        [
-            "message",
-            "chat"
-        ].includes(type)
-    ){
+        if(
+            notification.unread === true
+        ){
 
-        return "message";
-
-    }
-
-
-    if(
-        [
-            "shop",
-            "order",
-            "payment",
-            "delivery"
-        ].includes(type)
-    ){
-
-        return "shop";
-
-    }
-
-
-    if(type === "system"){
-
-        return "system";
-
-    }
-
-
-    return "";
-
-}
-
-
-function getNotificationIcon(type, customIcon){
-
-    if(customIcon){
-
-        return customIcon;
-
-    }
-
-
-    const icons = {
-
-        like:
-            "fa-solid fa-heart",
-
-        comment:
-            "fa-solid fa-comment",
-
-        follow:
-            "fa-solid fa-user-plus",
-
-        friend:
-            "fa-solid fa-user-group",
-
-        message:
-            "fa-solid fa-message",
-
-        chat:
-            "fa-solid fa-comments",
-
-        reward:
-            "fa-solid fa-gift",
-
-        rewards:
-            "fa-solid fa-gift",
-
-        gift:
-            "fa-solid fa-gift",
-
-        challenge:
-            "fa-solid fa-trophy",
-
-        points:
-            "fa-solid fa-coins",
-
-        shop:
-            "fa-solid fa-bag-shopping",
-
-        order:
-            "fa-solid fa-box",
-
-        payment:
-            "fa-solid fa-credit-card",
-
-        delivery:
-            "fa-solid fa-truck",
-
-        system:
-            "fa-solid fa-bullhorn"
-
-    };
-
-
-    return icons[type]
-        ||
-        "fa-solid fa-bell";
-}
-
-
-/* =========================================================
-   TIME
-========================================================= */
-
-function formatNotificationTime(timestamp){
-
-    if(!timestamp){
-
-        return "";
-
-    }
-
-
-    let date;
-
-
-    if(
-        typeof timestamp.toDate
-        === "function"
-    ){
-
-        date =
-            timestamp.toDate();
-
-    }
-
-    else if(
-        timestamp.seconds
-    ){
-
-        date =
-            new Date(
-                timestamp.seconds * 1000
+            card.classList.add(
+                "is-unread"
             );
 
+        }
+
+
+        const icon =
+            getNotificationIcon(
+                notification.type
+            );
+
+
+        const title =
+            escapeHTML(
+                notification.title ||
+                "CHAPCY Activity"
+            );
+
+
+        const message =
+            escapeHTML(
+                notification.message ||
+                ""
+            );
+
+
+        const username =
+            escapeHTML(
+                notification.username ||
+                "CHAPCY User"
+            );
+
+
+        const time =
+            formatTime(
+                notification.createdAt
+            );
+
+
+        card.innerHTML = `
+
+            <div class="notification-card-icon ${getTypeClass(notification.type)}">
+
+                <i class="${icon}"></i>
+
+            </div>
+
+
+            <div class="notification-card-content">
+
+                <div class="notification-card-top">
+
+                    <strong>
+                        ${title}
+                    </strong>
+
+                    ${
+                        notification.unread === true
+                        ? `
+                            <span class="notification-new">
+                                NEW
+                            </span>
+                          `
+                        : ""
+                    }
+
+                </div>
+
+
+                <p>
+                    ${message}
+                </p>
+
+
+                <div class="notification-meta">
+
+                    <span>
+                        <i class="fa-solid fa-user"></i>
+                        ${username}
+                    </span>
+
+                    <span>
+                        ${time}
+                    </span>
+
+                </div>
+
+
+                ${
+                    notification.actionUrl
+                    ? `
+                        <button
+                            class="notification-open-btn"
+                            type="button"
+                            data-url="${escapeAttribute(notification.actionUrl)}">
+
+                            ${escapeHTML(
+                                notification.actionText ||
+                                "Open"
+                            )}
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </button>
+                      `
+                    : ""
+                }
+
+            </div>
+
+        `;
+
+
+        const openButton =
+            card.querySelector(
+                ".notification-open-btn"
+            );
+
+
+        openButton?.addEventListener(
+            "click",
+            event => {
+
+                event.stopPropagation();
+
+                const url =
+                    openButton.dataset.url;
+
+                if(url){
+
+                    window.location.href =
+                        url;
+
+                }
+
+            }
+        );
+
+
+        card.addEventListener(
+            "click",
+            () => {
+
+                openNotification(
+                    notification
+                );
+
+            }
+        );
+
+
+        return card;
+
     }
 
-    else{
 
-        date =
-            new Date(timestamp);
+    /* =====================================================
+       OPEN NOTIFICATION
+    ===================================================== */
 
-    }
-
-
-    if(
-        Number.isNaN(
-            date.getTime()
-        )
+    function openNotification(
+        notification
     ){
 
-        return "";
+        const modal =
+            document.getElementById(
+                "notificationModal"
+            );
+
+        if(!modal) return;
+
+
+        const title =
+            document.getElementById(
+                "modalTitle"
+            );
+
+        const message =
+            document.getElementById(
+                "modalMessage"
+            );
+
+        const time =
+            document.getElementById(
+                "modalTime"
+            );
+
+        const icon =
+            document.getElementById(
+                "modalNotificationIcon"
+            );
+
+        const action =
+            document.getElementById(
+                "modalActionBtn"
+            );
+
+
+        if(title){
+
+            title.textContent =
+                notification.title ||
+                "CHAPCY Activity";
+
+        }
+
+
+        if(message){
+
+            message.textContent =
+                notification.message ||
+                "";
+
+        }
+
+
+        if(time){
+
+            time.textContent =
+                formatTime(
+                    notification.createdAt
+                );
+
+        }
+
+
+        if(icon){
+
+            icon.innerHTML = `
+                <i class="${getNotificationIcon(
+                    notification.type
+                )}"></i>
+            `;
+
+        }
+
+
+        if(action){
+
+            if(notification.actionUrl){
+
+                action.style.display =
+                    "inline-flex";
+
+                action.textContent =
+                    notification.actionText ||
+                    "Open";
+
+                action.onclick = () => {
+
+                    window.location.href =
+                        notification.actionUrl;
+
+                };
+
+            }else{
+
+                action.style.display =
+                    "none";
+
+            }
+
+        }
+
+
+        modal.classList.add(
+            "show"
+        );
+
+        document.body.style.overflow =
+            "hidden";
 
     }
 
 
-    const now =
-        new Date();
+    /* =====================================================
+       CLOSE MODAL
+    ===================================================== */
 
+    document.addEventListener(
+        "click",
+        event => {
 
-    const diff =
-        now.getTime()
-        -
-        date.getTime();
+            if(
+                event.target.matches(
+                    "[data-close-modal]"
+                )
+            ){
 
+                closeModal();
 
-    const minute =
-        60 * 1000;
+            }
 
-
-    const hour =
-        60 * minute;
-
-
-    const day =
-        24 * hour;
-
-
-    if(diff < minute){
-
-        return "Just now";
-
-    }
-
-
-    if(diff < hour){
-
-        return `${Math.floor(
-            diff / minute
-        )}m ago`;
-
-    }
-
-
-    if(diff < day){
-
-        return `${Math.floor(
-            diff / hour
-        )}h ago`;
-
-    }
-
-
-    if(diff < 7 * day){
-
-        return `${Math.floor(
-            diff / day
-        )}d ago`;
-
-    }
-
-
-    return date.toLocaleDateString(
-        undefined,
-        {
-            day:"numeric",
-            month:"short",
-            year:"numeric"
         }
     );
 
-}
+
+    function closeModal(){
+
+        const modal =
+            document.getElementById(
+                "notificationModal"
+            );
+
+        if(modal){
+
+            modal.classList.remove(
+                "show"
+            );
+
+        }
+
+        document.body.style.overflow =
+            "";
+
+    }
 
 
-/* =========================================================
-   ESCAPE HTML
-========================================================= */
+    /* =====================================================
+       MARK ALL AS READ
+    ===================================================== */
 
-function escapeHTML(value){
+    markAllBtn?.addEventListener(
+        "click",
+        async () => {
 
-    const div =
-        document.createElement("div");
-
-
-    div.textContent =
-        value ?? "";
+            if(!currentUser) return;
 
 
-    return div.innerHTML;
-}
+            try{
+
+                const {
+                    db
+                } = window.CHAPCY_FIREBASE;
 
 
-/* =========================================================
-   MODALS
-========================================================= */
-
-function closeNotificationModal(){
-
-    notificationModal
-        .classList
-        .remove("active");
-
-}
+                const {
+                    collection,
+                    query,
+                    where,
+                    getDocs,
+                    writeBatch
+                } = await import(
+                    "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js"
+                );
 
 
-function openDeleteModal(){
-
-    deleteModal
-        .classList
-        .add("active");
-
-}
-
-
-function closeDeleteModal(){
-
-    deleteModal
-        .classList
-        .remove("active");
-
-}
-
-
-/* =========================================================
-   TOAST
-========================================================= */
-
-let toastTimer = null;
+                const q =
+                    query(
+                        collection(
+                            db,
+                            "chapcyNotifications"
+                        ),
+                        where(
+                            "targetUserId",
+                            "==",
+                            currentUser.uid
+                        ),
+                        where(
+                            "unread",
+                            "==",
+                            true
+                        )
+                    );
 
 
-function showToast(title, message){
-
-    document.getElementById(
-        "toastTitle"
-    ).textContent = title;
+                const snapshot =
+                    await getDocs(q);
 
 
-    document.getElementById(
-        "toastMessage"
-    ).textContent = message;
+                if(snapshot.empty){
+
+                    showToast(
+                        "Already read",
+                        "There are no unread notifications."
+                    );
+
+                    return;
+
+                }
 
 
-    toast.classList.add("show");
+                const batch =
+                    writeBatch(db);
 
 
-    clearTimeout(toastTimer);
+                snapshot.forEach(
+                    doc => {
+
+                        batch.update(
+                            doc.ref,
+                            {
+                                unread: false
+                            }
+                        );
+
+                    }
+                );
 
 
-    toastTimer =
+                await batch.commit();
+
+
+                showToast(
+                    "Notifications updated",
+                    "All your notifications are now marked as read."
+                );
+
+
+            }catch(error){
+
+                console.error(
+                    error
+                );
+
+                showToast(
+                    "Error",
+                    "Unable to update notifications."
+                );
+
+            }
+
+        }
+    );
+
+
+    /* =====================================================
+       FILTER TABS
+    ===================================================== */
+
+    const tabs =
+        document.querySelectorAll(
+            ".notification-tab"
+        );
+
+
+    tabs.forEach(
+        tab => {
+
+            tab.addEventListener(
+                "click",
+                () => {
+
+                    tabs.forEach(
+                        item =>
+                            item.classList.remove(
+                                "active"
+                            )
+                    );
+
+                    tab.classList.add(
+                        "active"
+                    );
+
+                    const filter =
+                        tab.dataset.filter;
+
+                    filterNotifications(
+                        filter
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+    let cachedNotifications = [];
+
+
+    function filterNotifications(
+        filter
+    ){
+
+        let filtered =
+            [...cachedNotifications];
+
+
+        if(filter === "unread"){
+
+            filtered =
+                filtered.filter(
+                    n =>
+                        n.unread === true
+                );
+
+        }
+
+
+        if(
+            filter === "social" ||
+            filter === "rewards" ||
+            filter === "shop"
+        ){
+
+            filtered =
+                filtered.filter(
+                    n =>
+                        n.category === filter
+                );
+
+        }
+
+
+        renderFiltered(
+            filtered
+        );
+
+    }
+
+
+    function renderFiltered(
+        notifications
+    ){
+
+        if(!notificationsList)
+            return;
+
+
+        notificationsList.innerHTML =
+            "";
+
+
+        if(!notifications.length){
+
+            showEmpty(
+                "Nothing here",
+                "No notifications match this filter."
+            );
+
+            return;
+
+        }
+
+
+        hideEmpty();
+
+
+        notifications.forEach(
+            notification => {
+
+                notificationsList.appendChild(
+                    createNotificationCard(
+                        notification
+                    )
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       COUNTERS
+    ===================================================== */
+
+    function updateCounters(
+        notifications
+    ){
+
+        cachedNotifications =
+            notifications;
+
+
+        const unread =
+            notifications.filter(
+                n =>
+                    n.unread === true
+            ).length;
+
+
+        if(allCount){
+
+            allCount.textContent =
+                notifications.length;
+
+        }
+
+
+        if(unreadCount){
+
+            unreadCount.textContent =
+                unread;
+
+        }
+
+
+        if(unreadText){
+
+            unreadText.textContent =
+                `${unread} unread notification${
+                    unread === 1 ? "" : "s"
+                }`;
+
+        }
+
+
+        if(headerUnreadBadge){
+
+            headerUnreadBadge.textContent =
+                unread;
+
+            headerUnreadBadge.classList.toggle(
+                "hidden",
+                unread === 0
+            );
+
+        }
+
+    }
+
+
+    /* =====================================================
+       NOTIFICATION ICONS
+    ===================================================== */
+
+    function getNotificationIcon(
+        type
+    ){
+
+        const icons = {
+
+            transaction:
+                "fa-solid fa-money-bill-transfer",
+
+            points:
+                "fa-solid fa-star",
+
+            purchase:
+                "fa-solid fa-cart-shopping",
+
+            drop:
+                "fa-solid fa-bag-shopping",
+
+            reward:
+                "fa-solid fa-gift",
+
+            leaderboard:
+                "fa-solid fa-trophy",
+
+            achievement:
+                "fa-solid fa-medal",
+
+            social:
+                "fa-solid fa-users",
+
+            system:
+                "fa-solid fa-bell"
+
+        };
+
+
+        return icons[type] ||
+               icons.system;
+
+    }
+
+
+    function getTypeClass(
+        type
+    ){
+
+        return `notification-${type || "system"}`;
+
+    }
+
+
+    /* =====================================================
+       TIME
+    ===================================================== */
+
+    function formatTime(
+        timestamp
+    ){
+
+        if(!timestamp)
+            return "Just now";
+
+
+        try{
+
+            const date =
+                timestamp.toDate
+                    ? timestamp.toDate()
+                    : new Date(timestamp);
+
+
+            return new Intl.DateTimeFormat(
+                "en",
+                {
+                    dateStyle: "medium",
+                    timeStyle: "short"
+                }
+            ).format(date);
+
+        }catch(error){
+
+            return "Recently";
+
+        }
+
+    }
+
+
+    /* =====================================================
+       EMPTY / LOADING
+    ===================================================== */
+
+    function showEmpty(
+        title,
+        message
+    ){
+
+        if(emptyState){
+
+            emptyState.classList.remove(
+                "hidden"
+            );
+
+        }
+
+
+        const emptyTitle =
+            document.getElementById(
+                "emptyTitle"
+            );
+
+        const emptyMessage =
+            document.getElementById(
+                "emptyMessage"
+            );
+
+
+        if(emptyTitle){
+
+            emptyTitle.textContent =
+                title;
+
+        }
+
+
+        if(emptyMessage){
+
+            emptyMessage.textContent =
+                message;
+
+        }
+
+
+        if(notificationsList){
+
+            notificationsList.innerHTML =
+                "";
+
+        }
+
+    }
+
+
+    function hideEmpty(){
+
+        emptyState?.classList.add(
+            "hidden"
+        );
+
+    }
+
+
+    function hideLoading(){
+
+        loadingState?.classList.add(
+            "hidden"
+        );
+
+    }
+
+
+    /* =====================================================
+       TOAST
+    ===================================================== */
+
+    function showToast(
+        title,
+        message
+    ){
+
+        const toast =
+            document.getElementById(
+                "toast"
+            );
+
+        if(!toast) return;
+
+
+        const toastTitle =
+            document.getElementById(
+                "toastTitle"
+            );
+
+        const toastMessage =
+            document.getElementById(
+                "toastMessage"
+            );
+
+
+        if(toastTitle){
+
+            toastTitle.textContent =
+                title;
+
+        }
+
+
+        if(toastMessage){
+
+            toastMessage.textContent =
+                message;
+
+        }
+
+
+        toast.classList.add(
+            "show"
+        );
+
+
         setTimeout(
             () => {
 
@@ -1462,274 +1168,58 @@ function showToast(title, message){
                 );
 
             },
-            3000
+            3500
         );
 
-}
+    }
 
 
-/* =========================================================
-   FILTER EVENTS
-========================================================= */
+    /* =====================================================
+       SECURITY HELPERS
+    ===================================================== */
 
-document
-    .querySelectorAll(
-        ".notification-tab"
-    )
-    .forEach(button => {
+    function escapeHTML(
+        value
+    ){
 
-        button.addEventListener(
-            "click",
-            () => {
+        return String(value ?? "")
+            .replace(
+                /[&<>"']/g,
+                char => ({
+                    "&": "&amp;",
+                    "<": "&lt;",
+                    ">": "&gt;",
+                    '"': "&quot;",
+                    "'": "&#039;"
+                })[char]
+            );
 
-                document
-                    .querySelectorAll(
-                        ".notification-tab"
-                    )
-                    .forEach(tab => {
-
-                        tab.classList.remove(
-                            "active"
-                        );
-
-                    });
+    }
 
 
-                button.classList.add(
-                    "active"
-                );
+    function escapeAttribute(
+        value
+    ){
 
-
-                currentFilter =
-                    button.dataset.filter;
-
-
-                renderNotifications();
-
-            }
+        return escapeHTML(
+            value
         );
 
-    });
+    }
 
 
-/* =========================================================
-   MARK ALL
-========================================================= */
+    /* =====================================================
+       CLEANUP
+    ===================================================== */
 
-markAllBtn.addEventListener(
-    "click",
-    markAllAsRead
-);
-
-
-/* =========================================================
-   DELETE CONFIRM
-========================================================= */
-
-document
-    .getElementById(
-        "confirmDeleteBtn"
-    )
-    .addEventListener(
-        "click",
-        deleteNotification
-    );
-
-
-document
-    .getElementById(
-        "cancelDeleteBtn"
-    )
-    .addEventListener(
-        "click",
-        closeDeleteModal
-    );
-
-
-/* =========================================================
-   CLOSE MODAL
-========================================================= */
-
-document
-    .querySelectorAll(
-        "[data-close-modal]"
-    )
-    .forEach(element => {
-
-        element.addEventListener(
-            "click",
-            closeNotificationModal
-        );
-
-    });
-
-
-document
-    .querySelectorAll(
-        "[data-close-delete]"
-    )
-    .forEach(element => {
-
-        element.addEventListener(
-            "click",
-            closeDeleteModal
-        );
-
-    });
-
-
-/* =========================================================
-   MODAL ACTION
-========================================================= */
-
-document
-    .getElementById(
-        "modalActionBtn"
-    )
-    .addEventListener(
-        "click",
+    window.addEventListener(
+        "beforeunload",
         () => {
 
-            if(
-                selectedNotification &&
-                selectedNotification.actionUrl
-            ){
-
-                window.location.href =
-                    selectedNotification.actionUrl;
-
-            }
+            stopNotifications();
 
         }
     );
 
-
-/* =========================================================
-   BACK
-========================================================= */
-
-backBtn.addEventListener(
-    "click",
-    () => {
-
-        if(
-            window.history.length > 1
-        ){
-
-            window.history.back();
-
-        }else{
-
-            window.location.href =
-                "Index.html";
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   SETTINGS
-========================================================= */
-
-settingsBtn.addEventListener(
-    "click",
-    () => {
-
-        window.location.href =
-            "Settings.html";
-
-    }
-);
-
-
-/* =========================================================
-   ESC KEY
-========================================================= */
-
-document.addEventListener(
-    "keydown",
-    event => {
-
-        if(event.key === "Escape"){
-
-            closeNotificationModal();
-
-            closeDeleteModal();
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   INITIAL STATE
-========================================================= */
-
-loadingState
-    .classList
-    .remove("hidden");
-
-
-/*
- * If the Firebase initialization script
- * dispatches chapcyUserReady before this
- * file finishes loading, check auth directly.
- */
-
-setTimeout(
-    async () => {
-
-        if(
-            window.CHAPCY_FIREBASE &&
-            window.CHAPCY_FIREBASE.auth
-        ){
-
-            const user =
-                window.CHAPCY_FIREBASE
-                    .auth
-                    .currentUser;
-
-
-            if(user){
-
-                currentUser =
-                    user;
-
-
-                await initNotifications();
-
-                await startRealtimeNotifications();
-
-            }
-
-        }
-
-    },
-    300
-);
-
-
-/* =========================================================
-   PUBLIC API
-========================================================= */
-
-window.CHAPCY_NOTIFICATIONS = {
-
-    start:
-        startRealtimeNotifications,
-
-    stop:
-        stopRealtimeNotifications,
-
-    markAsRead,
-
-    markAllAsRead,
-
-    deleteNotification,
-
-    openNotification
-
-};
+});
+```
