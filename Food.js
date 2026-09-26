@@ -1,6 +1,6 @@
 // =====================================
-// FOOD LIVE CHAT - DESIGN PREVIEW
-// NO LOGIN / NO PHONE VERIFICATION
+// CHAPCY FOOD LIVE CHAT
+// PHP + MYSQL VERSION
 // =====================================
 
 const sideNav = document.getElementById("sideNav");
@@ -28,17 +28,662 @@ const searchInput = document.getElementById("searchInput");
 const roomInfoBtn = document.getElementById("roomInfoBtn");
 const roomInfoPanel = document.getElementById("roomInfoPanel");
 
+const addBtn = document.getElementById("addBtn");
+
 
 // =====================================
-// DEMO USER
+// CURRENT USER
 // =====================================
 
-if (profileName) {
-    profileName.textContent = "CHAPCY User";
+let currentUser = null;
+let isLoadingMessages = false;
+
+
+// =====================================
+// LOAD CURRENT USER
+// =====================================
+
+async function loadCurrentUser() {
+
+    try {
+
+        const response = await fetch(
+            "get_points.php",
+            {
+                method: "GET",
+                credentials: "same-origin",
+                cache: "no-store"
+            }
+        );
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Unable to load user: " +
+                response.status
+            );
+
+        }
+
+        const data = await response.json();
+
+        if (!data.success || !data.user) {
+
+            throw new Error(
+                data.message ||
+                "User unavailable"
+            );
+
+        }
+
+        currentUser = data.user;
+
+        const name =
+            currentUser.name ||
+            "CHAPCY User";
+
+
+        if (profileName) {
+
+            profileName.textContent =
+                name;
+
+        }
+
+
+        if (profileLetter) {
+
+            profileLetter.textContent =
+                name
+                    .trim()
+                    .charAt(0)
+                    .toUpperCase() || "C";
+
+        }
+
+
+        console.log(
+            "FOOD USER LOADED:",
+            name
+        );
+
+    } catch (error) {
+
+        console.error(
+            "FOOD USER ERROR:",
+            error
+        );
+
+
+        if (profileName) {
+
+            profileName.textContent =
+                "CHAPCY User";
+
+        }
+
+
+        if (profileLetter) {
+
+            profileLetter.textContent =
+                "C";
+
+        }
+
+    }
+
 }
 
-if (profileLetter) {
-    profileLetter.textContent = "C";
+
+// =====================================
+// USER NAME
+// =====================================
+
+function getUserName() {
+
+    return (
+        currentUser?.name ||
+        "CHAPCY User"
+    );
+
+}
+
+
+// =====================================
+// INITIAL
+// =====================================
+
+function getInitial(name) {
+
+    return (
+        name
+            ?.trim()
+            ?.charAt(0)
+            ?.toUpperCase() ||
+        "C"
+    );
+
+}
+
+
+// =====================================
+// FORMAT TIME
+// =====================================
+
+function formatTime(timestamp) {
+
+    if (!timestamp) {
+
+        return "now";
+
+    }
+
+
+    const date =
+        new Date(
+            String(timestamp)
+                .replace(" ", "T")
+        );
+
+
+    if (isNaN(date.getTime())) {
+
+        return "now";
+
+    }
+
+
+    return date.toLocaleTimeString(
+        [],
+        {
+            hour: "2-digit",
+            minute: "2-digit"
+        }
+    );
+
+}
+
+
+// =====================================
+// CREATE MESSAGE
+// =====================================
+
+function createMessage(message) {
+
+    if (
+        !message ||
+        !message.text
+    ) {
+
+        return null;
+
+    }
+
+
+    const userName =
+        message.userName ||
+        "CHAPCY User";
+
+
+    const isOwn =
+        currentUser &&
+        message.userId ===
+        currentUser.user_id;
+
+
+    const messageElement =
+        document.createElement(
+            "article"
+        );
+
+
+    messageElement.className =
+        "chat-message" +
+        (isOwn ? " own" : "");
+
+
+    // =================================
+    // AVATAR
+    // =================================
+
+    const avatar =
+        document.createElement(
+            "div"
+        );
+
+
+    avatar.className =
+        "message-avatar";
+
+
+    avatar.textContent =
+        getInitial(userName);
+
+
+    // =================================
+    // CONTENT
+    // =================================
+
+    const content =
+        document.createElement(
+            "div"
+        );
+
+
+    content.className =
+        "message-content";
+
+
+    // =================================
+    // META
+    // =================================
+
+    const meta =
+        document.createElement(
+            "div"
+        );
+
+
+    meta.className =
+        "message-meta";
+
+
+    const name =
+        document.createElement(
+            "strong"
+        );
+
+
+    name.textContent =
+        userName;
+
+
+    const time =
+        document.createElement(
+            "span"
+        );
+
+
+    time.textContent =
+        formatTime(
+            message.createdAt
+        );
+
+
+    meta.appendChild(name);
+    meta.appendChild(time);
+
+
+    // =================================
+    // MESSAGE BUBBLE
+    // =================================
+
+    const bubble =
+        document.createElement(
+            "div"
+        );
+
+
+    bubble.className =
+        "message-bubble";
+
+
+    bubble.textContent =
+        message.text;
+
+
+    // =================================
+    // BUILD
+    // =================================
+
+    content.appendChild(meta);
+    content.appendChild(bubble);
+
+    messageElement.appendChild(avatar);
+    messageElement.appendChild(content);
+
+
+    if (messagesBox) {
+
+        messagesBox.appendChild(
+            messageElement
+        );
+
+    }
+
+
+    return messageElement;
+
+}
+
+
+// =====================================
+// LOAD FOOD MESSAGES
+// =====================================
+
+async function loadFoodMessages() {
+
+    if (!messagesBox) {
+
+        return;
+
+    }
+
+
+    if (isLoadingMessages) {
+
+        return;
+
+    }
+
+
+    isLoadingMessages = true;
+
+
+    try {
+
+        const response =
+            await fetch(
+                "get_food_messages.php",
+                {
+                    method: "GET",
+                    credentials: "same-origin",
+                    cache: "no-store"
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Food messages server error: " +
+                response.status
+            );
+
+        }
+
+
+        const responseText =
+            await response.text();
+
+
+        let data;
+
+
+        try {
+
+            data =
+                JSON.parse(
+                    responseText
+                );
+
+        } catch (error) {
+
+            console.error(
+                "FOOD GET RAW RESPONSE:",
+                responseText
+            );
+
+            throw new Error(
+                "Invalid server response. HTTP " +
+                response.status
+            );
+
+        }
+
+
+        if (!data.success) {
+
+            throw new Error(
+                data.message ||
+                "Unable to load messages"
+            );
+
+        }
+
+
+        // =================================
+        // REMOVE OLD MESSAGES
+        // =================================
+
+        messagesBox
+            .querySelectorAll(
+                ".chat-message"
+            )
+            .forEach(
+                message =>
+                    message.remove()
+            );
+
+
+        const messages =
+            Array.isArray(
+                data.messages
+            )
+                ? data.messages
+                : [];
+
+
+        // =================================
+        // EMPTY CHAT
+        // =================================
+
+        if (
+            messages.length === 0
+        ) {
+
+            if (emptyChat) {
+
+                emptyChat.style.display =
+                    "";
+
+                if (
+                    !messagesBox.contains(
+                        emptyChat
+                    )
+                ) {
+
+                    messagesBox.appendChild(
+                        emptyChat
+                    );
+
+                }
+
+            }
+
+
+            console.log(
+                "FOOD CHAT: No messages yet."
+            );
+
+
+            return;
+
+        }
+
+
+        // =================================
+        // REMOVE EMPTY MESSAGE
+        // =================================
+
+        if (emptyChat) {
+
+            emptyChat.remove();
+
+        }
+
+
+        // =================================
+        // DISPLAY MESSAGES
+        // =================================
+
+        messages.forEach(
+            message => {
+
+                createMessage(
+                    message
+                );
+
+            }
+        );
+
+
+        // =================================
+        // SCROLL DOWN
+        // =================================
+
+        messagesBox.scrollTop =
+            messagesBox.scrollHeight;
+
+
+        console.log(
+            "FOOD MESSAGES LOADED:",
+            messages.length
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "FOOD MESSAGES ERROR:",
+            error
+        );
+
+    } finally {
+
+        isLoadingMessages = false;
+
+    }
+
+}
+
+
+// =====================================
+// SEND MESSAGE TO MYSQL
+// =====================================
+
+async function sendFoodMessage(text) {
+
+    const cleanText =
+        String(text || "").trim();
+
+
+    if (!cleanText) {
+
+        throw new Error(
+            "Message cannot be empty."
+        );
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                "save-food-messages.php",
+                {
+                    method: "POST",
+
+                    credentials:
+                        "same-origin",
+
+                    headers: {
+                        "Content-Type":
+                            "application/x-www-form-urlencoded; charset=UTF-8"
+                    },
+
+                    body:
+                        new URLSearchParams({
+                            message:
+                                cleanText,
+
+                            phone:
+                                ""
+                        })
+
+                }
+            );
+
+
+        // =================================
+        // READ SERVER RESPONSE
+        // =================================
+
+        const responseText =
+            await response.text();
+
+
+        console.log(
+            "FOOD SERVER RESPONSE:",
+            responseText
+        );
+
+
+        let data;
+
+
+        try {
+
+            data =
+                JSON.parse(
+                    responseText
+                );
+
+        } catch (error) {
+
+            console.error(
+                "FOOD SERVER RAW RESPONSE:",
+                responseText
+            );
+
+
+            throw new Error(
+                "Invalid server response. HTTP " +
+                response.status
+            );
+
+        }
+
+
+        // =================================
+        // CHECK SERVER
+        // =================================
+
+        if (
+            !response.ok ||
+            !data.success
+        ) {
+
+            throw new Error(
+                data.message ||
+                "Message failed to send."
+            );
+
+        }
+
+
+        console.log(
+            "FOOD MESSAGE SAVED:",
+            data
+        );
+
+
+        return data;
+
+
+    } catch (error) {
+
+        console.error(
+            "FOOD SEND ERROR:",
+            error
+        );
+
+
+        throw error;
+
+    }
+
 }
 
 
@@ -48,16 +693,27 @@ if (profileLetter) {
 
 if (menuBtn) {
 
-    menuBtn.addEventListener("click", () => {
+    menuBtn.addEventListener(
+        "click",
+        () => {
 
-        sideNav?.classList.add("open");
+            sideNav?.classList.add(
+                "open"
+            );
 
-        mobileOverlay?.classList.add("show");
+            mobileOverlay?.classList.add(
+                "show"
+            );
 
-    });
+        }
+    );
 
 }
 
+
+// =====================================
+// CLOSE MOBILE MENU
+// =====================================
 
 if (mobileOverlay) {
 
@@ -71,26 +727,64 @@ if (mobileOverlay) {
 
 function closeMobileMenu() {
 
-    sideNav?.classList.remove("open");
+    sideNav?.classList.remove(
+        "open"
+    );
 
-    mobileOverlay?.classList.remove("show");
+    mobileOverlay?.classList.remove(
+        "show"
+    );
 
 }
 
 
 // =====================================
-// LOGOUT BUTTON
+// LOGOUT
 // =====================================
 
 if (logoutBtn) {
 
     logoutBtn.addEventListener(
         "click",
-        () => {
+        async () => {
 
-            alert(
-                "Login system will be connected later."
-            );
+            try {
+
+                logoutBtn.disabled =
+                    true;
+
+
+                const response =
+                    await fetch(
+                        "logout.php",
+                        {
+                            method: "POST",
+                            credentials:
+                                "same-origin"
+                        }
+                    );
+
+
+                console.log(
+                    "FOOD LOGOUT STATUS:",
+                    response.status
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "FOOD LOGOUT ERROR:",
+                    error
+                );
+
+
+            } finally {
+
+                window.location.href =
+                    "register.html";
+
+            }
 
         }
     );
@@ -99,117 +793,89 @@ if (logoutBtn) {
 
 
 // =====================================
-// SEND MESSAGE - PREVIEW ONLY
+// SEND MESSAGE FORM
 // =====================================
 
 if (composer) {
 
     composer.addEventListener(
         "submit",
-        (event) => {
+        async event => {
 
             event.preventDefault();
 
+
             const text =
-                messageInput.value.trim();
+                messageInput?.value.trim();
+
 
             if (!text) {
+
                 return;
+
             }
 
 
-            const messageElement =
-                document.createElement("article");
+            if (sendBtn) {
 
-            messageElement.className =
-                "chat-message own";
+                sendBtn.disabled =
+                    true;
 
-
-            // AVATAR
-
-            const avatar =
-                document.createElement("div");
-
-            avatar.className =
-                "message-avatar";
-
-            avatar.textContent = "C";
+            }
 
 
-            // CONTENT
+            try {
 
-            const content =
-                document.createElement("div");
-
-            content.className =
-                "message-content";
+                await sendFoodMessage(
+                    text
+                );
 
 
-            // META
+                // =========================
+                // CLEAR INPUT
+                // =========================
 
-            const meta =
-                document.createElement("div");
+                if (messageInput) {
 
-            meta.className =
-                "message-meta";
+                    messageInput.value =
+                        "";
 
-
-            const name =
-                document.createElement("strong");
-
-            name.textContent =
-                "CHAPCY User";
+                }
 
 
-            const time =
-                document.createElement("span");
-
-            time.textContent =
-                new Date().toLocaleTimeString([], {
-                    hour: "2-digit",
-                    minute: "2-digit"
-                });
+                emojiPanel?.classList.remove(
+                    "show"
+                );
 
 
-            meta.appendChild(name);
-            meta.appendChild(time);
+                // =========================
+                // LOAD FROM MYSQL
+                // =========================
+
+                await loadFoodMessages();
 
 
-            // BUBBLE
-
-            const bubble =
-                document.createElement("div");
-
-            bubble.className =
-                "message-bubble";
-
-            bubble.textContent =
-                text;
+                messageInput?.focus();
 
 
-            content.appendChild(meta);
+            } catch (error) {
 
-            content.appendChild(bubble);
-
-            messageElement.appendChild(avatar);
-
-            messageElement.appendChild(content);
-
-            messagesBox.appendChild(
-                messageElement
-            );
+                alert(
+                    error.message ||
+                    "Message failed to send."
+                );
 
 
-            emptyChat?.remove();
+            } finally {
 
+                if (sendBtn) {
 
-            messageInput.value = "";
+                    sendBtn.disabled =
+                        false;
 
-            messageInput.focus();
+                }
 
-
-            messagesBox.scrollTop =
-                messagesBox.scrollHeight;
+            }
 
         }
     );
@@ -218,14 +884,17 @@ if (composer) {
 
 
 // =====================================
-// EMOJI
+// EMOJI BUTTON
 // =====================================
 
 if (emojiBtn) {
 
     emojiBtn.addEventListener(
         "click",
-        () => {
+        event => {
+
+            event.stopPropagation();
+
 
             emojiPanel?.classList.toggle(
                 "show"
@@ -237,33 +906,44 @@ if (emojiBtn) {
 }
 
 
+// =====================================
+// EMOJI BUTTONS
+// =====================================
+
 document
     .querySelectorAll(
         ".emoji-panel button"
     )
-    .forEach((button) => {
+    .forEach(
+        button => {
 
-        button.addEventListener(
-            "click",
-            () => {
+            button.addEventListener(
+                "click",
+                () => {
 
-                messageInput.value +=
-                    button.textContent;
+                    if (!messageInput) {
 
-                messageInput.focus();
+                        return;
 
-            }
-        );
+                    }
 
-    });
+
+                    messageInput.value +=
+                        button.textContent;
+
+
+                    messageInput.focus();
+
+                }
+            );
+
+        }
+    );
 
 
 // =====================================
 // ADD BUTTON
 // =====================================
-
-const addBtn =
-    document.getElementById("addBtn");
 
 if (addBtn) {
 
@@ -282,7 +962,34 @@ if (addBtn) {
 
 
 // =====================================
-// SEARCH
+// CLOSE EMOJI OUTSIDE
+// =====================================
+
+document.addEventListener(
+    "click",
+    event => {
+
+        if (
+            emojiPanel &&
+            !emojiPanel.contains(
+                event.target
+            ) &&
+            event.target !== emojiBtn &&
+            event.target !== addBtn
+        ) {
+
+            emojiPanel.classList.remove(
+                "show"
+            );
+
+        }
+
+    }
+);
+
+
+// =====================================
+// SEARCH BUTTON
 // =====================================
 
 if (searchBtn) {
@@ -307,8 +1014,12 @@ if (searchBtn) {
             } else {
 
                 if (searchInput) {
-                    searchInput.value = "";
+
+                    searchInput.value =
+                        "";
+
                 }
+
 
                 filterMessages("");
 
@@ -320,6 +1031,10 @@ if (searchBtn) {
 }
 
 
+// =====================================
+// SEARCH INPUT
+// =====================================
+
 if (searchInput) {
 
     searchInput.addEventListener(
@@ -327,7 +1042,9 @@ if (searchInput) {
         () => {
 
             filterMessages(
-                searchInput.value.toLowerCase()
+                searchInput.value
+                    .toLowerCase()
+                    .trim()
             );
 
         }
@@ -336,7 +1053,18 @@ if (searchInput) {
 }
 
 
+// =====================================
+// FILTER MESSAGES
+// =====================================
+
 function filterMessages(searchText) {
+
+    if (!messagesBox) {
+
+        return;
+
+    }
+
 
     const allMessages =
         messagesBox.querySelectorAll(
@@ -344,17 +1072,23 @@ function filterMessages(searchText) {
         );
 
 
-    allMessages.forEach((message) => {
+    allMessages.forEach(
+        message => {
 
-        const text =
-            message.textContent.toLowerCase();
+            const text =
+                message.textContent
+                    .toLowerCase();
 
-        message.style.display =
-            text.includes(searchText)
-                ? "flex"
-                : "none";
 
-    });
+            message.style.display =
+                text.includes(
+                    searchText
+                )
+                    ? ""
+                    : "none";
+
+        }
+    );
 
 }
 
@@ -387,7 +1121,7 @@ if (messageInput) {
 
     messageInput.addEventListener(
         "keydown",
-        (event) => {
+        event => {
 
             if (
                 event.key === "Enter" &&
@@ -411,49 +1145,90 @@ if (messageInput) {
 // =====================================
 
 document
-    .querySelectorAll("[data-food-page]")
-    .forEach((item) => {
+    .querySelectorAll(
+        "[data-food-page]"
+    )
+    .forEach(
+        item => {
 
-        item.addEventListener(
-            "click",
-            (event) => {
+            item.addEventListener(
+                "click",
+                () => {
 
-                const page =
-                    item.dataset.foodPage;
-
-                const pages = {
-
-                    home: "Food.html",
-
-                    discover:
-                        "FoodExplore.html",
-
-                    rooms:
-                        "FoodRooms.html",
-
-                    people:
-                        "FoodPeople.html",
-
-                    mentions:
-                        "Mentions.html",
-
-                    messages:
-                        "Message.html",
-
-                    settings:
-                        "Settings.html"
-
-                };
+                    const page =
+                        item.dataset.foodPage;
 
 
-                if (pages[page]) {
+                    const pages = {
 
-                    window.location.href =
-                        pages[page];
+                        home:
+                            "Food.html",
+
+                        discover:
+                            "FoodExplore.html",
+
+                        rooms:
+                            "FoodRooms.html",
+
+                        people:
+                            "FoodPeople.html",
+
+                        mentions:
+                            "Mentions.html",
+
+                        messages:
+                            "Message.html",
+
+                        settings:
+                            "Settings.html"
+
+                    };
+
+
+                    if (pages[page]) {
+
+                        window.location.href =
+                            pages[page];
+
+                    }
 
                 }
+            );
 
-            }
-        );
+        }
+    );
 
-    });
+
+// =====================================
+// INITIALIZE FOOD CHAT
+// =====================================
+
+async function initFoodChat() {
+
+    console.log(
+        "CHAPCY FOOD MYSQL CHAT STARTED 🚀"
+    );
+
+
+    await loadCurrentUser();
+
+    await loadFoodMessages();
+
+
+    // =================================
+    // AUTO REFRESH EVERY 3 SECONDS
+    // =================================
+
+    setInterval(
+        loadFoodMessages,
+        3000
+    );
+
+}
+
+
+// =====================================
+// START FOOD CHAT
+// =====================================
+
+initFoodChat();
