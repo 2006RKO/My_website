@@ -1314,37 +1314,102 @@ activityClickStyle.textContent = `
 `;
 
 document.head.appendChild(activityClickStyle);
-const pointsElement = document.getElementById("chapcyPoints");
-const userElement = document.getElementById("chapcyPointsUser");
+/* =========================================================
+   CHAPCY REAL POINTS
+   PHP SESSION + MYSQL
+========================================================= */
 
-onAuthStateChanged(auth, async (user) => {
+async function loadChapcyPoints() {
 
-    if (!user) {
-        pointsElement.textContent = "0";
-        userElement.textContent = "Guest";
-        return;
-    }
+    const pointsElement =
+        document.getElementById("chapcyPoints");
 
-    userElement.textContent =
-        user.displayName ||
-        user.email ||
-        "CHAPCY User";
+    const userElement =
+        document.getElementById("chapcyPointsUser");
 
-    const pointsRef = ref(
-        db,
-        `users/${user.uid}/chapcyPoints`
-    );
+    if (!pointsElement) return;
 
-    onValue(pointsRef, (snapshot) => {
+    try {
 
-        const points = snapshot.val() ?? 0;
+        const response = await fetch("get_points.php", {
+            method: "GET",
+            credentials: "same-origin",
+            cache: "no-store"
+        });
 
+        if (!response.ok) {
+            throw new Error(
+                "Points server error: " + response.status
+            );
+        }
+
+        const data = await response.json();
+
+        if (!data.success) {
+            throw new Error(
+                data.message || "Unable to load points"
+            );
+        }
+
+        const user = data.user || {};
+
+        const points =
+            Number(user.points ?? 0);
+
+        const name =
+            user.name || "CHAPCY User";
+
+        // POINTS
         pointsElement.textContent =
-            Number(points).toLocaleString();
+            points.toLocaleString();
 
-    });
+        // USER NAME
+        if (userElement) {
+            userElement.textContent = name;
+        }
 
-});
+        console.log(
+            "CHAPCY POINTS LOADED:",
+            points
+        );
+
+    } catch (error) {
+
+        console.error(
+            "CHAPCY POINTS ERROR:",
+            error
+        );
+
+        pointsElement.textContent = "0";
+
+        if (userElement) {
+            userElement.textContent =
+                "CHAPCY User";
+        }
+    }
+}
+
+
+/* =========================================================
+   START CHAPCY POINTS
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+        loadChapcyPoints();
+    }
+);
+
+
+/* =========================================================
+   AUTO REFRESH POINTS
+========================================================= */
+
+setInterval(
+    loadChapcyPoints,
+    30000
+);
 /* =========================================================
    CHAPCY REAL TOP WALLET
    COINS + MONEY BALANCE
