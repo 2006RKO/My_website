@@ -3,38 +3,136 @@
    PHP + MYSQL VERSION
    FIREBASE REMOVED
 ========================================================= */
-
 "use strict";
-
-
 /* =========================================================
-   BOOK FLIP
+   CHAPCY BOOK NAVIGATION
 ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
 
     const book = document.querySelector(".book");
-    const openRegister = document.getElementById("openRegister");
-    const openLogin = document.getElementById("openLogin");
 
-    if (openRegister && book) {
-        openRegister.addEventListener("click", (e) => {
-            e.preventDefault();
-            book.classList.remove("open-login");
-            book.classList.add("open-register");
-        });
+    const registerBtn = document.getElementById("registerBtn");
+    const loginBtn = document.getElementById("loginBtn");
+
+    const backRegister = document.getElementById("backRegister");
+    const backLogin = document.getElementById("backLogin");
+
+    const showLogin = document.getElementById("showLogin");
+    const showRegister = document.getElementById("showRegister");
+
+    if (!book) {
+        console.error("CHAPCY: .book haipatikani.");
+        return;
     }
 
-    if (openLogin && book) {
-        openLogin.addEventListener("click", (e) => {
-            e.preventDefault();
-            book.classList.remove("open-register");
-            book.classList.add("open-login");
-        });
+    /* =========================
+       OPEN REGISTER
+    ========================= */
+
+    function openRegisterPage(e) {
+
+        if (e) e.preventDefault();
+
+        book.classList.remove("open-login");
+        book.classList.add("open-register");
+
+        console.log("CHAPCY: REGISTER OPENED");
+    }
+
+
+    /* =========================
+       OPEN LOGIN
+    ========================= */
+
+    function openLoginPage(e) {
+
+        if (e) e.preventDefault();
+
+        book.classList.remove("open-register");
+        book.classList.add("open-login");
+
+        console.log("CHAPCY: LOGIN OPENED");
+    }
+
+
+    /* =========================
+       BACK TO COVER
+    ========================= */
+
+    function backToCover(e) {
+
+        if (e) e.preventDefault();
+
+        book.classList.remove("open-register");
+        book.classList.remove("open-login");
+
+        console.log("CHAPCY: BACK TO COVER");
+    }
+
+
+    /* =========================
+       BUTTONS
+    ========================= */
+
+    if (registerBtn) {
+        registerBtn.addEventListener(
+            "click",
+            openRegisterPage
+        );
+    }
+
+    if (loginBtn) {
+        loginBtn.addEventListener(
+            "click",
+            openLoginPage
+        );
+    }
+
+
+    /* =========================
+       BACK BUTTONS
+    ========================= */
+
+    if (backRegister) {
+        backRegister.addEventListener(
+            "click",
+            backToCover
+        );
+    }
+
+    if (backLogin) {
+        backLogin.addEventListener(
+            "click",
+            backToCover
+        );
+    }
+
+
+    /* =========================
+       SWITCH REGISTER → LOGIN
+    ========================= */
+
+    if (showLogin) {
+        showLogin.addEventListener(
+            "click",
+            openLoginPage
+        );
+    }
+
+
+    /* =========================
+       SWITCH LOGIN → REGISTER
+    ========================= */
+
+    if (showRegister) {
+        showRegister.addEventListener(
+            "click",
+            openRegisterPage
+        );
     }
 
 });
-
 
 /* =========================================================
    RIPPLE EFFECT
