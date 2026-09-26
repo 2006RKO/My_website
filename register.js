@@ -1,436 +1,738 @@
-/*=========================================
-          CHAPCY BOOK FLIP JS
-               PART 3A
-=========================================*/
-
-console.log("CHAPCY REGISTER JS STARTED");
-
-/*=========================
-        ELEMENTS
-=========================*/
-
-const book = document.querySelector(".book");
-
-const registerBtn = document.getElementById("registerBtn");
-const loginBtn = document.getElementById("loginBtn");
-
-const backRegister = document.getElementById("backRegister");
-const backLogin = document.getElementById("backLogin");
-
-const registerPanel = document.getElementById("registerPanel");
-const loginPanel = document.getElementById("loginPanel");
-
-const showLogin = document.getElementById("showLogin");
-const showRegister = document.getElementById("showRegister");
-
-/*=========================
-     OPEN REGISTER
-=========================*/
-
-function openRegister(){
-
-    book.classList.remove("open-login");
-
-    book.classList.add("open-register");
-
-    registerPanel.classList.add("active");
-
-    loginPanel.classList.remove("active");
-
-}
-
-/*=========================
-      OPEN LOGIN
-=========================*/
-
-function openLogin(){
-
-    book.classList.remove("open-register");
-
-    book.classList.add("open-login");
-
-    loginPanel.classList.add("active");
-
-    registerPanel.classList.remove("active");
-
-}
-
-/*=========================
-        CLOSE BOOK
-=========================*/
-
-function closeBook(){
-
-    book.classList.remove("open-register");
-
-    book.classList.remove("open-login");
-
-    registerPanel.classList.remove("active");
-
-    loginPanel.classList.remove("active");
-
-}
-
-/*=========================
-        EVENTS
-=========================*/
-
-registerBtn.addEventListener("click", openRegister);
-
-loginBtn.addEventListener("click", openLogin);
-
-backRegister.addEventListener("click", closeBook);
-
-backLogin.addEventListener("click", closeBook);
-
-/*=========================
-    SWITCH PANELS
-=========================*/
-
-showLogin.addEventListener("click", function(e){
-
-    e.preventDefault();
-
-    openLogin();
-
-});
-
-showRegister.addEventListener("click", function(e){
-
-    e.preventDefault();
-
-    openRegister();
-
-});
-/*=========================================
-        CHAPCY BOOK FLIP JS
-              PART 3B
-=========================================*/
-
-/*=========================
-      RIPPLE EFFECT
-=========================*/
-
-document.querySelectorAll("button").forEach(button=>{
-
-    button.addEventListener("click",function(e){
-
-        const ripple=document.createElement("span");
-
-        const rect=this.getBoundingClientRect();
-
-        const size=Math.max(rect.width,rect.height);
-
-        ripple.style.position="absolute";
-        ripple.style.width=size+"px";
-        ripple.style.height=size+"px";
-
-        ripple.style.left=(e.clientX-rect.left-size/2)+"px";
-        ripple.style.top=(e.clientY-rect.top-size/2)+"px";
-
-        ripple.style.borderRadius="50%";
-        ripple.style.background="rgba(255,255,255,.35)";
-        ripple.style.transform="scale(0)";
-        ripple.style.pointerEvents="none";
-        ripple.style.animation="ripple .6s linear";
-
-        this.style.position="relative";
-        this.style.overflow="hidden";
-
-        this.appendChild(ripple);
-
-        setTimeout(()=>{
-
-            ripple.remove();
-
-        },600);
-
-    });
-
-});
-
-/*=========================
-     FLOATING PARTICLES
-=========================*/
-
-const particles=document.querySelector(".particles");
-
-function createParticle(){
-
-    if(!particles) return;
-
-    const dot=document.createElement("span");
-
-    dot.style.position="absolute";
-
-    const size=Math.random()*6+3;
-
-    dot.style.width=size+"px";
-    dot.style.height=size+"px";
-
-    dot.style.left=Math.random()*100+"%";
-
-    dot.style.bottom="-20px";
-
-    dot.style.background="white";
-
-    dot.style.opacity=Math.random();
-
-    dot.style.borderRadius="50%";
-
-    dot.style.pointerEvents="none";
-
-    dot.style.animation=`floatParticle ${6+Math.random()*5}s linear`;
-
-    particles.appendChild(dot);
-
-    setTimeout(()=>{
-
-        dot.remove();
-
-    },11000);
-
-}
-
-setInterval(createParticle,400);
-
-/*=========================
-    BUTTON GLOW EFFECT
-=========================*/
-
-setInterval(()=>{
-
-    if(book.classList.contains("open-register") ||
-       book.classList.contains("open-login")){
-
-        book.style.filter="drop-shadow(0 0 25px #00cfff)";
-
-        setTimeout(()=>{
-
-            book.style.filter="";
-
-        },700);
-
+/* =========================================================
+   CHAPCY V21 — REGISTER.JS
+   PHP + MYSQL VERSION
+   FIREBASE REMOVED
+========================================================= */
+
+"use strict";
+
+
+/* =========================================================
+   BOOK FLIP
+========================================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const book = document.querySelector(".book");
+    const openRegister = document.getElementById("openRegister");
+    const openLogin = document.getElementById("openLogin");
+
+    if (openRegister && book) {
+        openRegister.addEventListener("click", (e) => {
+            e.preventDefault();
+            book.classList.remove("open-login");
+            book.classList.add("open-register");
+        });
     }
 
-},3000);
-
-/*=========================
-     DYNAMIC KEYFRAMES
-=========================*/
-
-const style=document.createElement("style");
-
-style.innerHTML=`
-
-@keyframes ripple{
-
-to{
-
-transform:scale(4);
-
-opacity:0;
-
-}
-
-}
-
-@keyframes floatParticle{
-
-0%{
-
-transform:translateY(0);
-
-opacity:0;
-
-}
-
-15%{
-
-opacity:1;
-
-}
-
-100%{
-
-transform:translateY(-110vh);
-
-opacity:0;
-
-}
-
-}
-
-`;
-
-document.head.appendChild(style);
-
-/*=========================
-      PAGE LOADED
-=========================*/
-
-window.addEventListener("load",()=>{
-
-    book.style.opacity="0";
-
-    book.style.transform="translateY(50px)";
-
-    setTimeout(()=>{
-
-        book.style.transition=".8s ease";
-
-        book.style.opacity="1";
-
-        book.style.transform="translateY(0)";
-
-    },150);
+    if (openLogin && book) {
+        openLogin.addEventListener("click", (e) => {
+            e.preventDefault();
+            book.classList.remove("open-register");
+            book.classList.add("open-login");
+        });
+    }
 
 });
-const firebaseConfig = {
-  apiKey: "AIzaSyD0k-VGDQCb07z8VU1lfj4PS0nQ1SJjt-U",
-  authDomain: "rko-website-design-8e1b6.firebaseapp.com",
-  projectId: "rko-website-design-8e1b6",
-  storageBucket: "rko-website-design-8e1b6.firebasestorage.app",
-  messagingSenderId: "18344688958",
-  appId: "1:18344688958:web:605719f065d65fddf1c06f",
-  measurementId: "G-JYRSY3P5DC"
-};
-
-firebase.initializeApp(firebaseConfig);
-/*=========================================
-        CHAPCY FIREBASE AUTH
-              PART 3C
-=========================================*/
 
 
-const registerForm = document.getElementById("registerForm");
-const loginForm = document.getElementById("loginForm");
+/* =========================================================
+   RIPPLE EFFECT
+========================================================= */
+
+document.addEventListener("click", function (e) {
+
+    const button = e.target.closest("button, .btn, .ripple");
+
+    if (!button) return;
+
+    const ripple = document.createElement("span");
+
+    ripple.className = "ripple-effect";
+
+    const rect = button.getBoundingClientRect();
+
+    const size = Math.max(rect.width, rect.height);
+
+    ripple.style.width = size + "px";
+    ripple.style.height = size + "px";
+
+    ripple.style.left =
+        (e.clientX - rect.left - size / 2) + "px";
+
+    ripple.style.top =
+        (e.clientY - rect.top - size / 2) + "px";
+
+    button.style.position = "relative";
+    button.style.overflow = "hidden";
+
+    button.appendChild(ripple);
+
+    setTimeout(() => {
+        ripple.remove();
+    }, 700);
+
+});
 
 
+/* =========================================================
+   FLOATING PARTICLES
+========================================================= */
 
-/*=========================
-        REGISTER
-=========================*/
+document.addEventListener("DOMContentLoaded", () => {
+
+    const container =
+        document.querySelector(".particles") ||
+        document.querySelector(".background");
+
+    if (!container) return;
+
+    for (let i = 0; i < 35; i++) {
+
+        const particle =
+            document.createElement("span");
+
+        particle.className = "floating-particle";
+
+        particle.style.left =
+            Math.random() * 100 + "%";
+
+        particle.style.animationDelay =
+            Math.random() * 8 + "s";
+
+        particle.style.animationDuration =
+            (5 + Math.random() * 8) + "s";
+
+        particle.style.opacity =
+            (0.2 + Math.random() * 0.8).toFixed(2);
+
+        const size =
+            2 + Math.random() * 5;
+
+        particle.style.width =
+            size + "px";
+
+        particle.style.height =
+            size + "px";
+
+        container.appendChild(particle);
+    }
+
+});
 
 
-registerForm.addEventListener("submit", (e)=>{
+/* =========================================================
+   BUTTON GLOW
+========================================================= */
 
-    e.preventDefault();
+document.addEventListener("DOMContentLoaded", () => {
 
+    const buttons =
+        document.querySelectorAll(
+            "button, .btn, .submit-btn"
+        );
 
-    const email =
-    registerForm.querySelector('input[type="email"]').value;
+    buttons.forEach(button => {
 
-
-    const password =
-    registerForm.querySelectorAll('input[type="password"]')[0].value;
-
-
-    firebase.auth()
-    .createUserWithEmailAndPassword(email,password)
-
-    .then((userCredential)=>{
-
-
-        const user = userCredential.user;
-
-
-        // SAVE USER DATA
-
-        return firebase.firestore()
-        .collection("users")
-        .doc(user.uid)
-        .set({
-
-            email:email,
-
-            xp:0,
-
-            coins:0,
-
-            level:1,
-
-            friends:0,
-
-            joined:
-            new Date()
-
+        button.addEventListener("mouseenter", () => {
+            button.classList.add("glow-active");
         });
 
-
-    })
-
-
-    .then(()=>{
-
-
-        alert("Welcome to CHAPCY 🚀");
-
-
-        window.location.href="chapcy.html";
-
-
-    })
-
-
-    .catch(error=>{
-
-
-        alert(error.message);
-
+        button.addEventListener("mouseleave", () => {
+            button.classList.remove("glow-active");
+        });
 
     });
-
 
 });
 
 
+/* =========================================================
+   DYNAMIC KEYFRAMES
+========================================================= */
+
+(function createAnimations() {
+
+    const style =
+        document.createElement("style");
+
+    style.innerHTML = `
+
+        .ripple-effect {
+            position: absolute;
+            border-radius: 50%;
+            transform: scale(0);
+            animation: chapcyRipple 0.7s ease-out;
+            pointer-events: none;
+            background: rgba(0, 255, 255, 0.35);
+        }
+
+        @keyframes chapcyRipple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        .floating-particle {
+            position: absolute;
+            bottom: -20px;
+            border-radius: 50%;
+            background: rgba(0, 255, 255, 0.7);
+            box-shadow:
+                0 0 8px rgba(0, 255, 255, 0.8),
+                0 0 18px rgba(150, 0, 255, 0.5);
+            pointer-events: none;
+            animation:
+                chapcyFloat linear infinite;
+        }
+
+        @keyframes chapcyFloat {
+
+            0% {
+                transform:
+                    translateY(0)
+                    translateX(0);
+            }
+
+            25% {
+                transform:
+                    translateY(-25vh)
+                    translateX(20px);
+            }
+
+            50% {
+                transform:
+                    translateY(-50vh)
+                    translateX(-20px);
+            }
+
+            75% {
+                transform:
+                    translateY(-75vh)
+                    translateX(25px);
+            }
+
+            100% {
+                transform:
+                    translateY(-110vh)
+                    translateX(-10px);
+                opacity: 0;
+            }
+
+        }
+
+        .glow-active {
+            transform: translateY(-2px);
+            filter:
+                brightness(1.15)
+                drop-shadow(
+                    0 0 12px
+                    rgba(0,255,255,.6)
+                );
+        }
+
+    `;
+
+    document.head.appendChild(style);
+
+})();
 
 
+/* =========================================================
+   PAGE LOAD ANIMATION
+========================================================= */
 
-/*=========================
-          LOGIN
-=========================*/
+window.addEventListener("load", () => {
 
+    document.body.classList.add("chapcy-loaded");
 
-loginForm.addEventListener("submit",(e)=>{
-
-
-    e.preventDefault();
-
-
-    const email =
-    loginForm.querySelector('input[type="email"]').value;
+});
 
 
-    const password =
-    loginForm.querySelector('input[type="password"]').value;
+/* =========================================================
+   REGISTER
+   PHP + MYSQL
+========================================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const registerForm =
+        document.getElementById("registerForm");
+
+    if (!registerForm) return;
 
 
+    registerForm.addEventListener("submit", async (e) => {
 
-    firebase.auth()
-
-    .signInWithEmailAndPassword(email,password)
-
-    .then(()=>{
+        e.preventDefault();
 
 
-        alert("Welcome Back CHAPCY 🌍");
+        /* -------------------------------------------------
+           GET INPUTS
+        ------------------------------------------------- */
+
+        const inputs =
+            registerForm.querySelectorAll("input");
+
+        const nameInput =
+            registerForm.querySelector(
+                'input[type="text"]'
+            );
+
+        const emailInput =
+            registerForm.querySelector(
+                'input[type="email"]'
+            );
+
+        const passwordInputs =
+            registerForm.querySelectorAll(
+                'input[type="password"]'
+            );
 
 
-        window.location.href="chapcy.html";
+        const name =
+            nameInput
+                ? nameInput.value.trim()
+                : "";
+
+        const email =
+            emailInput
+                ? emailInput.value.trim()
+                : "";
+
+        const password =
+            passwordInputs[0]
+                ? passwordInputs[0].value
+                : "";
+
+        const confirmPassword =
+            passwordInputs[1]
+                ? passwordInputs[1].value
+                : "";
 
 
-    })
+        /* -------------------------------------------------
+           VALIDATION
+        ------------------------------------------------- */
+
+        if (!name) {
+            alert("Please enter your full name.");
+            return;
+        }
+
+        if (!email) {
+            alert("Please enter your email address.");
+            return;
+        }
+
+        if (!password) {
+            alert("Please create a password.");
+            return;
+        }
+
+        if (password.length < 6) {
+            alert(
+                "Password must be at least 6 characters."
+            );
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            alert("Passwords do not match.");
+            return;
+        }
 
 
-    .catch(error=>{
+        /* -------------------------------------------------
+           BUTTON
+        ------------------------------------------------- */
+
+        const submitButton =
+            registerForm.querySelector(
+                'button[type="submit"]'
+            );
+
+        const originalText =
+            submitButton
+                ? submitButton.textContent
+                : "";
 
 
-        alert(error.message);
+        if (submitButton) {
+            submitButton.disabled = true;
+            submitButton.textContent =
+                "Creating Account...";
+        }
 
+
+        /* -------------------------------------------------
+           SEND TO REGISTER.PHP
+        ------------------------------------------------- */
+
+        try {
+
+            const formData = new URLSearchParams();
+
+            formData.append("name", name);
+            formData.append("email", email);
+            formData.append("password", password);
+            formData.append(
+                "confirm_password",
+                confirmPassword
+            );
+
+
+            const response =
+                await fetch("register.php", {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/x-www-form-urlencoded"
+                    },
+
+                    body: formData.toString(),
+
+                    credentials: "same-origin",
+
+                    cache: "no-store"
+
+                });
+
+
+            /* -------------------------------------------------
+               CHECK HTTP RESPONSE
+            ------------------------------------------------- */
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Server error: " +
+                    response.status
+                );
+
+            }
+
+
+            /* -------------------------------------------------
+               READ JSON
+            ------------------------------------------------- */
+
+            const data =
+                await response.json();
+
+
+            console.log(
+                "CHAPCY REGISTER RESPONSE:",
+                data
+            );
+
+
+            /* -------------------------------------------------
+               SUCCESS
+            ------------------------------------------------- */
+
+            if (data.success) {
+
+                alert(
+                    data.message ||
+                    "Welcome to CHAPCY 🚀"
+                );
+
+
+                window.location.href =
+                    "chapcy.html";
+
+                return;
+
+            }
+
+
+            /* -------------------------------------------------
+               SERVER ERROR
+            ------------------------------------------------- */
+
+            alert(
+                data.message ||
+                "Registration failed."
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "CHAPCY REGISTER ERROR:",
+                error
+            );
+
+
+            alert(
+                "Unable to connect to CHAPCY server.\n\n" +
+                "Make sure Apache and MySQL are running " +
+                "and register.php is inside:\n" +
+                "C:\\xampp\\htdocs\\CHAPCY\\"
+            );
+
+
+        } finally {
+
+            if (submitButton) {
+
+                submitButton.disabled = false;
+
+                submitButton.textContent =
+                    originalText ||
+                    "Create Account";
+
+            }
+
+        }
 
     });
 
+});
+
+
+/* =========================================================
+   LOGIN
+   PHP SESSION + MYSQL
+========================================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const loginForm =
+        document.getElementById("loginForm");
+
+    if (!loginForm) return;
+
+
+    loginForm.addEventListener("submit", async (e) => {
+
+        e.preventDefault();
+
+
+        /* -------------------------------------------------
+           GET LOGIN INPUTS
+        ------------------------------------------------- */
+
+        const emailInput =
+            loginForm.querySelector(
+                'input[type="email"]'
+            );
+
+        const passwordInput =
+            loginForm.querySelector(
+                'input[type="password"]'
+            );
+
+
+        const email =
+            emailInput
+                ? emailInput.value.trim()
+                : "";
+
+        const password =
+            passwordInput
+                ? passwordInput.value
+                : "";
+
+
+        /* -------------------------------------------------
+           VALIDATION
+        ------------------------------------------------- */
+
+        if (!email) {
+
+            alert(
+                "Please enter your email address."
+            );
+
+            return;
+        }
+
+
+        if (!password) {
+
+            alert(
+                "Please enter your password."
+            );
+
+            return;
+        }
+
+
+        /* -------------------------------------------------
+           BUTTON
+        ------------------------------------------------- */
+
+        const submitButton =
+            loginForm.querySelector(
+                'button[type="submit"]'
+            );
+
+        const originalText =
+            submitButton
+                ? submitButton.textContent
+                : "";
+
+
+        if (submitButton) {
+
+            submitButton.disabled = true;
+
+            submitButton.textContent =
+                "Logging in...";
+
+        }
+
+
+        /* -------------------------------------------------
+           SEND TO LOGIN.PHP
+        ------------------------------------------------- */
+
+        try {
+
+            const formData =
+                new URLSearchParams();
+
+            formData.append(
+                "email",
+                email
+            );
+
+            formData.append(
+                "password",
+                password
+            );
+
+
+            const response =
+                await fetch("login.php", {
+
+                    method: "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/x-www-form-urlencoded"
+
+                    },
+
+                    body:
+                        formData.toString(),
+
+                    credentials:
+                        "same-origin",
+
+                    cache:
+                        "no-store"
+
+                });
+
+
+            /* -------------------------------------------------
+               CHECK HTTP RESPONSE
+            ------------------------------------------------- */
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Server error: " +
+                    response.status
+                );
+
+            }
+
+
+            /* -------------------------------------------------
+               READ JSON
+            ------------------------------------------------- */
+
+            const data =
+                await response.json();
+
+
+            console.log(
+                "CHAPCY LOGIN RESPONSE:",
+                data
+            );
+
+
+            /* -------------------------------------------------
+               SUCCESS
+            ------------------------------------------------- */
+
+            if (data.success) {
+
+                alert(
+                    data.message ||
+                    "Welcome Back CHAPCY 🌍"
+                );
+
+
+                window.location.href =
+                    "chapcy.html";
+
+                return;
+
+            }
+
+
+            /* -------------------------------------------------
+               LOGIN ERROR
+            ------------------------------------------------- */
+
+            alert(
+                data.message ||
+                "Login failed."
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "CHAPCY LOGIN ERROR:",
+                error
+            );
+
+
+            alert(
+                "Unable to connect to CHAPCY server.\n\n" +
+                "Make sure Apache and MySQL are running " +
+                "and login.php is inside:\n" +
+                "C:\\xampp\\htdocs\\CHAPCY\\"
+            );
+
+
+        } finally {
+
+            if (submitButton) {
+
+                submitButton.disabled = false;
+
+                submitButton.textContent =
+                    originalText ||
+                    "Login";
+
+            }
+
+        }
+
+    });
 
 });
+
+
+/* =========================================================
+   CHAPCY READY
+========================================================= */
+
+console.log(
+    "CHAPCY REGISTER JS — PHP + MYSQL READY 🚀"
+);
+
+console.log(
+    "Firebase has been completely removed."
+);
